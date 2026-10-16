@@ -1,0 +1,62 @@
+{
+  "number": "129",
+  "adapter": {
+    "name": "sumNumbers",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "129"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 25
+    },
+    {
+      "input": [
+        [
+          4,
+          9,
+          0,
+          5,
+          1
+        ]
+      ],
+      "expected": 1026
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def sumNumbers(self, root: TreeNode | None) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @return {number}\n */\nvar sumNumbers = function(root) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public int sumNumbers(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int sumNumbers(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def sumNumbers(self,root):\n        def visit(node,value):\n            if not node:return 0\n            value=value*10+node.val\n            if not node.left and not node.right:return value\n            return visit(node.left,value)+visit(node.right,value)\n        return visit(root,0)\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * Tree | pre-order-traversal\n * Time O(n) | Space O(n)\n * https://leetcode.com/problems/sum-root-to-leaf-numbers\n * @param {TreeNode} root\n * @return {number}\n */\nvar sumNumbers = function (root) {\n  let total = 0;\n  const dfs = (node, num) => {\n    if (!node.left && !node.right) {\n      num = num + node.val;\n      total += +num;\n      return;\n    }\n    node.left && dfs(node.left, num + node.val);\n    node.right && dfs(node.right, num + node.val);\n  };\n  dfs(root, '');\n  return total;\n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\n// solution from the video\nclass Solution {\n    /*\n        Time complexity: O(V) where V is the number of vertices\n        Space complexity: O(h) where h is the height of the tree\n    */\n\n    public int sumNumbers(TreeNode root) {\n        // track the sum that we want to add\n        int solution = 0;\n\n        // execute a dfs to find the leaf nodes\n        solution = findLeafNodes(root, solution);\n\n        // return the solution\n        return solution;\n    }\n\n    // dfs method\n    public int findLeafNodes(TreeNode node, int currentPath){\n        // base case, if no node then return 0\n        if(node==null){\n            return 0;\n        }\n\n        // add the current node value to the currentPath (move decimal to right by 1 and add)\n        currentPath = (currentPath * 10) + node.val;\n\n        // if we are at a non-null node, check if it is a leaf\n        if(node.left==null && node.right==null){\n            // return the solution\n            return currentPath;\n        }\n\n        // check find the leaf nodes on the left and right\n        return findLeafNodes(node.left, currentPath) + findLeafNodes(node.right, currentPath);\n    }\n}\n\n// solution using strings\nclass Solution {\n    /*\n        Time complexity: O(V) where V is the number of vertices\n        Space complexity: O(V) where V is the number of vertices\n    */\n\n    // keep track of the different root to node values as a string\n    List<String> rootToLeafs = new ArrayList<String>();\n\n    public int sumNumbers(TreeNode root) {\n        // track the sum that we want to add\n        int solution = 0;\n\n        String currentPath = \"\";\n\n        // execute a dfs to find the leaf nodes\n        findLeafNodes(root, currentPath);\n\n        // loop through all the paths, convert to int, add to solution\n        for(String curr:rootToLeafs){\n            // save the current string as an integer\n            int currentVal = Integer.parseInt(curr);\n\n            // add the current value to the solution\n            solution+=currentVal;\n        }\n\n        // return the solution\n        return solution;\n    }\n\n    // dfs method\n    public void findLeafNodes(TreeNode node, String currentPath){\n        // base case, if no node then return\n        if(node==null){\n            return;\n        }\n\n        // add the current node value to the currentPath string\n        currentPath+=Integer.toString(node.val);\n\n        // check the left most value\n        findLeafNodes(node.left, currentPath);\n\n        // check the right most value\n        findLeafNodes(node.right, currentPath);\n\n        // if we are at a non-null node, check if it is a leaf\n        if(node.left==null && node.right==null){\n            // add the currentPath to the arraylist\n            rootToLeafs.add(currentPath);\n        }\n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\n\nclass Solution {\npublic:\n    int sumNumbers(TreeNode* root) {\n        if (!root)\n            return 0;\n        stack<pair<TreeNode*, int> > stk;\n        stk.push(make_pair(root, root->val));\n\n        int sum = 0;\n        while (!stk.empty()) {\n            pair<TreeNode*, int> elm = stk.top();\n            stk.pop();\n            TreeNode* node = elm.first;\n            int num = elm.second;\n            if (!node->left && !node->right) {\n                sum += num;\n                continue;\n            }\n            if (node->left)\n                stk.push(make_pair(node->left, num * 10 + node->left->val));\n            if (node->right)\n                stk.push(make_pair(node->right, num * 10 + node->right->val));\n        }\n        return sum;\n    }  \n};\n"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0129-sum-root-to-leaf-numbers.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0129-sum-root-to-leaf-numbers.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0129-sum-root-to-leaf-numbers.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "根到叶子路径上的数字依次拼成整数，求所有路径数之和。",
+  "explanation": "递归传递 prefix*10+node.val，到叶子时贡献当前值。",
+  "memory": "路径值是十进制拼接，不是节点值相加。"
+}

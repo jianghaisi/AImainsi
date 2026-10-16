@@ -1,0 +1,73 @@
+{
+  "number": "123",
+  "adapter": {
+    "name": "maxProfit",
+    "params": [
+      {
+        "name": "prices",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "123"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          3,
+          5,
+          0,
+          0,
+          3,
+          1,
+          4
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          7,
+          6,
+          4,
+          3,
+          1
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def maxProfit(self, prices: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} prices\n * @return {number}\n */\nvar maxProfit = function(prices) {\n    \n};",
+    "java": "class Solution {\n    public int maxProfit(int[] prices) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int maxProfit(vector<int>& prices) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def maxProfit(self,prices):\n        buy1=buy2=-inf;sell1=sell2=0\n        for p in prices:buy1=max(buy1,-p);sell1=max(sell1,buy1+p);buy2=max(buy2,sell1-p);sell2=max(sell2,buy2+p)\n        return sell2\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "最多完成两次股票交易，且不能同时持有多股，求最大收益。",
+  "explanation": "维护第一买入、第一卖出、第二买入、第二卖出四个状态。O(n)。",
+  "memory": "第二次买入可以利用第一次卖出的利润。"
+}

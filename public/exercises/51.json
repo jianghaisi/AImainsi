@@ -1,0 +1,71 @@
+{
+  "number": "51",
+  "adapter": {
+    "name": "solveNQueens",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "list<list<string>>",
+      "colsize": "param_1",
+      "dealloc": true
+    },
+    "number": "51"
+  },
+  "tests": [
+    {
+      "input": [
+        4
+      ],
+      "expected": [
+        [
+          ".Q..",
+          "...Q",
+          "Q...",
+          "..Q."
+        ],
+        [
+          "..Q.",
+          "Q...",
+          "...Q",
+          ".Q.."
+        ]
+      ]
+    },
+    {
+      "input": [
+        1
+      ],
+      "expected": [
+        [
+          "Q"
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def solveNQueens(self, n: int) -> list[list[str]]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} n\n * @return {string[][]}\n */\nvar solveNQueens = function(n) {\n    \n};",
+    "java": "class Solution {\n    public List<List<String>> solveNQueens(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<string>> solveNQueens(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def solveNQueens(self, n: int) -> List[List[str]]:\n        col = set()\n        posDiag = set()  # (r + c)\n        negDiag = set()  # (r - c)\n\n        res = []\n        board = [[\".\"] * n for i in range(n)]\n\n        def backtrack(r):\n            if r == n:\n                copy = [\"\".join(row) for row in board]\n                res.append(copy)\n                return\n\n            for c in range(n):\n                if c in col or (r + c) in posDiag or (r - c) in negDiag:\n                    continue\n\n                col.add(c)\n                posDiag.add(r + c)\n                negDiag.add(r - c)\n                board[r][c] = \"Q\"\n\n                backtrack(r + 1)\n\n                col.remove(c)\n                posDiag.remove(r + c)\n                negDiag.remove(r - c)\n                board[r][c] = \".\"\n\n        backtrack(0)\n        return res\n",
+    "javascript": "/**\n * https://leetcode.com/problems/n-queens/\n * Time O(N!) | Space O(N^2)\n * @param {number} n\n * @return {string[][]}\n */\nfunction solveNQueens(n, colSet = new Set(), posDiagSet = new Set(), negDiagSet = new Set()) {\n  const board = new Array(n).fill().map(() => new Array(n).fill('.'));\n  return dfs(board, n, colSet, posDiagSet, negDiagSet);\n}\nconst dfs = (board, n, colSet, posDiagSet, negDiagSet, row = 0, moves = []) => {\n  const isBaseCase = row === n;\n  if (isBaseCase) {\n    const rows = board.map(_row => _row.join(''));\n    moves.push(rows);\n    return moves;\n  }\n  for (let col = 0; col < n; col++) {\n    const hasQueen = colSet.has(col) || posDiagSet.has(row + col) || negDiagSet.has(row - col);\n    if (hasQueen) continue;\n    backTrack(board, n, row, col, colSet, posDiagSet, negDiagSet, moves);\n  }\n  return moves;\n};\nconst backTrack = (board, n, row, col, colSet, posDiagSet, negDiagSet, moves) => {\n  colSet.add(col);\n  posDiagSet.add(row + col);\n  negDiagSet.add(row - col);\n  board[row][col] = 'Q';\n  dfs(board, n, colSet, posDiagSet, negDiagSet, row + 1, moves);\n  colSet.delete(col);\n  posDiagSet.delete(row + col);\n  negDiagSet.delete(row - col);\n  board[row][col] = '.';\n};",
+    "java": "// Solution 1:\nclass Solution {\n\n    public List<List<String>> solveNQueens(int n) {\n        List<List<String>> ans = new ArrayList<List<String>>();\n        boolean[][] board = new boolean[n][n];\n        queens(board, 0, ans);\n        return ans;\n    }\n\n    public void queens(boolean[][] board, int row, List<List<String>> ans2) {\n        //base case\n        if (row == board.length) {\n            ArrayList<String> ans = new ArrayList<String>();\n            createAnswer(board, ans);\n            ans2.add(ans);\n            return;\n        }\n        for (int col = 0; col < board.length; col++) {\n            if (isSafe(board, row, col)) {\n                board[row][col] = true;\n                queens(board, row + 1, ans2);\n                board[row][col] = false;\n            }\n        }\n    }\n\n    public void createAnswer(boolean[][] board, ArrayList<String> ans) {\n        for (int i = 0; i < board.length; i++) {\n            StringBuilder str = new StringBuilder();\n            for (int j = 0; j < board[0].length; j++) {\n                if (board[i][j]) {\n                    str.append(\"Q\");\n                } else str.append(\".\");\n            }\n            ans.add(str.toString());\n        }\n    }\n\n    public boolean isSafe(boolean[][] board, int row, int col) {\n        for (int i = 0; i < row; i++) {\n            if (board[i][col]) {\n                return false;\n            }\n        }\n        int maxLeft = Math.min(row, col);\n        for (int i = 1; i <= maxLeft; i++) {\n            if (board[row - i][col - i]) {\n                return false;\n            }\n        }\n        int maxRight = Math.min(row, board.length - 1 - col);\n        for (int i = 1; i <= maxRight; i++) {\n            if (board[row - i][col + i]) return false;\n        }\n        return true;\n    }\n}\n\n\n\n// Solution 2:\n/*\n * This solution uses 3 hashsets to check whether the current queen has conflicts with previous\n * columns and two diagonals, avoiding the use of 2D boolean array and the isSafe checking function.\n * \n */\nclass Solution {\n    public List<List<String>> solveNQueens(int n) {\n        List<List<String>> result = new ArrayList<>();\n        List<String> cur = new ArrayList<>();\n        if (n <= 0) {\n            return result;\n        }\n        Set<Integer> leftSet = new HashSet<>(); // diag \\ row - col\n        Set<Integer> rightSet = new HashSet<>(); // diag / row + col\n        Set<Integer> colSet = new HashSet<>(); // column | col\n        dfs(n, result, cur, leftSet, rightSet, colSet);\n        return result;\n    }\n\n    private void dfs(int n, List<List<String>> result, List<String> cur, Set<Integer> leftSet,\n            Set<Integer> rightSet, Set<Integer> colSet) {\n        if (cur.size() == n) {\n            result.add(new ArrayList(cur));\n            return;\n        }\n        int row = cur.size();\n        // i is column index\n        for (int i = 0; i < n; i++) {\n            if (leftSet.contains(row - i) || rightSet.contains(row + i) || colSet.contains(i)) {\n                continue;\n            }\n            // current col index is added to the solution list cur\n            cur.add(convert(n, i));\n            leftSet.add(row - i);\n            rightSet.add(row + i);\n            colSet.add(i);\n            // go to dfs next level\n            dfs(n, result, cur, leftSet, rightSet, colSet);\n            // backtracking\n            cur.remove(cur.size() - 1);\n            leftSet.remove(row - i);\n            rightSet.remove(row + i);\n            colSet.remove(i);\n\n        }\n    }\n\n    private String convert(int n, int col) {\n        StringBuilder res = new StringBuilder();\n        for (int i = 0; i < n; i++) {\n            if (i == col) {\n                res.append(\"Q\");\n            } else {\n                res.append(\".\");\n            }\n        }\n        return res.toString();\n    }\n}\n\n\n\n\n\n",
+    "cpp": "/*\n    N-Queens: place n queens such that no 2 queens atk each other, return all soln's\n\n    Place queens per row, try all possibilities & validate for further rows, backtrack\n\n    Time: O(n!)\n    Space: O(n^2)\n*/\n\nclass Solution {\nprivate:\n    unordered_set<int> cols;     //for Columns\n    unordered_set<int> negDiag;  //for negative diagnals R-C\n    unordered_set<int> posDiag;  //for positive diagnals R+C\n    \n    void backtrack(int n, int row, vector<vector<string>>& res, vector<string>& board){\n        if(row==n){\n            res.push_back(board);\n            return ; \n        }\n        \n        for(int col = 0; col < n; col++){   //Shifting through each col\n            if( cols.find(col) != cols.end() or //if queen alread placed in this col\n                negDiag.find(row - col) != negDiag.end() or //if queen in negDiag\n                posDiag.find(row + col) != posDiag.end()    //if queen in posDiag\n              )\n                continue;\n            \n            cols.insert(col);\n            negDiag.insert(row - col);\n            posDiag.insert(row + col);\n            board[row][col] = 'Q';\n            \n            backtrack(n, row +1, res, board);\n            \n            cols.erase(col);\n            negDiag.erase(row - col);\n            posDiag.erase(row + col);\n            board[row][col] = '.';\n        }\n    }\n   \npublic:\n    vector<vector<string>> solveNQueens(int n) {\n        vector<vector<string>> res;\n        vector<string> board(n, string(n,'.'));\n        backtrack(n, 0, res, board);\n        return res;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0051-n-queens.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0051-n-queens.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0051-n-queens.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0051-n-queens.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "返回在 n×n 棋盘放置 n 个互不攻击皇后的所有布局，以字符串数组表示棋盘。",
+  "explanation": "逐行选择列，用集合记录列、r-c 对角线与 r+c 对角线；回溯时移除占用。",
+  "memory": "一行一个皇后，只需检查列和两种对角线编号。"
+}

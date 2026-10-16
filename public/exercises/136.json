@@ -1,0 +1,70 @@
+{
+  "number": "136",
+  "adapter": {
+    "name": "singleNumber",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "136"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          2,
+          1
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          4,
+          1,
+          2,
+          1,
+          2
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          1
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def singleNumber(self, nums: List[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar singleNumber = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int singleNumber(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int singleNumber(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def singleNumber(self, nums: List[int]) -> int:\n        res = 0\n        for n in nums:\n            res = n ^ res\n        return res\n",
+    "javascript": "/**\n * https://leetcode.com/problems/single-number/\n * Time O(N) | Space O(1)\n * @param {number[]} nums\n * @return {number}\n */\nvar singleNumber = function (nums, xor = 0) {\n  for (num of nums) {\n    xor ^= num;\n  }\n  return xor;\n};",
+    "java": "//We can use xor operation as it cancel out itself (i.e. only when values are different in binary representation then give output). See how xor operation works if confused.\nclass Solution {\n\n    public int singleNumber(int[] nums) {\n        int ans = nums[0];\n        for (int i = 1; i < nums.length; i++) ans ^= nums[i];\n        return ans;\n    }\n}\n",
+    "cpp": "/*\n    Given int array, every element appears twice except 1, find it\n    Ex. nums = [2,2,1] -> 1, nums = [4,1,2,1,2] -> 4\n\n    a XOR a returns 0, so returns 0 for all except the unique one\n\n    Time: O(n)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    int singleNumber(vector<int>& nums) {\n        int result = 0;\n        \n        for (int i = 0; i < nums.size(); i++) {\n            result = result ^ nums[i];\n        }\n        \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0136-single-number.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0136-single-number.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0136-single-number.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0136-single-number.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "数组中除一个元素只出现一次，其余元素均出现两次，找出单独的元素。",
+  "explanation": "异或具有交换结合律，相同值异或为零，所有值异或后只剩目标。",
+  "memory": "成对抵消，零不影响结果。"
+}

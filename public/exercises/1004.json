@@ -1,0 +1,84 @@
+{
+  "number": "1004",
+  "adapter": {
+    "name": "longestOnes",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1004"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        2
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        3
+      ],
+      "expected": 10
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def longestOnes(self, nums: list[int], k: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar longestOnes = function(nums, k) {\n    \n};",
+    "java": "class Solution {\n    public int longestOnes(int[] nums, int k) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int longestOnes(vector<int>& nums, int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def longestOnes(self,nums,k):\n        left=zeros=best=0\n        for right,x in enumerate(nums):\n            zeros+=x==0\n            while zeros>k:zeros-=nums[left]==0;left+=1\n            best=max(best,right-left+1)\n        return best\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "二进制数组中最多把 k 个零翻成一，求最长连续一的长度。",
+  "explanation": "窗口零数量超过 k 就收缩左端，维护合法窗口的最大长度。O(n)。",
+  "memory": "翻转预算等价于窗口内零数量限制。"
+}

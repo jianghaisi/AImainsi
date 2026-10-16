@@ -3,6 +3,7 @@ import { mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { questions, profiles, defaultSettings } from './seed.mjs';
 import { addLanguages } from './languages.mjs';
+import { mergeCatalog, catalogSnapshot, currentCatalog } from '../shared/catalog.mjs';
 const dir = process.env.DATA_DIR || path.resolve('.data');
 mkdirSync(dir, { recursive: true });
 const db = new DatabaseSync(path.join(dir, 'aimainsi.sqlite'));
@@ -39,10 +40,13 @@ for (const [key, value] of Object.entries({
   attempts: [],
   reviews: [],
   planDone: [],
+  questionProgress: {},
+  catalog: catalogSnapshot,
   sources: { lastSync: null, lastError: null, added: 0, logs: [] },
 }))
   if (get(key) === null) put(key, value);
-put('questions', get('questions').map(addLanguages));
+put('catalog', currentCatalog(get('catalog')));
+put('questions', mergeCatalog(get('questions').map(addLanguages), get('catalog')));
 export function publicSettings() {
   const { apiKey, judgeKey, ...rest } = get('settings');
   return { ...rest, hasApiKey: !!apiKey, hasJudgeKey: !!judgeKey };

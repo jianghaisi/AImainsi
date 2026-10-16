@@ -1,0 +1,72 @@
+{
+  "number": "1071",
+  "adapter": {
+    "name": "gcdOfStrings",
+    "params": [
+      {
+        "name": "str1",
+        "type": "string"
+      },
+      {
+        "name": "str2",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "1071"
+  },
+  "tests": [
+    {
+      "input": [
+        "ABCABC",
+        "ABC"
+      ],
+      "expected": "ABC"
+    },
+    {
+      "input": [
+        "ABABAB",
+        "ABAB"
+      ],
+      "expected": "AB"
+    },
+    {
+      "input": [
+        "LEET",
+        "CODE"
+      ],
+      "expected": ""
+    },
+    {
+      "input": [
+        "AAAAAB",
+        "AAA"
+      ],
+      "expected": ""
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def gcdOfStrings(self, str1: str, str2: str) -> str:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} str1\n * @param {string} str2\n * @return {string}\n */\nvar gcdOfStrings = function(str1, str2) {\n    \n};",
+    "java": "class Solution {\n    public String gcdOfStrings(String str1, String str2) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string gcdOfStrings(string str1, string str2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def gcdOfStrings(self,str1,str2):\n        return str1[:gcd(len(str1),len(str2))] if str1+str2==str2+str1 else ''\n",
+    "javascript": "/**\n * @param {string} str1\n * @param {string} str2\n * @return {string}\n */\nvar gcdOfStrings = function (str1, str2) {\n  let [len1, len2] = [str1.length, str2.length];\n  function isDivisor(l) {\n    if (len1 % l || len2 % l) {\n      return false;\n    }\n    let [f1, f2] = [Math.floor(len1 / l), Math.floor(len2 / l)];\n    return str1.slice(0, l).repeat(f1) == str1 && str1.slice(0, l).repeat(f2) == str2;\n  }\n  for (let l = Math.min(len1, len2); l > 0; l--) {\n    if (isDivisor(l)) {\n      return str1.slice(0, l);\n    }\n  }\n  return '';\n};",
+    "java": "class Solution {\n\n    // Helper function to calculate gcd using Euclidean algorithm\n    public int gcd(int a, int b){\n        if(b == 0){\n            return a;\n        }\n        return gcd(b, a%b);\n    }\n\n    /* \n    Approach: If the string have a GCD, then str1 will be of the form m*GCD and str2 will be of the form n*GCD.\n    So, str1 + str2 = m*GCD + n*GCD = (m+n)*GCD, hence str1 + str2 should be equal to str2 + str1.\n    If the above condition is satisfied, then we can find the GCD of the lengths of the strings and return the substring of str1 of length GCD.\n    Else, return empty string.\n    */ \n\n    public String gcdOfStrings(String str1, String str2) {\n        if((str1 + str2).equals(str2 + str1)){\n            int len1 = str1.length();\n            int len2 = str2.length();\n            int gcd = gcd(len1, len2);\n            return str1.substring(0, gcd);\n        }\n        return  \"\";\n    }\n}",
+    "cpp": "/**\n *  Time Complexity: O(n^2) \n *  Space Complexity: O(1)\n */\n\nclass Solution {\npublic:\n    string gcdOfStrings(string str1, string str2) {\n        string shortest, longest;\n        \n        if(str1.length() < str2.length()){\n            shortest = str1;\n            longest = str2;\n        }\n        else{\n            shortest = str2;\n            longest = str1;\n        }\n\n        string solution = \"\";   \n        ushort shortest_length = shortest.length();\n        ushort longest_length = longest.length();\n\n        for(ushort i = shortest_length; i > 0; --i)\n        {   \n            if (longest_length % i != 0 || shortest_length % i != 0) continue;\n\n            for(ushort j = 0; j < longest_length; ++j)\n            {\n                ushort first_pointer = j % i;\n                ushort second_pointer = j % shortest_length;\n\n                if(shortest[first_pointer] != longest[j] || shortest[second_pointer] != longest[j])\n                {\n                    solution = \"\";\n                    break;\n                }\n\n                if(first_pointer == j) solution += longest[j];\n            }\n            \n            if(solution != \"\") return solution;\n        }\n\n        return \"\";\n    }\n};"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/1071-greatest-common-divisor-of-strings.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/1071-greatest-common-divisor-of-strings.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/1071-greatest-common-divisor-of-strings.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "找出能重复拼成两个字符串的最长非空公共字符串，无解返回空串。",
+  "explanation": "先验证 a+b 等于 b+a，再取长度为两串长度最大公约数的前缀。",
+  "memory": "交换拼接是否相等是存在共同周期的判据。"
+}

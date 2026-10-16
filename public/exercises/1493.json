@@ -1,0 +1,71 @@
+{
+  "number": "1493",
+  "adapter": {
+    "name": "longestSubarray",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1493"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          1,
+          0,
+          1
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          0,
+          1,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def longestSubarray(self, nums: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar longestSubarray = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int longestSubarray(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int longestSubarray(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def longestSubarray(self,nums):\n        left=zeros=best=0\n        for right,x in enumerate(nums):\n            zeros+=x==0\n            while zeros>1:zeros-=nums[left]==0;left+=1\n            best=max(best,right-left)\n        return best\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "二进制数组必须删除恰好一个元素，求删除后最长连续一的长度。",
+  "explanation": "维护至多含一个零的窗口，候选答案为窗口长度减一。O(n)。",
+  "memory": "即使全是一也必须减一。"
+}

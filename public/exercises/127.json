@@ -1,0 +1,77 @@
+{
+  "number": "127",
+  "adapter": {
+    "name": "ladderLength",
+    "params": [
+      {
+        "name": "beginWord",
+        "type": "string"
+      },
+      {
+        "name": "endWord",
+        "type": "string"
+      },
+      {
+        "name": "wordList",
+        "type": "list<string>"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "127"
+  },
+  "tests": [
+    {
+      "input": [
+        "hit",
+        "cog",
+        [
+          "hot",
+          "dot",
+          "dog",
+          "lot",
+          "log",
+          "cog"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "hit",
+        "cog",
+        [
+          "hot",
+          "dot",
+          "dog",
+          "lot",
+          "log"
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def ladderLength(self, beginWord: str, endWord: str, wordList: list[str]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} beginWord\n * @param {string} endWord\n * @param {string[]} wordList\n * @return {number}\n */\nvar ladderLength = function(beginWord, endWord, wordList) {\n    \n};",
+    "java": "class Solution {\n    public int ladderLength(String beginWord, String endWord, List<String> wordList) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:\n        if endWord not in wordList:\n            return 0\n\n        nei = collections.defaultdict(list)\n        wordList.append(beginWord)\n        for word in wordList:\n            for j in range(len(word)):\n                pattern = word[:j] + \"*\" + word[j + 1 :]\n                nei[pattern].append(word)\n\n        visit = set([beginWord])\n        q = deque([beginWord])\n        res = 1\n        while q:\n            for i in range(len(q)):\n                word = q.popleft()\n                if word == endWord:\n                    return res\n                for j in range(len(word)):\n                    pattern = word[:j] + \"*\" + word[j + 1 :]\n                    for neiWord in nei[pattern]:\n                        if neiWord not in visit:\n                            visit.add(neiWord)\n                            q.append(neiWord)\n            res += 1\n        return 0\n",
+    "javascript": "/**\n * https://leetcode.com/problems/word-ladder/\n * Time O(ROWS * COLS) | Space O(ROWS * COLS)\n * @param {string} beginWord\n * @param {string} endWord\n * @param {string[]} wordList\n * @return {number}\n */\nvar ladderLength = function (beginWord, endWord, wordList) {\n  const [queue, wordSet, seen] = [new Queue([[beginWord, 1]]), new Set(wordList), new Set([beginWord])];\n  return bfs(queue, wordSet, seen, endWord); /* Time O(ROWS * COLS) | Space O(ROWS * COLS) */\n};\nconst bfs = (queue, wordSet, seen, endWord) => {\n  while (!queue.isEmpty()) {\n    for (let i = queue.size() - 1; 0 <= i; i--) {\n      const [word, depth] = queue.dequeue();\n      const isTarget = word === endWord;\n      if (isTarget) return depth;\n      transform(queue, wordSet, seen, word, depth);\n    }\n  }\n  return 0;\n};\nconst transform = (queue, wordSet, seen, word, depth) => {\n  for (const index in word) {\n    for (const char of 'abcdefghijklmnopqrstuvwxyz') {\n      const neighbor = getNeighbor(word, index, char);\n      const hasSeen = !wordSet.has(neighbor) || seen.has(neighbor);\n      if (hasSeen) continue;\n      queue.enqueue([neighbor, depth + 1]);\n      seen.add(neighbor);\n    }\n  }\n};\nconst getNeighbor = (word, index, char) => {\n  const neighbor = word.split('');\n  neighbor[index] = char;\n  return neighbor.join('');\n};",
+    "java": "package java;\n\nclass Solution {\n\n    public int ladderLength(\n        String beginWord,\n        String endWord,\n        List<String> wordList\n    ) {\n        Map<String, List<String>> adjlist = new HashMap<>();\n        wordList.add(beginWord);\n        for (String word : wordList) {\n            StringBuilder string = null;\n            for (int i = 0; i < word.length(); i++) {\n                string = new StringBuilder(word);\n                string.setCharAt(i, '*');\n                List<String> wordlist = adjlist.getOrDefault(\n                    string.toString(),\n                    new ArrayList<String>()\n                );\n                wordlist.add(word);\n                adjlist.put(string.toString(), wordlist);\n            }\n        }\n\n        Queue<String> queue = new LinkedList<>();\n        queue.offer(beginWord);\n        Set<String> visited = new HashSet<>();\n        visited.add(beginWord);\n        int step = 1;\n        StringBuilder string = null;\n        while (!queue.isEmpty()) {\n            step++;\n            int size = queue.size();\n            for (int j = 0; j < size; j++) {\n                String str = queue.poll();\n\n                for (int i = 0; i < str.length(); i++) {\n                    string = new StringBuilder(str);\n                    string.setCharAt(i, '*');\n                    for (String pat : adjlist.get(string.toString())) {\n                        if (pat.equals(endWord)) {\n                            return step;\n                        }\n                        if (visited.contains(pat)) {\n                            continue;\n                        }\n                        queue.offer(pat);\n                        visited.add(pat);\n                    }\n                }\n            }\n            // step++;\n        }\n        return 0;\n    }\n}\n",
+    "cpp": "/*\n    Given 2 words & a dictionary, return min # of words to transform b/w them\n    Ex. begin = \"hit\", end = \"cog\", dict = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"] -> 5\n    \"hit\" -> \"hot\" -> \"dot\" -> \"dog\" -> \"cog\"\n\n    BFS, change 1 letter at a time (neighbors), if in dict add to queue, else skip\n\n    Time: O(m^2 x n) -> m = length of each word, n = # of words in input word list\n    Space: O(m^2 x n)\n*/\n\nclass Solution {\npublic:\n    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {\n        unordered_set<string> dict;\n        for (int i = 0; i < wordList.size(); i++) {\n            dict.insert(wordList[i]);\n        }\n        \n        queue<string> q;\n        q.push(beginWord);\n        \n        int result = 1;\n        \n        while (!q.empty()) {\n            int count = q.size();\n            \n            for (int i = 0; i < count; i++) {\n                string word = q.front();\n                q.pop();\n                \n                if (word == endWord) {\n                    return result;\n                }\n                dict.erase(word);\n                \n                for (int j = 0; j < word.size(); j++) {\n                    char c = word[j];\n                    for (int k = 0; k < 26; k++) {\n                        word[j] = k + 'a';\n                        if (dict.find(word) != dict.end()) {\n                            q.push(word);\n                            dict.erase(word);\n                        }\n                        word[j] = c;\n                    }\n                }\n            }\n            \n            result++;\n        }\n        \n        return 0;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0127-word-ladder.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0127-word-ladder.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0127-word-ladder.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0127-word-ladder.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "每次替换一个字母且中间单词都在词典中，求从起点到终点的最短序列长度。",
+  "explanation": "BFS 枚举单字符替换，或用双向 BFS 缩小搜索规模。",
+  "memory": "返回包含起点和终点的单词数量，非边数。"
+}

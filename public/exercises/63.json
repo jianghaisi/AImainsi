@@ -1,0 +1,75 @@
+{
+  "number": "63",
+  "adapter": {
+    "name": "uniquePathsWithObstacles",
+    "params": [
+      {
+        "name": "obstacleGrid",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "63"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def uniquePathsWithObstacles(self, obstacleGrid: list[list[int]]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[][]} obstacleGrid\n * @return {number}\n */\nvar uniquePathsWithObstacles = function(obstacleGrid) {\n    \n};",
+    "java": "class Solution {\n    public int uniquePathsWithObstacles(int[][] obstacleGrid) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def uniquePathsWithObstacles(self, grid: List[List[int]]) -> int:\r\n        M, N = len(grid), len(grid[0])\r\n        dp = [0] * N\r\n        dp[N-1] = 1\r\n\r\n        # Time: O(N*M), Space: O(N)\r\n        for r in reversed(range(M)):\r\n            for c in reversed(range(N)):\r\n                if grid[r][c]:\r\n                    dp[c] = 0\r\n                elif c + 1 < N:\r\n                    dp[c] = dp[c] + dp[c + 1]\r\n        return dp[0]\r\n\r\n\r\n        # Time: O(N*M), Space: O(N*M)\r\n        M, N = len(grid), len(grid[0])\r\n        dp = {(M - 1, N - 1): 1}\r\n\r\n        def dfs(r, c):\r\n            if r == M or c == N or grid[r][c]:\r\n                return 0\r\n            if (r, c) in dp:\r\n                return dp[(r, c)]\r\n            dp[(r, c)] = dfs(r + 1, c) + dfs(r, c + 1)\r\n            return dp[(r, c)]\r\n        return dfs(0, 0)\r\n",
+    "java": "//Same as unique paths 1 just one extra condition to return 0 if grid[i][j] == 1\n\nclass Solution {\n\n    public int uniquePathsWithObstacles(int[][] grid) {\n        return dfs(\n            grid,\n            0,\n            0,\n            grid.length,\n            grid[0].length,\n            new int[grid.length][grid[0].length]\n        );\n    }\n\n    public int dfs(int[][] grid, int i, int j, int m, int n, int[][] dp) {\n        if (i < 0 || j < 0 || i >= m || j >= n || grid[i][j] == 1) {\n            return 0;\n        }\n        if (i == m - 1 && j == n - 1) {\n            dp[i][j] = 1;\n            return dp[i][j];\n        }\n        if (dp[i][j] != 0) return dp[i][j];\n        int right = dfs(grid, i, j + 1, m, n, dp);\n        int left = dfs(grid, i + 1, j, m, n, dp);\n        dp[i][j] = right + left;\n        return dp[i][j];\n    }\n}\n",
+    "cpp": "/*\n\nGiven an m x n integer array grid. There is a robot initially located at the top-left corner (i.e., grid[0][0]). The robot tries to move to the bottom-right corner (i.e., grid[m - 1][n - 1]).\nThe robot can only move either down or right at any point in time. An obstacle and space are marked as 1 or 0 respectively in grid. A path that the robot takes cannot include any square that is an obstacle.\n\nReturn the number of possible unique paths that the robot can take to reach the bottom-right corner.\n\nExample. obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]\n\t There is one obstacle in the middle of the 3x3 grid above.\n\t There are two ways to reach the bottom-right corner:\n         1. Right -> Right -> Down -> Down\n         2. Down -> Down -> Right -> Right\n\t So, the number of unique paths the robot can take is 2. Hence we return 2 as our answer.\n\n\nTime: O(m * n)\nSpace: O(n)\n\n*/\n\n\nclass Solution {\npublic:\n    int uniquePathsWithObstacles(vector<vector<int>>& grid) {\n\n        int m = grid.size(), n = grid[0].size();\n        if(grid[m-1][n-1] == 1 || grid[0][0] == 1) return 0;\n        vector<long long> dp(n);\n        dp[n-1] = 1;\n        for(int i=m-1; i>=0; i--) {\n            for(int j=n-1; j>=0; j--) {\n                if(grid[i][j] == 1) dp[j] = 0;\n                else if(j == n-1) continue;\n                else dp[j] = dp[j] + dp[j+1];\n            }\n        }\n        return dp[0];\n\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0063-unique-paths-ii.py",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0063-unique-paths-ii.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0063-unique-paths-ii.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "网格中部分位置有障碍，只能向右或向下，求到终点的路径数。",
+  "explanation": "一维动态规划累计上方与左方路径，遇障碍直接置零。",
+  "memory": "障碍会截断路径；起点被挡时答案为零。"
+}

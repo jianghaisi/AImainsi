@@ -1,0 +1,58 @@
+{
+  "number": "28",
+  "adapter": {
+    "name": "strStr",
+    "params": [
+      {
+        "name": "haystack",
+        "type": "string"
+      },
+      {
+        "name": "needle",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "28"
+  },
+  "tests": [
+    {
+      "input": [
+        "sadbutsad",
+        "sad"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "leetcode",
+        "leeto"
+      ],
+      "expected": -1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def strStr(self, haystack: str, needle: str) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} haystack\n * @param {string} needle\n * @return {number}\n */\nvar strStr = function(haystack, needle) {\n    \n};",
+    "java": "class Solution {\n    public int strStr(String haystack, String needle) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int strStr(string haystack, string needle) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def strStr(self, haystack: str, needle: str) -> int:\n        if needle == \"\":\n            return 0\n        lps = [0] * len(needle)\n\n        prevLPS, i = 0, 1\n        while i < len(needle):\n            if needle[i] == needle[prevLPS]:\n                lps[i] = prevLPS + 1\n                prevLPS += 1\n                i += 1\n            elif prevLPS == 0:\n                lps[i] = 0\n                i += 1\n            else:\n                prevLPS = lps[prevLPS - 1]\n\n        i = 0  # ptr for haystack\n        j = 0  # ptr for needle\n        while i < len(haystack):\n            if haystack[i] == needle[j]:\n                i, j = i + 1, j + 1\n            else:\n                if j == 0:\n                    i += 1\n                else:\n                    j = lps[j - 1]\n            if j == len(needle):\n                return i - len(needle)\n        return -1\n",
+    "javascript": "/**\n * Submission Details:\n * https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/\n * Time O(n * m), Space O(1)\n * Runtime: 48ms (beats 91.92%) || 41.6mb (beats 78.25%)\n */\n\n/**\n * @param {string} haystack\n * @param {string} needle\n * @return {number}\n */\nvar strStr = function (haystack, needle) {\n  if (needle.length == 0) return 0;\n  for (let i = 0; i < haystack.length; i++) {\n    let k = i,\n      j = 0;\n    while (haystack[k] == needle[j] && j < needle.length) {\n      k++, j++;\n    }\n    if (j == needle.length) return i;\n  }\n  return -1;\n};",
+    "java": "// Solution One\npublic class Solution {\n    public int strStr(String haystack, String needle) {\n        if (needle.isEmpty()) {\n            return 0;\n        }\n        int[] lps = new int[needle.length()];\n\n        int prevLPS = 0, i = 1;\n        while (i < needle.length()) {\n            if (needle.charAt(i) == needle.charAt(prevLPS)) {\n                lps[i] = ++prevLPS;\n                i++;\n            } else {\n                if (prevLPS == 0) {\n                    lps[i] = 0;\n                    i++;\n                } else {\n                    prevLPS = lps[prevLPS - 1];\n                }\n            }\n        }\n\n        int j = 0;  // ptr for needle\n        for (i = 0; i < haystack.length(); ) {\n            if (haystack.charAt(i) == needle.charAt(j)) {\n                i++;\n                j++;\n            } else {\n                if (j == 0) {\n                    i++;\n                } else {\n                    j = lps[j - 1];\n                }\n            }\n            if (j == needle.length()) {\n                return i - j;\n            }\n        }\n        return -1;\n    }\n}\n\n// Solution Two (Linear search using indexOf method for arrays)\nclass Solution {\n    public int strStr(String haystack, String needle) {\n        int result = 0;\n        if (haystack.length() <= 0 && needle.length() > 0) return -1;\n        if (haystack.length() != 0) {\n            int occurence = haystack.indexOf(needle);\n            if (occurence == -1) \n                return occurence;\n            result = occurence;\n        }\n        return result;\n    }\n}\n",
+    "cpp": "class Solution {\npublic:\n    int strStr(string haystack, string needle) {\n        if(haystack.size()<needle.size()) return -1;\n        int found=0;\n        for(int i=0;i<haystack.size()-needle.size()+1;i++){\n            if(haystack[i]==needle[0]){\n                found=1;\n                for(int j=1;j<needle.size();j++){\n                    if(haystack[i+j]!=needle[j]){\n                        found=0;break;\n                    }\n                }if(found==1) return i;\n            }\n        }return -1;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0028-find-the-index-of-the-first-occurrence-in-a-string.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0028-find-the-index-of-the-first-occurrence-in-a-string.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0028-find-the-index-of-the-first-occurrence-in-a-string.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0028-find-the-index-of-the-first-occurrence-in-a-string.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "找出模式串在文本中第一次出现的下标，不存在返回 -1。",
+  "explanation": "可用 KMP：失配时根据前缀函数回退模式位置，不回退文本位置。O(n+m)。",
+  "memory": "next 表表示已匹配前缀还能保留多少。"
+}

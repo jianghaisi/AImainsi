@@ -1,0 +1,58 @@
+{
+  "number": "125",
+  "adapter": {
+    "name": "isPalindrome",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "125"
+  },
+  "tests": [
+    {
+      "input": [
+        "A man, a plan, a canal: Panama"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "race a car"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        " "
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def isPalindrome(self, s: str) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @return {boolean}\n */\nvar isPalindrome = function(s) {\n    \n};",
+    "java": "class Solution {\n    public boolean isPalindrome(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isPalindrome(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def isPalindrome(self, s: str) -> bool:\n        new = ''\n        for a in s:\n            if a.isalpha() or a.isdigit():\n                new += a.lower()\n        return (new == new[::-1])\n",
+    "javascript": "const filterAlphaNumeric = (s, nonAlphaNumeric = new RegExp('[^a-z0-9]', 'gi')) => s.toLowerCase() /* Time O(N) | Space O(N) */.replace(nonAlphaNumeric, ''); /* Time O(N) | Space O(N) */\n\nconst reverse = s => s.split('') /* Time O(N) | Space O(N) */.reverse() /* Time O(N) | Space O(N) */.join(''); /* Time O(N) | Space O(N) */\n\n/**\n * 2 Pointer | Midde Convergence\n * Time O(N) | Space O(1)\n * https://leetcode.com/problems/valid-palindrome/\n * @param {string} s\n * @return {boolean}\n */\n\n/**\n * 2 Pointer | Midde Convergence | No RegEx | No Copying\n * Time O(N) | Space O(1)\n * https://leetcode.com/problems/valid-palindrome/\n * @param {string} s\n * @return {boolean}\n */\nvar isPalindrome = function (s) {\n  const isAlphaNumeric = c => c.toLowerCase() >= 'a' && c.toLowerCase() <= 'z' || c >= '0' && c <= '9';\n  let left = 0;\n  let right = s.length - 1;\n  let skipLeft,\n    skipRight,\n    endsEqual = false;\n  while (left < right) {\n    skipLeft = !isAlphaNumeric(s.charAt(left));\n    if (skipLeft) {\n      left++;\n      continue;\n    }\n    skipRight = !isAlphaNumeric(s.charAt(right));\n    if (skipRight) {\n      right--;\n      continue;\n    }\n    endsEqual = s.charAt(left).toLowerCase() === s.charAt(right).toLowerCase();\n    if (!endsEqual) return false;\n    left++;\n    right--;\n  }\n  return true;\n};",
+    "java": "public boolean isPalindrome(String s) {\n        \n    int i = 0;\n    int j = s.length() - 1;\n    while (i < j) {\n        \n        Character start = s.charAt(i);\n        Character end = s.charAt(j);\n        \n        if (!Character.isLetterOrDigit(start)) {\n            i++;\n            continue;\n        }\n        \n        if (!Character.isLetterOrDigit(end)) {\n            j--;\n            continue;\n        }\n        \n        if (Character.toLowerCase(start) != Character.toLowerCase(end)) {\n            return false;\n        }\n        \n        i++;\n        j--;    \n    }\n    \n    return true;\n}",
+    "cpp": "/*\n    Given a string s, return true if it's a palindrome\n    Ex. s = \"A man, a plan, a canal: Panama\" -> true\n\n    2 pointers, outside in, skip non-letters & compare\n\n    Time: O(n)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    bool isPalindrome(string s) {\n        int i = 0;\n        int j = s.size() - 1;\n        \n        while (i < j) {\n            while (!isalnum(s[i]) && i < j) {\n                i++;\n            }\n            while (!isalnum(s[j]) && i < j) {\n                j--;\n            }\n            if (tolower(s[i]) != tolower(s[j])) {\n                return false;\n            }\n            i++;\n            j--;\n        }\n        \n        return true;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0125-valid-palindrome.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0125-valid-palindrome.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0125-valid-palindrome.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0125-valid-palindrome.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "忽略非字母数字字符及大小写后，判断字符串是否为回文。",
+  "explanation": "左右指针跳过无效字符，再比较归一化字符。O(n)。",
+  "memory": "先跳无效字符，再比较，空内容也是回文。"
+}

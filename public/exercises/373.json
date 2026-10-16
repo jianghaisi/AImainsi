@@ -1,0 +1,97 @@
+{
+  "number": "373",
+  "adapter": {
+    "name": "kSmallestPairs",
+    "params": [
+      {
+        "name": "nums1",
+        "type": "integer[]"
+      },
+      {
+        "name": "nums2",
+        "type": "integer[]"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "list<list<integer>>"
+    },
+    "manual": false,
+    "number": "373"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          7,
+          11
+        ],
+        [
+          2,
+          4,
+          6
+        ],
+        3
+      ],
+      "expected": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          6
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          1,
+          2
+        ],
+        [
+          1,
+          2,
+          3
+        ],
+        2
+      ],
+      "expected": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def kSmallestPairs(self, nums1: list[int], nums2: list[int], k: int) -> list[list[int]]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums1\n * @param {number[]} nums2\n * @param {number} k\n * @return {number[][]}\n */\nvar kSmallestPairs = function(nums1, nums2, k) {\n    \n};",
+    "java": "class Solution {\n    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def kSmallestPairs(self,nums1,nums2,k):\n        if not nums1 or not nums2:return []\n        heap=[(nums1[i]+nums2[0],i,0) for i in range(min(k,len(nums1)))];heapify(heap);out=[]\n        while heap and len(out)<k:\n            _,i,j=heappop(heap);out.append([nums1[i],nums2[j]])\n            if j+1<len(nums2):heappush(heap,(nums1[i]+nums2[j+1],i,j+1))\n        return out\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "两个升序数组中，返回和最小的 k 对元素，每对各取一个数组元素。",
+  "explanation": "每行是一条递增的配对序列，小根堆归并，弹出后推进该行下一列。",
+  "memory": "从最小候选推进，避免枚举整个笛卡尔积。"
+}

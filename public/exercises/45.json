@@ -1,0 +1,64 @@
+{
+  "number": "45",
+  "adapter": {
+    "name": "jump",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "45"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          3,
+          1,
+          1,
+          4
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          2,
+          3,
+          0,
+          1,
+          4
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def jump(self, nums: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar jump = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int jump(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int jump(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def jump(self, nums: List[int]) -> int:\n        l, r = 0, 0\n        res = 0\n        while r < (len(nums) - 1):\n            maxJump = 0\n            for i in range(l, r + 1):\n                maxJump = max(maxJump, i + nums[i])\n            l = r + 1\n            r = maxJump\n            res += 1\n        return res\n",
+    "javascript": "const getMaxReach = (nums, left, right, maxReach = 0) => {\n  for (let i = left; i < right + 1; i++) {\n    const reach = nums[i] + i;\n    maxReach = Math.max(maxReach, reach);\n  }\n  return maxReach;\n};\n\n/**\n * https://leetcode.com/problems/jump-game-ii/\n * Time O(N) | Space O(1)\n * @param {number[]} nums\n * @return {number}\n */\nvar jump = function (nums) {\n  let [jumps, currentJumpEnd, farthest] = [0, 0, 0];\n  for (let i = 0; i < nums.length - 1; i++) {\n    farthest = Math.max(farthest, i + nums[i]);\n    const canJump = i === currentJumpEnd;\n    if (canJump) {\n      jumps++;\n      currentJumpEnd = farthest;\n    }\n  }\n  return jumps;\n};",
+    "java": "class Solution {\n\n    public int jump(int[] nums) {\n        int res = 0, r = 0, l = 0, fur = 0;\n\n        while (r < nums.length - 1) {\n            fur = 0;\n            for (int i = l; i <= r; i++) fur = Math.max(fur, i + nums[i]);\n            l = r + 1;\n            r = fur;\n            res++;\n        }\n        return res;\n    }\n}\n",
+    "cpp": "/*\n    Given int array, determine min jumps to reach last index\n    Ex. nums = [2,3,1,1,4] -> 2, index 0 to 1 to last\n\n    Greedy: At each point, determine furthest reachable, jump to it\n\n    Time: O(n)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    int jump(vector<int>& nums) {\n        int n = nums.size();\n        int result = 0;\n        \n        int i = 0;\n        while (i < n - 1) {\n            if (i + nums[i] >= n - 1) {\n                result++;\n                break;\n            }\n            int maxIndex = i + 1;\n            int maxValue = 0;\n            for (int j = i + 1; j < i + 1 + nums[i]; j++) {\n                if (j + nums[j] > maxValue) {\n                    maxIndex = j;\n                    maxValue = j + nums[j];\n                }\n            }\n            i = maxIndex;\n            result++;\n        }\n        \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0045-jump-game-ii.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0045-jump-game-ii.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0045-jump-game-ii.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0045-jump-game-ii.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "数组保证能够到达末项，求从首项到末项的最少跳跃次数。",
+  "explanation": "按当前跳数能覆盖的区间扫描，记录下一层最远边界，扫描到当前边界时增加一次跳跃。",
+  "memory": "把可达范围当作 BFS 的一层，区间结束才真正计一次跳。"
+}

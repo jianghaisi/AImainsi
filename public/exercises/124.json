@@ -1,0 +1,64 @@
+{
+  "number": "124",
+  "adapter": {
+    "name": "maxPathSum",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "124"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          -10,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      ],
+      "expected": 42
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def maxPathSum(self, root: TreeNode | None) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @return {number}\n */\nvar maxPathSum = function(root) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public int maxPathSum(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int maxPathSum(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def maxPathSum(self, root: TreeNode) -> int:\n        res = [root.val]\n\n        # return max path sum without split\n        def dfs(root):\n            if not root:\n                return 0\n\n            leftMax = dfs(root.left)\n            rightMax = dfs(root.right)\n            leftMax = max(leftMax, 0)\n            rightMax = max(rightMax, 0)\n\n            # compute max path sum WITH split\n            res[0] = max(res[0], root.val + leftMax + rightMax)\n            return root.val + max(leftMax, rightMax)\n\n        dfs(root)\n        return res[0]\n",
+    "javascript": "/**\n * https://leetcode.com/problems/binary-tree-maximum-path-sum/\n * Time O(N) | Space O(H)\n * @param {TreeNode} root\n * @return {number}\n */\nvar maxPathSum = function (root, maxValue = [-Infinity]) {\n  pathSum(root, maxValue);\n  return maxValue[0];\n};\nconst pathSum = (root, maxValue) => {\n  const isBaseCase = root === null;\n  if (isBaseCase) return 0;\n  return dfs(root, maxValue);\n};\nconst dfs = (node, maxValue) => {\n  const left = Math.max(0, pathSum(node.left, maxValue));\n  const right = Math.max(0, pathSum(node.right, maxValue));\n  const sum = left + right + node.val;\n  maxValue[0] = Math.max(maxValue[0], sum);\n  return Math.max(left, right) + node.val;\n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n\n    public int maxPathSum(TreeNode root) {\n        int[] res = { Integer.MIN_VALUE };\n        maxPathSum(root, res);\n        return res[0];\n    }\n\n    public int maxPathSum(TreeNode root, int[] res) {\n        if (root == null) return 0;\n\n        int left = Math.max(0, maxPathSum(root.left, res));\n        int right = Math.max(0, maxPathSum(root.right, res));\n        res[0] = Math.max(res[0], root.val + left + right);\n\n        return root.val + Math.max(left, right);\n    }\n}\n",
+    "cpp": "/*\n    Given root of binary tree, return max path sum (seq of adj node values added together)\n\n    Path can only have <= 1 split point, assume curPath has it, so return can't split again\n\n    Time: O(n)\n    Space: O(n)\n*/\n\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int maxPathSum(TreeNode* root) {\n        int maxPath = INT_MIN;\n        dfs(root, maxPath);\n        return maxPath;\n    }\nprivate:\n    int dfs(TreeNode* root, int& maxPath) {\n        if (root == NULL) {\n            return 0;\n        }\n        \n        int left = max(dfs(root->left, maxPath), 0);\n        int right = max(dfs(root->right, maxPath), 0);\n        \n        int curPath = root->val + left + right;\n        maxPath = max(maxPath, curPath);\n        \n        return root->val + max(left, right);\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0124-binary-tree-maximum-path-sum.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0124-binary-tree-maximum-path-sum.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0124-binary-tree-maximum-path-sum.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0124-binary-tree-maximum-path-sum.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "求二叉树中任意非空简单路径的最大节点值之和，节点值可能为负。",
+  "explanation": "向父节点只返回一侧的最大贡献；在当前节点用左右非负贡献加当前值更新答案。",
+  "memory": "向上只能选一边，更新答案可以两边；全负树仍要选一个节点。"
+}

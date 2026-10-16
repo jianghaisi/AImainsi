@@ -1,0 +1,52 @@
+{
+  "number": "224",
+  "adapter": {
+    "name": "calculate",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "224"
+  },
+  "tests": [
+    {
+      "input": [
+        "1 + 1"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        " 2-1 + 2 "
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "(1+(4+5+2)-3)+(6+8)"
+      ],
+      "expected": 23
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def calculate(self, s: str) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @return {number}\n */\nvar calculate = function(s) {\n    \n};",
+    "java": "class Solution {\n    public int calculate(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int calculate(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def calculate(self,s):\n        result=0;number=0;sign=1;stack=[]\n        for c in s:\n            if c.isdigit():number=number*10+int(c)\n            elif c in '+-':result+=sign*number;number=0;sign=1 if c=='+' else -1\n            elif c=='(':stack.extend([result,sign]);result=0;sign=1\n            elif c==')':\n                result+=sign*number;number=0\n                result=result*stack.pop()+stack.pop()\n        return result+sign*number\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "计算包含整数、加减、空格与括号的表达式，支持一元负号。",
+  "explanation": "维护当前数字、符号和累计值；进入括号时压入外层结果及符号。",
+  "memory": "括号结束：外层结果 + 外层符号 × 内层结果。"
+}

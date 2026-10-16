@@ -1,0 +1,111 @@
+{
+  "number": "200",
+  "adapter": {
+    "name": "numIslands",
+    "params": [
+      {
+        "name": "grid",
+        "type": "character[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "manual": true,
+    "number": "200"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            "1",
+            "1",
+            "1",
+            "1",
+            "0"
+          ],
+          [
+            "1",
+            "1",
+            "0",
+            "1",
+            "0"
+          ],
+          [
+            "1",
+            "1",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          [
+            "1",
+            "1",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "1",
+            "1",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "0",
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "0",
+            "0",
+            "1",
+            "1"
+          ]
+        ]
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def numIslands(self, grid: List[List[str]]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {character[][]} grid\n * @return {number}\n */\nvar numIslands = function(grid) {\n    \n};",
+    "java": "class Solution {\n    public int numIslands(char[][] grid) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int numIslands(vector<vector<char>>& grid) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def numIslands(self, grid):\n        if not grid:\n            return 0\n        count, rows, cols = 0, len(grid), len(grid[0])\n        for row in range(rows):\n            for col in range(cols):\n                if grid[row][col] != '1':\n                    continue\n                count += 1\n                stack = [(row, col)]\n                grid[row][col] = '0'\n                while stack:\n                    r, c = stack.pop()\n                    for nr, nc in ((r-1,c),(r+1,c),(r,c-1),(r,c+1)):\n                        if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == '1':\n                            grid[nr][nc] = '0'\n                            stack.append((nr,nc))\n        return count\n",
+    "javascript": "const dfs = (grid, row, rows, col, cols) => {\n  const isBaseCase = grid[row][col] === '0';\n  if (isBaseCase) return;\n  grid[row][col] = '0';\n  for (const [_row, _col] of getNeighbors(row, rows, col, cols)) {\n    dfs(grid, _row, rows, _col, cols); /* Space O(ROWS * COLS) */\n  }\n};\nconst bfs = (grid, rows, cols, queue) => {\n  while (!queue.isEmpty()) {\n    for (let i = queue.size() - 1; 0 <= i; i--) {\n      /* Time O(WIDTH) */\n      const [row, col] = queue.dequeue();\n      const isWater = grid[row][col] === '0';\n      if (isWater) continue;\n      grid[row][col] = '0';\n      for (const [_row, _col] of getNeighbors(row, rows, col, cols)) {\n        queue.enqueue([_row, _col]); /* Space O(MIN(ROWS,COLS)) */\n      }\n    }\n  }\n};\nvar getNeighbors = (row, rows, col, cols) => [[0, 1], [0, -1], [1, 0], [-1, 0]].map(([_row, _col]) => [row + _row, col + _col]).filter(([_row, _col]) => 0 <= _row && _row < rows && 0 <= _col && _col < cols);\n\n/**\n * https://leetcode.com/problems/number-of-islands/\n * Time O(ROWS * COLS) | Space O(ROWS * COLS)\n * @param {character[][]} grid\n * @return {number}\n */\nvar numIslands = function (grid) {\n  const unionFind = new UnionFind(grid); /* Time O(ROWS * COLS) | Space O(ROWS * COLS) */\n\n  searchGrid(grid, unionFind); /* Time O(ROWS * COLS) */\n\n  return unionFind.connectedComponents;\n};\nvar searchGrid = (grid, unionFind) => {\n  const [rows, cols] = [grid.length, grid[0].length];\n  for (let row = 0; row < rows; row++) {\n    /* Time O(ROWS) */\n    for (let col = 0; col < cols; col++) {\n      /* Time O(COLS) */\n      const isWater = grid[row][col] === '0';\n      if (isWater) continue;\n      grid[row][col] = '0';\n      searchRows(unionFind, grid, row, rows, col, cols);\n      searchCols(unionFind, grid, row, rows, col, cols);\n    }\n  }\n};\nconst searchRows = (unionFind, grid, row, rows, col, cols) => [1, -1].map(_row => row + _row).filter(_row => isInBound(_row, rows) && isIsland(grid[_row][col])).map(_row => [index(row, cols, col), index(_row, cols, col)]).forEach(([x, y]) => unionFind.union(x, y));\nconst isInBound = (val, vals) => 0 <= val && val < vals;\nconst isIsland = cell => cell === '1';\nconst index = (row, cols, col) => row * cols + col;\nconst searchCols = (unionFind, grid, row, rows, col, cols) => [1, -1].map(_col => col + _col).filter(_col => isInBound(_col, cols) && isIsland(grid[row][_col])).map(_col => [index(row, cols, col), index(row, cols, _col)]).forEach(([x, y]) => unionFind.union(x, y));\nclass UnionFind {\n  constructor(grid) {\n    const [rows, cols] = [grid.length, grid[0].length];\n    this.connectedComponents = 0;\n    this.grid = grid;\n    this.rows = rows;\n    this.cols = cols;\n    this.parent = new Array(rows * cols).fill(0);\n    this.rank = new Array(rows * cols).fill(0);\n    this.findIslands();\n  }\n  findIslands({\n    grid,\n    rows,\n    cols,\n    parent\n  } = this) {\n    for (let row = 0; row < rows; row++) {\n      /* Time O(ROWS) */\n      for (let col = 0; col < cols; col++) {\n        /* Time O(COLS) */\n        const isWater = grid[row][col] === '0';\n        if (isWater) continue;\n        const index = row * cols + col;\n        parent[index] = index; /* Space O(ROWS * COLS) */\n        this.connectedComponents++;\n      }\n    }\n  }\n  find(index, {\n    parent\n  } = this) {\n    const isEqual = () => parent[index] === index;\n    while (!isEqual()) {\n      index = parent[index];\n    }\n    return parent[index];\n  }\n  union(x, y, {\n    parent,\n    rank\n  } = this) {\n    const [rootX, rootY] = [this.find(x), this.find(y)];\n    const hasCycle = rootX === rootY;\n    if (hasCycle) return;\n    this.connectedComponents--;\n    const isXGreater = rank[rootY] < rank[rootX];\n    if (isXGreater) return parent[rootY] = rootX;\n    const isYGreater = rank[rootX] < rank[rootY];\n    if (isYGreater) return parent[rootX] = rootY;\n    parent[rootY] = rootX; /* Space O(ROWS * COLS) */\n    rank[rootX]++; /* Space O(ROWS * COLS) */\n  }\n}",
+    "java": "class Solution {\n\n    public int numIslands(char[][] grid) {\n        int count = 0;\n        for (int i = 0; i < grid.length; i++) {\n            for (int j = 0; j < grid[0].length; j++) {\n                if (grid[i][j] == '1') {\n                    dfs(grid, i, j);\n                    count++;\n                }\n            }\n        }\n        return count;\n    }\n\n    public void dfs(char[][] grid, int i, int j) {\n        if (\n            i < 0 ||\n            j < 0 ||\n            i >= grid.length ||\n            j >= grid[0].length ||\n            grid[i][j] == '0'\n        ) {\n            return;\n        }\n        grid[i][j] = '0';\n        dfs(grid, i + 1, j);\n        dfs(grid, i, j + 1);\n        dfs(grid, i - 1, j);\n        dfs(grid, i, j - 1);\n    }\n}\n",
+    "cpp": "/*\n    Given grid where '1' is land & '0' is water, return # of islands\n\n    DFS, set visited land to '0' to not visit it again, count islands\n\n    Time: O(m x n)\n    Space: O(m x n)\n*/\n\nclass Solution {\npublic:\n    int numIslands(vector<vector<char>>& grid) {\n        int m = grid.size();\n        int n = grid[0].size();\n        \n        int result = 0;\n        \n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                if (grid[i][j] == '1') {\n                    dfs(grid, i, j, m, n);\n                    result++;\n                }\n            }\n        }\n        \n        return result;\n    }\nprivate:\n    void dfs(vector<vector<char>>& grid, int i, int j, int m, int n) {\n        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == '0') {\n            return;\n        }\n        grid[i][j] = '0';\n        \n        dfs(grid, i - 1, j, m, n);\n        dfs(grid, i + 1, j, m, n);\n        dfs(grid, i, j - 1, m, n);\n        dfs(grid, i, j + 1, m, n);\n    }\n};\n"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0200-number-of-islands.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0200-number-of-islands.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0200-number-of-islands.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "网格由字符 1 和 0 构成，统计上下左右连通的陆地区域数量。",
+  "explanation": "遍历每个未访问陆地，从那里做一次 DFS/BFS 并标记整个连通块。每次新搜索增加一个岛。",
+  "memory": "外层负责发现新岛，内层负责把整座岛标记完。"
+}

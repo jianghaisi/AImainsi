@@ -1,0 +1,96 @@
+{
+  "number": "74",
+  "adapter": {
+    "name": "searchMatrix",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "integer[][]"
+      },
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "74"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            3,
+            5,
+            7
+          ],
+          [
+            10,
+            11,
+            16,
+            20
+          ],
+          [
+            23,
+            30,
+            34,
+            60
+          ]
+        ],
+        3
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            3,
+            5,
+            7
+          ],
+          [
+            10,
+            11,
+            16,
+            20
+          ],
+          [
+            23,
+            30,
+            34,
+            60
+          ]
+        ],
+        13
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def searchMatrix(self, matrix: list[list[int]], target: int) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[][]} matrix\n * @param {number} target\n * @return {boolean}\n */\nvar searchMatrix = function(matrix, target) {\n    \n};",
+    "java": "class Solution {\n    public boolean searchMatrix(int[][] matrix, int target) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool searchMatrix(vector<vector<int>>& matrix, int target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:\n        ROWS, COLS = len(matrix), len(matrix[0])\n\n        top, bot = 0, ROWS - 1\n        while top <= bot:\n            row = (top + bot) // 2\n            if target > matrix[row][-1]:\n                top = row + 1\n            elif target < matrix[row][0]:\n                bot = row - 1\n            else:\n                break\n\n        if not (top <= bot):\n            return False\n        row = (top + bot) // 2\n        l, r = 0, COLS - 1\n        while l <= r:\n            m = (l + r) // 2\n            if target > matrix[row][m]:\n                l = m + 1\n            elif target < matrix[row][m]:\n                r = m - 1\n            else:\n                return True\n        return False\n",
+    "javascript": "//////////////////////////////////////////////////////////////////////////////\n// Single Binary Search\n// Time: O(log(mn))  Space: O(1)\n//////////////////////////////////////////////////////////////////////////////\n\n/**\n * @param {number[][]} matrix\n * @param {number} target\n * Time O(log(ROWS * COLS)) | Space O(1)\n * @return {boolean}\n */\nvar searchMatrix = function (matrix, target) {\n  const [rows, cols] = [matrix.length, matrix[0].length];\n  let [left, right] = [0, rows * cols - 1];\n  while (left <= right) {\n    const mid = left + right >> 1;\n    const [row, col] = [Math.floor(mid / cols), mid % cols];\n    const guess = matrix[row][col];\n    const isTarget = guess === target;\n    if (isTarget) return true;\n    const isTargetGreater = guess < target;\n    if (isTargetGreater) left = mid + 1;\n    const isTargetLess = target < guess;\n    if (isTargetLess) right = mid - 1;\n  }\n  return false;\n};",
+    "java": "//Similar to binary search in 1D array, here the search space is from (0,0) to (m-1,n-1)\nclass Solution {\n\n    public boolean searchMatrix(int[][] matrix, int target) {\n        int i = 0, j = matrix[0].length - 1;\n        while (i < matrix.length && j >= 0) {\n            if (matrix[i][j] == target) {\n\t\t return true;\n\t    } else if (matrix[i][j] > target) {\n\t\t j--;\n\t    } else {\n\t\t i++;\n\t    }\n        }\n        return false;\n    }\n\n    //    Time: O(log(mn)) | Space: O(1)\n    public boolean searchMatrix2(int[][] matrix, int target) {\n        if(matrix.length == 0) return false;\n\n        int rows = matrix.length;\n        int columns = matrix[0].length;\n\n        int low = 0;\n        int high = rows * columns;\n\n        while(low < high) {\n            int mid = (low+high)/2;\n\n            if(matrix[mid/columns][mid%columns] == target) {\n                return true;\n            } else if (matrix[mid/columns][mid%columns] < target) {\n                low = mid+1;\n            } else {\n                high = mid;\n            }\n        }\n        return false;\n    }\n}\n",
+    "cpp": "/*\n    Search for target value in matrix where every row & col is sorted\n\n    Perform 2 binary searches: 1 to find row, then another to find col\n\n    Time: O(log m + log n)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    bool searchMatrix(vector<vector<int>>& matrix, int target) {\n        int lowRow = 0;\n        int highRow = matrix.size() - 1;\n        \n        while (lowRow < highRow) {\n            int mid = lowRow + (highRow - lowRow) / 2;\n            if (matrix[mid][0] == target) {\n                return true;\n            }\n            if (matrix[mid][0] < target && target < matrix[mid + 1][0]) {\n                lowRow = mid;\n                break;\n            }\n            if (matrix[mid][0] < target) {\n                lowRow = mid + 1;\n            } else {\n                highRow = mid - 1;\n            }\n        }\n        \n        int lowCol = 0;\n        int highCol = matrix[0].size() - 1;\n        \n        while (lowCol <= highCol) {\n            int mid = lowCol + (highCol - lowCol) / 2;\n            if (matrix[lowRow][mid] == target) {\n                return true;\n            }\n            if (matrix[lowRow][mid] < target) {\n                lowCol = mid + 1;\n            } else {\n                highCol = mid - 1;\n            }\n        }\n        \n        return false;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0074-search-a-2d-matrix.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0074-search-a-2d-matrix.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0074-search-a-2d-matrix.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0074-search-a-2d-matrix.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "矩阵每行递增，且每行首项大于前一行末项，判断目标是否存在。",
+  "explanation": "把矩阵看成一维有序数组，下标 i 对应行 i/列数、列 i%列数，再二分。",
+  "memory": "先确认整矩阵确实全局有序，才能进行一维映射。"
+}

@@ -1,0 +1,60 @@
+{
+  "number": "1732",
+  "adapter": {
+    "name": "largestAltitude",
+    "params": [
+      {
+        "name": "gain",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1732"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          -5,
+          1,
+          5,
+          0,
+          -7
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          -4,
+          -3,
+          -2,
+          -1,
+          4,
+          3,
+          2
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def largestAltitude(self, gain: List[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} gain\n * @return {number}\n */\nvar largestAltitude = function(gain) {\n    \n};",
+    "java": "class Solution {\n    public int largestAltitude(int[] gain) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int largestAltitude(vector<int>& gain) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def largestAltitude(self,gain):\n        value=answer=0\n        for change in gain:value+=change;answer=max(answer,value)\n        return answer\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "从海拔零出发，数组表示每段海拔增量，求途中最高海拔。",
+  "explanation": "累计前缀和并维护最大值，初始最大值为零。O(n)。",
+  "memory": "起点也算一个海拔点，全部下降时返回零。"
+}

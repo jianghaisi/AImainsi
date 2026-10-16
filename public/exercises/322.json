@@ -1,0 +1,73 @@
+{
+  "number": "322",
+  "adapter": {
+    "name": "coinChange",
+    "params": [
+      {
+        "name": "coins",
+        "type": "integer[]"
+      },
+      {
+        "name": "amount",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "322"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          5
+        ],
+        11
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          2
+        ],
+        3
+      ],
+      "expected": -1
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        0
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def coinChange(self, coins: list[int], amount: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} coins\n * @param {number} amount\n * @return {number}\n */\nvar coinChange = function(coins, amount) {\n    \n};",
+    "java": "class Solution {\n    public int coinChange(int[] coins, int amount) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int coinChange(vector<int>& coins, int amount) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def coinChange(self, coins: List[int], amount: int) -> int:\n        dp = [amount + 1] * (amount + 1)\n        dp[0] = 0\n\n        for a in range(1, amount + 1):\n            for c in coins:\n                if a - c >= 0:\n                    dp[a] = min(dp[a], 1 + dp[a - c])\n        return dp[amount] if dp[amount] != amount + 1 else -1\n",
+    "javascript": "const initMemo = amount => Array(amount).fill(0);\nvar dfs = (coins, amount, memo, min = Infinity) => {\n  for (const coin of coins) {\n    /* Time O(N) */\n    const cost = coinChange(coins, amount - coin, memo); /* Time O(N) | Space O(N) */\n\n    const canUpdate = 0 <= cost && cost < min;\n    if (!canUpdate) continue;\n    min = cost + 1;\n  }\n  memo[amount - 1] = min !== Infinity ? min : -1;\n  return memo[amount - 1];\n};\n\n/**\n * DP - Bottom Up\n * Array - Tabulation\n * Time O(N) | Space O(N)\n * https://leetcode.com/problems/coin-change/\n * @param {number[]} coins\n * @param {number} amount\n * @return {number}\n */\nvar coinChange = (coins, amount) => {\n  const tabu = initTabu(amount);\n  for (let _amount = 1; _amount <= amount; _amount++) {\n    /* Time O(N) */\n    for (let coin = 0; coin < coins.length; coin++) {\n      /* Time O(N) */\n      const canUpdate = coins[coin] <= _amount;\n      if (!canUpdate) continue;\n      const difference = _amount - coins[coin];\n      const min = tabu[difference] + 1;\n      tabu[_amount] = Math.min(tabu[_amount], min); /* Space O(N) */\n    }\n  }\n  return tabu[amount] <= amount ? tabu[amount] : -1;\n};\nconst initTabu = amount => {\n  const tabu = Array(amount + 1).fill(amount + 1);\n  tabu[0] = 0;\n  return tabu;\n};",
+    "java": "import java.util.Arrays;\n\nclass Solution {\n\n    public int coinChange(int[] coins, int amount) {\n        if (amount < 0 || coins.length == 0 || coins == null) {\n            return 0;\n        }\n        int[] dp = new int[amount + 1];\n        Arrays.fill(dp, amount + 1);\n        dp[0] = 0;\n\n        for (int i = 1; i <= amount; i++) {\n            for (int coin : coins) {\n                if (i - coin >= 0) {\n                    dp[i] = Math.min(dp[i], 1 + dp[i - coin]);\n                }\n            }\n        }\n\n        return dp[amount] != amount + 1 ? dp[amount] : -1;\n    }\n}\n",
+    "cpp": "/*\n    Given array of coins & an amount, return fewest coins to make that amount\n    Ex. coins = [1,2,5], amount = 11 -> 3, $11 = $5 + $5 + $1\n\n    Compute all min counts for amounts up to i, \"simulate\" use of a coin\n\n    Time: O(m x n) -> m = # of coins, n = amount\n    Space: O(n)\n*/\n\nclass Solution {\npublic:\n    int coinChange(vector<int>& coins, int amount) {\n        vector<int> dp(amount + 1, amount + 1);\n        dp[0] = 0;\n        \n        for (int i = 1; i < amount + 1; i++) {\n            for (int j = 0; j < coins.size(); j++) {\n                if (i - coins[j] >= 0) {\n                    dp[i] = min(dp[i], 1 + dp[i - coins[j]]);\n                }\n            }\n        }\n        \n        if (dp[amount] == amount + 1) {\n            return -1;\n        }\n        return dp[amount];\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0322-coin-change.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0322-coin-change.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0322-coin-change.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0322-coin-change.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "给定正整数面额与目标金额，求最少硬币数，可重复使用；不能凑出时返回 -1。",
+  "explanation": "dp[0]=0，其余初始化不可达。枚举每个金额与可用硬币，更新前一状态加一。",
+  "memory": "区分“不可达”与零枚硬币，零只属于金额零。"
+}

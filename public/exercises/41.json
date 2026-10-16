@@ -1,0 +1,73 @@
+{
+  "number": "41",
+  "adapter": {
+    "name": "firstMissingPositive",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "41"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          0
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          3,
+          4,
+          -1,
+          1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          7,
+          8,
+          9,
+          11,
+          12
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def firstMissingPositive(self, nums: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar firstMissingPositive = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int firstMissingPositive(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int firstMissingPositive(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def firstMissingPositive(self, nums: List[int]) -> int:\n        A = nums\n        for i in range(len(A)):\n            if A[i] < 0:\n                A[i] = 0\n            \n        for i in range(len(A)):\n            val = abs(A[i])\n            if 1 <= val <= len(A):\n                if A[val - 1] > 0:\n                    A[val - 1] *= -1\n                elif A[val - 1] == 0:\n                    A[val - 1] = -1 * (len(A) + 1)\n        \n        for i in range( 1, len(A)+ 1):\n            if A[i -1] >= 0:\n                return i\n        \n        return len(A) + 1\n        \n    def firstMissingPositive_2(self, nums: List[int]) -> int:\n        new = set(nums)\n        i = 1\n        while i in new:\n            i += 1\n        return i\n",
+    "javascript": "/**\n * Cyclic Sort\n * Time O(N) | Space O(1)\n * https://leetcode.com/problems/first-missing-positive\n * @param {number[]} nums\n * @return {number}\n */\nvar firstMissingPositive = nums => {\n  cyclicSort(nums);\n  return search(nums);\n};\nconst cyclicSort = (nums, index = 0) => {\n  while (index < nums.length) {\n    const num = nums[index];\n    const indexKey = num - 1;\n    const indexNum = nums[indexKey];\n    if (canSwap(nums, num, indexNum)) {\n      swap(nums, index, indexKey);\n      continue;\n    }\n    index += 1;\n  }\n};\nconst search = (nums, index = 0) => {\n  while (index < nums.length) {\n    const num = nums[index];\n    const indexKey = index + 1;\n    if (!isEqual(num, indexKey)) return indexKey;\n    index += 1;\n  }\n  return nums.length + 1;\n};\nconst canSwap = (nums, num, indexNum) => isPositive(num) && isInBound(num, nums) && !isEqual(num, indexNum);\nconst swap = (nums, index, indexKey) => [nums[index], nums[indexKey]] = [nums[indexKey], nums[index]];\nconst isPositive = num => 0 < num;\nconst isInBound = (num, nums) => num <= nums.length;\nconst isEqual = (num, indexNum) => num === indexNum;",
+    "java": "class Solution {\n    public int firstMissingPositive(int[] nums) {\n        int n = nums.length, size = 0;\n\n        while(n > 0){\n            n = n>>1;\n            size++;\n        }\n        n = nums.length;\n        int pivot = 0;\n        \n\n        for(int i = 0; i < n; i++){\n            if(nums[i] <= 0 || nums[i] > n){\n                int temp = nums[i];\n                nums[i] = nums[pivot];\n                nums[pivot] = temp;\n                pivot++;\n            }\n        }\n        for(int i= 0; i < pivot; i++)\n            nums[i] = 0;\n        for(int i= pivot; i < n; i++){\n            nums[(nums[i] - 1)&((1<<size) - 1)] |= (1<<size);\n        }\n        for(int i= 0; i < n; i++)\n            if((nums[i] & (1<<size)) == 0)\n                return i+1;\n        return n+1;\n    }\n}\n",
+    "cpp": "class Solution {\r\npublic:\r\n    int firstMissingPositive(vector<int>& nums) {\r\n        for(int i=0; i<nums.size(); i++){\r\n            if(i+1==nums[i]) continue;\r\n            int x = nums[i];\r\n            while(x>=1 && x<=nums.size() && x!=nums[x-1]){\r\n                swap(x, nums[x-1]);\r\n            }\r\n        }\r\n        for(int i=0; i<nums.size(); i++){\r\n            if(i+1!=nums[i])    return i+1;\r\n        }\r\n        return nums.size()+1;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0041-first-missing-positive.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0041-first-missing-positive.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0041-first-missing-positive.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0041-first-missing-positive.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "在未排序整数数组中寻找缺失的最小正整数，目标 O(n) 时间与 O(1) 额外空间。",
+  "explanation": "答案范围为 1 到 n+1。把范围内的数 x 交换到下标 x-1，重复值避免无限交换，再找第一个位置不匹配处。",
+  "memory": "把数组当作自己的哈希表：数字 x 的家在 x-1。"
+}

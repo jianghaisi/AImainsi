@@ -1,0 +1,58 @@
+{
+  "number": "3",
+  "adapter": {
+    "name": "lengthOfLongestSubstring",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "3"
+  },
+  "tests": [
+    {
+      "input": [
+        "abcabcbb"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "bbbbb"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "pwwkew"
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @return {number}\n */\nvar lengthOfLongestSubstring = function(s) {\n    \n};",
+    "java": "class Solution {\n    public int lengthOfLongestSubstring(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        charSet = set()\n        l = 0\n        res = 0\n\n        for r in range(len(s)):\n            while s[r] in charSet:\n                charSet.remove(s[l])\n                l += 1\n            charSet.add(s[r])\n            res = max(res, r - l + 1)\n        return res\n",
+    "javascript": "/**\n * https://leetcode.com/problems/longest-substring-without-repeating-characters/\n * Time O(N) | Space O(N)\n * @param {string} s\n * @return {number}\n */\n\nvar lengthOfLongestSubstring = function (s) {\n  const set = new Set();\n  let l = 0;\n  let max = 0;\n  for (let r = 0; r < s.length; r++) {\n    while (set.has(s[r])) {\n      set.delete(s[l]);\n      l++;\n    }\n    set.add(s[r]);\n    max = Math.max(max, set.size);\n  }\n  return max;\n};",
+    "java": "class Solution {\n\n    public int lengthOfLongestSubstring(String s) {\n            List<Character> substringL = new ArrayList<>();\n            int largestlength = 0;\n            for(int right = 0; right < s.length(); right++) {\n                if(substringL.contains(s.charAt(right))) { \n                    // get the index of the char\n                    int index = substringL.indexOf(s.charAt(right));\n                    substringL.remove(index);\n                    if(index > 0)\n                        substringL.subList(0, index).clear();\n                }\n                substringL.add(s.charAt(right));\n                largestlength = Math.max(largestlength, substringL.size());\n            }\n            return largestlength;\n    }\n}\n",
+    "cpp": "/*\n    Given string, find longest substring w/o repeating chars\n    Ex. s = \"abcabcbb\" -> 3 \"abc\", s = \"bbbbb\" -> 1 \"b\"\n\n    Sliding window, expand if unique, contract if duplicate\n\n    Time: O(n)\n    Space: O(n)\n*/\n/*\nclass Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        unordered_set<char> letters;\n        \n        int i = 0;\n        int j = 0;\n        \n        int result = 0;\n        \n        while (j < s.size()) {\n            if (letters.find(s[j]) == letters.end()) {\n                letters.insert(s[j]);\n                result = max(result, j - i + 1);\n                j++;\n            } else {\n                letters.erase(s[i]);\n                i++;\n            }\n        }\n        \n        return result;\n    }\n};\n*/\n// Same solution as above with the same amount of total iterations.\n// Above solution: no inner loop, but the \"j\" variable is not increased at each iteration\n// Below: inner loop increasing \"i\", outer loop increasing \"j\".\nclass Solution {\npublic:\n    int lengthOfLongestSubstring(string& s) {\n        unordered_set<char> chars;\n        int maxSize = 0;\n        int i = 0, j = 0;\n        while (j < s.size()){\n            while (chars.find(s[j]) != chars.end()){\n                chars.erase(s[i]);\n                ++i;\n            }\n            maxSize = max(maxSize, j - i + 1);\n            chars.insert(s[j]);\n            ++j;\n        }\n        return maxSize;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0003-longest-substring-without-repeating-characters.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0003-longest-substring-without-repeating-characters.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0003-longest-substring-without-repeating-characters.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0003-longest-substring-without-repeating-characters.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "求字符串中不包含重复字符的最长连续子串长度。子串必须连续。",
+  "explanation": "滑动窗口记录字符上次出现位置，左端取当前左端和重复位置后一位的较大值。左端只能向前。",
+  "memory": "看到重复字符就收缩，但不能把左端退回去；用 abba 自测。"
+}

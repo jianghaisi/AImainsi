@@ -1,0 +1,72 @@
+{
+  "number": "97",
+  "adapter": {
+    "name": "isInterleave",
+    "params": [
+      {
+        "name": "s1",
+        "type": "string"
+      },
+      {
+        "name": "s2",
+        "type": "string"
+      },
+      {
+        "name": "s3",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "97"
+  },
+  "tests": [
+    {
+      "input": [
+        "aabcc",
+        "dbbca",
+        "aadbbcbcac"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aabcc",
+        "dbbca",
+        "aadbbbaccc"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "",
+        "",
+        ""
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s1\n * @param {string} s2\n * @param {string} s3\n * @return {boolean}\n */\nvar isInterleave = function(s1, s2, s3) {\n    \n};",
+    "java": "class Solution {\n    public boolean isInterleave(String s1, String s2, String s3) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isInterleave(string s1, string s2, string s3) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:\n        if len(s1) + len(s2) != len(s3):\n            return False\n\n        dp = [[False] * (len(s2) + 1) for i in range(len(s1) + 1)]\n        dp[len(s1)][len(s2)] = True\n\n        for i in range(len(s1), -1, -1):\n            for j in range(len(s2), -1, -1):\n                if i < len(s1) and s1[i] == s3[i + j] and dp[i + 1][j]:\n                    dp[i][j] = True\n                if j < len(s2) and s2[j] == s3[i + j] and dp[i][j + 1]:\n                    dp[i][j] = True\n        return dp[0][0]\n",
+    "javascript": "var initMemo = (s1, s2) => new Array(s1.length).fill() /* Time O(N) | Space O(N) */.map(() => new Array(s2.length).fill(null)); /* Time O(M) | Space O(M) */\n\nvar dfs = (s1, s2, s3, i, j, k, memo) => {\n  const left = s3[k] === s1[i] && isInterleave(s1, s2, s3, i + 1, j, k + 1, memo); /* Time O(N) | Space O(HEIGHT) */\n  const right = s3[k] === s2[j] && isInterleave(s1, s2, s3, i, j + 1, k + 1, memo); /* Time O(M) | Space O(HEIGHT) */\n\n  memo[i][j] = left || right; /*           | Space O(N * M) */\n  return memo[i][j];\n};\n\n/**\n * DP - Bottom Up\n * Matrix - Tabulation\n * Time O(N * M) | Space O(N * M)\n * https://leetcode.com/problems/interleaving-string/\n * @param {string} s1\n * @param {string} s2\n * @param {string} s3\n * @return {boolean}\n */\n\n/**\n * DP - Bottom Up\n * Array - Tabulation\n * Time O(N * M) | Space O(M)\n * https://leetcode.com/problems/interleaving-string/\n * @param {string} s1\n * @param {string} s2\n * @param {string} s3\n * @return {boolean}\n */\nvar isInterleave = (s1, s2, s3) => {\n  const isBaseCase = s3.length !== s1.length + s2.length;\n  if (isBaseCase) return false;\n  const tabu = initTabu(s2); /* Time O(M)     | Space O(M) */\n\n  search(s1, s2, s3, tabu); /* Time O(N * M) | Space O(M) */\n\n  return tabu[s2.length];\n};\nvar initTabu = s2 => new Array(s2.length + 1).fill(false); /* Time O(M) | Space O(M) */\n\nvar search = (s1, s2, s3, tabu) => {\n  const [rows, cols] = [s1.length, s2.length];\n  for (let row = 0; row <= rows; row++) {\n    /* Time O(N)*/\n    for (let col = 0; col <= cols; col++) {\n      /* Time O(M)*/\n      tabu[col] = /* Space O(M)*/hasMatch(s1, s2, s3, row, col, tabu);\n    }\n  }\n};\nvar hasMatch = (s1, s2, s3, i, j, tabu) => {\n  const isBaseCase1 = i === 0 && j === 0;\n  if (isBaseCase1) return true;\n  const isBaseCase2 = i === 0;\n  if (isBaseCase2) return getRight(i, j, s2, s3, tabu);\n  const isBaseCase3 = j === 0;\n  if (isBaseCase3) return getLeft(i, j, s1, s3, tabu);\n  return getLeft(i, j, s1, s3, tabu) || getRight(i, j, s2, s3, tabu);\n};\nvar getLeft = (i, j, s1, s3, tabu) => tabu[j] && s1[i - 1] === s3[i + j - 1];\nvar getRight = (i, j, s2, s3, tabu) => tabu[j - 1] && s2[j - 1] === s3[i + j - 1];",
+    "java": "class Solution {\n\n    public boolean isInterleave(String s1, String s2, String s3) {\n        if (s1.length() + s2.length() != s3.length()) {\n            return false;\n        }\n\n        boolean[][] dp = new boolean[s1.length() + 1][s2.length() + 1];\n        dp[s1.length()][s2.length()] = true;\n\n        for (int i = dp.length - 1; i >= 0; i--) for (\n            int j = dp[0].length - 1;\n            j >= 0;\n            j--\n        ) {\n            if (\n                i < s1.length() &&\n                s1.charAt(i) == s3.charAt(i + j) &&\n                dp[i + 1][j]\n            ) {\n                dp[i][j] = true;\n            }\n            if (\n                j < s2.length() &&\n                s2.charAt(j) == s3.charAt(i + j) &&\n                dp[i][j + 1]\n            ) {\n                dp[i][j] = true;\n            }\n        }\n\n        return dp[0][0];\n    }\n}\n",
+    "cpp": "/*\n    Given 3 strings, find if s3 is formed by interleaving of s1 & s2\n    Ex. s1 = \"aabcc\", s2 = \"dbbca\", s3 = \"aadbbcbcac\" -> true\n\n    DFS + memo, cache on s1 & s2 indices i & j\n    2 choices: either take s1 & iterate i, or take s2 & iterate j\n\n    Time: O(m x n)\n    Space: O(m x n)\n*/\n\nclass Solution {\npublic:\n    bool isInterleave(string s1, string s2, string s3) {\n        if (s3.size() != s1.size() + s2.size()) {\n            return false;\n        }\n        return dfs(s1, s2, s3, 0, 0);\n    }\nprivate:\n    map<pair<int, int>, bool> dp;\n    \n    bool dfs(string s1, string s2, string s3, int i, int j) {\n        if (i == s1.size() && j == s2.size()) {\n            return true;\n        }\n        if (dp.find({i, j}) != dp.end()) {\n            return dp[{i, j}];\n        }\n        \n        if (i < s1.size() && s1[i] == s3[i + j] && dfs(s1, s2, s3, i + 1, j)) {\n            return true;\n        }\n        if (j < s2.size() && s2[j] == s3[i + j] && dfs(s1, s2, s3, i, j + 1)) {\n            return true;\n        }\n        \n        dp[{i, j}] = false;\n        return dp[{i, j}];\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0097-interleaving-string.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0097-interleaving-string.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0097-interleaving-string.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0097-interleaving-string.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断第三个字符串能否由前两个字符串交错组成，并保持各自内部顺序。",
+  "explanation": "dp[i][j] 表示两个前缀能否组成长度 i+j 的目标前缀。",
+  "memory": "先检查总长度；每一步只能从两个来源之一取下一字符。"
+}

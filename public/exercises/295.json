@@ -1,0 +1,93 @@
+{
+  "number": "295",
+  "adapter": {
+    "classname": "MedianFinder",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "params": [
+          {
+            "type": "integer",
+            "name": "num"
+          }
+        ],
+        "name": "addNum",
+        "return": {
+          "type": "void"
+        }
+      },
+      {
+        "params": [],
+        "name": "findMedian",
+        "return": {
+          "type": "double"
+        }
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "systemdesign": true,
+    "number": "295"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "MedianFinder",
+          "addNum",
+          "addNum",
+          "findMedian",
+          "addNum",
+          "findMedian"
+        ],
+        [
+          [],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [],
+          [
+            3
+          ],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        1.5,
+        null,
+        2
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class MedianFinder:\n\n    def __init__(self):\n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n    def addNum(self, num: int) -> None:\n        \n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n    def findMedian(self) -> float:\n        \n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n\n# Your MedianFinder object will be instantiated and called as such:\n# obj = MedianFinder()\n# obj.addNum(num)\n# param_2 = obj.findMedian()",
+    "javascript": "\nvar MedianFinder = function() {\n    \n};\n\n/** \n * @param {number} num\n * @return {void}\n */\nMedianFinder.prototype.addNum = function(num) {\n    \n};\n\n/**\n * @return {number}\n */\nMedianFinder.prototype.findMedian = function() {\n    \n};\n\n/** \n * Your MedianFinder object will be instantiated and called as such:\n * var obj = new MedianFinder()\n * obj.addNum(num)\n * var param_2 = obj.findMedian()\n */",
+    "java": "class MedianFinder {\n\n    public MedianFinder() {\n        \n    }\n    \n    public void addNum(int num) {\n        \n    }\n    \n    public double findMedian() {\n        \n    }\n}\n\n/**\n * Your MedianFinder object will be instantiated and called as such:\n * MedianFinder obj = new MedianFinder();\n * obj.addNum(num);\n * double param_2 = obj.findMedian();\n */",
+    "cpp": "class MedianFinder {\npublic:\n    MedianFinder() {\n        \n    }\n    \n    void addNum(int num) {\n        \n    }\n    \n    double findMedian() {\n        \n    }\n};\n\n/**\n * Your MedianFinder object will be instantiated and called as such:\n * MedianFinder* obj = new MedianFinder();\n * obj->addNum(num);\n * double param_2 = obj->findMedian();\n */"
+  },
+  "solutions": {
+    "python": "class MedianFinder:\n    def __init__(self):\n        \"\"\"\n        initialize your data structure here.\n        \"\"\"\n        # two heaps, large, small, minheap, maxheap\n        # heaps should be equal size\n        self.small, self.large = [], []  # maxHeap, minHeap (python default)\n\n    def addNum(self, num: int) -> None:\n        if self.large and num > self.large[0]:\n            heapq.heappush(self.large, num)\n        else:\n            heapq.heappush(self.small, -1 * num)\n\n        if len(self.small) > len(self.large) + 1:\n            val = -1 * heapq.heappop(self.small)\n            heapq.heappush(self.large, val)\n        if len(self.large) > len(self.small) + 1:\n            val = heapq.heappop(self.large)\n            heapq.heappush(self.small, -1 * val)\n\n    def findMedian(self) -> float:\n        if len(self.small) > len(self.large):\n            return -1 * self.small[0]\n        elif len(self.large) > len(self.small):\n            return self.large[0]\n        return (-1 * self.small[0] + self.large[0]) / 2.0\n",
+    "javascript": "/**\n * https://leetcode.com/problems/find-median-from-data-stream/\n * Your MedianFinder object will be instantiated and called as such:\n * var obj = new MedianFinder()\n * obj.addNum(num)\n * var param_2 = obj.findMedian()\n */\nclass MedianFinder {\n  constructor() {\n    this.maxHeap = new MaxPriorityQueue();\n    this.minHeap = new MinPriorityQueue();\n  }\n\n  /* Time O(log(N)) | Space (N) */\n  insertNum(num) {\n    this.addNum(num);\n  }\n  addNum(num, heap = this.getHeap(num)) {\n    heap.enqueue(num);\n    this.rebalance();\n  }\n  getHeap(num, {\n    maxHeap,\n    minHeap\n  } = this) {\n    const isFirst = maxHeap.isEmpty();\n    const isGreater = num <= this.top(maxHeap);\n    const isMaxHeap = isFirst || isGreater;\n    return isMaxHeap ? maxHeap : minHeap;\n  }\n  rebalance({\n    maxHeap,\n    minHeap\n  } = this) {\n    const canShiftMax = minHeap.size() + 1 < maxHeap.size();\n    if (canShiftMax) return minHeap.enqueue(maxHeap.dequeue().element);\n    const canShiftMin = maxHeap.size() < minHeap.size();\n    if (canShiftMin) return maxHeap.enqueue(minHeap.dequeue().element);\n  }\n\n  /* Time O(1) | Space (1) */\n  findMedian({\n    maxHeap,\n    minHeap\n  } = this) {\n    const isEven = maxHeap.size() === minHeap.size();\n    return isEven ? this.average(maxHeap, minHeap) : this.top(maxHeap);\n  }\n  average(maxHeap, minHeap) {\n    return (this.top(maxHeap) + this.top(minHeap)) / 2;\n  }\n  top(heap) {\n    return heap.front()?.element || 0;\n  }\n}",
+    "java": "class MedianFinder {\n\n    private Queue<Integer> smallHeap; //small elements - maxHeap\n    private Queue<Integer> largeHeap; //large elements - minHeap\n\n    public MedianFinder() {\n        smallHeap = new PriorityQueue<>((a, b) -> b - a);\n        largeHeap = new PriorityQueue<>((a, b) -> a - b);\n    }\n\n    public void addNum(int num) {\n        smallHeap.add(num);\n        if (\n            smallHeap.size() - largeHeap.size() > 1 ||\n            !largeHeap.isEmpty() &&\n            smallHeap.peek() > largeHeap.peek()\n        ) {\n            largeHeap.add(smallHeap.poll());\n        }\n        if (largeHeap.size() - smallHeap.size() > 1) {\n            smallHeap.add(largeHeap.poll());\n        }\n    }\n\n    public double findMedian() {\n        if (smallHeap.size() == largeHeap.size()) {\n            return (double) (largeHeap.peek() + smallHeap.peek()) / 2;\n        } else if (smallHeap.size() > largeHeap.size()) {\n            return (double) smallHeap.peek();\n        } else {\n            return (double) largeHeap.peek();\n        }\n    }\n}\n/**\n * Your MedianFinder object will be instantiated and called as such:\n * MedianFinder obj = new MedianFinder();\n * obj.addNum(num);\n * double param_2 = obj.findMedian();\n */\n",
+    "cpp": "/*\n    Implement data structure that gets the median from a data stream\n\n    Max heap of lower values & min heap of higher values, access to mids\n\n    Time: O(log n) + O(1)\n    Space: O(n)\n*/\n\nclass MedianFinder {\npublic:\n    MedianFinder() {\n        \n    }\n    \n    void addNum(int num) {\n        if (lower.empty()) {\n            lower.push(num);\n            return;\n        }\n        \n        if (lower.size() > higher.size()) {\n            if (lower.top() > num) {\n                higher.push(lower.top());\n                lower.pop();\n                lower.push(num);\n            } else {\n                higher.push(num);\n            }\n        } else {\n            if (num > higher.top()) {\n                lower.push(higher.top());\n                higher.pop();\n                higher.push(num);\n            } else {\n                lower.push(num);\n            }\n        }\n    }\n    \n    double findMedian() {\n        double result = 0.0;\n        \n        if (lower.size() == higher.size()) {\n            result = lower.top() + (higher.top() - lower.top()) / 2.0;\n        } else {\n            if (lower.size() > higher.size()) {\n                result = lower.top();\n            } else {\n                result = higher.top();\n            }\n        }\n        \n        return result;\n    }\nprivate:\n    priority_queue<int> lower;\n    priority_queue<int, vector<int>, greater<int>> higher;\n};\n\n/**\n * Your MedianFinder object will be instantiated and called as such:\n * MedianFinder* obj = new MedianFinder();\n * obj->addNum(num);\n * double param_2 = obj->findMedian();\n */\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0295-find-median-from-data-stream.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0295-find-median-from-data-stream.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0295-find-median-from-data-stream.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0295-find-median-from-data-stream.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "实现 addNum 和 findMedian，动态维护数据流中全部数的中位数。",
+  "explanation": "用最大堆存较小一半、最小堆存较大一半，保持堆大小差不超过一且左堆最大不超过右堆最小。",
+  "memory": "两堆分别守住中间的两个边界，先平衡顺序再平衡数量。"
+}

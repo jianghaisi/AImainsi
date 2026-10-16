@@ -1,0 +1,85 @@
+{
+  "number": "103",
+  "adapter": {
+    "name": "zigzagLevelOrder",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "list<list<integer>>",
+      "dealloc": true
+    },
+    "number": "103"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      ],
+      "expected": [
+        [
+          3
+        ],
+        [
+          20,
+          9
+        ],
+        [
+          15,
+          7
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          1
+        ]
+      ],
+      "expected": [
+        [
+          1
+        ]
+      ]
+    },
+    {
+      "input": [
+        []
+      ],
+      "expected": []
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def zigzagLevelOrder(self, root: TreeNode | None) -> list[list[int]]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @return {number[][]}\n */\nvar zigzagLevelOrder = function(root) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def zigzagLevelOrder(self, root):\n        levels, level, reverse = [], [root] if root else [], False\n        while level:\n            values = [node.val for node in level]\n            levels.append(values[::-1] if reverse else values)\n            level = [child for node in level for child in (node.left, node.right) if child]\n            reverse = not reverse\n        return levels\n",
+    "javascript": "/**\n * BFS\n * Time O(N) | Space O(N)\n * https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/\n * @param {TreeNode} root\n * @return {number[][]}\n */\nvar zigzagLevelOrder = root => {\n  const isEdgeBase = root === null;\n  if (isEdgeBase) return [];\n  return search(root); /* Time O(N) | Space O(N) */\n};\nvar search = (root, isZigZag = true, order = []) => {\n  const queue = new Queue([root]);\n  while (!queue.isEmpty()) {\n    /* Time O(N) */\n    const levels = [];\n    bfs(queue, isZigZag, levels); /* Time O(WIDTH) | Space O(WIDTH) */\n    order.push(levels); /*                 Space O(N) */\n    isZigZag = !isZigZag;\n  }\n  return order;\n};\nconst bfs = (queue, isZigZag, levels) => {\n  for (let level = queue.size(); 0 < level; level--) {\n    /* Time O(WIDTH) */\n    const {\n      left,\n      val,\n      right\n    } = queue.dequeue();\n    if (left) queue.enqueue(left); /* Space O(WIDTH) */\n    if (right) queue.enqueue(right); /* Space O(WIDTH) */\n\n    levels.push(val); /* Space O(N) */\n  }\n  if (!isZigZag) levels.reverse();\n};",
+    "java": "class Solution {\n    boolean reverse = false; // flag to detrmine the direction left or right\n    List<List<Integer>> sol = new ArrayList<List<Integer>>();\n    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {\n        if(root == null){return sol;}\n        Queue<TreeNode> queue = new LinkedList<>();\n        queue.add(root);\n        while( !queue.isEmpty()){  \n            List<Integer> temp = new ArrayList<Integer>();\n            int size =queue.size();\n            for(int i=0; i < size; i++){\n                TreeNode node = queue.poll();\n                temp.add(node.val);\n                if(node.left != null){\n                    queue.add(node.left);\n                }\n                if(node.right != null){\n                    queue.add(node.right);\n                }\n            }\n            if(reverse){\n                Collections.reverse(temp);\n            }\n            reverse = !reverse;\n            sol.add(temp);\n        }\n        return sol;\n    }\n\n}",
+    "cpp": "/*\n  Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. \n  (i.e., from left to right, then right to left for the next level and alternate between).\n\n  Ex. Input: root = [3,9,20,null,null,15,7]\n      Output: [[3],[20,9],[15,7]]\n\n  Time  : O(N)\n  Space : O(N)\n*/\n\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {\n        vector <vector <int>> v;\n        if(root == NULL)\n            return v;\n      \n        queue <TreeNode *> q;\n        q.push(root);\n        bool changeDirection = true;\n      \n        while(!q.empty()) {\n            vector <int> v1;\n            int siz = q.size();\n          \n            for(int i = 0 ; i < siz ; i++) {\n                if(changeDirection)\n                    v1.push_back(q.front() -> val);\n                else \n                    v1.insert(v1.begin(), q.front() -> val);\n              \n                if(q.front() -> left != NULL)\n                    q.push(q.front() -> left);\n                if(q.front() -> right != NULL)\n                    q.push(q.front() -> right);\n              \n                q.pop();\n            }\n            changeDirection = !changeDirection;\n            v.push_back(v1);\n        }\n        return v;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0103-binary-tree-zigzag-level-order-traversal.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0103-binary-tree-zigzag-level-order-traversal.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0103-binary-tree-zigzag-level-order-traversal.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "按层遍历二叉树，相邻两层读取方向相反。",
+  "explanation": "正常层序收集每层，再按层号反转奇数层。O(n)。",
+  "memory": "遍历方向与输出方向可以分开处理。"
+}

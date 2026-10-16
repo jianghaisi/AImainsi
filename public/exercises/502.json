@@ -1,0 +1,84 @@
+{
+  "number": "502",
+  "adapter": {
+    "name": "findMaximizedCapital",
+    "params": [
+      {
+        "name": "k",
+        "type": "integer"
+      },
+      {
+        "name": "w",
+        "type": "integer"
+      },
+      {
+        "name": "profits",
+        "type": "integer[]"
+      },
+      {
+        "name": "capital",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "502"
+  },
+  "tests": [
+    {
+      "input": [
+        2,
+        0,
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          0,
+          1,
+          1
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        3,
+        0,
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "expected": 6
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def findMaximizedCapital(self, k: int, w: int, profits: list[int], capital: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} k\n * @param {number} w\n * @param {number[]} profits\n * @param {number[]} capital\n * @return {number}\n */\nvar findMaximizedCapital = function(k, w, profits, capital) {\n    \n};",
+    "java": "class Solution {\n    public int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findMaximizedCapital(int k, int w, vector<int>& profits, vector<int>& capital) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def findMaximizedCapital(self, k: int, w: int, profits: List[int], capital: List[int]) -> int:\n        # O(nlogn)\n        maxProfit = [] # only projects we can afford\n        minCapital = [(c, p) for c, p in zip(capital, profits)]\n        heapq.heapify(minCapital)\n\n        for i in range(k):\n            \n            while minCapital and minCapital[0][0] <= w:\n                c, p = heapq.heappop(minCapital)\n                heapq.heappush(maxProfit, -1 * p)\n            if not maxProfit:\n                break\n            w += -1 * heapq.heappop(maxProfit)\n        return w\n",
+    "javascript": "/**\n * MaxPriorityQueue | Sorting\n * Time O(n*log(n)) | Space O(n)\n * https://leetcode.com/problems/ipo/description/\n * @param {number} k\n * @param {number} w\n * @param {number[]} profits\n * @param {number[]} capital\n * @return {number}\n */\nvar findMaximizedCapital = function (k, w, profits, capital) {\n  const maxQueue = new MaxPriorityQueue({\n    compare: (a, b) => {\n      return b[0] - a[0];\n    }\n  });\n  const minQueue = new MinPriorityQueue({\n    compare: (a, b) => {\n      return a[0] - b[0];\n    }\n  });\n  const pc = profits.map((profit, idx) => {\n    return [profit, capital[idx]];\n  });\n  for (let i = 0; i < pc.length; i++) {\n    minQueue.enqueue([pc[i][1], pc[i][0]]);\n  }\n  let cc = w;\n  while (k && (!maxQueue.isEmpty() || !minQueue.isEmpty())) {\n    // add all the project that we can take to maxQ\n    while (!minQueue.isEmpty() && cc >= minQueue.front()[0]) {\n      const curr = minQueue.dequeue();\n      maxQueue.enqueue([curr[1], curr[0]]);\n    }\n    if (!maxQueue.isEmpty()) {\n      cc += maxQueue.dequeue()[0];\n    }\n    k--;\n  }\n  return cc;\n};",
+    "java": "class Solution {\n    public int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {\n        // Max-heap for profits of affordable projects\n        Queue<Integer> maxProfit = new PriorityQueue<>(Comparator.reverseOrder());\n        \n        // Min-heap for (capital, profit) pairs\n        Queue<int[]> minCapital = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));\n        \n        for (int i = 0; i < capital.length; i++) {\n            minCapital.add(new int[] { capital[i], profits[i] });\n        }\n        \n        for (int i = 0; i < k; i++) {\n            // Add all affordable projects to the maxProfit heap\n            while (!minCapital.isEmpty() && minCapital.peek()[0] <= w) {\n                int[] project = minCapital.poll();\n                maxProfit.add(project[1]);\n            }\n            \n            // If there are no affordable projects, break\n            if (maxProfit.isEmpty()) {\n                break;\n            }\n            \n            // Select the project with the maximum profit\n            w += maxProfit.poll();\n        }\n        \n        return w;\n    }\n}\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0502-ipo.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0502-ipo.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0502-ipo.java"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "初始资金固定，最多选择 k 个项目，每个项目有资金门槛与利润，求最大最终资金。",
+  "explanation": "项目按门槛排序，将可做项目的利润放入大根堆，每轮选最大。",
+  "memory": "门槛仅限制可选资格，不从资金里扣除。"
+}

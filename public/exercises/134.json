@@ -1,0 +1,78 @@
+{
+  "number": "134",
+  "adapter": {
+    "name": "canCompleteCircuit",
+    "params": [
+      {
+        "name": "gas",
+        "type": "integer[]"
+      },
+      {
+        "name": "cost",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "134"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        [
+          3,
+          4,
+          5,
+          1,
+          2
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          2,
+          3,
+          4
+        ],
+        [
+          3,
+          4,
+          3
+        ]
+      ],
+      "expected": -1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def canCompleteCircuit(self, gas: list[int], cost: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} gas\n * @param {number[]} cost\n * @return {number}\n */\nvar canCompleteCircuit = function(gas, cost) {\n    \n};",
+    "java": "class Solution {\n    public int canCompleteCircuit(int[] gas, int[] cost) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:\n        start, end = len(gas) - 1, 0\n        total = gas[start] - cost[start]\n\n        while start >= end:\n            while total < 0 and start >= end:\n                start -= 1\n                total += gas[start] - cost[start]\n            if start == end:\n                return start\n            total += gas[end] - cost[end]\n            end += 1\n        return -1\n",
+    "javascript": "/**\n * @param {number[]} gas\n * @param {number[]} cost\n * @return {number}\n */\nvar canCompleteCircuit = function (gas, cost) {\n  let [totalTank, currTank, startingStation] = [0, 0, 0];\n  for (let i = 0; i < gas.length; i++) {\n    totalTank += gas[i] - cost[i];\n    currTank += gas[i] - cost[i];\n    const isEmpty = currTank < 0;\n    if (isEmpty) {\n      startingStation = i + 1;\n      currTank = 0;\n    }\n  }\n  return 0 <= totalTank ? startingStation : -1;\n};",
+    "java": "class Solution {\n\n    public int canCompleteCircuit(int[] gas, int[] cost) {\n        int sGas = 0, sCost = 0, res = 0, total = 0;\n        for (int i = 0; i < gas.length; i++) {\n            sGas += gas[i];\n            sCost += cost[i];\n        }\n        if (sGas < sCost) return -1;\n        for (int i = 0; i < gas.length; i++) {\n            total += gas[i] - cost[i];\n            if (total < 0) {\n                total = 0;\n                res = i + 1;\n            }\n        }\n        return res;\n    }\n}\n",
+    "cpp": "/*\n    Gas stations along circular route, return where to start to complete 1 trip\n    Ex. gas = [1,2,3,4,5] cost = [3,4,5,1,2] -> index 3 (station 4), tank = 4,8,7,6,5\n\n    At a start station, if total ever becomes negative won't work, try next station\n\n    Time: O(n)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {\n        int n = gas.size();\n        \n        int totalGas = 0;\n        int totalCost = 0;\n        for (int i = 0; i < n; i++) {\n            totalGas += gas[i];\n            totalCost += cost[i];\n        }\n        if (totalGas < totalCost) {\n            return -1;\n        }\n        \n        int total = 0;\n        int result = 0;\n        \n        for (int i = 0; i < n; i++) {\n            total += gas[i] - cost[i];\n            if (total < 0) {\n                total = 0;\n                result = i + 1;\n            }\n        }\n        \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0134-gas-station.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0134-gas-station.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0134-gas-station.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0134-gas-station.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "环路上每站可补油并需消耗油去下一站，找能绕一圈的起点，不存在返回 -1。",
+  "explanation": "总油量不足则无解；局部油量变负时，从下一站重新开始。O(n)。",
+  "memory": "失败区间内任意起点都不能越过终点，所以整段跳过。"
+}

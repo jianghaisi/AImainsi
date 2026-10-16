@@ -1,0 +1,56 @@
+{
+  "number": "394",
+  "adapter": {
+    "name": "decodeString",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "394"
+  },
+  "tests": [
+    {
+      "input": [
+        "3[a]2[bc]"
+      ],
+      "expected": "aaabcbc"
+    },
+    {
+      "input": [
+        "3[a2[c]]"
+      ],
+      "expected": "accaccacc"
+    },
+    {
+      "input": [
+        "2[abc]3[cd]ef"
+      ],
+      "expected": "abcabccdcdcdef"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def decodeString(self, s: str) -> str:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @return {string}\n */\nvar decodeString = function(s) {\n    \n};",
+    "java": "class Solution {\n    public String decodeString(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string decodeString(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def decodeString(self, s: str) -> str:\n        stack = []\n\n        for char in s:\n            if char is not \"]\":\n                stack.append(char)\n            else:\n                sub_str = \"\"\n                while stack[-1] is not \"[\":\n                    sub_str = stack.pop() + sub_str\n                stack.pop()\n\n                multiplier = \"\"\n                while stack and stack[-1].isdigit():\n                    multiplier = stack.pop() + multiplier\n\n                stack.append(int(multiplier) * sub_str)\n\n        return \"\".join(stack)\n",
+    "java": "class Solution {\n    \n    int index = 0; \n    \n    public String decodeString(String s) {\n        \n        StringBuilder decoded = new StringBuilder();\n        while (index < s.length() && s.charAt(index) != ']') {\n            \n            // character is a letter of encoded\n            if (!Character.isDigit(s.charAt(index))) decoded.append(s.charAt(index++));\n            \n            // character is number or [ ]\n            else {\n                int k = 0;\n                \n                // case: number\n                while (index < s.length() && Character.isDigit(s.charAt(index))) k = k * 10 + s.charAt(index++) - '0';\n                \n                // case: [\n                index++;\n                String answer = decodeString(s);\n                \n                // case: ]\n                index++;\n                \n                // add k*encoded to decoded\n                while (k-- > 0) decoded.append(answer);\n            }\n        }\n        return new String(decoded);\n    }\n}\n",
+    "cpp": "class Solution {\npublic:\n    string decodeString(string s) {\n        stack<string> stack;\n        string result;\n\n        for (int i = 0; i < s.length(); i++) {\n            if (s[i] != ']') {\n                stack.push(string(1, s[i]));\n            } else {\n                string substr;\n                while (!stack.empty() && stack.top() != \"[\") {\n                    substr = stack.top() + substr;\n                    stack.pop();\n                }\n                stack.pop();\n\n                string k;\n                while (!stack.empty() && isdigit(stack.top()[0])) {\n                    k = stack.top() + k;\n                    stack.pop();\n                }\n                int kInt = stoi(k);\n\n                string temp;\n                for (int j = 0; j < kInt; j++) {\n                    temp += substr;\n                }\n                stack.push(temp);\n            }\n        }\n\n        while (!stack.empty()) {\n            result = stack.top() + result;\n            stack.pop();\n        }\n\n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0394-decode-string.py",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0394-decode-string.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0394-decode-string.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "解码形如 3[a2[c]] 的字符串，整数表示紧随括号内容的重复次数，可嵌套。",
+  "explanation": "数字累积成次数，左括号保存外层字符串与次数，右括号合成当前段并回到外层。",
+  "memory": "栈中存“外层状态”，右括号意味着完成并合并一层。"
+}

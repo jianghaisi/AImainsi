@@ -1,0 +1,122 @@
+{
+  "number": "79",
+  "adapter": {
+    "name": "exist",
+    "params": [
+      {
+        "name": "board",
+        "type": "character[][]"
+      },
+      {
+        "name": "word",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "79"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            "A",
+            "B",
+            "C",
+            "E"
+          ],
+          [
+            "S",
+            "F",
+            "C",
+            "S"
+          ],
+          [
+            "A",
+            "D",
+            "E",
+            "E"
+          ]
+        ],
+        "ABCCED"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          [
+            "A",
+            "B",
+            "C",
+            "E"
+          ],
+          [
+            "S",
+            "F",
+            "C",
+            "S"
+          ],
+          [
+            "A",
+            "D",
+            "E",
+            "E"
+          ]
+        ],
+        "SEE"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          [
+            "A",
+            "B",
+            "C",
+            "E"
+          ],
+          [
+            "S",
+            "F",
+            "C",
+            "S"
+          ],
+          [
+            "A",
+            "D",
+            "E",
+            "E"
+          ]
+        ],
+        "ABCB"
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def exist(self, board: list[list[str]], word: str) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {character[][]} board\n * @param {string} word\n * @return {boolean}\n */\nvar exist = function(board, word) {\n    \n};",
+    "java": "class Solution {\n    public boolean exist(char[][] board, String word) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool exist(vector<vector<char>>& board, string word) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def exist(self, board: List[List[str]], word: str) -> bool:\n        ROWS, COLS = len(board), len(board[0])\n        path = set()\n\n        def dfs(r, c, i):\n            if i == len(word):\n                return True\n            if (\n                min(r, c) < 0\n                or r >= ROWS\n                or c >= COLS\n                or word[i] != board[r][c]\n                or (r, c) in path\n            ):\n                return False\n            path.add((r, c))\n            res = (\n                dfs(r + 1, c, i + 1)\n                or dfs(r - 1, c, i + 1)\n                or dfs(r, c + 1, i + 1)\n                or dfs(r, c - 1, i + 1)\n            )\n            path.remove((r, c))\n            return res\n\n        # To prevent TLE,reverse the word if frequency of the first letter is more than the last letter's\n        count = sum(map(Counter, board), Counter())\n        if count[word[0]] > count[word[-1]]:\n            word = word[::-1]\n            \n        for r in range(ROWS):\n            for c in range(COLS):\n                if dfs(r, c, 0):\n                    return True\n        return False\n\n    # O(n * m * 4^n)\n",
+    "javascript": "/**\n * https://leetcode.com/problems/word-search/\n * Time O(N * 3^L) | Space O(L)\n * @param {character[][]} board\n * @param {string} word\n * @return {boolean}\n */\nvar exist = function (board, word) {\n  for (let row = 0; row < board.length; row++) {\n    for (let col = 0; col < board[0].length; col++) {\n      if (dfs(board, row, col, word, 0)) return true;\n    }\n  }\n  return false;\n};\nconst dfs = (board, row, col, word, index) => {\n  if (index === word.length) return true;\n  if (isOutOfBound(board, row, col)) return false;\n  if (board[row][col] !== word[index]) return false;\n  board[row][col] = '*';\n  const hasWord = Object.values(directions(row, col)).filter(([r, c]) => dfs(board, r, c, word, index + 1)).length;\n  board[row][col] = word[index];\n  return hasWord;\n};\nconst isOutOfBound = (board, row, col) => {\n  const isRowOutOfBound = row < 0 || board.length - 1 < row;\n  const isColOutOfBound = col < 0 || board[0].length - 1 < col;\n  return isRowOutOfBound || isColOutOfBound;\n};\nconst directions = (row, col) => ({\n  up: [row - 1, col],\n  down: [row + 1, col],\n  left: [row, col - 1],\n  right: [row, col + 1]\n});",
+    "java": "//This is a typical backtracking problem similar to Number of Islands.\n//In number of Isalnds, we sinked the islands. Here, we will do the same by adding changing the value of the char.\n//I added 100 because it will exceed the ascii limit for characters and will change it to some ascii value which is not an alphabet.\n\nclass Solution {\n\n    public boolean exist(char[][] board, String word) {\n        int m = board.length;\n        int n = board[0].length;\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                if (check(board, word, i, j, m, n, 0)) {\n                    return true;\n                }\n            }\n        }\n        return false;\n    }\n\n    public boolean check(\n        char[][] board,\n        String word,\n        int i,\n        int j,\n        int m,\n        int n,\n        int cur\n    ) {\n        if (cur >= word.length()) return true;\n        if (\n            i < 0 ||\n            j < 0 ||\n            i >= m ||\n            j >= n ||\n            board[i][j] != word.charAt(cur)\n        ) return false;\n        boolean exist = false;\n        if (board[i][j] == word.charAt(cur)) {\n            board[i][j] += 100;\n            exist =\n                check(board, word, i + 1, j, m, n, cur + 1) ||\n                check(board, word, i, j + 1, m, n, cur + 1) ||\n                check(board, word, i - 1, j, m, n, cur + 1) ||\n                check(board, word, i, j - 1, m, n, cur + 1);\n            board[i][j] -= 100;\n        }\n        return exist;\n    }\n}\n",
+    "cpp": "/*\n    Given a char board & a word, return true if word exists in the grid\n\n    DFS traversal, set visited cells to '#', search in 4 directions, backtrack\n\n    Time: O(n x 3^l) -> n = # of cells, l = length of word\n    Space: O(l)\n*/\n\nclass Solution {\npublic:\n    bool exist(vector<vector<char>>& board, string word) {\n        int m = board.size();\n        int n = board[0].size();\n        \n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                if (board[i][j] == word[0]) {\n                    if (dfs(board, word, 0, i, j, m, n)) {\n                        return true;\n                    }\n                }\n            }\n        }\n        \n        return false;\n    }\nprivate:\n    bool dfs(vector<vector<char>>& board, string word,\n        int index, int i, int j, int m, int n) {\n        \n        if (i < 0 || i >= m || j < 0 || j >= n || board[i][j] != word[index]) {\n            return false;\n        }\n        if (index == word.size() - 1) {\n            return true;\n        }\n        \n        board[i][j] = '#';\n        \n        if (dfs(board, word, index + 1, i - 1, j, m, n)\n            || dfs(board, word, index + 1, i + 1, j, m, n)\n            || dfs(board, word, index + 1, i, j - 1, m, n)\n            || dfs(board, word, index + 1, i, j + 1, m, n)) {\n            return true;\n        }\n        \n        board[i][j] = word[index];\n        return false;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0079-word-search.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0079-word-search.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0079-word-search.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0079-word-search.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断字符网格中能否通过上下左右相邻移动拼出 word，同一格在一次路径中只能使用一次。",
+  "explanation": "从可能起点 DFS，匹配字符后标记已访问，搜索结束恢复。越界、字符不符和重复访问立即失败。",
+  "memory": "同一路径不能重用，但不同起点必须能重新访问，所以要恢复。"
+}

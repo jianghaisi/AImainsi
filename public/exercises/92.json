@@ -1,0 +1,82 @@
+{
+  "number": "92",
+  "adapter": {
+    "name": "reverseBetween",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode",
+        "dealloc": false
+      },
+      {
+        "name": "left",
+        "type": "integer"
+      },
+      {
+        "name": "right",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "ListNode",
+      "dealloc": true
+    },
+    "number": "92"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        2,
+        4
+      ],
+      "expected": [
+        1,
+        4,
+        3,
+        2,
+        5
+      ]
+    },
+    {
+      "input": [
+        [
+          5
+        ],
+        1,
+        1
+      ],
+      "expected": [
+        5
+      ]
+    }
+  ],
+  "starters": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def reverseBetween(self, head: ListNode | None, left: int, right: int) -> ListNode | None:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @param {number} left\n * @param {number} right\n * @return {ListNode}\n */\nvar reverseBetween = function(head, left, right) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode reverseBetween(ListNode head, int left, int right) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* reverseBetween(ListNode* head, int left, int right) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def reverseBetween(\n        self, head: Optional[ListNode], left: int, right: int\n    ) -> Optional[ListNode]:\n        dummy = ListNode(0, head)\n\n        # 1) reach node at position \"left\"\n        leftPrev, cur = dummy, head\n        for i in range(left - 1):\n            leftPrev, cur = cur, cur.next\n\n        # Now cur=\"left\", leftPrev=\"node before left\"\n        # 2) reverse from left to right\n        prev = None\n        for i in range(right - left + 1):\n            tmpNext = cur.next\n            cur.next = prev\n            prev, cur = cur, tmpNext\n\n        # 3) Update pointers\n        leftPrev.next.next = cur  # cur is node after \"right\"\n        leftPrev.next = prev  # prev is \"right\"\n        return dummy.next\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @param {number} left\n * @param {number} right\n * @return {ListNode}\n */\nvar reverseBetween = function (head, left, right) {\n  if (!head || !head.next || left === right) {\n    return head;\n  }\n  let idx = 1;\n  let prevLower = null;\n  let curLower = head;\n  while (curLower && idx < left) {\n    prevLower = curLower;\n    curLower = curLower.next;\n    idx++;\n  }\n  let storedPrevLower = prevLower;\n  let storedCurLower = curLower;\n  let prevPtr = null;\n  let tmpPtr = null;\n  while (curLower && idx <= right) {\n    tmpPtr = curLower.next;\n    curLower.next = prevPtr;\n    prevPtr = curLower;\n    curLower = tmpPtr;\n    idx++;\n  }\n  if (storedPrevLower) {\n    storedPrevLower.next = prevPtr;\n  }\n  storedCurLower.next = curLower;\n  return storedPrevLower ? head : prevPtr;\n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n  public ListNode reverseBetween(ListNode head, int left, int right) {\n\n    if (head == null || head.next == null) {\n      return head;\n    }\n\n    if (left > right || left == right) {\n      return head;\n    }\n\n    ListNode l = head;\n    ListNode prevL = null;\n    ListNode r = head;\n    ListNode nextR = null;\n    int posL = 1;\n    int posR = 1;\n\n    while (posL != left) {\n      prevL = l;\n      l = l.next;\n      posL++;\n    }\n\n    while (posR != right) {\n      r = r.next;\n      posR++;\n    }\n\n    nextR = r.next;\n    r.next = null;\n    ListNode node = reverseList(l);\n    node.next = nextR;\n    if (prevL == null) {\n      head = r;\n    } else {\n      prevL.next = r;\n    }\n    return head;\n  }\n\n  public ListNode reverseList(ListNode l) {\n    if (l.next == null) {\n      return l;\n    }\n    ListNode newNode = reverseList(l.next);\n    newNode.next = l;\n    l.next = null;\n    return l;\n  }\n}\n",
+    "cpp": "/*\n    Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.\n    \n    Time complexity: O(n)\n    Space complexity: O(1)\n*/\nclass Solution {\npublic:\n    ListNode* reverseBetween(ListNode* head, int left, int right) {\n        ListNode* dummy = new ListNode();\n        dummy->next = head;\n\n        int i=0;\n        ListNode* leftConnector = dummy,*temp = head;\n        while(i<left-1){\n            leftConnector = temp;\n            temp = temp->next;\n            i++;\n        }\n        ListNode* prev = NULL;\n        i=0;\n        while(i<right-left+1){\n            ListNode* store = temp->next;\n            temp->next = prev;\n            prev = temp;\n            temp = store;\n            i++;\n        }\n        leftConnector->next->next = temp;\n        leftConnector->next = prev;\n\n        return dummy->next;\n    }\n};"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0092-reverse-linked-list-ii.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0092-reverse-linked-list-ii.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0092-reverse-linked-list-ii.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0092-reverse-linked-list-ii.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "将链表从第 left 到第 right 个节点原地反转。",
+  "explanation": "哨兵定位反转段之前，反复将段内后继搬到段首。O(n)。",
+  "memory": "抓住段前节点不动；每轮头插一个节点。"
+}

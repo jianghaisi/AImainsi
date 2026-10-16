@@ -1,0 +1,65 @@
+{
+  "number": "1768",
+  "adapter": {
+    "name": "mergeAlternately",
+    "params": [
+      {
+        "name": "word1",
+        "type": "string"
+      },
+      {
+        "type": "string",
+        "name": "word2"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "1768"
+  },
+  "tests": [
+    {
+      "input": [
+        "abc",
+        "pqr"
+      ],
+      "expected": "apbqcr"
+    },
+    {
+      "input": [
+        "ab",
+        "pqrs"
+      ],
+      "expected": "apbqrs"
+    },
+    {
+      "input": [
+        "abcd",
+        "pq"
+      ],
+      "expected": "apbqcd"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def mergeAlternately(self, word1: str, word2: str) -> str:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} word1\n * @param {string} word2\n * @return {string}\n */\nvar mergeAlternately = function(word1, word2) {\n    \n};",
+    "java": "class Solution {\n    public String mergeAlternately(String word1, String word2) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string mergeAlternately(string word1, string word2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def mergeAlternately(self, word1: str, word2: str) -> str:\n        i = j = 0\n        res = []\n\n        while i < len(word1) and j < len(word2):\n            res.append(word1[i])\n            res.append(word2[j])\n            i += 1\n            j += 1\n        res.append(word1[i:])\n        res.append(word2[j:])\n        return ''.join(res)\n\n",
+    "javascript": "// Time complexity: O(n)\n// Space complexity: O(n)\n\nvar mergeAlternately = function (word1, word2) {\n  const buffer = [];\n  for (let i = 0; i < word1.length || i < word2.length; i++) {\n    if (i < word1.length) buffer.push(word1[i]);\n    if (i < word2.length) buffer.push(word2[i]);\n  }\n  return buffer.join('');\n};",
+    "java": "class Solution {\n    public String mergeAlternately(String word1, String word2) {\n        int i = 0;\n        StringBuilder res = new StringBuilder();\n\n        while (i < word1.length() || i < word2.length()) {\n            if (i < word1.length()) {\n                res.append(word1.charAt(i));\n            }\n            if (i < word2.length()) {\n                res.append(word2.charAt(i));\n            }\n            i++;\n        }\n\n        return res.toString();\n    }\n}\n\n/**\n * Time Complexity : O(n+m)\n * Space Complexity : O(n+m)\n */",
+    "cpp": "class Solution {\r\npublic:\r\n    string mergeAlternately(string word1, string word2)\r\n    {\r\n        int i=0;\r\n        string final=\"\";\r\n\r\n        while(i < word1.size() && i < word2.size())\r\n            final = final + word1[i] + word2[i++];\r\n\r\n        while(i < word1.size())\r\n            final += word1[i++];\r\n        while(i < word2.size())\r\n            final += word2[i++];\r\n\r\n        return final;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/1768-merge-strings-alternately.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/1768-merge-strings-alternately.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/1768-merge-strings-alternately.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/1768-merge-strings-alternately.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "交替取两个字符串的字符组成新串，某串用完后追加另一串剩余部分。",
+  "explanation": "按位置扫描两串，存在的字符依次追加。O(n+m)。",
+  "memory": "交替的是单个字符，长度不等时不要截断尾部。"
+}

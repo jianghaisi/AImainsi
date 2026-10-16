@@ -1,0 +1,97 @@
+{
+  "number": "210",
+  "adapter": {
+    "name": "findOrder",
+    "params": [
+      {
+        "name": "numCourses",
+        "type": "integer"
+      },
+      {
+        "name": "prerequisites",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "210"
+  },
+  "tests": [
+    {
+      "input": [
+        2,
+        [
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        0,
+        1
+      ]
+    },
+    {
+      "input": [
+        4,
+        [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ]
+        ]
+      ],
+      "expected": [
+        0,
+        2,
+        1,
+        3
+      ]
+    },
+    {
+      "input": [
+        1,
+        []
+      ],
+      "expected": [
+        0
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def findOrder(self, numCourses: int, prerequisites: list[list[int]]) -> list[int]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} numCourses\n * @param {number[][]} prerequisites\n * @return {number[]}\n */\nvar findOrder = function(numCourses, prerequisites) {\n    \n};",
+    "java": "class Solution {\n    public int[] findOrder(int numCourses, int[][] prerequisites) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:\n        prereq = {c: [] for c in range(numCourses)}\n        for crs, pre in prerequisites:\n            prereq[crs].append(pre)\n\n        output = []\n        visit, cycle = set(), set()\n\n        def dfs(crs):\n            if crs in cycle:\n                return False\n            if crs in visit:\n                return True\n\n            cycle.add(crs)\n            for pre in prereq[crs]:\n                if dfs(pre) == False:\n                    return False\n            cycle.remove(crs)\n            visit.add(crs)\n            output.append(crs)\n            return True\n\n        for c in range(numCourses):\n            if dfs(c) == False:\n                return []\n        return output\n",
+    "javascript": "function findOrder(numCourses, prerequisites) {\n  const edges = Array.from({ length: numCourses }, () => []),\n    degree = Array(numCourses).fill(0);\n  for (const [to, from] of prerequisites) {\n    edges[from].push(to);\n    degree[to]++;\n  }\n  const queue = [];\n  degree.forEach((d, i) => {\n    if (!d) queue.push(i);\n  });\n  for (let i = 0; i < queue.length; i++)\n    for (const next of edges[queue[i]]) if (--degree[next] === 0) queue.push(next);\n  return queue.length === numCourses ? queue : [];\n}\n",
+    "java": "class Solution {\n\n    public int[] findOrder(int numCourses, int[][] prerequisites) {\n        Map<Integer, List<Integer>> adjList = new HashMap<Integer, List<Integer>>();\n        int[] indegree = new int[numCourses];\n        int[] topologicalOrder = new int[numCourses];\n\n        //creating the adjlist\n        for (int i = 0; i < prerequisites.length; i++) {\n            int post = prerequisites[i][0];\n            int pre = prerequisites[i][1];\n            List<Integer> lst = adjList.getOrDefault(\n                pre,\n                new ArrayList<Integer>()\n            );\n            lst.add(post);\n            adjList.put(pre, lst);\n\n            indegree[post] += 1;\n        }\n\n        Queue<Integer> q = new LinkedList<Integer>();\n        for (int i = 0; i < numCourses; i++) {\n            if (indegree[i] == 0) {\n                q.add(i);\n            }\n        }\n\n        int i = 0;\n        while (!q.isEmpty()) {\n            int node = q.remove();\n            topologicalOrder[i++] = node;\n\n            if (adjList.containsKey(node)) {\n                for (Integer neighbor : adjList.get(node)) {\n                    indegree[neighbor]--;\n\n                    if (indegree[neighbor] == 0) {\n                        q.add(neighbor);\n                    }\n                }\n            }\n        }\n\n        if (i == numCourses) {\n            return topologicalOrder;\n        }\n\n        return new int[0];\n    }\n}\n",
+    "cpp": "/*\n    Courses & prerequisites, return ordering of courses to take to finish all courses\n    Ex. numCourses = 2, prerequisites = [[1,0]] -> [0,1], take course 0 then 1\n\n    All courses can be completed if there's no cycle, check for cycles\n\n    Time: O(V + E)\n    Space: O(V + E)\n*/\n\nclass Solution {\npublic:\n    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {\n        unordered_map<int, vector<int>> m;\n        // build adjacency list of prereqs\n        for (int i = 0; i < prerequisites.size(); i++) {\n            m[prerequisites[i][0]].push_back(prerequisites[i][1]);\n        }\n        unordered_set<int> visit;\n        unordered_set<int> cycle;\n        \n        vector<int> result;\n        for (int course = 0; course < numCourses; course++) {\n            if (!dfs(course, m, visit, cycle, result)) {\n                return {};\n            }\n        }\n        return result;\n    }\nprivate:\n    // a course has 3 possible states:\n    // visited -> course added to result\n    // visiting -> course not added to result, but added to cycle\n    // unvisited -> course not added to result or cycle\n    bool dfs(int course, unordered_map<int, vector<int>>& m, unordered_set<int>& visit,\n        unordered_set<int>& cycle, vector<int>& result) {\n        \n        if (cycle.find(course) != cycle.end()) {\n            return false;\n        }\n        if (visit.find(course) != visit.end()) {\n            return true;\n        }\n        cycle.insert(course);\n        for (int i = 0; i < m[course].size(); i++) {\n            int nextCourse = m[course][i];\n            if (!dfs(nextCourse, m, visit, cycle, result)) {\n                return false;\n            }\n        }\n        cycle.erase(course);\n        visit.insert(course);\n        result.push_back(course);\n        return true;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0210-course-schedule-ii.py",
+    "javascript": "序列原创适配",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0210-course-schedule-ii.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0210-course-schedule-ii.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "课程有先修依赖，返回一种可完成所有课程的顺序，有环返回空数组。",
+  "explanation": "统计入度，依次输出零入度课程并削减后继入度。O(V+E)。",
+  "memory": "输出数量等于课程数才表示无环。"
+}

@@ -1,0 +1,62 @@
+{
+  "number": "84",
+  "adapter": {
+    "name": "largestRectangleArea",
+    "params": [
+      {
+        "name": "heights",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "84"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          1,
+          5,
+          6,
+          2,
+          3
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        [
+          2,
+          4
+        ]
+      ],
+      "expected": 4
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def largestRectangleArea(self, heights: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} heights\n * @return {number}\n */\nvar largestRectangleArea = function(heights) {\n    \n};",
+    "java": "class Solution {\n    public int largestRectangleArea(int[] heights) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int largestRectangleArea(vector<int>& heights) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def largestRectangleArea(self, heights: List[int]) -> int:\n        maxArea = 0\n        stack = []  # pair: (index, height)\n\n        for i, h in enumerate(heights):\n            start = i\n            while stack and stack[-1][1] > h:\n                index, height = stack.pop()\n                maxArea = max(maxArea, height * (i - index))\n                start = index\n            stack.append((start, h))\n\n        for i, h in stack:\n            maxArea = max(maxArea, h * (len(heights) - i))\n        return maxArea\n",
+    "javascript": "const divideAndConquer = (heights, left, right, min = left) => {\n  for (let i = left; i <= right; i++) {\n    /* Time O(N) */\n    const isMinGreater = heights[i] < heights[min];\n    if (!isMinGreater) continue;\n    min = i;\n  }\n  const window = right - left + 1;\n  const area = heights[min] * window;\n  const leftArea = largestRectangleArea(heights, min + 1, right); /* Time O(N^2) | Space O(N) */\n  const rightArea = largestRectangleArea(heights, left, min - 1); /* Time O(N^2) | Space O(N) */\n\n  return Math.max(area, leftArea, rightArea);\n};\n\n/**\n * https://leetcode.com/problems/largest-rectangle-in-histogram/solution/\n * Time O(N) | Space O(N)\n * @param {number[]} heights\n * @return {number}\n */\nvar largestRectangleArea = function (heights) {\n  const {\n    stack,\n    maxArea\n  } = fillStack(heights); /* Time O(N) | Space O(N) */\n\n  return getMaxArea(heights, stack, maxArea); /* Time O(N) */\n};\nconst fillStack = (heights, stack = [], maxArea = 0) => {\n  for (let index = 0; index < heights.length; index++) {\n    /* Time O(N + N) */\n    let start = index;\n    const isCurrHeightLess = ([prevIndex, prevHeight], currHeight) => currHeight < prevHeight;\n    const canShrink = () => isCurrHeightLess(stack[stack.length - 1], heights[index]);\n    while (stack.length && canShrink()) {\n      /* Time O(N + N) */\n      const [_index, _height] = stack.pop();\n      const width = index - _index;\n      const area = _height * width;\n      maxArea = Math.max(maxArea, area);\n      start = _index;\n    }\n    stack.push([start, heights[index]]); /* Space O(N) */\n  }\n  return {\n    stack,\n    maxArea\n  };\n};\nconst getMaxArea = (heights, stack, maxArea) => {\n  for (const [index, height] of stack) {\n    /* Time O(N) */\n    const width = heights.length - index;\n    const area = height * width;\n    maxArea = Math.max(maxArea, area);\n  }\n  return maxArea;\n};",
+    "java": "class Solution {\n    public int largestRectangleArea(int[] heights) {\n      int area = 0, n = heights.length;\n      int start;\n      Stack<Pair<Integer,Integer>> stack = new Stack<>();\n      for(int i=0;i<heights.length;i++){\n         int curHt =heights[i];\n         start = i;\n        while(!stack.isEmpty() && stack.peek().getValue() > curHt){\n          Pair<Integer,Integer> pair = stack.pop();\n          int index = pair.getKey();\n          int h = pair.getValue();\n          area = Math.max(area, h * (i - index));\n          start = index;\n        }\n        stack.push(new Pair(start,curHt));\n      }\n      \n       while(!stack.isEmpty()){\n          Pair<Integer,Integer> pair = stack.pop();\n          int index = pair.getKey();\n          int h = pair.getValue();\n          area = Math.max(area, h * (n - index));\n       }\n        return area;\n    }\n  \n}\n",
+    "cpp": "/*\nGiven array of heights, return area of largest rectangle\nEx. heights = [2,1,5,6,2,3] -> 10 (5 x 2 at index 2 and 3)\n\nMonotonic incr stack, if curr height lower extend back, find max area\n\nTime: O(n)\nSpace: O(n)\n*/\n\nclass Solution {\npublic:\n    int largestRectangleArea(vector<int>& heights) {\n        // pair: [index, height]\n        stack<pair<int, int>> stk;\n        int result = 0;\n        \n        for (int i = 0; i < heights.size(); i++) {\n            int start = i;\n            \n            while (!stk.empty() && stk.top().second > heights[i]) {\n                int index = stk.top().first;\n                int width = i - index;\n                int height = stk.top().second;\n                stk.pop();\n                \n                result = max(result, height * width);\n                start = index;\n            }\n            \n            stk.push({start, heights[i]});\n        }\n        \n        while (!stk.empty()) {\n            int width = heights.size() - stk.top().first;\n            int height = stk.top().second;\n            stk.pop();\n            \n            result = max(result, height * width);\n        }\n                          \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0084-largest-rectangle-in-histogram.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0084-largest-rectangle-in-histogram.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0084-largest-rectangle-in-histogram.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0084-largest-rectangle-in-histogram.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "柱状图每柱宽一，求完全位于柱形范围内的最大矩形面积。",
+  "explanation": "单调递增栈记录高度位置，遇到更矮柱时结算被弹出高度能覆盖的最大宽度。两端哨兵简化收尾。",
+  "memory": "弹出时，当前下标是右边界，新栈顶是左边界。"
+}

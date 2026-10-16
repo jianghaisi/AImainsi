@@ -1,0 +1,85 @@
+{
+  "number": "105",
+  "adapter": {
+    "name": "buildTree",
+    "params": [
+      {
+        "name": "preorder",
+        "type": "integer[]"
+      },
+      {
+        "name": "inorder",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "TreeNode",
+      "dealloc": true
+    },
+    "number": "105"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          9,
+          20,
+          15,
+          7
+        ],
+        [
+          9,
+          3,
+          15,
+          20,
+          7
+        ]
+      ],
+      "expected": [
+        3,
+        9,
+        20,
+        null,
+        null,
+        15,
+        7
+      ]
+    },
+    {
+      "input": [
+        [
+          -1
+        ],
+        [
+          -1
+        ]
+      ],
+      "expected": [
+        -1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def buildTree(self, preorder: list[int], inorder: list[int]) -> TreeNode | None:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {number[]} preorder\n * @param {number[]} inorder\n * @return {TreeNode}\n */\nvar buildTree = function(preorder, inorder) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public TreeNode buildTree(int[] preorder, int[] inorder) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:\n        if not preorder or not inorder:\n            return None\n\n        root = TreeNode(preorder[0])\n        mid = inorder.index(preorder[0])\n        root.left = self.buildTree(preorder[1 : mid + 1], inorder[:mid])\n        root.right = self.buildTree(preorder[mid + 1 :], inorder[mid + 1 :])\n        return root\n",
+    "javascript": "const getPointers = (preorder, inorder) => {\n  const next = preorder.shift();\n  const mid = inorder.indexOf(next);\n  const leftInorder = inorder.slice(0, mid);\n  const rightInorder = inorder.slice(mid + 1);\n  return {\n    leftInorder,\n    mid,\n    rightInorder\n  };\n};\n\n/**\n * https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/\n * Time O(N) | Space(H)\n * @param {number[]} preorder\n * @param {number[]} inorder\n * @return {TreeNode}\n */\nvar buildTree = function (preorder, inorder, max = -Infinity, indices = {\n  preorder: 0,\n  inorder: 0\n}) {\n  const isBaseCase = preorder.length <= indices.inorder;\n  if (isBaseCase) return null;\n  const isAtEnd = inorder[indices.inorder] === max;\n  if (isAtEnd) {\n    indices.inorder++;\n    return null;\n  }\n  return dfs(preorder, inorder, max, indices);\n};\nvar dfs = (preorder, inorder, max, indices) => {\n  const val = preorder[indices.preorder++];\n  const root = new TreeNode(val);\n  root.left = buildTree(preorder, inorder, root.val, indices);\n  root.right = buildTree(preorder, inorder, max, indices);\n  return root;\n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n\n    public TreeNode buildTree(int[] preorder, int[] inorder) {\n        if (preorder.length == 0 || inorder.length == 0) return null;\n\n        TreeNode root = new TreeNode(preorder[0]);\n        int mid = 0;\n        for (int i = 0; i < inorder.length; i++) {\n            if (preorder[0] == inorder[i]) mid = i;\n        }\n\n        root.left =\n            buildTree(\n                Arrays.copyOfRange(preorder, 1, mid + 1),\n                Arrays.copyOfRange(inorder, 0, mid)\n            );\n        root.right =\n            buildTree(\n                Arrays.copyOfRange(preorder, mid + 1, preorder.length),\n                Arrays.copyOfRange(inorder, mid + 1, inorder.length)\n            );\n\n        return root;\n    }\n}\n\n// Solution without using Array copies\nclass Solution {\n\n    Map<Integer, Integer> inorderPositions = new HashMap<>();\n\n    public TreeNode buildTree(int[] preorder, int[] inorder) {\n        if (preorder.length < 1 || inorder.length < 1) return null;\n\n        for (int i = 0; i < inorder.length; i++) {\n            inorderPositions.put(inorder[i], i);\n        }\n\n        return builder(preorder, 0, 0, inorder.length - 1);\n    }\n\n    public TreeNode builder(\n        int[] preorder,\n        int preorderIndex,\n        int inorderLow,\n        int inorderHigh\n    ) {\n        if (\n            preorderIndex > preorder.length - 1 || inorderLow > inorderHigh\n        ) return null;\n\n        int currentVal = preorder[preorderIndex];\n        TreeNode n = new TreeNode(currentVal);\n        int mid = inorderPositions.get(currentVal);\n\n        n.left = builder(preorder, preorderIndex + 1, inorderLow, mid - 1);\n        n.right =\n            builder(\n                preorder,\n                preorderIndex + (mid - inorderLow) + 1,\n                mid + 1,\n                inorderHigh\n            );\n\n        return n;\n    }\n}\n",
+    "cpp": "/*\n    Given 2 integer arrays preorder & inorder, construct & return the binary tree\n    Ex. preorder = [3,9,20,15,7], inorder = [9,3,15,20,7] -> [3,9,20,null,null,15,7]\n\n    Preorder dictates nodes, inorder dictates subtrees (preorder values, inorder positions)\n\n    Time: O(n)\n    Space: O(n)\n*/\n\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {\n        int index = 0;\n        return build(preorder, inorder, index, 0, inorder.size() - 1);\n    }\nprivate:\n    TreeNode* build(vector<int>& preorder, vector<int>& inorder, int& index, int i, int j) {\n        if (i > j) {\n            return NULL;\n        }\n        \n        TreeNode* root = new TreeNode(preorder[index]);\n        \n        int split = 0;\n        for (int i = 0; i < inorder.size(); i++) {\n            if (preorder[index] == inorder[i]) {\n                split = i;\n                break;\n            }\n        }\n        index++;\n        \n        root->left = build(preorder, inorder, index, i, split - 1);\n        root->right = build(preorder, inorder, index, split + 1, j);\n        \n        return root;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0105-construct-binary-tree-from-preorder-and-inorder-traversal.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0105-construct-binary-tree-from-preorder-and-inorder-traversal.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0105-construct-binary-tree-from-preorder-and-inorder-traversal.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0105-construct-binary-tree-from-preorder-and-inorder-traversal.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "根据无重复值的先序与中序遍历重建二叉树。",
+  "explanation": "先序首项是根，在中序定位根即可确定左右规模。哈希表记录中序位置，避免重复线性搜索。",
+  "memory": "先序找根，中序分左右，长度决定下一段先序范围。"
+}

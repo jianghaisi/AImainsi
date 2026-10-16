@@ -1,0 +1,63 @@
+{
+  "number": "198",
+  "adapter": {
+    "name": "rob",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "198"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          2,
+          7,
+          9,
+          3,
+          1
+        ]
+      ],
+      "expected": 12
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def rob(self, nums: List[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar rob = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int rob(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int rob(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def rob(self, nums: List[int]) -> int:\n        rob1, rob2 = 0, 0\n\n        for n in nums:\n            temp = max(n + rob1, rob2)\n            rob1 = rob2\n            rob2 = temp\n        return rob2\n",
+    "javascript": "const initMemo = nums => Array(nums.length + 1).fill(-1);\n\n/**\n * DP - Bottom Up\n * Array - Tabulation\n * Time O(N) | Space O(N)\n * https://leetcode.com/problems/house-robber/\n * @param {number[]} nums\n * @return {number}\n */\n\nconst initTabu = nums => {\n  const tabu = Array(nums.length + 1).fill(0);\n  tabu[1] = nums[0];\n  return tabu;\n};\n\n/**\n * DP - Bottom Up\n * Time O(N) | Space O(1)\n * https://leetcode.com/problems/house-robber/\n * @param {number[]} nums\n * @return {number}\n */\nvar rob = nums => {\n  if (!nums.length) return 0;\n  let [left, mid] = [0, 0];\n  for (const right of nums) {\n    /* Time O(N) */\n    const temp = mid;\n    const house = left + right;\n    mid = Math.max(mid, house);\n    left = temp;\n  }\n  return mid;\n};",
+    "java": "class Solution {\n\n    public int rob(int[] nums) {\n        if (nums == null || nums.length == 0) return 0;\n        if (nums.length == 1) return nums[0];\n        if (nums.length == 2) return Math.max(nums[0], nums[1]);\n\n        int robWithOutIncludingLastHouse = 0, robWithIncludingLastHouse = 0;\n\n        for (int n : nums) {\n            int temp = Math.max(\n                robWithOutIncludingLastHouse + n,\n                robWithIncludingLastHouse\n            );\n            robWithOutIncludingLastHouse = robWithIncludingLastHouse;\n            robWithIncludingLastHouse = temp;\n        }\n        return robWithIncludingLastHouse;\n    }\n\n    public int robDP(int[] nums) {\n        if (nums == null || nums.length == 0) return 0;\n        if (nums.length == 1) return nums[0];\n        if (nums.length == 2) return Math.max(nums[0], nums[1]);\n\n        int[] dp = new int[nums.length];\n        dp[0] = nums[0];\n        dp[1] = Math.max(nums[0], nums[1]);\n\n        for (int i = 2; i < nums.length; i++) {\n            dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);\n        }\n        return dp[nums.length - 1];\n    }\n\n    // DP with O(1) space\n    public int robDP2(int[] nums) {\n        if (nums == null || nums.length == 0) return 0;\n\n        int dp0 = 0, dp1 = 0, curr;\n\n        for (int i = 0; i < nums.length; i++) {\n            curr = Math.max(dp0 + nums[i], dp1);\n            dp0 = dp1;\n            dp1 = curr;\n        }\n        return Math.max(dp0, dp1);\n    }\n}\n",
+    "cpp": "/*\n    Given int array, return max amount can rob (can't rob adjacent houses)\n    Ex. nums = [1,2,3,1] -> 4, rob house 1 then house 3: 1 + 3 = 4\n\n    Recursion w/ memoization -> DP, rob either 2 away + here, or 1 away\n    Recurrence relation: robFrom[i] = max(robFrom[i-2] + nums[i], robFrom[i-1])\n\n    Time: O(n)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    int rob(vector<int>& nums) {\n        int prev = 0;\n        int curr = 0;\n        int next = 0;\n        \n        for (int i = 0; i < nums.size(); i++) {\n            next = max(prev + nums[i], curr);\n            prev = curr;\n            curr = next;\n        }\n        \n        return curr;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0198-house-robber.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0198-house-robber.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0198-house-robber.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0198-house-robber.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "一排房屋金额中不能偷相邻两间，求可获得的最大总额。",
+  "explanation": "到当前位置的最优值取“不选当前”与“前两间最优加当前”两者较大值。",
+  "memory": "选当前就跳过前一间；不选当前就继承前一间答案。"
+}

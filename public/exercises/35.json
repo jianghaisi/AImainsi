@@ -1,0 +1,80 @@
+{
+  "number": "35",
+  "adapter": {
+    "name": "searchInsert",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      },
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "35"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          3,
+          5,
+          6
+        ],
+        5
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          1,
+          3,
+          5,
+          6
+        ],
+        2
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          1,
+          3,
+          5,
+          6
+        ],
+        7
+      ],
+      "expected": 4
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def searchInsert(self, nums: list[int], target: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} target\n * @return {number}\n */\nvar searchInsert = function(nums, target) {\n    \n};",
+    "java": "class Solution {\n    public int searchInsert(int[] nums, int target) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int searchInsert(vector<int>& nums, int target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def searchInsert(self, nums: List[int], target: int) -> int:\n        # O(log n) and O(1)\n        \n        \n        low, high = 0, len(nums)\n        while low<high:\n            mid = low +(high - low) // 2\n            if target > nums[mid]:\n                low = mid + 1\n            else:\n                high = mid\n        return low\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} target\n * @return {number}\n */\nvar searchInsert = function (nums, target) {\n  let left = 0;\n  let right = nums.length - 1;\n  while (left <= right) {\n    let midIdx = Math.floor((left + right) / 2);\n    if (target === nums[midIdx]) {\n      return midIdx;\n    }\n    if (target > nums[midIdx]) {\n      left = midIdx + 1;\n    } else {\n      right = midIdx - 1;\n    }\n  }\n  return left;\n};",
+    "java": "class Solution {\n    public int searchInsert(int[] nums, int target) {\n        //o(log n) and o(1)\n        int low = 0, high = nums.length;\n        while(low < high) {\n            int mid = low + (high - low)/2;\n            if(target > nums[mid])\n                low = mid + 1;\n            else\n                high = mid;\n        }\n        return low;\n    }\n}\n",
+    "cpp": "/*\n    Given a sorted array of distinct integers and a target value, return the index if the target is found. \n    If not, return the index where it would be if it were inserted in order.\n\n    Ex.\n    Input: nums = [1,3,5,6], target = 5\n    Output: 2\n\n    1.- Find the number in the middle of the vector.\n    2.- Takes a part (first or second), depending on whether or not the target is greater than the middel.\n    3.- Change the current left or right part.\n    3.- Do this process until the left exceeds the right.\n\n    Time: O(log n)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    int searchInsert(vector<int>& nums, int target) {\n        int left = 0;\n        int right = nums.size() - 1;\n\n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n\n            if (nums[mid] < target)\n                left = mid + 1;\n            else\n                right = mid - 1;\n        }\n        return left;\n    }\n};"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0035-search-insert-position.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0035-search-insert-position.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0035-search-insert-position.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0035-search-insert-position.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "在升序且无重复数组中找到 target 下标；若不存在，返回保持顺序的插入位置。",
+  "explanation": "二分求第一个大于等于目标的位置，返回左边界。统一使用半开区间或闭区间，不混合更新规则。",
+  "memory": "搜索插入本质是 lower_bound，即第一个不小于目标的位置。"
+}

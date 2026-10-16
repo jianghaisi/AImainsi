@@ -42,7 +42,9 @@ export interface Shared {
 export default function App() {
   const [state, setState] = useState<AppState | null>(null),
     [page, setPage] = useState<Page>((location.hash.slice(1) as Page) || 'dashboard'),
-    [selected, setSelected] = useState<string>('attention'),
+    [selected, setSelected] = useState<string>(
+      localStorage.getItem('last-practice') || 'attention',
+    ),
     [error, setError] = useState(''),
     [toast, setToast] = useState<{ message: string; error: boolean } | null>(null),
     [menu, setMenu] = useState(false);
@@ -87,6 +89,7 @@ export default function App() {
   };
   const practice = (q: Question) => {
     setSelected(q.id);
+    localStorage.setItem('last-practice', q.id);
     navigate(q.kind === 'coding' ? 'coding' : 'bank');
   };
   if (!state)
@@ -216,7 +219,7 @@ export default function App() {
         <footer>
           <span>SEQUENCE / 每一次训练，都有迹可循。</span>
           <span>
-            PERSONAL INTERVIEW SYSTEM <b>v0.1</b>
+            PERSONAL INTERVIEW SYSTEM <b>v0.2</b>
           </span>
         </footer>
       </div>

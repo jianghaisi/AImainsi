@@ -1,0 +1,94 @@
+{
+  "number": "443",
+  "adapter": {
+    "name": "compress",
+    "params": [
+      {
+        "name": "chars",
+        "type": "character[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "output": {
+      "paramindex": 0,
+      "size": "ret"
+    },
+    "number": "443"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "a",
+          "a",
+          "b",
+          "b",
+          "c",
+          "c",
+          "c"
+        ]
+      ],
+      "expected": [
+        "a",
+        "2",
+        "b",
+        "2",
+        "c",
+        "3"
+      ]
+    },
+    {
+      "input": [
+        [
+          "a"
+        ]
+      ],
+      "expected": [
+        "a"
+      ]
+    },
+    {
+      "input": [
+        [
+          "a",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b"
+        ]
+      ],
+      "expected": [
+        "a",
+        "b",
+        "1",
+        "2"
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def compress(self, chars: List[str]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {character[]} chars\n * @return {number}\n */\nvar compress = function(chars) {\n    \n};",
+    "java": "class Solution {\n    public int compress(char[] chars) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int compress(vector<char>& chars) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def compress(self,chars):\n        read=write=0\n        while read<len(chars):\n            end=read+1\n            while end<len(chars) and chars[end]==chars[read]:end+=1\n            chars[write]=chars[read];write+=1\n            if end-read>1:\n                for c in str(end-read):chars[write]=c;write+=1\n            read=end\n        return write\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "原地压缩字符数组，连续字符写一次，次数超过一时写出十进制次数，返回有效长度。",
+  "explanation": "读指针统计每段长度，写指针依次写字符与计数字符。O(n)。",
+  "memory": "次数可能有多位；一个字符不追加数字 1。"
+}

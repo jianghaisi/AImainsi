@@ -1,0 +1,67 @@
+{
+  "number": "131",
+  "adapter": {
+    "name": "partition",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "list<list<string>>",
+      "dealloc": true
+    },
+    "number": "131"
+  },
+  "tests": [
+    {
+      "input": [
+        "aab"
+      ],
+      "expected": [
+        [
+          "a",
+          "a",
+          "b"
+        ],
+        [
+          "aa",
+          "b"
+        ]
+      ]
+    },
+    {
+      "input": [
+        "a"
+      ],
+      "expected": [
+        [
+          "a"
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def partition(self, s: str) -> list[list[str]]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @return {string[][]}\n */\nvar partition = function(s) {\n    \n};",
+    "java": "class Solution {\n    public List<List<String>> partition(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<string>> partition(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def partition(self, s: str) -> List[List[str]]:\n        res, part = [], []\n\n        def dfs(i):\n            if i >= len(s):\n                res.append(part.copy())\n                return\n            for j in range(i, len(s)):\n                if self.isPali(s, i, j):\n                    part.append(s[i : j + 1])\n                    dfs(j + 1)\n                    part.pop()\n\n        dfs(0)\n        return res\n\n    def isPali(self, s, l, r):\n        while l < r:\n            if s[l] != s[r]:\n                return False\n            l, r = l + 1, r - 1\n        return True\n",
+    "javascript": "/**\n * https://leetcode.com/problems/palindrome-partitioning/\n * Time O(N * 2^N) | Space O(N^2)\n * @param {string} s\n * @return {string[][]}\n */\nfunction partition(s, left = 0, _partition = [], partitions = []) {\n  const isBaseCase = s.length <= left;\n  if (isBaseCase) {\n    if (_partition.length) partitions.push(_partition.slice());\n    return partitions;\n  }\n  for (let right = left; right < s.length; right++) {\n    if (!isPalindrome(s, left, right)) continue;\n    backTrack(s, left, right, _partition, partitions);\n  }\n  return partitions;\n}\nconst backTrack = (s, left, right, _partition, partitions) => {\n  _partition.push(s.slice(left, right + 1));\n  partition(s, right + 1, _partition, partitions);\n  _partition.pop();\n};\nconst isPalindrome = (str, left, right) => {\n  while (left < right) {\n    const isSame = str[left] === str[right];\n    if (!isSame) return false;\n    left++;\n    right--;\n  }\n  return true;\n};",
+    "java": "public class Solution {\n\n    public List<List<String>> partition(String s) {\n        List<List<String>> res = new ArrayList<List<String>>();\n        if (s.equals(\"\")) {\n            res.add(new ArrayList<String>());\n            return res;\n        }\n        for (int i = 0; i < s.length(); i++) {\n            if (isPalindrome(s, i + 1)) {\n                for (List<String> list : partition(s.substring(i + 1))) {\n                    list.add(0, s.substring(0, i + 1));\n                    res.add(list);\n                }\n            }\n        }\n        return res;\n    }\n\n    public boolean isPalindrome(String s, int n) {\n        for (int i = 0; i < n / 2; i++) {\n            if (s.charAt(i) != s.charAt(n - i - 1)) return false;\n        }\n        return true;\n    }\n}\n",
+    "cpp": "/*\n    Given a string, partition such that every substring is a palindrome, return all possible ones\n    Ex. s = \"aab\" -> [[\"a\",\"a\",\"b\"],[\"aa\",\"b\"]], s = \"a\" -> [[\"a\"]]\n\n    Generate all possible substrings at idx, if palindrome potential candidate, backtrack after\n\n    Time: O(n x 2^n)\n    Space: O(n)\n*/\n\nclass Solution {\npublic:\n    vector<vector<string>> partition(string s) {\n        vector<string> curr;\n        vector<vector<string>> result;\n        dfs(s, 0, curr, result);\n        return result;\n    }\nprivate:\n    void dfs(string s, int start, vector<string>& curr, vector<vector<string>>& result) {\n        if (start == s.size()) {\n            result.push_back(curr);\n            return;\n        }\n        for (int i = start; i < s.size(); i++) {\n            if (isPalindrome(s, start, i)) {\n                string str = s.substr(start, i - start + 1);\n                curr.push_back(str);\n                dfs(s, i + 1, curr, result);\n                curr.pop_back();\n            }\n        }\n    }\n    bool isPalindrome(string s, int left, int right) {\n        while (left < right) {\n            if (s[left] != s[right]) {\n                return false;\n            }\n            left++;\n            right--;\n        }\n        return true;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0131-palindrome-partitioning.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0131-palindrome-partitioning.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0131-palindrome-partitioning.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0131-palindrome-partitioning.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "将字符串分割成若干回文片段，返回所有分割方案。片段顺序必须还原原串。",
+  "explanation": "枚举下一段终点，仅回文片段可进入递归。可先用动态规划缓存所有区间是否回文。",
+  "memory": "分割是选择切口，剪枝是检查这一段回文，而不是整个后缀。"
+}

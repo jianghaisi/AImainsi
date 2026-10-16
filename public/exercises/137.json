@@ -1,0 +1,59 @@
+{
+  "number": "137",
+  "adapter": {
+    "name": "singleNumber",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "137"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          2,
+          3,
+          2
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          99
+        ]
+      ],
+      "expected": 99
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def singleNumber(self, nums: List[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar singleNumber = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int singleNumber(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int singleNumber(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def singleNumber(self,nums):\n        answer=0\n        for bit in range(32):\n            if sum((n>>bit)&1 for n in nums)%3:answer|=1<<bit\n        return answer-(1<<32) if answer&(1<<31) else answer\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "整数数组中除一个数出现一次外，其他数均出现三次，找出唯一值。",
+  "explanation": "逐位计数后对三取余，重建 32 位结果并恢复符号位。",
+  "memory": "抵消的是三次，不可直接异或；负数需要符号恢复。"
+}

@@ -1,0 +1,78 @@
+{
+  "number": "437",
+  "adapter": {
+    "name": "pathSum",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      },
+      {
+        "name": "targetSum",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "437"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          10,
+          5,
+          -3,
+          3,
+          2,
+          null,
+          11,
+          3,
+          -2,
+          null,
+          1
+        ],
+        8
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          5,
+          4,
+          8,
+          11,
+          null,
+          13,
+          4,
+          7,
+          2,
+          null,
+          null,
+          5,
+          1
+        ],
+        22
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @param {number} targetSum\n * @return {number}\n */\nvar pathSum = function(root, targetSum) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public int pathSum(TreeNode root, int targetSum) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int pathSum(TreeNode* root, int targetSum) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def pathSum(self, root, targetSum):\n        counts={0:1}\n        def walk(node,total):\n            if not node:return 0\n            total+=node.val\n            result=counts.get(total-targetSum,0)\n            counts[total]=counts.get(total,0)+1\n            result+=walk(node.left,total)+walk(node.right,total)\n            counts[total]-=1\n            return result\n        return walk(root,0)\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "统计树中向下连续路径的和等于 targetSum 的数量，路径可从任意节点开始。",
+  "explanation": "DFS 维护根到当前位置的前缀和频次。进入节点查询当前和减目标，返回时撤销当前前缀，避免跨分支串用。",
+  "memory": "树上的前缀和也要回溯撤销；频次只属于当前路径。"
+}

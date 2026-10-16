@@ -1,0 +1,65 @@
+{
+  "number": "76",
+  "adapter": {
+    "name": "minWindow",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "t",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "76"
+  },
+  "tests": [
+    {
+      "input": [
+        "ADOBECODEBANC",
+        "ABC"
+      ],
+      "expected": "BANC"
+    },
+    {
+      "input": [
+        "a",
+        "a"
+      ],
+      "expected": "a"
+    },
+    {
+      "input": [
+        "a",
+        "aa"
+      ],
+      "expected": ""
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def minWindow(self, s: str, t: str) -> str:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @param {string} t\n * @return {string}\n */\nvar minWindow = function(s, t) {\n    \n};",
+    "java": "class Solution {\n    public String minWindow(String s, String t) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string minWindow(string s, string t) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def minWindow(self, s: str, t: str) -> str:\n        if len(s) < len(t):\n            return \"\"\n\n        countT, window = {}, {}\n        for c in t:\n            countT[c] = 1 + countT.get(c, 0)\n\n        have, need = 0, len(countT)\n        res, resLen = [-1, -1], float(\"infinity\")\n        l = 0\n        for r in range(len(s)):\n            c = s[r]\n            window[c] = 1 + window.get(c, 0)\n\n            if c in countT and window[c] == countT[c]:\n                have += 1\n\n            while have == need:\n                # update our result\n                if (r - l + 1) < resLen:\n                    res = [l, r]\n                    resLen = r - l + 1\n                # pop from the left of our window\n                window[s[l]] -= 1\n                if s[l] in countT and window[s[l]] < countT[s[l]]:\n                    have -= 1\n                l += 1\n        l, r = res\n        return s[l : r + 1] if resLen != float(\"infinity\") else \"\"\n",
+    "javascript": "/**\n * https://leetcode.com/problems/minimum-window-substring/\n * Time O(N + M) | SpaceO(N + M)\n * @param {string} s\n * @param {string} t\n * @return {string}\n */\nvar minWindow = function (s, t) {\n  const isMissingArgs = !s.length || !t.length;\n  if (isMissingArgs) return '';\n  const frequencyMap = getFrequencyMap(t);\n  const {\n    start,\n    end\n  } = getWindowPointers(s, t, frequencyMap);\n  return getSubString(s, start, end);\n};\nconst getFrequencyMap = (str, frequencyMap = new Map()) => {\n  for (const char of str) {\n    frequencyMap.set(char, (frequencyMap.get(char) || 0) + 1);\n  }\n  return frequencyMap;\n};\nconst getWindowPointers = (s, t, frequencyMap) => {\n  let [left, right, matched, start, end] = [0, 0, 0, 0, s.length + 1];\n  while (right < s.length) {\n    matched = addRightFrequency(s, right, frequencyMap, matched);\n    const canSlide = () => matched === t.length;\n    while (canSlide()) {\n      const window = right - left + 1;\n      const isSmaller = window < end;\n      if (isSmaller) {\n        [start, end] = [left, window];\n      }\n      matched = subtractLeftFrequency(s, left, frequencyMap, matched);\n      left++;\n    }\n    right++;\n  }\n  return {\n    start,\n    end\n  };\n};\nconst addRightFrequency = (s, right, frequencyMap, matched) => {\n  const char = s[right];\n  if (frequencyMap.has(char)) {\n    frequencyMap.set(char, frequencyMap.get(char) - 1);\n    const isInWindow = 0 <= frequencyMap.get(char);\n    if (isInWindow) matched++;\n  }\n  return matched;\n};\nconst subtractLeftFrequency = (s, left, frequencyMap, matched) => {\n  const char = s[left];\n  if (frequencyMap.has(char)) {\n    const isOutOfWindow = frequencyMap.get(char) === 0;\n    if (isOutOfWindow) matched--;\n    frequencyMap.set(char, frequencyMap.get(char) + 1);\n  }\n  return matched;\n};\nconst getSubString = (s, start, end) => end <= s.length ? s.slice(start, start + end) : '';",
+    "java": "class Solution {\n\n    //sliding window\n    public String minWindow(String s, String t) {\n        HashMap<Character, Integer> map = new HashMap<>();\n\n        for (char x : t.toCharArray()) {\n            map.put(x, map.getOrDefault(x, 0) + 1);\n        }\n\n        int matched = 0;\n        int start = 0;\n        int minLen = s.length() + 1;\n        int subStr = 0;\n        for (int endWindow = 0; endWindow < s.length(); endWindow++) {\n            char right = s.charAt(endWindow);\n            if (map.containsKey(right)) {\n                map.put(right, map.get(right) - 1);\n                if (map.get(right) == 0) matched++;\n            }\n\n            while (matched == map.size()) {\n                if (minLen > endWindow - start + 1) {\n                    minLen = endWindow - start + 1;\n                    subStr = start;\n                }\n                char deleted = s.charAt(start++);\n                if (map.containsKey(deleted)) {\n                    if (map.get(deleted) == 0) matched--;\n                    map.put(deleted, map.get(deleted) + 1);\n                }\n            }\n        }\n        return minLen > s.length() ? \"\" : s.substring(subStr, subStr + minLen);\n    }\n}\n",
+    "cpp": "/*\n    Given 2 strings s & t, return min window substring\n    of s such that all chars in t are included in window\n    Ex. s = \"ADOBECODEBANC\" t = \"ABC\" -> \"BANC\"\n\n    Sliding window + hash map {char -> count}\n    Move j until valid, move i to find smaller\n\n    Time: O(m + n)\n    Space: O(m + n)\n*/\n\nclass Solution {\npublic:\n    string minWindow(string s, string t) {\n        // count of char in t\n        unordered_map<char, int> m;\n        for (int i = 0; i < t.size(); i++) {\n            m[t[i]]++;\n        }\n        \n        int i = 0;\n        int j = 0;\n        \n        // # of chars in t that must be in s\n        int counter = t.size();\n        \n        int minStart = 0;\n        int minLength = INT_MAX;\n        \n        while (j < s.size()) {\n            // if char in s exists in t, decrease\n            if (m[s[j]] > 0) {\n                counter--;\n            }\n            // if char doesn't exist in t, will be -'ve\n            m[s[j]]--;\n            // move j to find valid window\n            j++;\n            \n            // when window found, move i to find smaller\n            while (counter == 0) {\n                if (j - i < minLength) {\n                    minStart = i;\n                    minLength = j - i;\n                }\n                \n                m[s[i]]++;\n                // when char exists in t, increase\n                if (m[s[i]] > 0) {\n                    counter++;\n                }\n                i++;\n            }\n        }\n        \n        if (minLength != INT_MAX) {\n            return s.substr(minStart, minLength);\n        }\n        return \"\";\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0076-minimum-window-substring.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0076-minimum-window-substring.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0076-minimum-window-substring.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0076-minimum-window-substring.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "在字符串 s 中寻找包含 t 全部字符及其重复次数的最短连续片段；不存在则返回空串。",
+  "explanation": "右端扩展直到覆盖全部需求，左端尽量收缩并记录最优。统计满足需求的种类数，避免每步遍历整张表。",
+  "memory": "先覆盖、再收缩；重复字符的需求次数不能丢。"
+}

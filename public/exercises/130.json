@@ -1,0 +1,113 @@
+{
+  "number": "130",
+  "adapter": {
+    "name": "solve",
+    "params": [
+      {
+        "name": "board",
+        "type": "character[][]"
+      }
+    ],
+    "return": {
+      "type": "void"
+    },
+    "output": {
+      "paramindex": 0
+    },
+    "number": "130"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            "X",
+            "X",
+            "X",
+            "X"
+          ],
+          [
+            "X",
+            "O",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "X",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "O",
+            "X",
+            "X"
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          "X",
+          "X",
+          "X",
+          "X"
+        ],
+        [
+          "X",
+          "X",
+          "X",
+          "X"
+        ],
+        [
+          "X",
+          "X",
+          "X",
+          "X"
+        ],
+        [
+          "X",
+          "O",
+          "X",
+          "X"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            "X"
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          "X"
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def solve(self, board: list[list[str]]) -> None:\n        raise NotImplementedError(\"请完成此方法\")\n        \"\"\"\n        Do not return anything, modify board in-place instead.\n        \"\"\"\n        ",
+    "javascript": "/**\n * @param {character[][]} board\n * @return {void} Do not return anything, modify board in-place instead.\n */\nvar solve = function(board) {\n    \n};",
+    "java": "class Solution {\n    public void solve(char[][] board) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    void solve(vector<vector<char>>& board) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def solve(self, board: List[List[str]]) -> None:\n        rows, cols = len(board), len(board[0])\n        flag = set()\n\n        def dfs(r, c):\n            if not(r in range(rows) and c in range(cols)) or board[r][c] != 'O' or (r, c) in flag:\n                return\n            flag.add((r, c))\n            return (dfs(r + 1, c), dfs(r - 1, c), dfs(r, c + 1), dfs(r, c - 1))\n\n        # traverse through the board\n        for r in range(rows):\n            for c in range(cols):\n                if( (r == 0 or c == 0 or r == rows - 1 or c == cols - 1) and board[r][c] == 'O'):\n                    dfs(r, c)\n\n        # set all of the 'X's to 'O's\n        for r in range(rows):\n            for c in range(cols):\n                if board[r][c] == 'O' and (r, c) not in flag:\n                    board[r][c] = 'X'\n\n    '''\n    def solve(self, board: List[List[str]]) -> None:\n        ROWS, COLS = len(board), len(board[0])\n\n        def capture(r, c):\n            if r < 0 or c < 0 or r == ROWS or c == COLS or board[r][c] != \"O\":\n                return\n            board[r][c] = \"T\"\n            capture(r + 1, c)\n            capture(r - 1, c)\n            capture(r, c + 1)\n            capture(r, c - 1)\n\n        # 1. (DFS) Capture unsurrounded regions (O -> T)\n        for r in range(ROWS):\n            for c in range(COLS):\n                if board[r][c] == \"O\" and (r in [0, ROWS - 1] or c in [0, COLS - 1]):\n                    capture(r, c)\n\n        # 2. Capture surrounded regions (O -> X)\n        for r in range(ROWS):\n            for c in range(COLS):\n                if board[r][c] == \"O\":\n                    board[r][c] = \"X\"\n\n        # 3. Uncapture unsurrounded regions (T -> O)\n        for r in range(ROWS):\n            for c in range(COLS):\n                if board[r][c] == \"T\":\n                    board[r][c] = \"O\"\n    '''\n",
+    "javascript": "const dfs = (board, row, rows, col, cols) => {\n  const isBaseCase = board[row][col] !== 'O';\n  if (isBaseCase) return;\n  board[row][col] = '*';\n  for (const [_row, _col] of getNeighbors(row, rows, col, cols)) {\n    dfs(board, _row, rows, _col, cols); /* Time O(HEIGHT) | Space O(HEIGHT) */\n  }\n};\nvar getNeighbors = (row, rows, col, cols) => [[0, 1], [0, -1], [1, 0], [-1, 0]].map(([_row, _col]) => [row + _row, col + _col]).filter(([_row, _col]) => 0 <= _row && _row < rows && 0 <= _col && _col < cols);\n\n/**\n * https://leetcode.com/problems/surrounded-regions/\n * Time O(ROWS * COLS) | Space O(ROWS * COLS)\n * @param {character[][]} board\n * @return {void} Do not return anything, modify board in-place instead.\n */\nvar solve = function solve(board, queue = new Queue([])) {\n  searchRows(board, queue); /* Time O(ROWS + COLS) | Space O(ROWS + COLS) */\n  searchCols(board, queue); /* Time O(ROWS + COLS) | Space O(ROWS + COLS) */\n  bfs(board, queue); /* Time O(ROWS * COLS) | Space O(ROWS * COLS) */\n  searchGrid(board); /* Time O(ROWS * COLS) */\n};\nvar searchRows = (board, queue) => {\n  const [rows, cols] = [board.length, board[0].length];\n  for (let row = 0; row < rows; row++) {\n    /* Time O(ROWS) */\n    queue.enqueue([row, 0]); /* Space O(ROWS) */\n    queue.enqueue([row, cols - 1]); /* Space O(ROWS) */\n  }\n};\nvar searchCols = (board, queue) => {\n  const [rows, cols] = [board.length, board[0].length];\n  for (let col = 0; col < cols - 1; col++) {\n    /* Time O(COLS) */\n    queue.enqueue([0, col]); /* Space O(COLS) */\n    queue.enqueue([rows - 1, col]); /* Space O(COLS) */\n  }\n};\nvar bfs = (board, queue) => {\n  const [rows, cols] = [board.length, board[0].length];\n  while (!queue.isEmpty()) {\n    for (let i = queue.size() - 1; 0 <= i; i--) {\n      /* Time O(WIDTH) */\n      const [row, col] = queue.dequeue();\n      const isBaseCase = board[row][col] !== 'O';\n      if (isBaseCase) continue;\n      board[row][col] = '*';\n      for (const [_row, _col] of getNeighbors(row, rows, col, cols)) {\n        queue.enqueue([_row, _col]); /* Space O(WIDTH) */\n      }\n    }\n  }\n};\nvar searchGrid = board => {\n  const [rows, cols] = [board.length, board[0].length];\n  for (let row = 0; row < rows; row++) {\n    /* Time O(ROWS) */\n    for (let col = 0; col < cols; col++) {\n      /* Time O(COLS) */\n      const isO = board[row][col] === 'O';\n      if (isO) board[row][col] = 'X';\n      const isStar = board[row][col] === '*';\n      if (isStar) board[row][col] = 'O';\n    }\n  }\n};",
+    "java": "class Solution {\n\n    public void solve(char[][] board) {\n        int nRows = board.length;\n        int nCols = board[0].length;\n\n        // 1a) Capture unsurrounded regions - top and bottom row (O -> T)\n        for (int i = 0; i < nCols; i++) {\n            if (board[0][i] == 'O') dfs(board, 0, i);\n            if (board[nRows - 1][i] == 'O') dfs(board, nRows - 1, i);\n        }\n\n        // 1b) Capture unsurrounded regions - Left and right columns (O -> T)\n        for (int i = 0; i < nRows; i++) {\n            if (board[i][0] == 'O') dfs(board, i, 0);\n            if (board[i][nCols - 1] == 'O') dfs(board, i, nCols - 1);\n        }\n\n        for (int r = 0; r < nRows; r++) {\n            for (int c = 0; c < nCols; c++) {\n                if (board[r][c] == 'O') board[r][c] = 'X'; // 2) Capture surrounded regions (O -> X)\n                if (board[r][c] == 'T') board[r][c] = 'O'; // 3) Uncapture unsurrounded regions (T- O)\n            }\n        }\n    }\n\n    private void dfs(char[][] board, int r, int c) {\n        int nRows = board.length;\n        int nCols = board[0].length;\n        if (\n            r < 0 || c < 0 || r >= nRows || c >= nCols || board[r][c] != 'O'\n        ) return;\n\n        board[r][c] = 'T';\n        dfs(board, r + 1, c);\n        dfs(board, r - 1, c);\n        dfs(board, r, c + 1);\n        dfs(board, r, c - 1);\n    }\n}\n",
+    "cpp": "/*\n    Given a matrix, capture ('X') all regions that are surrounded ('O')\n\n    Distinguish captured vs escaped, 'X' vs 'O' vs 'E'\n\n    Time: O(m x n)\n    Space: O(m x n)\n*/\n\nclass Solution {\npublic:\n    void solve(vector<vector<char>>& board) {\n        int m = board.size();\n        int n = board[0].size();\n        \n        // marking escaped cells along the border\n        for (int i = 0; i < m; i++) {\n            dfs(board,i,0,m,n);\n            dfs(board,i,n-1,m,n);\n        }\n        \n        for (int j = 0; j < n; j++) {\n            dfs(board,0,j,m,n);\n            dfs(board,m-1,j,m,n);\n        }\n        \n        // flip cells to correct final states\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                if (board[i][j] == 'O') {\n                    board[i][j] = 'X';\n                }\n                if (board[i][j] == 'E') {\n                    board[i][j] = 'O';\n                }\n            }\n        }\n    }\nprivate:\n    void dfs(vector<vector<char>>& board, int i, int j, int m, int n) {\n        if (i < 0 || i >= m || j < 0 || j >= n || board[i][j] != 'O') {\n            return;\n        }\n        \n        board[i][j] = 'E';\n        \n        dfs(board, i - 1, j, m, n);\n        dfs(board, i + 1, j, m, n);\n        dfs(board, i, j - 1, m, n);\n        dfs(board, i, j + 1, m, n);\n    }\n};\n\n/*\n   BFS Solution\n*/\n\nclass Solution {\nprivate:\n    int rows, cols;\n\n    void bfs(int row, int col, vector<vector<char>>& board) {\n        board[row][col] = 'E';\n        queue<pair<int, int>> q;\n        q.push({row, col});\n\n        vector<pair<int, int>> directions = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};\n        while (!q.empty()) {\n            auto [r, c] = q.front();\n            q.pop();\n            for (const auto &direction : directions) {\n                int newRow = r + direction.first;\n                int newCol = c + direction.second;\n                if (newRow < rows && newRow >= 0 && newCol < cols && newCol >= 0 && board[newRow][newCol] == 'O') {\n                    board[newRow][newCol] = 'E';\n                    q.push({newRow, newCol});\n                }\n            }\n        }\n\n    }\n\npublic:\n    void solve(vector<vector<char>>& board) {\n        rows = board.size();    \n        cols = board[0].size();\n\n        for (int row = 0; row < rows; ++row) {\n            if (board[row][0] == 'O') bfs(row, 0, board);\n            if (board[row][cols - 1] == 'O') bfs(row, cols - 1, board);\n        }\n\n        for (int col = 0; col < cols; ++col) {\n            if (board[0][col] == 'O') bfs(0, col, board);\n            if (board[rows - 1][col] == 'O') bfs(rows - 1, col, board);\n        }\n\n        for (int row = 0; row < rows; ++row) {\n            for (int col = 0; col < cols; ++col) {\n                if (board[row][col] == 'O') {\n                    board[row][col] = 'X';\n                }\n                else if (board[row][col] == 'E') {\n                    board[row][col] = 'O';\n                }\n            }\n        }\n\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0130-surrounded-regions.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0130-surrounded-regions.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0130-surrounded-regions.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0130-surrounded-regions.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "把字符矩阵中未与边界连通的 O 区域改为 X。",
+  "explanation": "从边界 O 出发标记可保留区域，再翻转所有未标记的 O。",
+  "memory": "反过来找不能填的区域，从边缘向内走。"
+}

@@ -42,7 +42,8 @@ child.on('exit', (code) => {
     return;
   }
   mkdirSync('release', { recursive: true });
-  const output = 'release/Sequence-0.1.0-Android-preview.apk';
+  const version = JSON.parse(readFileSync('package.json', 'utf8')).version;
+  const output = 'release/Sequence-' + version + '-Android-preview.apk';
   copyFileSync('android/app/build/outputs/apk/debug/app-debug.apk', output);
   const digest = createHash('sha256').update(readFileSync(output)).digest('hex');
   writeFileSync(output + '.sha256', digest + '  ' + path.basename(output) + '\n');

@@ -1,0 +1,113 @@
+{
+  "number": "155",
+  "adapter": {
+    "classname": "MinStack",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "params": [
+          {
+            "type": "integer",
+            "name": "value"
+          }
+        ],
+        "return": {
+          "type": "void"
+        },
+        "name": "push"
+      },
+      {
+        "params": [],
+        "return": {
+          "type": "void"
+        },
+        "name": "pop"
+      },
+      {
+        "params": [],
+        "return": {
+          "type": "integer"
+        },
+        "name": "top"
+      },
+      {
+        "params": [],
+        "return": {
+          "type": "integer"
+        },
+        "name": "getMin"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "systemdesign": true,
+    "number": "155"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "MinStack",
+          "push",
+          "push",
+          "push",
+          "getMin",
+          "pop",
+          "top",
+          "getMin"
+        ],
+        [
+          [],
+          [
+            -2
+          ],
+          [
+            0
+          ],
+          [
+            -3
+          ],
+          [],
+          [],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        -3,
+        null,
+        0,
+        -2
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class MinStack:\n\n    def __init__(self):\n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n    def push(self, value: int) -> None:\n        \n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n    def pop(self) -> None:\n        \n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n    def top(self) -> int:\n        \n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n    def getMin(self) -> int:\n        \n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n\n# Your MinStack object will be instantiated and called as such:\n# obj = MinStack()\n# obj.push(value)\n# obj.pop()\n# param_3 = obj.top()\n# param_4 = obj.getMin()",
+    "javascript": "\nvar MinStack = function() {\n    \n};\n\n/** \n * @param {number} value\n * @return {void}\n */\nMinStack.prototype.push = function(value) {\n    \n};\n\n/**\n * @return {void}\n */\nMinStack.prototype.pop = function() {\n    \n};\n\n/**\n * @return {number}\n */\nMinStack.prototype.top = function() {\n    \n};\n\n/**\n * @return {number}\n */\nMinStack.prototype.getMin = function() {\n    \n};\n\n/** \n * Your MinStack object will be instantiated and called as such:\n * var obj = new MinStack()\n * obj.push(value)\n * obj.pop()\n * var param_3 = obj.top()\n * var param_4 = obj.getMin()\n */",
+    "java": "class MinStack {\n\n    public MinStack() {\n        \n    }\n    \n    public void push(int value) {\n        \n    }\n    \n    public void pop() {\n        \n    }\n    \n    public int top() {\n        \n    }\n    \n    public int getMin() {\n        \n    }\n}\n\n/**\n * Your MinStack object will be instantiated and called as such:\n * MinStack obj = new MinStack();\n * obj.push(value);\n * obj.pop();\n * int param_3 = obj.top();\n * int param_4 = obj.getMin();\n */",
+    "cpp": "class MinStack {\npublic:\n    MinStack() {\n        \n    }\n    \n    void push(int value) {\n        \n    }\n    \n    void pop() {\n        \n    }\n    \n    int top() {\n        \n    }\n    \n    int getMin() {\n        \n    }\n};\n\n/**\n * Your MinStack object will be instantiated and called as such:\n * MinStack* obj = new MinStack();\n * obj->push(value);\n * obj->pop();\n * int param_3 = obj->top();\n * int param_4 = obj->getMin();\n */"
+  },
+  "solutions": {
+    "python": "class MinStack:\n    def __init__(self):\n        self.stack = []\n        self.minStack = []\n\n    def push(self, val: int) -> None:\n        self.stack.append(val)\n        val = min(val, self.minStack[-1] if self.minStack else val)\n        self.minStack.append(val)\n\n    def pop(self) -> None:\n        self.stack.pop()\n        self.minStack.pop()\n\n    def top(self) -> int:\n        return self.stack[-1]\n\n    def getMin(self) -> int:\n        return self.minStack[-1]\n",
+    "javascript": "/**\n * https://leetcode.com/problems/min-stack\n * Time O(1) | Space O(1)\n * Your MinStack object will be instantiated and called as such:\n * var obj = new MinStack()\n * obj.push(x)\n * obj.pop()\n * var param_3 = obj.top()\n * var param_4 = obj.getMin()\n */\nclass MinStack {\n  constructor() {\n    this.head = null;\n  }\n  push(val) {\n    this.head = !this.head /* Space O(1) */ ? new Node(val, val, null) : new Node(val, Math.min(val, this.head.min), this.head);\n  }\n  pop() {\n    this.head = this.head.next; /* Time O(1) */\n  }\n  top() {\n    return this.head.val; /* Time O(1) */\n  }\n  getMin() {\n    return this.head.min; /* Time O(1) */\n  }\n}\nclass Node {\n  constructor(val, min, next) {\n    this.val = val;\n    this.min = min;\n    this.next = next;\n  }\n}",
+    "java": "class MinStack {\n\n    private Stack<Integer> stack;\n    private Stack<Integer> minStack;\n\n    public MinStack() {\n        stack = new Stack<>();\n        minStack = new Stack<>();\n    }\n\n    public void push(int val) {\n        stack.push(val);\n\n        // The min stack may be empty, so we need to check it\n        val = Math.min(val, minStack.isEmpty() ? val : minStack.peek());\n        minStack.push(val);\n    }\n\n    public void pop() {\n        stack.pop();\n        minStack.pop();\n    }\n\n    public int top() {\n        return stack.peek();\n    }\n\n    public int getMin() {\n        return minStack.peek();\n    }\n}\n/**\n * Your MinStack object will be instantiated and called as such:\n * MinStack obj = new MinStack();\n * obj.push(val);\n * obj.pop();\n * int param_3 = obj.top();\n * int param_4 = obj.getMin();\n */\n",
+    "cpp": "/*\n    Design stack that supports push, pop, top, & retriving min element\n    \n    2 stacks, 1 normal & 1 monotonic decr, only push if lower than top\n    \n    Time: O(1)\n    Space: O(n)\n*/\n\nclass MinStack {\npublic:\n    MinStack() {\n        \n    }\n    \n    void push(int val) {\n        stk.push(val);\n        \n        if (minStk.empty() || val < minStk.top().first) {\n            minStk.push({val, 1});\n        } else if (val == minStk.top().first) {\n            minStk.top().second++;\n        }\n    }\n    \n    void pop() {\n        if (stk.top() == minStk.top().first) {\n            minStk.top().second--;\n            if (minStk.top().second == 0) {\n                minStk.pop();\n            }\n        }\n        stk.pop();\n    }\n    \n    int top() {\n        return stk.top();\n    }\n    \n    int getMin() {\n        return minStk.top().first;\n    }\nprivate:\n    stack<int> stk;\n    stack<pair<int, int>> minStk;\n};\n\n/**\n * Your MinStack object will be instantiated and called as such:\n * MinStack* obj = new MinStack();\n * obj->push(val);\n * obj->pop();\n * int param_3 = obj->top();\n * int param_4 = obj->getMin();\n */\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0155-min-stack.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0155-min-stack.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0155-min-stack.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0155-min-stack.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "实现 push、pop、top、getMin，要求查询最小值为常数时间，操作保证栈非空时才读取。",
+  "explanation": "每层同时保存当前值与到该层为止的最小值，或维护与主栈同步的最小栈。",
+  "memory": "最小值也有历史，弹出后要恢复之前的最小值。"
+}

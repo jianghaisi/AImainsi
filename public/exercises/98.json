@@ -1,0 +1,64 @@
+{
+  "number": "98",
+  "adapter": {
+    "name": "isValidBST",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "98"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          1,
+          3
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          5,
+          1,
+          4,
+          null,
+          null,
+          3,
+          6
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isValidBST(self, root: TreeNode | None) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @return {boolean}\n */\nvar isValidBST = function(root) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public boolean isValidBST(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool isValidBST(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isValidBST(self, root: TreeNode) -> bool:\n        def valid(node, left, right):\n            if not node:\n                return True\n            if not (left < node.val < right):\n                return False\n\n            return valid(node.left, left, node.val) and valid(\n                node.right, node.val, right\n            )\n\n        return valid(root, float(\"-inf\"), float(\"inf\"))\n",
+    "javascript": "const dfs = (root, min, max) => {\n  const left = isValidBST(root.left, min, root.val);\n  const right = isValidBST(root.right, root.val, max);\n  return left && right;\n};\n// TODO\n/**\n * https://leetcode.com/problems/validate-binary-search-tree/\n * Time O(N) | Space O(H)\n * @param {TreeNode} root\n * @return {boolean}\n */\n\n/**\n * https://leetcode.com/problems/validate-binary-search-tree/\n * Time O(N) | Space O(H)\n * @param {TreeNode} root\n * @return {boolean}\n */\nvar isValidBST = function (root, stack = []) {\n  let prev = null;\n  while (stack.length || root) {\n    moveLeft(stack, root);\n    root = stack.pop();\n    const isInvalid = prev && root.val <= prev.val;\n    if (isInvalid) return false;\n    prev = root;\n    root = root.right;\n  }\n  return true;\n};\nconst moveLeft = (stack, root) => {\n  while (root) {\n    stack.push(root);\n    root = root.left;\n  }\n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n * int val;\n * TreeNode left;\n * TreeNode right;\n * TreeNode() {}\n * TreeNode(int val) { this.val = val; }\n * TreeNode(int val, TreeNode left, TreeNode right) {\n * this.val = val;\n * this.left = left;\n * this.right = right;\n * }\n * }\n */\nclass Solution {\n\n    public boolean isValidBST(TreeNode root) {\n        if (root == null) return true;\n        return dfs(root, null, null);\n    }\n\n    private boolean dfs(TreeNode root, Integer min, Integer max) {\n        if (root == null) return true;\n\n        if (\n            (min != null && root.val <= min) || max != null && root.val >= max\n        ) {\n            return false;\n        }\n\n        return dfs(root.left, min, root.val) && dfs(root.right, root.val, max);\n    }\n}\n",
+    "cpp": "/*\n    Given root of binary tree, determine if it's valid (left all < curr, right all > curr)\n    \n    Inorder traversal & check if prev >= curr, recursive/iterative solutions\n    \n    Time: O(n)\n    Space: O(n)\n*/\n\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool isValidBST(TreeNode* root) {\n        return helper(root, LONG_MIN, LONG_MAX);\n    }\nprivate:\n    bool helper(TreeNode* root, long left, long right){\n        if (!root)\n            return true;\n        if (root->val < right && root->val > left){\n            return helper(root->left, left, root->val) && helper(root->right, root->val, right);\n        }\n        return false;\n    }\n};\n/*\nclass Solution {\npublic:\n    bool isValidBST(TreeNode* root) {\n        TreeNode* prev = NULL;\n        return inorder(root, prev);\n    }\nprivate:\n    bool inorder(TreeNode* root, TreeNode*& prev) {\n        if (root == NULL) {\n            return true;\n        }\n        \n        if (!inorder(root->left, prev)) {\n            return false;\n        }\n        \n        if (prev != NULL && prev->val >= root->val) {\n            return false;\n        }\n        prev = root;\n        \n        if (!inorder(root->right, prev)) {\n            return false;\n        }\n        \n        return true;\n    }\n};\n*/\n\n// class Solution {\n// public:\n//     bool isValidBST(TreeNode* root) {\n//         stack<TreeNode*> stk;\n//         TreeNode* prev = NULL;\n        \n//         while (!stk.empty() || root != NULL) {\n//             while (root != NULL) {\n//                 stk.push(root);\n//                 root = root->left;\n//             }\n//             root = stk.top();\n//             stk.pop();\n            \n//             if (prev != NULL && prev->val >= root->val) {\n//                 return false;\n//             }\n            \n//             prev = root;\n//             root = root->right;\n//         }\n        \n//         return true;\n//     }\n// };\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0098-validate-binary-search-tree.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0098-validate-binary-search-tree.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0098-validate-binary-search-tree.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0098-validate-binary-search-tree.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断二叉树是否满足严格二叉搜索树性质，重复值不合法。",
+  "explanation": "给子树传递开区间上下界，或验证中序遍历严格递增。只比较直接孩子不够。",
+  "memory": "约束来自所有祖先；用落在祖父错误一侧的节点自测。"
+}

@@ -1,0 +1,125 @@
+{
+  "number": "240",
+  "adapter": {
+    "name": "searchMatrix",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "integer[][]"
+      },
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "manual": true,
+    "number": "240"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            4,
+            7,
+            11,
+            15
+          ],
+          [
+            2,
+            5,
+            8,
+            12,
+            19
+          ],
+          [
+            3,
+            6,
+            9,
+            16,
+            22
+          ],
+          [
+            10,
+            13,
+            14,
+            17,
+            24
+          ],
+          [
+            18,
+            21,
+            23,
+            26,
+            30
+          ]
+        ],
+        5
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            4,
+            7,
+            11,
+            15
+          ],
+          [
+            2,
+            5,
+            8,
+            12,
+            19
+          ],
+          [
+            3,
+            6,
+            9,
+            16,
+            22
+          ],
+          [
+            10,
+            13,
+            14,
+            17,
+            24
+          ],
+          [
+            18,
+            21,
+            23,
+            26,
+            30
+          ]
+        ],
+        20
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[][]} matrix\n * @param {number} target\n * @return {boolean}\n */\nvar searchMatrix = function(matrix, target) {\n    \n};",
+    "java": "class Solution {\n    public boolean searchMatrix(int[][] matrix, int target) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool searchMatrix(vector<vector<int>>& matrix, int target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def searchMatrix(self, matrix, target):\n        r,c=0,len(matrix[0])-1\n        while r<len(matrix) and c>=0:\n            if matrix[r][c]==target:return True\n            if matrix[r][c]>target:c-=1\n            else:r+=1\n        return False\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "在每行、每列均递增的矩阵中判断目标是否存在。",
+  "explanation": "从右上角开始，值过大向左、值过小向下，每步排除整行或整列。O(m+n)。",
+  "memory": "右上角的左边更小、下面更大，两个方向恰好覆盖两种比较结果。"
+}

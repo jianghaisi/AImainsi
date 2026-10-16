@@ -11,6 +11,8 @@ import {
   growth,
 } from '../shared/learning.mjs';
 import { SOURCE } from '../server/seed.mjs';
+import { updateProgress, mergeCatalog, currentCatalog } from '../shared/catalog.mjs';
+import { CATALOG_FEED, validateCatalog } from '../shared/catalog-feed.mjs';
 type FullSession = Session & {
   resume: string;
   systemPrompt: string;
@@ -511,7 +513,7 @@ export async function localApi<T>(path: string, body: unknown, method: string): 
       if (!state.settings.judgeUrl) throw new Error('请先配置你自己的 Java / C++ 判题接口');
       const response = await remote(
         state.settings.judgeUrl,
-        { ...r, args: q.args, tests: q.tests },
+        { ...r, args: q.args, tests: q.tests, adapter: q.adapter },
         await getSecret('judgeKey'),
       );
       const parsed = z
@@ -546,6 +548,19 @@ export async function localApi<T>(path: string, body: unknown, method: string): 
         ...new Set(z.object({ ids: z.array(text.max(100)).max(500) }).parse(body).ids),
       ];
       result = state.planDone;
+    } else if (path === '/catalog/sync') {
+      const raw = await remote(CATALOG_FEED);
+      const incoming = validateCatalog(raw),
+        old = state.catalog;
+      const snapshot = currentCatalog(
+        Date.parse(incoming.updatedAt) >= Date.parse(old.updatedAt) ? incoming : old,
+      );
+      state.questions = mergeCatalog(state.questions, snapshot);
+      state.catalog = snapshot;
+      result = { count: snapshot.questions.length, updatedAt: snapshot.updatedAt };
+    } else if (path === '/question-progress') {
+      state.questionProgress = updateProgress(state.questions, state.questionProgress, body);
+      result = state.questionProgress;
     } else if (path === '/export') {
       const data = publicState(state);
       return { ...data, exportedAt: iso() } as T;

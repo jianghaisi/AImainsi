@@ -1,0 +1,78 @@
+{
+  "number": "206",
+  "adapter": {
+    "name": "reverseList",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode",
+        "dealloc": false
+      }
+    ],
+    "return": {
+      "type": "ListNode",
+      "dealloc": true
+    },
+    "number": "206"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": [
+        5,
+        4,
+        3,
+        2,
+        1
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": [
+        2,
+        1
+      ]
+    },
+    {
+      "input": [
+        []
+      ],
+      "expected": []
+    }
+  ],
+  "starters": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def reverseList(self, head: ListNode | None) -> ListNode | None:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @return {ListNode}\n */\nvar reverseList = function(head) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode reverseList(ListNode head) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* reverseList(ListNode* head) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.next = None\n\n\nclass Solution:\n    def reverseList(self, head: ListNode) -> ListNode:\n        prev, curr = None, head\n\n        while curr:\n            temp = curr.next\n            curr.next = prev\n            prev = curr\n            curr = temp\n        return prev\n",
+    "javascript": "const dfs = curr => {\n  const prev = reverseList(curr.next); /* Time O(N) | Space O(N) */\n\n  curr.next.next = curr;\n  curr.next = null;\n  return prev;\n};\n\n/**\n * https://leetcode.com/problems/reverse-linked-list/\n * Time O(N) | Space O(1)\n * @param {ListNode} head\n * @return {ListNode}\n */\nvar reverseList = function (head) {\n  let [prev, curr, next] = [null, head, null];\n  while (curr) {\n    /* Time O(N) */\n    next = curr.next;\n    curr.next = prev;\n    prev = curr;\n    curr = next;\n  }\n  return prev;\n};",
+    "java": "//Use three pointers and so you can change the next of the mid to the first one without losing the track of the original left.\n//Iterative version\nclass Solution {\n\n    public ListNode reverseList(ListNode head) {\n        ListNode current = head;\n        ListNode previous = null;\n        ListNode nextCurrent = null;\n    \n        while (current != null) {\n            nextCurrent = current.next;\n            current.next = previous;\n            previous = current;\n            current = nextCurrent;\n        }\n\n        return previous;\n    }\n}\n\n//Recursive version\nclass Solution {\n\n    public ListNode reverseList(ListNode head) {\n        return rev(head, null);\n    }\n\n    public ListNode rev(ListNode node, ListNode pre) {\n        if (node == null) return pre;\n        ListNode temp = node.next;\n        node.next = pre;\n        return rev(temp, node);\n    }\n}\n",
+    "cpp": "/*\n    Given the head of a singly linked list, reverse list & return\n    Ex. head = [1,2,3,4,5] -> [5,4,3,2,1], head = [1,2] -> [2,1]\n\n    Maintain prev, curr pointers, iterate thru & reverse\n\n    Time: O(n)\n    Space: O(1)\n*/\n\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution\n{\npublic:\n    ListNode *reverseList(ListNode *head)\n    {\n        if (head == NULL || head->next == NULL)\n            return head;\n\n        ListNode *prev = NULL;\n        ListNode *curr = head;\n\n        while (curr != NULL)\n        {\n            ListNode *temp = curr->next;\n            curr->next = prev;\n            prev = curr;\n            curr = temp;\n        }\n        return prev;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0206-reverse-linked-list.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0206-reverse-linked-list.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0206-reverse-linked-list.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0206-reverse-linked-list.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "反转单链表并返回新头节点。输入和输出用数组表示链表。",
+  "explanation": "逐个保存 next，把当前指针指向前一节点，再推进前驱和当前节点。O(n) 时间、O(1) 空间。",
+  "memory": "先保存后路，再回头，再前进；画三个指针即可复现。"
+}

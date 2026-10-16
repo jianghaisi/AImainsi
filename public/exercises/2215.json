@@ -1,0 +1,90 @@
+{
+  "number": "2215",
+  "adapter": {
+    "name": "findDifference",
+    "params": [
+      {
+        "name": "nums1",
+        "type": "integer[]"
+      },
+      {
+        "type": "integer[]",
+        "name": "nums2"
+      }
+    ],
+    "return": {
+      "type": "list<list<integer>>"
+    },
+    "number": "2215"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          2,
+          4,
+          6
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          6
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          3
+        ],
+        [
+          1,
+          1,
+          2,
+          2
+        ]
+      ],
+      "expected": [
+        [
+          3
+        ],
+        []
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def findDifference(self, nums1: list[int], nums2: list[int]) -> list[list[int]]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums1\n * @param {number[]} nums2\n * @return {number[][]}\n */\nvar findDifference = function(nums1, nums2) {\n    \n};",
+    "java": "class Solution {\n    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Time Complexiy: O(m + n)\n# Space Complexity: O(m + n)\nclass Solution:\n    def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:\n        nums1 = set(nums1)\n        nums2 = set(nums2)\n        table = {}\n        for _, val in enumerate(nums2):\n            table[val] = 1\n\n        unik1 = []\n        unik2 = []\n        for i in nums1:\n            if i in table:\n                table[i] += 1\n            else:\n                unik1.append(i)\n        \n        for key, val in table.items():\n            if val == 1:\n                unik2.append(key)\n        return [unik1, unik2]\n\n      \n# Time Complexity: O(m + n), we check each element of nums1Set and nums2Set\n# Space Complexity: O(m + n), where m and n are length sets in worst case.\n\nfrom typing import List  # ignore this, just for typing\n\n\nclass Solution:\n    def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:\n        nums1_set = set(nums1)\n        nums2_set = set(nums2)\n\n        lst1 = [num for num in nums1_set if num not in nums2_set]\n        lst2 = [num for num in nums2_set if num not in nums1_set]\n\n        return [lst1, lst2]\n\n",
+    "javascript": "/**\n * @param {number[]} nums1\n * @param {number[]} nums2\n * @return {number[][]}\n */\n\n// Time Complexity: O(m + n), we check each element of nums1Set and nums2Set\n// Space Complexity: O(m + n), where m and n are length sets in worst case.\n\nvar findDifference = function (nums1, nums2) {\n  const nums1Set = new Set(nums1);\n  const nums2Set = new Set(nums2);\n  const lst1 = Array.from(nums1Set).filter(num => !nums2Set.has(num));\n  const lst2 = Array.from(nums2Set).filter(num => !nums1Set.has(num));\n  return [lst1, lst2];\n};",
+    "java": "class Solution {\n    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {\n        List<List<Integer>> res = new ArrayList<>();\n\n        List<Integer> num1 = new ArrayList<>();\n        for(int n: nums1) num1.add(n);\n\n        List<Integer> num2 = new ArrayList<>();\n        for(int n: nums2) num2.add(n);\n\n        Set<Integer> set1 = new HashSet<>();\n        Set<Integer> set2 = new HashSet<>();\n\n        //Because we need to return result in 2 list of the result list, therefore we are creating these placeholders\n        res.add(new ArrayList<>()); \n        res.add(new ArrayList<>());\n\n        for(int i=0; i<nums1.length; i++){\n            if(!num2.contains(nums1[i])) set1.add(nums1[i]);\n        }\n\n        for(int i=0; i<nums2.length; i++){\n            if(!num1.contains(nums2[i])) set2.add(nums2[i]);\n        }\n\n        for(int n: set1) res.get(0).add(n);\n\n        for(int n: set2) res.get(1).add(n);\n\n        return res;\n    }\n}\n",
+    "cpp": "// Time Complexity: O(m + n), we check each element of nums1Set and nums2Set\n// Space Complexity: O(m + n), where m and n are length sets in worst case.\n\nclass Solution\n{\npublic:\n    vector<vector<int>> findDifference(vector<int> &nums1, vector<int> &nums2)\n    {\n        unordered_set<int> nums1Set(nums1.begin(), nums1.end());\n        unordered_set<int> nums2Set(nums2.begin(), nums2.end());\n\n        vector<int> lst1;\n        vector<int> lst2;\n\n        for (const auto &num : nums1Set)\n        {\n            if (nums2Set.find(num) == nums2Set.end())\n            {\n                lst1.push_back(num);\n            }\n        }\n\n        for (const auto &num : nums2Set)\n        {\n            if (nums1Set.find(num) == nums1Set.end())\n            {\n                lst2.push_back(num);\n            }\n        }\n\n        return {lst1, lst2};\n    }\n};"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/2215-find-the-difference-of-two-arrays.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/2215-find-the-difference-of-two-arrays.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/2215-find-the-difference-of-two-arrays.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/2215-find-the-difference-of-two-arrays.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "分别返回两个数组各自独有的不同元素，结果中的顺序不限。",
+  "explanation": "转为集合后计算两个方向的差集。O(n+m)。",
+  "memory": "先去重，再做差集；外层两组的位置不能交换。"
+}

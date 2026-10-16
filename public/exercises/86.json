@@ -1,0 +1,76 @@
+{
+  "number": "86",
+  "adapter": {
+    "name": "partition",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode",
+        "dealloc": false
+      },
+      {
+        "name": "x",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "ListNode",
+      "dealloc": true
+    },
+    "number": "86"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          4,
+          3,
+          2,
+          5,
+          2
+        ],
+        3
+      ],
+      "expected": [
+        1,
+        2,
+        2,
+        4,
+        3,
+        5
+      ]
+    },
+    {
+      "input": [
+        [
+          2,
+          1
+        ],
+        2
+      ],
+      "expected": [
+        1,
+        2
+      ]
+    }
+  ],
+  "starters": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def partition(self, head: ListNode | None, x: int) -> ListNode | None:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @param {number} x\n * @return {ListNode}\n */\nvar partition = function(head, x) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode partition(ListNode head, int x) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* partition(ListNode* head, int x) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:\n        less_head, bigger_head = ListNode(-1), ListNode(-1)\n        less_prev, bigger_prev = less_head, bigger_head\n        while head:\n            if head.val < x:\n                less_prev.next = head\n                less_prev = less_prev.next\n            else:\n                bigger_prev.next = head\n                bigger_prev = bigger_prev.next\n\n            head = head.next\n\n        less_prev.next = bigger_prev.next = None\n        less_prev.next = bigger_head.next\n\n        return less_head.next\n",
+    "java": "class Solution {\n    public ListNode partition(ListNode head, int x) {\n        ListNode head1 = new ListNode(); // will store node.value < x\n        ListNode head2 = new ListNode(); // will store node.value >= x\n\n        ListNode tail1 = head1, tail2 = head2, curr = head;\n\n        while (curr != null) {\n            if (curr.val < x) {\n                tail1.next = curr;\n                tail1 = tail1.next;\n            } else {\n                tail2.next = curr;\n                tail2 = tail2.next;\n            }\n            curr = curr.next;\n        }\n        // at this point the two lists are not connected the way we want them to\n        // we'll need to connect the list with values<x to list with values >= x\n        // also the last node (tail2) is currently pointing to some random node but it\n        // should point to null\n        tail1.next = head2.next;\n        tail2.next = null;\n        return head1.next;\n    }\n}"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0086-partition-list.py",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0086-partition-list.java"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "按目标值拆分链表，小于目标的节点在前，并保持各组原相对顺序。",
+  "explanation": "用两个哨兵收集小组和大组，末尾连接并断开旧尾指针。",
+  "memory": "稳定分组用双链；大链尾部必须置空。"
+}

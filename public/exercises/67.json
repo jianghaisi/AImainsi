@@ -1,0 +1,58 @@
+{
+  "number": "67",
+  "adapter": {
+    "name": "addBinary",
+    "params": [
+      {
+        "name": "a",
+        "type": "string"
+      },
+      {
+        "name": "b",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "67"
+  },
+  "tests": [
+    {
+      "input": [
+        "11",
+        "1"
+      ],
+      "expected": "100"
+    },
+    {
+      "input": [
+        "1010",
+        "1011"
+      ],
+      "expected": "10101"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def addBinary(self, a: str, b: str) -> str:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} a\n * @param {string} b\n * @return {string}\n */\nvar addBinary = function(a, b) {\n    \n};",
+    "java": "class Solution {\n    public String addBinary(String a, String b) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string addBinary(string a, string b) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def addBinary(self, a: str, b: str) -> str:\n        res = \"\"\n        carry = 0\n\n        a, b = a[::-1], b[::-1]\n        for i in range(max(len(a), len(b))):\n            bitA = ord(a[i]) - ord('0') if i < len(a) else 0\n            bitB = ord(b[i]) - ord('0') if i < len(b) else 0\n\n            total = bitA + bitB + carry\n            char = str(total % 2)\n            res = char + res\n            carry = total // 2\n\n        if carry:\n            res = \"1\" + res\n\n        return res\n",
+    "javascript": "/**\n * @param {string} a\n * @param {string} b\n * @return {string}\n */\nvar addBinary = function (a, b) {\n  let carry = 0;\n  let maxLength = a.length;\n  let result = '';\n  if (a.length < b.length) {\n    a = '0'.repeat(b.length - a.length) + a;\n    maxLength = b.length;\n  } else {\n    b = '0'.repeat(a.length - b.length) + b;\n  }\n  for (let i = maxLength - 1; i >= 0; i--) {\n    sum = parseInt(a[i]) + parseInt(b[i]) + carry;\n    result = sum % 2 + result;\n    if (sum >= 2) {\n      carry = 1;\n    } else {\n      carry = 0;\n    }\n  }\n  if (carry) result = '1' + result;\n  return result;\n};",
+    "java": "class Solution {\n    public String addBinary(String a, String b) {\n        // Go from right to left\n        int len1 = a.length();\n        int len2 = b.length();\n\n        int minLen = Math.min(len1, len2);\n        int maxLen = Math.max(len1, len2);\n\n        int index1 = len1 - 1;\n        int index2 = len2 - 1;\n\n        StringBuilder bld = new StringBuilder();\n        boolean carry = false;\n\n        while((index1 >= 0) || (index2 >= 0) || carry) {\n            char c1 = (index1 >= 0) ? a.charAt(index1) : '0';\n            char c2 = (index2 >= 0) ? b.charAt(index2) : '0';\n\n            char sum;\n            if((c1 == '0') && (c2 == '0')) {        // Both zeros\n                sum = carry ? '1' : '0';\n                carry = false;\n            }\n            else if((c1 == '1') && (c2 == '1')) {   // Both ones\n                sum = carry ? '1' : '0';\n                carry = true;\n            }\n            else {                                  // Any one with a one\n                sum = carry ? '0' : '1';\n                // carry will be forwarded\n            }\n            bld.append(sum);\n\n            index1--;\n            index2--;\n        }\n\n        return bld.reverse().toString();\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string addBinary(string a, string b) {\n        string res;\n        int maxLen = a.size() > b.size() ? a.size() : b.size();\n        unsigned int carry = 0;\n\n        for(int i = 0; i < maxLen; i++)\n        {\n            unsigned int bitA = i < a.size() ? a[a.size() - i - 1] - '0' : 0;\n            unsigned int bitB = i < b.size() ? b[b.size() - i - 1] - '0' : 0;\n\n            unsigned int total = bitA + bitB + carry;\n            char sum = '0' + total % 2;\n            carry = total / 2;\n\n            // Add to the beginning of the string\n            res.insert(0, 1, sum);\n        }\n\n        if(carry)\n        {\n            res.insert(0, 1, '1');\n        }\n\n        return res;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0067-add-binary.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0067-add-binary.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0067-Add-Binary.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0067-Add-Binary.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "将两个二进制字符串相加，返回二进制结果字符串。",
+  "explanation": "从末尾逐位相加并维护进位，结果逆序后反转。O(n)。",
+  "memory": "循环条件包含最后的进位。"
+}

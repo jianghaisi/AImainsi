@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import './catalog.css';
+import { questionStatus } from '../shared/catalog.mjs';
 import {
   ArrowRight,
   Check,
@@ -9,6 +11,7 @@ import {
   RefreshCw,
   Search,
   Upload,
+  Star,
 } from 'lucide-react';
 import type { Shared } from './App';
 import type { Question } from './types';
@@ -38,30 +41,119 @@ export function Bank({
     explanation: '',
     memory: '',
   });
+  type Collection = {
+    id: string;
+    name: string;
+    description: string;
+    questionIds: string[];
+    sourceUrl?: string;
+    provenance?: string;
+  };
+  const plans = state.catalog.collections as Collection[];
+  const [planId, setPlanId] = useState(localStorage.getItem('bank-plan') || 'hot100');
+  const [showAllPlans, setShowAllPlans] = useState(false),
+    [completed, setCompleted] = useState(false),
+    [progressBusy, setProgressBusy] = useState(false);
+  const [difficulty, setDifficulty] = useState('all'),
+    [progressFilter, setProgressFilter] = useState('all'),
+    [page, setPage] = useState(0),
+    [note, setNote] = useState('');
+  const plan = plans.find((p) => p.id === planId),
+    planIds = plan ? new Set(plan.questionIds) : null;
+  const statusOf = (id: string) => questionStatus(id, state.attempts, state.questionProgress);
+  const labels: Record<string, string> = {
+    passed: '测试通过',
+    manual: '手动完成',
+    practicing: '练习中',
+    new: '未开始',
+  };
+  const open = (q: Question) => {
+    if (q.kind === 'coding') practice(q);
+    else {
+      setSelected(q);
+      setCompleted(!!state.questionProgress[q.id]?.completed);
+      setNote(state.questionProgress[q.id]?.note || '');
+    }
+  };
+  const saveProgress = async (id: string, patch: Record<string, unknown>) => {
+    setProgressBusy(true);
+    try {
+      await api('/question-progress', { questionId: id, ...patch });
+      await refresh();
+      return true;
+    } catch (e) {
+      notify((e as Error).message, true);
+      return false;
+    } finally {
+      setProgressBusy(false);
+    }
+  };
+  useEffect(() => {
+    setPage(0);
+  }, [search, topic, kind, company, planId, difficulty, progressFilter]);
+  useEffect(() => {
+    localStorage.setItem('bank-plan', planId);
+  }, [planId]);
   const questions = state.questions.filter(
     (q) =>
       q.status === 'published' &&
+      (!planIds || planIds.has(q.id)) &&
+      (difficulty === 'all' || q.difficulty === difficulty) &&
+      (progressFilter === 'all' ||
+        (progressFilter === 'bookmarked'
+          ? state.questionProgress[q.id]?.bookmarked
+          : progressFilter === 'unfinished'
+            ? !['passed', 'manual'].includes(statusOf(q.id))
+            : statusOf(q.id) === progressFilter)) &&
       (topic === '全部领域' || q.topic === topic) &&
       (company === '全部公司' || q.company === company) &&
       (kind === 'all' || q.kind === kind) &&
-      `${q.title} ${q.topic} ${q.description}`.toLowerCase().includes(search.toLowerCase()),
+      `${q.number || ''} ${q.englishTitle || ''} ${q.title} ${q.topic} ${q.description}`
+        .toLowerCase()
+        .includes(search.toLowerCase()),
   );
-  const passed = new Set(
-    state.attempts.filter((a) => a.passed === a.total).map((a) => a.questionId),
+  if (plan)
+    questions.sort((a, b) => plan.questionIds.indexOf(a.id) - plan.questionIds.indexOf(b.id));
+  const pageCount = Math.max(1, Math.ceil(questions.length / 25)),
+    currentPage = Math.min(page, pageCount - 1);
+  const next = questions.find((q) => !['passed', 'manual'].includes(statusOf(q.id)));
+  const last = state.questions.find(
+    (q) => q.id === localStorage.getItem('last-practice') && (!planIds || planIds.has(q.id)),
   );
   return (
     <>
-      <PageTitle
-        en="INTELLIGENCE / QUESTION BANK"
-        title="建立你的知识储备"
-        description="按领域与来源筛选，从一道题延伸出一条知识线。"
-        action={
-          <Button primary onClick={() => setCreating(true)}>
-            <Plus size={16} />
-            添加自定义题目
-          </Button>
-        }
-      />
+      <div className="bank-heading">
+        <PageTitle
+          en="INTELLIGENCE / QUESTION BANK"
+          title="从一道题，走向一类题"
+          description="选一条适合自己的路线。收藏、复习与完成记录，在不同题单之间共享。"
+          action={
+            <div className="button-row">
+              <Button
+                disabled={busy}
+                onClick={async () => {
+                  setBusy(true);
+                  try {
+                    const r = await api('/catalog/sync', {});
+                    await refresh();
+                    notify(`题单已检查：${r.count} 道题 · ${date(r.updatedAt)}`);
+                  } catch (e) {
+                    notify('更新失败，现有题库可继续使用：' + (e as Error).message, true);
+                  } finally {
+                    setBusy(false);
+                  }
+                }}
+              >
+                <RefreshCw size={15} /> {busy ? '正在检查…' : '更新题单'}
+              </Button>
+              <Button primary onClick={() => setCreating(true)}>
+                <Plus size={16} />
+                添加自定义题目
+              </Button>
+            </div>
+          }
+        />
+      </div>
       <div className="bank-summary">
         <div>
           <Database size={23} />
@@ -70,8 +162,76 @@ export function Bank({
             题目与索引
           </span>
         </div>
-        <p>内置原创训练 + 可追溯来源索引</p>
-        <span className="sync-label">上次同步 / {date(state.sources.lastSync)}</span>
+        <p>
+          {plans.length} 套题单 · {state.questions.filter((q) => q.kind === 'coding').length}{' '}
+          道可运行训练
+        </p>
+        <span className="sync-label">题单快照 / {date(state.catalog.updatedAt)}</span>
+      </div>
+      <div className="collection-grid" aria-label="选择训练题单">
+        {(showAllPlans
+          ? plans
+          : plans.filter(
+              (p, i) =>
+                i < (plans.slice(0, 4).some((p) => p.id === planId) || planId === 'all' ? 4 : 3) ||
+                p.id === planId,
+            )
+        ).map((p) => {
+          const count = p.questionIds.filter((id) =>
+            ['passed', 'manual'].includes(statusOf(id)),
+          ).length;
+          return (
+            <button
+              key={p.id}
+              className={`collection-card ${planId === p.id ? 'active' : ''}`}
+              aria-pressed={planId === p.id}
+              onClick={() => setPlanId(p.id)}
+            >
+              <span className="collection-top">
+                <strong>{p.name}</strong>
+                <span>{p.questionIds.length} 题</span>
+              </span>
+              <small>{p.description}</small>
+              <progress
+                aria-label={`${p.name} 完成进度`}
+                value={count}
+                max={p.questionIds.length}
+              />
+              <span className="collection-bottom">
+                已完成 {count} / {p.questionIds.length}
+                <ArrowRight size={14} />
+              </span>
+            </button>
+          );
+        })}
+      </div>
+      <button className="text-link plans-toggle" onClick={() => setShowAllPlans(!showAllPlans)}>
+        {showAllPlans
+          ? '收起题单'
+          : `浏览全部 ${plans.length} 套题单 · 剑指 Offer、面试金典、专题训练`}
+      </button>
+      <div className="collection-current">
+        <div>
+          <span className="eyebrow">YOUR NEXT STEP</span>
+          <h2>{plan?.name || '全部题目'}</h2>
+          <p className="hint">
+            {planId === 'hot200'
+              ? 'Hot 200 为本项目整理的扩展题单：Hot 100 + 经典 150 + LeetCode 75 去重补齐，不代表官方排名。'
+              : '根据原站公开题单整理。同一道题只记录一份进度。'}{' '}
+            {plan && (
+              <External url={plan.sourceUrl || 'https://leetcode.cn/studyplan/'}>题单来源</External>
+            )}
+          </p>
+        </div>
+        <div className="button-row">
+          {last && <Button onClick={() => open(last)}>继续上次练习</Button>}
+          {next && (
+            <Button primary onClick={() => open(next)}>
+              下一道未完成 <ArrowRight size={15} />
+            </Button>
+          )}
+          <Button onClick={() => setPlanId('all')}>全部题目</Button>
+        </div>
       </div>
       <div className="filter-bar">
         <div className="search-field">
@@ -99,6 +259,30 @@ export function Bank({
           <option value="concept">专业问答</option>
           <option value="reference">来源索引</option>
         </select>
+        <select
+          aria-label="筛选难度"
+          value={difficulty}
+          onChange={(e) => setDifficulty(e.target.value)}
+        >
+          <option value="all">全部难度</option>
+          {[...new Set(state.questions.map((q) => q.difficulty))].map((d) => (
+            <option key={d}>{d}</option>
+          ))}
+        </select>
+        <select
+          aria-label="筛选进度"
+          value={progressFilter}
+          onChange={(e) => setProgressFilter(e.target.value)}
+        >
+          <option value="all">全部进度</option>
+          <option value="unfinished">未完成</option>
+          <option value="bookmarked">我的收藏</option>
+          {Object.entries(labels).map(([key, label]) => (
+            <option key={key} value={key}>
+              {label}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="table-wrap">
         <table className="question-table">
@@ -113,15 +297,23 @@ export function Bank({
             </tr>
           </thead>
           <tbody>
-            {questions.map((q, i) => (
+            {questions.slice(currentPage * 25, (currentPage + 1) * 25).map((q, i) => (
               <tr key={q.id}>
                 <td>
-                  <span className={`question-status ${passed.has(q.id) ? 'done' : ''}`}>
-                    {passed.has(q.id) ? <Check size={14} /> : String(i + 1).padStart(2, '0')}
+                  <span
+                    title={labels[statusOf(q.id)]}
+                    className={`question-status ${['passed', 'manual'].includes(statusOf(q.id)) ? 'done' : ''}`}
+                  >
+                    {['passed', 'manual'].includes(statusOf(q.id)) ? (
+                      <Check size={14} />
+                    ) : (
+                      String(currentPage * 25 + i + 1).padStart(2, '0')
+                    )}
                   </span>
                 </td>
                 <td>
-                  <button onClick={() => (q.kind === 'coding' ? practice(q) : setSelected(q))}>
+                  <button onClick={() => open(q)}>
+                    {q.number && <span className="problem-number">{q.number}. </span>}
                     {q.title}
                   </button>
                   <small>
@@ -129,7 +321,9 @@ export function Bank({
                       ? '可运行测试 · 题解 · 记忆卡'
                       : q.kind === 'concept'
                         ? '专业问答'
-                        : '外部题目索引'}
+                        : '原站练习 · 本地记录'}{' '}
+                    · {labels[statusOf(q.id)]}
+                    {q.paidOnly ? ' · 原站会员题' : ''}
                   </small>
                 </td>
                 <td>
@@ -145,9 +339,25 @@ export function Bank({
                 </td>
                 <td>
                   <button
+                    disabled={progressBusy}
+                    className="icon-button"
+                    aria-label={`${state.questionProgress[q.id]?.bookmarked ? '取消收藏' : '收藏'} ${q.title}`}
+                    aria-pressed={!!state.questionProgress[q.id]?.bookmarked}
+                    onClick={() =>
+                      void saveProgress(q.id, {
+                        bookmarked: !state.questionProgress[q.id]?.bookmarked,
+                      })
+                    }
+                  >
+                    <Star
+                      size={16}
+                      fill={state.questionProgress[q.id]?.bookmarked ? 'currentColor' : 'none'}
+                    />
+                  </button>
+                  <button
                     className="icon-button"
                     aria-label={`打开 ${q.title}`}
-                    onClick={() => (q.kind === 'coding' ? practice(q) : setSelected(q))}
+                    onClick={() => open(q)}
                   >
                     <ArrowRight size={17} />
                   </button>
@@ -167,6 +377,8 @@ export function Bank({
                   setTopic('全部领域');
                   setCompany('全部公司');
                   setKind('all');
+                  setDifficulty('all');
+                  setProgressFilter('all');
                 }}
               >
                 重置筛选
@@ -175,9 +387,20 @@ export function Bank({
           />
         )}
       </div>
-      <p className="hint">
-        共 {questions.length} 条 · 厂商标签来自来源或个人配置，不代表公司官方题库。
-      </p>
+      <div className="bank-pagination">
+        <p className="hint">共 {questions.length} 条 · 每页 25 题 · 手动完成不计入测试成绩</p>
+        <div className="button-row">
+          <Button disabled={currentPage === 0} onClick={() => setPage(currentPage - 1)}>
+            上一页
+          </Button>
+          <span aria-live="polite">
+            {currentPage + 1} / {pageCount}
+          </span>
+          <Button disabled={currentPage + 1 >= pageCount} onClick={() => setPage(currentPage + 1)}>
+            下一页
+          </Button>
+        </div>
+      </div>
       {selected && (
         <Modal label="题目详情" onClose={() => setSelected(null)}>
           <span className="eyebrow">KNOWLEDGE / DETAIL</span>
@@ -200,6 +423,39 @@ export function Bank({
             </div>
           )}
           <External url={selected.sourceUrl}>查看原始来源</External>
+          <div className="practice-record">
+            <label>
+              <input
+                type="checkbox"
+                disabled={progressBusy}
+                checked={completed}
+                onChange={async (e) => {
+                  const value = e.target.checked;
+                  setCompleted(value);
+                  if (!(await saveProgress(selected.id, { completed: value })))
+                    setCompleted(!value);
+                }}
+              />{' '}
+              我已在原站或自行完成（手动记录）
+            </label>
+            <Field label="我的思路与易错点">
+              <textarea
+                rows={4}
+                maxLength={5000}
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                placeholder="记下不变量、卡住的原因，以及下次要检查的边界…"
+              />
+            </Field>
+            <Button
+              disabled={progressBusy}
+              onClick={async () => {
+                if (await saveProgress(selected.id, { note })) notify('笔记已保存');
+              }}
+            >
+              保存笔记
+            </Button>
+          </div>
           <div className="form-footer">
             <Button onClick={() => setSelected(null)}>关闭</Button>
             <Button
@@ -277,6 +533,7 @@ export function Bank({
                   await api('/questions', draft);
                   await refresh();
                   setCreating(false);
+                  setPlanId('all');
                   notify('自定义题目已加入题库');
                 } catch (e) {
                   notify((e as Error).message, true);

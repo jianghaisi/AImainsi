@@ -1,0 +1,78 @@
+{
+  "number": "61",
+  "adapter": {
+    "name": "rotateRight",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode",
+        "dealloc": false
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "ListNode",
+      "dealloc": true
+    },
+    "number": "61"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        2
+      ],
+      "expected": [
+        4,
+        5,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "input": [
+        [
+          0,
+          1,
+          2
+        ],
+        4
+      ],
+      "expected": [
+        2,
+        0,
+        1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def rotateRight(self, head: ListNode | None, k: int) -> ListNode | None:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @param {number} k\n * @return {ListNode}\n */\nvar rotateRight = function(head, k) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode rotateRight(ListNode head, int k) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* rotateRight(ListNode* head, int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:\n        if not head or not head.next or k == 0:\n            return head\n\n        old_head = head\n\n        curr, size = head, 0\n        while curr:\n            curr, size = curr.next, size + 1\n\n        if k % size == 0:\n            return head\n\n        k %= size\n        slow = fast = head\n        while fast and fast.next:\n            if k <= 0:\n                slow = slow.next\n            fast = fast.next\n            k -= 1\n\n        new_tail, new_head, old_tail = slow, slow.next, fast\n        new_tail.next, old_tail.next = None, old_head\n\n        return new_head\n",
+    "java": "//TC: O(n) + O(n- (n % k)) ~ O(n)\n//SC: O(1)\n\nclass Solution {\n    public ListNode rotateRight(ListNode head, int k) {\n        if (head == null || head.next == null || k == 0)\n            return head;\n\n        int l = 1; // length of list\n        ListNode temp = head;\n\n        // calculate the list's length\n        while (temp.next != null) {\n            l++;\n            temp = temp.next;\n        }\n\n        temp.next = head; // make the list cyclic\n        k = k % l; // handles the case where k>l\n        k = l - k;\n\n        while (k > 0) {\n            temp = temp.next;\n            k--;\n        }\n        head = temp.next;\n        temp.next = null;\n\n        return head;\n    }\n}",
+    "cpp": "/*\n    Given the head of a linked list, rotate the list to the right by k places.\n    Example: list = [1,2,3,4,5] and k = 2\n    Output: [4,5,1,2,3]\n    \n    Time complexity: O(n)\n    Space complexity: O(1)\n*/\n\nclass Solution {\nprivate:\n    int findLen(ListNode* head){\n        int len = 0;\n        while(head!=NULL){\n            len++;\n            head = head->next;\n        }\n        return len;\n    }\n    ListNode* findNewHead(ListNode* head,int k){\n        int i=0;\n        while(i+1<k){\n            i++;\n            head = head->next;\n        }\n        ListNode* ret = head->next;\n        head->next = NULL;\n        return ret;\n    }\n    ListNode* findLast(ListNode* head){\n        while(head->next!=NULL) head = head->next;\n        return head;\n    }\npublic:\n    ListNode* rotateRight(ListNode* head, int k) {\n        int len = findLen(head); // Finds the length of the Linked List\n        if(len==0) return head;\n        k = k%len;\n        if(k==0) return head;\n        ListNode* newHead = findNewHead(head,len-k); // Finds the node that is the new head\n        ListNode* last = findLast(newHead); // Finds the last node from the new head and connects it to the previous head\n        last->next = head;\n        return newHead;\n    }\n};"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0061-rotate-list.py",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0061-rotate-list.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0061-rotate-list.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "把链表向右旋转 k 个位置。",
+  "explanation": "求长度后令 k 取模，连成环，在新尾位置切断。O(n)。",
+  "memory": "新尾在长度减 k 减一处；空链表先返回。"
+}

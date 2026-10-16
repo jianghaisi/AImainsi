@@ -1,0 +1,65 @@
+{
+  "number": "11",
+  "adapter": {
+    "name": "maxArea",
+    "params": [
+      {
+        "name": "height",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "11"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          8,
+          6,
+          2,
+          5,
+          4,
+          8,
+          3,
+          7
+        ]
+      ],
+      "expected": 49
+    },
+    {
+      "input": [
+        [
+          1,
+          1
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def maxArea(self, height: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} height\n * @return {number}\n */\nvar maxArea = function(height) {\n    \n};",
+    "java": "class Solution {\n    public int maxArea(int[] height) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int maxArea(vector<int>& height) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def maxArea(self, height: List[int]) -> int:\n        l, r = 0, len(height) - 1\n        res = 0\n\n        while l < r:\n            res = max(res, min(height[l], height[r]) * (r - l))\n            if height[l] < height[r]:\n                l += 1\n            elif height[r] <= height[l]:\n                r -= 1\n            \n        return res\n",
+    "javascript": "/**\n * https://leetcode.com/problems/container-with-most-water/\n * Two pointers, Time O(N) | Space(1)\n * @param {number[]} height\n * @return {number}\n */\n\nvar maxArea = function (height) {\n  let [left, right, max] = [0, height.length - 1, 0];\n  while (left < right) {\n    let containerHeight, area;\n    let containerWidth = right - left;\n    if (height[left] < height[right]) {\n      containerHeight = height[left];\n      left++;\n    } else {\n      containerHeight = height[right];\n      right--;\n    }\n    area = containerWidth * containerHeight;\n    if (area > max) {\n      max = area;\n    }\n  }\n  return max;\n};",
+    "java": "class Solution {\n\n    public int maxArea(int[] height) {\n        int left = 0;\n        int right = height.length - 1;\n        int res = 0;\n        while (left < right) {\n            int containerLength = right - left;\n            int area = containerLength * Math.min(height[left], height[right]);\n            res = Math.max(res, area);\n            if (height[left] < height[right]) {\n                left++;\n            } else {\n                right--;\n            }\n        }\n        return res;\n    }\n}\n",
+    "cpp": "/*\n    Given array of heights, find max water container can store\n    Ex. height = [1,8,6,2,5,4,8,3,7] -> 49, (8 - 1) x min(8, 7)\n\n    2 pointers outside in, greedily iterate pointer w/ lower height\n\n    Time: O(n)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    int maxArea(vector<int>& height) {\n        int i = 0;\n        int j = height.size() - 1;\n        \n        int curr = 0;\n        int result = 0;\n        \n        while (i < j) {\n            curr = (j - i) * min(height[i], height[j]);\n            result = max(result, curr);\n            \n            if (height[i] <= height[j]) {\n                i++;\n            } else {\n                j--;\n            }\n        }\n        \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0011-container-with-most-water.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0011-container-with-most-water.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0011-container-with-most-water.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0011-container-with-most-water.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "数组每个值表示对应位置的高度。选择两根竖线，以较小高度乘下标间距作为容积，求最大值。",
+  "explanation": "左右指针从两端靠近，每次舍弃较短边。保留短边同时缩小宽度不会带来更大面积。O(n)。",
+  "memory": "面积受短板限制，所以移动短板；用这个证明记住移动规则。"
+}

@@ -1,0 +1,7645 @@
+{
+  "lc-two-sum": {
+    "number": "1",
+    "args": ["nums", "target"],
+    "tests": [
+      {
+        "input": [[2, 7, 11, 15], 9],
+        "expected": [0, 1]
+      },
+      {
+        "input": [[3, 2, 4], 6],
+        "expected": [1, 2]
+      },
+      {
+        "input": [[3, 3], 6],
+        "expected": [0, 1]
+      }
+    ],
+    "adapter": {
+      "name": "twoSum",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "target",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer[]",
+        "size": 2
+      },
+      "manual": false,
+      "number": "1"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-group-anagrams": {
+    "number": "49",
+    "args": ["strs"],
+    "tests": [
+      {
+        "input": [["eat", "tea", "tan", "ate", "nat", "bat"]],
+        "expected": [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
+      },
+      {
+        "input": [[""]],
+        "expected": [[""]]
+      },
+      {
+        "input": [["a"]],
+        "expected": [["a"]]
+      }
+    ],
+    "adapter": {
+      "name": "groupAnagrams",
+      "params": [
+        {
+          "name": "strs",
+          "type": "string[]"
+        }
+      ],
+      "return": {
+        "type": "list<list<string>>",
+        "dealloc": true
+      },
+      "number": "49"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-longest-consecutive-sequence": {
+    "number": "128",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[100, 4, 200, 1, 3, 2]],
+        "expected": 4
+      },
+      {
+        "input": [[0, 3, 7, 2, 5, 8, 4, 6, 0, 1]],
+        "expected": 9
+      },
+      {
+        "input": [[1, 0, 1, 2]],
+        "expected": 3
+      }
+    ],
+    "adapter": {
+      "name": "longestConsecutive",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "128"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-move-zeroes": {
+    "number": "283",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[0, 1, 0, 3, 12]],
+        "expected": [1, 3, 12, 0, 0]
+      },
+      {
+        "input": [[0]],
+        "expected": [0]
+      }
+    ],
+    "adapter": {
+      "name": "moveZeroes",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "void"
+      },
+      "output": {
+        "paramindex": 0
+      },
+      "number": "283"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-container-with-most-water": {
+    "number": "11",
+    "args": ["height"],
+    "tests": [
+      {
+        "input": [[1, 8, 6, 2, 5, 4, 8, 3, 7]],
+        "expected": 49
+      },
+      {
+        "input": [[1, 1]],
+        "expected": 1
+      }
+    ],
+    "adapter": {
+      "name": "maxArea",
+      "params": [
+        {
+          "name": "height",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "11"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-3sum": {
+    "number": "15",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[-1, 0, 1, 2, -1, -4]],
+        "expected": [
+          [-1, -1, 2],
+          [-1, 0, 1]
+        ]
+      },
+      {
+        "input": [[0, 1, 1]],
+        "expected": []
+      },
+      {
+        "input": [[0, 0, 0]],
+        "expected": [[0, 0, 0]]
+      }
+    ],
+    "adapter": {
+      "name": "threeSum",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "list<list<integer>>",
+        "colsize": 3,
+        "dealloc": true
+      },
+      "number": "15"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-trapping-rain-water": {
+    "number": "42",
+    "args": ["height"],
+    "tests": [
+      {
+        "input": [[0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]],
+        "expected": 6
+      },
+      {
+        "input": [[4, 2, 0, 3, 2, 5]],
+        "expected": 9
+      }
+    ],
+    "adapter": {
+      "name": "trap",
+      "params": [
+        {
+          "name": "height",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "42"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "substring": {
+    "number": "3",
+    "args": ["s"],
+    "tests": [
+      {
+        "input": ["abcabcbb"],
+        "expected": 3
+      },
+      {
+        "input": ["bbbbb"],
+        "expected": 1
+      },
+      {
+        "input": ["pwwkew"],
+        "expected": 3
+      }
+    ],
+    "adapter": {
+      "name": "lengthOfLongestSubstring",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "3"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-find-all-anagrams-in-a-string": {
+    "number": "438",
+    "args": ["s", "p"],
+    "tests": [
+      {
+        "input": ["cbaebabacd", "abc"],
+        "expected": [0, 6]
+      },
+      {
+        "input": ["abab", "ab"],
+        "expected": [0, 1, 2]
+      }
+    ],
+    "adapter": {
+      "name": "findAnagrams",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        },
+        {
+          "name": "p",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "list<integer>"
+      },
+      "number": "438"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-subarray-sum-equals-k": {
+    "number": "560",
+    "args": ["nums", "k"],
+    "tests": [
+      {
+        "input": [[1, 1, 1], 2],
+        "expected": 2
+      },
+      {
+        "input": [[1, 2, 3], 3],
+        "expected": 2
+      }
+    ],
+    "adapter": {
+      "name": "subarraySum",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "560"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-sliding-window-maximum": {
+    "number": "239",
+    "args": ["nums", "k"],
+    "tests": [
+      {
+        "input": [[1, 3, -1, -3, 5, 3, 6, 7], 3],
+        "expected": [3, 3, 5, 5, 6, 7]
+      },
+      {
+        "input": [[1], 1],
+        "expected": [1]
+      }
+    ],
+    "adapter": {
+      "name": "maxSlidingWindow",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer[]"
+      },
+      "number": "239"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-minimum-window-substring": {
+    "number": "76",
+    "args": ["s", "t"],
+    "tests": [
+      {
+        "input": ["ADOBECODEBANC", "ABC"],
+        "expected": "BANC"
+      },
+      {
+        "input": ["a", "a"],
+        "expected": "a"
+      },
+      {
+        "input": ["a", "aa"],
+        "expected": ""
+      }
+    ],
+    "adapter": {
+      "name": "minWindow",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        },
+        {
+          "name": "t",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "string"
+      },
+      "number": "76"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-maximum-subarray": {
+    "number": "53",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[-2, 1, -3, 4, -1, 2, 1, -5, 4]],
+        "expected": 6
+      },
+      {
+        "input": [[1]],
+        "expected": 1
+      },
+      {
+        "input": [[5, 4, -1, 7, 8]],
+        "expected": 23
+      }
+    ],
+    "adapter": {
+      "name": "maxSubArray",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "53"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "merge": {
+    "number": "56",
+    "args": ["intervals"],
+    "tests": [
+      {
+        "input": [
+          [
+            [1, 3],
+            [2, 6],
+            [8, 10],
+            [15, 18]
+          ]
+        ],
+        "expected": [
+          [1, 6],
+          [8, 10],
+          [15, 18]
+        ]
+      },
+      {
+        "input": [
+          [
+            [1, 4],
+            [4, 5]
+          ]
+        ],
+        "expected": [[1, 5]]
+      },
+      {
+        "input": [
+          [
+            [4, 7],
+            [1, 4]
+          ]
+        ],
+        "expected": [[1, 7]]
+      }
+    ],
+    "adapter": {
+      "name": "merge",
+      "params": [
+        {
+          "name": "intervals",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "integer[][]"
+      },
+      "number": "56"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-rotate-array": {
+    "number": "189",
+    "args": ["nums", "k"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 4, 5, 6, 7], 3],
+        "expected": [5, 6, 7, 1, 2, 3, 4]
+      },
+      {
+        "input": [[-1, -100, 3, 99], 2],
+        "expected": [3, 99, -1, -100]
+      }
+    ],
+    "adapter": {
+      "name": "rotate",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "void"
+      },
+      "output": {
+        "paramindex": 0
+      },
+      "number": "189"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-product-of-array-except-self": {
+    "number": "238",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 4]],
+        "expected": [24, 12, 8, 6]
+      },
+      {
+        "input": [[-1, 1, 0, -3, 3]],
+        "expected": [0, 0, 9, 0, 0]
+      }
+    ],
+    "adapter": {
+      "name": "productExceptSelf",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer[]"
+      },
+      "number": "238"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-first-missing-positive": {
+    "number": "41",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, 2, 0]],
+        "expected": 3
+      },
+      {
+        "input": [[3, 4, -1, 1]],
+        "expected": 2
+      },
+      {
+        "input": [[7, 8, 9, 11, 12]],
+        "expected": 1
+      }
+    ],
+    "adapter": {
+      "name": "firstMissingPositive",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "41"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-set-matrix-zeroes": {
+    "number": "73",
+    "args": ["matrix"],
+    "tests": [
+      {
+        "input": [
+          [
+            [1, 1, 1],
+            [1, 0, 1],
+            [1, 1, 1]
+          ]
+        ],
+        "expected": [
+          [1, 0, 1],
+          [0, 0, 0],
+          [1, 0, 1]
+        ]
+      },
+      {
+        "input": [
+          [
+            [0, 1, 2, 0],
+            [3, 4, 5, 2],
+            [1, 3, 1, 5]
+          ]
+        ],
+        "expected": [
+          [0, 0, 0, 0],
+          [0, 4, 5, 0],
+          [0, 3, 1, 0]
+        ]
+      }
+    ],
+    "adapter": {
+      "name": "setZeroes",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "void"
+      },
+      "output": {
+        "paramindex": 0
+      },
+      "manual": false,
+      "number": "73"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-spiral-matrix": {
+    "number": "54",
+    "args": ["matrix"],
+    "tests": [
+      {
+        "input": [
+          [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+          ]
+        ],
+        "expected": [1, 2, 3, 6, 9, 8, 7, 4, 5]
+      },
+      {
+        "input": [
+          [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12]
+          ]
+        ],
+        "expected": [1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7]
+      }
+    ],
+    "adapter": {
+      "name": "spiralOrder",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "list<integer>",
+        "size": "size_1 * col_size_1",
+        "dealloc": true
+      },
+      "number": "54"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-rotate-image": {
+    "number": "48",
+    "args": ["matrix"],
+    "tests": [
+      {
+        "input": [
+          [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+          ]
+        ],
+        "expected": [
+          [7, 4, 1],
+          [8, 5, 2],
+          [9, 6, 3]
+        ]
+      },
+      {
+        "input": [
+          [
+            [5, 1, 9, 11],
+            [2, 4, 8, 10],
+            [13, 3, 6, 7],
+            [15, 14, 12, 16]
+          ]
+        ],
+        "expected": [
+          [15, 13, 2, 5],
+          [14, 3, 4, 1],
+          [12, 6, 8, 9],
+          [16, 7, 10, 11]
+        ]
+      }
+    ],
+    "adapter": {
+      "name": "rotate",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "void"
+      },
+      "output": {
+        "paramindex": 0
+      },
+      "number": "48"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-search-a-2d-matrix-ii": {
+    "number": "240",
+    "args": ["matrix", "target"],
+    "tests": [
+      {
+        "input": [
+          [
+            [1, 4, 7, 11, 15],
+            [2, 5, 8, 12, 19],
+            [3, 6, 9, 16, 22],
+            [10, 13, 14, 17, 24],
+            [18, 21, 23, 26, 30]
+          ],
+          5
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          [
+            [1, 4, 7, 11, 15],
+            [2, 5, 8, 12, 19],
+            [3, 6, 9, 16, 22],
+            [10, 13, 14, 17, 24],
+            [18, 21, 23, 26, 30]
+          ],
+          20
+        ],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "searchMatrix",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "integer[][]"
+        },
+        {
+          "name": "target",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "manual": true,
+      "number": "240"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-intersection-of-two-linked-lists": {
+    "number": "160",
+    "args": ["intersectVal", "listA", "listB", "skipA", "skipB"],
+    "tests": [
+      {
+        "input": [8, [4, 1, 8, 4, 5], [5, 6, 1, 8, 4, 5], 2, 3],
+        "expected": 8
+      },
+      {
+        "input": [2, [1, 9, 1, 2, 4], [3, 2, 4], 3, 1],
+        "expected": 2
+      },
+      {
+        "input": [0, [2, 6, 4], [1, 5], 3, 2],
+        "expected": null
+      }
+    ],
+    "adapter": {
+      "name": "getIntersectionNode",
+      "params": [
+        {
+          "name": "intersectVal",
+          "type": "integer"
+        },
+        {
+          "name": "listA",
+          "type": "ListNode"
+        },
+        {
+          "name": "listB",
+          "type": "ListNode"
+        },
+        {
+          "name": "skipA",
+          "type": "integer"
+        },
+        {
+          "name": "skipB",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "ListNode"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "python",
+        "c",
+        "csharp",
+        "javascript",
+        "golang",
+        "python3",
+        "swift",
+        "ruby",
+        "kotlin",
+        "scala",
+        "php",
+        "typescript"
+      ],
+      "manual": true,
+      "number": "160"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-reverse-linked-list": {
+    "number": "206",
+    "args": ["head"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 4, 5]],
+        "expected": [5, 4, 3, 2, 1]
+      },
+      {
+        "input": [[1, 2]],
+        "expected": [2, 1]
+      },
+      {
+        "input": [[]],
+        "expected": []
+      }
+    ],
+    "adapter": {
+      "name": "reverseList",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode",
+          "dealloc": false
+        }
+      ],
+      "return": {
+        "type": "ListNode",
+        "dealloc": true
+      },
+      "number": "206"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-palindrome-linked-list": {
+    "number": "234",
+    "args": ["head"],
+    "tests": [
+      {
+        "input": [[1, 2, 2, 1]],
+        "expected": true
+      },
+      {
+        "input": [[1, 2]],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "isPalindrome",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "234"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-linked-list-cycle": {
+    "number": "141",
+    "args": ["head", "pos"],
+    "tests": [
+      {
+        "input": [[3, 2, 0, -4], 1],
+        "expected": true
+      },
+      {
+        "input": [[1, 2], 0],
+        "expected": true
+      },
+      {
+        "input": [[1], -1],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "hasCycle",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode"
+        },
+        {
+          "name": "pos",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "manual": true,
+      "languages": [
+        "cpp",
+        "java",
+        "python",
+        "c",
+        "csharp",
+        "javascript",
+        "ruby",
+        "swift",
+        "golang",
+        "python3",
+        "scala",
+        "kotlin",
+        "php",
+        "typescript"
+      ],
+      "number": "141"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-linked-list-cycle-ii": {
+    "number": "142",
+    "args": ["head", "pos"],
+    "tests": [
+      {
+        "input": [[3, 2, 0, -4], 1],
+        "expected": 1
+      },
+      {
+        "input": [[1, 2], 0],
+        "expected": 0
+      },
+      {
+        "input": [[1], -1],
+        "expected": -1
+      }
+    ],
+    "adapter": {
+      "name": "detectCycle",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode"
+        },
+        {
+          "name": "pos",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "ListNode"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "python",
+        "c",
+        "csharp",
+        "javascript",
+        "golang",
+        "python3",
+        "swift",
+        "kotlin",
+        "php",
+        "ruby",
+        "scala",
+        "typescript"
+      ],
+      "manual": true,
+      "number": "142"
+    },
+    "testCount": 3,
+    "languages": ["python", "java"]
+  },
+  "lc-merge-two-sorted-lists": {
+    "number": "21",
+    "args": ["list1", "list2"],
+    "tests": [
+      {
+        "input": [
+          [1, 2, 4],
+          [1, 3, 4]
+        ],
+        "expected": [1, 1, 2, 3, 4, 4]
+      },
+      {
+        "input": [[], []],
+        "expected": []
+      },
+      {
+        "input": [[], [0]],
+        "expected": [0]
+      }
+    ],
+    "adapter": {
+      "name": "mergeTwoLists",
+      "params": [
+        {
+          "name": "list1",
+          "type": "ListNode",
+          "dealloc": false
+        },
+        {
+          "name": "list2",
+          "type": "ListNode",
+          "dealloc": false
+        }
+      ],
+      "return": {
+        "type": "ListNode",
+        "dealloc": true
+      },
+      "number": "21"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-add-two-numbers": {
+    "number": "2",
+    "args": ["l1", "l2"],
+    "tests": [
+      {
+        "input": [
+          [2, 4, 3],
+          [5, 6, 4]
+        ],
+        "expected": [7, 0, 8]
+      },
+      {
+        "input": [[0], [0]],
+        "expected": [0]
+      },
+      {
+        "input": [
+          [9, 9, 9, 9, 9, 9, 9],
+          [9, 9, 9, 9]
+        ],
+        "expected": [8, 9, 9, 9, 0, 0, 0, 1]
+      }
+    ],
+    "adapter": {
+      "name": "addTwoNumbers",
+      "params": [
+        {
+          "name": "l1",
+          "type": "ListNode",
+          "dealloc": false
+        },
+        {
+          "name": "l2",
+          "type": "ListNode",
+          "dealloc": false
+        }
+      ],
+      "return": {
+        "type": "ListNode",
+        "dealloc": true
+      },
+      "number": "2"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-remove-nth-node-from-end-of-list": {
+    "number": "19",
+    "args": ["head", "n"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 4, 5], 2],
+        "expected": [1, 2, 3, 5]
+      },
+      {
+        "input": [[1], 1],
+        "expected": []
+      },
+      {
+        "input": [[1, 2], 1],
+        "expected": [1]
+      }
+    ],
+    "adapter": {
+      "name": "removeNthFromEnd",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode",
+          "dealloc": false
+        },
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "ListNode",
+        "dealloc": true
+      },
+      "number": "19"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-swap-nodes-in-pairs": {
+    "number": "24",
+    "args": ["head"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 4]],
+        "expected": [2, 1, 4, 3]
+      },
+      {
+        "input": [[]],
+        "expected": []
+      },
+      {
+        "input": [[1]],
+        "expected": [1]
+      },
+      {
+        "input": [[1, 2, 3]],
+        "expected": [2, 1, 3]
+      }
+    ],
+    "adapter": {
+      "name": "swapPairs",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode"
+        }
+      ],
+      "return": {
+        "type": "ListNode"
+      },
+      "number": "24"
+    },
+    "testCount": 4,
+    "languages": ["python", "java", "cpp"]
+  },
+  "lc-reverse-nodes-in-k-group": {
+    "number": "25",
+    "args": ["head", "k"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 4, 5], 2],
+        "expected": [2, 1, 4, 3, 5]
+      },
+      {
+        "input": [[1, 2, 3, 4, 5], 3],
+        "expected": [3, 2, 1, 4, 5]
+      }
+    ],
+    "adapter": {
+      "name": "reverseKGroup",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "ListNode"
+      },
+      "number": "25"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-copy-list-with-random-pointer": {
+    "number": "138",
+    "args": ["head"],
+    "tests": [
+      {
+        "input": [
+          [
+            [7, null],
+            [13, 0],
+            [11, 4],
+            [10, 2],
+            [1, 0]
+          ]
+        ],
+        "expected": [
+          [7, null],
+          [13, 0],
+          [11, 4],
+          [10, 2],
+          [1, 0]
+        ]
+      },
+      {
+        "input": [
+          [
+            [1, 1],
+            [2, 1]
+          ]
+        ],
+        "expected": [
+          [1, 1],
+          [2, 1]
+        ]
+      },
+      {
+        "input": [
+          [
+            [3, null],
+            [3, 0],
+            [3, null]
+          ]
+        ],
+        "expected": [
+          [3, null],
+          [3, 0],
+          [3, null]
+        ]
+      }
+    ],
+    "adapter": {
+      "name": "copyRandomList",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode"
+        }
+      ],
+      "return": {
+        "type": "ListNode"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "python",
+        "csharp",
+        "javascript",
+        "python3",
+        "golang",
+        "swift",
+        "kotlin",
+        "ruby",
+        "c",
+        "scala",
+        "php",
+        "typescript"
+      ],
+      "manual": true,
+      "typescriptCustomType": "class _Node {\n    val: number\n    next: _Node | null\n    random: _Node | null\n\n    constructor(val?: number, next?: _Node, random?: _Node) {\n        this.val = (val===undefined ? 0 : val)\n        this.next = (next===undefined ? null : next)\n        this.random = (random===undefined ? null : random)\n    }\n}\n",
+      "number": "138"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-sort-list": {
+    "number": "148",
+    "args": ["head"],
+    "tests": [
+      {
+        "input": [[4, 2, 1, 3]],
+        "expected": [1, 2, 3, 4]
+      },
+      {
+        "input": [[-1, 5, 3, 4, 0]],
+        "expected": [-1, 0, 3, 4, 5]
+      },
+      {
+        "input": [[]],
+        "expected": []
+      }
+    ],
+    "adapter": {
+      "name": "sortList",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode",
+          "dealloc": false
+        }
+      ],
+      "return": {
+        "type": "ListNode",
+        "dealloc": true
+      },
+      "number": "148"
+    },
+    "testCount": 3,
+    "languages": ["python", "java", "cpp"]
+  },
+  "lc-merge-k-sorted-lists": {
+    "number": "23",
+    "args": ["lists"],
+    "tests": [
+      {
+        "input": [
+          [
+            [1, 4, 5],
+            [1, 3, 4],
+            [2, 6]
+          ]
+        ],
+        "expected": [1, 1, 2, 3, 4, 4, 5, 6]
+      },
+      {
+        "input": [[]],
+        "expected": []
+      },
+      {
+        "input": [[[]]],
+        "expected": []
+      }
+    ],
+    "adapter": {
+      "name": "mergeKLists",
+      "params": [
+        {
+          "name": "lists",
+          "type": "ListNode[]",
+          "dealloc": false
+        }
+      ],
+      "return": {
+        "type": "ListNode",
+        "dealloc": true
+      },
+      "number": "23"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-lru-cache": {
+    "number": "146",
+    "args": ["operations", "parameters"],
+    "tests": [
+      {
+        "input": [
+          ["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"],
+          [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+        ],
+        "expected": [null, null, null, 1, null, -1, null, -1, 3, 4]
+      }
+    ],
+    "adapter": {
+      "classname": "LRUCache",
+      "maxbytesperline": 200000,
+      "constructor": {
+        "params": [
+          {
+            "type": "integer",
+            "name": "capacity"
+          }
+        ]
+      },
+      "methods": [
+        {
+          "name": "get",
+          "params": [
+            {
+              "type": "integer",
+              "name": "key"
+            }
+          ],
+          "return": {
+            "type": "integer"
+          }
+        },
+        {
+          "name": "put",
+          "params": [
+            {
+              "type": "integer",
+              "name": "key"
+            },
+            {
+              "type": "integer",
+              "name": "value"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        }
+      ],
+      "systemdesign": true,
+      "params": [
+        {
+          "name": "inputs",
+          "type": "integer[]"
+        },
+        {
+          "name": "inputs",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "list<String>",
+        "dealloc": true
+      },
+      "number": "146"
+    },
+    "testCount": 1,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-binary-tree-inorder-traversal": {
+    "number": "94",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[1, null, 2, 3]],
+        "expected": [1, 3, 2]
+      },
+      {
+        "input": [[1, 2, 3, 4, 5, null, 8, null, null, 6, 7, 9]],
+        "expected": [4, 2, 6, 5, 7, 1, 3, 9, 8]
+      },
+      {
+        "input": [[]],
+        "expected": []
+      },
+      {
+        "input": [[1]],
+        "expected": [1]
+      }
+    ],
+    "adapter": {
+      "name": "inorderTraversal",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "list<integer>",
+        "dealloc": true
+      },
+      "number": "94"
+    },
+    "testCount": 4,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-maximum-depth-of-binary-tree": {
+    "number": "104",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[3, 9, 20, null, null, 15, 7]],
+        "expected": 3
+      },
+      {
+        "input": [[1, null, 2]],
+        "expected": 2
+      }
+    ],
+    "adapter": {
+      "name": "maxDepth",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "104"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-invert-binary-tree": {
+    "number": "226",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[4, 2, 7, 1, 3, 6, 9]],
+        "expected": [4, 7, 2, 9, 6, 3, 1]
+      },
+      {
+        "input": [[2, 1, 3]],
+        "expected": [2, 3, 1]
+      },
+      {
+        "input": [[]],
+        "expected": []
+      }
+    ],
+    "adapter": {
+      "name": "invertTree",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "TreeNode"
+      },
+      "number": "226"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-symmetric-tree": {
+    "number": "101",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[1, 2, 2, 3, 4, 4, 3]],
+        "expected": true
+      },
+      {
+        "input": [[1, 2, 2, null, 3, null, 3]],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "isSymmetric",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "101"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-diameter-of-binary-tree": {
+    "number": "543",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 4, 5]],
+        "expected": 3
+      },
+      {
+        "input": [[1, 2]],
+        "expected": 1
+      }
+    ],
+    "adapter": {
+      "name": "diameterOfBinaryTree",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "543"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-binary-tree-level-order-traversal": {
+    "number": "102",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[3, 9, 20, null, null, 15, 7]],
+        "expected": [[3], [9, 20], [15, 7]]
+      },
+      {
+        "input": [[1]],
+        "expected": [[1]]
+      },
+      {
+        "input": [[]],
+        "expected": []
+      }
+    ],
+    "adapter": {
+      "name": "levelOrder",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "list<list<integer>>",
+        "dealloc": true
+      },
+      "number": "102"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-convert-sorted-array-to-binary-search-tree": {
+    "number": "108",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[-10, -3, 0, 5, 9]],
+        "expected": [0, -3, 9, -10, null, 5]
+      },
+      {
+        "input": [[1, 3]],
+        "expected": [3, 1]
+      }
+    ],
+    "adapter": {
+      "name": "sortedArrayToBST",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "TreeNode",
+        "dealloc": true
+      },
+      "number": "108"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java"]
+  },
+  "lc-validate-binary-search-tree": {
+    "number": "98",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[2, 1, 3]],
+        "expected": true
+      },
+      {
+        "input": [[5, 1, 4, null, null, 3, 6]],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "isValidBST",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "98"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-kth-smallest-element-in-a-bst": {
+    "number": "230",
+    "args": ["root", "k"],
+    "tests": [
+      {
+        "input": [[3, 1, 4, null, 2], 1],
+        "expected": 1
+      },
+      {
+        "input": [[5, 3, 6, 2, 4, null, null, 1], 3],
+        "expected": 3
+      }
+    ],
+    "adapter": {
+      "name": "kthSmallest",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "230"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-binary-tree-right-side-view": {
+    "number": "199",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, null, 5, null, 4]],
+        "expected": [1, 3, 4]
+      },
+      {
+        "input": [[1, 2, 3, 4, null, null, null, 5]],
+        "expected": [1, 3, 4, 5]
+      },
+      {
+        "input": [[1, null, 3]],
+        "expected": [1, 3]
+      },
+      {
+        "input": [[]],
+        "expected": []
+      }
+    ],
+    "adapter": {
+      "name": "rightSideView",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "list<integer>",
+        "dealloc": true
+      },
+      "number": "199"
+    },
+    "testCount": 4,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-flatten-binary-tree-to-linked-list": {
+    "number": "114",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[1, 2, 5, 3, 4, null, 6]],
+        "expected": [1, 2, 3, 4, 5, 6]
+      },
+      {
+        "input": [[]],
+        "expected": []
+      },
+      {
+        "input": [[0]],
+        "expected": [0]
+      }
+    ],
+    "adapter": {
+      "name": "flatten",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "void"
+      },
+      "output": {
+        "paramindex": 0
+      },
+      "number": "114"
+    },
+    "testCount": 3,
+    "languages": ["python"]
+  },
+  "lc-construct-binary-tree-from-preorder-and-inorder-traversal": {
+    "number": "105",
+    "args": ["preorder", "inorder"],
+    "tests": [
+      {
+        "input": [
+          [3, 9, 20, 15, 7],
+          [9, 3, 15, 20, 7]
+        ],
+        "expected": [3, 9, 20, null, null, 15, 7]
+      },
+      {
+        "input": [[-1], [-1]],
+        "expected": [-1]
+      }
+    ],
+    "adapter": {
+      "name": "buildTree",
+      "params": [
+        {
+          "name": "preorder",
+          "type": "integer[]"
+        },
+        {
+          "name": "inorder",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "TreeNode",
+        "dealloc": true
+      },
+      "number": "105"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-path-sum-iii": {
+    "number": "437",
+    "args": ["root", "targetSum"],
+    "tests": [
+      {
+        "input": [[10, 5, -3, 3, 2, null, 11, 3, -2, null, 1], 8],
+        "expected": 3
+      },
+      {
+        "input": [[5, 4, 8, 11, null, 13, 4, 7, 2, null, null, 5, 1], 22],
+        "expected": 3
+      }
+    ],
+    "adapter": {
+      "name": "pathSum",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        },
+        {
+          "name": "targetSum",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "437"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-lowest-common-ancestor-of-a-binary-tree": {
+    "number": "236",
+    "args": ["root", "p", "q"],
+    "tests": [
+      {
+        "input": [[3, 5, 1, 6, 2, 0, 8, null, null, 7, 4], 5, 1],
+        "expected": 3
+      },
+      {
+        "input": [[3, 5, 1, 6, 2, 0, 8, null, null, 7, 4], 5, 4],
+        "expected": 5
+      },
+      {
+        "input": [[1, 2], 1, 2],
+        "expected": 1
+      }
+    ],
+    "adapter": {
+      "name": "lowestCommonAncestor",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        },
+        {
+          "name": "p",
+          "type": "integer"
+        },
+        {
+          "name": "q",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "TreeNode"
+      },
+      "manual": true,
+      "number": "236"
+    },
+    "testCount": 3,
+    "languages": ["python", "java", "cpp"]
+  },
+  "lc-binary-tree-maximum-path-sum": {
+    "number": "124",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[1, 2, 3]],
+        "expected": 6
+      },
+      {
+        "input": [[-10, 9, 20, null, null, 15, 7]],
+        "expected": 42
+      }
+    ],
+    "adapter": {
+      "name": "maxPathSum",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "124"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "islands": {
+    "number": "200",
+    "args": ["grid"],
+    "tests": [
+      {
+        "input": [
+          [
+            ["1", "1", "1", "1", "0"],
+            ["1", "1", "0", "1", "0"],
+            ["1", "1", "0", "0", "0"],
+            ["0", "0", "0", "0", "0"]
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          [
+            ["1", "1", "0", "0", "0"],
+            ["1", "1", "0", "0", "0"],
+            ["0", "0", "1", "0", "0"],
+            ["0", "0", "0", "1", "1"]
+          ]
+        ],
+        "expected": 3
+      }
+    ],
+    "adapter": {
+      "name": "numIslands",
+      "params": [
+        {
+          "name": "grid",
+          "type": "character[][]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "manual": true,
+      "number": "200"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-rotting-oranges": {
+    "number": "994",
+    "args": ["grid"],
+    "tests": [
+      {
+        "input": [
+          [
+            [2, 1, 1],
+            [1, 1, 0],
+            [0, 1, 1]
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          [
+            [2, 1, 1],
+            [0, 1, 1],
+            [1, 0, 1]
+          ]
+        ],
+        "expected": -1
+      },
+      {
+        "input": [[[0, 2]]],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "orangesRotting",
+      "params": [
+        {
+          "name": "grid",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "994"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-course-schedule": {
+    "number": "207",
+    "args": ["numCourses", "prerequisites"],
+    "tests": [
+      {
+        "input": [2, [[1, 0]]],
+        "expected": true
+      },
+      {
+        "input": [
+          2,
+          [
+            [1, 0],
+            [0, 1]
+          ]
+        ],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "canFinish",
+      "params": [
+        {
+          "name": "numCourses",
+          "type": "integer"
+        },
+        {
+          "name": "prerequisites",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "207"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-implement-trie-prefix-tree": {
+    "number": "208",
+    "args": ["operations", "parameters"],
+    "tests": [
+      {
+        "input": [
+          ["Trie", "insert", "search", "search", "startsWith", "insert", "search"],
+          [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]
+        ],
+        "expected": [null, null, true, false, true, null, true]
+      }
+    ],
+    "adapter": {
+      "classname": "Trie",
+      "constructor": {
+        "params": []
+      },
+      "methods": [
+        {
+          "params": [
+            {
+              "type": "string",
+              "name": "word"
+            }
+          ],
+          "name": "insert",
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "params": [
+            {
+              "type": "string",
+              "name": "word"
+            }
+          ],
+          "name": "search",
+          "return": {
+            "type": "boolean"
+          }
+        },
+        {
+          "params": [
+            {
+              "type": "string",
+              "name": "prefix"
+            }
+          ],
+          "name": "startsWith",
+          "return": {
+            "type": "boolean"
+          }
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "systemdesign": true,
+      "number": "208"
+    },
+    "testCount": 1,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-permutations": {
+    "number": "46",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, 2, 3]],
+        "expected": [
+          [1, 2, 3],
+          [1, 3, 2],
+          [2, 1, 3],
+          [2, 3, 1],
+          [3, 1, 2],
+          [3, 2, 1]
+        ]
+      },
+      {
+        "input": [[0, 1]],
+        "expected": [
+          [0, 1],
+          [1, 0]
+        ]
+      },
+      {
+        "input": [[1]],
+        "expected": [[1]]
+      }
+    ],
+    "adapter": {
+      "name": "permute",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "list<list<integer>>",
+        "colsize": "size_1",
+        "dealloc": true
+      },
+      "number": "46"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-subsets": {
+    "number": "78",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, 2, 3]],
+        "expected": [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
+      },
+      {
+        "input": [[0]],
+        "expected": [[], [0]]
+      }
+    ],
+    "adapter": {
+      "name": "subsets",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "list<list<integer>>",
+        "dealloc": true
+      },
+      "number": "78"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-letter-combinations-of-a-phone-number": {
+    "number": "17",
+    "args": ["digits"],
+    "tests": [
+      {
+        "input": ["23"],
+        "expected": ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
+      },
+      {
+        "input": ["2"],
+        "expected": ["a", "b", "c"]
+      }
+    ],
+    "adapter": {
+      "name": "letterCombinations",
+      "params": [
+        {
+          "name": "digits",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "list<string>"
+      },
+      "number": "17"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-combination-sum": {
+    "number": "39",
+    "args": ["candidates", "target"],
+    "tests": [
+      {
+        "input": [[2, 3, 6, 7], 7],
+        "expected": [[2, 2, 3], [7]]
+      },
+      {
+        "input": [[2, 3, 5], 8],
+        "expected": [
+          [2, 2, 2, 2],
+          [2, 3, 3],
+          [3, 5]
+        ]
+      },
+      {
+        "input": [[2], 1],
+        "expected": []
+      }
+    ],
+    "adapter": {
+      "name": "combinationSum",
+      "params": [
+        {
+          "name": "candidates",
+          "type": "integer[]"
+        },
+        {
+          "name": "target",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "list<list<integer>>",
+        "dealloc": true
+      },
+      "number": "39"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-generate-parentheses": {
+    "number": "22",
+    "args": ["n"],
+    "tests": [
+      {
+        "input": [3],
+        "expected": ["((()))", "(()())", "(())()", "()(())", "()()()"]
+      },
+      {
+        "input": [1],
+        "expected": ["()"]
+      }
+    ],
+    "adapter": {
+      "name": "generateParenthesis",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "list<string>"
+      },
+      "number": "22"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-word-search": {
+    "number": "79",
+    "args": ["board", "word"],
+    "tests": [
+      {
+        "input": [
+          [
+            ["A", "B", "C", "E"],
+            ["S", "F", "C", "S"],
+            ["A", "D", "E", "E"]
+          ],
+          "ABCCED"
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          [
+            ["A", "B", "C", "E"],
+            ["S", "F", "C", "S"],
+            ["A", "D", "E", "E"]
+          ],
+          "SEE"
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          [
+            ["A", "B", "C", "E"],
+            ["S", "F", "C", "S"],
+            ["A", "D", "E", "E"]
+          ],
+          "ABCB"
+        ],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "exist",
+      "params": [
+        {
+          "name": "board",
+          "type": "character[][]"
+        },
+        {
+          "name": "word",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "79"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-palindrome-partitioning": {
+    "number": "131",
+    "args": ["s"],
+    "tests": [
+      {
+        "input": ["aab"],
+        "expected": [
+          ["a", "a", "b"],
+          ["aa", "b"]
+        ]
+      },
+      {
+        "input": ["a"],
+        "expected": [["a"]]
+      }
+    ],
+    "adapter": {
+      "name": "partition",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "list<list<string>>",
+        "dealloc": true
+      },
+      "number": "131"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-n-queens": {
+    "number": "51",
+    "args": ["n"],
+    "tests": [
+      {
+        "input": [4],
+        "expected": [
+          [".Q..", "...Q", "Q...", "..Q."],
+          ["..Q.", "Q...", "...Q", ".Q.."]
+        ]
+      },
+      {
+        "input": [1],
+        "expected": [["Q"]]
+      }
+    ],
+    "adapter": {
+      "name": "solveNQueens",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "list<list<string>>",
+        "colsize": "param_1",
+        "dealloc": true
+      },
+      "number": "51"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-search-insert-position": {
+    "number": "35",
+    "args": ["nums", "target"],
+    "tests": [
+      {
+        "input": [[1, 3, 5, 6], 5],
+        "expected": 2
+      },
+      {
+        "input": [[1, 3, 5, 6], 2],
+        "expected": 1
+      },
+      {
+        "input": [[1, 3, 5, 6], 7],
+        "expected": 4
+      }
+    ],
+    "adapter": {
+      "name": "searchInsert",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "target",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "35"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-search-a-2d-matrix": {
+    "number": "74",
+    "args": ["matrix", "target"],
+    "tests": [
+      {
+        "input": [
+          [
+            [1, 3, 5, 7],
+            [10, 11, 16, 20],
+            [23, 30, 34, 60]
+          ],
+          3
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          [
+            [1, 3, 5, 7],
+            [10, 11, 16, 20],
+            [23, 30, 34, 60]
+          ],
+          13
+        ],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "searchMatrix",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "integer[][]"
+        },
+        {
+          "name": "target",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "74"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-find-first-and-last-position-of-element-in-sorted-array": {
+    "number": "34",
+    "args": ["nums", "target"],
+    "tests": [
+      {
+        "input": [[5, 7, 7, 8, 8, 10], 8],
+        "expected": [3, 4]
+      },
+      {
+        "input": [[5, 7, 7, 8, 8, 10], 6],
+        "expected": [-1, -1]
+      },
+      {
+        "input": [[], 0],
+        "expected": [-1, -1]
+      }
+    ],
+    "adapter": {
+      "name": "searchRange",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "target",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer[]"
+      },
+      "number": "34"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-search-in-rotated-sorted-array": {
+    "number": "33",
+    "args": ["nums", "target"],
+    "tests": [
+      {
+        "input": [[4, 5, 6, 7, 0, 1, 2], 0],
+        "expected": 4
+      },
+      {
+        "input": [[4, 5, 6, 7, 0, 1, 2], 3],
+        "expected": -1
+      },
+      {
+        "input": [[1], 0],
+        "expected": -1
+      }
+    ],
+    "adapter": {
+      "name": "search",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "target",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "33"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-find-minimum-in-rotated-sorted-array": {
+    "number": "153",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[3, 4, 5, 1, 2]],
+        "expected": 1
+      },
+      {
+        "input": [[4, 5, 6, 7, 0, 1, 2]],
+        "expected": 0
+      },
+      {
+        "input": [[11, 13, 15, 17]],
+        "expected": 11
+      }
+    ],
+    "adapter": {
+      "name": "findMin",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "153"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-median-of-two-sorted-arrays": {
+    "number": "4",
+    "args": ["nums1", "nums2"],
+    "tests": [
+      {
+        "input": [[1, 3], [2]],
+        "expected": 2
+      },
+      {
+        "input": [
+          [1, 2],
+          [3, 4]
+        ],
+        "expected": 2.5
+      }
+    ],
+    "adapter": {
+      "name": "findMedianSortedArrays",
+      "params": [
+        {
+          "name": "nums1",
+          "type": "integer[]"
+        },
+        {
+          "name": "nums2",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "double"
+      },
+      "number": "4"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "brackets": {
+    "number": "20",
+    "args": ["s"],
+    "tests": [
+      {
+        "input": ["()"],
+        "expected": true
+      },
+      {
+        "input": ["()[]{}"],
+        "expected": true
+      },
+      {
+        "input": ["(]"],
+        "expected": false
+      },
+      {
+        "input": ["([])"],
+        "expected": true
+      },
+      {
+        "input": ["([)]"],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "isValid",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "20"
+    },
+    "testCount": 5,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-min-stack": {
+    "number": "155",
+    "args": ["operations", "parameters"],
+    "tests": [
+      {
+        "input": [
+          ["MinStack", "push", "push", "push", "getMin", "pop", "top", "getMin"],
+          [[], [-2], [0], [-3], [], [], [], []]
+        ],
+        "expected": [null, null, null, null, -3, null, 0, -2]
+      }
+    ],
+    "adapter": {
+      "classname": "MinStack",
+      "constructor": {
+        "params": []
+      },
+      "methods": [
+        {
+          "params": [
+            {
+              "type": "integer",
+              "name": "value"
+            }
+          ],
+          "return": {
+            "type": "void"
+          },
+          "name": "push"
+        },
+        {
+          "params": [],
+          "return": {
+            "type": "void"
+          },
+          "name": "pop"
+        },
+        {
+          "params": [],
+          "return": {
+            "type": "integer"
+          },
+          "name": "top"
+        },
+        {
+          "params": [],
+          "return": {
+            "type": "integer"
+          },
+          "name": "getMin"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "systemdesign": true,
+      "number": "155"
+    },
+    "testCount": 1,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-decode-string": {
+    "number": "394",
+    "args": ["s"],
+    "tests": [
+      {
+        "input": ["3[a]2[bc]"],
+        "expected": "aaabcbc"
+      },
+      {
+        "input": ["3[a2[c]]"],
+        "expected": "accaccacc"
+      },
+      {
+        "input": ["2[abc]3[cd]ef"],
+        "expected": "abcabccdcdcdef"
+      }
+    ],
+    "adapter": {
+      "name": "decodeString",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "string"
+      },
+      "number": "394"
+    },
+    "testCount": 3,
+    "languages": ["python", "java", "cpp"]
+  },
+  "lc-daily-temperatures": {
+    "number": "739",
+    "args": ["temperatures"],
+    "tests": [
+      {
+        "input": [[73, 74, 75, 71, 69, 72, 76, 73]],
+        "expected": [1, 1, 4, 2, 1, 1, 0, 0]
+      },
+      {
+        "input": [[30, 40, 50, 60]],
+        "expected": [1, 1, 1, 0]
+      },
+      {
+        "input": [[30, 60, 90]],
+        "expected": [1, 1, 0]
+      }
+    ],
+    "adapter": {
+      "name": "dailyTemperatures",
+      "params": [
+        {
+          "name": "temperatures",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer[]"
+      },
+      "number": "739"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-largest-rectangle-in-histogram": {
+    "number": "84",
+    "args": ["heights"],
+    "tests": [
+      {
+        "input": [[2, 1, 5, 6, 2, 3]],
+        "expected": 10
+      },
+      {
+        "input": [[2, 4]],
+        "expected": 4
+      }
+    ],
+    "adapter": {
+      "name": "largestRectangleArea",
+      "params": [
+        {
+          "name": "heights",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "84"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-kth-largest-element-in-an-array": {
+    "number": "215",
+    "args": ["nums", "k"],
+    "tests": [
+      {
+        "input": [[3, 2, 1, 5, 6, 4], 2],
+        "expected": 5
+      },
+      {
+        "input": [[3, 2, 3, 1, 2, 4, 5, 5, 6], 4],
+        "expected": 4
+      }
+    ],
+    "adapter": {
+      "name": "findKthLargest",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "215"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-top-k-frequent-elements": {
+    "number": "347",
+    "args": ["nums", "k"],
+    "tests": [
+      {
+        "input": [[1, 1, 1, 2, 2, 3], 2],
+        "expected": [1, 2]
+      },
+      {
+        "input": [[1], 1],
+        "expected": [1]
+      },
+      {
+        "input": [[1, 2, 1, 2, 1, 2, 3, 1, 3, 2], 2],
+        "expected": [1, 2]
+      }
+    ],
+    "adapter": {
+      "name": "topKFrequent",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer[]"
+      },
+      "number": "347"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-find-median-from-data-stream": {
+    "number": "295",
+    "args": ["operations", "parameters"],
+    "tests": [
+      {
+        "input": [
+          ["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"],
+          [[], [1], [2], [], [3], []]
+        ],
+        "expected": [null, null, null, 1.5, null, 2]
+      }
+    ],
+    "adapter": {
+      "classname": "MedianFinder",
+      "constructor": {
+        "params": []
+      },
+      "methods": [
+        {
+          "params": [
+            {
+              "type": "integer",
+              "name": "num"
+            }
+          ],
+          "name": "addNum",
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "params": [],
+          "name": "findMedian",
+          "return": {
+            "type": "double"
+          }
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "systemdesign": true,
+      "number": "295"
+    },
+    "testCount": 1,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-best-time-to-buy-and-sell-stock": {
+    "number": "121",
+    "args": ["prices"],
+    "tests": [
+      {
+        "input": [[7, 1, 5, 3, 6, 4]],
+        "expected": 5
+      },
+      {
+        "input": [[7, 6, 4, 3, 1]],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "maxProfit",
+      "params": [
+        {
+          "name": "prices",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "121"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-jump-game": {
+    "number": "55",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[2, 3, 1, 1, 4]],
+        "expected": true
+      },
+      {
+        "input": [[3, 2, 1, 0, 4]],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "canJump",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "55"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-jump-game-ii": {
+    "number": "45",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[2, 3, 1, 1, 4]],
+        "expected": 2
+      },
+      {
+        "input": [[2, 3, 0, 1, 4]],
+        "expected": 2
+      }
+    ],
+    "adapter": {
+      "name": "jump",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "45"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-partition-labels": {
+    "number": "763",
+    "args": ["s"],
+    "tests": [
+      {
+        "input": ["ababcbacadefegdehijhklij"],
+        "expected": [9, 7, 8]
+      },
+      {
+        "input": ["eccbbbbdec"],
+        "expected": [10]
+      }
+    ],
+    "adapter": {
+      "name": "partitionLabels",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "list<integer>"
+      },
+      "number": "763"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-climbing-stairs": {
+    "number": "70",
+    "args": ["n"],
+    "tests": [
+      {
+        "input": [2],
+        "expected": 2
+      },
+      {
+        "input": [3],
+        "expected": 3
+      }
+    ],
+    "adapter": {
+      "name": "climbStairs",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "70"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-pascals-triangle": {
+    "number": "118",
+    "args": ["numRows"],
+    "tests": [
+      {
+        "input": [5],
+        "expected": [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]]
+      },
+      {
+        "input": [1],
+        "expected": [[1]]
+      }
+    ],
+    "adapter": {
+      "name": "generate",
+      "params": [
+        {
+          "name": "numRows",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "list<list<integer>>",
+        "dealloc": true,
+        "rowsize": "param_1"
+      },
+      "number": "118"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-house-robber": {
+    "number": "198",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 1]],
+        "expected": 4
+      },
+      {
+        "input": [[2, 7, 9, 3, 1]],
+        "expected": 12
+      }
+    ],
+    "adapter": {
+      "name": "rob",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "198"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-perfect-squares": {
+    "number": "279",
+    "args": ["n"],
+    "tests": [
+      {
+        "input": [12],
+        "expected": 3
+      },
+      {
+        "input": [13],
+        "expected": 2
+      }
+    ],
+    "adapter": {
+      "name": "numSquares",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "279"
+    },
+    "testCount": 2,
+    "languages": ["python", "java", "cpp"]
+  },
+  "coins": {
+    "number": "322",
+    "args": ["coins", "amount"],
+    "tests": [
+      {
+        "input": [[1, 2, 5], 11],
+        "expected": 3
+      },
+      {
+        "input": [[2], 3],
+        "expected": -1
+      },
+      {
+        "input": [[1], 0],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "coinChange",
+      "params": [
+        {
+          "name": "coins",
+          "type": "integer[]"
+        },
+        {
+          "name": "amount",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "322"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-word-break": {
+    "number": "139",
+    "args": ["s", "wordDict"],
+    "tests": [
+      {
+        "input": ["leetcode", ["leet", "code"]],
+        "expected": true
+      },
+      {
+        "input": ["applepenapple", ["apple", "pen"]],
+        "expected": true
+      },
+      {
+        "input": ["catsandog", ["cats", "dog", "sand", "and", "cat"]],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "wordBreak",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        },
+        {
+          "name": "wordDict",
+          "type": "list<string>"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "139"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-longest-increasing-subsequence": {
+    "number": "300",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[10, 9, 2, 5, 3, 7, 101, 18]],
+        "expected": 4
+      },
+      {
+        "input": [[0, 1, 0, 3, 2, 3]],
+        "expected": 4
+      },
+      {
+        "input": [[7, 7, 7, 7, 7, 7, 7]],
+        "expected": 1
+      }
+    ],
+    "adapter": {
+      "name": "lengthOfLIS",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "300"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-maximum-product-subarray": {
+    "number": "152",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[2, 3, -2, 4]],
+        "expected": 6
+      },
+      {
+        "input": [[-2, 0, -1]],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "maxProduct",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "152"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-partition-equal-subset-sum": {
+    "number": "416",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, 5, 11, 5]],
+        "expected": true
+      },
+      {
+        "input": [[1, 2, 3, 5]],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "canPartition",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "416"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-longest-valid-parentheses": {
+    "number": "32",
+    "args": ["s"],
+    "tests": [
+      {
+        "input": ["(()"],
+        "expected": 2
+      },
+      {
+        "input": [")()())"],
+        "expected": 4
+      },
+      {
+        "input": [""],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "longestValidParentheses",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "32"
+    },
+    "testCount": 3,
+    "languages": ["python"]
+  },
+  "lc-unique-paths": {
+    "number": "62",
+    "args": ["m", "n"],
+    "tests": [
+      {
+        "input": [3, 7],
+        "expected": 28
+      },
+      {
+        "input": [3, 2],
+        "expected": 3
+      }
+    ],
+    "adapter": {
+      "name": "uniquePaths",
+      "params": [
+        {
+          "name": "m",
+          "type": "integer"
+        },
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "62"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-minimum-path-sum": {
+    "number": "64",
+    "args": ["grid"],
+    "tests": [
+      {
+        "input": [
+          [
+            [1, 3, 1],
+            [1, 5, 1],
+            [4, 2, 1]
+          ]
+        ],
+        "expected": 7
+      },
+      {
+        "input": [
+          [
+            [1, 2, 3],
+            [4, 5, 6]
+          ]
+        ],
+        "expected": 12
+      }
+    ],
+    "adapter": {
+      "name": "minPathSum",
+      "params": [
+        {
+          "name": "grid",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "64"
+    },
+    "testCount": 2,
+    "languages": ["python", "java", "cpp"]
+  },
+  "lc-longest-palindromic-substring": {
+    "number": "5",
+    "args": ["s"],
+    "tests": [
+      {
+        "input": ["babad"],
+        "expected": "bab"
+      },
+      {
+        "input": ["cbbd"],
+        "expected": "bb"
+      }
+    ],
+    "adapter": {
+      "name": "longestPalindrome",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "string"
+      },
+      "number": "5"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-longest-common-subsequence": {
+    "number": "1143",
+    "args": ["text1", "text2"],
+    "tests": [
+      {
+        "input": ["abcde", "ace"],
+        "expected": 3
+      },
+      {
+        "input": ["abc", "abc"],
+        "expected": 3
+      },
+      {
+        "input": ["abc", "def"],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "longestCommonSubsequence",
+      "params": [
+        {
+          "name": "text1",
+          "type": "string"
+        },
+        {
+          "type": "string",
+          "name": "text2"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "1143"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-edit-distance": {
+    "number": "72",
+    "args": ["word1", "word2"],
+    "tests": [
+      {
+        "input": ["horse", "ros"],
+        "expected": 3
+      },
+      {
+        "input": ["intention", "execution"],
+        "expected": 5
+      }
+    ],
+    "adapter": {
+      "name": "minDistance",
+      "params": [
+        {
+          "name": "word1",
+          "type": "string"
+        },
+        {
+          "name": "word2",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "72"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-single-number": {
+    "number": "136",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[2, 2, 1]],
+        "expected": 1
+      },
+      {
+        "input": [[4, 1, 2, 1, 2]],
+        "expected": 4
+      },
+      {
+        "input": [[1]],
+        "expected": 1
+      }
+    ],
+    "adapter": {
+      "name": "singleNumber",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "136"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-majority-element": {
+    "number": "169",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[3, 2, 3]],
+        "expected": 3
+      },
+      {
+        "input": [[2, 2, 1, 1, 1, 2, 2]],
+        "expected": 2
+      }
+    ],
+    "adapter": {
+      "name": "majorityElement",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "169"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-sort-colors": {
+    "number": "75",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[2, 0, 2, 1, 1, 0]],
+        "expected": [0, 0, 1, 1, 2, 2]
+      },
+      {
+        "input": [[2, 0, 1]],
+        "expected": [0, 1, 2]
+      }
+    ],
+    "adapter": {
+      "name": "sortColors",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "void"
+      },
+      "output": {
+        "paramindex": 0
+      },
+      "manual": false,
+      "number": "75"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-next-permutation": {
+    "number": "31",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, 2, 3]],
+        "expected": [1, 3, 2]
+      },
+      {
+        "input": [[3, 2, 1]],
+        "expected": [1, 2, 3]
+      },
+      {
+        "input": [[1, 1, 5]],
+        "expected": [1, 5, 1]
+      }
+    ],
+    "adapter": {
+      "name": "nextPermutation",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "void"
+      },
+      "output": {
+        "paramindex": 0
+      },
+      "number": "31"
+    },
+    "testCount": 3,
+    "languages": ["python"]
+  },
+  "lc-find-the-duplicate-number": {
+    "number": "287",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, 3, 4, 2, 2]],
+        "expected": 2
+      },
+      {
+        "input": [[3, 1, 3, 4, 2]],
+        "expected": 3
+      },
+      {
+        "input": [[3, 3, 3, 3, 3]],
+        "expected": 3
+      }
+    ],
+    "adapter": {
+      "name": "findDuplicate",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "287"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-merge-sorted-array": {
+    "number": "88",
+    "args": ["nums1", "m", "nums2", "n"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3],
+        "expected": [1, 2, 2, 3, 5, 6]
+      },
+      {
+        "input": [[1], 1, [], 0],
+        "expected": [1]
+      },
+      {
+        "input": [[0], 0, [1], 1],
+        "expected": [1]
+      }
+    ],
+    "adapter": {
+      "name": "merge",
+      "params": [
+        {
+          "name": "nums1",
+          "type": "integer[]",
+          "implicitsizeparam": false
+        },
+        {
+          "name": "m",
+          "type": "integer"
+        },
+        {
+          "name": "nums2",
+          "type": "integer[]",
+          "implicitsizeparam": false
+        },
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "void"
+      },
+      "output": {
+        "paramindex": 0
+      },
+      "number": "88"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-remove-element": {
+    "number": "27",
+    "args": ["nums", "val"],
+    "tests": [
+      {
+        "input": [[3, 2, 2, 3], 3],
+        "expected": [2, 2]
+      },
+      {
+        "input": [[0, 1, 2, 2, 3, 0, 4, 2], 2],
+        "expected": [0, 1, 4, 0, 3]
+      }
+    ],
+    "adapter": {
+      "name": "removeElement",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "val",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "output": {
+        "paramindex": 0,
+        "size": "ret"
+      },
+      "number": "27"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-remove-duplicates-from-sorted-array": {
+    "number": "26",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, 1, 2]],
+        "expected": [1, 2]
+      },
+      {
+        "input": [[0, 0, 1, 1, 1, 2, 2, 3, 3, 4]],
+        "expected": [0, 1, 2, 3, 4]
+      }
+    ],
+    "adapter": {
+      "name": "removeDuplicates",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "output": {
+        "paramindex": 0,
+        "size": "ret"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "python",
+        "c",
+        "csharp",
+        "javascript",
+        "ruby",
+        "swift",
+        "golang",
+        "python3",
+        "scala",
+        "kotlin",
+        "rust",
+        "php",
+        "typescript",
+        "dart"
+      ],
+      "number": "26"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-remove-duplicates-from-sorted-array-ii": {
+    "number": "80",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, 1, 1, 2, 2, 3]],
+        "expected": [1, 1, 2, 2, 3]
+      },
+      {
+        "input": [[0, 0, 1, 1, 1, 1, 2, 3, 3]],
+        "expected": [0, 0, 1, 1, 2, 3, 3]
+      }
+    ],
+    "adapter": {
+      "name": "removeDuplicates",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "output": {
+        "paramindex": 0,
+        "size": "ret"
+      },
+      "number": "80"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-best-time-to-buy-and-sell-stock-ii": {
+    "number": "122",
+    "args": ["prices"],
+    "tests": [
+      {
+        "input": [[7, 1, 5, 3, 6, 4]],
+        "expected": 7
+      },
+      {
+        "input": [[1, 2, 3, 4, 5]],
+        "expected": 4
+      },
+      {
+        "input": [[7, 6, 4, 3, 1]],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "maxProfit",
+      "params": [
+        {
+          "name": "prices",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "122"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-h-index": {
+    "number": "274",
+    "args": ["citations"],
+    "tests": [
+      {
+        "input": [[3, 0, 6, 1, 5]],
+        "expected": 3
+      },
+      {
+        "input": [[1, 3, 1]],
+        "expected": 1
+      }
+    ],
+    "adapter": {
+      "name": "hIndex",
+      "params": [
+        {
+          "name": "citations",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "274"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-insert-delete-getrandom-o1": {
+    "number": "380",
+    "args": ["operations", "parameters"],
+    "tests": [
+      {
+        "input": [
+          [
+            "RandomizedSet",
+            "insert",
+            "remove",
+            "insert",
+            "getRandom",
+            "remove",
+            "insert",
+            "getRandom"
+          ],
+          [[], [1], [2], [2], [], [1], [2], []]
+        ],
+        "expected": [null, true, false, true, 2, true, false, 2]
+      }
+    ],
+    "adapter": {
+      "classname": "RandomizedSet",
+      "constructor": {
+        "params": []
+      },
+      "methods": [
+        {
+          "params": [
+            {
+              "type": "integer",
+              "name": "val"
+            }
+          ],
+          "name": "insert",
+          "return": {
+            "type": "boolean"
+          }
+        },
+        {
+          "params": [
+            {
+              "type": "integer",
+              "name": "val"
+            }
+          ],
+          "return": {
+            "type": "boolean"
+          },
+          "name": "remove"
+        },
+        {
+          "params": [],
+          "name": "getRandom",
+          "return": {
+            "type": "integer"
+          }
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "systemdesign": true,
+      "number": "380"
+    },
+    "testCount": 1,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-gas-station": {
+    "number": "134",
+    "args": ["gas", "cost"],
+    "tests": [
+      {
+        "input": [
+          [1, 2, 3, 4, 5],
+          [3, 4, 5, 1, 2]
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          [2, 3, 4],
+          [3, 4, 3]
+        ],
+        "expected": -1
+      }
+    ],
+    "adapter": {
+      "name": "canCompleteCircuit",
+      "params": [
+        {
+          "name": "gas",
+          "type": "integer[]"
+        },
+        {
+          "name": "cost",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "134"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-candy": {
+    "number": "135",
+    "args": ["ratings"],
+    "tests": [
+      {
+        "input": [[1, 0, 2]],
+        "expected": 5
+      },
+      {
+        "input": [[1, 2, 2]],
+        "expected": 4
+      }
+    ],
+    "adapter": {
+      "name": "candy",
+      "params": [
+        {
+          "name": "ratings",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "135"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java"]
+  },
+  "lc-roman-to-integer": {
+    "number": "13",
+    "args": ["s"],
+    "tests": [
+      {
+        "input": ["III"],
+        "expected": 3
+      },
+      {
+        "input": ["LVIII"],
+        "expected": 58
+      },
+      {
+        "input": ["MCMXCIV"],
+        "expected": 1994
+      }
+    ],
+    "adapter": {
+      "name": "romanToInt",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "13"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-integer-to-roman": {
+    "number": "12",
+    "args": ["num"],
+    "tests": [
+      {
+        "input": [3749],
+        "expected": "MMMDCCXLIX"
+      },
+      {
+        "input": [58],
+        "expected": "LVIII"
+      },
+      {
+        "input": [1994],
+        "expected": "MCMXCIV"
+      }
+    ],
+    "adapter": {
+      "name": "intToRoman",
+      "params": [
+        {
+          "name": "num",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "string"
+      },
+      "number": "12"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-length-of-last-word": {
+    "number": "58",
+    "args": ["s"],
+    "tests": [
+      {
+        "input": ["Hello World"],
+        "expected": 5
+      },
+      {
+        "input": ["   fly me   to   the moon  "],
+        "expected": 4
+      },
+      {
+        "input": ["luffy is still joyboy"],
+        "expected": 6
+      }
+    ],
+    "adapter": {
+      "name": "lengthOfLastWord",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "58"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-longest-common-prefix": {
+    "number": "14",
+    "args": ["strs"],
+    "tests": [
+      {
+        "input": [["flower", "flow", "flight"]],
+        "expected": "fl"
+      },
+      {
+        "input": [["dog", "racecar", "car"]],
+        "expected": ""
+      }
+    ],
+    "adapter": {
+      "name": "longestCommonPrefix",
+      "params": [
+        {
+          "name": "strs",
+          "type": "string[]"
+        }
+      ],
+      "return": {
+        "type": "string"
+      },
+      "number": "14"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-reverse-words-in-a-string": {
+    "number": "151",
+    "args": ["s"],
+    "tests": [
+      {
+        "input": ["the sky is blue"],
+        "expected": "blue is sky the"
+      },
+      {
+        "input": ["  hello world  "],
+        "expected": "world hello"
+      },
+      {
+        "input": ["a good   example"],
+        "expected": "example good a"
+      }
+    ],
+    "adapter": {
+      "name": "reverseWords",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "string"
+      },
+      "number": "151"
+    },
+    "testCount": 3,
+    "languages": ["python"]
+  },
+  "lc-zigzag-conversion": {
+    "number": "6",
+    "args": ["s", "numRows"],
+    "tests": [
+      {
+        "input": ["PAYPALISHIRING", 3],
+        "expected": "PAHNAPLSIIGYIR"
+      },
+      {
+        "input": ["PAYPALISHIRING", 4],
+        "expected": "PINALSIGYAHRPI"
+      },
+      {
+        "input": ["A", 1],
+        "expected": "A"
+      }
+    ],
+    "adapter": {
+      "name": "convert",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        },
+        {
+          "name": "numRows",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "string"
+      },
+      "number": "6"
+    },
+    "testCount": 3,
+    "languages": ["python", "java", "cpp"]
+  },
+  "lc-find-the-index-of-the-first-occurrence-in-a-string": {
+    "number": "28",
+    "args": ["haystack", "needle"],
+    "tests": [
+      {
+        "input": ["sadbutsad", "sad"],
+        "expected": 0
+      },
+      {
+        "input": ["leetcode", "leeto"],
+        "expected": -1
+      }
+    ],
+    "adapter": {
+      "name": "strStr",
+      "params": [
+        {
+          "name": "haystack",
+          "type": "string"
+        },
+        {
+          "name": "needle",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "28"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-text-justification": {
+    "number": "68",
+    "args": ["words", "maxWidth"],
+    "tests": [
+      {
+        "input": [["This", "is", "an", "example", "of", "text", "justification."], 16],
+        "expected": ["This    is    an", "example  of text", "justification.  "]
+      },
+      {
+        "input": [["What", "must", "be", "acknowledgment", "shall", "be"], 16],
+        "expected": ["What   must   be", "acknowledgment  ", "shall be        "]
+      },
+      {
+        "input": [
+          [
+            "Science",
+            "is",
+            "what",
+            "we",
+            "understand",
+            "well",
+            "enough",
+            "to",
+            "explain",
+            "to",
+            "a",
+            "computer.",
+            "Art",
+            "is",
+            "everything",
+            "else",
+            "we",
+            "do"
+          ],
+          20
+        ],
+        "expected": [
+          "Science  is  what we",
+          "understand      well",
+          "enough to explain to",
+          "a  computer.  Art is",
+          "everything  else  we",
+          "do                  "
+        ]
+      }
+    ],
+    "adapter": {
+      "name": "fullJustify",
+      "params": [
+        {
+          "name": "words",
+          "type": "string[]"
+        },
+        {
+          "name": "maxWidth",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "list<string>"
+      },
+      "number": "68"
+    },
+    "testCount": 3,
+    "languages": ["python", "java"]
+  },
+  "lc-valid-palindrome": {
+    "number": "125",
+    "args": ["s"],
+    "tests": [
+      {
+        "input": ["A man, a plan, a canal: Panama"],
+        "expected": true
+      },
+      {
+        "input": ["race a car"],
+        "expected": false
+      },
+      {
+        "input": [" "],
+        "expected": true
+      }
+    ],
+    "adapter": {
+      "name": "isPalindrome",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "125"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-is-subsequence": {
+    "number": "392",
+    "args": ["s", "t"],
+    "tests": [
+      {
+        "input": ["abc", "ahbgdc"],
+        "expected": true
+      },
+      {
+        "input": ["axc", "ahbgdc"],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "isSubsequence",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        },
+        {
+          "name": "t",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "392"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-two-sum-ii-input-array-is-sorted": {
+    "number": "167",
+    "args": ["numbers", "target"],
+    "tests": [
+      {
+        "input": [[2, 7, 11, 15], 9],
+        "expected": [1, 2]
+      },
+      {
+        "input": [[2, 3, 4], 6],
+        "expected": [1, 3]
+      },
+      {
+        "input": [[-1, 0], -1],
+        "expected": [1, 2]
+      }
+    ],
+    "adapter": {
+      "name": "twoSum",
+      "params": [
+        {
+          "name": "numbers",
+          "type": "integer[]"
+        },
+        {
+          "name": "target",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer[]"
+      },
+      "number": "167"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-minimum-size-subarray-sum": {
+    "number": "209",
+    "args": ["target", "nums"],
+    "tests": [
+      {
+        "input": [7, [2, 3, 1, 2, 4, 3]],
+        "expected": 2
+      },
+      {
+        "input": [4, [1, 4, 4]],
+        "expected": 1
+      },
+      {
+        "input": [11, [1, 1, 1, 1, 1, 1, 1, 1]],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "minSubArrayLen",
+      "params": [
+        {
+          "name": "target",
+          "type": "integer"
+        },
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "209"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-substring-with-concatenation-of-all-words": {
+    "number": "30",
+    "args": ["s", "words"],
+    "tests": [
+      {
+        "input": ["barfoothefoobarman", ["foo", "bar"]],
+        "expected": [0, 9]
+      },
+      {
+        "input": ["wordgoodgoodgoodbestword", ["word", "good", "best", "word"]],
+        "expected": []
+      },
+      {
+        "input": ["barfoofoobarthefoobarman", ["bar", "foo", "the"]],
+        "expected": [6, 9, 12]
+      }
+    ],
+    "adapter": {
+      "name": "findSubstring",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        },
+        {
+          "name": "words",
+          "type": "string[]"
+        }
+      ],
+      "return": {
+        "type": "list<integer>"
+      },
+      "number": "30"
+    },
+    "testCount": 3,
+    "languages": ["python"]
+  },
+  "lc-valid-sudoku": {
+    "number": "36",
+    "args": ["board"],
+    "tests": [
+      {
+        "input": [
+          [
+            ["5", "3", ".", ".", "7", ".", ".", ".", "."],
+            ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+            [".", "9", "8", ".", ".", ".", ".", "6", "."],
+            ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+            ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+            ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+            [".", "6", ".", ".", ".", ".", "2", "8", "."],
+            [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+            [".", ".", ".", ".", "8", ".", ".", "7", "9"]
+          ]
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          [
+            ["8", "3", ".", ".", "7", ".", ".", ".", "."],
+            ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+            [".", "9", "8", ".", ".", ".", ".", "6", "."],
+            ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+            ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+            ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+            [".", "6", ".", ".", ".", ".", "2", "8", "."],
+            [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+            [".", ".", ".", ".", "8", ".", ".", "7", "9"]
+          ]
+        ],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "isValidSudoku",
+      "params": [
+        {
+          "name": "board",
+          "type": "character[][]"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "36"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-game-of-life": {
+    "number": "289",
+    "args": ["board"],
+    "tests": [
+      {
+        "input": [
+          [
+            [0, 1, 0],
+            [0, 0, 1],
+            [1, 1, 1],
+            [0, 0, 0]
+          ]
+        ],
+        "expected": [
+          [0, 0, 0],
+          [1, 0, 1],
+          [0, 1, 1],
+          [0, 1, 0]
+        ]
+      },
+      {
+        "input": [
+          [
+            [1, 1],
+            [1, 0]
+          ]
+        ],
+        "expected": [
+          [1, 1],
+          [1, 1]
+        ]
+      }
+    ],
+    "adapter": {
+      "name": "gameOfLife",
+      "params": [
+        {
+          "name": "board",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "void"
+      },
+      "output": {
+        "paramindex": 0
+      },
+      "number": "289"
+    },
+    "testCount": 2,
+    "languages": ["python", "cpp"]
+  },
+  "lc-ransom-note": {
+    "number": "383",
+    "args": ["ransomNote", "magazine"],
+    "tests": [
+      {
+        "input": ["a", "b"],
+        "expected": false
+      },
+      {
+        "input": ["aa", "ab"],
+        "expected": false
+      },
+      {
+        "input": ["aa", "aab"],
+        "expected": true
+      }
+    ],
+    "adapter": {
+      "name": "canConstruct",
+      "params": [
+        {
+          "name": "ransomNote",
+          "type": "string"
+        },
+        {
+          "name": "magazine",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "383"
+    },
+    "testCount": 3,
+    "languages": ["python"]
+  },
+  "lc-isomorphic-strings": {
+    "number": "205",
+    "args": ["s", "t"],
+    "tests": [
+      {
+        "input": ["egg", "add"],
+        "expected": true
+      },
+      {
+        "input": ["foo", "bar"],
+        "expected": false
+      },
+      {
+        "input": ["paper", "title"],
+        "expected": true
+      }
+    ],
+    "adapter": {
+      "name": "isIsomorphic",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        },
+        {
+          "name": "t",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "205"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-word-pattern": {
+    "number": "290",
+    "args": ["pattern", "s"],
+    "tests": [
+      {
+        "input": ["abba", "dog cat cat dog"],
+        "expected": true
+      },
+      {
+        "input": ["abba", "dog cat cat fish"],
+        "expected": false
+      },
+      {
+        "input": ["aaaa", "dog cat cat dog"],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "wordPattern",
+      "params": [
+        {
+          "name": "pattern",
+          "type": "string"
+        },
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "290"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-valid-anagram": {
+    "number": "242",
+    "args": ["s", "t"],
+    "tests": [
+      {
+        "input": ["anagram", "nagaram"],
+        "expected": true
+      },
+      {
+        "input": ["rat", "car"],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "isAnagram",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        },
+        {
+          "name": "t",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "242"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-happy-number": {
+    "number": "202",
+    "args": ["n"],
+    "tests": [
+      {
+        "input": [19],
+        "expected": true
+      },
+      {
+        "input": [2],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "isHappy",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "202"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-contains-duplicate-ii": {
+    "number": "219",
+    "args": ["nums", "k"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 1], 3],
+        "expected": true
+      },
+      {
+        "input": [[1, 0, 1, 1], 1],
+        "expected": true
+      },
+      {
+        "input": [[1, 2, 3, 1, 2, 3], 2],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "containsNearbyDuplicate",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "219"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-summary-ranges": {
+    "number": "228",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[0, 1, 2, 4, 5, 7]],
+        "expected": ["0->2", "4->5", "7"]
+      },
+      {
+        "input": [[0, 2, 3, 4, 6, 8, 9]],
+        "expected": ["0", "2->4", "6", "8->9"]
+      }
+    ],
+    "adapter": {
+      "name": "summaryRanges",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "list<string>"
+      },
+      "number": "228"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-insert-interval": {
+    "number": "57",
+    "args": ["intervals", "newInterval"],
+    "tests": [
+      {
+        "input": [
+          [
+            [1, 3],
+            [6, 9]
+          ],
+          [2, 5]
+        ],
+        "expected": [
+          [1, 5],
+          [6, 9]
+        ]
+      },
+      {
+        "input": [
+          [
+            [1, 2],
+            [3, 5],
+            [6, 7],
+            [8, 10],
+            [12, 16]
+          ],
+          [4, 8]
+        ],
+        "expected": [
+          [1, 2],
+          [3, 10],
+          [12, 16]
+        ]
+      }
+    ],
+    "adapter": {
+      "name": "insert",
+      "params": [
+        {
+          "name": "intervals",
+          "type": "integer[][]"
+        },
+        {
+          "name": "newInterval",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer[][]"
+      },
+      "number": "57"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-minimum-number-of-arrows-to-burst-balloons": {
+    "number": "452",
+    "args": ["points"],
+    "tests": [
+      {
+        "input": [
+          [
+            [10, 16],
+            [2, 8],
+            [1, 6],
+            [7, 12]
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          [
+            [1, 2],
+            [3, 4],
+            [5, 6],
+            [7, 8]
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          [
+            [1, 2],
+            [2, 3],
+            [3, 4],
+            [4, 5]
+          ]
+        ],
+        "expected": 2
+      }
+    ],
+    "adapter": {
+      "name": "findMinArrowShots",
+      "params": [
+        {
+          "name": "points",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "452"
+    },
+    "testCount": 3,
+    "languages": ["python", "java"]
+  },
+  "lc-simplify-path": {
+    "number": "71",
+    "args": ["path"],
+    "tests": [
+      {
+        "input": ["/home/"],
+        "expected": "/home"
+      },
+      {
+        "input": ["/home//foo/"],
+        "expected": "/home/foo"
+      },
+      {
+        "input": ["/home/user/Documents/../Pictures"],
+        "expected": "/home/user/Pictures"
+      },
+      {
+        "input": ["/../"],
+        "expected": "/"
+      },
+      {
+        "input": ["/.../a/../b/c/../d/./"],
+        "expected": "/.../b/d"
+      }
+    ],
+    "adapter": {
+      "name": "simplifyPath",
+      "params": [
+        {
+          "name": "path",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "string"
+      },
+      "number": "71"
+    },
+    "testCount": 5,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-evaluate-reverse-polish-notation": {
+    "number": "150",
+    "args": ["tokens"],
+    "tests": [
+      {
+        "input": [["2", "1", "+", "3", "*"]],
+        "expected": 9
+      },
+      {
+        "input": [["4", "13", "5", "/", "+"]],
+        "expected": 6
+      },
+      {
+        "input": [["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"]],
+        "expected": 22
+      }
+    ],
+    "adapter": {
+      "name": "evalRPN",
+      "params": [
+        {
+          "name": "tokens",
+          "type": "string[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "150"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-basic-calculator": {
+    "number": "224",
+    "args": ["s"],
+    "tests": [
+      {
+        "input": ["1 + 1"],
+        "expected": 2
+      },
+      {
+        "input": [" 2-1 + 2 "],
+        "expected": 3
+      },
+      {
+        "input": ["(1+(4+5+2)-3)+(6+8)"],
+        "expected": 23
+      }
+    ],
+    "adapter": {
+      "name": "calculate",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "224"
+    },
+    "testCount": 3,
+    "languages": ["python"]
+  },
+  "lc-reverse-linked-list-ii": {
+    "number": "92",
+    "args": ["head", "left", "right"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 4, 5], 2, 4],
+        "expected": [1, 4, 3, 2, 5]
+      },
+      {
+        "input": [[5], 1, 1],
+        "expected": [5]
+      }
+    ],
+    "adapter": {
+      "name": "reverseBetween",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode",
+          "dealloc": false
+        },
+        {
+          "name": "left",
+          "type": "integer"
+        },
+        {
+          "name": "right",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "ListNode",
+        "dealloc": true
+      },
+      "number": "92"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-remove-duplicates-from-sorted-list-ii": {
+    "number": "82",
+    "args": ["head"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 3, 4, 4, 5]],
+        "expected": [1, 2, 5]
+      },
+      {
+        "input": [[1, 1, 1, 2, 3]],
+        "expected": [2, 3]
+      }
+    ],
+    "adapter": {
+      "name": "deleteDuplicates",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode",
+          "dealloc": false
+        }
+      ],
+      "return": {
+        "type": "ListNode",
+        "dealloc": true
+      },
+      "number": "82"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-rotate-list": {
+    "number": "61",
+    "args": ["head", "k"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 4, 5], 2],
+        "expected": [4, 5, 1, 2, 3]
+      },
+      {
+        "input": [[0, 1, 2], 4],
+        "expected": [2, 0, 1]
+      }
+    ],
+    "adapter": {
+      "name": "rotateRight",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode",
+          "dealloc": false
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "ListNode",
+        "dealloc": true
+      },
+      "number": "61"
+    },
+    "testCount": 2,
+    "languages": ["python", "java", "cpp"]
+  },
+  "lc-partition-list": {
+    "number": "86",
+    "args": ["head", "x"],
+    "tests": [
+      {
+        "input": [[1, 4, 3, 2, 5, 2], 3],
+        "expected": [1, 2, 2, 4, 3, 5]
+      },
+      {
+        "input": [[2, 1], 2],
+        "expected": [1, 2]
+      }
+    ],
+    "adapter": {
+      "name": "partition",
+      "params": [
+        {
+          "name": "head",
+          "type": "ListNode",
+          "dealloc": false
+        },
+        {
+          "name": "x",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "ListNode",
+        "dealloc": true
+      },
+      "number": "86"
+    },
+    "testCount": 2,
+    "languages": ["python", "java"]
+  },
+  "lc-same-tree": {
+    "number": "100",
+    "args": ["p", "q"],
+    "tests": [
+      {
+        "input": [
+          [1, 2, 3],
+          [1, 2, 3]
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          [1, 2],
+          [1, null, 2]
+        ],
+        "expected": false
+      },
+      {
+        "input": [
+          [1, 2, 1],
+          [1, 1, 2]
+        ],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "isSameTree",
+      "params": [
+        {
+          "name": "p",
+          "type": "TreeNode"
+        },
+        {
+          "name": "q",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "100"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-construct-binary-tree-from-inorder-and-postorder-traversal": {
+    "number": "106",
+    "args": ["inorder", "postorder"],
+    "tests": [
+      {
+        "input": [
+          [9, 3, 15, 20, 7],
+          [9, 15, 7, 20, 3]
+        ],
+        "expected": [3, 9, 20, null, null, 15, 7]
+      },
+      {
+        "input": [[-1], [-1]],
+        "expected": [-1]
+      }
+    ],
+    "adapter": {
+      "name": "buildTree",
+      "params": [
+        {
+          "name": "inorder",
+          "type": "integer[]"
+        },
+        {
+          "name": "postorder",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "TreeNode",
+        "dealloc": true
+      },
+      "number": "106"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java"]
+  },
+  "lc-populating-next-right-pointers-in-each-node-ii": {
+    "number": "117",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 4, 5, null, 7]],
+        "expected": [1, "#", 2, 3, "#", 4, 5, 7, "#"]
+      },
+      {
+        "input": [[]],
+        "expected": []
+      }
+    ],
+    "adapter": {
+      "name": "connect",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "TreeNode"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "python",
+        "csharp",
+        "javascript",
+        "python3",
+        "golang",
+        "swift",
+        "kotlin",
+        "ruby",
+        "c",
+        "scala",
+        "php",
+        "typescript"
+      ],
+      "manual": true,
+      "typescriptCustomType": "class _Node {\n    val: number\n    left: _Node | null\n    right: _Node | null\n    next: _Node | null\n\n    constructor(val?: number, left?: _Node, right?: _Node, next?: _Node) {\n        this.val = (val===undefined ? 0 : val)\n        this.left = (left===undefined ? null : left)\n        this.right = (right===undefined ? null : right)\n        this.next = (next===undefined ? null : next)\n    }\n}\n",
+      "number": "117"
+    },
+    "testCount": 2,
+    "languages": ["python", "cpp"]
+  },
+  "lc-path-sum": {
+    "number": "112",
+    "args": ["root", "targetSum"],
+    "tests": [
+      {
+        "input": [[5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1], 22],
+        "expected": true
+      },
+      {
+        "input": [[1, 2, 3], 5],
+        "expected": false
+      },
+      {
+        "input": [[], 0],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "hasPathSum",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        },
+        {
+          "name": "targetSum",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "112"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-sum-root-to-leaf-numbers": {
+    "number": "129",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[1, 2, 3]],
+        "expected": 25
+      },
+      {
+        "input": [[4, 9, 0, 5, 1]],
+        "expected": 1026
+      }
+    ],
+    "adapter": {
+      "name": "sumNumbers",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "129"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-binary-search-tree-iterator": {
+    "number": "173",
+    "args": ["operations", "parameters"],
+    "tests": [
+      {
+        "input": [
+          [
+            "BSTIterator",
+            "next",
+            "next",
+            "hasNext",
+            "next",
+            "hasNext",
+            "next",
+            "hasNext",
+            "next",
+            "hasNext"
+          ],
+          [[[7, 3, 15, null, null, 9, 20]], [], [], [], [], [], [], [], [], []]
+        ],
+        "expected": [null, 3, 7, true, 9, true, 15, true, 20, false]
+      }
+    ],
+    "adapter": {
+      "classname": "BSTIterator",
+      "maxbytesperline": 200000,
+      "constructor": {
+        "params": [
+          {
+            "type": "TreeNode",
+            "name": "root"
+          }
+        ]
+      },
+      "methods": [
+        {
+          "params": [],
+          "name": "next",
+          "return": {
+            "type": "integer"
+          }
+        },
+        {
+          "params": [],
+          "name": "hasNext",
+          "return": {
+            "type": "boolean"
+          }
+        }
+      ],
+      "systemdesign": true,
+      "params": [
+        {
+          "name": "inputs",
+          "type": "integer[]"
+        },
+        {
+          "name": "inputs",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer[]",
+        "dealloc": true
+      },
+      "manual": false,
+      "number": "173"
+    },
+    "testCount": 1,
+    "languages": ["python", "javascript", "java"]
+  },
+  "lc-count-complete-tree-nodes": {
+    "number": "222",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 4, 5, 6]],
+        "expected": 6
+      },
+      {
+        "input": [[]],
+        "expected": 0
+      },
+      {
+        "input": [[1]],
+        "expected": 1
+      }
+    ],
+    "adapter": {
+      "name": "countNodes",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "222"
+    },
+    "testCount": 3,
+    "languages": ["python"]
+  },
+  "lc-average-of-levels-in-binary-tree": {
+    "number": "637",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[3, 9, 20, null, null, 15, 7]],
+        "expected": [3, 14.5, 11]
+      },
+      {
+        "input": [[3, 9, 20, 15, 7]],
+        "expected": [3, 14.5, 11]
+      }
+    ],
+    "adapter": {
+      "name": "averageOfLevels",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "list<double>"
+      },
+      "number": "637"
+    },
+    "testCount": 2,
+    "languages": ["python", "java", "cpp"]
+  },
+  "lc-binary-tree-zigzag-level-order-traversal": {
+    "number": "103",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[3, 9, 20, null, null, 15, 7]],
+        "expected": [[3], [20, 9], [15, 7]]
+      },
+      {
+        "input": [[1]],
+        "expected": [[1]]
+      },
+      {
+        "input": [[]],
+        "expected": []
+      }
+    ],
+    "adapter": {
+      "name": "zigzagLevelOrder",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "list<list<integer>>",
+        "dealloc": true
+      },
+      "number": "103"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-minimum-absolute-difference-in-bst": {
+    "number": "530",
+    "args": ["root"],
+    "tests": [
+      {
+        "input": [[4, 2, 6, 1, 3]],
+        "expected": 1
+      },
+      {
+        "input": [[1, 0, 48, null, null, 12, 49]],
+        "expected": 1
+      }
+    ],
+    "adapter": {
+      "name": "getMinimumDifference",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "530"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-surrounded-regions": {
+    "number": "130",
+    "args": ["board"],
+    "tests": [
+      {
+        "input": [
+          [
+            ["X", "X", "X", "X"],
+            ["X", "O", "O", "X"],
+            ["X", "X", "O", "X"],
+            ["X", "O", "X", "X"]
+          ]
+        ],
+        "expected": [
+          ["X", "X", "X", "X"],
+          ["X", "X", "X", "X"],
+          ["X", "X", "X", "X"],
+          ["X", "O", "X", "X"]
+        ]
+      },
+      {
+        "input": [[["X"]]],
+        "expected": [["X"]]
+      }
+    ],
+    "adapter": {
+      "name": "solve",
+      "params": [
+        {
+          "name": "board",
+          "type": "character[][]"
+        }
+      ],
+      "return": {
+        "type": "void"
+      },
+      "output": {
+        "paramindex": 0
+      },
+      "number": "130"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-clone-graph": {
+    "number": "133",
+    "args": ["edges"],
+    "tests": [
+      {
+        "input": [
+          [
+            [2, 4],
+            [1, 3],
+            [2, 4],
+            [1, 3]
+          ]
+        ],
+        "expected": [
+          [2, 4],
+          [1, 3],
+          [2, 4],
+          [1, 3]
+        ]
+      },
+      {
+        "input": [[[]]],
+        "expected": [[]]
+      },
+      {
+        "input": [[]],
+        "expected": []
+      }
+    ],
+    "adapter": {
+      "name": "cloneGraph",
+      "params": [
+        {
+          "name": "edges",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "python",
+        "csharp",
+        "javascript",
+        "python3",
+        "golang",
+        "swift",
+        "kotlin",
+        "ruby",
+        "c",
+        "scala",
+        "php",
+        "typescript"
+      ],
+      "manual": true,
+      "typescriptCustomType": "class _Node {\n    val: number\n    neighbors: _Node[]\n\n    constructor(val?: number, neighbors?: _Node[]) {\n        this.val = (val===undefined ? 0 : val)\n        this.neighbors = (neighbors===undefined ? [] : neighbors)\n    }\n}\n",
+      "number": "133"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-evaluate-division": {
+    "number": "399",
+    "args": ["equations", "values", "queries"],
+    "tests": [
+      {
+        "input": [
+          [
+            ["a", "b"],
+            ["b", "c"]
+          ],
+          [2, 3],
+          [
+            ["a", "c"],
+            ["b", "a"],
+            ["a", "e"],
+            ["a", "a"],
+            ["x", "x"]
+          ]
+        ],
+        "expected": [6, 0.5, -1, 1, -1]
+      },
+      {
+        "input": [
+          [
+            ["a", "b"],
+            ["b", "c"],
+            ["bc", "cd"]
+          ],
+          [1.5, 2.5, 5],
+          [
+            ["a", "c"],
+            ["c", "b"],
+            ["bc", "cd"],
+            ["cd", "bc"]
+          ]
+        ],
+        "expected": [3.75, 0.4, 5, 0.2]
+      },
+      {
+        "input": [
+          [["a", "b"]],
+          [0.5],
+          [
+            ["a", "b"],
+            ["b", "a"],
+            ["a", "c"],
+            ["x", "y"]
+          ]
+        ],
+        "expected": [0.5, 2, -1, -1]
+      }
+    ],
+    "adapter": {
+      "name": "calcEquation",
+      "params": [
+        {
+          "name": "equations",
+          "type": "list<list<string>>"
+        },
+        {
+          "name": "values",
+          "type": "double[]"
+        },
+        {
+          "name": "queries",
+          "type": "list<list<string>>"
+        }
+      ],
+      "return": {
+        "type": "double[]"
+      },
+      "number": "399"
+    },
+    "testCount": 3,
+    "languages": ["python", "java", "cpp"]
+  },
+  "lc-course-schedule-ii": {
+    "number": "210",
+    "args": ["numCourses", "prerequisites"],
+    "tests": [
+      {
+        "input": [2, [[1, 0]]],
+        "expected": [0, 1]
+      },
+      {
+        "input": [
+          4,
+          [
+            [1, 0],
+            [2, 0],
+            [3, 1],
+            [3, 2]
+          ]
+        ],
+        "expected": [0, 2, 1, 3]
+      },
+      {
+        "input": [1, []],
+        "expected": [0]
+      }
+    ],
+    "adapter": {
+      "name": "findOrder",
+      "params": [
+        {
+          "name": "numCourses",
+          "type": "integer"
+        },
+        {
+          "name": "prerequisites",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "integer[]"
+      },
+      "number": "210"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-snakes-and-ladders": {
+    "number": "909",
+    "args": ["board"],
+    "tests": [
+      {
+        "input": [
+          [
+            [-1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1],
+            [-1, 35, -1, -1, 13, -1],
+            [-1, -1, -1, -1, -1, -1],
+            [-1, 15, -1, -1, -1, -1]
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          [
+            [-1, -1],
+            [-1, 3]
+          ]
+        ],
+        "expected": 1
+      }
+    ],
+    "adapter": {
+      "name": "snakesAndLadders",
+      "params": [
+        {
+          "name": "board",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "909"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java"]
+  },
+  "lc-minimum-genetic-mutation": {
+    "number": "433",
+    "args": ["startGene", "endGene", "bank"],
+    "tests": [
+      {
+        "input": ["AACCGGTT", "AACCGGTA", ["AACCGGTA"]],
+        "expected": 1
+      },
+      {
+        "input": ["AACCGGTT", "AAACGGTA", ["AACCGGTA", "AACCGCTA", "AAACGGTA"]],
+        "expected": 2
+      }
+    ],
+    "adapter": {
+      "name": "minMutation",
+      "params": [
+        {
+          "name": "startGene",
+          "type": "string"
+        },
+        {
+          "name": "endGene",
+          "type": "string"
+        },
+        {
+          "name": "bank",
+          "type": "string[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "433"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-word-ladder": {
+    "number": "127",
+    "args": ["beginWord", "endWord", "wordList"],
+    "tests": [
+      {
+        "input": ["hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]],
+        "expected": 5
+      },
+      {
+        "input": ["hit", "cog", ["hot", "dot", "dog", "lot", "log"]],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "ladderLength",
+      "params": [
+        {
+          "name": "beginWord",
+          "type": "string"
+        },
+        {
+          "name": "endWord",
+          "type": "string"
+        },
+        {
+          "name": "wordList",
+          "type": "list<string>"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "127"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-design-add-and-search-words-data-structure": {
+    "number": "211",
+    "args": ["operations", "parameters"],
+    "tests": [
+      {
+        "input": [
+          [
+            "WordDictionary",
+            "addWord",
+            "addWord",
+            "addWord",
+            "search",
+            "search",
+            "search",
+            "search"
+          ],
+          [[], ["bad"], ["dad"], ["mad"], ["pad"], ["bad"], [".ad"], ["b.."]]
+        ],
+        "expected": [null, null, null, null, false, true, true, true]
+      }
+    ],
+    "adapter": {
+      "classname": "WordDictionary",
+      "constructor": {
+        "params": []
+      },
+      "methods": [
+        {
+          "params": [
+            {
+              "type": "string",
+              "name": "word"
+            }
+          ],
+          "name": "addWord",
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "params": [
+            {
+              "type": "string",
+              "name": "word"
+            }
+          ],
+          "name": "search",
+          "return": {
+            "type": "boolean"
+          }
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "systemdesign": true,
+      "number": "211"
+    },
+    "testCount": 1,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-word-search-ii": {
+    "number": "212",
+    "args": ["board", "words"],
+    "tests": [
+      {
+        "input": [
+          [
+            ["o", "a", "a", "n"],
+            ["e", "t", "a", "e"],
+            ["i", "h", "k", "r"],
+            ["i", "f", "l", "v"]
+          ],
+          ["oath", "pea", "eat", "rain"]
+        ],
+        "expected": ["eat", "oath"]
+      },
+      {
+        "input": [
+          [
+            ["a", "b"],
+            ["c", "d"]
+          ],
+          ["abcb"]
+        ],
+        "expected": []
+      }
+    ],
+    "adapter": {
+      "name": "findWords",
+      "params": [
+        {
+          "name": "board",
+          "type": "character[][]"
+        },
+        {
+          "name": "words",
+          "type": "string[]"
+        }
+      ],
+      "return": {
+        "type": "list<string>"
+      },
+      "number": "212"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-combinations": {
+    "number": "77",
+    "args": ["n", "k"],
+    "tests": [
+      {
+        "input": [4, 2],
+        "expected": [
+          [1, 2],
+          [1, 3],
+          [1, 4],
+          [2, 3],
+          [2, 4],
+          [3, 4]
+        ]
+      },
+      {
+        "input": [1, 1],
+        "expected": [[1]]
+      }
+    ],
+    "adapter": {
+      "name": "combine",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "list<list<integer>>",
+        "dealloc": true
+      },
+      "number": "77"
+    },
+    "testCount": 2,
+    "languages": ["python", "java", "cpp"]
+  },
+  "lc-n-queens-ii": {
+    "number": "52",
+    "args": ["n"],
+    "tests": [
+      {
+        "input": [4],
+        "expected": 2
+      },
+      {
+        "input": [1],
+        "expected": 1
+      }
+    ],
+    "adapter": {
+      "name": "totalNQueens",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "52"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-construct-quad-tree": {
+    "number": "427",
+    "args": ["grid"],
+    "tests": [
+      {
+        "input": [
+          [
+            [0, 1],
+            [1, 0]
+          ]
+        ],
+        "expected": [
+          [0, 0],
+          [1, 0],
+          [1, 1],
+          [1, 1],
+          [1, 0]
+        ]
+      },
+      {
+        "input": [
+          [
+            [1, 1, 1, 1, 0, 0, 0, 0],
+            [1, 1, 1, 1, 0, 0, 0, 0],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 0, 0, 0, 0],
+            [1, 1, 1, 1, 0, 0, 0, 0],
+            [1, 1, 1, 1, 0, 0, 0, 0],
+            [1, 1, 1, 1, 0, 0, 0, 0]
+          ]
+        ],
+        "expected": [
+          [0, 0],
+          [1, 1],
+          [0, 0],
+          [1, 1],
+          [1, 0],
+          [1, 0],
+          [1, 0],
+          [1, 1],
+          [1, 1]
+        ]
+      }
+    ],
+    "adapter": {
+      "name": "construct",
+      "params": [
+        {
+          "name": "grid",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "list<list<integer>>"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "python",
+        "csharp",
+        "javascript",
+        "python3",
+        "kotlin",
+        "ruby",
+        "scala",
+        "swift",
+        "golang",
+        "php",
+        "typescript"
+      ],
+      "manual": true,
+      "typescriptCustomType": "class _Node {\n    val: boolean\n    isLeaf: boolean\n    topLeft: _Node | null\n\ttopRight: _Node | null\n\tbottomLeft: _Node | null\n\tbottomRight: _Node | null\n\tconstructor(val?: boolean, isLeaf?: boolean, topLeft?: _Node, topRight?: _Node, bottomLeft?: _Node, bottomRight?: _Node) {\n        this.val = (val===undefined ? false : val)\n        this.isLeaf = (isLeaf===undefined ? false : isLeaf)\n        this.topLeft = (topLeft===undefined ? null : topLeft)\n        this.topRight = (topRight===undefined ? null : topRight)\n        this.bottomLeft = (bottomLeft===undefined ? null : bottomLeft)\n        this.bottomRight = (bottomRight===undefined ? null : bottomRight)\n  }\n}\n",
+      "number": "427"
+    },
+    "testCount": 2,
+    "languages": ["python", "java"]
+  },
+  "lc-maximum-sum-circular-subarray": {
+    "number": "918",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, -2, 3, -2]],
+        "expected": 3
+      },
+      {
+        "input": [[5, -3, 5]],
+        "expected": 10
+      },
+      {
+        "input": [[-3, -2, -3]],
+        "expected": -2
+      }
+    ],
+    "adapter": {
+      "name": "maxSubarraySumCircular",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "918"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java"]
+  },
+  "lc-find-peak-element": {
+    "number": "162",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 1]],
+        "expected": 2
+      },
+      {
+        "input": [[1, 2, 1, 3, 5, 6, 4]],
+        "expected": 5
+      }
+    ],
+    "adapter": {
+      "name": "findPeakElement",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "162"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-ipo": {
+    "number": "502",
+    "args": ["k", "w", "profits", "capital"],
+    "tests": [
+      {
+        "input": [2, 0, [1, 2, 3], [0, 1, 1]],
+        "expected": 4
+      },
+      {
+        "input": [3, 0, [1, 2, 3], [0, 1, 2]],
+        "expected": 6
+      }
+    ],
+    "adapter": {
+      "name": "findMaximizedCapital",
+      "params": [
+        {
+          "name": "k",
+          "type": "integer"
+        },
+        {
+          "name": "w",
+          "type": "integer"
+        },
+        {
+          "name": "profits",
+          "type": "integer[]"
+        },
+        {
+          "name": "capital",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "502"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java"]
+  },
+  "lc-find-k-pairs-with-smallest-sums": {
+    "number": "373",
+    "args": ["nums1", "nums2", "k"],
+    "tests": [
+      {
+        "input": [[1, 7, 11], [2, 4, 6], 3],
+        "expected": [
+          [1, 2],
+          [1, 4],
+          [1, 6]
+        ]
+      },
+      {
+        "input": [[1, 1, 2], [1, 2, 3], 2],
+        "expected": [
+          [1, 1],
+          [1, 1]
+        ]
+      }
+    ],
+    "adapter": {
+      "name": "kSmallestPairs",
+      "params": [
+        {
+          "name": "nums1",
+          "type": "integer[]"
+        },
+        {
+          "name": "nums2",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "list<list<integer>>"
+      },
+      "manual": false,
+      "number": "373"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-add-binary": {
+    "number": "67",
+    "args": ["a", "b"],
+    "tests": [
+      {
+        "input": ["11", "1"],
+        "expected": "100"
+      },
+      {
+        "input": ["1010", "1011"],
+        "expected": "10101"
+      }
+    ],
+    "adapter": {
+      "name": "addBinary",
+      "params": [
+        {
+          "name": "a",
+          "type": "string"
+        },
+        {
+          "name": "b",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "string"
+      },
+      "number": "67"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-reverse-bits": {
+    "number": "190",
+    "args": ["n"],
+    "tests": [
+      {
+        "input": [43261596],
+        "expected": 964176192
+      },
+      {
+        "input": [2147483644],
+        "expected": 1073741822
+      }
+    ],
+    "adapter": {
+      "name": "reverseBits",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "manual": false,
+      "number": "190"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-number-of-1-bits": {
+    "number": "191",
+    "args": ["n"],
+    "tests": [
+      {
+        "input": [11],
+        "expected": 3
+      },
+      {
+        "input": [128],
+        "expected": 1
+      },
+      {
+        "input": [2147483645],
+        "expected": 30
+      }
+    ],
+    "adapter": {
+      "name": "hammingWeight",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "manual": false,
+      "number": "191"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-single-number-ii": {
+    "number": "137",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[2, 2, 3, 2]],
+        "expected": 3
+      },
+      {
+        "input": [[0, 1, 0, 1, 0, 1, 99]],
+        "expected": 99
+      }
+    ],
+    "adapter": {
+      "name": "singleNumber",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "137"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-bitwise-and-of-numbers-range": {
+    "number": "201",
+    "args": ["left", "right"],
+    "tests": [
+      {
+        "input": [5, 7],
+        "expected": 4
+      },
+      {
+        "input": [0, 0],
+        "expected": 0
+      },
+      {
+        "input": [1, 2147483647],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "rangeBitwiseAnd",
+      "params": [
+        {
+          "name": "left",
+          "type": "integer"
+        },
+        {
+          "name": "right",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "201"
+    },
+    "testCount": 3,
+    "languages": ["python", "java"]
+  },
+  "lc-palindrome-number": {
+    "number": "9",
+    "args": ["x"],
+    "tests": [
+      {
+        "input": [121],
+        "expected": true
+      },
+      {
+        "input": [-121],
+        "expected": false
+      },
+      {
+        "input": [10],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "isPalindrome",
+      "params": [
+        {
+          "name": "x",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "9"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-plus-one": {
+    "number": "66",
+    "args": ["digits"],
+    "tests": [
+      {
+        "input": [[1, 2, 3]],
+        "expected": [1, 2, 4]
+      },
+      {
+        "input": [[4, 3, 2, 1]],
+        "expected": [4, 3, 2, 2]
+      },
+      {
+        "input": [[9]],
+        "expected": [1, 0]
+      }
+    ],
+    "adapter": {
+      "name": "plusOne",
+      "params": [
+        {
+          "name": "digits",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer[]"
+      },
+      "number": "66"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-factorial-trailing-zeroes": {
+    "number": "172",
+    "args": ["n"],
+    "tests": [
+      {
+        "input": [3],
+        "expected": 0
+      },
+      {
+        "input": [5],
+        "expected": 1
+      },
+      {
+        "input": [0],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "trailingZeroes",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "172"
+    },
+    "testCount": 3,
+    "languages": ["python"]
+  },
+  "lc-sqrtx": {
+    "number": "69",
+    "args": ["x"],
+    "tests": [
+      {
+        "input": [4],
+        "expected": 2
+      },
+      {
+        "input": [8],
+        "expected": 2
+      }
+    ],
+    "adapter": {
+      "name": "mySqrt",
+      "params": [
+        {
+          "name": "x",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "69"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-powx-n": {
+    "number": "50",
+    "args": ["x", "n"],
+    "tests": [
+      {
+        "input": [2, 10],
+        "expected": 1024
+      },
+      {
+        "input": [2.1, 3],
+        "expected": 9.261
+      },
+      {
+        "input": [2, -2],
+        "expected": 0.25
+      }
+    ],
+    "adapter": {
+      "name": "myPow",
+      "params": [
+        {
+          "name": "x",
+          "type": "double"
+        },
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "double"
+      },
+      "number": "50"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-max-points-on-a-line": {
+    "number": "149",
+    "args": ["points"],
+    "tests": [
+      {
+        "input": [
+          [
+            [1, 1],
+            [2, 2],
+            [3, 3]
+          ]
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          [
+            [1, 1],
+            [3, 2],
+            [5, 3],
+            [4, 1],
+            [2, 3],
+            [1, 4]
+          ]
+        ],
+        "expected": 4
+      }
+    ],
+    "adapter": {
+      "name": "maxPoints",
+      "params": [
+        {
+          "name": "points",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "149"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-triangle": {
+    "number": "120",
+    "args": ["triangle"],
+    "tests": [
+      {
+        "input": [[[2], [3, 4], [6, 5, 7], [4, 1, 8, 3]]],
+        "expected": 11
+      },
+      {
+        "input": [[[-10]]],
+        "expected": -10
+      }
+    ],
+    "adapter": {
+      "name": "minimumTotal",
+      "params": [
+        {
+          "name": "triangle",
+          "type": "list<list<integer>>"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "120"
+    },
+    "testCount": 2,
+    "languages": ["python", "java", "cpp"]
+  },
+  "lc-unique-paths-ii": {
+    "number": "63",
+    "args": ["obstacleGrid"],
+    "tests": [
+      {
+        "input": [
+          [
+            [0, 0, 0],
+            [0, 1, 0],
+            [0, 0, 0]
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          [
+            [0, 1],
+            [0, 0]
+          ]
+        ],
+        "expected": 1
+      }
+    ],
+    "adapter": {
+      "name": "uniquePathsWithObstacles",
+      "params": [
+        {
+          "name": "obstacleGrid",
+          "type": "integer[][]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "63"
+    },
+    "testCount": 2,
+    "languages": ["python", "java", "cpp"]
+  },
+  "lc-interleaving-string": {
+    "number": "97",
+    "args": ["s1", "s2", "s3"],
+    "tests": [
+      {
+        "input": ["aabcc", "dbbca", "aadbbcbcac"],
+        "expected": true
+      },
+      {
+        "input": ["aabcc", "dbbca", "aadbbbaccc"],
+        "expected": false
+      },
+      {
+        "input": ["", "", ""],
+        "expected": true
+      }
+    ],
+    "adapter": {
+      "name": "isInterleave",
+      "params": [
+        {
+          "name": "s1",
+          "type": "string"
+        },
+        {
+          "name": "s2",
+          "type": "string"
+        },
+        {
+          "name": "s3",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "97"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-best-time-to-buy-and-sell-stock-iii": {
+    "number": "123",
+    "args": ["prices"],
+    "tests": [
+      {
+        "input": [[3, 3, 5, 0, 0, 3, 1, 4]],
+        "expected": 6
+      },
+      {
+        "input": [[1, 2, 3, 4, 5]],
+        "expected": 4
+      },
+      {
+        "input": [[7, 6, 4, 3, 1]],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "maxProfit",
+      "params": [
+        {
+          "name": "prices",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "123"
+    },
+    "testCount": 3,
+    "languages": ["python"]
+  },
+  "lc-best-time-to-buy-and-sell-stock-iv": {
+    "number": "188",
+    "args": ["k", "prices"],
+    "tests": [
+      {
+        "input": [2, [2, 4, 1]],
+        "expected": 2
+      },
+      {
+        "input": [2, [3, 2, 6, 5, 0, 3]],
+        "expected": 7
+      }
+    ],
+    "adapter": {
+      "name": "maxProfit",
+      "params": [
+        {
+          "name": "k",
+          "type": "integer"
+        },
+        {
+          "name": "prices",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "188"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-maximal-square": {
+    "number": "221",
+    "args": ["matrix"],
+    "tests": [
+      {
+        "input": [
+          [
+            ["1", "0", "1", "0", "0"],
+            ["1", "0", "1", "1", "1"],
+            ["1", "1", "1", "1", "1"],
+            ["1", "0", "0", "1", "0"]
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          [
+            ["0", "1"],
+            ["1", "0"]
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "input": [[["0"]]],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "maximalSquare",
+      "params": [
+        {
+          "name": "matrix",
+          "type": "character[][]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "221"
+    },
+    "testCount": 3,
+    "languages": ["python", "java", "cpp"]
+  },
+  "lc-merge-strings-alternately": {
+    "number": "1768",
+    "args": ["word1", "word2"],
+    "tests": [
+      {
+        "input": ["abc", "pqr"],
+        "expected": "apbqcr"
+      },
+      {
+        "input": ["ab", "pqrs"],
+        "expected": "apbqrs"
+      },
+      {
+        "input": ["abcd", "pq"],
+        "expected": "apbqcd"
+      }
+    ],
+    "adapter": {
+      "name": "mergeAlternately",
+      "params": [
+        {
+          "name": "word1",
+          "type": "string"
+        },
+        {
+          "type": "string",
+          "name": "word2"
+        }
+      ],
+      "return": {
+        "type": "string"
+      },
+      "number": "1768"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-greatest-common-divisor-of-strings": {
+    "number": "1071",
+    "args": ["str1", "str2"],
+    "tests": [
+      {
+        "input": ["ABCABC", "ABC"],
+        "expected": "ABC"
+      },
+      {
+        "input": ["ABABAB", "ABAB"],
+        "expected": "AB"
+      },
+      {
+        "input": ["LEET", "CODE"],
+        "expected": ""
+      },
+      {
+        "input": ["AAAAAB", "AAA"],
+        "expected": ""
+      }
+    ],
+    "adapter": {
+      "name": "gcdOfStrings",
+      "params": [
+        {
+          "name": "str1",
+          "type": "string"
+        },
+        {
+          "name": "str2",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "string"
+      },
+      "number": "1071"
+    },
+    "testCount": 4,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-kids-with-the-greatest-number-of-candies": {
+    "number": "1431",
+    "args": ["candies", "extraCandies"],
+    "tests": [
+      {
+        "input": [[2, 3, 5, 1, 3], 3],
+        "expected": [true, true, true, false, true]
+      },
+      {
+        "input": [[4, 2, 1, 1, 2], 1],
+        "expected": [true, false, false, false, false]
+      },
+      {
+        "input": [[12, 1, 12], 10],
+        "expected": [true, false, true]
+      }
+    ],
+    "adapter": {
+      "name": "kidsWithCandies",
+      "params": [
+        {
+          "name": "candies",
+          "type": "integer[]"
+        },
+        {
+          "type": "integer",
+          "name": "extraCandies"
+        }
+      ],
+      "return": {
+        "type": "list<boolean>"
+      },
+      "manual": false,
+      "languages": [
+        "cpp",
+        "java",
+        "python",
+        "c",
+        "csharp",
+        "javascript",
+        "ruby",
+        "swift",
+        "golang",
+        "python3",
+        "scala",
+        "kotlin",
+        "rust",
+        "php",
+        "typescript"
+      ],
+      "number": "1431"
+    },
+    "testCount": 3,
+    "languages": ["python"]
+  },
+  "lc-can-place-flowers": {
+    "number": "605",
+    "args": ["flowerbed", "n"],
+    "tests": [
+      {
+        "input": [[1, 0, 0, 0, 1], 1],
+        "expected": true
+      },
+      {
+        "input": [[1, 0, 0, 0, 1], 2],
+        "expected": false
+      }
+    ],
+    "adapter": {
+      "name": "canPlaceFlowers",
+      "params": [
+        {
+          "name": "flowerbed",
+          "type": "integer[]"
+        },
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "605"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-reverse-vowels-of-a-string": {
+    "number": "345",
+    "args": ["s"],
+    "tests": [
+      {
+        "input": ["IceCreAm"],
+        "expected": "AceCreIm"
+      },
+      {
+        "input": ["leetcode"],
+        "expected": "leotcede"
+      }
+    ],
+    "adapter": {
+      "name": "reverseVowels",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "string"
+      },
+      "number": "345"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-increasing-triplet-subsequence": {
+    "number": "334",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 4, 5]],
+        "expected": true
+      },
+      {
+        "input": [[5, 4, 3, 2, 1]],
+        "expected": false
+      },
+      {
+        "input": [[2, 1, 5, 0, 4, 6]],
+        "expected": true
+      }
+    ],
+    "adapter": {
+      "name": "increasingTriplet",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "334"
+    },
+    "testCount": 3,
+    "languages": ["python"]
+  },
+  "lc-string-compression": {
+    "number": "443",
+    "args": ["chars"],
+    "tests": [
+      {
+        "input": [["a", "a", "b", "b", "c", "c", "c"]],
+        "expected": ["a", "2", "b", "2", "c", "3"]
+      },
+      {
+        "input": [["a"]],
+        "expected": ["a"]
+      },
+      {
+        "input": [["a", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b"]],
+        "expected": ["a", "b", "1", "2"]
+      }
+    ],
+    "adapter": {
+      "name": "compress",
+      "params": [
+        {
+          "name": "chars",
+          "type": "character[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "output": {
+        "paramindex": 0,
+        "size": "ret"
+      },
+      "number": "443"
+    },
+    "testCount": 3,
+    "languages": ["python"]
+  },
+  "lc-max-number-of-k-sum-pairs": {
+    "number": "1679",
+    "args": ["nums", "k"],
+    "tests": [
+      {
+        "input": [[1, 2, 3, 4], 5],
+        "expected": 2
+      },
+      {
+        "input": [[3, 1, 3, 4, 3], 6],
+        "expected": 1
+      }
+    ],
+    "adapter": {
+      "name": "maxOperations",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "type": "integer",
+          "name": "k"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "1679"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-maximum-average-subarray-i": {
+    "number": "643",
+    "args": ["nums", "k"],
+    "tests": [
+      {
+        "input": [[1, 12, -5, -6, 50, 3], 4],
+        "expected": 12.75
+      },
+      {
+        "input": [[5], 1],
+        "expected": 5
+      }
+    ],
+    "adapter": {
+      "name": "findMaxAverage",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "double"
+      },
+      "number": "643"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-maximum-number-of-vowels-in-a-substring-of-given-length": {
+    "number": "1456",
+    "args": ["s", "k"],
+    "tests": [
+      {
+        "input": ["abciiidef", 3],
+        "expected": 3
+      },
+      {
+        "input": ["aeiou", 2],
+        "expected": 2
+      },
+      {
+        "input": ["leetcode", 3],
+        "expected": 2
+      }
+    ],
+    "adapter": {
+      "name": "maxVowels",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        },
+        {
+          "type": "integer",
+          "name": "k"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "1456"
+    },
+    "testCount": 3,
+    "languages": ["python", "java", "cpp"]
+  },
+  "lc-max-consecutive-ones-iii": {
+    "number": "1004",
+    "args": ["nums", "k"],
+    "tests": [
+      {
+        "input": [[1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0], 2],
+        "expected": 6
+      },
+      {
+        "input": [[0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1], 3],
+        "expected": 10
+      }
+    ],
+    "adapter": {
+      "name": "longestOnes",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "1004"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-longest-subarray-of-1s-after-deleting-one-element": {
+    "number": "1493",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, 1, 0, 1]],
+        "expected": 3
+      },
+      {
+        "input": [[0, 1, 1, 1, 0, 1, 1, 0, 1]],
+        "expected": 5
+      },
+      {
+        "input": [[1, 1, 1]],
+        "expected": 2
+      }
+    ],
+    "adapter": {
+      "name": "longestSubarray",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "1493"
+    },
+    "testCount": 3,
+    "languages": ["python"]
+  },
+  "lc-find-the-highest-altitude": {
+    "number": "1732",
+    "args": ["gain"],
+    "tests": [
+      {
+        "input": [[-5, 1, 5, 0, -7]],
+        "expected": 1
+      },
+      {
+        "input": [[-4, -3, -2, -1, 4, 3, 2]],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "largestAltitude",
+      "params": [
+        {
+          "name": "gain",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "1732"
+    },
+    "testCount": 2,
+    "languages": ["python"]
+  },
+  "lc-find-pivot-index": {
+    "number": "724",
+    "args": ["nums"],
+    "tests": [
+      {
+        "input": [[1, 7, 3, 6, 5, 6]],
+        "expected": 3
+      },
+      {
+        "input": [[1, 2, 3]],
+        "expected": -1
+      },
+      {
+        "input": [[2, 1, -1]],
+        "expected": 0
+      }
+    ],
+    "adapter": {
+      "name": "pivotIndex",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "integer"
+      },
+      "number": "724"
+    },
+    "testCount": 3,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-find-the-difference-of-two-arrays": {
+    "number": "2215",
+    "args": ["nums1", "nums2"],
+    "tests": [
+      {
+        "input": [
+          [1, 2, 3],
+          [2, 4, 6]
+        ],
+        "expected": [
+          [1, 3],
+          [4, 6]
+        ]
+      },
+      {
+        "input": [
+          [1, 2, 3, 3],
+          [1, 1, 2, 2]
+        ],
+        "expected": [[3], []]
+      }
+    ],
+    "adapter": {
+      "name": "findDifference",
+      "params": [
+        {
+          "name": "nums1",
+          "type": "integer[]"
+        },
+        {
+          "type": "integer[]",
+          "name": "nums2"
+        }
+      ],
+      "return": {
+        "type": "list<list<integer>>"
+      },
+      "number": "2215"
+    },
+    "testCount": 2,
+    "languages": ["python", "javascript", "java", "cpp"]
+  },
+  "lc-unique-number-of-occurrences": {
+    "number": "1207",
+    "args": ["arr"],
+    "tests": [
+      {
+        "input": [[1, 2, 2, 1, 1, 3]],
+        "expected": true
+      },
+      {
+        "input": [[1, 2]],
+        "expected": false
+      },
+      {
+        "input": [[-3, 0, 1, -3, 1, 1, 1, -3, 10, 0]],
+        "expected": true
+      }
+    ],
+    "adapter": {
+      "name": "uniqueOccurrences",
+      "params": [
+        {
+          "name": "arr",
+          "type": "integer[]"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "1207"
+    },
+    "testCount": 3,
+    "languages": ["python", "java"]
+  },
+  "lc-determine-if-two-strings-are-close": {
+    "number": "1657",
+    "args": ["word1", "word2"],
+    "tests": [
+      {
+        "input": ["abc", "bca"],
+        "expected": true
+      },
+      {
+        "input": ["a", "aa"],
+        "expected": false
+      },
+      {
+        "input": ["cabbba", "abbccc"],
+        "expected": true
+      }
+    ],
+    "adapter": {
+      "name": "closeStrings",
+      "params": [
+        {
+          "name": "word1",
+          "type": "string"
+        },
+        {
+          "type": "string",
+          "name": "word2"
+        }
+      ],
+      "return": {
+        "type": "boolean"
+      },
+      "number": "1657"
+    },
+    "testCount": 3,
+    "languages": ["python", "java"]
+  }
+}

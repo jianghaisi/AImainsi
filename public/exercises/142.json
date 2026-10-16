@@ -1,0 +1,88 @@
+{
+  "number": "142",
+  "adapter": {
+    "name": "detectCycle",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      },
+      {
+        "name": "pos",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "ListNode"
+    },
+    "languages": [
+      "cpp",
+      "java",
+      "python",
+      "c",
+      "csharp",
+      "javascript",
+      "golang",
+      "python3",
+      "swift",
+      "kotlin",
+      "php",
+      "ruby",
+      "scala",
+      "typescript"
+    ],
+    "manual": true,
+    "number": "142"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          2,
+          0,
+          -4
+        ],
+        1
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          1,
+          2
+        ],
+        0
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        -1
+      ],
+      "expected": -1
+    }
+  ],
+  "starters": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.next = None\n\nclass Solution:\n    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val) {\n *     this.val = val;\n *     this.next = null;\n * }\n */\n\n/**\n * @param {ListNode} head\n * @return {ListNode}\n */\nvar detectCycle = function(head) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode(int x) {\n *         val = x;\n *         next = null;\n *     }\n * }\n */\npublic class Solution {\n    public ListNode detectCycle(ListNode head) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode(int x) : val(x), next(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode *detectCycle(ListNode *head) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def detectCycle(self, head):\n        slow=fast=head\n        while fast and fast.next:\n            slow,fast=slow.next,fast.next.next\n            if slow is fast:\n                slow=head\n                while slow is not fast:slow,fast=slow.next,fast.next\n                return slow\n        return None\n",
+    "java": "public class Solution {\n    public ListNode detectCycle(ListNode head) {\n        ListNode slow = head;\n        ListNode fast = head;\n        while (fast != null && fast.next != null) {\n            slow = slow.next;\n            fast = fast.next.next;\n            if (slow == fast) {\n                break;\n            }\n        }\n\n        if (fast == null || fast.next == null) {\n            return null;\n        }\n\n        ListNode slow2 = head;\n        while (slow != slow2) {\n            slow = slow.next;\n            slow2 = slow2.next;\n        }\n        return slow;\n    }\n}\n"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0142-linked-list-cycle-ii.java"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "找出链表入环节点。输入为数组及尾部连接位置 pos；本地输出入口的零基下标，无环返回 -1。",
+  "explanation": "快慢指针相遇后，将其中一个指针移回头部，两者改为每次一步，再次相遇即入口。",
+  "memory": "第一阶段确认有环，第二阶段用路程等式定位入口。"
+}

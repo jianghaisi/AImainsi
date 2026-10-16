@@ -1,0 +1,162 @@
+{
+  "number": "138",
+  "adapter": {
+    "name": "copyRandomList",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      }
+    ],
+    "return": {
+      "type": "ListNode"
+    },
+    "languages": [
+      "cpp",
+      "java",
+      "python",
+      "csharp",
+      "javascript",
+      "python3",
+      "golang",
+      "swift",
+      "kotlin",
+      "ruby",
+      "c",
+      "scala",
+      "php",
+      "typescript"
+    ],
+    "manual": true,
+    "typescriptCustomType": "class _Node {\n    val: number\n    next: _Node | null\n    random: _Node | null\n\n    constructor(val?: number, next?: _Node, random?: _Node) {\n        this.val = (val===undefined ? 0 : val)\n        this.next = (next===undefined ? null : next)\n        this.random = (random===undefined ? null : random)\n    }\n}\n",
+    "number": "138"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            7,
+            null
+          ],
+          [
+            13,
+            0
+          ],
+          [
+            11,
+            4
+          ],
+          [
+            10,
+            2
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          7,
+          null
+        ],
+        [
+          13,
+          0
+        ],
+        [
+          11,
+          4
+        ],
+        [
+          10,
+          2
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            3,
+            null
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            null
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          3,
+          null
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          null
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "\"\"\"\n# Definition for a Node.\nclass Node:\n    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):\n        raise NotImplementedError(\"请完成此方法\")\n        self.val = int(x)\n        self.next = next\n        self.random = random\n\"\"\"\n\nclass Solution:\n    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * // Definition for a _Node.\n * function _Node(val, next, random) {\n *    this.val = val;\n *    this.next = next;\n *    this.random = random;\n * };\n */\n\n/**\n * @param {_Node} head\n * @return {_Node}\n */\nvar copyRandomList = function(head) {\n    \n};",
+    "java": "/*\n// Definition for a Node.\nclass Node {\n    int val;\n    Node next;\n    Node random;\n\n    public Node(int val) {\n        this.val = val;\n        this.next = null;\n        this.random = null;\n    }\n}\n*/\n\nclass Solution {\n    public Node copyRandomList(Node head) {\n        \n    }\n}",
+    "cpp": "/*\n// Definition for a Node.\nclass Node {\npublic:\n    int val;\n    Node* next;\n    Node* random;\n    \n    Node(int _val) {\n        val = _val;\n        next = NULL;\n        random = NULL;\n    }\n};\n*/\n\nclass Solution {\npublic:\n    Node* copyRandomList(Node* head) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "\"\"\"\n# Definition for a Node.\nclass Node:\n    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):\n        self.val = int(x)\n        self.next = next\n        self.random = random\n\"\"\"\n\n\nclass Solution:\n    def copyRandomList(self, head: \"Node\") -> \"Node\":\n        oldToCopy = {None: None}\n\n        cur = head\n        while cur:\n            copy = Node(cur.val)\n            oldToCopy[cur] = copy\n            cur = cur.next\n        cur = head\n        while cur:\n            copy = oldToCopy[cur]\n            copy.next = oldToCopy[cur.next]\n            copy.random = oldToCopy[cur.random]\n            cur = cur.next\n        return oldToCopy[head]\n",
+    "javascript": "/**\n * https://leetcode.com/problems/copy-list-with-random-pointer/\n * Time O(N) | Space O(1)\n * @param {Node} head\n * @return {Node}\n */\nvar copyRandomList = function (head) {\n  if (!head) return null;\n  cloneNode(head); /* Time O(N) */\n  connectRandomNode(head); /* Time O(N) */\n\n  return connectNode(head); /* Time O(N) */\n};\nconst cloneNode = curr => {\n  while (curr) {\n    /* Time O(N) */\n    const node = new Node(curr.val);\n    node.next = curr.next;\n    curr.next = node;\n    curr = node.next;\n  }\n  return curr;\n};\nconst connectRandomNode = curr => {\n  while (curr) {\n    /* Time O(N) */\n    curr.next.random = curr.random?.next || null;\n    curr = curr.next.next;\n  }\n};\nconst connectNode = head => {\n  let [prev, curr, next] = [head, head.next, head.next];\n  while (prev) {\n    /* Time O(N) */\n    prev.next = prev.next.next;\n    curr.next = curr?.next?.next || null;\n    prev = prev.next;\n    curr = curr.next;\n  }\n  return next;\n};",
+    "java": "class Solution {\n\n    public Node copyRandomList(Node head) {\n        Node cur = head;\n        HashMap<Node, Node> map = new HashMap<>();\n        while (cur != null) {\n            map.put(cur, new Node(cur.val));\n            cur = cur.next;\n        }\n        cur = head;\n        while (cur != null) {\n            map.get(cur).next = map.get(cur.next);\n            map.get(cur).random = map.get(cur.random);\n            cur = cur.next;\n        }\n        return map.get(head);\n    }\n}\n",
+    "cpp": "/*\n    Given linked list w/ also a random pointer, construct deep copy\n\n    Hash map {old -> new}, O(n) space\n    Optimize interweave old and new nodes, O(1) space\n    A -> A' -> B -> B' -> C -> C', A'.random = A.random.next\n\n    Time: O(n)\n    Space: O(n) -> can optimize to O(1)\n*/\n\n/*\n// Definition for a Node.\nclass Node {\npublic:\n    int val;\n    Node* next;\n    Node* random;\n    \n    Node(int _val) {\n        val = _val;\n        next = NULL;\n        random = NULL;\n    }\n};\n*/\n\n// class Solution {\n// public:\n//     Node* copyRandomList(Node* head) {\n//         if (head == NULL) {\n//             return NULL;\n//         }\n//         Node* oldNode = head;\n//         Node* newNode = new Node(oldNode->val);\n//         visited[oldNode] = newNode;\n//         while (oldNode != NULL) {\n//             newNode->next = getClonedNode(oldNode->next);\n//             newNode->random = getClonedNode(oldNode->random);\n//             oldNode = oldNode->next;\n//             newNode = newNode->next;\n//         }\n//         return visited[head];\n//     }\n// private:\n//     unordered_map<Node*, Node*> visited;\n//     Node* getClonedNode(Node* node) {\n//         if (node == NULL) {\n//             return NULL;\n//         }\n//         if (visited.find(node) != visited.end()) {\n//             return visited[node];\n//         }\n//         visited[node] = new Node(node->val);\n//         return visited[node];\n//     }\n// };\n/*\nclass Solution {\npublic:\n    Node* copyRandomList(Node* head) {\n        if (head == NULL) {\n            return NULL;\n        }\n        \n        Node* ptr = head;\n        while (ptr != NULL) {\n            Node* newNode = new Node(ptr->val);\n            newNode->next = ptr->next;\n            ptr->next = newNode;\n            ptr = newNode->next;\n        }\n        ptr = head;\n        \n        while (ptr != NULL) {\n            if (ptr->random == NULL) {\n                ptr->next->random == NULL;\n            } else {\n                ptr->next->random = ptr->random->next;\n            }\n            ptr = ptr->next->next;\n        }\n        \n        Node* oldPtr = head;\n        Node* newPtr = head->next;\n        Node* oldHead = head->next;\n        \n        while (oldPtr != NULL) {\n            oldPtr->next = oldPtr->next->next;\n            if (newPtr->next == NULL) {\n                newPtr->next = NULL;\n            } else {\n                newPtr->next = newPtr->next->next;\n            }\n            oldPtr = oldPtr->next;\n            newPtr = newPtr->next;\n        }\n        \n        return oldHead;\n    }\n};\n*/\n\n// class Solution {\n// public:\n//     Node* copyRandomList(Node* head) {\n//         unordered_map<Node*, Node*> nodes;\n//         Node* h = head;\n        \n//         while (h){\n//             nodes[h] = new Node(h->val);\n//             h = h->next;\n//         }\n//         h = head;\n//         while (h){\n//             Node* newNode = nodes[h];\n//             newNode->next = nodes[h->next];\n//             newNode->random = nodes[h->random];\n//             h = h->next;\n//         }\n//         return nodes[head];\n//     }\n// };\n\nclass Solution {\npublic:\n    Node* copyRandomList(Node* head) {\n        unordered_map<Node*, Node*> nodes;\n        Node* curr = head;\n        \n        while (curr != NULL) {\n            nodes[curr] = new Node(curr->val);\n            curr = curr->next;\n        }\n\n        curr = head;\n        while (curr != NULL) {\n            nodes[curr]->next = nodes[curr->next];\n            nodes[curr]->random = nodes[curr->random];\n            curr = curr->next;\n        }\n        return nodes[head];\n    }   \n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0138-copy-list-with-random-pointer.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0138-copy-list-with-random-pointer.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0138-copy-list-with-random-pointer.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0138-copy-list-with-random-pointer.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "深复制带 random 指针的链表。输入输出为 [节点值,random目标下标] 数组，null 表示空指针。新链表不能复用旧节点。",
+  "explanation": "先建立旧节点到新节点的映射，再连接新节点的 next 和 random。也可交错插入再拆分。",
+  "memory": "先复制身份，再复制关系；仅复制值还不算深复制。"
+}

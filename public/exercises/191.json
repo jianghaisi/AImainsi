@@ -1,0 +1,59 @@
+{
+  "number": "191",
+  "adapter": {
+    "name": "hammingWeight",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "manual": false,
+    "number": "191"
+  },
+  "tests": [
+    {
+      "input": [
+        11
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        128
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        2147483645
+      ],
+      "expected": 30
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def hammingWeight(self, n: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} n\n * @return {number}\n */\nvar hammingWeight = function(n) {\n    \n};",
+    "java": "class Solution {\n    public int hammingWeight(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int hammingWeight(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def hammingWeight(self, n: int) -> int:\n        res = 0\n        while n:\n            n &= n - 1\n            res += 1\n        return res\n",
+    "javascript": "/**\n * https://leetcode.com/problems/number-of-1-bits/\n * Time O(1) | Space (1)\n * @param {number} n - a positive integer\n * @return {number}\n */\nvar hammingWeight = function (n, sum = 0) {\n  while (n !== 0) {\n    n &= n - 1;\n    sum++;\n  }\n  return sum;\n};",
+    "java": "//standard way\npublic class Solution {\n\n    // you need to treat n as an unsigned value\n    public int hammingWeight(int n) {\n        int count = 0;\n        int mask = 1;\n        for (int i = 0; i < 32; i++) {\n            if ((n & mask) != 0) {\n                count++;\n            }\n            n >>= 1;\n        }\n        return count;\n    }\n}\n\n//smart way\npublic class Solution {\n\n    // you need to treat n as an unsigned value\n    public int hammingWeight(int n) {\n        int count = 0;\n        while (n != 0) {\n            n = n & (n - 1);\n            count++;\n        }\n        return count;\n    }\n}\n",
+    "cpp": "/*\n    Return number of '1' bits in an int\n    Ex. n = 00001011 -> 3\n\n    Simply count bit-by-bit & shift it off\n\n    Time: O(1)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    int hammingWeight(uint32_t n) {\n        int bit = 0;\n        int result = 0;\n        \n        while (n != 0) {\n            bit = n & 1;\n            if (bit == 1) {\n                result++;\n            }\n            n = n >> 1;\n        }\n        \n        return result;\n    }\n};\n\n\n/* use kernighan's algorithm to only iterate num(set bits) times */\nclass Solution {\npublic:\n    int hammingWeight(uint32_t n) {\n        unsigned int count = 0;\n\n        while(n) {\n            ++count;\n            // unset rightmost set bit\n            n = (n & (n - 1));\n        }\n        \n        return count;\n    }\n};"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0191-number-of-1-bits.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0191-number-of-1-bits.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0191-number-of-1-bits.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0191-number-of-1-bits.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "统计整数二进制表示中的 1 的个数。",
+  "explanation": "重复执行 n &= n-1，每次消去最低的一位 1。",
+  "memory": "n-1 让最低 1 之后翻转，与运算删除这颗 1。"
+}

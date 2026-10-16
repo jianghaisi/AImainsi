@@ -1,0 +1,87 @@
+{
+  "number": "21",
+  "adapter": {
+    "name": "mergeTwoLists",
+    "params": [
+      {
+        "name": "list1",
+        "type": "ListNode",
+        "dealloc": false
+      },
+      {
+        "name": "list2",
+        "type": "ListNode",
+        "dealloc": false
+      }
+    ],
+    "return": {
+      "type": "ListNode",
+      "dealloc": true
+    },
+    "number": "21"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          1,
+          3,
+          4
+        ]
+      ],
+      "expected": [
+        1,
+        1,
+        2,
+        3,
+        4,
+        4
+      ]
+    },
+    {
+      "input": [
+        [],
+        []
+      ],
+      "expected": []
+    },
+    {
+      "input": [
+        [],
+        [
+          0
+        ]
+      ],
+      "expected": [
+        0
+      ]
+    }
+  ],
+  "starters": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def mergeTwoLists(self, list1: ListNode | None, list2: ListNode | None) -> ListNode | None:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} list1\n * @param {ListNode} list2\n * @return {ListNode}\n */\nvar mergeTwoLists = function(list1, list2) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\n\n# Iterative\nclass Solution:\n    def mergeTwoLists(self, list1: ListNode, list2: ListNode) -> ListNode:\n        dummy = node = ListNode()\n\n        while list1 and list2:\n            if list1.val < list2.val:\n                node.next = list1\n                list1 = list1.next\n            else:\n                node.next = list2\n                list2 = list2.next\n            node = node.next\n\n        node.next = list1 or list2\n\n        return dummy.next\n    \n# Recursive\nclass Solution:\n    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:\n        if not list1:\n            return list2\n        if not list2:\n            return list1\n        lil, big = (list1, list2) if list1.val < list2.val else (list2, list1)\n        lil.next = self.mergeTwoLists(lil.next, big)\n        return lil\n",
+    "javascript": "/**\n * https://leetcode.com/problems/merge-two-sorted-lists/\n * Time O(N + M) | Space O(N + M)\n * @param {ListNode} list1\n * @param {ListNode} list2\n * @return {ListNode}\n */\nvar mergeTwoLists = function (list1, list2) {\n  let sentinel = tail = new ListNode();\n  while (list1 && list2) {\n    /* Time O(N + M) */\n    const isL2Greater = list1.val <= list2.val;\n    if (isL2Greater) {\n      tail.next = list1;\n      list1 = list1.next;\n    } else {\n      tail.next = list2;\n      list2 = list2.next;\n    }\n    tail = tail.next;\n  }\n  tail.next = list1 || list2;\n  return sentinel.next;\n};",
+    "java": "package java;\n\n/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        final ListNode root = new ListNode();\n        ListNode prev = root;\n        while (list1 != null && list2 != null) {\n            if (list1.val < list2.val) {\n                prev.next = list1;\n                list1 = list1.next;\n            } else {\n                prev.next = list2;\n                list2 = list2.next;\n            }\n            prev = prev.next;\n        }\n        prev.next = list1 != null ? list1 : list2;\n        return root.next;\n    }\n}\n\n// Solution using Recursion\n/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        if (list1 == null) return list2;\n        if (list2 == null) return list1;\n\n        if (list1.val < list2.val) {\n            list1.next = mergeTwoLists(list1.next, list2);\n            return list1;\n        } else {\n            list2.next = mergeTwoLists(list2.next, list1);\n            return list2;\n        }\n    }\n}\n",
+    "cpp": "/*\n    Given heads of 2 sorted linked lists, merge into 1 sorted list\n    Ex. list1 = [1,2,4], list2 = [1,3,4] -> [1,1,2,3,4,4]\n\n    Create curr pointer, iterate thru, choose next to be lower one\n\n    Time: O(m + n)\n    Space: O(1)\n*/\n\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {\n        if (list1 == NULL && list2 == NULL) {\n            return NULL;\n        }\n        if (list1 == NULL) {\n            return list2;\n        }\n        if (list2 == NULL) {\n            return list1;\n        }\n        \n        ListNode* dummy = new ListNode();\n        ListNode *curr = dummy;\n        while (list1 != NULL && list2 != NULL) {\n            if (list1->val <= list2->val) {\n                curr->next = list1;\n                list1 = list1->next;\n            } else {\n                curr->next = list2;\n                list2 = list2->next;\n            }\n            curr = curr->next;\n        }\n        \n        if (list1 == NULL) {\n            curr->next = list2;\n        } else {\n            curr->next = list1;\n        }\n        \n        return dummy->next;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0021-merge-two-sorted-lists.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0021-merge-two-sorted-lists.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0021-merge-two-sorted-lists.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0021-merge-two-sorted-lists.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "合并两条已排序链表，结果仍按升序排列。链表以数组输入输出。",
+  "explanation": "哑节点作为固定入口，每次连接较小的头节点，最后接上剩余链表。O(m+n)。",
+  "memory": "哑节点解决第一项，尾指针解决后续；最后一段整体接上。"
+}

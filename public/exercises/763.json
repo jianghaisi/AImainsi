@@ -1,0 +1,58 @@
+{
+  "number": "763",
+  "adapter": {
+    "name": "partitionLabels",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "list<integer>"
+    },
+    "number": "763"
+  },
+  "tests": [
+    {
+      "input": [
+        "ababcbacadefegdehijhklij"
+      ],
+      "expected": [
+        9,
+        7,
+        8
+      ]
+    },
+    {
+      "input": [
+        "eccbbbbdec"
+      ],
+      "expected": [
+        10
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def partitionLabels(self, s: str) -> list[int]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @return {number[]}\n */\nvar partitionLabels = function(s) {\n    \n};",
+    "java": "class Solution {\n    public List<Integer> partitionLabels(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> partitionLabels(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def partitionLabels(self, S: str) -> List[int]:\n        count = {}\n        res = []\n        i, length = 0, len(S)\n        for j in range(length):\n            c = S[j]\n            count[c] = j\n\n        curLen = 0\n        goal = 0\n        while i < length:\n            c = S[i]\n            goal = max(goal, count[c])\n            curLen += 1\n\n            if goal == i:\n                res.append(curLen)\n                curLen = 0\n            i += 1\n        return res\n",
+    "javascript": "/**\n * https://leetcode.com/problems/partition-labels/\n * Time O(N) | Space(1)\n * @param {string} S\n * @return {number[]}\n */\nvar partitionLabels = function (S) {\n  const lastSeen = getLast(S);\n  return getAns(S, lastSeen);\n};\nconst getLast = (S, lastSeen = []) => {\n  for (const index in S) {\n    /* Time O(N) */\n    const code = getCode(S[Number(index)]);\n    lastSeen[code] = Number(index); /* Space O(1) */\n  }\n  return lastSeen;\n};\nconst getCode = char => char.charCodeAt(0) - 'a'.charCodeAt(0);\nconst getAns = (S, lastSeen, left = 0, right = 0, labels = []) => {\n  for (const index in S) {\n    /* Time O(N) */\n    const code = getCode(S[Number(index)]);\n    const lastSeenAt = lastSeen[code];\n    right = Math.max(right, lastSeenAt);\n    const isEqual = Number(index) === right;\n    if (!isEqual) continue;\n    const placement = Number(index) - left + 1;\n    labels.push(placement);\n    left = Number(index) + 1;\n  }\n  return labels;\n};",
+    "java": "class Solution {\n\n    public List<Integer> partitionLabels(String s) {\n        List<Integer> list = new ArrayList<>();\n        HashMap<Character, Integer> map = new HashMap<>();\n        for (int i = 0; i < s.length(); i++) {\n            map.put(s.charAt(i), i);\n        }\n        int j = 0;\n        int i = 0;\n        while (i < s.length()) {\n            int count = 0;\n            j = Math.max(j, map.get(s.charAt(i)));\n            while (i <= j) {\n                j = Math.max(j, map.get(s.charAt(i)));\n                i++;\n                count++;\n            }\n            list.add(count);\n        }\n        return list;\n    }\n}\n",
+    "cpp": "/*\n    Partition string so each letter appears in at most 1 part, return sizes\n    Ex. s = \"ababcbacadefegdehijhklij\" -> [9,7,8]\n\n    Greedy: determine last occurrence of each char, then loop thru & get sizes\n\n    Time: O(n)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    vector<int> partitionLabels(string s) {\n        int n = s.size();\n        // {char -> last index in s}\n        vector<int> lastIndex(26);\n        for (int i = 0; i < n; i++) {\n            lastIndex[s[i] - 'a'] = i;\n        }\n        \n        int size = 0;\n        int end = 0;\n        \n        vector<int> result;\n        \n        for (int i = 0; i < n; i++) {\n            size++;\n            // constantly checking for further indices if possible\n            end = max(end, lastIndex[s[i] - 'a']);\n            if (i == end) {\n                result.push_back(size);\n                size = 0;\n            }\n        }\n        \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0763-partition-labels.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0763-partition-labels.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0763-partition-labels.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0763-partition-labels.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "将字符串分为尽可能多的连续段，使同一字符不会出现在不同段中，返回各段长度。",
+  "explanation": "先记录每个字符最后出现位置，扫描时扩展当前段必须覆盖的最远位置，到达该位置即可切分。",
+  "memory": "一个字符一旦出现，这一段就必须覆盖它的最后一次出现。"
+}

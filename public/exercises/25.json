@@ -1,0 +1,82 @@
+{
+  "number": "25",
+  "adapter": {
+    "name": "reverseKGroup",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "ListNode"
+    },
+    "number": "25"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        2
+      ],
+      "expected": [
+        2,
+        1,
+        4,
+        3,
+        5
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        3
+      ],
+      "expected": [
+        3,
+        2,
+        1,
+        4,
+        5
+      ]
+    }
+  ],
+  "starters": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def reverseKGroup(self, head: ListNode | None, k: int) -> ListNode | None:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @param {number} k\n * @return {ListNode}\n */\nvar reverseKGroup = function(head, k) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode reverseKGroup(ListNode head, int k) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* reverseKGroup(ListNode* head, int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:\n        dummy = ListNode(0, head)\n        groupPrev = dummy\n\n        while True:\n            kth = self.getKth(groupPrev, k)\n            if not kth:\n                break\n            groupNext = kth.next\n\n            # reverse group\n            prev, curr = kth.next, groupPrev.next\n            while curr != groupNext:\n                tmp = curr.next\n                curr.next = prev\n                prev = curr\n                curr = tmp\n\n            tmp = groupPrev.next\n            groupPrev.next = kth\n            groupPrev = tmp\n        return dummy.next\n\n    def getKth(self, curr, k):\n        while curr and k > 0:\n            curr = curr.next\n            k -= 1\n        return curr\n",
+    "javascript": "/**\n * https://leetcode.com/problems/reverse-nodes-in-k-group/\n * Time O(N) | Space O(N)\n * @param {ListNode} head\n * @param {number} k\n * @return {ListNode}\n */\nvar reverseKGroup = function (head, k) {\n  const sentinel = tail = new ListNode(0, head);\n  while (true) {\n    let [start, last] = moveNode(tail, k);\n    if (!last) break;\n    reverse([start, tail.next, start]);\n    const next = tail.next;\n    tail.next = last;\n    tail = next;\n  }\n  return sentinel.next;\n};\nconst moveNode = (curr, k) => {\n  const canMove = () => k && curr;\n  while (canMove()) {\n    curr = curr.next;\n    k--;\n  }\n  return [curr?.next || null, curr];\n};\nconst reverse = ([prev, curr, start]) => {\n  const isSame = () => curr === start;\n  while (!isSame()) {\n    const next = curr.next;\n    curr.next = prev;\n    prev = curr;\n    curr = next;\n  }\n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\n\n//This recursive approach is super intuitive taken from leetcode discuss.\n\n// Time Complexity: O(n)\n// Extra Space Complexity: O(n)\n\nclass Solution1 {\n\n    public ListNode reverseKGroup(ListNode head, int k) {\n        ListNode cur = head;\n        int count = 0;\n        while (cur != null && count != k) {\n            cur = cur.next;\n            count++;\n        }\n        if (count == k) {\n            cur = reverseKGroup(cur, k);\n            while (count-- > 0) {\n                ListNode temp = head.next;\n                head.next = cur;\n                cur = head;\n                head = temp;\n            }\n            head = cur;\n        }\n        return head;\n    }\n}\n\n// An iterative approach\n\n// Time Complexity: O(n)\n// Extra Space Complexity: O(1)\n\nclass Solution2 {\n\n    public ListNode reverseKGroup(ListNode head, int k) {\n        ListNode dummy = new ListNode(0, head);\n        ListNode curr = head;\n        ListNode prev = dummy;\n        ListNode temp = null;\n\n        int count = k;\n\n        while (curr != null) {\n            if (count > 1) {\n                temp = prev.next;\n                prev.next = curr.next;\n                curr.next = curr.next.next;\n                prev.next.next = temp;\n\n                count--;\n            } else {\n                prev = curr;\n                curr = curr.next;\n\n                ListNode end = curr;\n\n                for (int i = 0; i < k; ++i) {\n                    if (end == null) {\n                        return dummy.next;\n                    }\n                    end = end.next;\n                }\n                count = k;\n            }\n        }\n\n        return dummy.next;\n    }\n}\n",
+    "cpp": "/*\n    Given head of linked list, reverse nodes of list k at a time\n    Ex. head = [1,2,3,4,5], k = 2 -> [2,1,4,3,5]\n\n    Maintain prev, curr, & temp pointers to reverse, count k times\n\n    Time: O(n)\n    Space: O(1)\n*/\n\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* reverseKGroup(ListNode* head, int k) {\n        ListNode* dummy = new ListNode();\n        dummy->next = head;\n        \n        ListNode* prev = dummy;\n        ListNode* curr = dummy->next;\n        ListNode* temp = NULL;\n        \n        int count = k;\n        \n        while (curr != NULL) {\n            if (count > 1) {\n                temp = prev->next;\n                prev->next = curr->next;\n                curr->next = curr->next->next;\n                prev->next->next = temp;\n\n                count--;\n            } else {\n                prev = curr;\n                curr = curr->next;\n                count = k;\n                \n                ListNode* end = curr;\n                for (int i = 0; i < k; i++) {\n                    if (end == NULL) {\n                        return dummy->next;\n                    }\n                    end = end->next;\n                }\n            }\n        }\n        \n        return dummy->next;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0025-reverse-nodes-in-k-group.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0025-reverse-nodes-in-k-group.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0025-reverse-nodes-in-k-group.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0025-reverse-nodes-in-k-group.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "链表按每 k 个节点为一组反转，不满 k 个的末组保持原顺序。",
+  "explanation": "每轮先探测是否有完整 k 个节点，再反转该段并接回前后部分。避免反到一半才发现数量不足。",
+  "memory": "先检查完整一组，再修改指针；连接处用组前驱和组尾。"
+}

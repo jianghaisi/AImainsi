@@ -1,0 +1,77 @@
+{
+  "number": "139",
+  "adapter": {
+    "name": "wordBreak",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "wordDict",
+        "type": "list<string>"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "139"
+  },
+  "tests": [
+    {
+      "input": [
+        "leetcode",
+        [
+          "leet",
+          "code"
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "applepenapple",
+        [
+          "apple",
+          "pen"
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "catsandog",
+        [
+          "cats",
+          "dog",
+          "sand",
+          "and",
+          "cat"
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def wordBreak(self, s: str, wordDict: List[str]) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @param {string[]} wordDict\n * @return {boolean}\n */\nvar wordBreak = function(s, wordDict) {\n    \n};",
+    "java": "class Solution {\n    public boolean wordBreak(String s, List<String> wordDict) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool wordBreak(string s, vector<string>& wordDict) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def wordBreak(self, s: str, wordDict: List[str]) -> bool:\n\n        dp = [False] * (len(s) + 1)\n        dp[len(s)] = True\n\n        for i in range(len(s) - 1, -1, -1):\n            for w in wordDict:\n                if (i + len(w)) <= len(s) and s[i : i + len(w)] == w:\n                    dp[i] = dp[i + len(w)]\n                if dp[i]:\n                    break\n\n        return dp[0]\n",
+    "javascript": "var dfs = (s, wordSet, start, memo) => {\n  for (let end = start + 1; end <= s.length; end++) {\n    /* Time O(N) */\n    const word = s.slice(start, end); /* Time O(N) | Space O(N) */\n\n    const _canBreak = wordSet.has(word) && canBreak(s, wordSet, end, memo); /* Time O(N * N) */\n    if (_canBreak) {\n      memo[start] = true;\n      return true;\n    }\n  }\n  memo[start] = false;\n  return false;\n};\n\n/**\n * DP - Bottom Up\n * Array - Tabulation\n * Hash Set - Distinct Keys\n * Time O(N^3) | Space O(N)\n * https://leetcode.com/problems/word-break/\n * @param {string} s\n * @param {string[]} wordDict\n * @return {boolean}\n */\n\nconst initTabu = s => {\n  const tabu = new Array(s.length + 1).fill(false); /* Space O(N) */\n\n  tabu[0] = true;\n  return tabu;\n};\nvar checkWord = (s, wordSet, end, tabu) => {\n  for (let start = 0; start < end; start++) {\n    /* Time O(N) */\n    const word = s.slice(start, end); /* Time O(N) | Space O(N) */\n\n    const canBreak = tabu[start] && wordSet.has(word);\n    if (!canBreak) continue;\n    tabu[end] = true;\n    return;\n  }\n};\n\n/**\n * Tree Traversal - BFS\n * Queue - Level Order Space O(WIDTH)\n * Hash Set - Distinct Keys\n * Array - Seen\n * Time O(N^3) | Space O(N)\n * https://leetcode.com/problems/word-break/\n * @param {string} s\n * @param {string[]} wordDict\n * @return {boolean}\n */\nvar wordBreak = function (s, wordDict) {\n  const wordSet = new Set(wordDict); /* Time O(N)         | Space O(N) */\n  const queue = new Queue([0]); /*                   | Space O(N) */\n  const seen = new Array(s.length).fill(false); /*                   | Space O(N) */\n\n  return bfs(queue, s, wordSet, seen); /* Time O(N * N * N) | Space O(N + WIDTH) */\n};\nconst bfs = (queue, s, wordSet, seen) => {\n  while (!queue.isEmpty()) {\n    for (let level = queue.size() - 1; 0 <= level; level--) {\n      /* Time O(N) */\n      if (canWordBreak(queue, s, wordSet, seen)) return true; /* Time O(N * N) | Space O(N + WIDTH) */\n    }\n  }\n  return false;\n};\nvar canWordBreak = (queue, s, wordSet, seen) => {\n  const start = queue.dequeue();\n  const hasSeen = seen[start];\n  if (hasSeen) return false;\n  if (canBreak(queue, s, start, wordSet)) return true; /* Time O(N * N) | Space O(N + WIDTH) */\n\n  seen[start] = true; /*               | Space O(N) */\n  return false;\n};\nvar canBreak = (queue, s, start, wordSet) => {\n  for (let end = start + 1; end <= s.length; end++) {\n    /* Time O(N) */\n    const word = s.slice(start, end); /* Time O(N) | Space O(N) */\n\n    if (!wordSet.has(word)) continue;\n    queue.enqueue(end); /*           | Space O(WIDTH) */\n\n    const _canBreak = end === s.length;\n    if (_canBreak) return true;\n  }\n  return false;\n};",
+    "java": "class Solution {\n    public boolean wordBreak(String s, List<String> wordDict) {\n        boolean[] dp = new boolean[s.length() + 1];\n        dp[s.length()] = true;\n\n        for(int i = s.length()-1; i >= 0; i--){\n            for(String w: wordDict){\n                if((i + w.length()) <= s.length() && s.startsWith(w, i)){\n                    dp[i] = dp[i + w.length()];\n                }\n                if(dp[i]){\n                    break;\n                }\n            }\n        }\n        return dp[0];\n    }\n}\n",
+    "cpp": "/*\n    Given a string & dictionary, return true if:\n    Can segment string into 1 or more dictionary words\n\n    DP, at each loop, substring, check if in dict, & store\n\n    Time: O(n^3)\n    Space: O(n)\n*/\n\nclass Solution {\npublic:\n    bool wordBreak(string s, vector<string>& wordDict) {\n        unordered_set<string> words;\n        for (int i = 0; i < wordDict.size(); i++) {\n            words.insert(wordDict[i]);\n        }\n        \n        int n = s.size();\n        vector<bool> dp(n + 1);\n        dp[0] = true;\n        \n        for (int i = 1; i <= n; i++) {\n            for (int j = i - 1; j >= 0; j--) {\n                if (dp[j]) {\n                    string word = s.substr(j, i - j);\n                    if (words.find(word) != words.end()) {\n                        dp[i] = true;\n                        break;\n                    }\n                }\n            }\n        }\n        \n        return dp[n];\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0139-word-break.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0139-word-break.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0139-word-break.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0139-word-break.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断字符串是否可由词典中的单词拼接得到，词典单词可重复使用。",
+  "explanation": "dp[i] 表示前 i 个字符可被拆分，枚举最后一个单词的起点并查询词典。",
+  "memory": "把问题改成“最后一段是哪一个词”，前面的可行性已由 dp 提供。"
+}

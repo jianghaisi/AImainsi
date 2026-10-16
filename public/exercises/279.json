@@ -1,0 +1,50 @@
+{
+  "number": "279",
+  "adapter": {
+    "name": "numSquares",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "279"
+  },
+  "tests": [
+    {
+      "input": [
+        12
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        13
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def numSquares(self, n: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} n\n * @return {number}\n */\nvar numSquares = function(n) {\n    \n};",
+    "java": "class Solution {\n    public int numSquares(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int numSquares(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def numSquares(self,n):\n        squares=[x*x for x in range(1,isqrt(n)+1)]\n        dp=[0]+[n+1]*n\n        for total in range(1,n+1):\n            dp[total]=1+min(dp[total-s] for s in squares if s<=total)\n        return dp[n]\n",
+    "java": "class Solution {\n    public int numSquares(int n) {\n        int[] dp = new int[n+1];\n        Arrays.fill(dp, n);\n        dp[0] = 0;\n\n        for(int target = 0; target < n + 1; target++){\n            for(int s = 0; s < target; s++){\n                int square = s*s;\n                if(target - square < 0)\n                    break;\n                dp[target] = Math.min(dp[target], 1 + dp[target - square]);    \n            }\n        }\n        return dp[n];\n    }\n}\n\n/*---------------------------------------------------------------------------------------------------------------------------------------------------------*/\n\n//This is a BFS based approach.\n//We can also do this problem similar to coin change but the Time and space complexity will remain same (Just an extra queue in this one stil linear space).\n\nclass Solution {\n\n    public int numSquares(int n) {\n        Queue<Integer> q = new LinkedList<>();\n        //add visited array so we don't go to values which we have traversed already (similar to dp) otherwise this will give tle\n        HashSet<Integer> visited = new HashSet<>();\n        int ans = 0;\n        q.offer(n);\n        while (!q.isEmpty()) {\n            int size = q.size();\n            for (int i = 0; i < size; i++) {\n                int cur = q.poll();\n                if (cur == 0) return ans;\n                for (int j = 1; j <= cur / j; j++) {\n                    if (!visited.contains(cur - j * j)) {\n                        q.offer(cur - j * j);\n                        visited.add(cur - j * j);\n                    }\n                }\n            }\n            ans++;\n        }\n        return -1;\n    }\n}\n",
+    "cpp": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n/*\n    problem link: https://leetcode.com/problems/perfect-squares/description/\n    Given an integer n, return the least number of perfect square numbers that sum to n.\n\n    A perfect square is an integer that is the square of an integer; in other words, it is the\n    product of some integer with itself. For example, 1, 4, 9, and 16 are perfect squares while 3\n    and 11 are not.\n\n    Example 1:\n\n    Input: n = 12\n    Output: 3\n    Explanation: 12 = 4 + 4 + 4.\n\n    Example 2:\n\n    Input: n = 13\n    Output: 2\n    Explanation: 13 = 4 + 9.\n*/\n\nclass Solution {\npublic:\n    // Similar to Coin Change problem\n    int numSquares(int n) {\n        // Create the dp array to eliminate the cache\n        vector<int> dp(n + 1);\n        // Initialize the firest element of dp as 0\n        dp[0] = 0;\n        for (int i = 1; i <= n; i++)\n        {\n            // Biggest is when all square is 1^2 that is when dp[i] = i\n            dp[i] = i;\n            for (int j = 1; j * j <= i; j++) {\n                // Update the value of dp[i]\n                dp[i] = min(dp[i], dp[i - j * j] + 1);\n            }\n        }\n        // Return the value of dp[n]\n        return dp[n];\n    }\n};\n"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0279-perfect-squares.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0279-perfect-squares.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "将正整数 n 表示为若干完全平方数之和，求最少项数。",
+  "explanation": "预生成不超过 n 的平方数，动态规划 dp[x] 取 dp[x-square]+1 的最小值。",
+  "memory": "这是一种硬币面额固定为平方数的零钱兑换。"
+}

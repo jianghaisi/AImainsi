@@ -1,0 +1,62 @@
+{
+  "number": "416",
+  "adapter": {
+    "name": "canPartition",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "416"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          5,
+          11,
+          5
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          5
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def canPartition(self, nums: List[int]) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {boolean}\n */\nvar canPartition = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public boolean canPartition(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool canPartition(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def canPartition(self, nums: List[int]) -> bool:\n        if sum(nums) % 2:\n            return False\n\n        dp = set()\n        dp.add(0)\n        target = sum(nums) // 2\n\n        for i in range(len(nums) - 1, -1, -1):\n            nextDP = set()\n            for t in dp:\n                if (t + nums[i]) == target:\n                    return True\n                nextDP.add(t + nums[i])\n                nextDP.add(t)\n            dp = nextDP\n        return False\n",
+    "javascript": "function canPartition(nums) {\n  const total = nums.reduce((a, b) => a + b, 0);\n  if (total % 2) return false;\n  const target = total / 2,\n    dp = Array(target + 1).fill(false);\n  dp[0] = true;\n  for (const value of nums) for (let sum = target; sum >= value; sum--) dp[sum] ||= dp[sum - value];\n  return dp[target];\n}\n",
+    "java": "class Solution {\n\n    // TC = O(n*sum), SC = O(n*sum)\n    public boolean canPartition(int[] nums) {\n        int sum = 0;\n        for (int num : nums) {\n            sum += num;\n        }\n        if (sum % 2 != 0) return false;\n        int target = sum / 2;\n        boolean[][] dp = new boolean[nums.length + 1][target + 1];\n        int n = nums.length;\n        for (int i = 0; i <= n; i++) {\n            for (int j = 0; j <= target; j++) {\n                if (i == 0 || j == 0) {\n                    if (i == 0) dp[i][j] = false; else if (j == 0) dp[i][j] =\n                        true;\n                } else if (j >= nums[i - 1]) {\n                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]];\n                } else {\n                    dp[i][j] = dp[i - 1][j];\n                }\n            }\n        }\n        return dp[n][target];\n    }\n\n    // TC = O(n*sum), SC = O(sum)\n    public boolean canPartition(int[] nums) {\n        int sum = Arrays.stream(nums).sum();\n        if (sum % 2 != 0) return false;\n\n        int target = sum / 2;\n        boolean[] dp = new boolean[target];\n        dp[0] = true;\n\n        for (int no : nums) {\n            for (int i = target; i >= no; i--) {\n                if (dp[i - no] == true) {\n                    if (i == target) return true;\n                    dp[i] = true;\n                }\n            }\n        }\n        return false;\n    }\n}\n",
+    "cpp": "/*\n    Given non-empty, non-negative integer array nums, find if:\n    Can be partitionined into 2 subsets such that sums are equal\n    Ex. nums = [1,5,11,5] -> true, [1,5,5] & [11], both add to 11\n\n    Maintain DP set, for each num, check if num in set + curr = target\n    If not, add curr to every num in set we checked & iterate\n\n    Time: O(n x sum(nums))\n    Space: O(sum(nums))\n*/\n\nclass Solution {\npublic:\n    bool canPartition(vector<int>& nums) {\n        int target = 0;\n        for (int i = 0; i < nums.size(); i++) {\n            target += nums[i];\n        }\n        if (target % 2 != 0) {\n            return false;\n        }\n        target /= 2;\n        \n        unordered_set<int> dp;\n        dp.insert(0);\n        \n        for (int i = 0; i < nums.size(); i++) {\n            unordered_set<int> dpNext;\n            for (auto it = dp.begin(); it != dp.end(); it++) {\n                if (*it + nums[i] == target) {\n                    return true;\n                }\n                dpNext.insert(*it + nums[i]);\n                dpNext.insert(*it);\n            }\n            dp = dpNext;\n        }\n        \n        return false;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0416-partition-equal-subset-sum.py",
+    "javascript": "序列原创适配",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0416-partition-equal-subset-sum.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0416-partition-equal-subset-sum.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断正整数数组是否能分成两组，使两组和相同。",
+  "explanation": "总和为奇数立即失败，否则求是否存在和为总和一半的子集。一维背包需要倒序更新。",
+  "memory": "每个数只能用一次，倒序更新防止本轮重复选它。"
+}

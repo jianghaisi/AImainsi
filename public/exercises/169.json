@@ -1,0 +1,64 @@
+{
+  "number": "169",
+  "adapter": {
+    "name": "majorityElement",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "169"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          2,
+          3
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          2,
+          2,
+          1,
+          1,
+          1,
+          2,
+          2
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def majorityElement(self, nums: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar majorityElement = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int majorityElement(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int majorityElement(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def majorityElement(self, nums: List[int]) -> int:\n        res, count = 0, 0\n\n        for n in nums:\n            if count == 0:\n                res = n\n            count += (1 if n == res else -1)\n            \n        return res",
+    "javascript": "/**\n * HashMap\n * Time O(N) | Space O(N)\n * https://leetcode.com/problems/majority-element\n * @param {number[]} nums\n * @return {number}\n */\n\nvar majorityElement = function (nums) {\n  const occuranceOfElement = new Map();\n  for (let i = 0; i < nums.length; i++) {\n    if (occuranceOfElement.has(nums[i])) {\n      let occurance = occuranceOfElement.get(nums[i]);\n      occuranceOfElement.set(nums[i], occurance + 1);\n    } else {\n      occuranceOfElement.set(nums[i], 1);\n    }\n  }\n  for (let [key, value] of occuranceOfElement) {\n    if (value > nums.length / 2) return key;\n  }\n};",
+    "java": "class Solution {\n    public int majorityElement(int[] nums) {\n        int res = 0, count = 0;\n        \n        for(int n: nums) {\n            if(count == 0)\n                res = n;\n            count += (n == res? 1: -1);\n        }\n        \n        return res;\n    }\n}\n",
+    "cpp": "/*\nGiven an array nums of size n, return the majority element.\n\nThe majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.\n*/\n\nclass Solution {\npublic:\n    int majorityElement(vector<int>& nums) {\n        int count = 0;\n        int res = 0;\n\n        for (const int& num: nums) {\n            if (count == 0) {\n                res = num;\n            } \n            count += (num == res) ? 1 : -1;\n        }\n\n        return res;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0169-majority-element.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0169-majority-element.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0169-majority-element.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0169-majority-element.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "返回出现次数严格超过数组一半的元素，保证该元素存在。",
+  "explanation": "摩尔投票维护候选和计数，不同值互相抵消，多数元素最终仍有剩余。",
+  "memory": "抵消的是一对不同元素，多数元素不会被全部抵消。"
+}

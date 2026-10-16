@@ -1,0 +1,61 @@
+{
+  "number": "152",
+  "adapter": {
+    "name": "maxProduct",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "152"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          3,
+          -2,
+          4
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          -2,
+          0,
+          -1
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def maxProduct(self, nums: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar maxProduct = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int maxProduct(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int maxProduct(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def maxProduct(self, nums: List[int]) -> int:\n        # O(n)/O(1) : Time/Memory\n        res = nums[0]\n        curMin, curMax = 1, 1\n\n        for n in nums:\n\n            tmp = curMax * n\n            curMax = max(n * curMax, n * curMin, n)\n            curMin = min(tmp, n * curMin, n)\n            res = max(res, curMax)\n        return res\n",
+    "javascript": "const linearSearch = (nums, max = nums[0]) => {\n  for (let index = 0; index < nums.length; index++) {\n    /* Time O(N) */\n    max = getMax(nums, index, max); /* Time O(N) */\n  }\n  return max;\n};\nconst getMax = (nums, index, max, product = 1) => {\n  for (let num = index; num < nums.length; num++) {\n    /* Time O(N) */\n    product *= nums[num];\n    max = Math.max(max, product);\n  }\n  return max;\n};\n\n/**\n * Greedy - product\n * Time O(N) | Space O(1)\n * https://leetcode.com/problems/maximum-product-subarray/\n * @param {number[]} nums\n * @return {number}\n */\nvar maxProduct = nums => {\n  const isEmpty = nums.length === 0;\n  if (isEmpty) return 0;\n  return greedySearch(nums); /* Time O(N) */\n};\nconst greedySearch = nums => {\n  let min = max = product = nums[0];\n  for (let num = 1; num < nums.length; num++) {\n    /* Time O(N) */\n    const [minProduct, maxProduct] = [min * nums[num], max * nums[num]];\n    min = Math.min(maxProduct, minProduct, nums[num]);\n    max = Math.max(maxProduct, minProduct, nums[num]);\n    product = Math.max(product, max);\n  }\n  return product;\n};",
+    "java": "class Solution {\n\n    public int maxProduct(int[] nums) {\n        if (nums.length == 1) return nums[0];\n\n        int res = nums[0];\n        int max = 1;\n        int min = 1;\n\n        for (int n : nums) {\n            int tmp = max * n;\n            max = Math.max(n, Math.max(tmp, min * n));\n            min = Math.min(n, Math.min(tmp, min * n));\n            res = Math.max(res, max);\n        }\n        return res;\n    }\n}\n",
+    "cpp": "class Solution {\npublic:\n    int maxProduct(vector<int>& nums) {\n        int res = nums[0];\n        int curMin = 1, curMax = 1;\n        \n        for(int i = 0; i < nums.size(); i++)\n        {\n            int n = nums[i];\n                \n            int tmp = curMax * n;\n            curMax = max(max(n * curMax, n * curMin), n);\n            curMin = min(min(tmp, n * curMin), n);\n            res = max(res, curMax);\n        }\n        \n        return res;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0152-maximum-product-subarray.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0152-maximum-product-subarray.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0152-maximum-product-subarray.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0152-maximum-product-subarray.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "求连续非空子数组的最大乘积，数组可包含零和负数。",
+  "explanation": "同时维护以当前位置结尾的最大、最小乘积，负数可能使二者互换。",
+  "memory": "乘负数会翻转大小关系，所以最大和最小都要记。"
+}

@@ -1,0 +1,83 @@
+{
+  "number": "112",
+  "adapter": {
+    "name": "hasPathSum",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      },
+      {
+        "name": "targetSum",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "112"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          5,
+          4,
+          8,
+          11,
+          null,
+          13,
+          4,
+          7,
+          2,
+          null,
+          null,
+          null,
+          1
+        ],
+        22
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ],
+        5
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        [],
+        0
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def hasPathSum(self, root: TreeNode | None, targetSum: int) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @param {number} targetSum\n * @return {boolean}\n */\nvar hasPathSum = function(root, targetSum) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public boolean hasPathSum(TreeNode root, int targetSum) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool hasPathSum(TreeNode* root, int targetSum) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def hasPathSum(self, root, targetSum):\n        if root is None:\n            return False\n        if root.left is None and root.right is None:\n            return root.val == targetSum\n        return self.hasPathSum(root.left, targetSum-root.val) or self.hasPathSum(root.right, targetSum-root.val)\n",
+    "javascript": "// problem link https://leetcode.com/problems/path-sum/\n// time complexity O(n) // whatever the number of nodes are.\n\nvar hasPathSum = function (root, targetSum) {\n  const ans = [];\n  function goDFS(node, curruntSum) {\n    if (!node) return;\n    if (!node.left && !node.right) {\n      ans.push(node.val + curruntSum);\n    }\n    goDFS(node.left, curruntSum + node.val);\n    goDFS(node.right, curruntSum + node.val);\n  }\n  goDFS(root, 0);\n  return ans.includes(targetSum);\n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    //This would be easily solved by DFS and then comparing the values\n    public boolean dfs(TreeNode root, int targetSum, int currSum){\n        if(root == null) return false;\n\n        currSum += root.val;\n        if(root.left == null && root.right == null){\n            return (currSum == targetSum);\n        }\n        return dfs(root.left, targetSum, currSum) || dfs(root.right, targetSum, currSum);\n    }\n    public boolean hasPathSum(TreeNode root, int targetSum) {\n        return dfs(root, targetSum, 0);\n    }\n}\n",
+    "cpp": "/*\n0112-path-sum.cpp\nGiven the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.\n\nA leaf is a node with no children.\n\nAlgorithm Used : DFS\n\nTime Complexity : O(n)\nn = number of nodes in binary tree\n\nSpace Complexity : O(h)\nh = height of binary tree\n\n*/\n\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool hasPathSum(TreeNode* root, int targetSum) {\n        if (!root) return false;\n\n        targetSum -= root->val;\n\n        if (!root->left && !root->right && (targetSum == 0)) return true;\n\n        return hasPathSum(root->left, targetSum) || hasPathSum(root->right, targetSum);\n    }\n};\n"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0112-path-sum.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0112-path-sum.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0112-path-sum.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断二叉树是否存在从根到叶子的路径，使节点值之和等于目标。",
+  "explanation": "递归减去当前值，只有到叶子且剩余为零才成功。",
+  "memory": "必须走到叶子，中途达到目标不能提前成功。"
+}

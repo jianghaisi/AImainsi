@@ -1,0 +1,65 @@
+{
+  "number": "205",
+  "adapter": {
+    "name": "isIsomorphic",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "t",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "205"
+  },
+  "tests": [
+    {
+      "input": [
+        "egg",
+        "add"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "foo",
+        "bar"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "paper",
+        "title"
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def isIsomorphic(self, s: str, t: str) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @param {string} t\n * @return {boolean}\n */\nvar isIsomorphic = function(s, t) {\n    \n};",
+    "java": "class Solution {\n    public boolean isIsomorphic(String s, String t) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isIsomorphic(string s, string t) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def isIsomorphic(self, s: str, t: str) -> bool:\n        mapST, mapTS = {}, {}\n\n        for c1, c2 in zip(s, t):\n            if (c1 in mapST and mapST[c1] != c2) or (c2 in mapTS and mapTS[c2] != c1):\n                return False\n            mapST[c1] = c2\n            mapTS[c2] = c1\n\n        return True",
+    "javascript": "var isIsomorphic = function (s, t) {\n  if (s.length !== t.length) return false;\n  const mapOne = new Map();\n  const mapTwo = new Map();\n  for (let i = 0; i < s.length; i++) {\n    if (mapOne.has(s[i])) {\n      if (mapOne.get(s[i]) !== t[i]) return false;\n    } else mapOne.set(s[i], t[i]);\n    if (mapTwo.has(t[i])) {\n      if (mapTwo.get(t[i]) !== s[i]) return false;\n    } else mapTwo.set(t[i], s[i]);\n  }\n  return true;\n};",
+    "java": "class Solution {\n    public boolean isIsomorphic(String s, String t) {\n        HashMap<Character, Character> mapS = new HashMap<>();\n        HashMap<Character, Character> mapT = new HashMap<>();\n\n        int s1=0, t1=0;\n\n        while(s1 < s.length() && t1 < t.length()){\n            if((mapS.containsKey(s.charAt(s1)) && mapS.get(s.charAt(s1)) != t.charAt(t1)) ||\n            (mapT.containsKey(t.charAt(t1)) && mapT.get(t.charAt(t1)) != s.charAt(s1))){\n                return false;\n            }\n            mapS.put(s.charAt(s1), t.charAt(t1));\n            mapT.put(t.charAt(t1), s.charAt(s1));\n            s1 += 1;\n            t1 += 1;\n        }\n        return true;\n    }\n}\n",
+    "cpp": "/*Given two strings s and t, determine if they are isomorphic.\n\nTwo strings s and t are isomorphic if the characters in s can be replaced to get t.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.\n\n */\nclass Solution {\npublic:\n    bool isIsomorphic(string s, string t) {\n       unordered_map<char,vector<int>>m1;\n         unordered_map<char,vector<int>>m2;\n        for(int i=0;i<s.length();i++){\n            m1[s[i]].push_back(i);\n             m2[t[i]].push_back(i);\n            \n            if(m1[s[i]]!=m2[t[i]])\n                return false;\n        }\n        return true;\n        \n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0205-isomorphic-strings.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0205-isomorphic-strings.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0205-isomorphic-strings.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0205-Isomorphic-Strings.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断两个字符串能否通过字符的一一映射互相对应。",
+  "explanation": "同时维护正向与反向映射，避免多个字符映射到同一字符。",
+  "memory": "单向映射不够，必须双向唯一。"
+}

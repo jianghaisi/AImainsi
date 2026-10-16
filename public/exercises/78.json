@@ -1,0 +1,92 @@
+{
+  "number": "78",
+  "adapter": {
+    "name": "subsets",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<list<integer>>",
+      "dealloc": true
+    },
+    "number": "78"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        [],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          0
+        ]
+      ],
+      "expected": [
+        [],
+        [
+          0
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def subsets(self, nums: list[int]) -> list[list[int]]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number[][]}\n */\nvar subsets = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public List<List<Integer>> subsets(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> subsets(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def subsets(self, nums: List[int]) -> List[List[int]]:\n        res = []\n\n        subset = []\n\n        def dfs(i):\n            if i >= len(nums):\n                res.append(subset.copy())\n                return\n            # decision to include nums[i]\n            subset.append(nums[i])\n            dfs(i + 1)\n            # decision NOT to include nums[i]\n            subset.pop()\n            dfs(i + 1)\n\n        dfs(0)\n        return res\n",
+    "javascript": "var dfs = (nums, level = 0, set = [], subset = []) => {\n  subset.push(set.slice());\n  for (let i = level; i < nums.length; i++) {\n    backTrack(nums, i, set, subset);\n  }\n  return subset;\n};\nconst backTrack = (nums, i, set, subset) => {\n  set.push(nums[i]);\n  dfs(nums, i + 1, set, subset);\n  set.pop();\n};\n\n/**\n * https://leetcode.com/problems/subsets/\n * Time O(N * 2^N) | Space(N * 2^N)\n * @param {number[]} nums\n * @return {number[][]}\n */\nvar subsets = nums => {\n  nums.sort((a, b) => a - b);\n  return bfs(nums);\n};\nconst bfs = (nums, subsets = [[]]) => {\n  for (const num of nums) {\n    const levels = subsets.length;\n    for (let level = 0; level < levels; level++) {\n      const nextLevel = [...subsets[level], num];\n      subsets.push(nextLevel);\n    }\n  }\n  return subsets;\n};",
+    "java": "// The idea is to have two conditions: \n// One in which we will take the element into consideration, \n// Second in which we won't take the element into consideration.\nclass Solution {\n\n    public List<List<Integer>> subsets(int[] nums) {\n        List<List<Integer>> ans = new ArrayList<>();\n        List<Integer> list = new ArrayList<>();\n        helper(ans, 0, nums, list);\n        return ans;\n    }\n\n    public void helper(\n        List<List<Integer>> ans,\n        int start,\n        int[] nums,\n        List<Integer> list\n    ) {\n        if (start >= nums.length) {\n            ans.add(new ArrayList<>(list));\n        } else {\n            // add the element and start the  recursive call\n            list.add(nums[start]);\n            helper(ans, start + 1, nums, list);\n            // remove the element and do the backtracking call.\n            list.remove(list.size() - 1);\n            helper(ans, start + 1, nums, list);\n        }\n    }\n}\n",
+    "cpp": "/*\n    Given an integer array of unique elements, return all possible subsets (the power set)\n    Ex. nums = [1,2,3] -> [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]\n\n    Backtracking, generate all combinations, push/pop + index checking to explore new combos\n\n    Time: O(n x 2^n)\n    Space: O(n)\n*/\n\nclass Solution {\npublic:\n    vector<vector<int>> subsets(vector<int>& nums) {\n        vector<int> curr;\n        vector<vector<int>> result;\n        dfs(nums, 0, curr, result);\n        return result;\n    }\nprivate:\n    void dfs(vector<int>& nums, int start, vector<int>& curr, vector<vector<int>>& result) {\n        result.push_back(curr);\n        for (int i = start; i < nums.size(); i++) {\n            curr.push_back(nums[i]);\n            dfs(nums, i + 1, curr, result);\n            curr.pop_back();\n        }\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0078-subsets.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0078-subsets.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0078-subsets.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0078-subsets.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "给定无重复整数数组，返回所有子集，包括空集。",
+  "explanation": "按位置决定选或不选，或回溯时把当前路径加入答案，并仅向后选择。共 2ⁿ 个子集。",
+  "memory": "子集不关心排列，选择下标必须单向推进。"
+}

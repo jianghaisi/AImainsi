@@ -1,0 +1,65 @@
+{
+  "number": "290",
+  "adapter": {
+    "name": "wordPattern",
+    "params": [
+      {
+        "name": "pattern",
+        "type": "string"
+      },
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "290"
+  },
+  "tests": [
+    {
+      "input": [
+        "abba",
+        "dog cat cat dog"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abba",
+        "dog cat cat fish"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aaaa",
+        "dog cat cat dog"
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def wordPattern(self, pattern: str, s: str) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} pattern\n * @param {string} s\n * @return {boolean}\n */\nvar wordPattern = function(pattern, s) {\n    \n};",
+    "java": "class Solution {\n    public boolean wordPattern(String pattern, String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool wordPattern(string pattern, string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def wordPattern(self, pattern: str, s: str) -> bool:\n        words = s.split(\" \")\n        if len(pattern) != len(words):\n            return False\n        charToWord = {}\n        wordToChar = {}\n        \n        for c, w in zip(pattern, words):\n            if c in charToWord and charToWord[c] != w:\n                return False\n            if w in wordToChar and wordToChar[w] != c:\n                return False\n            charToWord[c] = w\n            wordToChar[w] = c\n        return True\n",
+    "javascript": "// problem link https://leetcode.com/problems/word-pattern\n// time coplexity O(n)\n// space complexity O(n)\n\nvar wordPattern = function (pattern, s) {\n  s = s.split(' ');\n  if (s.length !== pattern.length) return false;\n  wordToChar = new Map();\n  charToWord = new Map();\n  for (let i = 0; i < pattern.length; i++) {\n    wordToChar.set(s[i], pattern[i]);\n    charToWord.set(pattern[i], s[i]);\n  }\n  for (let i = 0; i < pattern.length; i++) {\n    if (charToWord.get(pattern[i]) !== s[i] || pattern[i] !== wordToChar.get(s[i])) {\n      return false;\n    }\n  }\n  return true;\n};",
+    "java": "class Solution {\n    public boolean wordPattern(String pattern, String s) {\n        String[] sArray = s.split(\"\\s\");\n        if(sArray.length != pattern.length()) {\n            return false;\n        }\n        \n        HashMap<Character,String> charToWord = new HashMap<>();\n        HashMap<String,Character> wordToChar = new HashMap<>();\n        \n        for (int i = 0; i < pattern.length(); i++) {\n        \n            if(charToWord.containsKey(pattern.charAt(i)) && !charToWord.get(pattern.charAt(i)).equals(sArray[i])) {\n                return false;\n            }\n            \n            if(wordToChar.containsKey(sArray[i]) && !wordToChar.get(sArray[i]).equals(pattern.charAt(i))) {\n                return false;\n            }\n            \n            charToWord.put(pattern.charAt(i),sArray[i]);\n            wordToChar.put(sArray[i],pattern.charAt(i));\n        }\n        return true;    \n    }\n}\n",
+    "cpp": "class Solution {\r\npublic:\r\n    bool wordPattern(string pattern, string str) {\r\n        vector<int> pat_map (26, 0);\r\n        unordered_map<string,int> str_map;\r\n        int i=0, n = pattern.size();\r\n        istringstream ss (str);\r\n        string token;\r\n        \r\n        for(string token; ss >> token; ++i) {\r\n            if(i == n || pat_map[pattern[i]-'a'] != str_map[token]) return false;\r\n            \r\n            // 1-based indexing since map assigns 0 as a default value for keys not found.\r\n            pat_map[pattern[i]-'a'] = str_map[token] = i+1;\r\n        }\r\n        \r\n        return i == n;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0290-word-pattern.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0290-word-pattern.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0290-word-pattern.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0290-word-pattern.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断字符模式是否与句子中的单词序列一一对应。",
+  "explanation": "先比较数量，再维护字符到单词及单词到字符的双向映射。",
+  "memory": "字符和完整单词配对，而非字符和单个字母。"
+}

@@ -1,0 +1,112 @@
+{
+  "number": "54",
+  "adapter": {
+    "name": "spiralOrder",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "list<integer>",
+      "size": "size_1 * col_size_1",
+      "dealloc": true
+    },
+    "number": "54"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        6,
+        9,
+        8,
+        7,
+        4,
+        5
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          [
+            5,
+            6,
+            7,
+            8
+          ],
+          [
+            9,
+            10,
+            11,
+            12
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        12,
+        11,
+        10,
+        9,
+        5,
+        6,
+        7
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def spiralOrder(self, matrix: list[list[int]]) -> list[int]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[][]} matrix\n * @return {number[]}\n */\nvar spiralOrder = function(matrix) {\n    \n};",
+    "java": "class Solution {\n    public List<Integer> spiralOrder(int[][] matrix) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> spiralOrder(vector<vector<int>>& matrix) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:\n        res = []\n        left, right = 0, len(matrix[0])\n        top, bottom = 0, len(matrix)\n\n        while left < right and top < bottom:\n            # get every i in the top row\n            for i in range(left, right):\n                res.append(matrix[top][i])\n            top += 1\n            # get every i in the right col\n            for i in range(top, bottom):\n                res.append(matrix[i][right - 1])\n            right -= 1\n            if not (left < right and top < bottom):\n                break\n            # get every i in the bottom row\n            for i in range(right - 1, left - 1, -1):\n                res.append(matrix[bottom - 1][i])\n            bottom -= 1\n            # get every i in the left col\n            for i in range(bottom - 1, top - 1, -1):\n                res.append(matrix[i][left])\n            left += 1\n\n        return res\n",
+    "javascript": "var traverse = (matrix, top, bot, left, right, order) => {\n  addTop(matrix, top, bot, left, right, order); /* Time O(COLS) | Ignore Auxilary Spsace O(ROWS * COLS) */\n  addRight(matrix, top, bot, left, right, order); /* Time O(ROWS) | Ignore Auxilary Spsace O(ROWS * COLS)*/\n  addBot(matrix, top, bot, left, right, order); /* Time O(COLS) | Ignore Auxilary Spsace O(ROWS * COLS)*/\n  addLeft(matrix, top, bot, left, right, order); /* Time O(ROWS) | Ignore Auxilary Spsace O(ROWS * COLS. */\n};\nvar addTop = (matrix, top, bot, left, right, order) => {\n  for (let col = left; col <= right; col++) {\n    /* Time O(COLS) */\n    order.push(matrix[top][col]); /* Ignore Auxilary Spsace O(ROWS * COLS) */\n  }\n};\nvar addRight = (matrix, top, bot, left, right, order) => {\n  for (let row = top + 1; row <= bot; row++) {\n    /* Time O(ROWS) */\n    order.push(matrix[row][right]); /* Ignore Auxilary Spsace O(ROWS * COLS) */\n  }\n};\nvar addBot = (matrix, top, bot, left, right, order) => {\n  for (let col = right - 1; left <= col; col--) {\n    /* Time O(COLS) */\n    const isOutOfBounds = top === bot;\n    if (isOutOfBounds) return;\n    order.push(matrix[bot][col]); /* Ignore Auxilary Spsace O(ROWS * COLS) */\n  }\n};\nvar addLeft = (matrix, top, bot, left, right, order) => {\n  for (let row = bot - 1; row >= top + 1; row--) {\n    /* Time O(ROWS) */\n    const isOutOfBounds = left === right;\n    if (isOutOfBounds) return;\n    order.push(matrix[row][left]); /* Ignore Auxilary Spsace O(ROWS * COLS) */\n  }\n};\n\n/**\n * Matrix - Mark Visited In Place\n * Array - Ignore Auxilary Space O(ROWS * COLS)\n * Time O(ROWS * COLS) | Space O(1)\n * https://leetcode.com/problems/spiral-matrix/\n * @param {number[][]} matrix\n * @return {number[]}\n */\nvar spiralOrder = matrix => {\n  const order = initOrder(matrix); /*                     | Ignore Auxilary Spsace O(ROWS * COLS) */\n\n  spiral(matrix, order); /* Time O(ROWS * COLS) | Ignore Auxilary Spsace O(ROWS * COLS) */\n\n  return order;\n};\nconst initOrder = (matrix, VISITED = 101) => {\n  const order = [matrix[0][0]]; /* Ignore Auxilary Spsace O(ROWS * COLS) */\n\n  matrix[0][0] = VISITED; /* Ignore Auxilary Spsace O(ROWS * COLS) */\n\n  return order;\n};\nvar spiral = (matrix, order) => {\n  let [row, col, direction, changeDirection] = [0, 0, 0, 0];\n  while (changeDirection < 2) {\n    /* Time O(ROWS * COLS) | Ignore Auxilary Spsace O(ROWS * COLS) */\n    [row, col, direction, changeDirection] = /* Time O(ROWS * COLS) | Ignore Auxilary Spsace O(ROWS * COLS) */\n    getPointers(matrix, row, col, direction, changeDirection, order);\n  }\n};\nconst getPointers = (matrix, row, col, direction, changeDirection, order) => {\n  [row, col, direction, changeDirection] = /* Time O(ROWS * COLS) | Ignore Auxilary Spsace O(ROWS * COLS) */\n  move(matrix, row, col, direction, changeDirection, order);\n  direction = (direction + 1) % 4;\n  changeDirection += 1;\n  return [row, col, direction, changeDirection];\n};\nconst move = (matrix, row, col, direction, changeDirection, order, VISITED = 101) => {\n  const [rows, cols] = [matrix.length, matrix[0].length];\n  while (canMove(matrix, row, rows, col, cols, direction)) {\n    /* Time O(ROWS * COLS) */\n    [row, col] = getCell(row, col, direction);\n    order.push(matrix[row][col]); /*                     | Ignore Auxilary Spsace O(ROWS * COLS) */\n    matrix[row][col] = VISITED;\n    changeDirection = 0;\n  }\n  return [row, col, direction, changeDirection];\n};\nconst canMove = (matrix, row, rows, col, cols, direction) => {\n  if (!isInBounds(row, rows, col, cols, direction)) return false;\n  return !hasSeen(matrix, row, col, direction);\n};\nconst isInBounds = (row, rows, col, cols, direction) => {\n  const [_row, _col] = getCell(row, col, direction);\n  const isRowInBounds = 0 <= _row && _row < rows;\n  const isColInBounds = 0 <= _col && _col < cols;\n  return isRowInBounds && isColInBounds;\n};\nconst hasSeen = (matrix, row, col, direction, VISITED = 101) => {\n  const [_row, _col] = getCell(row, col, direction);\n  return matrix[_row][_col] === VISITED;\n};\nconst getDirection = direction => {\n  const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]];\n  /* RIGHT    BOT     LEFT     TOP  */\n  return directions[direction];\n};\nconst getCell = (row, col, direction) => {\n  const [_row, _col] = getDirection(direction);\n  return [row + _row, col + _col];\n};",
+    "java": "class Solution {\n\n    public List<Integer> spiralOrder(int[][] matrix) {\n        List<Integer> list = new ArrayList<>();\n        int rb = 0;\n        int re = matrix.length - 1;\n        int cb = 0;\n        int ce = matrix[0].length - 1;\n\n        while (rb <= re && cb <= ce) {\n            for (int j = cb; j <= ce; j++) {\n                list.add(matrix[rb][j]);\n            }\n            rb++;\n\n            for (int i = rb; i <= re; i++) {\n                list.add(matrix[i][ce]);\n            }\n            ce--;\n\n            if (rb <= re) {\n                for (int j = ce; j >= cb; j--) {\n                    list.add(matrix[re][j]);\n                }\n            }\n            re--;\n\n            if (cb <= ce) {\n                for (int i = re; i >= rb; i--) {\n                    list.add(matrix[i][cb]);\n                }\n            }\n            cb++;\n        }\n\n        return list;\n    }\n}\n",
+    "cpp": "/*\n    Given a matrix, return all elements in spiral order\n\n    Set up boundaries, go outside in CW: top->right->bottom->left\n\n    Time: O(m x n)\n    Space: O(m x n)\n*/\n\nclass Solution {\npublic:\n    vector<int> spiralOrder(vector<vector<int>>& matrix) {\n        int left = 0;\n        int top = 0;\n        int right = matrix[0].size() - 1;\n        int bottom = matrix.size() - 1;\n        \n        vector<int> result;\n        \n        while (top <= bottom && left <= right) {\n            for (int j = left; j <= right; j++) {\n                result.push_back(matrix[top][j]);\n            }\n            top++;\n            \n            for (int i = top; i <= bottom; i++) {\n                result.push_back(matrix[i][right]);\n            }\n            right--;\n            \n            if (top <= bottom) {\n                for (int j = right; j >= left; j--) {\n                    result.push_back(matrix[bottom][j]);\n                }\n            }\n            bottom--;\n            \n            if (left <= right) {\n                for (int i = bottom; i >= top; i--) {\n                    result.push_back(matrix[i][left]);\n                }\n            }\n            left++;\n        }\n        \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0054-spiral-matrix.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0054-spiral-matrix.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0054-spiral-matrix.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0054-spiral-matrix.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "按顺时针螺旋顺序访问矩阵，返回访问到的元素序列。",
+  "explanation": "维护上、下、左、右边界，每遍历一条边就收缩对应边界；走第三、第四条边前再次检查是否还有范围。",
+  "memory": "四条边逐层收缩；单行和单列最容易被重复访问。"
+}

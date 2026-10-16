@@ -1,0 +1,61 @@
+{
+  "number": "1657",
+  "adapter": {
+    "name": "closeStrings",
+    "params": [
+      {
+        "name": "word1",
+        "type": "string"
+      },
+      {
+        "type": "string",
+        "name": "word2"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "1657"
+  },
+  "tests": [
+    {
+      "input": [
+        "abc",
+        "bca"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "a",
+        "aa"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "cabbba",
+        "abbccc"
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def closeStrings(self, word1: str, word2: str) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} word1\n * @param {string} word2\n * @return {boolean}\n */\nvar closeStrings = function(word1, word2) {\n    \n};",
+    "java": "class Solution {\n    public boolean closeStrings(String word1, String word2) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool closeStrings(string word1, string word2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def closeStrings(self,word1,word2):\n        a,b=Counter(word1),Counter(word2)\n        return a.keys()==b.keys() and sorted(a.values())==sorted(b.values())\n",
+    "java": "/*-------------------------------\n  Time Complexity: O(n)\n  Space Complexity: O(n)\n-------------------------------*/\n\nclass Solution {\n    public boolean closeStrings(String word1, String word2) {\n        if (word1.length() != word2.length()) {\n            return false;\n        }\n\n        Map<Character, Integer> freqMap1 = new HashMap<>();\n        Map<Character, Integer> freqMap2 = new HashMap<>();\n        for (char ch : word1.toCharArray()) {\n            freqMap1.put(ch, freqMap1.getOrDefault(ch, 0) + 1);\n        }\n        for (char ch : word2.toCharArray()) {\n            freqMap2.put(ch, freqMap2.getOrDefault(ch, 0) + 1);\n        }\n        if (!freqMap1.keySet().equals(freqMap2.keySet())) {\n            return false;\n        }\n\n        Map<Integer, Integer> freqCount1 = new HashMap<>();\n        Map<Integer, Integer> freqCount2 = new HashMap<>();\n        for (int freq : freqMap1.values()) {\n            freqCount1.put(freq, freqCount1.getOrDefault(freq, 0) + 1);\n        }\n        for (int freq : freqMap2.values()) {\n            freqCount2.put(freq, freqCount2.getOrDefault(freq, 0) + 1);\n        }\n\n        return freqCount1.equals(freqCount2);\n    }\n}\n"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/1657-determine-if-two-strings-are-close.java"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "允许任意交换字符位置，以及交换两个已有字符的全部出现位置，判断两字符串能否互转。",
+  "explanation": "要求长度一致、字符集合一致、频次多重集合一致。",
+  "memory": "频次可重新分配给已有字符，但不能创造新字符。"
+}

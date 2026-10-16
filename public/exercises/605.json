@@ -1,0 +1,70 @@
+{
+  "number": "605",
+  "adapter": {
+    "name": "canPlaceFlowers",
+    "params": [
+      {
+        "name": "flowerbed",
+        "type": "integer[]"
+      },
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "605"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        1
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        2
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def canPlaceFlowers(self, flowerbed: list[int], n: int) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} flowerbed\n * @param {number} n\n * @return {boolean}\n */\nvar canPlaceFlowers = function(flowerbed, n) {\n    \n};",
+    "java": "class Solution {\n    public boolean canPlaceFlowers(int[] flowerbed, int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool canPlaceFlowers(vector<int>& flowerbed, int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:\n        # Solution with O(1) space complexity\n        empty = 0 if flowerbed[0] else 1\n\n        for f in flowerbed:\n           if f:\n               n -= int((empty - 1) / 2)  # int division, round toward zero\n               empty = 0\n           else:\n               empty += 1\n\n        n -= (empty) // 2\n        return n <= 0\n        \nclass Solution2:\n    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:\n       # Another solution with O(1) space complexity\n       for i in range(len(flowerbed)):\n            if n == 0:\n                return True\n            if ((i == 0 or flowerbed[i - 1] == 0)   # If at the first element or the previous element equals to 0\n                and (flowerbed[i] == 0)             # If current element equals to 0\n                and (i == len(flowerbed) - 1 or flowerbed[i + 1] == 0)): # If at the last element or the next element equals to 0\n                # Place flower at the current position\n                flowerbed[i] = 1\n                n -= 1\n\n       return n == 0\n       \nclass Solution3:\n    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:\n       # Solution with O(n) space complexity\n       f = [0] + flowerbed + [0]\n       \n       for i in range(1, len(f) - 1):  # skip first & last\n           if f[i - 1] == 0 and f[i] == 0 and f[i + 1] == 0:\n               f[i] = 1\n               n -= 1\n       return n <= 0\n",
+    "javascript": "/**\n * Loop Solution\n * Time O(N) | Space O(1)\n * https://leetcode.com/problems/can-place-flowers\n * @param {number[]} fb\n * @param {number} n\n * @return {boolean}\n */\n\nvar canPlaceFlowers = function (fb, n) {\n  if (n === 0) return true;\n  for (let i = 0; i < fb.length; i++) {\n    if (fb[i] === 0) {\n      fb[i - 1] !== 1 && fb[i + 1] !== 1 && n-- && i++;\n    } else {\n      i++;\n    }\n    if (n === 0) return true;\n  }\n  return false;\n};",
+    "java": "class Solution {\n    public boolean canPlaceFlowers(int[] flowerbed, int n) {\n        int size = flowerbed.length;\n        if(n==0) return true;\n        for(int i=0; i<size; i++){\n            if(flowerbed[i]==0 && (i==0 || flowerbed[i-1]==0) && (i==size-1 || flowerbed[i+1]==0)){\n                n--;\n                if(n==0) return true;\n                flowerbed[i]=1;\n            }\n        }\n        return false;\n    }\n}\n",
+    "cpp": "class Solution {\npublic:\n    bool canPlaceFlowers(vector<int>& flowerbed, int n) {\n        // pre-check, if n is 0 ... return true\n        if(n == 0){\n            return true;\n        }\n        \n        // add a zero to the front and end of FB\n        flowerbed.insert (flowerbed.begin(),0);\n        flowerbed.push_back(0);\n\n        // iterate through vector (1, vector -1) (for)\n        //  if prev, curr, and next are 0\n        //      plant flower (1)\n        //      decrement n\n        for(int i = 1; i < flowerbed.size() - 1; i++){\n            if (flowerbed[i - 1] == 0 && flowerbed[i] == 0 && flowerbed[i+1] == 0){\n                flowerbed[i] = 1;\n                n--;\n            }\n            if (n == 0){\n                return true;\n            }\n\n        }\n\n        // return false as else\n        return false;\n\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0605-can-place-flowers.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0605-can-place-flowers.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0605-can-place-flowers.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0605-can-place-flowers.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "花坛中不能有相邻的花，判断能否再种指定数量的花。",
+  "explanation": "扫描空位，左右均为空或越界时种下并计数。O(n)。",
+  "memory": "种下后立即更新花坛，影响下一位置的判断。"
+}

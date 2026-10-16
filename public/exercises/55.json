@@ -1,0 +1,64 @@
+{
+  "number": "55",
+  "adapter": {
+    "name": "canJump",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "55"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          3,
+          1,
+          1,
+          4
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          3,
+          2,
+          1,
+          0,
+          4
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def canJump(self, nums: list[int]) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {boolean}\n */\nvar canJump = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public boolean canJump(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool canJump(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def canJump(self, nums: List[int]) -> bool:\n        goal = len(nums) - 1\n\n        for i in range(len(nums) - 2, -1, -1):\n            if i + nums[i] >= goal:\n                goal = i\n        return goal == 0\n",
+    "javascript": "const canJumpFromIndex = (nums, memo, index = 0) => {\n  if (memo[index] !== 0) return memo[index] === 1;\n  const furthestJump = Math.min(index + nums[index], nums.length - 1);\n  for (let nextIndex = index + 1; nextIndex <= furthestJump; nextIndex++) {\n    if (!canJumpFromIndex(nums, memo, nextIndex)) continue;\n    memo[index] = 1;\n    return true;\n  }\n  memo[index] = -1;\n  return false;\n};\n\n/**\n * Time O(N^2) | Space O(N)\n * @param {number[]} nums\n * @return {boolean}\n */\n\n/**\n * Time O(N) | Space O(1)\n * @param {number[]} nums\n * @return {boolean}\n */\nvar canJump = (nums, right = nums.length - 1) => {\n  for (let i = right; 0 <= i; i--) {\n    const isJumpable = right <= i + nums[i];\n    if (isJumpable) right = i;\n  }\n  return right === 0;\n};",
+    "java": "class Solution {\n\n    public boolean canJump(int[] nums) {\n        int goal = nums.length - 1;\n        for (int i = nums.length - 2; i >= 0; i--) {\n            if (nums[i] + i >= goal) {\n                goal = i;\n            }\n        }\n        return goal == 0;\n    }\n}\n",
+    "cpp": "/*\n    Given int array, return true if can reach last index\n    Ex. nums = [2,3,1,1,4] -> true, index 0 to 1 to last\n\n    Greedy: At each point, determine furthest reachable index\n\n    Time: O(n)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    bool canJump(vector<int>& nums) {\n        int n = nums.size();\n        int reachable = 0;\n        \n        for (int i = 0; i < n; i++) {\n            if (i > reachable) {\n                return false;\n            }\n            reachable = max(reachable, i + nums[i]);\n            if (reachable >= n - 1) {\n                break;\n            }\n        }\n        \n        return true;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0055-jump-game.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0055-jump-game.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0055-jump-game.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0055-jump-game.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "每个位置的值表示最大向右跳跃长度，判断能否从首项到达末项。",
+  "explanation": "维护目前能到达的最远位置。如果扫描位置超过该边界则失败，否则不断扩展。",
+  "memory": "只关心可达区间，不必枚举每条跳跃路径。"
+}

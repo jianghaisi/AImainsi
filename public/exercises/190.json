@@ -1,0 +1,53 @@
+{
+  "number": "190",
+  "adapter": {
+    "name": "reverseBits",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "manual": false,
+    "number": "190"
+  },
+  "tests": [
+    {
+      "input": [
+        43261596
+      ],
+      "expected": 964176192
+    },
+    {
+      "input": [
+        2147483644
+      ],
+      "expected": 1073741822
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def reverseBits(self, n: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} n\n * @return {number}\n */\nvar reverseBits = function(n) {\n    \n};",
+    "java": "class Solution {\n    public int reverseBits(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int reverseBits(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def reverseBits(self, n: int) -> int:\n        res = 0\n        for i in range(32):\n            bit = (n >> i) & 1\n            res += (bit << (31 - i))\n        return res\n",
+    "javascript": "/**\n * https://leetcode.com/problems/reverse-bits/\n * Time O(1) | Space O(1)\n * @param {number} n - a positive integer\n * @return {number} - a positive integer\n */\nvar reverseBits = function (n, bit = 0) {\n  for (let i = 0; i < 32; i++) {\n    bit <<= 1; // Double * 2\n    bit |= n & 1; // Flip\n    n >>= 1; // Reduce * 0.5\n  }\n  return bit >>> 0;\n};",
+    "java": "public class Solution {\n\n    // you need treat n as an unsigned value\n    public int reverseBits(int n) {\n        int ans = 0;\n\n        for (int i = 0; i < 32; i++) {\n            ans <<= 1;\n            ans |= (n & 1);\n            n >>= 1;\n        }\n        return ans;\n    }\n}\n",
+    "cpp": "/*\n    Reverse bits of a given integer\n    Ex. n = 10011100 -> 00111001 = 57\n\n    Shift into result & shift out of n\n\n    Time: O(1)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    uint32_t reverseBits(uint32_t n) {\n        uint32_t result = 0;\n        \n        for (int i = 0; i < 32; i++) {\n            result <<= 1;\n            result |= n & 1;\n            n >>= 1;\n        }\n        \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0190-reverse-bits.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0190-reverse-bits.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0190-reverse-bits.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0190-reverse-bits.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "反转一个 32 位无符号整数的二进制位序。",
+  "explanation": "重复 32 次：结果左移并接入输入最低位，输入右移。",
+  "memory": "位宽固定 32，前导零也要处理。"
+}

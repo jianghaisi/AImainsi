@@ -1,0 +1,105 @@
+{
+  "number": "452",
+  "adapter": {
+    "name": "findMinArrowShots",
+    "params": [
+      {
+        "name": "points",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "452"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            10,
+            16
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            7,
+            12
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            7,
+            8
+          ]
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def findMinArrowShots(self, points: List[List[int]]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[][]} points\n * @return {number}\n */\nvar findMinArrowShots = function(points) {\n    \n};",
+    "java": "class Solution {\n    public int findMinArrowShots(int[][] points) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findMinArrowShots(vector<vector<int>>& points) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def findMinArrowShots(self, points: List[List[int]]) -> int:\n        points.sort()\n\n        res = len(points)\n        prev = points[0]\n        for i in range(1, len(points)):\n            curr = points[i]\n            if curr[0] <= prev[1]:\n                res -= 1\n                prev = [curr[0], min(curr[1], prev[1])]\n            else:\n                prev = curr\n            \n        return res\n",
+    "java": "class Solution {\n    public int findMinArrowShots(int[][] points) {\n        Arrays.sort(points, Comparator.comparingInt((int[] a) -> a[0])\n                              .thenComparingInt((int[] a) -> a[1]));\n\n        var res = points.length;\n        var prev = points[0];\n        for (int i = 1; i < points.length; i++) {\n            int[] curr = points[i];\n            if (curr[0] <= prev[1]) {\n                res--;\n                prev[0] = curr[0];\n                prev[1] = Math.min(curr[1], prev[1]);\n            } else {\n                prev = curr;\n            }\n        }\n\n        return res;\n    }\n}\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0452-minimum-number-of-arrows-to-burst-balloons.py",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0452-minimum-number-of-arrows-to-burst-balloons.java"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "每支竖直箭可击穿包含其横坐标的气球区间，求最少箭数。",
+  "explanation": "按右端点排序，在最早结束位置射箭，跳过所有被覆盖区间。O(n log n)。",
+  "memory": "优先最早结束，给后面的区间留下最多空间。"
+}

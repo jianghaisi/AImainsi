@@ -1,0 +1,61 @@
+{
+  "number": "543",
+  "adapter": {
+    "name": "diameterOfBinaryTree",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "543"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @return {number}\n */\nvar diameterOfBinaryTree = function(root) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public int diameterOfBinaryTree(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int diameterOfBinaryTree(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:\n        res = 0\n\n        def dfs(root):\n            nonlocal res\n\n            if not root:\n                return 0\n            left = dfs(root.left)\n            right = dfs(root.right)\n            res = max(res, left + right)\n\n            return 1 + max(left, right)\n\n        dfs(root)\n        return res\n",
+    "javascript": "/**\n * https://leetcode.com/problems/diameter-of-binary-tree/\n * TIme O(N) | Space O(H)\n * @param {TreeNode} root\n * @return {number}\n */\nvar diameterOfBinaryTree = function (root, max = [0]) {\n  diameterOfTree(root, max);\n  return max[0];\n};\nconst diameterOfTree = (root, max) => {\n  const isBaseCase = root === null;\n  if (isBaseCase) return 0;\n  return dfs(root, max);\n};\nconst dfs = (root, max) => {\n  const left = diameterOfTree(root.left, max);\n  const right = diameterOfTree(root.right, max);\n  const diameter = left + right;\n  max[0] = Math.max(max[0], diameter);\n  const height = Math.max(left, right);\n  return height + 1;\n};",
+    "java": "class Solution {\n\n    int result = -1;\n\n    public int diameterOfBinaryTree(TreeNode root) {\n        dfs(root);\n        return result;\n    }\n\n    private int dfs(TreeNode current) {\n        if (current == null) {\n            return -1;\n        }\n        int left = 1 + dfs(current.left);\n        int right = 1 + dfs(current.right);\n        result = Math.max(result, (left + right));\n        return Math.max(left, right);\n    }\n}\n",
+    "cpp": "/*\n    Given root of binary tree, return length of diameter of tree (longest path b/w any 2 nodes)\n\n    Max path b/w 2 leaf nodes, \"1 +\" to add path\n\n    Time: O(n)\n    Space: O(n)\n*/\n\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int diameterOfBinaryTree(TreeNode* root) {\n        int result = 0;\n        dfs(root, result);\n        return result;\n    }\nprivate:\n    int dfs(TreeNode* root, int& result) {\n        if (root == NULL) {\n            return 0;\n        }\n        \n        int left = dfs(root->left, result);\n        int right = dfs(root->right, result);\n        \n        result = max(result, left + right);\n        return 1 + max(left, right);\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0543-diameter-of-binary-tree.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0543-diameter-of-binary-tree.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0543-diameter-of-binary-tree.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0543-diameter-of-binary-tree.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "求二叉树任意两个节点之间最长路径的边数。",
+  "explanation": "递归返回节点向下的最大深度，同时用左右深度之和更新全局答案。最长路径不一定经过根。",
+  "memory": "返回一条向下路径，更新两条拼接路径；节点数与边数别混淆。"
+}

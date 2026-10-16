@@ -1,0 +1,46 @@
+{
+  "number": "345",
+  "adapter": {
+    "name": "reverseVowels",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "345"
+  },
+  "tests": [
+    {
+      "input": [
+        "IceCreAm"
+      ],
+      "expected": "AceCreIm"
+    },
+    {
+      "input": [
+        "leetcode"
+      ],
+      "expected": "leotcede"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def reverseVowels(self, s: str) -> str:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @return {string}\n */\nvar reverseVowels = function(s) {\n    \n};",
+    "java": "class Solution {\n    public String reverseVowels(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string reverseVowels(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def reverseVowels(self,s):\n        chars=list(s);left=0;right=len(chars)-1;vowels=set('aeiouAEIOU')\n        while left<right:\n            while left<right and chars[left] not in vowels:left+=1\n            while left<right and chars[right] not in vowels:right-=1\n            chars[left],chars[right]=chars[right],chars[left];left+=1;right-=1\n        return ''.join(chars)\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "只反转字符串中的元音字母，其他字符位置不变。",
+  "explanation": "双指针分别寻找元音并交换，同时包含大小写元音。O(n)。",
+  "memory": "两端找到元音后才交换，不移动辅音。"
+}

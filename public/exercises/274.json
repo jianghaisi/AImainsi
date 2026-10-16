@@ -1,0 +1,56 @@
+{
+  "number": "274",
+  "adapter": {
+    "name": "hIndex",
+    "params": [
+      {
+        "name": "citations",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "274"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          0,
+          6,
+          1,
+          5
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          1,
+          3,
+          1
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def hIndex(self, citations: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} citations\n * @return {number}\n */\nvar hIndex = function(citations) {\n    \n};",
+    "java": "class Solution {\n    public int hIndex(int[] citations) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int hIndex(vector<int>& citations) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def hIndex(self, citations: List[int]) -> int:\n        length = len(citations)\n        citations.sort()\n        for i in range(length):\n            if citations[i] >= length - i:\n                return length - i\n        return 0\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0274-H-index.py"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "给定论文引用次数，求至少有 h 篇论文被引用不少于 h 次的最大 h。",
+  "explanation": "降序排序，检查第 i 篇是否至少引用 i 次；或用计数桶做到线性时间。",
+  "memory": "h 同时限制论文数量和引用次数。"
+}

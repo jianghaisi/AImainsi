@@ -2,17 +2,21 @@
 
 本地优先的 AI 面试训练工具。Windows 桌面端与 Android APK 共用题库和练习逻辑，模型 API 由用户自行配置。
 
-[下载安装包](https://github.com/jianghaisi/AImainsi/releases/tag/v0.1.0-preview) · [源码仓库](https://github.com/jianghaisi/AImainsi) · [问题反馈](https://github.com/jianghaisi/AImainsi/issues)
+[下载安装包](https://github.com/jianghaisi/AImainsi/releases/tag/v0.2.0-preview) · [源码仓库](https://github.com/jianghaisi/AImainsi) · [问题反馈](https://github.com/jianghaisi/AImainsi/issues)
 
 ![Windows 界面](docs/desktop-app.png)
 
-## 当前版本：0.1.0 预览
+![题单与共享进度](docs/question-bank-desktop.png)
+
+## 当前版本：0.2.0 预览
 
 - 简历文本、PDF、DOCX 导入；根据简历、目标岗位、公司风格进行面试与追问。
 - 自定义公司画像、提示词、轮数、时长、学习时间、主题色；中文或英文面试。
 - Python、JavaScript、Java、C++ 题目模板与题解。Python / JavaScript 在设备的 Web Worker 中运行测试，Python 运行时随应用打包，无需安装 Python。
 - 手撕计时、草稿、逐例结果、原理记忆卡、间隔复习、薄弱点与学习计划。
-- 内置 8 道可运行手撕题和 4 道知识题；可增量同步 Zero2Leetcode 华为页面的题目标题/链接。新增索引不等同于新增可执行题目。
+- 12 套常用题单、去重后 647 道题：Hot 100、Hot 200 扩展版、经典 150、LeetCode 75、原剑指 Offer、面试金典、动态规划、二分与图论等。Hot 200 是项目编排，非官方排名。
+- Hot 200 全部可做本地训练，含原创思路与记忆卡、Python 参考实现；146 道还有已验证的 JavaScript 参考实现。加上原有独立训练，共 203 道可运行题。其他题目提供原题索引和学习记录。测试是示例训练，不等同于原站完整判题。
+- 题单共享进度、收藏、个人笔记、未完成筛选、分页、继续上次练习；手动完成与测试通过分别显示。题单可检查更新，保留旧草稿与训练记录。[完整覆盖与维护说明](docs/question-bank.md)。
 - 面经 JSON 导入、去重与审核；Spider_XHS 可选采集桥接脚本。
 - Chat Completions 兼容模型 API、自定义判题 API、连接测试、无密钥档案导出。
 - Windows SQLite 与 Android IndexedDB 保存个人数据；桌面系统加密和 Android Keystore 保存 API 密钥。
@@ -23,8 +27,8 @@
 
 构建产物放在 `release/`：
 
-- Windows x64：解压 `Sequence-0.1.0-Windows-x64.zip` 到独立目录，运行其中的 `Sequence.exe`。需保留同目录的资源和 DLL，不能只复制 EXE。
-- Android 8.0+：安装 `Sequence-0.1.0-Android-preview.apk`。这是使用调试证书签名的开发预览包，未上架应用商店，后续正式签名版本可能需要先卸载预览版。卸载前导出档案。
+- Windows x64：解压 `Sequence-0.2.0-Windows-x64.zip` 到独立目录，运行其中的 `Sequence.exe`。需保留同目录的资源和 DLL，不能只复制 EXE。
+- Android 8.0+：安装 `Sequence-0.2.0-Android-preview.apk`。这是使用调试证书签名的开发预览包，未上架应用商店，后续正式签名版本可能需要先卸载预览版。卸载前导出档案。
 
 首次启动进入「系统设置」，填写自己的 API 基础地址、模型名和密钥，保存后测试连接。例如兼容服务的基础地址可填写 `https://your-provider.example/v1`，应用调用其 `/chat/completions`。这里的示例不是可用服务。无须填写项目维护者的密钥，也无内置付费 API。
 
@@ -59,7 +63,9 @@ npm run android:build
 
 ## 题库更新与面经
 
-在「题库」中点击同步；在设置中开启自动更新并选择间隔。Windows 应用运行期间定时检查，Android 在前台读取状态时检查，不承诺系统后台常驻或实时推送。同步记录保留来源与时间，重复项按来源去重。
+在「情报题库」点击「更新题单」，获取项目 main 分支已发布的公开题单元数据快照；新的可执行题目资源需要应用更新。维护者可运行 `python scripts/update-catalog.py` 从原站刷新快照，审核后发布。更新失败保留当前题库。
+
+Zero2Leetcode 面经索引在「数据源管理」中同步；在设置中开启自动更新并选择间隔。Windows 应用运行期间定时检查，Android 在前台读取状态时检查，不承诺系统后台常驻或实时推送。同步记录保留来源与时间，重复项按来源去重。
 
 Zero2Leetcode 原始来源：[华为面试资料](https://onefly.top/zero2Leetcode/05_interview/coding/huawei/)。内置手撕解释与测试由本项目编写；外部内容的权利不因项目开源而改变。
 

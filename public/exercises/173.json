@@ -1,0 +1,120 @@
+{
+  "number": "173",
+  "adapter": {
+    "classname": "BSTIterator",
+    "maxbytesperline": 200000,
+    "constructor": {
+      "params": [
+        {
+          "type": "TreeNode",
+          "name": "root"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "params": [],
+        "name": "next",
+        "return": {
+          "type": "integer"
+        }
+      },
+      {
+        "params": [],
+        "name": "hasNext",
+        "return": {
+          "type": "boolean"
+        }
+      }
+    ],
+    "systemdesign": true,
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer[]",
+      "dealloc": true
+    },
+    "manual": false,
+    "number": "173"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "BSTIterator",
+          "next",
+          "next",
+          "hasNext",
+          "next",
+          "hasNext",
+          "next",
+          "hasNext",
+          "next",
+          "hasNext"
+        ],
+        [
+          [
+            [
+              7,
+              3,
+              15,
+              null,
+              null,
+              9,
+              20
+            ]
+          ],
+          [],
+          [],
+          [],
+          [],
+          [],
+          [],
+          [],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        3,
+        7,
+        true,
+        9,
+        true,
+        15,
+        true,
+        20,
+        false
+      ]
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass BSTIterator:\n\n    def __init__(self, root: Optional[TreeNode]):\n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n    def next(self) -> int:\n        \n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n    def hasNext(self) -> bool:\n        \n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n\n# Your BSTIterator object will be instantiated and called as such:\n# obj = BSTIterator(root)\n# param_1 = obj.next()\n# param_2 = obj.hasNext()",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n */\nvar BSTIterator = function(root) {\n    \n};\n\n/**\n * @return {number}\n */\nBSTIterator.prototype.next = function() {\n    \n};\n\n/**\n * @return {boolean}\n */\nBSTIterator.prototype.hasNext = function() {\n    \n};\n\n/** \n * Your BSTIterator object will be instantiated and called as such:\n * var obj = new BSTIterator(root)\n * var param_1 = obj.next()\n * var param_2 = obj.hasNext()\n */",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass BSTIterator {\n\n    public BSTIterator(TreeNode root) {\n        \n    }\n    \n    public int next() {\n        \n    }\n    \n    public boolean hasNext() {\n        \n    }\n}\n\n/**\n * Your BSTIterator object will be instantiated and called as such:\n * BSTIterator obj = new BSTIterator(root);\n * int param_1 = obj.next();\n * boolean param_2 = obj.hasNext();\n */",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass BSTIterator {\npublic:\n    BSTIterator(TreeNode* root) {\n        \n    }\n    \n    int next() {\n        \n    }\n    \n    bool hasNext() {\n        \n    }\n};\n\n/**\n * Your BSTIterator object will be instantiated and called as such:\n * BSTIterator* obj = new BSTIterator(root);\n * int param_1 = obj->next();\n * bool param_2 = obj->hasNext();\n */"
+  },
+  "solutions": {
+    "python": "class BSTIterator:\n    def __init__(self,root):\n        self.stack=[];self._left(root)\n    def _left(self,node):\n        while node:self.stack.append(node);node=node.left\n    def next(self):\n        node=self.stack.pop();self._left(node.right);return node.val\n    def hasNext(self):return bool(self.stack)\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n\n/**\n * Controlled Recursion - Average Time (1)\n * Time O(N) | Space O(N)\n * https://leetcode.com/problems/binary-search-tree-iterator/\n * @param {TreeNode} root\n */\nclass BSTIterator {\n  constructor(root) {\n    this.stack = []; /*           | Space O(N) */\n    this.getLeft(root); /* Time O(N) | Space O(N)*/\n  }\n\n  /**\n   * Time O(N) | Space O(H)\n   * @return {number}\n   */\n  getLeft(root, {\n    stack\n  } = this) {\n    while (root !== null) {\n      /* Time O(N) */\n      stack.push(root); /* Space O(N) */\n      root = root.left;\n    }\n  }\n\n  /**\n   * Time O(N) | Space O(N)\n   * @return the next smallest number\n   * @return {number}\n   */\n  next({\n    stack\n  } = this) {\n    const node = stack.pop();\n    if (node.right) this.getLeft(node.right); /* Time O(N) | Space O(N) */\n\n    return node.val;\n  }\n\n  /**\n   * Time O(1) | Space O(1)\n   * @return whether we have a next smallest number\n   * @return {boolean}\n   */\n  hasNext({\n    stack\n  } = this) {\n    return stack.length !== 0;\n  }\n}\n\n/**\n * Your BSTIterator object will be instantiated and called as such:\n * var obj = new BSTIterator(root)\n * var param_1 = obj.next()\n * var param_2 = obj.hasNext()\n */",
+    "java": "class BSTIterator {\n\n    TreeNode iterator;\n    Queue<Integer> traversal;\n\n    public BSTIterator(TreeNode root) {\n        iterator = root;\n        traversal = new ArrayDeque<>();\n        fillStack(iterator);\n    }\n\n    public void fillStack(TreeNode iterator){\n        if (iterator.left != null) {\n            fillStack(iterator.left);\n        }\n        traversal.add(iterator.val);\n        if (iterator.right != null) {\n            fillStack(iterator.right);\n        }\n    }\n\n    public int next() {\n        while (!traversal.isEmpty()) {\n            return traversal.poll();\n        }\n        return -1;\n    }\n\n    public boolean hasNext() {\n        return !traversal.isEmpty();\n    }\n}"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0173-binary-search-tree-iterator.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0173-binary-search-tree-iterator.java"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "实现二叉搜索树中序迭代器，支持 next 和 hasNext。",
+  "explanation": "栈保存左链，取出最小节点后，把其右子树的左链压栈。",
+  "memory": "栈顶就是下一个最小值；每个节点只进出一次。"
+}

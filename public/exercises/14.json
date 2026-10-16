@@ -1,0 +1,60 @@
+{
+  "number": "14",
+  "adapter": {
+    "name": "longestCommonPrefix",
+    "params": [
+      {
+        "name": "strs",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "14"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "flower",
+          "flow",
+          "flight"
+        ]
+      ],
+      "expected": "fl"
+    },
+    {
+      "input": [
+        [
+          "dog",
+          "racecar",
+          "car"
+        ]
+      ],
+      "expected": ""
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def longestCommonPrefix(self, strs: list[str]) -> str:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string[]} strs\n * @return {string}\n */\nvar longestCommonPrefix = function(strs) {\n    \n};",
+    "java": "class Solution {\n    public String longestCommonPrefix(String[] strs) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string longestCommonPrefix(vector<string>& strs) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def longestCommonPrefix(self, strs: List[str]) -> str:\n        for i in range(len(strs[0])):\n            for s in strs:\n                if i >= len(s) or s[i] != strs[0][i]:\n                    return strs[0][:i]\n        return strs[0]\n",
+    "javascript": "/**\n * Time O(N^2) | Space O(N)\n * @param {string[]} strs\n * @return {string}\n */\nvar longestCommonPrefix = function (strs) {\n  let pre = strs[0];\n  for (let word of strs) {\n    for (let i = pre.length - 1; i >= 0; i--) {\n      if (pre[i] !== word[i]) {\n        pre = pre.slice(0, i);\n      }\n    }\n  }\n  return pre;\n};",
+    "java": "class Solution {\n    public String longestCommonPrefix(String[] strs) {\n        StringBuilder res = new StringBuilder();\n        for(int i = 0; i < strs[0].length(); i++) {\n            for(String s: strs)\n                if(i == s.length() || s.charAt(i) != strs[0].charAt(i))\n                    return res.toString();\n            res.append(strs[0].charAt(i));\n        }\n        return res.toString();\n    }\n}\n",
+    "cpp": "class Solution {\npublic:\n    string longestCommonPrefix(vector<string>& strs) {\n        string result = strs[0];\n        int charIndex = 0;\n        \n        //finding minimum string length  - that could be max common prefix\n        long maxCharIndex = strs[0].length();\n        for (int i = 1; i < strs.size(); ++i) {\n            if (strs[i].length() < maxCharIndex) {\n                maxCharIndex = strs[i].length();\n            }\n        }\n\n        while (charIndex < maxCharIndex) {\n            char prevChar = strs[0][charIndex];\n            for (int i = 1; i < strs.size(); ++i) {\n                if (prevChar == strs[i][charIndex]) {\n                    continue;\n                }\n                return result.substr(0, charIndex);\n            }\n            ++charIndex;\n            result += prevChar;\n        }\n        return result.substr(0, charIndex);\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0014-longest-common-prefix.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0014-longest-common-prefix.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0014-longest-common-prefix.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0014-longest-common-prefix.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "找出字符串数组的最长公共前缀。",
+  "explanation": "逐字符检查所有字符串是否一致，遇到越界或不同即停止。",
+  "memory": "短字符串决定上限；数组里可能有空字符串。"
+}

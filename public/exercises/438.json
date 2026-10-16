@@ -1,0 +1,65 @@
+{
+  "number": "438",
+  "adapter": {
+    "name": "findAnagrams",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "p",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "list<integer>"
+    },
+    "number": "438"
+  },
+  "tests": [
+    {
+      "input": [
+        "cbaebabacd",
+        "abc"
+      ],
+      "expected": [
+        0,
+        6
+      ]
+    },
+    {
+      "input": [
+        "abab",
+        "ab"
+      ],
+      "expected": [
+        0,
+        1,
+        2
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def findAnagrams(self, s: str, p: str) -> List[int]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @param {string} p\n * @return {number[]}\n */\nvar findAnagrams = function(s, p) {\n    \n};",
+    "java": "class Solution {\n    public List<Integer> findAnagrams(String s, String p) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> findAnagrams(string s, string p) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def findAnagrams(self, s: str, p: str) -> List[int]:\n        \n        startIndex = 0\n        pMap, sMap = {}, {}\n        res = []\n        \n        for char in p:\n            pMap[char] = 1 + pMap.get(char, 0)\n        \n        for i in range(len(s)):\n            sMap[s[i]] = 1 + sMap.get(s[i], 0)\n\n            if i >= len(p) - 1:\n                if sMap == pMap:\n                    res.append(startIndex)\n                \n                # If current character is in sMap, remove it and re-update the map.\n                if s[startIndex] in sMap:\n                    sMap[s[startIndex]] -= 1\n                    if sMap[s[startIndex]] == 0:\n                        del sMap[s[startIndex]]\n                startIndex += 1\n        \n        return res",
+    "javascript": "/**\n * @param {string} s\n * @param {string} p\n * @return {number[]}\n */\nvar findAnagrams = function (s, p) {\n  const charMap = new Map();\n  let matches = 0;\n  const matchIdx = [];\n  for (const char of p) {\n    const charCount = charMap.get(char) || 0;\n    charMap.set(char, charCount + 1);\n  }\n  let leftWindow = 0;\n  for (let rightWindow = 0; rightWindow < s.length; rightWindow++) {\n    const rightChar = s[rightWindow];\n    if (charMap.has(rightChar)) {\n      const rightCharCount = charMap.get(rightChar);\n      charMap.set(rightChar, rightCharCount - 1);\n      if (charMap.get(rightChar) === 0) {\n        matches++;\n      }\n    }\n    if (rightWindow >= p.length) {\n      const leftChar = s[leftWindow];\n      if (charMap.has(leftChar)) {\n        const leftCharCount = charMap.get(leftChar);\n        charMap.set(leftChar, leftCharCount + 1);\n        if (leftCharCount === 0) {\n          matches--;\n        }\n      }\n      leftWindow++;\n    }\n    if (matches === charMap.size) {\n      matchIdx.push(leftWindow);\n    }\n  }\n  return matchIdx;\n};",
+    "java": "class Solution {\n    public List<Integer> findAnagrams(String s, String p) {\n        int startIndex = 0;\n        Map<Character, Integer> pMap = new HashMap<>(), sMap = new HashMap<>();\n        List<Integer> res = new ArrayList<>();\n        \n        for(char c: p.toCharArray())\n            pMap.put(c, 1 + pMap.getOrDefault(c, 0));\n        \n        for(int i = 0; i < s.length(); i++) {\n            sMap.put(s.charAt(i), 1 + sMap.getOrDefault(s.charAt(i), 0));\n            \n            if(i >= p.length() - 1) {\n                if(sMap.equals(pMap))\n                    res.add(startIndex);\n                \n                //if current character is in sMap, remove it and re-update the map.\n                if(sMap.containsKey(s.charAt(startIndex))) {\n                    sMap.put(s.charAt(startIndex), sMap.get(s.charAt(startIndex)) - 1);\n                    if(sMap.get(s.charAt(startIndex)) == 0)\n                        sMap.remove(s.charAt(startIndex));\n                }\n                startIndex += 1;\n            }\n        }\n        \n        return res;\n    }\n}\n",
+    "cpp": "class Solution{    \n    public:    \n        unordered_map<char, int> Create(string p){            \n            unordered_map<char, int> Mapp;            \n            for(char & i : p){                \n                if(Mapp.find(i) == Mapp.end()){                    \n                    Mapp.insert(make_pair(i, 1));                    \n                }\n                else{                    \n                    Mapp[i]++;                    \n                }                \n            }            \n            return Mapp;            \n        }    \n        vector<int> findAnagrams(string s, string p){            \n            unordered_map<char, int> Maps, Mapp = {};            \n            vector<int> nums = {};            \n            int Fp, Sp;            \n            int lens, lenp;            \n            Fp = 0;            \n            Sp = p.length();            \n            lens = s.length();            \n            lenp = p.length();            \n            Mapp = Create(p);            \n            Maps = Create(s.substr(0, p.length()));            \n            for(Fp = 0; Fp < lens - lenp + 1; Fp++){   \n                if(Maps == Mapp){                    \n                    nums.push_back(Fp);                    \n                }                \n                if(Maps.find(s[Sp]) != Maps.end()){                    \n                    Maps[s[Sp]]++;                \n                }\n                else{                    \n                    Maps.insert(make_pair(s[Sp], 1));                                            \n                }                                            \n                Sp++;                \n                Maps[s[Fp]]--;                \n                if(Maps[s[Fp]] == 0){                    \n                    Maps.erase(s[Fp]);                    \n                }                    \n            }            \n            return nums;\n        }    \n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0438-find-all-anagrams-in-a-string.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0438-find-all-anagrams-in-a-string.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0438-find-all-anagrams-in-a-string.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0438-find-all-anagrams-in-a-string.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "给定字符串 s 和非空字符串 p，返回 s 中所有与 p 字母组成相同的连续片段起点。",
+  "explanation": "窗口长度固定为 p 的长度，维护窗口与目标的字符频次。移动时加入新字符、移除旧字符。",
+  "memory": "固定窗看长度，异位词看频次；入一个、出一个。"
+}

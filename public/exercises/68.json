@@ -1,0 +1,110 @@
+{
+  "number": "68",
+  "adapter": {
+    "name": "fullJustify",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      },
+      {
+        "name": "maxWidth",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "list<string>"
+    },
+    "number": "68"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "This",
+          "is",
+          "an",
+          "example",
+          "of",
+          "text",
+          "justification."
+        ],
+        16
+      ],
+      "expected": [
+        "This    is    an",
+        "example  of text",
+        "justification.  "
+      ]
+    },
+    {
+      "input": [
+        [
+          "What",
+          "must",
+          "be",
+          "acknowledgment",
+          "shall",
+          "be"
+        ],
+        16
+      ],
+      "expected": [
+        "What   must   be",
+        "acknowledgment  ",
+        "shall be        "
+      ]
+    },
+    {
+      "input": [
+        [
+          "Science",
+          "is",
+          "what",
+          "we",
+          "understand",
+          "well",
+          "enough",
+          "to",
+          "explain",
+          "to",
+          "a",
+          "computer.",
+          "Art",
+          "is",
+          "everything",
+          "else",
+          "we",
+          "do"
+        ],
+        20
+      ],
+      "expected": [
+        "Science  is  what we",
+        "understand      well",
+        "enough to explain to",
+        "a  computer.  Art is",
+        "everything  else  we",
+        "do                  "
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def fullJustify(self, words: list[str], maxWidth: int) -> list[str]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string[]} words\n * @param {number} maxWidth\n * @return {string[]}\n */\nvar fullJustify = function(words, maxWidth) {\n    \n};",
+    "java": "class Solution {\n    public List<String> fullJustify(String[] words, int maxWidth) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<string> fullJustify(vector<string>& words, int maxWidth) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:\n        res = []\n        line = []  # Words in current line\n        length = 0  # Current line length\n        i = 0\n        while i < len(words):\n            if length + len(line) + len(words[i]) > maxWidth:\n                # Line complete\n                extra_space = maxWidth - length\n                word_cnt = len(line) - 1\n                spaces = extra_space // max(1, word_cnt)\n                remainder = extra_space % max(1, word_cnt)\n\n                for j in range(max(1, len(line) - 1)):\n                    line[j] += \" \" * spaces\n                    if remainder:\n                        line[j] += \" \"\n                        remainder -= 1\n\n                res.append(\"\".join(line))\n                line, length = [], 0  # Reset line and length\n            \n            line.append(words[i])\n            length += len(words[i])\n            i += 1\n\n        # Handling the last line\n        last_line = \" \".join(line)\n        trail_spaces = maxWidth - len(last_line)\n        res.append(last_line + (trail_spaces * \" \"))\n\n        return res\n",
+    "java": "class Solution {\n    public List<String> fullJustify(String[] words, int maxWidth) {\n        int count = 0;\n        List<String> currLine = new ArrayList<>();\n        List<String> ans = new ArrayList<>();\n        for (String w : words) {\n            if (count == 0) {\n                count += w.length();\n                currLine.add(w);\n            } else if (count + 1 + w.length() > maxWidth) {\n                ans.add(getLine(currLine, count, maxWidth));\n                currLine = new ArrayList<>(List.of(w));\n                count = w.length();\n            } else {\n                count += 1 + w.length();\n                currLine.add(w);\n            }\n        }\n        ans.add(getLastLine(currLine, maxWidth));\n        return ans;\n    }\n\n    private String getLine(List<String> words, int count, int maxWidth) {\n        if (words.size() == 0) return \"\";\n        if (words.size() == 1) return words.get(0) + \" \".repeat(maxWidth - words.get(0).length());\n        int extraSpaces = (maxWidth - count) / (words.size() - 1);\n        int remSpaces = (maxWidth - count) % (words.size() - 1);\n        StringBuilder sb = new StringBuilder();\n        for (int i = 0; i < words.size() - 1; i++) {\n            sb.append(words.get(i)).append(\" \");\n            sb.append(\" \".repeat(extraSpaces));\n            if (remSpaces-- > 0)\n                sb.append(\" \");\n        }\n        sb.append(words.getLast());\n        return sb.toString();\n    }\n\n    private String getLastLine(List<String> words, int maxWidth) {\n        String wordsStr = String.join(\" \", words);\n        return wordsStr.toString() + \" \".repeat(maxWidth - wordsStr.length());\n    }\n}\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0068-text-justification.py",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0068-text-justification.java"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "把单词排成指定宽度的文本，普通行左右对齐，最后一行左对齐。",
+  "explanation": "贪心装满当前行，再均分空格，余数从左侧间隙开始补。",
+  "memory": "最后一行和单单词行单独处理；间隙数是单词数减一。"
+}

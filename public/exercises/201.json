@@ -1,0 +1,61 @@
+{
+  "number": "201",
+  "adapter": {
+    "name": "rangeBitwiseAnd",
+    "params": [
+      {
+        "name": "left",
+        "type": "integer"
+      },
+      {
+        "name": "right",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "201"
+  },
+  "tests": [
+    {
+      "input": [
+        5,
+        7
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        0,
+        0
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        1,
+        2147483647
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def rangeBitwiseAnd(self, left: int, right: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} left\n * @param {number} right\n * @return {number}\n */\nvar rangeBitwiseAnd = function(left, right) {\n    \n};",
+    "java": "class Solution {\n    public int rangeBitwiseAnd(int left, int right) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int rangeBitwiseAnd(int left, int right) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# check difference at each bit (cannot be more than left - right)\nclass Solution:\n    def rangeBitwiseAnd(self, left: int, right: int) -> int:\n        res = 0\n\n        for i in range(32):\n            bit = (left >> i) & 1\n            if not bit:\n                continue\n            \n            remain = left % (1 << (i + 1))\n            diff = (1 << (i + 1)) - remain\n            if right - left < diff:\n                res = res | (1 << i)\n        return res\n\n# find the longest matching prefix of set bits between left and right\nclass Solution:\n    def rangeBitwiseAnd(self, left: int, right: int) -> int:\n        i = 0\n        while left != right:\n            left = left >> 1\n            right = right >> 1\n            i += 1\n        return left << i\n",
+    "java": "class Solution {\n    public int rangeBitwiseAnd(int left, int right) {\n        int i = 0;\n        while(left != right){\n            left = left >> 1;\n            right = right >> 1;\n            i += 1;\n        }\n        return left << i;\n    }\n}\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0201-bitwise-and-of-numbers-range.py",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0201-bitwise-and-of-numbers-range.java"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "求闭区间内所有非负整数的按位与。",
+  "explanation": "同时右移两端直到相同，得到共同二进制前缀，再移回原位置。",
+  "memory": "发生变化的低位最终都会被清零。"
+}

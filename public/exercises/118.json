@@ -1,0 +1,84 @@
+{
+  "number": "118",
+  "adapter": {
+    "name": "generate",
+    "params": [
+      {
+        "name": "numRows",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "list<list<integer>>",
+      "dealloc": true,
+      "rowsize": "param_1"
+    },
+    "number": "118"
+  },
+  "tests": [
+    {
+      "input": [
+        5
+      ],
+      "expected": [
+        [
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          3,
+          3,
+          1
+        ],
+        [
+          1,
+          4,
+          6,
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "input": [
+        1
+      ],
+      "expected": [
+        [
+          1
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def generate(self, numRows: int) -> list[list[int]]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} numRows\n * @return {number[][]}\n */\nvar generate = function(numRows) {\n    \n};",
+    "java": "class Solution {\n    public List<List<Integer>> generate(int numRows) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> generate(int numRows) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def generate(self, rowIndex) -> List[List[int]]:\n        if rowIndex == 0:\n            return [[1]]\n        else:\n            return self.getAllRow(rowIndex - 1)\n\n    def getAllRow(self, rowIndex):\n        if rowIndex == 0:\n            return [[1]]\n        ListPrec = self.getAllRow(rowIndex - 1)\n        Len = len(ListPrec[-1])\n        ListPrec.append([1])\n        for i in range(0, Len - 1):\n            ListPrec[-1].append(ListPrec[-2][i] + ListPrec[-2][i + 1])\n        ListPrec[-1].append(1)\n        return ListPrec\n",
+    "javascript": "// link to the problem https://leetcode.com/problems/pascals-triangle/\n// the time complexity will basically be the number of elements in pascale tringle. roughly height of tringle * number of honeycomb in each row.\n// O(n^2);\n\nvar generate = function (numRows) {\n  const res = [[1]];\n  for (let i = 1; i < numRows; i++) {\n    res[i] = [];\n    for (let k = 0; k < i + 1; k++) {\n      res[i][k] = (res[i - 1][k] || 0) + (res[i - 1][k - 1] || 0);\n    }\n  }\n  return res;\n};",
+    "java": "class Solution {\n    public List<List<Integer>> generate(int numRows) {\n        \n        List<List<Integer>> res = new ArrayList<>();\n        \n        for(int i=0; i<numRows; i++){\n            List<Integer> list = new ArrayList<>();\n            \n            for(int j=0; j<=i; j++){\n                if(j>0 && i>0 && res.get(i-1).size()-1>=j){\n                    list.add(res.get(i-1).get(j-1)+res.get(i-1).get(j));\n                } else{\n                    list.add(1);\n                }\n            }\n            res.add(list);\n        }\n        \n        return res;\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> generate(int numRows)\n    {\n        vector<vector<int>> ret;\n\n        for(int i = 0; i < numRows ; i++){\n            vector<int> row(i+1, 1);\n            for(int j = 1; j < i ; j++){\n                row[j] = ret[i-1][j] + ret[i-1][j-1];\n            }\n            ret.push_back(row);\n        }\n\n        return ret;\n    }\n};"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0118-pascals-triangle.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0118-pascals-triangle.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0118-pascals-triangle.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0118-pascals-triangle.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "生成杨辉三角的前 numRows 行。",
+  "explanation": "每行两端为一，内部值由上一行相邻两个数相加。",
+  "memory": "只依赖上一行；构造新行时不要覆盖尚未使用的旧值。"
+}

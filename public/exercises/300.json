@@ -1,0 +1,82 @@
+{
+  "number": "300",
+  "adapter": {
+    "name": "lengthOfLIS",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "300"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          10,
+          9,
+          2,
+          5,
+          3,
+          7,
+          101,
+          18
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          0,
+          1,
+          0,
+          3,
+          2,
+          3
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def lengthOfLIS(self, nums: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar lengthOfLIS = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int lengthOfLIS(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int lengthOfLIS(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def lengthOfLIS(self, nums: List[int]) -> int:\n        LIS = [1] * len(nums)\n\n        for i in range(len(nums) - 1, -1, -1):\n            for j in range(i + 1, len(nums)):\n                if nums[i] < nums[j]:\n                    LIS[i] = max(LIS[i], 1 + LIS[j])\n        return max(LIS)\n",
+    "javascript": "const initTabu = nums => new Array(nums.length).fill(1);\nvar linearSearch = (nums, tabu) => {\n  for (let right = 1; right < nums.length; right++) {\n    /* Time O(N) */\n    for (let left = 0; left < right; left++) {\n      /* Time O(N) */\n      const canUpdate = nums[left] < nums[right];\n      if (!canUpdate) continue;\n      const [_left, _right] = [tabu[left] + 1, tabu[right]];\n      tabu[right] = Math.max(_right, _left); /* Space O(N) */\n    }\n  }\n};\n\n/**\n * Array - Subsequence\n * Time O(N^2) | Space O(N)\n * https://leetcode.com/problems/longest-increasing-subsequence/\n * @param {number[]} nums\n * @return {number}\n */\n\nvar linearSort = (nums, subsequence = []) => {\n  for (const num of nums) {\n    /* Time O(N) */\n    const max = subsequence[subsequence.length - 1];\n    const canAdd = max < num;\n    if (canAdd) {\n      subsequence.push(num);\n      continue;\n    } /* Space O(N) */\n\n    const index = getMax(subsequence, num); /* Time O(N) */\n\n    subsequence[index] = num;\n  }\n  return subsequence;\n};\nconst getMax = (subsequence, num, index = 0) => {\n  const isLess = () => subsequence[index] < num;\n  while (isLess()) index++; /* Time O(N) */\n\n  return index;\n};\n\n/**\n * Array - Subsequence\n * Time O(N * log(N)) | Space O(N)\n * https://leetcode.com/problems/longest-increasing-subsequence/\n * @param {number[]} nums\n * @return {number}\n */\nvar lengthOfLIS = nums => {\n  const subsequence = logarithmicSort(nums); /* Time O(N * log(N) */\n\n  return subsequence.length;\n};\nvar logarithmicSort = (nums, subsequence = []) => {\n  for (const num of nums) {\n    /* Time O(N) */\n    const max = subsequence[subsequence.length - 1];\n    const canAdd = max < num;\n    if (canAdd) {\n      subsequence.push(num);\n      continue;\n    } /* Space O(N) */\n\n    const index = binarySearch(num, subsequence); /* Time O(log(N)) */\n\n    subsequence[index] = num;\n  }\n  return subsequence;\n};\nconst binarySearch = (num, subsequence) => {\n  let [left, right] = [0, subsequence.length - 1];\n  while (left < right) {\n    /* Time O(log(N)) */\n    const mid = left + right >> 1;\n    const guess = subsequence[mid];\n    const isNumTarget = num === guess;\n    if (isNumTarget) return mid;\n    const isNumGreater = guess < num;\n    if (isNumGreater) left = mid + 1;\n    const isNumLess = num < guess;\n    if (isNumLess) right = mid;\n  }\n  return left;\n};",
+    "java": "class Solution {\n\n    // Dynamic programming, O(n^2)\n    public int lengthOfLIS(int[] nums) {\n        if (nums.length == 1) return 1;\n\n        int[] LIS = new int[nums.length];\n        Arrays.fill(LIS, 1);\n        int maximumSoFar = 1;\n\n        for (int i = nums.length - 1; i >= 0; i--) {\n            for (int j = i + 1; j < nums.length; j++) {\n                if (nums[i] < nums[j]) {\n                    LIS[i] = Math.max(1 + LIS[j], LIS[i]);\n                }\n            }\n            maximumSoFar = Math.max(maximumSoFar, LIS[i]);\n        }\n        return maximumSoFar;\n    }\n\n    // Binary search, O(nlogn)\n    public int lengthOfLIS(int[] nums) {\n        List<Integer> lis = new ArrayList<>(nums.length);\n\n        for (int n : nums) {\n            int i = Collections.binarySearch(lis, n);\n            if (i < 0) i = -i - 1;\n\n            if (i == lis.size())\n                lis.add(n);\n            else\n                lis.set(i, n);\n        }\n        return lis.size();\n    }\n}\n",
+    "cpp": "/*\n    Given int array, return length of longest increasing subsequence\n    Ex. nums = [10,9,2,5,3,7,101,18] -> 4, [2,3,7,101]\n\n    Why DP? 1) Max/min of smth, 2) make decisions based on prev decisions\n    \"Decision\": is it worth it to consider this number?\n    If use may contribute to better LIS, but may also eliminate an even better LIS\n\n    Framework to solve DP:\n    1) Need some function or array that represents ans to the problem (dp array)\n    2) Way to transition b/w states (recurrence relation), depends on question\n    3) Need a base case (initial solution for every subproblem)\n\n    Recurrence relation: dp[i] = max(dp[j] + 1)\n    Base case: dp[i] = 1, since every element on its own has an LIS of 1\n\n    Time: O(n^2)\n    Space: O(n)\n*/\n\nclass Solution {\npublic:\n    int lengthOfLIS(vector<int>& nums) {\n        int n = nums.size();\n        vector<int> dp(n, 1);\n        \n        int result = 1;\n        \n        for (int i = 1; i < n; i++) {\n            for (int j = 0; j < i; j++) {\n                if (nums[j] < nums[i]) {\n                    dp[i] = max(dp[i], dp[j] + 1);\n                }\n            }\n            result = max(result, dp[i]);\n        }\n        \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0300-longest-increasing-subsequence.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0300-longest-increasing-subsequence.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0300-longest-increasing-subsequence.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0300-longest-increasing-subsequence.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "求数组中严格递增子序列的最大长度，元素不要求连续。",
+  "explanation": "用 tails[len] 保存对应长度递增序列的最小末尾值，对新值二分替换第一个不小于它的位置。",
+  "memory": "tails 是更有潜力的末尾集合，不一定是一条真实子序列。"
+}

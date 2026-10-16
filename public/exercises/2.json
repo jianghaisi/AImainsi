@@ -1,0 +1,108 @@
+{
+  "number": "2",
+  "adapter": {
+    "name": "addTwoNumbers",
+    "params": [
+      {
+        "name": "l1",
+        "type": "ListNode",
+        "dealloc": false
+      },
+      {
+        "name": "l2",
+        "type": "ListNode",
+        "dealloc": false
+      }
+    ],
+    "return": {
+      "type": "ListNode",
+      "dealloc": true
+    },
+    "number": "2"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          4,
+          3
+        ],
+        [
+          5,
+          6,
+          4
+        ]
+      ],
+      "expected": [
+        7,
+        0,
+        8
+      ]
+    },
+    {
+      "input": [
+        [
+          0
+        ],
+        [
+          0
+        ]
+      ],
+      "expected": [
+        0
+      ]
+    },
+    {
+      "input": [
+        [
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        [
+          9,
+          9,
+          9,
+          9
+        ]
+      ],
+      "expected": [
+        8,
+        9,
+        9,
+        9,
+        0,
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def addTwoNumbers(self, l1: ListNode | None, l2: ListNode | None) -> ListNode | None:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} l1\n * @param {ListNode} l2\n * @return {ListNode}\n */\nvar addTwoNumbers = function(l1, l2) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:\n        dummy = ListNode()\n        cur = dummy\n\n        carry = 0\n        while l1 or l2 or carry:\n            v1 = l1.val if l1 else 0\n            v2 = l2.val if l2 else 0\n\n            # new digit\n            val = v1 + v2 + carry\n            carry = val // 10\n            val = val % 10\n            cur.next = ListNode(val)\n\n            # update ptrs\n            cur = cur.next\n            l1 = l1.next if l1 else None\n            l2 = l2.next if l2 else None\n\n        return dummy.next\n",
+    "javascript": "const add = (l1, l2, tail, sentinel, carry = 0) => {\n  const isBaseCase = !(l1 || l2 || carry);\n  if (isBaseCase) return sentinel.next;\n  return dfs(l1, l2, tail, sentinel, carry); /* Time O(MAX(N, M)) | Space O(MAX(N, M)) */\n};\nconst dfs = (l1, l2, tail, sentinel, carry) => {\n  const sum = (l1?.val || 0) + (l2?.val || 0) + carry;\n  const val = sum % 10;\n  carry = Math.floor(sum / 10);\n  tail.next = new ListNode(val);\n  tail = tail.next;\n  l1 = l1?.next || null;\n  l2 = l2?.next || null;\n  add(l1, l2, tail, sentinel, carry); /* Time O(MAX(N, M)) | Space O(MAX(N, M)) */\n\n  return sentinel.next;\n};\n\n/**\n * https://leetcode.com/problems/add-two-numbers/\n * Time O(MAX(N, M)) | Space O(MAX(N, M))\n * @param {ListNode} l1\n * @param {ListNode} l2\n * @return {ListNode}\n */\nvar addTwoNumbers = function (l1, l2, carry = 0) {\n  let sentinel = tail = new ListNode();\n  while (l1 || l2 || carry) {\n    /* Time O(MAX(N, M)) */\n    const sum = (l1?.val || 0) + (l2?.val || 0) + carry;\n    const val = sum % 10;\n    carry = Math.floor(sum / 10);\n    tail.next = new ListNode(val);\n    tail = tail.next;\n    l1 = l1?.next || null;\n    l2 = l2?.next || null;\n  }\n  return sentinel.next;\n};",
+    "java": "/*\n    Name - Add Two Numbers\n    Link - https://leetcode.com/problems/add-two-numbers/\n    Time Complexity - O(m + n)\n    Space Complexity - o(1)\n    Note - make use of modulo (get remainder) and division (get quotient)\n*/\n\nclass Solution {\n\n    public ListNode addTwoNumbers(ListNode first, ListNode second) {\n        int q = 0;\n        int r = 0;\n        int sum = 0;\n        ListNode head = null;\n        ListNode temp = null;\n        while (first != null || second != null || q>0) {\n            sum =\n                q +\n                (\n                    ((first != null) ? first.val : 0) +\n                    ((second != null) ? second.val : 0)\n                );\n            r = sum % 10;\n            q = sum / 10;\n            ListNode newNode = new ListNode(r);\n            if (head == null) {\n                head = newNode;\n            } else {\n                temp = head;\n                while (temp.next != null) {\n                    temp = temp.next;\n                }\n                temp.next = newNode;\n                newNode.next = null;\n            }\n            if (first != null) {\n                first = first.next;\n            }\n            if (second != null) {\n                second = second.next;\n            }\n        }\n        return head;\n    }\n}\n",
+    "cpp": "/*\n    Given 2 linked lists, digits stored in reverse order, add them\n    Ex. l1 = [2,4,3] l2 = [5,6,4] -> [7,0,8] (342 + 465 = 807)\n\n    Sum digit-by-digit + carry, handle if one list becomes null\n\n    Time: O(max(m, n))\n    Space: O(max(m, n))\n*/\n\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {\n        ListNode* dummy = new ListNode();\n        \n        ListNode* curr = dummy;\n        int carry = 0;\n        \n        while (l1 != NULL || l2 != NULL) {\n            int val1 = (l1 != NULL) ? l1->val : 0;\n            int val2 = (l2 != NULL) ? l2->val : 0;\n            \n            int sum = val1 + val2 + carry;\n            carry = sum / 10;\n            \n            curr->next = new ListNode(sum % 10);\n            curr = curr->next;\n            \n            if (l1 != NULL) {\n                l1 = l1->next;\n            }\n            if (l2 != NULL) {\n                l2 = l2->next;\n            }\n        }\n        \n        if (carry == 1) {\n            curr->next = new ListNode(1);\n        }\n        \n        return dummy->next;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0002-add-two-numbers.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0002-add-two-numbers.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0002-add-two-numbers.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0002-add-two-numbers.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "两条链表按低位在前存储非负整数，返回相加后的同格式链表。",
+  "explanation": "逐位相加并维护进位，直到两条链表和进位都处理完。不要转成有精度限制的整数。",
+  "memory": "循环条件要包含进位；用 9+1 检验末尾新节点。"
+}

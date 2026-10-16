@@ -1,0 +1,69 @@
+{
+  "number": "82",
+  "adapter": {
+    "name": "deleteDuplicates",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode",
+        "dealloc": false
+      }
+    ],
+    "return": {
+      "type": "ListNode",
+      "dealloc": true
+    },
+    "number": "82"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          3,
+          4,
+          4,
+          5
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        5
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          1,
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        2,
+        3
+      ]
+    }
+  ],
+  "starters": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def deleteDuplicates(self, head: ListNode | None) -> ListNode | None:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @return {ListNode}\n */\nvar deleteDuplicates = function(head) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode deleteDuplicates(ListNode head) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* deleteDuplicates(ListNode* head) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def deleteDuplicates(self,head):\n        dummy=ListNode(0,head);previous=dummy\n        while head:\n            if head.next and head.val==head.next.val:\n                value=head.val\n                while head and head.val==value:head=head.next\n                previous.next=head\n            else:previous=head;head=head.next\n        return dummy.next\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "有序链表中，删除所有出现多次的值，只保留仅出现一次的节点。",
+  "explanation": "哨兵配合前驱指针，检测连续重复段并整段跳过。",
+  "memory": "不是留一个副本，而是整个重复值都删除。"
+}

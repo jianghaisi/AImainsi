@@ -1,0 +1,70 @@
+{
+  "number": "71",
+  "adapter": {
+    "name": "simplifyPath",
+    "params": [
+      {
+        "name": "path",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "71"
+  },
+  "tests": [
+    {
+      "input": [
+        "/home/"
+      ],
+      "expected": "/home"
+    },
+    {
+      "input": [
+        "/home//foo/"
+      ],
+      "expected": "/home/foo"
+    },
+    {
+      "input": [
+        "/home/user/Documents/../Pictures"
+      ],
+      "expected": "/home/user/Pictures"
+    },
+    {
+      "input": [
+        "/../"
+      ],
+      "expected": "/"
+    },
+    {
+      "input": [
+        "/.../a/../b/c/../d/./"
+      ],
+      "expected": "/.../b/d"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def simplifyPath(self, path: str) -> str:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} path\n * @return {string}\n */\nvar simplifyPath = function(path) {\n    \n};",
+    "java": "class Solution {\n    public String simplifyPath(String path) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string simplifyPath(string path) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def simplifyPath(self, path: str) -> str:\n\n        stack = []\n\n        for i in path.split(\"/\"):\n            #  if i == \"/\" or i == '//', it becomes '' (empty string)\n\n            if i == \"..\":\n                if stack:\n                    stack.pop()\n            elif i == \".\" or i == '':\n                # skip \".\" or an empty string\n                continue\n            else:\n                stack.append(i)\n\n        res = \"/\" + \"/\".join(stack)\n        return res\n",
+    "javascript": "/**\n * Stack\n * Time O(N) | Space O(N)\n * https://leetcode.com/problems/simplify-path\n * @param {string} path\n * @return {string}\n */\nvar simplifyPath = (path, slash = '/', stack = []) => {\n  const paths = path.split(slash).filter(Boolean);\n  for (const _path of paths) traversePath(_path, stack);\n  return `${slash}${stack.join(slash)}`;\n};\nconst traversePath = (path, stack) => {\n  if (canPush(path)) return stack.push(path);\n  if (canPop(path, stack)) stack.pop();\n};\nconst canPush = path => !(isCurrentDirectory(path) || isParentDirectory(path));\nconst canPop = (path, stack) => isParentDirectory(path) && !isEmpty(stack);\nconst isCurrentDirectory = path => path === '.';\nconst isParentDirectory = path => path === '..';\nconst isEmpty = ({\n  length\n}) => 0 === length;",
+    "java": "class Solution {\n    public String simplifyPath(String path) {\n        Stack<String> stack = new Stack<>();\n        StringBuilder curr = new StringBuilder();\n\n        String newPath = path + \"/\";\n\n        for(int i=0;i<newPath.length();i++) {\n            char ch = newPath.charAt(i);\n\n            if(ch == '/') {\n                if(curr.toString().equals(\"..\")) {\n                    if(!stack.isEmpty()) {\n                        stack.pop();\n                    } \n                } else if(!curr.isEmpty() && !curr.toString().equals(\".\")) {\n                    stack.push(curr.toString());\n                }\n\n                curr = new StringBuilder();\n            } else {\n                curr.append(ch);\n            }\n        }\n\n        curr = new StringBuilder();\n\n        while(!stack.isEmpty()) {\n            curr.insert(0, \"/\" + stack.pop());\n        }\n\n        if(curr.length() == 0) {\n            curr.append('/');\n        }\n\n        return curr.toString();\n    }\n}\n",
+    "cpp": "/*\n    Given an absolute path to a file or directory in a Unix-style file system,\n    convert it to the simplified canonical path.\n\n    In a Unix-style file system, a period '.' refers to the current directory.\n    A double period '..' refers to the directory up a level.\n    Any multiple consecutive slashes (i.e. '//') are treated as a single slash '/'.\n    For this problem, any other format of periods such as '...' are treated as file/directory names.\n\n    The canonical path should have the following format:\n    - The path starts with a single slash '/'.\n    - Any two directories are separated by a single slash '/'.\n    - The path does not end with a trailing '/'.\n    - The path only contains the directories on the path from the root directory to the target file or directory (i.e., no period '.' or double period '..')\n\n    Return the simplified canonical path.\n\n    Time: O(n)\n    Space: O(n)\n*/\n\nclass Solution {\npublic:\n    string simplifyPath(string path) {\n        stringstream ss(path);\n        string dir;\n        stack<string> stk;\n\n        while (getline(ss, dir, '/')) {\n            if (dir.empty() || dir == \".\") {\n                continue;\n            }\n            else if (dir == \"..\") {\n                if (!stk.empty())\n                    stk.pop();\n            }\n            else {\n                stk.push(dir);\n            }\n        }\n\n        string res = \"\";\n        while (!stk.empty()) {\n            res = \"/\" + stk.top() + res;\n            stk.pop();\n        }\n        return res.empty()? \"/\" : res;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0071-simplify-path.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0071-simplify-path.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0071-simplify-path.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0071-simplify-path.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "把 Unix 绝对路径规范化，处理重复斜杠、当前目录和上级目录。",
+  "explanation": "按斜杠拆分，普通目录入栈，双点弹栈，空片段与单点跳过。",
+  "memory": "三个点是普通目录；根目录不能再向上。"
+}

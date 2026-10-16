@@ -1,0 +1,75 @@
+{
+  "number": "215",
+  "adapter": {
+    "name": "findKthLargest",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "215"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          2,
+          1,
+          5,
+          6,
+          4
+        ],
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        [
+          3,
+          2,
+          3,
+          1,
+          2,
+          4,
+          5,
+          5,
+          6
+        ],
+        4
+      ],
+      "expected": 4
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def findKthLargest(self, nums: List[int], k: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar findKthLargest = function(nums, k) {\n    \n};",
+    "java": "class Solution {\n    public int findKthLargest(int[] nums, int k) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findKthLargest(vector<int>& nums, int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Solution: Sorting\n# Time Complexity:\n#   - Best Case: O(n*log(k))\n#   - Average Case: O(n*log(k))\n#   - Worst Case:O(n*log(k))\n# Extra Space Complexity: O(k)\nclass Solution:\n    def findKthLargest(self, nums: List[int], k: int) -> int:\n        heapify(nums)\n        while len(nums) > k:\n            heappop(nums)\n        return nums[0]\n\n# Solution: Sorting\n# Time Complexity:\n#   - Best Case: O(n)\n#   - Average Case: O(n*log(n))\n#   - Worst Case:O(n*log(n))\n# Extra Space Complexity: O(n)\nclass Solution1:\n    def findKthLargest(self, nums: List[int], k: int) -> int:\n        nums.sort()\n        return nums[len(nums) - k]\n\n\n# Solution: QuickSelect\n# Time Complexity: O(n)\n# Extra Space Complexity: O(n)\nclass Solution2:\n    def findKthLargest(self, nums: List[int], k: int) -> int:\n        pivot = random.choice(nums)\n        left = [num for num in nums if num > pivot]\n        mid = [num for num in nums if num == pivot]\n        right = [num for num in nums if num < pivot]\n\n        length_left = len(left)\n        length_right = len(right)\n        length_mid = len(mid)\n        if k <= length_left:\n            return self.findKthLargest(left, k)\n        elif k > length_left + length_mid:\n            return self.findKthLargest(right, k - length_mid - length_left)\n        else:\n            return mid[0]\n",
+    "javascript": "/**\n * https://leetcode.com/problems/kth-largest-element-in-an-array/\n * Time O(N * log(K)) | Space O(K)\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar findKthLargest = function (nums, k) {\n  const minHeap = new MinPriorityQueue();\n  for (const num of nums) {\n    minHeap.enqueue(num);\n    const isAtCapacity = k < minHeap.size();\n    if (isAtCapacity) minHeap.dequeue();\n  }\n  return minHeap.front().element;\n};",
+    "java": "class Solution {\n\n    public int findKthLargest(int[] nums, int k) {\n        //create a min heap\n        PriorityQueue<Integer> heap = new PriorityQueue();\n\n        //iterate over the array\n        for (int n : nums) {\n            //first add the integer to heap\n            heap.add(n);\n            //if size of the heap is greater than k\n            if (heap.size() > k) {\n                //remove the root element (lowest of all)\n                heap.poll();\n            }\n        }\n        //finally heap has k largest elements left with root as the kth largest element\n        return heap.peek();\n    }\n}\n",
+    "cpp": "/*\n    Given array and int k, return kth largest element in array\n    Ex. nums = [3,2,1,5,6,4], k = 2 -> 5\n\n    Quickselect, partition until pivot = k, left side all > k\n\n    Time: O(n) -> optimized from O(n log k) min heap solution\n    Space: O(1)\n*/\n\n// class Solution {\n// public:\n//     int findKthLargest(vector<int>& nums, int k) {\n//         priority_queue<int, vector<int>, greater<int>> pq;\n//         for (int i = 0; i < nums.size(); i++) {\n//             pq.push(nums[i]);\n//             if (pq.size() > k) {\n//                 pq.pop();\n//             }\n//         }\n//         return pq.top();\n//     }\n// };\n\n/*\nclass Solution {\npublic:\n    int findKthLargest(vector<int>& nums, int k) {\n        int low = 0;\n        int high = nums.size() - 1;\n        int pivotIndex = nums.size();\n        \n        while (pivotIndex != k - 1) {\n            pivotIndex = partition(nums, low, high);\n            if (pivotIndex < k - 1) {\n                low = pivotIndex + 1;\n            } else {\n                high = pivotIndex - 1;\n            }\n        }\n        \n        return nums[k - 1];\n    }\nprivate:\n    int partition(vector<int>& nums, int low, int high) {\n        int pivot = nums[low];\n        \n        int i = low + 1;\n        int j = high;\n        \n        while (i <= j) {\n            if (nums[i] < pivot && pivot < nums[j]) {\n                swap(nums[i], nums[j]);\n                i++;\n                j--;\n            }\n            if (nums[i] >= pivot) {\n                i++;\n            }\n            if (pivot >= nums[j]) {\n                j--;\n            }\n        }\n        \n        swap(nums[low], nums[j]);\n        return j;\n    }\n};\n*/\n\n// Video's QuickSelect implementation\n// class Solution {\n// public:\n//     int findKthLargest(vector<int>& nums, int k) {\n//         int index = nums.size() - k;\n//         return quickSelect(nums, index, 0, nums.size() - 1);\n//     }\n// private:\n//     int quickSelect(vector<int>& nums, int k, int l, int r){\n//         int pivot = nums[r];\n//         int p_pos = l;\n//         for (int i = l; i < r; ++i){\n//             if (nums[i] <= pivot){\n//                 swap(nums[i], nums[p_pos]);\n//                 ++p_pos;\n//             }\n//         }\n//         swap(nums[p_pos], nums[r]);\n//         if (k < p_pos)\n//             return quickSelect(nums, k, l, p_pos - 1);\n//         if (k > p_pos)\n//             return quickSelect(nums, k, p_pos + 1, r);\n//         return nums[p_pos];\n//     }\n// };\n\n// Solution that can pass current tests\nclass Solution {\npublic:\n    int findKthLargest(vector<int>& nums, int k) {\n        int pivot = nums[rand() % nums.size()];\n        vector<int> left, mid, right;\n        for (auto num: nums) {\n            if (num > pivot) left.push_back(num);\n            else if (num == pivot) mid.push_back(num);\n            else right.push_back(num);\n        }\n        if (k <= left.size()) return findKthLargest(left, k);\n        else if (k <= left.size() + mid.size()) return mid[0];\n        else return findKthLargest(right, k - left.size() - mid.size());\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0215-kth-largest-element-in-an-array.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0215-kth-largest-element-in-an-array.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0215-kth-largest-element-in-an-array.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0215-kth-largest-element-in-an-array.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "返回数组排序后第 k 大的值，重复元素也占名次。",
+  "explanation": "维护大小 k 的最小堆，堆顶即当前第 k 大；或快速选择将目标位置放到正确分区。",
+  "memory": "第 k 大对应升序下标 n-k；有重复时不要误当第 k 个不同值。"
+}

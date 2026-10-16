@@ -1,0 +1,63 @@
+{
+  "number": "1456",
+  "adapter": {
+    "name": "maxVowels",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "type": "integer",
+        "name": "k"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1456"
+  },
+  "tests": [
+    {
+      "input": [
+        "abciiidef",
+        3
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "aeiou",
+        2
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "leetcode",
+        3
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def maxVowels(self, s: str, k: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @param {number} k\n * @return {number}\n */\nvar maxVowels = function(s, k) {\n    \n};",
+    "java": "class Solution {\n    public int maxVowels(String s, int k) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int maxVowels(string s, int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def maxVowels(self, s: str, k: int) -> int:\n        l, res, total = 0, 0, 0\n        vowels = \"aeiou\"\n\n        for r in range(len(s)):\n            if s[r] in vowels:\n                total += 1\n            if (r - l + 1) > k:\n                if s[l] in vowels:\n                    total -= 1\n                l += 1\n            res = max(res, total)\n        return res\n\n            \n            \n",
+    "java": "class Solution {\n    public int maxVowels(String s, int k) {\n        Set<Character> set = new HashSet<>();\n        Collections.addAll(set, 'a', 'e', 'i', 'o', 'u');\n\n        int l=0, cnt=0, res=0;\n\n        for(int r=0; r<s.length(); r++){\n            cnt += set.contains(s.charAt(r))?1:0;\n            if(r-l+1 > k){\n                cnt -= set.contains(s.charAt(l))?1:0;\n                l++;\n            }\n            res = Math.max(res, cnt);\n        }\n        return res;\n    }\n}\n",
+    "cpp": "/*\n  Given a string s and an integer k, return the maximum number of vowel letters in any substring of s with length k.\n  Vowel letters in English are 'a', 'e', 'i', 'o', and 'u'.\n\n  Ex.\n  Input: s = \"abciiidef\", k = 3\n  Output: 3\n  Explanation: The substring \"iii\" contains 3 vowel letters.\n\n  Approach : Sliding Window\n\n  Time  : O(N)\n  Space : O(1)\n*/\n\n\nclass Solution {\npublic:\n    bool isVowel(char ch) {\n        if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') \n            return true;\n        return false;\n    }\n    int maxVowels(string s, int k) {\n        int ptr1 = 0, ptr2 = 0, count = 0, maxi = INT_MIN;\n        while(ptr2 < s.size()) {\n            if(ptr2 - ptr1 == k) {\n                maxi = max(count, maxi);\n                if(maxi == k)\n                    return count;\n                if(isVowel(s[ptr1++]))\n                    count--;\n                if(isVowel(s[ptr2++]))\n                    count++;\n\n            } else {\n                if(isVowel(s[ptr2]))\n                    count++;\n                ptr2++;\n            }\n        }\n        maxi = max(count, maxi);\n        return maxi;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/1456-maximum-number-of-vowels-in-a-substring-of-given-length.py",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/1456-maximum-number-of-vowels-in-a-substring-of-given-length.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/1456-maximum-number-of-vowels-in-a-substring-of-given-length.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "求字符串中长度为 k 的连续子串所含元音的最大数量。",
+  "explanation": "固定窗口维护元音计数，每步只处理移入和移出字符。O(n)。",
+  "memory": "滑窗更新两端；数量达到 k 时已是上限。"
+}

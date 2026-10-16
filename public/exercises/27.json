@@ -1,0 +1,85 @@
+{
+  "number": "27",
+  "adapter": {
+    "name": "removeElement",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      },
+      {
+        "name": "val",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "output": {
+      "paramindex": 0,
+      "size": "ret"
+    },
+    "number": "27"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          2,
+          2,
+          3
+        ],
+        3
+      ],
+      "expected": [
+        2,
+        2
+      ]
+    },
+    {
+      "input": [
+        [
+          0,
+          1,
+          2,
+          2,
+          3,
+          0,
+          4,
+          2
+        ],
+        2
+      ],
+      "expected": [
+        0,
+        1,
+        4,
+        0,
+        3
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def removeElement(self, nums: list[int], val: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} val\n * @return {number}\n */\nvar removeElement = function(nums, val) {\n    \n};",
+    "java": "class Solution {\n    public int removeElement(int[] nums, int val) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int removeElement(vector<int>& nums, int val) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def removeElement(self, nums: List[int], val: int) -> int:\n        k = 0\n        for i in range(len(nums)):\n            if nums[i] != val:\n                nums[k] = nums[i]\n                k += 1\n        return k\n\n# Optimized solution with the same time and space complexity\nclass Solution:\n    def removeElement(self, nums: List[int], val: int) -> int:\n        # Avoid unessary copy operations in a previous solution, when k == i and nums[i] != val \n        # by swapping nums[i] and the last element of the array (nums[n])\n        n = len(nums)\n        i = 0\n\n        while i < n:\n            if nums[i] == val:\n                nums[i], nums[n - 1] = nums[n - 1], nums[i]\n                n -= 1  # decrement the length of the array by discarding the last element\n            else:\n                i += 1\n        \n        return n\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} val\n * @return {number}\n */\nvar removeElement = function (nums, val) {\n  for (let i = 0; i < nums.length; i++) {\n    if (nums[i] === val) {\n      nums.splice(i, 1);\n      i--;\n    }\n  }\n  return nums.length;\n};",
+    "java": "class Solution {\n\n    public void swap(int[] a, int i, int j) {\n        int temp = a[i];\n        a[i] = a[j];\n        a[j] = temp;\n    }\n\n    public int removeElement(int[] nums, int val) {\n        int boundary = nums.length - 1;\n        int i = 0;\n        while (i <= boundary) {\n            if (nums[i] == val) {\n                swap(nums, i, boundary);\n                boundary -= 1;\n            } else {\n                i += 1;\n            }\n        }\n        return i;\n    }\n}\n",
+    "cpp": "class Solution {\npublic:\n    int removeElement(vector<int>& nums, int val) {\n        int n=nums.size();\n        int count=0;\n        for(int i=0;i<n;i++)\n        {\n            if(nums[i]!=val)\n            {\n                swap(nums[i],nums[count]);\n                count++;\n            }\n        }\n        \n        return count;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0027-remove-element.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0027-remove-element.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0027-remove-element.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0027-remove-element.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "原地移除数组中等于目标值的元素，返回有效前缀长度，顺序不限。",
+  "explanation": "用写指针收集不等于目标值的元素，读指针扫描整个数组。O(n) 时间。",
+  "memory": "读指针负责看，写指针负责留下。"
+}

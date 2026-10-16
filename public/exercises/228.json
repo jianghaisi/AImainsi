@@ -1,0 +1,70 @@
+{
+  "number": "228",
+  "adapter": {
+    "name": "summaryRanges",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<string>"
+    },
+    "number": "228"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          0,
+          1,
+          2,
+          4,
+          5,
+          7
+        ]
+      ],
+      "expected": [
+        "0->2",
+        "4->5",
+        "7"
+      ]
+    },
+    {
+      "input": [
+        [
+          0,
+          2,
+          3,
+          4,
+          6,
+          8,
+          9
+        ]
+      ],
+      "expected": [
+        "0",
+        "2->4",
+        "6",
+        "8->9"
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def summaryRanges(self, nums: List[int]) -> List[str]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {string[]}\n */\nvar summaryRanges = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public List<String> summaryRanges(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<string> summaryRanges(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def summaryRanges(self,nums):\n        result=[];i=0\n        while i<len(nums):\n            start=nums[i]\n            while i+1<len(nums) and nums[i+1]==nums[i]+1:i+=1\n            result.append(str(start) if start==nums[i] else str(start)+'->'+str(nums[i]))\n            i+=1\n        return result\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "把严格递增整数数组压缩成最少的连续区间字符串。",
+  "explanation": "记录段起点，遇到不连续或到达末尾时输出当前段。",
+  "memory": "单点不写箭头，最后一段别漏掉。"
+}

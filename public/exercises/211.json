@@ -1,0 +1,112 @@
+{
+  "number": "211",
+  "adapter": {
+    "classname": "WordDictionary",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "params": [
+          {
+            "type": "string",
+            "name": "word"
+          }
+        ],
+        "name": "addWord",
+        "return": {
+          "type": "void"
+        }
+      },
+      {
+        "params": [
+          {
+            "type": "string",
+            "name": "word"
+          }
+        ],
+        "name": "search",
+        "return": {
+          "type": "boolean"
+        }
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "systemdesign": true,
+    "number": "211"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "WordDictionary",
+          "addWord",
+          "addWord",
+          "addWord",
+          "search",
+          "search",
+          "search",
+          "search"
+        ],
+        [
+          [],
+          [
+            "bad"
+          ],
+          [
+            "dad"
+          ],
+          [
+            "mad"
+          ],
+          [
+            "pad"
+          ],
+          [
+            "bad"
+          ],
+          [
+            ".ad"
+          ],
+          [
+            "b.."
+          ]
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        false,
+        true,
+        true,
+        true
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class WordDictionary:\n\n    def __init__(self):\n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n    def addWord(self, word: str) -> None:\n        \n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n    def search(self, word: str) -> bool:\n        \n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n\n# Your WordDictionary object will be instantiated and called as such:\n# obj = WordDictionary()\n# obj.addWord(word)\n# param_2 = obj.search(word)",
+    "javascript": "\nvar WordDictionary = function() {\n    \n};\n\n/** \n * @param {string} word\n * @return {void}\n */\nWordDictionary.prototype.addWord = function(word) {\n    \n};\n\n/** \n * @param {string} word\n * @return {boolean}\n */\nWordDictionary.prototype.search = function(word) {\n    \n};\n\n/** \n * Your WordDictionary object will be instantiated and called as such:\n * var obj = new WordDictionary()\n * obj.addWord(word)\n * var param_2 = obj.search(word)\n */",
+    "java": "class WordDictionary {\n\n    public WordDictionary() {\n        \n    }\n    \n    public void addWord(String word) {\n        \n    }\n    \n    public boolean search(String word) {\n        \n    }\n}\n\n/**\n * Your WordDictionary object will be instantiated and called as such:\n * WordDictionary obj = new WordDictionary();\n * obj.addWord(word);\n * boolean param_2 = obj.search(word);\n */",
+    "cpp": "class WordDictionary {\npublic:\n    WordDictionary() {\n        \n    }\n    \n    void addWord(string word) {\n        \n    }\n    \n    bool search(string word) {\n        \n    }\n};\n\n/**\n * Your WordDictionary object will be instantiated and called as such:\n * WordDictionary* obj = new WordDictionary();\n * obj->addWord(word);\n * bool param_2 = obj->search(word);\n */"
+  },
+  "solutions": {
+    "python": "class TrieNode:\n    def __init__(self):\n        self.children = {}  # a : TrieNode\n        self.word = False\n\n\nclass WordDictionary:\n    def __init__(self):\n        self.root = TrieNode()\n\n    def addWord(self, word: str) -> None:\n        cur = self.root\n        for c in word:\n            if c not in cur.children:\n                cur.children[c] = TrieNode()\n            cur = cur.children[c]\n        cur.word = True\n\n    def search(self, word: str) -> bool:\n        def dfs(j, root):\n            cur = root\n\n            for i in range(j, len(word)):\n                c = word[i]\n                if c == \".\":\n                    for child in cur.children.values():\n                        if dfs(i + 1, child):\n                            return True\n                    return False\n                else:\n                    if c not in cur.children:\n                        return False\n                    cur = cur.children[c]\n            return cur.word\n\n        return dfs(0, self.root)\n",
+    "javascript": "/**\n * Your WordDictionary object will be instantiated and called as such:\n * var obj = new WordDictionary()\n * obj.addWord(word)\n * var param_2 = obj.search(word)\n */\n\nclass TrieNode {\n  constructor() {\n    this.children = {};\n    this.isWord = false;\n  }\n}\nclass WordDictionary {\n  constructor() {\n    this.root = new TrieNode();\n  }\n\n  /* Time O(N) | Space O(N) */\n  addWord(word, node = this.root) {\n    for (const char of word) {\n      const child = node.children[char] || new TrieNode();\n      node.children[char] = child;\n      node = child;\n    }\n    node.isWord = true;\n  }\n\n  /* Time O(N) | Space O(N) */\n  search(word) {\n    return this.dfs(word, this.root, 0);\n  }\n  dfs(word, node, level) {\n    if (!node) return false;\n    const isWord = level === word.length;\n    if (isWord) return node.isWord;\n    const isWildCard = word[level] === '.';\n    if (isWildCard) return this.hasWildCard(word, node, level);\n    return this.dfs(word, node.children[word[level]], level + 1);\n  }\n  hasWildCard(word, node, level) {\n    for (const char of Object.keys(node.children)) {\n      const child = node.children[char];\n      const hasWord = this.dfs(word, child, level + 1);\n      if (hasWord) return true;\n    }\n    return false;\n  }\n}",
+    "java": "/**\n * Your WordDictionary object will be instantiated and called as such:\n * WordDictionary obj = new WordDictionary();\n * obj.addWord(word);\n * boolean param_2 = obj.search(word);\n */\n\nclass WordDictionary {\n\n    Node root;\n\n    private class Node {\n\n        char value;\n        boolean isWord;\n        Node[] children;\n\n        public Node(char value) {\n            this.value = value;\n            isWord = false;\n            children = new Node[26];\n        }\n    }\n\n    public WordDictionary() {\n        root = new Node('\\0');\n    }\n\n    public void addWord(String word) {\n        Node curr = root;\n\n        for (int i = 0; i < word.length(); i++) {\n            char ch = word.charAt(i);\n\n            if (curr.children[ch - 'a'] == null) {\n                curr.children[ch - 'a'] = new Node(ch);\n            }\n\n            curr = curr.children[ch - 'a'];\n        }\n\n        curr.isWord = true;\n    }\n\n    // TC O(m^2)\n    public boolean search(String word) {\n        return searchHelper(word, root, 0);\n    }\n\n    private boolean searchHelper(String word, Node curr, int index) {\n        for (int i = index; i < word.length(); i++) {\n            char ch = word.charAt(i);\n\n            if (ch == '.') {\n                for (Node temp : curr.children) {\n                    if (temp != null && searchHelper(word, temp, i + 1)) {\n                        return true;\n                    }\n                }\n\n                return false;\n            }\n\n            if (curr.children[ch - 'a'] == null) {\n                return false;\n            }\n\n            curr = curr.children[ch - 'a'];\n        }\n\n        return curr.isWord;\n    }\n}\n",
+    "cpp": "/*\n    Design add & search words data structure\n\n    Implement trie, handle wildcards: traverse all children & search substrings\n\n    Time: O(m x 26^n) -> m = # of words, n = length of words\n    Space: O(n)\n*/\n\nclass TrieNode {\npublic:\n    TrieNode* children[26];\n    bool isWord;\n    \n    TrieNode() {\n        for (int i = 0; i < 26; i++) {\n            children[i] = NULL;\n        }\n        isWord = false;\n    }\n};\n\nclass WordDictionary {\npublic:\n    WordDictionary() {\n        root = new TrieNode();\n    }\n    \n    void addWord(string word) {\n        TrieNode* node = root;\n        int curr = 0;\n        \n        for (int i = 0; i < word.size(); i++) {\n            curr = word[i] - 'a';\n            if (node->children[curr] == NULL) {\n                node->children[curr] = new TrieNode();\n            }\n            node = node->children[curr];\n        }\n        \n        node->isWord = true;\n    }\n    \n    bool search(string word) {\n        TrieNode* node = root;\n        return searchInNode(word, 0, node);\n    }\nprivate:\n    TrieNode* root;\n    \n    bool searchInNode(string& word, int i, TrieNode* node) {\n        if (node == NULL) {\n            return false;\n        }\n        if (i == word.size()) {\n            return node->isWord;\n        }\n        if (word[i] != '.') {\n            return searchInNode(word, i + 1, node->children[word[i] - 'a']);\n        }\n        for (int j = 0; j < 26; j++) {\n            if (searchInNode(word, i + 1, node->children[j])) {\n                return true;\n            }\n        }\n        return false;\n    }\n};\n\n/**\n * Your WordDictionary object will be instantiated and called as such:\n * WordDictionary* obj = new WordDictionary();\n * obj->addWord(word);\n * bool param_2 = obj->search(word);\n */\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0211-design-add-and-search-words-data-structure.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0211-design-add-and-search-words-data-structure.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0211-design-add-and-search-words-data-structure.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0211-design-add-and-search-words-data-structure.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "实现单词添加和搜索，搜索中的点可匹配任意一个字符。",
+  "explanation": "Trie 存储单词；普通字符沿单条边走，点枚举全部子边。",
+  "memory": "通配符只匹配一个字符，搜索结束还要检查终止标记。"
+}

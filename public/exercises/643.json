@@ -1,0 +1,61 @@
+{
+  "number": "643",
+  "adapter": {
+    "name": "findMaxAverage",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "double"
+    },
+    "number": "643"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          12,
+          -5,
+          -6,
+          50,
+          3
+        ],
+        4
+      ],
+      "expected": 12.75
+    },
+    {
+      "input": [
+        [
+          5
+        ],
+        1
+      ],
+      "expected": 5
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def findMaxAverage(self, nums: list[int], k: int) -> float:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar findMaxAverage = function(nums, k) {\n    \n};",
+    "java": "class Solution {\n    public double findMaxAverage(int[] nums, int k) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    double findMaxAverage(vector<int>& nums, int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def findMaxAverage(self,nums,k):\n        total=sum(nums[:k]);best=total\n        for i in range(k,len(nums)):total+=nums[i]-nums[i-k];best=max(best,total)\n        return best/k\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "求长度恰好为 k 的连续子数组的最大平均值。",
+  "explanation": "维护固定宽度滑窗的和，移入右端并移出左端，记录最大和后除以 k。",
+  "memory": "固定长度时最大平均等价于最大和，负数不能初始化为零。"
+}

@@ -1,0 +1,58 @@
+{
+  "number": "242",
+  "adapter": {
+    "name": "isAnagram",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "t",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "242"
+  },
+  "tests": [
+    {
+      "input": [
+        "anagram",
+        "nagaram"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "rat",
+        "car"
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def isAnagram(self, s: str, t: str) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @param {string} t\n * @return {boolean}\n */\nvar isAnagram = function(s, t) {\n    \n};",
+    "java": "class Solution {\n    public boolean isAnagram(String s, String t) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isAnagram(string s, string t) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def isAnagram(self, s: str, t: str) -> bool:\n        if len(s) != len(t):\n            return False\n\n        countS, countT = {}, {}\n\n        for i in range(len(s)):\n            countS[s[i]] = 1 + countS.get(s[i], 0)\n            countT[t[i]] = 1 + countT.get(t[i], 0)\n        return countS == countT\n\n    \n    # easier solution\n    #return True if sorted(s) == sorted(t) else False\n",
+    "javascript": "const reorder = str => str.split('') /* Time O(N)          | Space O(N) */.sort((a, b) => a.localeCompare(b)) /* Time O(N * log(N)) | Space O(1 || log(N)) */.join(''); /* Time O(N)          | Space O(N) */\n\n/**\n * Hash Map - Frequency Counter\n * Time O(N) | Space O(1)\n * https://leetcode.com/problems/valid-anagram/\n * @param {string} s\n * @param {string} t\n * @return {boolean}\n */\nvar isAnagram = (s, t, map = new Map()) => {\n  const isEqual = s.length === t.length;\n  if (!isEqual) return false;\n  addFrequency(s, map); /* Time O(N) | Space O(1) */\n  subtractFrequency(t, map); /* Time O(N) | Space O(1) */\n\n  return checkFrequency(map); /* Time O(N) */\n};\nconst addFrequency = (str, map) => {\n  for (const char of str) {\n    /* Time O(N) */\n    const count = (map.get(char) || 0) + 1;\n    map.set(char, count); /* Space O(1) */\n  }\n};\nconst subtractFrequency = (str, map) => {\n  for (const char of str) {\n    /* Time O(N) */\n    if (!map.has(char)) continue;\n    const count = map.get(char) - 1;\n    map.set(char, count); /* Space O(1) */\n  }\n};\nconst checkFrequency = map => {\n  for (const [char, count] of map) {\n    /* Time O(N) */\n    const isEmpty = count === 0;\n    if (!isEmpty) return false;\n  }\n  return true;\n};",
+    "java": "class Solution {\n\n    public boolean isAnagram(String s, String t) {\n        if (s.length() != t.length()) return false;\n\n        int[] store = new int[26];\n\n        for (int i = 0; i < s.length(); i++) {\n            store[s.charAt(i) - 'a']++;\n            store[t.charAt(i) - 'a']--;\n        }\n\n        for (int n : store) if (n != 0) return false;\n\n        return true;\n    }\n}\n",
+    "cpp": "// hashmap solution, similar to neetcode python implementation\n\nclass Solution {\npublic:\n    bool isAnagram(string s, string t) {\n        if(s.size() != t.size()) return false;\n        \n        unordered_map<char, int> smap;\n        unordered_map<char, int> tmap;\n        \n        for(int i = 0; i < s.size(); i++){\n            smap[s[i]]++;\n            tmap[t[i]]++;\n        }\n\n        for (auto const& [key, value] : smap) {\n          if (value != tmap[key]) {\n            return false;\n          }\n        }\n        return true;\n    }\n};"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0242-valid-anagram.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0242-valid-anagram.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0242-valid-anagram.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0242-valid-anagram.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断两个字符串是否由相同字符以相同数量组成。",
+  "explanation": "统计第一个字符串并减去第二个，最终所有计数应为零。",
+  "memory": "长度相同只是必要条件，还要比较频次。"
+}

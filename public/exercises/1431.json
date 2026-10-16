@@ -1,0 +1,109 @@
+{
+  "number": "1431",
+  "adapter": {
+    "name": "kidsWithCandies",
+    "params": [
+      {
+        "name": "candies",
+        "type": "integer[]"
+      },
+      {
+        "type": "integer",
+        "name": "extraCandies"
+      }
+    ],
+    "return": {
+      "type": "list<boolean>"
+    },
+    "manual": false,
+    "languages": [
+      "cpp",
+      "java",
+      "python",
+      "c",
+      "csharp",
+      "javascript",
+      "ruby",
+      "swift",
+      "golang",
+      "python3",
+      "scala",
+      "kotlin",
+      "rust",
+      "php",
+      "typescript"
+    ],
+    "number": "1431"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          3,
+          5,
+          1,
+          3
+        ],
+        3
+      ],
+      "expected": [
+        true,
+        true,
+        true,
+        false,
+        true
+      ]
+    },
+    {
+      "input": [
+        [
+          4,
+          2,
+          1,
+          1,
+          2
+        ],
+        1
+      ],
+      "expected": [
+        true,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "input": [
+        [
+          12,
+          1,
+          12
+        ],
+        10
+      ],
+      "expected": [
+        true,
+        false,
+        true
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} candies\n * @param {number} extraCandies\n * @return {boolean[]}\n */\nvar kidsWithCandies = function(candies, extraCandies) {\n    \n};",
+    "java": "class Solution {\n    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<bool> kidsWithCandies(vector<int>& candies, int extraCandies) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def kidsWithCandies(self,candies,extraCandies):\n        largest=max(candies)\n        return [c+extraCandies>=largest for c in candies]\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断把额外糖果全部给每个孩子后，其糖果数能否达到当前最多值。",
+  "explanation": "预先求最大值，对每个孩子检查自身加额外值是否至少达到它。O(n)。",
+  "memory": "并列最多也算；每个判断是独立场景。"
+}

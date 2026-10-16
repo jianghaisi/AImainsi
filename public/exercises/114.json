@@ -1,0 +1,74 @@
+{
+  "number": "114",
+  "adapter": {
+    "name": "flatten",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "void"
+    },
+    "output": {
+      "paramindex": 0
+    },
+    "number": "114"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          5,
+          3,
+          4,
+          null,
+          6
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "input": [
+        []
+      ],
+      "expected": []
+    },
+    {
+      "input": [
+        [
+          0
+        ]
+      ],
+      "expected": [
+        0
+      ]
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def flatten(self, root: TreeNode | None) -> None:\n        raise NotImplementedError(\"请完成此方法\")\n        \"\"\"\n        Do not return anything, modify root in-place instead.\n        \"\"\"\n        ",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @return {void} Do not return anything, modify root in-place instead.\n */\nvar flatten = function(root) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public void flatten(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    void flatten(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def flatten(self, root):\n        previous=None\n        def visit(node):\n            nonlocal previous\n            if not node:return\n            visit(node.right);visit(node.left)\n            node.right,node.left=previous,None\n            previous=node\n        visit(root)\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "将二叉树原地展开为先序顺序的单链，所有 left 为空，后继由 right 连接。本地输出展开后的值序列。",
+  "explanation": "可按右、左、根的逆先序递归维护已处理的后继，再把当前节点接到它前面。",
+  "memory": "要往前接链，处理顺序就反过来；每次都清空 left。"
+}

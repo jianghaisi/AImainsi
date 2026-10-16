@@ -1,0 +1,71 @@
+{
+  "number": "334",
+  "adapter": {
+    "name": "increasingTriplet",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "334"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        [
+          2,
+          1,
+          5,
+          0,
+          4,
+          6
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def increasingTriplet(self, nums: list[int]) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {boolean}\n */\nvar increasingTriplet = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public boolean increasingTriplet(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool increasingTriplet(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def increasingTriplet(self, nums: List[int]) -> bool:\n        first = float('inf')  # Initialize first to positive infinity\n        second = float('inf')  # Initialize second to positive infinity\n        \n        for num in nums:\n            if num <= first:\n                first = num  # Update first if num is smaller or equal\n            elif num <= second:\n                second = num  # Update second if num is smaller or equal\n            else:\n                return True  # We found a triplet: first < second < num\n        \n        return False  # No triplet exists\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0334-increasing-triplet-subsequence.py"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断数组中是否存在下标递增且数值严格递增的三元子序列。",
+  "explanation": "维护尽可能小的第一值与第二值，遇到比二者都大的数即成功。O(n)。",
+  "memory": "用小于等于更新候选，防止重复值被当作严格递增。"
+}

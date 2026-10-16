@@ -1,0 +1,133 @@
+{
+  "number": "160",
+  "adapter": {
+    "name": "getIntersectionNode",
+    "params": [
+      {
+        "name": "intersectVal",
+        "type": "integer"
+      },
+      {
+        "name": "listA",
+        "type": "ListNode"
+      },
+      {
+        "name": "listB",
+        "type": "ListNode"
+      },
+      {
+        "name": "skipA",
+        "type": "integer"
+      },
+      {
+        "name": "skipB",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "ListNode"
+    },
+    "languages": [
+      "cpp",
+      "java",
+      "python",
+      "c",
+      "csharp",
+      "javascript",
+      "golang",
+      "python3",
+      "swift",
+      "ruby",
+      "kotlin",
+      "scala",
+      "php",
+      "typescript"
+    ],
+    "manual": true,
+    "number": "160"
+  },
+  "tests": [
+    {
+      "input": [
+        8,
+        [
+          4,
+          1,
+          8,
+          4,
+          5
+        ],
+        [
+          5,
+          6,
+          1,
+          8,
+          4,
+          5
+        ],
+        2,
+        3
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        2,
+        [
+          1,
+          9,
+          1,
+          2,
+          4
+        ],
+        [
+          3,
+          2,
+          4
+        ],
+        3,
+        1
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        0,
+        [
+          2,
+          6,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        3,
+        2
+      ],
+      "expected": null
+    }
+  ],
+  "starters": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.next = None\n\nclass Solution:\n    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val) {\n *     this.val = val;\n *     this.next = null;\n * }\n */\n\n/**\n * @param {ListNode} headA\n * @param {ListNode} headB\n * @return {ListNode}\n */\nvar getIntersectionNode = function(headA, headB) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode(int x) {\n *         val = x;\n *         next = null;\n *     }\n * }\n */\npublic class Solution {\n    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode(int x) : val(x), next(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.next = None\n\n\nclass Solution:\n    def getIntersectionNode(\n        self, headA: ListNode, headB: ListNode\n    ) -> Optional[ListNode]:\n        l1, l2 = headA, headB\n        while l1 != l2:\n            l1 = l1.next if l1 else headB\n            l2 = l2.next if l2 else headA\n        return l1\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val) {\n *     this.val = val;\n *     this.next = null;\n * }\n */\n\n/**\n * @param {ListNode} headA\n * @param {ListNode} headB\n * @return {ListNode}\n */\nvar getIntersectionNode = function (headA, headB) {\n  let a = headA;\n  let b = headB;\n  while (a !== b) {\n    a = a === null ? headB : a.next;\n    b = b === null ? headA : b.next;\n  }\n  return a;\n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode(int x) {\n *         val = x;\n *         next = null;\n *     }\n * }\n */\npublic class Solution {\n    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {\n        ListNode a = headA, b = headB;\n        while (a != b) {\n            a = (a != null) ? a.next : headB;\n            b = (b != null) ? b.next : headA;\n        }\n        return a;\n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode(int x) : val(x), next(NULL) {}\n * };\n */\n\nclass Solution {\npublic:\n    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {\n        ListNode *trevA = headA, *trevB = headB;\n\n        while (trevA != trevB) {\n            trevA = (trevA != NULL) ? trevA->next : headB;\n            trevB = (trevB != NULL) ? trevB->next : headA;\n        }\n        return trevA;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0160-intersection-of-two-linked-lists.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0160-intersection-of-two-linked-lists.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0160-intersection-of-two-linked-lists.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0160-intersection-of-two-linked-lists.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断两个无环链表是否共享节点，返回共享起点。输入包含相交值、两条链表及各自跳过长度；适配器构造共享节点，输出相交值或 null。",
+  "explanation": "两个指针走到末尾后切换到另一条链表，两者经历相同总路程后会在交点或 null 相遇。比较节点身份。",
+  "memory": "不是数值相等，而是同一个节点；各走一遍 A+B 与 B+A。"
+}

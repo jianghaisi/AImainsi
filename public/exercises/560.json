@@ -1,0 +1,66 @@
+{
+  "number": "560",
+  "adapter": {
+    "name": "subarraySum",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "560"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          1,
+          1
+        ],
+        2
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ],
+        3
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def subarraySum(self, nums: List[int], k: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar subarraySum = function(nums, k) {\n    \n};",
+    "java": "class Solution {\n    public int subarraySum(int[] nums, int k) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int subarraySum(vector<int>& nums, int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def subarraySum(self, nums: List[int], k: int) -> int:\n        count = 0\n        sum = 0\n        dic = {}\n        dic[0] = 1\n        for i in range(len(nums)):\n            sum += nums[i]\n            if sum-k in dic:\n                count += dic[sum-k]\n            dic[sum] = dic.get(sum, 0)+1\n        return count\n\n# Time Complexity :\n#     O(N) -> Where N is the size of the array and we are iterating over the array once\n\n# Space Complexity:\n#     O(N) -> Creating a hashmap/dictionary\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar subarraySum = function (nums, k) {\n  let count = 0,\n    sum = 0,\n    map = new Map();\n  map.set(0, 1);\n  for (const num of nums) {\n    sum += num;\n    if (map.has(sum - k)) {\n      count += map.get(sum - k);\n    }\n    map.set(sum, (map.get(sum) || 0) + 1);\n  }\n  return count;\n};",
+    "java": "class Solution {\n\n    public int subarraySum(int[] nums, int k) {\n        int res = 0, sum = 0;\n        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();\n        map.put(0, 1);\n        for (int i = 0; i < nums.length; i++) {\n            sum += nums[i];\n            int diff = sum - k;\n            if (map.containsKey(diff)) {\n                res += map.get(diff);\n            }\n            map.put(sum, map.getOrDefault(sum, 0) + 1);\n        }\n        return res;\n    }\n}\n",
+    "cpp": "class Solution {\npublic:\n    int subarraySum(vector<int>& nums, int target) {\n        int i=0,j=0,count=0,n=size(nums),sum=0;\n        unordered_map<int,int>mp;\n        while(j<n){\n           sum+=nums[j];\n           if(sum==target)count++;\n           if(mp.find(sum-target)!=mp.end())count+=mp[sum-target];\n           mp[sum]++;\n           j++;\n       } \n       return count;\n    }\n};"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0560-subarray-sum-equals-k.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0560-subarray-sum-equals-k.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0560-subarray-sum-equals-k.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0560-subarray-sum-equals-k.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "求整数数组中和恰好为 k 的连续非空子数组数量，数组可以包含负数。",
+  "explanation": "前缀和为 sum 时，之前出现的 sum-k 都能形成答案。频次表先放入前缀零的一次出现。O(n)。",
+  "memory": "负数使普通滑窗失效；查询前缀差，再记录当前前缀。"
+}

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { BookOpen, Check, Clock, Play, RotateCcw, Square, Lightbulb } from 'lucide-react';
 import type { Shared } from './App';
-import type { Lang, Result } from './types';
+import type { Lang, Result, Question } from './types';
 import { api, languages } from './api';
-import { Button, Busy, Field, PageTitle, Tag } from './ui';
+import { Button, Busy, Field, PageTitle, Tag, External } from './ui';
 export function Coding({
   state,
   selectedId,
@@ -28,7 +28,36 @@ export function Coding({
     runIdRef = useRef(0),
     timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null),
     started = useRef(Date.now());
-  const q = questions.find((q) => q.id === questionId)!;
+  const base = questions.find((q) => q.id === questionId)!;
+  const [pack, setPack] = useState<Partial<Question> & { number?: string }>({});
+  const [loadError, setLoadError] = useState('');
+  const [reloadAttempt, setReloadAttempt] = useState(0),
+    [note, setNote] = useState(''),
+    [savingNote, setSavingNote] = useState(false);
+  const loading = !!base.exercisePack && pack.number !== base.exercisePack;
+  const q = base.exercisePack && pack.number === base.exercisePack ? { ...base, ...pack } : base;
+  useEffect(() => {
+    let active = true;
+    setLoadError('');
+    setPack({});
+    setNote(state.questionProgress[questionId]?.note || '');
+    localStorage.setItem('last-practice', questionId);
+    if (base.exercisePack)
+      fetch(`/exercises/${base.exercisePack}.json`)
+        .then((r) => {
+          if (!r.ok) throw Error('题目资源加载失败，请重试');
+          return r.json();
+        })
+        .then((data) => {
+          if (active) setPack(data);
+        })
+        .catch((e) => {
+          if (active) setLoadError(e.message);
+        });
+    return () => {
+      active = false;
+    };
+  }, [questionId, reloadAttempt]);
   useEffect(() => {
     const saved = localStorage.getItem(`draft:${questionId}:${language}`);
     setCode(saved ?? q.starters?.[language] ?? '');
@@ -37,7 +66,7 @@ export function Coding({
     setTiming(false);
     setSolutionOpen(false);
     setStatus('');
-  }, [questionId, language]);
+  }, [questionId, language, loading]);
   useEffect(() => {
     if (!timing) return;
     const timer = setInterval(
@@ -107,7 +136,7 @@ export function Coding({
       }
       return;
     }
-    const worker = new Worker('/runner.js', { type: 'module' });
+    const worker = new Worker('/runner-v2.js', { type: 'module' });
     workerRef.current = worker;
     const fail = (message: string) => {
       if (runId !== runIdRef.current) return;
@@ -125,7 +154,7 @@ export function Coding({
       else if (data.error) fail(data.error);
       else if (data.results) void finish(data.results);
     };
-    worker.postMessage({ language, code, tests: q.tests });
+    worker.postMessage({ language, code, tests: q.tests, adapter: q.adapter });
   }
   return (
     <>
@@ -208,9 +237,16 @@ export function Coding({
               <>
                 <p className="preserve">{q.description}</p>
                 <h4>函数约定</h4>
-                <code className="inline-code">solve({q.args?.join(', ')})</code>
+                <code className="inline-code">
+                  {q.adapter?.systemdesign
+                    ? q.adapter.classname + '：操作序列'
+                    : `${q.adapter?.name || 'solve'}(${q.args?.join(', ')})`}
+                </code>
                 <p className="hint">
-                  函数接收输入参数并返回结果。Java / C++ 的完整程序格式由你配置的判题服务约定。
+                  {q.adapter
+                    ? '使用下方语言模板。链表用数组、树用层序数组（null 表示空位）、设计题用操作名和参数序列输入，运行器自动转换。'
+                    : '函数接收输入参数并返回结果。'}{' '}
+                  Java / C++ 需要配置支持此函数约定的判题服务。
                 </p>
                 {q.tests?.slice(0, 2).map((t, i) => (
                   <div className="example" key={i}>
@@ -223,7 +259,13 @@ export function Coding({
                     </p>
                   </div>
                 ))}
-                <p className="hint">{q.source} · 题意、题解与测试为本项目编写。</p>
+                <p className="hint">
+                  {q.source} ·{' '}
+                  {q.exercisePack
+                    ? '原创题意摘要与记忆卡；示例训练不等同于原站完整判题。'
+                    : '题意、题解与测试为本项目编写。'}
+                </p>
+                <External url={q.sourceUrl}>完整题意与约束</External>
               </>
             )}
             {tab === 'solution' && (
@@ -243,7 +285,21 @@ export function Coding({
                     <pre className="solution-code">
                       {q.solutions?.[language] || q.solutions?.python}
                     </pre>
+                    {q.credits && (
+                      <p className="hint">
+                        参考代码：
+                        {(q.credits[language] || q.credits.python)?.startsWith('https:') ? (
+                          <External url={q.credits[language] || q.credits.python || ''}>
+                            NeetCode · MIT 许可（查看原文件）
+                          </External>
+                        ) : (
+                          '序列原创适配'
+                        )}
+                        。Java / C++ 实现需在自配服务中验证。
+                      </p>
+                    )}
                     <Button
+                      disabled={loading}
                       onClick={() => {
                         const text = q.solutions?.[language];
                         if (text) {
@@ -264,6 +320,32 @@ export function Coding({
                 <span className="eyebrow">REMEMBER THE REASON</span>
                 <h3>记住原理，而非代码形状</h3>
                 <p>{q.memory}</p>
+                <Field label="我的思路与易错点">
+                  <textarea
+                    rows={4}
+                    maxLength={5000}
+                    value={note}
+                    onChange={(e) => setNote(e.target.value)}
+                    placeholder="用自己的话写下解法与边界…"
+                  />
+                </Field>
+                <Button
+                  disabled={savingNote}
+                  onClick={async () => {
+                    setSavingNote(true);
+                    try {
+                      await api('/question-progress', { questionId, note });
+                      await refresh();
+                      notify('笔记已保存');
+                    } catch (e) {
+                      notify((e as Error).message, true);
+                    } finally {
+                      setSavingNote(false);
+                    }
+                  }}
+                >
+                  保存笔记
+                </Button>
                 <ol className="tips">
                   <li>合上题解，用自己的话复述不变量。</li>
                   <li>在空白编辑器里实现，不照抄。</li>
@@ -339,7 +421,7 @@ export function Coding({
               value={code}
               onChange={(e) => edit(e.target.value)}
               spellCheck={false}
-              disabled={busy}
+              disabled={busy || loading}
               onKeyDown={(e) => {
                 if (e.key === 'Tab') {
                   e.preventDefault();
@@ -361,13 +443,21 @@ export function Coding({
                 停止
               </Button>
             ) : (
-              <Button primary onClick={run}>
+              <Button primary onClick={run} disabled={loading || !!loadError}>
                 <Play size={15} />
                 运行并提交
               </Button>
             )}
           </div>
           <div className="test-panel">
+            {loading && (
+              <p role="status">
+                {loadError || '正在载入题目模板与题解…'}
+                {loadError && (
+                  <Button onClick={() => setReloadAttempt(reloadAttempt + 1)}>重新加载</Button>
+                )}
+              </p>
+            )}
             <div className="flex-between">
               <h3>
                 测试结果{' '}

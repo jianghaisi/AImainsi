@@ -1,0 +1,78 @@
+{
+  "number": "239",
+  "adapter": {
+    "name": "maxSlidingWindow",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "239"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          3,
+          -1,
+          -3,
+          5,
+          3,
+          6,
+          7
+        ],
+        3
+      ],
+      "expected": [
+        3,
+        3,
+        5,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number[]}\n */\nvar maxSlidingWindow = function(nums, k) {\n    \n};",
+    "java": "class Solution {\n    public int[] maxSlidingWindow(int[] nums, int k) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> maxSlidingWindow(vector<int>& nums, int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:\n        output = []\n        q = collections.deque()  # index\n        l = r = 0\n        # O(n) O(n)\n        while r < len(nums):\n            # pop smaller values from q\n            while q and nums[q[-1]] < nums[r]:\n                q.pop()\n            q.append(r)\n\n            # remove left val from window\n            if l > q[0]:\n                q.popleft()\n\n            if (r + 1) >= k:\n                output.append(nums[q[0]])\n                l += 1\n            r += 1\n\n        return output\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number[]}\n */\nfunction Node(value) {\n  this.value = value;\n  this.prev = null;\n  this.next = null;\n}\nfunction Deque() {\n  this.left = null;\n  this.right = null;\n  this.size = 0;\n  this.pushRight = function (value) {\n    const node = new Node(value);\n    if (this.size == 0) {\n      this.left = node;\n      this.right = node;\n    } else {\n      this.right.next = node;\n      node.prev = this.right;\n      this.right = node;\n    }\n    this.size++;\n    return this.size;\n  };\n  this.popRight = function () {\n    if (this.size == 0) return null;\n    const removedNode = this.right;\n    this.right = this.right.prev;\n    if (this.right) this.right.next = null;\n    this.size--;\n    return removedNode;\n  };\n  this.pushLeft = function (value) {\n    const node = new Node(value);\n    if (this.size == 0) {\n      this.left = node;\n      this.right = node;\n    } else {\n      this.left.prev = node;\n      node.next = this.left;\n      this.left = node;\n    }\n    this.size++;\n    return this.size;\n  };\n  this.popLeft = function () {\n    if (this.size == 0) return null;\n    const removedNode = this.left;\n    this.left = this.left.next;\n    if (this.left) this.left.prev = null;\n    this.size--;\n    return removedNode;\n  };\n}\nvar maxSlidingWindow = function (nums, k) {\n  const output = [];\n  let deque = new Deque();\n  let left = 0;\n  let right = 0;\n  while (right < nums.length) {\n    // pop smaller values from q\n    while (deque.right && nums[deque.right.value] < nums[right]) deque.popRight();\n    deque.pushRight(right);\n\n    // remove left val from window\n    if (left > deque.left.value) deque.popLeft();\n    if (right + 1 >= k) {\n      output.push(nums[deque.left.value]);\n      left++;\n    }\n    right++;\n  }\n  return output;\n};\n\n/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number[]}\n */\n\n// Deque Implementation using Lazy Deletion\nclass LazyDeletionDeque {\n  constructor() {\n    this.deque = [];\n    this.leftIdx = 0;\n  }\n  isEmpty = () => {\n    return this.deque.length === this.leftIdx;\n  };\n  push = num => {\n    this.deque.push(num);\n  };\n  popFront = () => {\n    this.leftIdx++;\n  };\n  popBack = () => {\n    !this.isEmpty() && this.deque.pop();\n  };\n  front = () => {\n    return this.deque[this.leftIdx];\n  };\n  back = () => {\n    return this.deque[this.deque.length - 1];\n  };\n}\nvar maxSlidingWindowWithLazyDeletionDeque = function (nums, k) {\n  const deque = new LazyDeletionDeque();\n  const answer = [];\n  let leftWindow = 0;\n  for (let rightWindow = 0; rightWindow < nums.length; rightWindow++) {\n    const rightNum = nums[rightWindow];\n    while (!deque.isEmpty() && rightNum > deque.back()) {\n      deque.popBack();\n    }\n    deque.push(rightNum);\n    if (rightWindow >= k - 1) {\n      const dequeFront = deque.front();\n      const leftNum = nums[leftWindow];\n      if (leftNum === dequeFront) {\n        deque.popFront();\n      }\n      answer.push(dequeFront);\n      leftWindow++;\n    }\n  }\n  return answer;\n};",
+    "java": "class Solution {\n\n    public int[] maxSlidingWindow(int[] nums, int k) {\n        int[] ans = new int[nums.length - k + 1];\n        int j = 0;\n        Deque<Integer> q = new LinkedList<>();\n        for (int i = 0; i < nums.length; i++) {\n            if (!q.isEmpty() && q.peekFirst() < i - k + 1) q.pollFirst();\n            while (!q.isEmpty() && nums[i] > nums[q.peekLast()]) q.pollLast();\n            q.offer(i);\n            if (i >= k - 1) ans[j++] = nums[q.peekFirst()];\n        }\n        return ans;\n    }\n}\n",
+    "cpp": "/*\n    Given int array & sliding window size k, return max sliding window\n    Ex. nums = [1,3,-1,-3,5,3,6,7] k = 3 -> [3,3,5,5,6,7]\n\n    Sliding window deque, ensure monotonic decr, leftmost largest\n\n    Time: O(n)\n    Space: O(n)\n*/\n\nclass Solution {\npublic:\n    vector<int> maxSlidingWindow(vector<int>& nums, int k) {\n        deque<int> dq;\n        vector<int> result;\n        \n        int i = 0;\n        int j = 0;\n        \n        while (j < nums.size()) {\n            while (!dq.empty() && nums[dq.back()] < nums[j]) {\n                dq.pop_back();\n            }\n            dq.push_back(j);\n            \n            if (i > dq.front()) {\n                dq.pop_front();\n            }\n            \n            if (j + 1 >= k) {\n                result.push_back(nums[dq.front()]);\n                i++;\n            }\n            j++;\n        }\n        \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0239-sliding-window-maximum.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0239-sliding-window-maximum.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0239-sliding-window-maximum.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0239-sliding-window-maximum.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "给定数组和合法窗口长度 k，返回每个连续长度为 k 的窗口最大值。",
+  "explanation": "单调队列保存下标，队头移除过期项，队尾移除不大于新值的项。每个下标最多进出一次。",
+  "memory": "队头管过期，队尾管单调；存下标而不是只存值。"
+}

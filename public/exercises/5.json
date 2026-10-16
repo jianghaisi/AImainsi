@@ -1,0 +1,52 @@
+{
+  "number": "5",
+  "adapter": {
+    "name": "longestPalindrome",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "5"
+  },
+  "tests": [
+    {
+      "input": [
+        "babad"
+      ],
+      "expected": "bab"
+    },
+    {
+      "input": [
+        "cbbd"
+      ],
+      "expected": "bb"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def longestPalindrome(self, s: str) -> str:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @return {string}\n */\nvar longestPalindrome = function(s) {\n    \n};",
+    "java": "class Solution {\n    public String longestPalindrome(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string longestPalindrome(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "\nclass Solution:\n    def longestPalindrome(self, s: str) -> str:\n        self.res = \"\"\n        self.lenres = 0\n        for i in range(len(s)):\n            s1 = self.helper(s, i, i)\n            s2 = self.helper(s, i, i + 1)\n        return s2\n        \n    def helper(self, s, left, right):\n            while left >= 0 and right < len(s) and s[left] == s[right]:\n                if (right - left + 1) > self.lenres:\n                    self.res = s[left:right+1]\n                    self.lenres = right - left + 1\n                left -= 1\n                right += 1\n            return self.res\n\n\n",
+    "javascript": "/**\n * Expand Around Center\n * Time O(N^2) | Space O(1)\n * https://leetcode.com/problems/longest-palindromic-substring/\n * @param {string} s\n * @return {string}\n */\nvar longestPalindrome = s => {\n  const isEmpty = s.length === 0;\n  if (isEmpty) return '';\n  const [left, right] = search(s); /* Time O(N * N) */\n\n  return s.slice(left, right + 1); /* Time O(N * N) | Ignore Auxillary Space (N) */\n};\nconst search = (s, left = 0, right = 0) => {\n  for (let index = 0; index < s.length; index++) {\n    /* Time O(N) */\n    const len1 = getLength(s, index, index); /* Time O(N) */\n    const len2 = getLength(s, index, index + 1); /* Time O(N) */\n    const [length, window] = [Math.max(len1, len2), right - left];\n    const canSkip = length <= window;\n    if (canSkip) continue;\n    left = index - (length - 1 >> 1);\n    right = index + (length >> 1);\n  }\n  return [left, right];\n};\nconst getLength = (s, left, right) => {\n  const canExpand = () => 0 <= left && right < s.length;\n  const isSame = () => s[left] === s[right];\n  const isPalindrome = () => canExpand() && isSame();\n  while (isPalindrome()) {\n    left--;\n    right++;\n  } /* Time O(N) */\n\n  const window = right - left - 1;\n  return window;\n};",
+    "java": "// Solution: Expanding Around Center\n\n// Time Complexity: O(n^2)\n// Extra Space Complexity: O(1)\n\nclass Solution1 {\n\n    public String longestPalindrome(String s) {\n        int strLength = s.length();\n\n        if (strLength < 2) {\n            return s;\n        }\n\n        int resultLength = 0;\n        String result = \"\";\n\n        for (int i = 0; i < s.length(); i++) {\n            //Odd length\n            int left = i, right = i;\n            while (\n                left >= 0 &&\n                right < s.length() &&\n                s.charAt(left) == s.charAt(right)\n            ) {\n                if ((right - left + 1) > resultLength) {\n                    result = s.substring(left, right + 1);\n                    resultLength = right - left + 1;\n                }\n                left -= 1;\n                right += 1;\n            }\n\n            // even length\n            left = i;\n            right = i + 1;\n            while (\n                left >= 0 &&\n                right < s.length() &&\n                s.charAt(left) == s.charAt(right)\n            ) {\n                if ((right - left + 1) > resultLength) {\n                    result = s.substring(left, right + 1);\n                    resultLength = right - left + 1;\n                }\n                left -= 1;\n                right += 1;\n            }\n        }\n\n        return result;\n    }\n}\n\n// Solution: A more Optimized Expand Around Center\n\n// TIme Complexity: O(n^2)\n// Extra Space Complexity: O(1)\n\nclass Solution2 {\n\n    public String longestPalindrome(String s) {\n        int best = 0;\n        int start = 0, end = 0;\n\n        for (int i = 0; i < s.length(); i++) {\n            int left = i - 1;\n            while (i < s.length() - 1 && s.charAt(i) == s.charAt(i + 1)) {\n                ++i;\n            }\n\n            int right = i + 1;\n            while (\n                left >= 0 &&\n                right < s.length() &&\n                s.charAt(left) == s.charAt(right)\n            ) {\n                --left;\n                ++right;\n            }\n\n            if (right - left > best) {\n                best = right - left;\n                start = left + 1;\n                end = right;\n            }\n        }\n\n        return s.substring(start, end);\n    }\n}\n\n// Solution: Dynamic Programming\n\n// Time Complexity: O(n^2)\n// Extra Spce Complexity: O(n^2)\n\nclass Solution3 {\n\n    public String longestPalindrome(String s) {\n        int len = s.length();\n        int left = 0, right = 1, max = 0;\n\n        var isPalindrome = new boolean[len][len];\n\n        for (int i = len - 1; i >= 0; i--) {\n            for (int j = i; j < len; j++) {\n                if (i == j) {\n                    isPalindrome[i][j] = true;\n                } else if (s.charAt(i) == s.charAt(j)) {\n                    if (j - i == 1) {\n                        isPalindrome[i][j] = true;\n                    } else {\n                        isPalindrome[i][j] = isPalindrome[i + 1][j - 1];\n                    }\n                }\n\n                if (isPalindrome[i][j] && j - i + 1 > max) {\n                    max = j - i + 1;\n                    left = i;\n                    right = j + 1;\n                }\n            }\n        }\n\n        return s.substring(left, right);\n    }\n}\n",
+    "cpp": "/*\n    Given a string s, return the longest palindromic substring in s\n    Ex. s = \"babad\" -> \"bab\", s = \"cbbd\" -> \"bb\"\n\n    Expand around center, extend as far as possible, store max length\n\n    Time: O(n^2)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    string longestPalindrome(string s) {\n        int maxStart = 0;\n        int maxLength = 1;\n        \n        for (int i = 0; i < s.size() - 1; i++) {\n            middleOut(s, i, i, maxStart, maxLength);\n            middleOut(s, i, i + 1, maxStart, maxLength);\n        }\n        \n        return s.substr(maxStart, maxLength);\n    }\nprivate:\n    void middleOut(string s, int i, int j, int& maxStart, int& maxLength) {\n        while (i >= 0 && j <= s.size() - 1 && s[i] == s[j]) {\n            i--;\n            j++;\n        }\n        if (j - i - 1 > maxLength) {\n            maxStart = i + 1;\n            maxLength = j - i - 1;\n        }\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0005-longest-palindromic-substring.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0005-longest-palindromic-substring.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0005-longest-palindromic-substring.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0005-longest-palindromic-substring.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "求字符串中的最长连续回文子串；存在多个时返回任意一个。",
+  "explanation": "枚举奇数、偶数两种中心，向两侧扩展并记录最长合法区间。O(n²) 时间、O(1) 额外空间。",
+  "memory": "回文中心可能是一个字符，也可能是两个字符之间。"
+}

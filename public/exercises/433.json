@@ -1,0 +1,64 @@
+{
+  "number": "433",
+  "adapter": {
+    "name": "minMutation",
+    "params": [
+      {
+        "name": "startGene",
+        "type": "string"
+      },
+      {
+        "name": "endGene",
+        "type": "string"
+      },
+      {
+        "name": "bank",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "433"
+  },
+  "tests": [
+    {
+      "input": [
+        "AACCGGTT",
+        "AACCGGTA",
+        [
+          "AACCGGTA"
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "AACCGGTT",
+        "AAACGGTA",
+        [
+          "AACCGGTA",
+          "AACCGCTA",
+          "AAACGGTA"
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def minMutation(self, startGene: str, endGene: str, bank: List[str]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} startGene\n * @param {string} endGene\n * @param {string[]} bank\n * @return {number}\n */\nvar minMutation = function(startGene, endGene, bank) {\n    \n};",
+    "java": "class Solution {\n    public int minMutation(String startGene, String endGene, String[] bank) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minMutation(string startGene, string endGene, vector<string>& bank) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def minMutation(self,startGene,endGene,bank):\n        available=set(bank);queue=deque([(startGene,0)]);seen={startGene}\n        while queue:\n            word,distance=queue.popleft()\n            if word==endGene:return distance\n            for i in range(len(word)):\n                for char in 'ACGT':\n                    next_word=word[:i]+char+word[i+1:]\n                    if next_word in available and next_word not in seen:seen.add(next_word);queue.append((next_word,distance+1))\n        return -1\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "每次改变基因串的一个字符，且中间状态必须在基因库中，求最少变更数。",
+  "explanation": "把合法基因看作图节点，用 BFS 找最短路径。",
+  "memory": "无权最短路用 BFS，入队就标记已访问。"
+}

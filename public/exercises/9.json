@@ -1,0 +1,58 @@
+{
+  "number": "9",
+  "adapter": {
+    "name": "isPalindrome",
+    "params": [
+      {
+        "name": "x",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "9"
+  },
+  "tests": [
+    {
+      "input": [
+        121
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        -121
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        10
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def isPalindrome(self, x: int) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} x\n * @return {boolean}\n */\nvar isPalindrome = function(x) {\n    \n};",
+    "java": "class Solution {\n    public boolean isPalindrome(int x) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isPalindrome(int x) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def isPalindrome(self, x: int) -> bool:\n        if x < 0: return False\n        \n        div = 1\n        while x >= 10 * div:\n            div *= 10\n            \n        while x:\n            right = x % 10\n            left = x // div\n            \n            if left != right: return False\n            \n            x = (x % div) // 10\n            div = div / 100\n        return True\n",
+    "javascript": "// Runtime: 302 ms, faster than 40.50% of JavaScript online submissions for Palindrome Number.\n// Memory Usage: 51.8 MB, less than 8.36% of JavaScript online submissions for Palindrome Number.\n\n/**\n * Reverse Integer Using Modulo\n * Time O(N) | Space O(1)\n * https://leetcode.com/problems/palindrome-number/\n * @param {number} x\n * @return {boolean}\n */\nvar isPalindrome = function (x) {\n  if (x < 0) return false;\n  const inputX = x;\n  let revX = 0;\n  while (x > 0) {\n    revX += x % 10;\n    x = Math.floor(x / 10);\n    if (x > 0) revX *= 10;\n  }\n  return revX === inputX;\n};",
+    "java": "class Solution {\n    public boolean isPalindrome(int x) {\n        if(x < 0) return false;\n        \n        long div = 1;\n        while(x >= 10 * div)\n            div *= 10;\n        \n        while(x > 0) {\n            if(x / div != x % 10) return false;\n            x = (int)((x % div) / 10);\n            div = div / 100;\n        }\n        return true;\n    }\n}\n",
+    "cpp": "class Solution {\npublic:\n    bool isPalindrome(int x) {\n        if(x < 0) return false;\n        \n        long div = 1;\n        while(x >= 10 * div)\n            div *= 10;\n        \n        while(x) {\n            int right = x % 10;\n            int left = x / div;\n            \n            if(left != right) return false;\n            \n            x = (x % div) / 10;\n            div = div / 100;\n        }\n        return true;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0009-palindrome-number.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0009-palindrome-number.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0009-palindrome-number.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0009-palindrome-number.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断一个整数的十进制表示是否为回文，负数不是回文。",
+  "explanation": "反转后一半数字，与前一半比较，奇数长度忽略中间位。",
+  "memory": "末尾为零且非零本身立即失败；只反转一半避免溢出。"
+}

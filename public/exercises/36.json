@@ -1,0 +1,252 @@
+{
+  "number": "36",
+  "adapter": {
+    "name": "isValidSudoku",
+    "params": [
+      {
+        "name": "board",
+        "type": "character[][]"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "36"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            "5",
+            "3",
+            ".",
+            ".",
+            "7",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            "6",
+            ".",
+            ".",
+            "1",
+            "9",
+            "5",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            "9",
+            "8",
+            ".",
+            ".",
+            ".",
+            ".",
+            "6",
+            "."
+          ],
+          [
+            "8",
+            ".",
+            ".",
+            ".",
+            "6",
+            ".",
+            ".",
+            ".",
+            "3"
+          ],
+          [
+            "4",
+            ".",
+            ".",
+            "8",
+            ".",
+            "3",
+            ".",
+            ".",
+            "1"
+          ],
+          [
+            "7",
+            ".",
+            ".",
+            ".",
+            "2",
+            ".",
+            ".",
+            ".",
+            "6"
+          ],
+          [
+            ".",
+            "6",
+            ".",
+            ".",
+            ".",
+            ".",
+            "2",
+            "8",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            "4",
+            "1",
+            "9",
+            ".",
+            ".",
+            "5"
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            "8",
+            ".",
+            ".",
+            "7",
+            "9"
+          ]
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          [
+            "8",
+            "3",
+            ".",
+            ".",
+            "7",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            "6",
+            ".",
+            ".",
+            "1",
+            "9",
+            "5",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            "9",
+            "8",
+            ".",
+            ".",
+            ".",
+            ".",
+            "6",
+            "."
+          ],
+          [
+            "8",
+            ".",
+            ".",
+            ".",
+            "6",
+            ".",
+            ".",
+            ".",
+            "3"
+          ],
+          [
+            "4",
+            ".",
+            ".",
+            "8",
+            ".",
+            "3",
+            ".",
+            ".",
+            "1"
+          ],
+          [
+            "7",
+            ".",
+            ".",
+            ".",
+            "2",
+            ".",
+            ".",
+            ".",
+            "6"
+          ],
+          [
+            ".",
+            "6",
+            ".",
+            ".",
+            ".",
+            ".",
+            "2",
+            "8",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            "4",
+            "1",
+            "9",
+            ".",
+            ".",
+            "5"
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            "8",
+            ".",
+            ".",
+            "7",
+            "9"
+          ]
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def isValidSudoku(self, board: list[list[str]]) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {character[][]} board\n * @return {boolean}\n */\nvar isValidSudoku = function(board) {\n    \n};",
+    "java": "class Solution {\n    public boolean isValidSudoku(char[][] board) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isValidSudoku(vector<vector<char>>& board) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def isValidSudoku(self, board: List[List[str]]) -> bool:\n        cols = collections.defaultdict(set)\n        rows = collections.defaultdict(set)\n        squares = collections.defaultdict(set)  # key = (r /3, c /3)\n\n        for r in range(9):\n            for c in range(9):\n                if board[r][c] == \".\":\n                    continue\n                if (\n                    board[r][c] in rows[r]\n                    or board[r][c] in cols[c]\n                    or board[r][c] in squares[(r // 3, c // 3)]\n                ):\n                    return False\n                cols[c].add(board[r][c])\n                rows[r].add(board[r][c])\n                squares[(r // 3, c // 3)].add(board[r][c])\n\n        return True\n",
+    "javascript": "var initBoard = (rows, cols) => new Array(rows).fill().map(() => new Array(cols).fill(false));\n/**\n * Array - Fixed Size\n * Time O(ROWS * COLS) | Space O(CELLS)\n * https://leetcode.com/problems/valid-sudoku/\n * @param {character[][]} board\n * @return {boolean}\n */\nvar isValidSudoku = board => {\n  const [boards, cells] = [3, 9];\n  const [boxes, rows, cols] = getBoards(boards, cells); /* Time O(ROWS * COLS) | Space O(CELLS) */\n\n  return searchGrid(board, boxes, rows, cols); /* Time O(ROWS * COLS) | Space O(CELLS) */\n};\nvar getBoards = (boards, cells) => new Array(boards).fill().map(() => new Array(cells).fill(0));\nvar searchGrid = (board, boxes, rows, cols) => {\n  const [_rows, _cols] = [9, 9];\n  for (let row = 0; row < _rows; row++) {\n    /* Time O(ROWS)*/\n    for (let col = 0; col < _cols; col++) {\n      /* Time O(COLS)*/\n      const char = board[row][col];\n      const position = 1 << char - 1;\n      const index = Math.floor(row / 3) * 3 + Math.floor(col / 3);\n      const isEmpty = char === '.';\n      if (isEmpty) continue;\n      const hasMoved = boxes[index] & position || cols[col] & position || rows[row] & position;\n      if (hasMoved) return false;\n      rows[row] |= position; /* Space O(CELLS)*/\n      cols[col] |= position; /* Space O(CELLS)*/\n      boxes[index] |= position; /* Space O(CELLS)*/\n    }\n  }\n  return true;\n};",
+    "java": "class Solution {\n\n    public boolean isValidSudoku(char[][] board) {\n        //neetcode solution, slightly modified\n\n        //a set of the characters that we have already come across (excluding '.' which denotes an empty space)\n        Set<Character> rowSet = null;\n        Set<Character> colSet = null;\n\n\n        for (int i = 0; i < 9; i++) {\n            //reinitialize the sets so we don't carry over found characters from the previous run\n            rowSet = new HashSet<>();\n            colSet = new HashSet<>();\n            for (int j = 0; j < 9; j++) {\n                char r = board[i][j];\n                char c = board[j][i];\n                if (r != '.'){\n                    if (rowSet.contains(r)){\n                        return false;\n                    } else {\n                        rowSet.add(r);\n                    }\n                }\n                if (c != '.'){\n                    if (colSet.contains(c)){\n                        return false;\n                    } else {\n                        colSet.add(c);\n                    }\n                }\n            }\n        }\n\n        //block\n        //loop controls advance by 3 each time to jump through the boxes\n        for (int i = 0; i < 9; i = i + 3) {\n            for (int j = 0; j < 9; j = j + 3) {\n                //checkBlock will return true if valid\n                if (!checkBlock(i, j, board)) {\n                    return false;\n                }\n            }\n        }\n        //passed all tests, therefore valid board\n        return true;\n    }\n\n    public boolean checkBlock(int idxI, int idxJ, char[][] board) {\n        Set<Character> blockSet = new HashSet<>();\n        //if idxI = 3 and indJ = 0\n        //rows = 6 and cols = 3\n        int rows = idxI + 3;\n        int cols = idxJ + 3;\n        //and because i initializes to idxI but only goes to rows, we loop 3 times (once for each row)\n        for (int i = idxI; i < rows; i++) {\n            //same for columns\n            for (int j = idxJ; j < cols; j++) {\n                if (board[i][j] == '.') {\n                    continue;\n                }\n                \n                if (blockSet.contains(board[i][j])) {\n                    return false;\n                }\n\n                blockSet.add(board[i][j]);\n            }\n        }\n\n        return true;\n    }\n}\n",
+    "cpp": "/*\n    Determine if a 9x9 Sudoku board is valid (no repeats)\n\n    Boolean matrices to store seen values. Check rows, cols, 3x3 sub-boxes\n\n    Time: O(cnt^2)\n    Space: O(cnt^2)\n*/\n\nclass Solution {\npublic:\n    bool isValidSudoku(vector<vector<char>>& board) {\n        const int cnt = 9;\n        bool row[cnt][cnt] = {false};\n        bool col[cnt][cnt] = {false};\n        bool sub[cnt][cnt] = {false};\n        \n        for(int r = 0; r < cnt; ++r){\n            for(int c = 0; c < cnt; ++c){\n                if(board[r][c] == '.')\n                    continue; // if not number pass\n                \n                int idx = board[r][c] - '0' - 1; //char to num idx\n                int area = (r/3) * 3 + (c/3);\n                \n                //if number already exists\n                if(row[r][idx] || col[c][idx] || sub[area][idx]){\n                    return false;\n                }\n                \n                row[r][idx] = true;\n                col[c][idx] = true;\n                sub[area][idx] = true;\n            }\n        }\n        return true;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0036-valid-sudoku.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0036-valid-sudoku.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0036-valid-sudoku.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0036-valid-sudoku.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "检查 9×9 数独现有数字是否符合行、列、宫均不重复的规则。",
+  "explanation": "用三组集合记录数字，宫索引为 row//3*3+col//3。",
+  "memory": "只验证已填数字，不要求当前棋盘一定可解。"
+}

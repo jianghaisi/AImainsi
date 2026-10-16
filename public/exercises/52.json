@@ -1,0 +1,52 @@
+{
+  "number": "52",
+  "adapter": {
+    "name": "totalNQueens",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "52"
+  },
+  "tests": [
+    {
+      "input": [
+        4
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        1
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def totalNQueens(self, n: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} n\n * @return {number}\n */\nvar totalNQueens = function(n) {\n    \n};",
+    "java": "class Solution {\n    public int totalNQueens(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int totalNQueens(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def totalNQueens(self, n: int) -> int:\r\n        answer = 0\r\n\r\n        cols = set()\r\n        posdiag = set()\r\n        negdiag = set()\r\n\r\n        def backtrack(i):\r\n            if i == n:\r\n                nonlocal answer\r\n                answer += 1\r\n                return\r\n            \r\n            for j in range(n):\r\n                if j in cols or (i+j) in posdiag or (i-j) in negdiag:\r\n                    continue\r\n\r\n                cols.add(j)\r\n                posdiag.add(i+j)\r\n                negdiag.add(i-j)\r\n\r\n                backtrack(i+1)\r\n                \r\n                cols.remove(j)\r\n                posdiag.remove(i+j)\r\n                negdiag.remove(i-j)\r\n        \r\n        backtrack(0)\r\n        return answer",
+    "javascript": "var totalNQueens = function (n) {\n  let col = new Set();\n  let posDiag = new Set(); // (r + c)\n  let negDiag = new Set(); // (r - c)\n\n  let board = new Array(n).fill().map(() => new Array(n).fill('.'));\n  let res = 0;\n  function backtrack(r) {\n    if (r === n) {\n      res += 1;\n      return;\n    }\n    for (let c = 0; c < n; c++) {\n      if (col.has(c) || posDiag.has(r + c) || negDiag.has(r - c)) {\n        continue;\n      }\n      col.add(c);\n      posDiag.add(r + c);\n      negDiag.add(r - c);\n      backtrack(r + 1);\n      col.delete(c);\n      posDiag.delete(r + c);\n      negDiag.delete(r - c);\n    }\n  }\n  backtrack(0);\n  return res;\n};",
+    "java": "class Solution {\n    int count = 0;\n\n    public int totalNQueens(int n) {\n        Set<Integer> colSet = new HashSet<>();\n        Set<Integer> posDiagSet = new HashSet<>(); // (r + c)\n        Set<Integer> negDiagSet = new HashSet<>(); // (r - c)\n        backtrack(0, n, colSet, posDiagSet, negDiagSet);\n        return count;\n    }\n\n    private void backtrack(\n            int row,\n            int n,\n            Set<Integer> colSet,\n            Set<Integer> posDiagSet,\n            Set<Integer> negDiagSet) {\n        if (row == n) {\n            count += 1;\n            return;\n        }\n\n        for (int col = 0; col < n; col++) {\n            if (colSet.contains(col)\n                    || posDiagSet.contains(row + col)\n                    || negDiagSet.contains(row - col)) {\n                continue;\n            }\n            colSet.add(col);\n            posDiagSet.add(row + col);\n            negDiagSet.add(row - col);\n            backtrack(row + 1, n, colSet, posDiagSet, negDiagSet);\n            colSet.remove(col);\n            posDiagSet.remove(row + col);\n            negDiagSet.remove(row - col);\n        }\n    }\n}\n",
+    "cpp": "class Solution {\npublic:\n    int queen[9];\n    bool check(int &r,int &c,int n){\n        for(int i=0;i<r;i++){\n            // here we have to check from before rows any queen(queen[i]) is placed to attk the cur level queen;\n            int pre_row=i; // previous row\n            int pre_col=queen[i]; // previous col is stored in queen[i]\n            // checking for col collison as rows cant be && and for diagonal attk\n            if(pre_col==c or abs(r-pre_row)==abs(c-pre_col)) return false;\n        }\n        return true;\n    }\n    int bt(int level,int n){\n        // base conditon\n        \n        if(level==n) return 1;\n        // return 1 as u made a board and placing queens from 0 to n-1 so u came out of board\n        \n        int ans=0;\n        // exploring choices and computation\n        for(int col=0;col<n;col++){\n            if(check(level,col,n)){\n                // check\n                queen[level]=col;\n                // move\n                ans+=bt(level+1,n);\n                queen[level]=-1;\n            }\n        }\n        // return count of ways to place queen from this row to n-1/ last row\n        return ans;\n    }\n    int totalNQueens(int n) {\n        memset(queen,-1,sizeof(queen));\n        return bt(0,n);\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0052-n-queens-ii.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0052-n-queens-ii.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0052-n-queens-ii.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0052-n-queens-ii.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "在 n×n 棋盘放置 n 个互不攻击的皇后，返回方案数量。",
+  "explanation": "逐行搜索，用列和两类对角线集合检查冲突。",
+  "memory": "对角线由行减列、行加列标识；只计数即可。"
+}

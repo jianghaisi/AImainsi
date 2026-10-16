@@ -1,0 +1,59 @@
+{
+  "number": "383",
+  "adapter": {
+    "name": "canConstruct",
+    "params": [
+      {
+        "name": "ransomNote",
+        "type": "string"
+      },
+      {
+        "name": "magazine",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "383"
+  },
+  "tests": [
+    {
+      "input": [
+        "a",
+        "b"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aa",
+        "ab"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aa",
+        "aab"
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def canConstruct(self, ransomNote: str, magazine: str) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} ransomNote\n * @param {string} magazine\n * @return {boolean}\n */\nvar canConstruct = function(ransomNote, magazine) {\n    \n};",
+    "java": "class Solution {\n    public boolean canConstruct(String ransomNote, String magazine) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool canConstruct(string ransomNote, string magazine) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "from collections import Counter\n\nclass Solution:\n    def canConstruct(self, ransomNote: str, magazine: str) -> bool:\n        r_counter = Counter(ransomNote)\n        m_counter = Counter(magazine)\n        # magazine contains (>=) ransomNote\n        for c in ransomNote:\n            if m_counter[c] < r_counter[c]:\n                return False\n        return True\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0383-ransom-note.py"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断能否用材料字符串中的字符组成目标字符串，每个字符只能使用一次。",
+  "explanation": "统计材料字符频次，消耗目标字符，出现负数就失败。O(n+m)。",
+  "memory": "字符可重排，但不能重复消费。"
+}

@@ -1,0 +1,58 @@
+{
+  "number": "62",
+  "adapter": {
+    "name": "uniquePaths",
+    "params": [
+      {
+        "name": "m",
+        "type": "integer"
+      },
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "62"
+  },
+  "tests": [
+    {
+      "input": [
+        3,
+        7
+      ],
+      "expected": 28
+    },
+    {
+      "input": [
+        3,
+        2
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def uniquePaths(self, m: int, n: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} m\n * @param {number} n\n * @return {number}\n */\nvar uniquePaths = function(m, n) {\n    \n};",
+    "java": "class Solution {\n    public int uniquePaths(int m, int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int uniquePaths(int m, int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def uniquePaths(self, m: int, n: int) -> int:\n        row = [1] * n\n\n        for i in range(m - 1):\n            newRow = [1] * n\n            for j in range(n - 2, -1, -1):\n                newRow[j] = newRow[j + 1] + row[j]\n            row = newRow\n        return row[0]\n\n        # O(n * m) O(n)\n",
+    "javascript": "var getMemo = (row, col) => new Array(row + 1).fill() /* Time O(ROWS)| Space O(ROWS) */.map(() => new Array(col + 1).fill(0)); /* Time O(COLS)| Space O(COLS) */\n\nvar dfs = (row, col, memo) => {\n  const left = uniquePaths(row - 1, col, memo); /* Time O(ROWS * COLS) | Space O(HEIGHT) */\n  const right = uniquePaths(row, col - 1, memo); /* Time O(ROWS * COLS) | Space O(HEIGHT) */\n\n  memo[row][col] = left + right; /*                     | Space O(ROWS * COLS) */\n  return memo[row][col];\n};\n\n/**\n * DP - Bottom Up\n * Matrix - Tabulation\n * Time O(ROWS * COLS) | Space O(ROWS * COLS)\n * https://leetcode.com/problems/unique-paths/\n * @param {number} row\n * @param {number} col\n * @return {number}\n */\n\n/**\n * DP - Bottom Up\n * Array - Tabulation\n * Time O(ROWS * COLS) | Space O(COLS)\n * https://leetcode.com/problems/unique-paths/\n * @param {number} m\n * @param {number} n\n * @return {number}\n */\nvar uniquePaths = (row, col) => {\n  const tabu = initTabu(col); /* Time O(COLS)        | Space O(COLS) */\n\n  search(row, col, tabu); /* Time O(ROWS * COLS) | Space O(COLS) */\n\n  return tabu[col - 1];\n};\nvar initTabu = col => new Array(col).fill(1); /* Time O(COLS) | Space O(COLS) */\n\nvar search = (row, col, tabu) => {\n  for (let _row = 1; _row < row; _row++) {\n    /* Time O(ROWS) */\n    for (let _col = 1; _col < col; _col++) {\n      /* Time O(COLS) */\n      const prev = tabu[_col - 1];\n      tabu[_col] += prev; /* Space O(COLS) */\n    }\n  }\n};",
+    "java": "class Solution {\n\n    // Dynamic programming: TC = O(m*n), SC = O(m*n)\n    public int uniquePaths(int m, int n) {\n        int[][] dp = new int[m][n];\n\n        // Fill out last row\n        for (int j = 0; j < n; j++) {\n            dp[m - 1][j] = 1;\n        }\n\n        // Fill out last column\n        for (int i = 0; i < m; i++) {\n            dp[i][n - 1] = 1;\n        }\n\n        for (int i = m - 2; i >= 0; i--) {\n            for (int j = n - 2; j >= 0; j--) {\n                dp[i][j] = dp[i][j + 1] + dp[i + 1][j];\n            }\n        }\n        return dp[0][0];\n    }\n\n    // Dynamic programming: TC = O(m*n), SC = O(min(m,n))\n    public int uniquePaths2(int m, int n) {\n        if (m <= 0 || n <= 0) return 0;\n\n        int[] dp = new int[n];\n        for (int i = 0; i < n; i++)\n            dp[i] = 1;\n\n        for (int i = 1; i < m; i++)\n            for (int j = 1; j < n; j++)\n                dp[j] += dp[j - 1];\n\n        return dp[n - 1];\n    }\n\n    // Combinatorics: TC = O(min(m,n)), SC = O(1)\n    // result = C(m + n, n) = (m + n)! / (m! * n!)\n    public int uniquePaths3(int m, int n) {\n        if (m <= 0 || n <= 0) return 0;\n\n        if (m < n) return uniquePaths3(n, m);\n\n        m--;\n        n--;\n        long res = 1;\n        for (int i = 1; i <= n; i++) {\n            res *= (m + i);\n            res /= i;\n        }\n        return (int)res;\n    }\n}\n",
+    "cpp": "/*\n    Given grid, return # of unique paths from top-left to bottom-right\n    Ex. m = 3, n = 2 -> 3 unique paths (R->D->D, D->D->R, D->R->D)\n\n    DP: edges have 1 unique path, inner cells consider where it comes from\n    Recurrence relation: grid[i][j] = grid[i-1][j] + grid[i][j-1]\n\n    Time: O(m x n)\n    Space: O(m x n)\n*/\n\nclass Solution {\npublic:\n    int uniquePaths(int m, int n) {\n        vector<vector<int>> grid(m, vector<int>(n, 0));\n        \n        for (int i = 0; i < m; i++) {\n            grid[i][0] = 1;\n        }\n        for (int j = 0; j < n; j++) {\n            grid[0][j] = 1;\n        }\n        for (int i = 1; i < m; i++) {\n            for (int j = 1; j < n; j++) {\n                grid[i][j] = grid[i - 1][j] + grid[i][j - 1];\n            }\n        }\n        \n        return grid[m - 1][n - 1];\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0062-unique-paths.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0062-unique-paths.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0062-unique-paths.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0062-unique-paths.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "机器人从 m×n 网格左上角到右下角，每次只能向右或向下，求路径数。",
+  "explanation": "到某格的路径数等于上方与左方的路径数之和，首行首列只有一种到达方式。",
+  "memory": "按最后一步来源求和，滚动数组可把空间降到一行。"
+}

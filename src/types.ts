@@ -38,6 +38,20 @@ export interface TestCase {
   expected: unknown;
 }
 export interface Question {
+  number?: string;
+  slug?: string;
+  englishTitle?: string;
+  collections?: string[];
+  paidOnly?: boolean;
+  exercisePack?: string;
+  adapter?: {
+    name?: string;
+    classname?: string;
+    systemdesign?: boolean;
+    number: string;
+    [key: string]: unknown;
+  };
+  credits?: Partial<Record<Lang, string>>;
   id: string;
   title: string;
   topic: string;
@@ -106,6 +120,16 @@ export interface Review {
   dueAt: string;
 }
 export interface AppState {
+  catalog: {
+    updatedAt: string;
+    collections: {
+      id: string;
+      name: string;
+      description: string;
+      questionIds: string[];
+      sourceUrl: string;
+    }[];
+  };
   settings: Settings;
   resume: { name: string; text: string; updatedAt: string | null };
   profiles: Profile[];
@@ -120,6 +144,10 @@ export interface AppState {
     logs: { at: string; ok: boolean; message: string }[];
   };
   planDone: string[];
+  questionProgress: Record<
+    string,
+    { bookmarked?: boolean; completed?: boolean; note?: string; updatedAt?: string }
+  >;
   growth: { topic: string; count: number; score: number | null }[];
 }
 export type Page =

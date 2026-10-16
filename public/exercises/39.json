@@ -1,0 +1,102 @@
+{
+  "number": "39",
+  "adapter": {
+    "name": "combinationSum",
+    "params": [
+      {
+        "name": "candidates",
+        "type": "integer[]"
+      },
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "list<list<integer>>",
+      "dealloc": true
+    },
+    "number": "39"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          3,
+          6,
+          7
+        ],
+        7
+      ],
+      "expected": [
+        [
+          2,
+          2,
+          3
+        ],
+        [
+          7
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          2,
+          3,
+          5
+        ],
+        8
+      ],
+      "expected": [
+        [
+          2,
+          2,
+          2,
+          2
+        ],
+        [
+          2,
+          3,
+          3
+        ],
+        [
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          2
+        ],
+        1
+      ],
+      "expected": []
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} candidates\n * @param {number} target\n * @return {number[][]}\n */\nvar combinationSum = function(candidates, target) {\n    \n};",
+    "java": "class Solution {\n    public List<List<Integer>> combinationSum(int[] candidates, int target) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:\n        res = []\n\n        def dfs(i, cur, total):\n            if total == target:\n                res.append(cur.copy())\n                return\n            if i >= len(candidates) or total > target:\n                return\n\n            cur.append(candidates[i])\n            dfs(i, cur, total + candidates[i])\n            cur.pop()\n            dfs(i + 1, cur, total)\n\n        dfs(0, [], 0)\n        return res\n",
+    "javascript": "/**\n * https://leetcode.com/problems/combination-sum/\n * Time O(N * ((Target/MIN) + 1)) | Space O(N * (Target/Min))\n * @param {number[]} candidates\n * @param {number} target\n * @return {number[][]}\n */\nvar combinationSum = function (candidates, target, index = 0, combination = [], combinations = []) {\n  const isBaseCase = target < 0;\n  if (isBaseCase) return combinations;\n  const isTarget = target === 0;\n  if (isTarget) return combinations.push(combination.slice());\n  for (let i = index; i < candidates.length; i++) {\n    backTrack(candidates, target, i, combination, combinations);\n  }\n  return combinations;\n};\nconst backTrack = (candidates, target, i, combination, combinations) => {\n  combination.push(candidates[i]);\n  combinationSum(candidates, target - candidates[i], i, combination, combinations);\n  combination.pop();\n};",
+    "java": "class Solution {\n\n    public List<List<Integer>> combinationSum(int[] candidates, int target) {\n        List<List<Integer>> ans = new ArrayList<List<Integer>>();\n        List<Integer> cur = new ArrayList();\n        backtrack(candidates, target, ans, cur, 0);\n        return ans;\n    }\n\n    public void backtrack(\n        int[] candidates,\n        int target,\n        List<List<Integer>> ans,\n        List<Integer> cur,\n        int index\n    ) {\n        if (target == 0) {\n            ans.add(new ArrayList(cur));\n        } else if (target < 0 || index >= candidates.length) {\n            return;\n        } else {\n            cur.add(candidates[index]);\n            backtrack(candidates, target - candidates[index], ans, cur, index);\n\n            cur.remove(cur.get(cur.size() - 1));\n            backtrack(candidates, target, ans, cur, index + 1);\n        }\n    }\n}\n",
+    "cpp": "/*\n    Given distinct int array & a target, return list of all unique combos that sum to target\n    Ex. candidates = [2,3,6,7] target = 7 -> [[2,2,3],[7]]\n\n    Backtracking, generate all combo sums, push/pop + index checking to explore new combos\n\n    Time: O(2^target)\n    Space: O(target)\n*/\n\nclass Solution {\npublic:\n    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {\n        std::vector<int> curr;\n        std::vector<std::vector<int>> res;\n        helper(candidates, target, 0, curr, res);\n        return res;\n    }\nprivate:\n    void helper(std::vector<int>& cands, int target, int i, std::vector<int>& curr,  std::vector<std::vector<int>>& res) {\n        if (i >= cands.size() || target < 0)\n            return;\n\n        if (target == 0) {\n            res.push_back(curr);\n            return;\n        }\n\n        curr.push_back(cands[i]);\n        \n        helper(cands, target - cands[i], i, curr, res);\n\n        curr.pop_back();\n\n        helper(cands, target, i + 1, curr, res);\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0039-combination-sum.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0039-combination-sum.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0039-combination-sum.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0039-combination-sum.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "给定互不重复的正整数候选与目标，返回和为目标的组合，单个候选可重复使用。",
+  "explanation": "按固定索引顺序回溯，选中当前值后仍可从当前位置继续；剩余和为零时收集结果。",
+  "memory": "允许重复就递归仍传当前索引；只向后推进避免排列重复。"
+}

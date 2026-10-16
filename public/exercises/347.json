@@ -1,0 +1,93 @@
+{
+  "number": "347",
+  "adapter": {
+    "name": "topKFrequent",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "347"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          1,
+          1,
+          2,
+          2,
+          3
+        ],
+        2
+      ],
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          1,
+          2,
+          1,
+          2,
+          3,
+          1,
+          3,
+          2
+        ],
+        2
+      ],
+      "expected": [
+        1,
+        2
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def topKFrequent(self, nums: list[int], k: int) -> list[int]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number[]}\n */\nvar topKFrequent = function(nums, k) {\n    \n};",
+    "java": "class Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> topKFrequent(vector<int>& nums, int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def topKFrequent(self, nums: List[int], k: int) -> List[int]:\n        count = {}\n        freq = [[] for i in range(len(nums) + 1)]\n\n        for n in nums:\n            count[n] = 1 + count.get(n, 0)\n        for n, c in count.items():\n            freq[c].append(n)\n\n        res = []\n        for i in range(len(freq) - 1, 0, -1):\n            res += freq[i]\n            if len(res) == k:\n                return res\n                \n\n        # O(n)\n",
+    "javascript": "/**\n * Without Sort\n * Time O(N) | Space O(k)\n * https://leetcode.com/problems/top-k-frequent-elements/\n * @param {number[]} nums\n * @param {number} k\n * @return {number[]}\n */\n\nvar topKFrequent = function (nums, k) {\n  const mp = new Map();\n  const arr = new Array(nums.length + 1).fill(0);\n  const ans = [];\n  nums.forEach(el => {\n    const val = mp.get(el) || 0;\n    mp.set(el, val + 1);\n  });\n  for (let [key, value] of mp) {\n    const prev = arr[value] || [];\n    prev.push(key);\n    arr[value] = prev;\n  }\n  arr.reverse();\n  for (let el of arr) {\n    if (k < 1) break;\n    if (el) {\n      for (let el2 of el) {\n        ans.push(el2);\n        k--;\n      }\n    }\n  }\n  return ans;\n};",
+    "java": "class Solution1 {\n\n    /**\n     * Time Complexity: O(nlog(k))\n     * Space Complexity: O(n)\n     */\n    public int[] topKFrequent(int[] nums, int k) {\n        int[] arr = new int[k];\n        HashMap<Integer, Integer> map = new HashMap<>();\n        for (int num : nums) map.put(num, map.getOrDefault(num, 0) + 1);\n        PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>(\n                (a, b) ->\n            a.getValue() - b.getValue()\n        );\n        for (Map.Entry<Integer, Integer> it : map.entrySet()) {\n            pq.add(it);\n            if (pq.size() > k) pq.poll();\n        }\n        int i = k;\n        while (!pq.isEmpty()) {\n            arr[--i] = pq.poll().getKey();\n        }\n        return arr;\n    }\n}\n\nclass Solution2 {\n\n    /**\n     * Time Complexity: O(n)\n     * Space Complexity: O(n)\n     */\n    public int[] topKFrequent(int[] numbers, int k) {\n        HashMap<Integer, Integer> map = new HashMap<>();\n        for (int number : numbers) map.put(\n            number,\n            map.getOrDefault(number, 0) + 1\n        );\n\n        int size = map.size();\n        int[] keys = new int[size];\n        int i = 0;\n        for (int key : map.keySet()) keys[i++] = key;\n\n        select(keys, map, 0, size - 1, size - k);\n        return Arrays.copyOfRange(keys, size - k, size);\n    }\n\n    // Modified implementation of Hoare's selection algorithm:\n\n    private void select(\n        int[] keys,\n        Map<Integer, Integer> map,\n        int left,\n        int right,\n        int kSmallest\n    ) {\n        while (left != right) {\n            int pivot = partition(keys, map, left, right, (left + right) / 2);\n\n            if (kSmallest == pivot) return;\n\n            if (kSmallest < pivot) right = pivot - 1; else left = pivot + 1;\n        }\n    }\n\n    private int partition(\n        int[] keys,\n        Map<Integer, Integer> map,\n        int left,\n        int right,\n        int pivot\n    ) {\n        int pivotValue = map.get(keys[pivot]);\n        swap(keys, pivot, right);\n        int index = left;\n\n        for (int i = left; i <= right; i++) if (map.get(keys[i]) < pivotValue) {\n            swap(keys, i, index);\n            index++;\n        }\n        swap(keys, right, index);\n        return index;\n    }\n\n    private void swap(int[] array, int i1, int i2) {\n        int temp = array[i1];\n        array[i1] = array[i2];\n        array[i2] = temp;\n    }\n}\nclass Solution3 {\n     /**\n     * Time Complexity: O(n)\n     * Space Complexity: O(n)\n     */\n     public int[] topKFrequent(int[] nums, int k) {\n        Map<Integer, Integer> count = new HashMap<>();\n        List<Integer> bucket[] = new ArrayList[nums.length + 1];                \n        \n        for (int num : nums)\n            count.merge(num, 1, Integer::sum);\n        \n        for (int key : count.keySet()){\n            int freq = count.get(key);\n            if (bucket[freq] == null)\n                bucket[freq] = new ArrayList<>();\n            bucket[freq].add(key);\n        }\n        \n        int index = 0;\n        int[] res = new int[k];\n        for (int i = nums.length; i >= 0; i--)\n            if (bucket[i] != null)\n                for (int val : bucket[i]){\n                    res[index++] = val;\n                    if(index == k)\n                        return res;\n                }\n        return res;\n    }\n       \n",
+    "cpp": "/*\n    Given an integer array nums & an integer k, return the k most frequent elements\n    Ex. nums = [1,1,1,2,2,3] k = 2 -> [1,2], nums = [1] k = 1 -> [1]\n    \n    Heap -> optimize w/ freq map & bucket sort (no freq can be > n), get results from end\n*/\n\n// Time: O(n log k)\n// Space: O(n + k)\n\n// class Solution {\n// public:\n//     vector<int> topKFrequent(vector<int>& nums, int k) {\n//         unordered_map<int, int> m;\n//         for (int i = 0; i < nums.size(); i++) {\n//             m[nums[i]]++;\n//         }\n//         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;\n//         for (auto it = m.begin(); it != m.end(); it++) {\n//             pq.push({it->second, it->first});\n//             if (pq.size() > k) {\n//                 pq.pop();\n//             }\n//         }\n//         vector<int> result;\n//         while (!pq.empty()) {\n//             result.push_back(pq.top().second);\n//             pq.pop();\n//         }\n//         return result;\n//     }\n// };\n\n// Time: O(n)\n// Space: O(n)\n\nclass Solution {\npublic:\n    vector<int> topKFrequent(vector<int>& nums, int k) {\n        int n = nums.size();\n        \n        unordered_map<int, int> m;\n        for (int i = 0; i < n; i++) {\n            m[nums[i]]++;\n        }\n        \n        vector<vector<int>> buckets(n + 1);\n        for (auto it = m.begin(); it != m.end(); it++) {\n            buckets[it->second].push_back(it->first);\n        }\n        \n        vector<int> result;\n        \n        for (int i = n; i >= 0; i--) {\n            if (result.size() >= k) {\n                break;\n            }\n            if (!buckets[i].empty()) {\n                result.insert(result.end(), buckets[i].begin(), buckets[i].end());\n            }\n        }\n        \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0347-top-k-frequent-elements.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0347-top-k-frequent-elements.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0347-top-k-frequent-elements.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0347-top-k-frequent-elements.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "返回出现次数最高的 k 个不同元素，输出顺序不限。",
+  "explanation": "先计数，再用桶、大小 k 的堆或快速选择筛出频次最高项。",
+  "memory": "先把元素问题转成频次问题，再选择前 k 名。"
+}

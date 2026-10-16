@@ -1,0 +1,177 @@
+{
+  "number": "399",
+  "adapter": {
+    "name": "calcEquation",
+    "params": [
+      {
+        "name": "equations",
+        "type": "list<list<string>>"
+      },
+      {
+        "name": "values",
+        "type": "double[]"
+      },
+      {
+        "name": "queries",
+        "type": "list<list<string>>"
+      }
+    ],
+    "return": {
+      "type": "double[]"
+    },
+    "number": "399"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "c"
+          ]
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          [
+            "a",
+            "c"
+          ],
+          [
+            "b",
+            "a"
+          ],
+          [
+            "a",
+            "e"
+          ],
+          [
+            "a",
+            "a"
+          ],
+          [
+            "x",
+            "x"
+          ]
+        ]
+      ],
+      "expected": [
+        6,
+        0.5,
+        -1,
+        1,
+        -1
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "c"
+          ],
+          [
+            "bc",
+            "cd"
+          ]
+        ],
+        [
+          1.5,
+          2.5,
+          5
+        ],
+        [
+          [
+            "a",
+            "c"
+          ],
+          [
+            "c",
+            "b"
+          ],
+          [
+            "bc",
+            "cd"
+          ],
+          [
+            "cd",
+            "bc"
+          ]
+        ]
+      ],
+      "expected": [
+        3.75,
+        0.4,
+        5,
+        0.2
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            "a",
+            "b"
+          ]
+        ],
+        [
+          0.5
+        ],
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "a"
+          ],
+          [
+            "a",
+            "c"
+          ],
+          [
+            "x",
+            "y"
+          ]
+        ]
+      ],
+      "expected": [
+        0.5,
+        2,
+        -1,
+        -1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string[][]} equations\n * @param {number[]} values\n * @param {string[][]} queries\n * @return {number[]}\n */\nvar calcEquation = function(equations, values, queries) {\n    \n};",
+    "java": "class Solution {\n    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def calcEquation(self,equations,values,queries):\n        graph=defaultdict(list)\n        for (a,b),value in zip(equations,values):graph[a].append((b,value));graph[b].append((a,1/value))\n        def query(a,b):\n            if a not in graph or b not in graph:return -1.0\n            stack=[(a,1.0)];seen={a}\n            while stack:\n                node,value=stack.pop()\n                if node==b:return value\n                for neighbor,weight in graph[node]:\n                    if neighbor not in seen:seen.add(neighbor);stack.append((neighbor,value*weight))\n            return -1.0\n        return [query(a,b) for a,b in queries]\n",
+    "java": "class Solution {\n    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {\n        Map<String, List<Pair<String, Double>>> adj = new HashMap<>();\n        for (int i = 0; i < equations.size(); i++) {\n            List<String> equation = equations.get(i);\n            adj.computeIfAbsent(\n                    equation.get(0), k -> new ArrayList<>()).add(\n                            new Pair<>(equation.get(1), values[i]));\n            adj.computeIfAbsent(\n                    equation.get(1), k -> new ArrayList<>()).add(\n                            new Pair<>(equation.get(0), 1 / values[i]));\n        }\n        double[] res = new double[queries.size()];\n        for (int i = 0; i < queries.size(); i++) {\n            List<String> query = queries.get(i);\n            res[i] = bfs(adj, query.get(0), query.get(1));\n        }\n        return res;\n    }\n\n    private double bfs(Map<String, List<Pair<String, Double>>> adj, String src, String target) {\n        if (!adj.containsKey(src) || !adj.containsKey(target)) {\n            return -1.0;\n        }\n        ArrayDeque<Pair<String, Double>> queue = new ArrayDeque<>();\n        Set<String> visited = new HashSet<>();\n        queue.addLast(new Pair<>(src, 1.0));\n        visited.add(src);\n        while (!queue.isEmpty()) {\n            Pair<String, Double> item = queue.pollFirst();\n            String node = item.getKey();\n            Double curWeight = item.getValue();\n            if (node.equals(target)) {\n                return curWeight;\n            }\n            for (Pair<String, Double> neighbor : adj.get(node)) {\n                String nextNode = neighbor.getKey();\n                Double weight = neighbor.getValue();\n                if (!visited.contains(nextNode)) {\n                    queue.addLast(new Pair<>(nextNode, curWeight * weight));\n                    visited.add(nextNode);\n                }\n            }\n        }\n        return -1.0;\n    }\n}\n",
+    "cpp": "class Solution {\n    unordered_map<string, vector<pair<string, double>>> graph;\n    unordered_map<string, bool> visited;\n    double queryAns;\n\npublic:\n    bool dfs(string startNode, string endNode, double runningProduct){\n        if(graph.find(startNode) == graph.end() || graph.find(endNode) == graph.end()) {\n            return false;\n        }\n        \n        if(startNode == endNode && graph.find(startNode)!=graph.end()) {\n            queryAns = runningProduct;\n            return true;\n            \n        }\n        \n        bool tempAns = false;\n        visited[startNode] = true;\n        \n        for(int i = 0; i < graph[startNode].size(); i++){\n            if(!visited[graph[startNode][i].first]){\n                tempAns = dfs(graph[startNode][i].first, endNode, runningProduct*graph[startNode][i].second);\n                if(tempAns){\n                    break;\n                }\n            }\n        }\n        visited[startNode] = false;\n        \n        return tempAns;\n    }\n    \n    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {\n        int n = equations.size(), m = queries.size();\n        vector<double> ans(m);\n        \n        for(int i = 0; i < n ; i++){\n            \n            graph[equations[i][0]].push_back({equations[i][1], values[i]});\n            graph[equations[i][1]].push_back({equations[i][0], 1/values[i]});\n            visited[equations[i][0]] = false;\n            visited[equations[i][1]] = false;\n\n        }\n        \n        for(int i = 0; i < m ; i++){\n            \n            queryAns = 1;\n            bool pathFound = dfs(queries[i][0], queries[i][1], 1);            \n            if(pathFound) ans[i] = queryAns;\n            else ans[i] = -1;\n            \n        }\n        return ans;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0399-evaluate-division.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0399-evaluate-division.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "已知若干变量比值，回答可推导的除法查询，不可推导返回 -1。",
+  "explanation": "构建带权双向图，反向边取倒数，沿路径累乘权重。",
+  "memory": "未知变量即使除以自身也不能假设结果为一。"
+}

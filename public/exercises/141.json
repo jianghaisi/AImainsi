@@ -1,0 +1,92 @@
+{
+  "number": "141",
+  "adapter": {
+    "name": "hasCycle",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      },
+      {
+        "name": "pos",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "manual": true,
+    "languages": [
+      "cpp",
+      "java",
+      "python",
+      "c",
+      "csharp",
+      "javascript",
+      "ruby",
+      "swift",
+      "golang",
+      "python3",
+      "scala",
+      "kotlin",
+      "php",
+      "typescript"
+    ],
+    "number": "141"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          2,
+          0,
+          -4
+        ],
+        1
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1,
+          2
+        ],
+        0
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        -1
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.next = None\n\nclass Solution:\n    def hasCycle(self, head: Optional[ListNode]) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val) {\n *     this.val = val;\n *     this.next = null;\n * }\n */\n\n/**\n * @param {ListNode} head\n * @return {boolean}\n */\nvar hasCycle = function(head) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode(int x) {\n *         val = x;\n *         next = null;\n *     }\n * }\n */\npublic class Solution {\n    public boolean hasCycle(ListNode head) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode(int x) : val(x), next(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    bool hasCycle(ListNode *head) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.next = None\n\n\nclass Solution:\n    def hasCycle(self, head: ListNode) -> bool:\n        slow, fast = head, head\n\n        while fast and fast.next:\n            slow = slow.next\n            fast = fast.next.next\n            if slow == fast:\n                return True\n        return False\n",
+    "javascript": "/**\n * https://leetcode.com/problems/linked-list-cycle/\n * Time O(N) | Space O(1)\n * @param {ListNode} head\n * @return {boolean}\n */\nvar hasCycle = function (head) {\n  let [slow, fast] = [head, head];\n  while (fast && fast.next) {\n    /* Time O(N) */\n    slow = slow.next;\n    fast = fast.next.next;\n    const hasCycle = slow === fast;\n    if (hasCycle) return true;\n  }\n  return false;\n};",
+    "java": "//Fast and slow pointer\n\npublic class Solution {\n\n    public boolean hasCycle(ListNode head) {\n        ListNode fast = head;\n        ListNode slow = head;\n        while (fast != null && fast.next != null) {\n            fast = fast.next.next;\n            slow = slow.next;\n            if (fast == slow) return true;\n        }\n        return false;\n    }\n}\n",
+    "cpp": "/*\n    Given head of a linked list, determine if it has a cycle in it\n\n    Slow/fast pointers, if they ever intersect then there's a cycle\n\n    Time: O(n)\n    Space: O(1)\n*/\n\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode(int x) : val(x), next(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    bool hasCycle(ListNode *head) {\n        if (head == NULL) {\n            return false;\n        }\n        \n        ListNode* slow = head;\n        ListNode* fast = head;\n        \n        while (fast->next != NULL && fast->next->next != NULL) {\n            slow = slow->next;\n            fast = fast->next->next;\n            if (slow == fast) {\n                return true;\n            }\n        }\n        \n        return false;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0141-linked-list-cycle.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0141-linked-list-cycle.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0141-linked-list-cycle.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0141-linked-list-cycle.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断链表是否存在环。输入为节点值数组和尾节点连接的位置 pos，-1 表示无环；pos 由适配器使用，不传给解题函数。",
+  "explanation": "慢指针每次一步，快指针两步。如果有环必然相遇；快指针到达空处则无环。",
+  "memory": "速度差是一格，进入环后迟早追上。"
+}

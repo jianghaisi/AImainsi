@@ -1,0 +1,81 @@
+{
+  "number": "128",
+  "adapter": {
+    "name": "longestConsecutive",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "128"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          100,
+          4,
+          200,
+          1,
+          3,
+          2
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          0,
+          3,
+          7,
+          2,
+          5,
+          8,
+          4,
+          6,
+          0,
+          1
+        ]
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        [
+          1,
+          0,
+          1,
+          2
+        ]
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def longestConsecutive(self, nums: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar longestConsecutive = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int longestConsecutive(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int longestConsecutive(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def longestConsecutive(self, nums: List[int]) -> int:\n        numSet = set(nums)\n        longest = 0\n\n        for n in numSet:\n            # check if its the start of a sequence\n            if (n - 1) not in numSet:\n                length = 1\n                while (n + length) in numSet:\n                    length += 1\n                longest = max(length, longest)\n        return longest\n",
+    "javascript": "const isStreak = (nums, num) => {\n  for (let i = 0; i < nums.length; i++) {\n    /* Time O(N) */\n    const isEqual = nums[i] === num;\n    if (isEqual) return true;\n  }\n  return false;\n};\n\n/**\n * Sort - HeapSort Space O(1) | QuickSort Space O(log(K))\n * Greedy - Max Score\n * Time O (N * log(N)) | Space O(1)\n * https://leetcode.com/problems/longest-consecutive-sequence/\n * @param {number[]} nums\n * @return {number}\n */\n\nconst search = nums => {\n  let [maxScore, score] = [1, 1];\n  for (let i = 1; i < nums.length; i++) {\n    /* Time O(N) */\n    const isPrevDuplicate = nums[i - 1] === nums[i];\n    if (isPrevDuplicate) continue;\n    const isStreak = nums[i] === nums[i - 1] + 1;\n    if (isStreak) {\n      score++;\n      continue;\n    }\n    maxScore = Math.max(maxScore, score);\n    score = 1;\n  }\n  return Math.max(maxScore, score);\n};\n\n/**\n * Hash Set - Intelligent Sequence\n * Greedy - Max Score\n * Time O (N) | Space O(N)\n * https://leetcode.com/problems/longest-consecutive-sequence/\n * @param {number[]} nums\n * @return {number}\n */\nvar longestConsecutive = (nums, maxScore = 0) => {\n  const numSet = new Set(nums); /* Time O(N) | Space O(N) */\n\n  for (const num of [...numSet]) {\n    /* Time O(N) */\n    const prevNum = num - 1;\n    if (numSet.has(prevNum)) continue; /* Time O(N) */\n\n    let [currNum, score] = [num, 1];\n    const isStreak = () => numSet.has(currNum + 1);\n    while (isStreak()) {\n      /* Time O(N) */\n      currNum++;\n      score++;\n    }\n    maxScore = Math.max(maxScore, score);\n  }\n  return maxScore;\n};",
+    "java": "class Solution {\n    public int longestConsecutive(int[] nums) {\n       if (nums.length == 0) return 0;\n       HashSet<Integer> hs = new HashSet<>();\n       for(int num:nums) hs.add(num);\n       int longest =1;\n       for(int num: nums ){\n           //check if the num is the start of a sequence by checking if left exists\n           if(!hs.contains(num-1)){ // start of a sequence\n                int count =1;\n                while(hs.contains(num + 1)){ // check if hs contains next no.\n                    num++;\n                    count++;\n                }\n                longest = Math.max(longest, count);\n                \n           }\n           if(longest > nums.length/2) break;\n\n       }\n       return longest;\n    }\n}\n",
+    "cpp": "/*\n    Given unsorted array, return length of longest consecutive sequence\n    Ex. nums = [100,4,200,1,3,2] -> 4, longest is [1,2,3,4]\n\n    Store in hash set, only check for longer seq if it's the beginning\n\n    Time: O(n)\n    Space: O(n)\n*/\n\n\nclass Solution {\npublic:\n    int longestConsecutive(vector<int>& nums) {\n        unordered_set<int>s(nums.begin(), nums.end());\n        int longest = 0;\n        for(auto &n: s){\n            //if this is the start of the sequence\n            if(!s.count(n - 1)){\n                int length = 1; \n                while(s.count(n + length))\n                    ++length;\n                longest = max(longest, length);\n            } \n\n        }\n        return longest;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0128-longest-consecutive-sequence.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0128-longest-consecutive-sequence.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0128-longest-consecutive-sequence.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0128-longest-consecutive-sequence.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "求整数数组中最长连续整数序列的长度。元素在原数组中无需相邻，重复值不增加长度。",
+  "explanation": "先建集合，只从不存在前驱 x-1 的数开始向后扩展。每条连续链只被完整扫描一次，期望 O(n)。",
+  "memory": "先找“链头”再扩展，避免每个位置重复扫描整段。"
+}

@@ -1,0 +1,58 @@
+{
+  "number": "72",
+  "adapter": {
+    "name": "minDistance",
+    "params": [
+      {
+        "name": "word1",
+        "type": "string"
+      },
+      {
+        "name": "word2",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "72"
+  },
+  "tests": [
+    {
+      "input": [
+        "horse",
+        "ros"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "intention",
+        "execution"
+      ],
+      "expected": 5
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def minDistance(self, word1: str, word2: str) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} word1\n * @param {string} word2\n * @return {number}\n */\nvar minDistance = function(word1, word2) {\n    \n};",
+    "java": "class Solution {\n    public int minDistance(String word1, String word2) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minDistance(string word1, string word2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def minDistance(self, word1: str, word2: str) -> int:\n        dp = [[float(\"inf\")] * (len(word2) + 1) for i in range(len(word1) + 1)]\n\n        for j in range(len(word2) + 1):\n            dp[len(word1)][j] = len(word2) - j\n        for i in range(len(word1) + 1):\n            dp[i][len(word2)] = len(word1) - i\n\n        for i in range(len(word1) - 1, -1, -1):\n            for j in range(len(word2) - 1, -1, -1):\n                if word1[i] == word2[j]:\n                    dp[i][j] = dp[i + 1][j + 1]\n                else:\n                    dp[i][j] = 1 + min(dp[i + 1][j], dp[i][j + 1], dp[i + 1][j + 1])\n        return dp[0][0]\n",
+    "javascript": "var initMemo = (word1, word2) => new Array(word1.length).fill() /* Time O(N) | Space O(N) */.map(() => new Array(word2.length).fill(-1)); /* Time O(N) | Space O(N) */\n\nvar dfs = (word1, word2, i, j, memo) => {\n  const isEqual = word1[i] === word2[j];\n  if (isEqual) {\n    memo[i][j] = minDistance(word1, word2, i + 1, j + 1, memo); /* Time O(N * M) | Space O(HEIGHT) */\n    return memo[i][j];\n  }\n  const insert = minDistance(word1, word2, i, j + 1, memo); /* Time O(N * M) | Space O(HEIGHT) */\n  const _delete = minDistance(word1, word2, i + 1, j, memo); /* Time O(N * M) | Space O(HEIGHT) */\n  const replace = minDistance(word1, word2, i + 1, j + 1, memo); /* Time O(N * M) | Space O(HEIGHT) */\n\n  memo[i][j] = Math.min(insert, _delete, replace) + 1; /*               | Space O(N * M) */\n  return memo[i][j];\n};\n\n/**\n * DP - Bottom Up\n * Matrix - Tabulation\n * Time O(N * M) | Space O(N * M)\n * https://leetcode.com/problems/edit-distance/\n * @param {string} word1\n * @param {string} word2\n * @return {number}\n */\n\n/**\n * DP - Bottom Up\n * Matrix - Tabulation\n * Time O(N * M) | Space O(M)\n * https://leetcode.com/problems/edit-distance/\n * @param {string} word1\n * @param {string} word2\n * @return {number}\n */\nvar minDistance = (word1, word2) => {\n  const tabu = initTabu(word2); /* Time O(M) | Space O(M) */\n\n  search(word1, word2, tabu); /* Time O(N * M) | Space O(M) */\n\n  return tabu[word2.length];\n};\nvar initTabu = word2 => {\n  const tabu = new Array(word2.length + 1).fill(0); /* Time O(M) | Space O(M) */\n\n  for (let j = 1; j <= word2.length; j++) {\n    /* Time O(M) */\n    tabu[j] = j; /*           | Space O(M) */\n  }\n  return tabu;\n};\nvar search = (word1, word2, tabu) => {\n  for (let i = 1; i <= word1.length; i++) {\n    /* Time O(N) */\n    tabu[word2.length] = update(word1, word2, i, tabu); /* Time O(M) | Space (M) */\n  }\n};\nconst update = (word1, word2, i, tabu) => {\n  let temp = i;\n  for (let j = 1; j <= word2.length; ++j) {\n    /* Time O(M  */\n    const isEqual = word1[i - 1] === word2[j - 1];\n    const cur = isEqual ? tabu[j - 1] : Math.min(tabu[j - 1], tabu[j], temp) + 1;\n    tabu[j - 1] = temp; /* Space (M) */\n    temp = cur;\n  }\n  return temp;\n};",
+    "java": "//Refer to neetcode's video\n\n//Memoized code\n\nclass Solution {\n\n    public int minDistance(String word1, String word2) {\n        int m = word1.length() - 1;\n        int n = word2.length() - 1;\n        int[][] dp = new int[m + 2][n + 2];\n        for (int[] d : dp) {\n            Arrays.fill(d, -1);\n        }\n        return helper(word1, word2, m, n, dp);\n    }\n\n    public int helper(String word1, String word2, int m, int n, int[][] dp) {\n        //the strings are null\n        if (m + 1 == 0 && n + 1 == 0) {\n            return 0;\n        }\n        //one of the strings are null\n        if (m + 1 == 0 || n + 1 == 0) {\n            return Math.max(m + 1, n + 1);\n        }\n        //both values at the index are equal\n        if (dp[m][n] != -1) return dp[m][n];\n        if (word1.charAt(m) == word2.charAt(n)) {\n            dp[m][n] = helper(word1, word2, m - 1, n - 1, dp);\n            return dp[m][n];\n        } else {\n            //try deletion\n            int delete = 1 + helper(word1, word2, m - 1, n, dp);\n            //try insertion\n            int insert = 1 + helper(word1, word2, m, n - 1, dp);\n            //try replacing\n            int replace = 1 + helper(word1, word2, m - 1, n - 1, dp);\n            //now we'll choose the minimum out of these 3 and add 1 for the operation cost\n            dp[m][n] = Math.min(Math.min(delete, insert), replace);\n            return dp[m][n];\n        }\n    }\n}\n",
+    "cpp": "/*\n    Given 2 strings, return minimum number of operations to convert word1 to word2\n\n    Naive: check all possible edit sequences & choose shortest one\n    Optimal: DP, if chars at i & j same, no operations needed, else 3 cases:\n    (1) replace (i - 1, j - 1), (2) delete (i - 1, j), (3) insert (i, j - 1)\n\n    Time: O(m x n)\n    Space: O(m x n)\n*/\n\nclass Solution {\npublic:\n    int minDistance(string word1, string word2) {\n        if (word1.empty() && word2.empty()) {\n            return 0;\n        }\n        if (word1.empty() || word2.empty()) {\n            return 1;\n        }\n        \n        int m = word1.size();\n        int n = word2.size();\n        \n        vector<vector<int>> dp(m + 1, vector<int>(n + 1));\n        \n        // base cases (convert to empty string w/ deletions), dist is just length\n        for (int i = 1; i <= m; i++) {\n            dp[i][0] = i;\n        }\n        for (int j = 1; j <= n; j++) {\n            dp[0][j] = j;\n        }\n        \n        for (int i = 1; i <= m; i++) {\n            for (int j = 1; j <= n; j++) {\n                if (word1[i - 1] == word2[j - 1]) {\n                    // no operation needed, same char\n                    dp[i][j] = dp[i - 1][j - 1];\n                } else {\n                    // min(replace, delete, insert) + 1 <-- since an op was needed\n                    dp[i][j] = min(dp[i - 1][j - 1], min(dp[i - 1][j], dp[i][j - 1])) + 1;\n                }\n            }\n        }\n        \n        return dp[m][n];\n    }\n};\n\n// Since we only need at most dp[i - 1][j - 1], can space optimize to O(n)\n// class Solution {\n// public:\n//     int minDistance(string word1, string word2) {\n//         int m = word1.size();\n//         int n = word2.size();\n//         int prev = 0;\n//         vector<int> curr(n + 1);\n//         for (int j = 1; j <= n; j++) {\n//             curr[j] = j;\n//         }\n//         for (int i = 1; i <= m; i++) {\n//             prev = curr[0];\n//             curr[0] = i;\n//             for (int j = 1; j <= n; j++) {\n//                 int temp = curr[j];\n//                 if (word1[i - 1] == word2[j - 1]) {\n//                     curr[j] = prev;\n//                 } else {\n//                     curr[j] = min(prev, min(curr[j - 1], curr[j])) + 1;\n//                 }\n//                 prev = temp;\n//             }\n//         }\n//         return curr[n];\n//     }\n// };\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0072-edit-distance.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0072-edit-distance.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0072-edit-distance.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0072-edit-distance.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "将 word1 变为 word2，允许插入、删除、替换字符，每次代价一，求最少次数。",
+  "explanation": "dp[i][j] 表示两段前缀的最小编辑距离。末尾相同继承左上，否则取三种操作的最小代价加一。",
+  "memory": "三条边分别对应插入、删除和替换，先写空串边界。"
+}

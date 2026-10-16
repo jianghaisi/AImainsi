@@ -1,0 +1,58 @@
+{
+  "number": "392",
+  "adapter": {
+    "name": "isSubsequence",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "t",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "392"
+  },
+  "tests": [
+    {
+      "input": [
+        "abc",
+        "ahbgdc"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "axc",
+        "ahbgdc"
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def isSubsequence(self, s: str, t: str) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @param {string} t\n * @return {boolean}\n */\nvar isSubsequence = function(s, t) {\n    \n};",
+    "java": "class Solution {\n    public boolean isSubsequence(String s, String t) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isSubsequence(string s, string t) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def isSubsequence(self, s: str, t: str) -> bool:\n        i, j = 0, 0\n        while i < len(s) and j < len(t):\n            if s[i] == t[j]:\n                i += 1\n            j += 1\n        return i == len(s)\n",
+    "javascript": "/**\n * Time O(N^2) | Space O(1)\n * @param {string} s\n * @param {string} t\n * @return {boolean}\n */\nvar isSubsequence = function (s, t) {\n  for (let char of s) {\n    let indexChar = t.indexOf(char);\n    if (indexChar === -1) {\n      return false;\n    }\n    t = t.slice(indexChar + 1);\n  }\n  return true;\n};",
+    "java": "class Solution {\n    public boolean isSubsequence(String s, String t) {\n        int i = 0, j = 0;\n        while (i < s.length() && j < t.length()) {\n            if (s.charAt(i) == t.charAt(j)) {\n                i += 1;\n            }\n            j += 1;\n        }\n        if (i == s.length()) {\n            return true; \n        } else {\n            return false;\n        }\n    }\n}\n",
+    "cpp": "// Time Complexity is O(N) where n is the size of the target string.\n// Space Complexity is O(1)\n\nclass Solution {\npublic:\n   bool isSubsequence(string s, string t) {\n      int i = 0 , j = 0;\n      while(j < s.size() && i < t.size())\n      {\n        if(s[j] == t[i])\n          j++;\n        \n       i++;\n      }\n      \n      if(j >= s.size()) return true;\n      return false;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0392-is-subsequence.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0392-is-subsequence.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0392-is-subsequence.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0392-is-subsequence.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断第一个字符串能否通过删除第二个字符串中的若干字符得到。",
+  "explanation": "扫描长串，遇到目标字符就前进短串指针。O(n)。",
+  "memory": "子序列允许间隔，但不能改变顺序。"
+}

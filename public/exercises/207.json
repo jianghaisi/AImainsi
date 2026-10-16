@@ -1,0 +1,72 @@
+{
+  "number": "207",
+  "adapter": {
+    "name": "canFinish",
+    "params": [
+      {
+        "name": "numCourses",
+        "type": "integer"
+      },
+      {
+        "name": "prerequisites",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "207"
+  },
+  "tests": [
+    {
+      "input": [
+        2,
+        [
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        2,
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def canFinish(self, numCourses: int, prerequisites: list[list[int]]) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} numCourses\n * @param {number[][]} prerequisites\n * @return {boolean}\n */\nvar canFinish = function(numCourses, prerequisites) {\n    \n};",
+    "java": "class Solution {\n    public boolean canFinish(int numCourses, int[][] prerequisites) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:\n        # dfs\n        preMap = {i: [] for i in range(numCourses)}\n\n        # map each course to : prereq list\n        for crs, pre in prerequisites:\n            preMap[crs].append(pre)\n\n        visiting = set()\n\n        def dfs(crs):\n            if crs in visiting:\n                return False\n            if preMap[crs] == []:\n                return True\n\n            visiting.add(crs)\n            for pre in preMap[crs]:\n                if not dfs(pre):\n                    return False\n            visiting.remove(crs)\n            preMap[crs] = []\n            return True\n\n        for c in range(numCourses):\n            if not dfs(c):\n                return False\n        return True\n",
+    "javascript": "var hasPath = (numCourses, graph, path) => {\n  for (let course = 0; course < numCourses; course++) {\n    if (isCyclic(course, graph, path)) return false;\n  }\n  return true;\n};\nvar isCyclic = (currCourse, graph, visited, path) => {\n  const isVisited = visited[currCourse];\n  if (isVisited) return false;\n  const hasSeen = path[currCourse];\n  if (hasSeen) return true;\n  const isMissingNext = !(currCourse in graph);\n  if (isMissingNext) return false;\n  const _isCyclic = backTrack(currCourse, graph, visited, path);\n  visited[currCourse] = true;\n  return _isCyclic;\n};\nvar backTrack = (currCourse, graph, visited, path) => {\n  path[currCourse] = true;\n  const _hasCycle = hasCycle(currCourse, graph, visited, path);\n  path[currCourse] = false;\n  return _hasCycle;\n};\nvar hasCycle = (currCourse, graph, visited, path) => {\n  for (const neighbor of graph[currCourse]) {\n    if (isCyclic(neighbor, graph, visited, path)) return true;\n  }\n  return false;\n};\n\n/**\n * https://leetcode.com/problems/course-schedule/\n * Time O(V + E) | Space O(V + E)\n * @param {number} numCourses\n * @param {number[][]} prerequisites\n * @return {boolean}\n */\nvar canFinish = function (numCourses, prerequisites) {\n  const {\n    graph,\n    indegree\n  } = buildGraph(numCourses, prerequisites);\n  const topologicalOrder = topologicalSort(graph, indegree);\n  const isDirectedAcyclicGraph = topologicalOrder.length === numCourses;\n  return isDirectedAcyclicGraph;\n};\nvar initGraph = numCourses => ({\n  graph: new Array(numCourses).fill().map(() => []),\n  indegree: new Array(numCourses).fill(0)\n});\nvar buildGraph = (numCourses, prerequisites) => {\n  const {\n    graph,\n    indegree\n  } = initGraph(numCourses);\n  for (const [src, dst] of prerequisites) {\n    graph[src].push(dst);\n    indegree[dst]++;\n  }\n  return {\n    graph,\n    indegree\n  };\n};\nvar topologicalSort = (graph, indegree, order = []) => {\n  const queue = searchGraph(graph, indegree);\n  bfs(graph, indegree, queue, order);\n  return order;\n};\nvar searchGraph = (graph, indegree, queue = new Queue([])) => {\n  for (const node in graph) {\n    const isSource = indegree[node] === 0;\n    if (isSource) queue.enqueue(node);\n  }\n  return queue;\n};\nvar bfs = (graph, indegree, queue, order) => {\n  while (!queue.isEmpty()) {\n    for (let i = queue.size() - 1; 0 <= i; i--) {\n      checkNeighbors(graph, indegree, queue, order);\n    }\n  }\n};\nvar checkNeighbors = (graph, indegree, queue, order) => {\n  const node = queue.dequeue();\n  order.push(node);\n  for (const neighbor of graph[node]) {\n    indegree[neighbor]--;\n    const isSource = indegree[neighbor] === 0;\n    if (isSource) queue.enqueue(neighbor);\n  }\n};",
+    "java": "class Solution {\n\n    public boolean canFinish(int numCourses, int[][] prerequisites) {\n        List<List<Integer>> adj = new ArrayList<>();\n        for (int i = 0; i < numCourses; i++) {\n            adj.add(new ArrayList<>());\n        }\n\n        for (int i = 0; i < prerequisites.length; i++) {\n            adj.get(prerequisites[i][0]).add(prerequisites[i][1]);\n        }\n\n        int[] visited = new int[numCourses];\n        for (int i = 0; i < numCourses; i++) {\n            if (visited[i] == 0) {\n                if (isCyclic(adj, visited, i)) {\n                    return false;\n                }\n            }\n        }\n        return true;\n    }\n\n    private boolean isCyclic(List<List<Integer>> adj, int[] visited, int curr) {\n        if (visited[curr] == 2) {\n            return true;\n        }\n\n        visited[curr] = 2;\n        for (int i = 0; i < adj.get(curr).size(); i++) {\n            if (visited[adj.get(curr).get(i)] != 1) {\n                if (isCyclic(adj, visited, adj.get(curr).get(i))) {\n                    return true;\n                }\n            }\n        }\n        visited[curr] = 1;\n        return false;\n    }\n}\n",
+    "cpp": "/*\n    Courses & prerequisites, return true if can finish all courses\n    Ex. numCourses = 2, prerequisites = [[1,0]] -> true\n\n    All courses can be completed if there's no cycle (visit already visited)\n\n    Time: O(V + E)\n    Space: O(V + E)\n*/\n\nclass Solution {\npublic:\n    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {\n        // map each course to prereq list\n        unordered_map<int, vector<int>> m;\n        for (int i = 0; i < prerequisites.size(); i++) {\n            m[prerequisites[i][0]].push_back(prerequisites[i][1]);\n        }\n        // all courses along current DFS path\n        unordered_set<int> visited;\n        \n        for (int course = 0; course < numCourses; course++) {\n            if (!dfs(course, m, visited)) {\n                return false;\n            }\n        }\n        return true;\n    }\nprivate:\n    bool dfs(int course, unordered_map<int, vector<int>>& m, unordered_set<int>& visited) {\n        if (visited.find(course) != visited.end()) {\n            return false;\n        }\n        if (m[course].empty()) {\n            return true;\n        }\n        visited.insert(course);\n        for (int i = 0; i < m[course].size(); i++) {\n            int nextCourse = m[course][i];\n            if (!dfs(nextCourse, m, visited)) {\n                return false;\n            }\n        }\n        m[course].clear();\n        visited.erase(course);\n        return true;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0207-course-schedule.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0207-course-schedule.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0207-course-schedule.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0207-course-schedule.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "课程编号为 0 到 numCourses-1，前置关系 [a,b] 表示修 a 之前必须修 b，判断能否修完。",
+  "explanation": "对有向图做拓扑排序，或用 DFS 三色状态检测环。处理节点数等于课程数时可完成。",
+  "memory": "课程可完成等价于依赖图无环；注意边从先修课指向后修课。"
+}

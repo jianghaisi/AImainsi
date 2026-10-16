@@ -1,0 +1,98 @@
+{
+  "number": "26",
+  "adapter": {
+    "name": "removeDuplicates",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "output": {
+      "paramindex": 0,
+      "size": "ret"
+    },
+    "languages": [
+      "cpp",
+      "java",
+      "python",
+      "c",
+      "csharp",
+      "javascript",
+      "ruby",
+      "swift",
+      "golang",
+      "python3",
+      "scala",
+      "kotlin",
+      "rust",
+      "php",
+      "typescript",
+      "dart"
+    ],
+    "number": "26"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          1,
+          2
+        ]
+      ],
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "input": [
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          4
+        ]
+      ],
+      "expected": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def removeDuplicates(self, nums: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar removeDuplicates = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int removeDuplicates(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int removeDuplicates(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def removeDuplicates(self, nums: List[int]) -> int:\n        L = 1\n        \n        for R in range(1, len(nums)):\n            if nums[R] != nums[R - 1]:\n                nums[L] = nums[R]\n                L += 1\n        return L\n",
+    "javascript": "/**\n * Linear\n * Time O(N) | Space O(1)\n * https://leetcode.com/problems/remove-duplicates-from-sorted-array/\n * @param {number[]} nums\n * @return {number}\n */\nvar removeDuplicates = function (nums) {\n  let swap = 1;\n  for (let i = 1; i < nums.length; i++) {\n    if (nums[i] != nums[i - 1]) {\n      nums[swap] = nums[i];\n      swap++;\n    }\n  }\n  return swap;\n};",
+    "java": "class Solution {\n    public int removeDuplicates(int[] nums) {\n        int swap = 1;\n\n        for(int i=1; i<nums.length; i++) {\n            if(nums[i] != nums[i-1]) {\n                nums[swap] = nums[i];\n                swap++;\n            }\n        }\n\n        return swap;\n    }\n}",
+    "cpp": "int removeDuplicates(int* nums, int numsSize){\n    int indx = 1;\n    \n    for(int i = 1; i < numsSize; i++){\n        if(nums[i] != nums[i-1]){\n            nums[indx] = nums[i];\n            indx++;\n        }\n    }\n    return indx;\n}\n\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0026-remove-duplicates-from-sorted-array.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0026-remove-duplicates-from-sorted-array.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0026-remove-duplicates-from-sorted-array.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0026-remove-duplicates-from-sorted-array.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "有序数组原地去重，每个值保留一次，返回有效长度。",
+  "explanation": "已写入部分的末尾代表上一个不同值，遇到新值再写入。",
+  "memory": "有序使重复值相邻；先处理空数组。"
+}

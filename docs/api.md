@@ -30,6 +30,10 @@
 
 `language` 为 `java` 或 `cpp`。服务端按顺序运行每个测试，约定将参数传给 `solve(...)`，类型参考题目模板。Java 模板为 `Solution` 类中的实例方法，通过 `new Solution().solve(...)` 调用；C++ 模板为独立函数，服务端负责编译时包裹入口。
 
+以上 `solve` 约定用于原有训练题。0.2.0 新增 Hot 200 题会在请求中附带 `adapter` 元数据，例如 `{"number":"1","name":"twoSum","params":[{"name":"nums","type":"integer[]"},{"name":"target","type":"integer"}],"return":{"type":"integer[]"}}`。服务端应根据模板调用对应方法；`systemdesign:true` 的题目包含 `classname`，需要按操作序列构造对象并调用方法。不能把这些题目直接当作 `solve` 运行。
+
+链表、树、图与设计题的 JSON 转换规则可参考 `public/exercise-runtime.py` / `.mjs`；多解与无序结果比较见 `public/judge.mjs`。它们是本地训练协议的实现参考，适配器仍需自行在编译型语言环境实现相同语义。没有 `adapter` 时继续使用原有协议。
+
 响应：
 
 ```json

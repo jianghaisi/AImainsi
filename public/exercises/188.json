@@ -1,0 +1,63 @@
+{
+  "number": "188",
+  "adapter": {
+    "name": "maxProfit",
+    "params": [
+      {
+        "name": "k",
+        "type": "integer"
+      },
+      {
+        "name": "prices",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "188"
+  },
+  "tests": [
+    {
+      "input": [
+        2,
+        [
+          2,
+          4,
+          1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        2,
+        [
+          3,
+          2,
+          6,
+          5,
+          0,
+          3
+        ]
+      ],
+      "expected": 7
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def maxProfit(self, k: int, prices: List[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} k\n * @param {number[]} prices\n * @return {number}\n */\nvar maxProfit = function(k, prices) {\n    \n};",
+    "java": "class Solution {\n    public int maxProfit(int k, int[] prices) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int maxProfit(int k, vector<int>& prices) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def maxProfit(self,k,prices):\n        if not prices or not k:return 0\n        if k>=len(prices)//2:return sum(max(0,b-a) for a,b in zip(prices,prices[1:]))\n        buy=[-inf]*(k+1);sell=[0]*(k+1)\n        for p in prices:\n            for t in range(1,k+1):buy[t]=max(buy[t],sell[t-1]-p);sell[t]=max(sell[t],buy[t]+p)\n        return sell[k]\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "最多完成 k 次股票交易，且不能同时持有多股，求最大收益。",
+  "explanation": "按交易次数维护持有与空仓状态；k 足够大时退化为累计上涨差值。O(nk)。",
+  "memory": "一次交易由买卖组成；大 k 不必建大表。"
+}

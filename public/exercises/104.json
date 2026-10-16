@@ -1,0 +1,64 @@
+{
+  "number": "104",
+  "adapter": {
+    "name": "maxDepth",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "104"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          1,
+          null,
+          2
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def maxDepth(self, root: TreeNode | None) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @return {number}\n */\nvar maxDepth = function(root) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public int maxDepth(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int maxDepth(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# RECURSIVE DFS\nclass Solution:\n    def maxDepth(self, root: TreeNode) -> int:\n        if not root:\n            return 0\n\n        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))\n\n\n# ITERATIVE DFS\nclass Solution:\n    def maxDepth(self, root: TreeNode) -> int:\n        stack = [[root, 1]]\n        res = 0\n\n        while stack:\n            node, depth = stack.pop()\n\n            if node:\n                res = max(res, depth)\n                stack.append([node.left, depth + 1])\n                stack.append([node.right, depth + 1])\n        return res\n\n\n# BFS\nclass Solution:\n    def maxDepth(self, root: TreeNode) -> int:\n        q = deque()\n        if root:\n            q.append(root)\n\n        level = 0\n\n        while q:\n\n            for i in range(len(q)):\n                node = q.popleft()\n                if node.left:\n                    q.append(node.left)\n                if node.right:\n                    q.append(node.right)\n            level += 1\n        return level\n",
+    "javascript": "const dfs = root => {\n  const left = maxDepth(root.left);\n  const right = maxDepth(root.right);\n  const height = Math.max(left, right);\n  return height + 1;\n};\n\n/**\n * https://leetcode.com/problems/maximum-depth-of-binary-tree/\n * Time O(N) | Space O(N)\n * @param {TreeNode} root\n * @return {number}\n */\n\nconst iterativeDfs = (stack, height = 0) => {\n  while (stack.length) {\n    const [root, depth] = stack.pop();\n    height = Math.max(height, depth);\n    if (root.right) stack.push([root.right, depth + 1]);\n    if (root.left) stack.push([root.left, depth + 1]);\n  }\n  return height;\n};\n\n/**\n * https://leetcode.com/problems/maximum-depth-of-binary-tree/\n * Time O(N) | Space O(N)\n * @param {TreeNode} root\n * @return {number}\n */\nvar maxDepth = function (root) {\n  const isBaseCase = root === null;\n  if (isBaseCase) return 0;\n  return bfs([[root, 0]]);\n};\nconst bfs = (queue, height = 0) => {\n  while (queue.length) {\n    for (let i = queue.length - 1; 0 <= i; i--) {\n      const [root, depth] = queue.shift();\n      height = Math.max(height, depth + 1);\n      if (root.left) queue.push([root.left, depth + 1]);\n      if (root.right) queue.push([root.right, depth + 1]);\n    }\n  }\n  return height;\n};",
+    "java": "class Solution {\n\n    public int maxDepth(TreeNode root) {\n        if (root == null) return 0;\n        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));\n    }\n}\n",
+    "cpp": "/*\n    Given root of binary tree, return max depth (# nodes along longest path from root to leaf)\n\n    At every node, max depth is the max depth between its left & right children + 1\n\n    Time: O(n)\n    Space: O(n)\n*/\n\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\n\nclass Solution {\npublic:\n    int maxDepth(TreeNode* root) {\n        // return maxDepthRecur(root);          // recursive DFS - preorder - easiest    \n        // return maxDepthStkInorder(root);     // iterative DFS - inorder \n        return maxDepthStkPreorder(root);    // iterative DFS - preorder - easier\n        // return maxDepthQueueLevelorder(root);   // iterative BFS - levelorder - easy\n    }\n\n    int maxDepthQueueLevelorder(TreeNode* root) {\n        if (root == NULL) return 0;\n\n        queue<TreeNode*> q;\n        int ans = 0, depth = 0;\n        q.push(root);\n\n        while (!q.empty()) \n        {            \n            int s = q.size();\n            for(int i = 0; i < s; i++) \n            {\n                root = q.front();\n                q.pop();\n                \n                if (root->left) q.push(root->left);\n                if (root->right) q.push(root->right);\n            }\n            depth += 1;\n            ans = max(ans, depth);\n        }\n        return ans;\n    }\n\n\n    int maxDepthStkPreorder(TreeNode* root) {\n        if (root == NULL) return 0;\n\n        stack<pair<TreeNode*, int>> s;\n        int ans = 1, depth = 1;\n        s.push({root, depth});\n        while (!s.empty()) \n        {\n            root = s.top().first;\n            depth = s.top().second;\n\n            ans = max(ans, depth);\n            s.pop();\n            if (root->left) s.push({root->left, depth + 1});\n            if (root->right) s.push({root->right, depth + 1});\n        }\n        return ans;\n    }\n\n    int maxDepthStkInorder(TreeNode* root) {\n        stack<pair<TreeNode*, int>> s;\n        int ans = 0, depth = 0;\n\n        while (root || !s.empty())\n        {\n            while (root != NULL)\n            {\n                s.push(make_pair(root, ++depth));\n                root = root->left;\n            }\n\n            root = s.top().first; \n            ans = max(ans, depth);\n            \n            depth = s.top().second;\n            s.pop();\n            \n            root = root->right;\n        }\n        return ans;\n    }\n\n    int maxDepthRecur(TreeNode* root) {\n        // recursive DFS\n        if (root == NULL) return 0;\n\n        // we should inc. the depth by 1 here\n        // and check for max in left and right subtrees \n\n        return 1 + max(maxDepthRecur(root->left), maxDepthRecur(root->right));\n    }\n}\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0104-maximum-depth-of-binary-tree.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0104-maximum-depth-of-binary-tree.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0104-maximum-depth-of-binary-tree.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0104-maximum-depth-of-binary-tree.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "求二叉树从根到最深叶子的节点数，空树深度为零。",
+  "explanation": "子树结果取最大后加一，或按层遍历计数。每个节点访问一次。",
+  "memory": "深度是向下的定义：空树零，非空为左右最大加一。"
+}

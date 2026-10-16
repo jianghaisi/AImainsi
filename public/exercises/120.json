@@ -1,0 +1,73 @@
+{
+  "number": "120",
+  "adapter": {
+    "name": "minimumTotal",
+    "params": [
+      {
+        "name": "triangle",
+        "type": "list<list<integer>>"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "120"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            6,
+            5,
+            7
+          ],
+          [
+            4,
+            1,
+            8,
+            3
+          ]
+        ]
+      ],
+      "expected": 11
+    },
+    {
+      "input": [
+        [
+          [
+            -10
+          ]
+        ]
+      ],
+      "expected": -10
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def minimumTotal(self, triangle: list[list[int]]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[][]} triangle\n * @return {number}\n */\nvar minimumTotal = function(triangle) {\n    \n};",
+    "java": "class Solution {\n    public int minimumTotal(List<List<Integer>> triangle) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minimumTotal(vector<vector<int>>& triangle) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def minimumTotal(self, triangle: List[List[int]]) -> int:\n        dp = triangle[-1]\n\n        for row in range(len(triangle) - 2, -1, -1):\n            for col in range(0, row + 1):\n                dp[col] = triangle[row][col] + min(dp[col], dp[col + 1])\n\n        return dp[0]\n",
+    "java": "class Solution {\n    public int minimumTotal(List<List<Integer>> triangle) {\n        int l = triangle.size();\n        int[] dp = new int[l + 1];\n\n        for (int row = l - 1; row > -1; --row) {\n            for (int col = 0; col < row + 1; ++col) {\n                dp[col] = triangle.get(row).get(col) + Math.min(dp[col], dp[col + 1]);\n            }\n        }\n\n        return dp[0];\n    }\n}\n",
+    "cpp": "class Solution{    \n    public:    \n        int minimumTotal(vector<vector<int>>& triangle){            \n            for(int i = 0; i < triangle.size() - 1; i++){                \n                for(int k = 0; k < triangle[i + 1].size(); k++){                    \n                    if(k == 0){                        \n                        triangle[i + 1][0] = triangle[i + 1][0] + triangle[i][0];                    \n                    }\n                    else{                        \n                        if(k == triangle[i + 1].size() - 1){                           \n                            triangle[i + 1][k] = triangle[i + 1][k] + triangle[i][k - 1];                           \n                        }\n                        else{                            \n                            triangle[i + 1][k] = triangle[i + 1][k] + min(triangle[i][k - 1], triangle[i][k]);                            \n                        }                       \n                    }                    \n                }                \n            }            \n            return *min_element(triangle[triangle.size() - 1].begin(), triangle[triangle.size() - 1].end());        \n        }    \n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0120-triangle.py",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0120-triangle.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0120-triangle.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "三角形数字数组从顶到底，每步只能走到下一行相邻位置，求最小路径和。",
+  "explanation": "从底向上，当前值加下方两个可达位置中的较小值。O(n²) 时间，O(n) 空间。",
+  "memory": "最后一行就是初始状态，向上逐层折叠。"
+}

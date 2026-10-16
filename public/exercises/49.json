@@ -1,0 +1,91 @@
+{
+  "number": "49",
+  "adapter": {
+    "name": "groupAnagrams",
+    "params": [
+      {
+        "name": "strs",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "list<list<string>>",
+      "dealloc": true
+    },
+    "number": "49"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "eat",
+          "tea",
+          "tan",
+          "ate",
+          "nat",
+          "bat"
+        ]
+      ],
+      "expected": [
+        [
+          "bat"
+        ],
+        [
+          "nat",
+          "tan"
+        ],
+        [
+          "ate",
+          "eat",
+          "tea"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          ""
+        ]
+      ],
+      "expected": [
+        [
+          ""
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "a"
+        ]
+      ],
+      "expected": [
+        [
+          "a"
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def groupAnagrams(self, strs: list[str]) -> list[list[str]]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string[]} strs\n * @return {string[][]}\n */\nvar groupAnagrams = function(strs) {\n    \n};",
+    "java": "class Solution {\n    public List<List<String>> groupAnagrams(String[] strs) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:\n        groups = {}\n\n        # Iterate over strings\n        for s in strs: # O(m)\n            count = {}\n\n            # Count frequency of each character\n            for char in s: # O(n)\n                count[char] = count.get(char, 0) + 1\n\n            # Convert count Dict to List, sort it, and then convert to Tuple (we cannot use dicts or lists as keys in a hashmap)\n            tup = tuple(sorted(count.items())) # O(1) because there is limited amount of possible keys in the alphabet -> O(26) + O(26*log26) + O(26)\n\n            if tup in groups:\n                groups[tup].append(s)\n            else:\n                groups[tup] = [s] \n            \n        return list(groups.values())\n    \n    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:\n        ans = collections.defaultdict(list)\n\n        for s in strs:\n            count = [0] * 26\n            for c in s:\n                count[ord(c) - ord(\"a\")] += 1\n            ans[tuple(count)].append(s)\n        return list(ans.values())\n",
+    "javascript": "const reorder = str => str.split('') /* Time O(K)          | Space O(K) */.sort((a, b) => a.localeCompare(b)) /* Time O(K * log(K)) | Space O(1 || log(K)) */.join(''); /* Time O(K)          | Space O(K) */\n\n/**\n * Hash Map\n * Time O(N * K) | Space O(N * K)\n * https://leetcode.com/problems/group-anagrams/\n * @param {string[]} words\n * @return {string[][]}\n */\nvar groupAnagrams = (words, map = new Map()) => {\n  if (!words.length) return [];\n  groupWords(words, map); /* Time O(N * K) | Space O(N * K) */\n\n  return [...map.values()]; /* Time O(N)     | Space O(N * K) */\n};\nvar groupWords = (words, map) => {\n  for (const original of words) {\n    /* Time O(N) */\n    const hash = getHash(original); /* Time O(K) | Space O(1) */\n    const values = map.get(hash) || [];\n    values.push(original); /*           | Space O(N) */\n    map.set(hash, values); /*           | Space O(N * K) */\n  }\n};\nconst getHash = word => {\n  const frequency = new Array(26).fill(0);\n  for (const char of word) {\n    /* Time O(K) */\n    const charCode = getCode(char); /* Time O(1) | Space (1) */\n\n    frequency[charCode]++; /*           | Space O(1) */\n  }\n  return buildHash(frequency);\n};\nconst getCode = char => char.charCodeAt(0) - 'a'.charCodeAt(0);\nconst buildHash = frequency => frequency.toString();",
+    "java": "class Solution {\n    public List<List<String>> groupAnagrams(String[] strs) {\n        Map<String, List<String>> res = new HashMap<>();\n\n        for (String s : strs) {\n            int[] count = new int[26];\n\n            for (char c : s.toCharArray()) {\n                count[c - 'a']++;\n            }\n\n            StringBuilder sb = new StringBuilder();\n            for (int i = 0; i < 26; i++) {\n                sb.append('#');\n                sb.append(count[i]);\n            }\n            String key = sb.toString();\n            \n            if (!res.containsKey(key)) {\n                res.put(key, new ArrayList<>());\n            }\n            res.get(key).add(s);\n        }\n\n        return new ArrayList<>(res.values());\n    }\n}\n-------------------------------------------------------------------------\nclass Solution {\n    public List<List<String>> groupAnagrams(String[] strs) {\n        Map<String, List<String>> map = new HashMap<>();\n        \n        for (String word : strs) {\n            char[] chars = word.toCharArray();\n            Arrays.sort(chars);\n            String sortedWord = new String(chars);\n            \n            if (!map.containsKey(sortedWord)) {\n                map.put(sortedWord, new ArrayList<>());\n            }\n            \n            map.get(sortedWord).add(word);\n        }\n        \n        return new ArrayList<>(map.values());\n    }\n}\n",
+    "cpp": "/*\n    Given array of strings, group anagrams together (same letters diff order)\n    Ex. strs = [\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"] -> [[\"bat\"],[\"nat\",\"tan\"],[\"ate\",\"eat\",\"tea\"]]\n\n    Count chars, for each string use total char counts (naturally sorted) as key\n\n    Time: O(n x l) -> n = length of strs, l = max length of a string in strs\n    Space: O(n x l)\n*/\n\nclass Solution {\npublic:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        unordered_map<string, vector<string>> m;\n        for (int i = 0; i < strs.size(); i++) {\n            string key = getKey(strs[i]);\n            m[key].push_back(strs[i]);\n        }\n        \n        vector<vector<string>> result;\n        for (auto it = m.begin(); it != m.end(); it++) {\n            result.push_back(it->second);\n        }\n        return result;\n    }\nprivate:\n    string getKey(string str) {\n        vector<int> count(26);\n        for (int j = 0; j < str.size(); j++) {\n            count[str[j] - 'a']++;\n        }\n        \n        string key = \"\";\n        for (int i = 0; i < count.size(); i++) {\n            key.append(to_string(count[i]) + '#');\n        }\n        return key;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0049-group-anagrams.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0049-group-anagrams.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0049-group-anagrams.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0049-group-anagrams.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "将字符串数组按字母组成分组，同组字符串的各字母出现次数相同。组的顺序以及组内顺序不限。",
+  "explanation": "排序后的字符串或固定字母频次向量可作为哈希键。相同键进入同一组；空串也需要一个合法的键。",
+  "memory": "不是比较字母集合，而是比较频次。用 aab 与 abb 反驳只用集合的方案。"
+}

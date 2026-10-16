@@ -1,0 +1,58 @@
+{
+  "number": "58",
+  "adapter": {
+    "name": "lengthOfLastWord",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "58"
+  },
+  "tests": [
+    {
+      "input": [
+        "Hello World"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "   fly me   to   the moon  "
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "luffy is still joyboy"
+      ],
+      "expected": 6
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def lengthOfLastWord(self, s: str) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @return {number}\n */\nvar lengthOfLastWord = function(s) {\n    \n};",
+    "java": "class Solution {\n    public int lengthOfLastWord(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int lengthOfLastWord(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def lengthOfLastWord(self, s):\n        end = len(s)-1\n        while end >= 0 and s[end] == ' ':\n            end -= 1\n        start = end\n        while start >= 0 and s[start] != ' ':\n            start -= 1\n        return end-start\n",
+    "javascript": "// another approach. starting out from the last so we don't have to go all the way to the end.\nvar lengthOfLastWord = function (s) {\n  let firstCharOccurance = false;\n  let lastWordLen = 0;\n  for (let i = s.length - 1; i > -1; i--) {\n    if (s[i] !== ' ') {\n      firstCharOccurance = true;\n      lastWordLen++;\n    }\n    if (firstCharOccurance && s[i] === ' ') {\n      break;\n    }\n  }\n  return lastWordLen;\n};",
+    "java": "class Solution {\n    public int lengthOfLastWord(String s) {\n       int i = s.length() - 1, length = 0;\n       while (s.charAt(i) == ' ') {\n           i -= 1;\n       }\n       while (i >= 0 && s.charAt(i) != ' ') {\n           length += 1;\n           i -= 1;\n       } \n       return length;\n    }\n}\n",
+    "cpp": "class Solution {\npublic:\n    /*\n    Approach: \n    Traverse from end to the first whitespace character and count the number of letters.\n    Return the count as our pointer hits the whitespace character.\n    \n    Time complexity: O(n)\n    Space complexity: O(1)\n    */    \n    int lengthOfLastWord(string s) {\n        int n = s.length();\n        \n        int ptr = n-1;\n        while(ptr >= 0 && s[ptr] == ' ') ptr--; /* Skip the trailing whitespaces */\n        \n        int len = 0;\n        while(ptr >= 0 && s[ptr--] != ' ') len++; /* Counting the letters in the last word */\n        return len;\n    }\n};"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0058-length-of-last-word.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0058-length-of-last-word.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0058-length-of-last-word.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "求字符串最后一个单词的长度，允许两端和单词之间有空格。",
+  "explanation": "从末尾跳过空格，再向前统计非空格字符。O(n)，O(1) 额外空间。",
+  "memory": "先跳空格，再数单词。"
+}

@@ -1,0 +1,81 @@
+{
+  "number": "66",
+  "adapter": {
+    "name": "plusOne",
+    "params": [
+      {
+        "name": "digits",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "66"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        4
+      ]
+    },
+    {
+      "input": [
+        [
+          4,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": [
+        4,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "input": [
+        [
+          9
+        ]
+      ],
+      "expected": [
+        1,
+        0
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def plusOne(self, digits: list[int]) -> list[int]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} digits\n * @return {number[]}\n */\nvar plusOne = function(digits) {\n    \n};",
+    "java": "class Solution {\n    public int[] plusOne(int[] digits) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> plusOne(vector<int>& digits) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def plusOne(self, digits: List[int]) -> List[int]:\n        one = 1\n        i = 0\n        digits = digits[::-1]\n\n        while one:\n            if i < len(digits):\n                if digits[i] == 9:\n                    digits[i] = 0\n                else:\n                    digits[i] += 1\n                    one = 0\n            else:\n                digits.append(one)\n                one = 0\n            i += 1\n        return digits[::-1]\n",
+    "javascript": "var add = digits => digits[digits.length - 1] += 1;\nvar carry = digits => {\n  for (let digit = digits.length - 1; 0 < digit; digit--) {\n    /* Time O(N) */\n    const canCarry = digits[digit] === 10;\n    if (!canCarry) break;\n    digits[digit] = 0;\n    digits[digit - 1] += 1;\n  }\n};\nconst addLeading = digits => {\n  const canCarry = digits[0] === 10;\n  if (!canCarry) return;\n  digits[0] = 1;\n  digits.push(0); /* Space O(N) */\n};\n\n/**\n * Time O(N) | Space O(N)\n * https://leetcode.com/problems/plus-one/\n * @param {number[]} digits\n * @return {number[]}\n */\n\n/**\n * Time O(N) | Space O(N)\n * https://leetcode.com/problems/plus-one/\n * @param {number[]} digits\n * @return {number[]}\n */\nvar plusOne = function (digits) {\n  var i = digits.length - 1;\n  while (digits[i] + 1 === 10) {\n    digits[i] = 0;\n    i -= 1;\n  }\n  if (i < 0) {\n    digits.unshift(1);\n  } else {\n    digits[i] += 1;\n  }\n  return digits;\n};",
+    "java": "class Solution {\n\n    public int[] plusOne(int[] digits) {\n        final int len = digits.length;\n        int[] newDigits = new int[len + 1];\n        int carry = 1;\n        int currSum = 0;\n        for (int i = len - 1; i >= 0; i--) {\n            currSum = digits[i] + carry;\n            if (currSum > 9) {\n                digits[i] = currSum % 10;\n                newDigits[i + 1] = digits[i];\n                carry = 1;\n            } else {\n                digits[i] = currSum;\n                newDigits[i + 1] = digits[i];\n                carry = 0;\n                break;\n            }\n        }\n\n        if (carry == 1) {\n            newDigits[0] = 1;\n            return newDigits;\n        }\n\n        return digits;\n    }\n}\n",
+    "cpp": "/*\n    Given large int as an array, add 1 (consider carry)\n    Ex. digits = [1,2,3] -> [1,2,4]\n\n    From right to left, keep carrying until digit < 9, add 1\n\n    Time: O(n)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    vector<int> plusOne(vector<int>& digits) {\n        for (int i = digits.size() - 1; i >= 0; i--) {\n            if (digits[i] < 9) {\n                digits[i]++;\n                return digits;\n            }\n            digits[i] = 0;\n        }\n        \n        digits[0] = 1;\n        digits.push_back(0);\n        return digits;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0066-plus-one.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0066-plus-one.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0066-plus-one.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0066-plus-one.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "用数字数组表示非负整数，返回加一后的数字数组。",
+  "explanation": "从右往左处理进位，遇到非九加一返回，连续九变零。",
+  "memory": "全是九时需要在开头新增一位 1。"
+}

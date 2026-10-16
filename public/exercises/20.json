@@ -1,0 +1,70 @@
+{
+  "number": "20",
+  "adapter": {
+    "name": "isValid",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "20"
+  },
+  "tests": [
+    {
+      "input": [
+        "()"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "()[]{}"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(]"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "([])"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "([)]"
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def isValid(self, s: str) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @return {boolean}\n */\nvar isValid = function(s) {\n    \n};",
+    "java": "class Solution {\n    public boolean isValid(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isValid(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def isValid(self, s: str) -> bool:\n        bracketMap = {\")\": \"(\", \"]\": \"[\", \"}\": \"{\"}\n        stack = []\n\n        for c in s:\n            if c not in bracketMap:\n                stack.append(c)\n                continue\n            if not stack or stack[-1] != bracketMap[c]:\n                return False\n            stack.pop()\n\n        return not stack\n",
+    "javascript": "/**\n * Time O(N) | Space O(N)\n * https://leetcode.com/problems/valid-parentheses/\n * @param {string} s\n * @return {boolean}\n */\nvar isValid = (s, stack = []) => {\n  const map = {\n    '}': '{',\n    ']': '[',\n    ')': '('\n  };\n  for (const char of s) {\n    /* Time O(N) */\n    const isBracket = char in map;\n    if (!isBracket) {\n      stack.push(char);\n      continue;\n    } /* Space O(N) */\n\n    const isEqual = stack[stack.length - 1] === map[char];\n    if (isEqual) {\n      stack.pop();\n      continue;\n    }\n    return false;\n  }\n  return stack.length === 0;\n};",
+    "java": "class Solution {\n\n    public boolean isValid(String s) {\n        if (s.length() % 2 != 0) return false;\n        Stack<Character> stack = new Stack<>();\n        for (int i = 0; i < s.length(); i++) {\n            if (\n                stack.isEmpty() &&\n                (s.charAt(i) == ')' || s.charAt(i) == '}' || s.charAt(i) == ']')\n            ) return false; else {\n                    if (\n                        s.charAt(i) == ')' && stack.peek() == '('\n                    ) stack.pop(); else if (\n                        s.charAt(i) == '}' && stack.peek() == '{'\n                    ) stack.pop(); else if (\n                        s.charAt(i) == ']' && stack.peek() == '['\n                    ) stack.pop(); else stack.add(s.charAt(i));\n            }\n        }\n        return stack.isEmpty();\n    }\n}\n\n//Solution with HashMap Lookup table as described in the video\n\nclass Solution {\n    public boolean isValid(String s) {\n        Stack<Character> brackets = new Stack<>();\n        Map<Character, Character> bracketLookup = new HashMap<>(3);\n\n        bracketLookup.put(')', '(');\n        bracketLookup.put('}', '{');\n        bracketLookup.put(']', '[');\n\n        for (int i = 0; i < s.length(); i++) {\n            char c = s.charAt(i);\n            if (bracketLookup.containsKey(c)) {\n                if (!brackets.isEmpty() && bracketLookup.get(c).equals(brackets.peek())) {\n                    brackets.pop();\n                } else {\n                    return false;\n                }\n            } else {\n                brackets.push(c);\n            }\n        }\n\n        return brackets.isEmpty();\n    }\n}\n",
+    "cpp": "/*\n    Given s w/ '(, ), {, }, [, ]', determine if valid\n    Ex. s = \"()[]{}\" -> true, s = \"(]\" -> false\n\n    Stack of opens, check for matching closes & validity\n\n    Time: O(n)\n    Space: O(n)\n*/\n\nclass Solution {\npublic:\n    bool isValid(string s) {\n        stack<char> open;\n        unordered_map<char, char> parens = {\n            {')', '('},\n            {']', '['},\n            {'}', '{'},\n        };\n        \n        for (const auto& c : s) {\n            if (parens.find(c) != parens.end()) {\n                // if input starts with a closing bracket.\n                if (open.empty()) {\n                    return false;\n                }\n\n                if (open.top() != parens[c]) {\n                    return false;\n                }\n\n                open.pop();\n            } else {\n                open.push(c);\n            }\n        }\n        \n        return open.empty();\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0020-valid-parentheses.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0020-valid-parentheses.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0020-valid-parentheses.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0020-valid-parentheses.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断只由三种括号组成的字符串是否正确闭合。",
+  "explanation": "遇到左括号入栈，遇到右括号必须匹配栈顶。结束时栈应为空。",
+  "memory": "后开的先闭合；弹栈前检查空栈。"
+}

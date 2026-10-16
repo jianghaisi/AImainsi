@@ -1,0 +1,66 @@
+{
+  "number": "17",
+  "adapter": {
+    "name": "letterCombinations",
+    "params": [
+      {
+        "name": "digits",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "list<string>"
+    },
+    "number": "17"
+  },
+  "tests": [
+    {
+      "input": [
+        "23"
+      ],
+      "expected": [
+        "ad",
+        "ae",
+        "af",
+        "bd",
+        "be",
+        "bf",
+        "cd",
+        "ce",
+        "cf"
+      ]
+    },
+    {
+      "input": [
+        "2"
+      ],
+      "expected": [
+        "a",
+        "b",
+        "c"
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def letterCombinations(self, digits: str) -> list[str]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} digits\n * @return {string[]}\n */\nvar letterCombinations = function(digits) {\n    \n};",
+    "java": "class Solution {\n    public List<String> letterCombinations(String digits) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<string> letterCombinations(string digits) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def letterCombinations(self, digits: str) -> List[str]:\n        res = []\n        digitToChar = {\n            \"2\": \"abc\",\n            \"3\": \"def\",\n            \"4\": \"ghi\",\n            \"5\": \"jkl\",\n            \"6\": \"mno\",\n            \"7\": \"qprs\",\n            \"8\": \"tuv\",\n            \"9\": \"wxyz\",\n        }\n\n        def backtrack(i, curStr):\n            if len(curStr) == len(digits):\n                res.append(curStr)\n                return\n            for c in digitToChar[digits[i]]:\n                backtrack(i + 1, curStr + c)\n\n        if digits:\n            backtrack(0, \"\")\n\n        return res\n",
+    "javascript": "/**\n * https://leetcode.com/problems/letter-combinations-of-a-phone-number/\n * Time O(N * 4^N) | Space O(N)\n * @param {string} digits\n * @return {string[]}\n */\nvar letterCombinations = function (digits, combination = [], combinations = []) {\n  const isBaseCase = !digits;\n  if (isBaseCase) {\n    if (combination.length) combinations.push(combination.join(''));\n    return combinations;\n  }\n  const letters = phoneButtons[digits[0]];\n  for (const char of letters) {\n    backTrack(digits, char, combination, combinations);\n  }\n  return combinations;\n};\nconst backTrack = (digits, char, combination, combinations) => {\n  combination.push(char);\n  letterCombinations(digits.slice(1), combination, combinations);\n  combination.pop();\n};\nconst phoneButtons = {\n  2: ['a', 'b', 'c'],\n  3: ['d', 'e', 'f'],\n  4: ['g', 'h', 'i'],\n  5: ['j', 'k', 'l'],\n  6: ['m', 'n', 'o'],\n  7: ['p', 'q', 'r', 's'],\n  8: ['t', 'u', 'v'],\n  9: ['w', 'x', 'y', 'z']\n};",
+    "java": "import java.util.ArrayList;\nimport java.util.List;\nimport java.util.Map;\n\nclass Solution {\n\n    private Map<Character, String> digitToChar = Map.of(\n        '2',\n        \"abc\",\n        '3',\n        \"def\",\n        '4',\n        \"ghi\",\n        '5',\n        \"jkl\",\n        '6',\n        \"mno\",\n        '7',\n        \"pqrs\",\n        '8',\n        \"tuv\",\n        '9',\n        \"wxyz\"\n    );\n\n    public List<String> letterCombinations(String digits) {\n        if (digits.length() == 0) {\n            return new ArrayList();\n        }\n\n        List<String> ans = new ArrayList();\n        String cur = \"\";\n        backtrack(digits, ans, cur, 0);\n        return ans;\n    }\n\n    public void backtrack(\n        String digits,\n        List<String> ans,\n        String cur,\n        int index\n    ) {\n        if (cur.length() == digits.length()) {\n            ans.add(cur);\n            return;\n        } else if (index >= digits.length()) {\n            return;\n        } else {\n            String digit = digitToChar.get(digits.charAt(index));\n            for (char c : digit.toCharArray()) {\n                backtrack(digits, ans, cur + c, index + 1);\n            }\n        }\n    }\n}\n",
+    "cpp": "/*\n    Given cell phone pad, return all possible letter combos that the number could represent\n    Ex. digits = \"23\" -> [\"ad\",\"ae\",\"af\",\"bd\",\"be\",\"bf\",\"cd\",\"ce\",\"cf\"]\n\n    Hash map all digits to letters, add 1 letter at a time for each digit, then backtrack undo\n\n    Time: O(n x 4^n)\n    Space: O(n x 4^n)\n*/\n\nclass Solution {\npublic:\n    vector<string> letterCombinations(string digits) {\n        if (digits.empty()) {\n            return {};\n        }\n        \n        unordered_map<char, string> m = {\n            {'2', \"abc\"},\n            {'3', \"def\"},\n            {'4', \"ghi\"},\n            {'5', \"jkl\"},\n            {'6', \"mno\"},\n            {'7', \"pqrs\"},\n            {'8', \"tuv\"},\n            {'9', \"wxyz\"}\n        };\n        string curr = \"\";\n        vector<string> result;\n        \n        dfs(digits, 0, m, curr, result);\n        return result;\n    }\nprivate:\n    void dfs(string digits, int index, unordered_map<char, string>& m, string& curr, vector<string>& result) {\n        if (index == digits.size()) {\n            result.push_back(curr);\n            return;\n        }\n        string str = m[digits[index]];\n        for (int i = 0; i < str.size(); i++) {\n            curr.push_back(str[i]);\n            dfs(digits, index + 1, m, curr, result);\n            curr.pop_back();\n        }\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0017-letter-combinations-of-a-phone-number.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0017-letter-combinations-of-a-phone-number.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0017-letter-combinations-of-a-phone-number.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0017-letter-combinations-of-a-phone-number.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "将只含数字 2 到 9 的字符串映射为电话按键上的所有字母组合，空输入返回空数组。",
+  "explanation": "每层处理一个数字，在该键的字母中逐一选择，再进入下一个数字。",
+  "memory": "每层对应一个按键，路径长度对应处理过的数字数。"
+}

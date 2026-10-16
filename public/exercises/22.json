@@ -1,0 +1,60 @@
+{
+  "number": "22",
+  "adapter": {
+    "name": "generateParenthesis",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "list<string>"
+    },
+    "number": "22"
+  },
+  "tests": [
+    {
+      "input": [
+        3
+      ],
+      "expected": [
+        "((()))",
+        "(()())",
+        "(())()",
+        "()(())",
+        "()()()"
+      ]
+    },
+    {
+      "input": [
+        1
+      ],
+      "expected": [
+        "()"
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def generateParenthesis(self, n: int) -> list[str]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} n\n * @return {string[]}\n */\nvar generateParenthesis = function(n) {\n    \n};",
+    "java": "class Solution {\n    public List<String> generateParenthesis(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def generateParenthesis(self, n: int) -> List[str]:\n        stack = []\n        res = []\n\n        def backtrack(openN, closedN):\n            if openN == closedN == n:\n                res.append(\"\".join(stack))\n                return\n\n            if openN < n:\n                stack.append(\"(\")\n                backtrack(openN + 1, closedN)\n                stack.pop()\n            if closedN < openN:\n                stack.append(\")\")\n                backtrack(openN, closedN + 1)\n                stack.pop()\n\n        backtrack(0, 0)\n        return res\n",
+    "javascript": "const dfs = (n, combos = [], open = 0, close = 0, path = []) => {\n  const isBaseCase = path.length === n * 2;\n  if (isBaseCase) {\n    combos.push(path.join('')); /* Space O(N + N) */\n\n    return combos;\n  }\n  const isOpen = open < n;\n  if (isOpen) backTrackOpen(n, combos, open, close, path); /* Time O(2^N) | Space O(2^N) */\n\n  const isClose = close < open;\n  if (isClose) backTrackClose(n, combos, open, close, path); /* Time O(2^N) | Space O(2^N) */\n\n  return combos;\n};\nconst backTrackOpen = (n, combos, open, close, path) => {\n  path.push('('); /* Space O(N) */\n  dfs(n, combos, open + 1, close, path); /* Time O(2^N) | Space O(2^N) */\n  path.pop();\n};\nconst backTrackClose = (n, combos, open, close, path) => {\n  path.push(')'); /* Space O(N) */\n  dfs(n, combos, open, close + 1, path); /* Time O(2^N) | Space O(2^N) */\n  path.pop();\n};\n\n/**\n * BFS\n * Time O(((4^N) / (N * SQRT(N)))) | Space O(((4^N) / (N * SQRT(N))))\n * Time O(2^N) | Space O(2^N)\n * https://leetcode.com/problems/generate-parentheses\n * @param {number} n\n * @return {string[]}\n */\n\nconst bfs = (n, combos = []) => {\n  const queue = new Queue([['', 0, 0]]);\n  while (!queue.isEmpty()) {\n    /* Time O(2^N) */\n    const [str, open, close] = queue.dequeue();\n    const isBaseCase = open === n && close === n;\n    if (isBaseCase) {\n      combos.push(str); /* Space O(N) */\n\n      continue;\n    }\n    const isOpen = open < n;\n    if (isOpen) queue.enqueue([`${str}(`, open + 1, close]); /* Space O(2^N) */\n\n    const isClose = close < open;\n    if (isClose) queue.enqueue([`${str})`, open, close + 1]); /* Space O(2^N) */\n  }\n  return combos;\n};\n\n/**\n * DFS\n * Time O(((4^N) / (N * SQRT(N)))) | Space O(((4^N) / (N * SQRT(N))))\n * Time O(2^N) | Space O(2^N)\n * https://leetcode.com/problems/generate-parentheses\n * @param {number} n\n * @return {string[]}\n */\nvar generateParenthesis = (n, combos = []) => {\n  const isBaseCase = n === 0;\n  if (isBaseCase) {\n    combos.push('');\n    return combos;\n  }\n  for (let c = 0; c < n; c++) {\n    for (const left of generateParenthesis(c)) {\n      for (const right of generateParenthesis(n - 1 - c)) {\n        combos.push(`(${left})${right}`);\n      }\n    }\n  }\n  return combos;\n};",
+    "java": "package arrays;\n\nimport java.util.ArrayList;\nimport java.util.Iterator;\nimport java.util.List;\nimport java.util.Stack;\n\npublic class Solution {\n\n    public static void main(String[] args) {\n        Solution sol = new Solution();\n        sol.generateParenthesis(3);\n    }\n\n    Stack<Character> stack = new Stack<>();\n    List<String> res = new ArrayList<>();\n\n    public List<String> generateParenthesis(int n) {\n        backtrack(0, 0, n);\n        return res;\n    }\n\n    private void backtrack(int openN, int closedN, int n) {\n        if (openN == closedN && closedN == n) {\n            StringBuilder sb = new StringBuilder();\n            for (Character c: stack) {\n                sb.append(c);\n            }\n            res.add(sb.toString());\n        }\n        if (openN < n) {\n            stack.push('(');\n            backtrack(openN + 1, closedN, n);\n            stack.pop();\n        }\n        if (closedN < openN) {\n            stack.push(')');\n            backtrack(openN, closedN + 1, n);\n            stack.pop();\n        }\n    }\n}\n",
+    "cpp": "/*\n    Given n pairs of parentheses, generate all combos of well-formed parentheses\n    Ex. n = 3 -> [\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"], n = 1 -> [\"()\"]\n\n    Backtracking, keep valid, favor trying opens, then try closes if still valid\n\n    Time: O(2^n)\n    Space: O(n)\n*/\n\nclass Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n        vector<string> result;\n        generate(n, 0, 0, \"\", result);\n        return result;\n    }\nprivate:\n    void generate(int n, int open, int close, string str, vector<string>& result) {\n        if (open == n && close == n) {\n            result.push_back(str);\n            return;\n        }\n        if (open < n) {\n            generate(n, open + 1, close, str + '(', result);\n        }\n        if (open > close) {\n            generate(n, open, close + 1, str + ')', result);\n        }\n    }\n};\n\n/*\n    Using a single stack without recursion\n\n    Time: O(2^n)\n    Space: O(n)\n*/\nclass Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n        stack<vector<string>> stk;\n        vector<string> result;\n        stk.push({\"(\", \"1\", \"0\"}); // {string, left_count, right_count}\n\n        while (!stk.empty()) {\n            for (int i = 0; i < stk.size(); i++) {\n                vector<string> item = stk.top();\n                stk.pop();\n                int left = stoi(item[1]), right = stoi(item[2]);\n                if (left == n && right == n) {\n                    result.push_back(item[0]);\n                    continue;\n                }\n                if (left < n) {\n                    stk.push({item[0] + \"(\", to_string(++left), to_string(right)});\n                    left--; // reverse left count\n                }\n                if (left > right) {\n                    stk.push({item[0] + \")\", to_string(left), to_string(++right)});\n                }\n            }\n        }\n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0022-generate-parentheses.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0022-generate-parentheses.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0022-generate-parentheses.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0022-generate-parentheses.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "生成 n 对括号组成的全部合法字符串。",
+  "explanation": "维护已用左、右括号数量；左括号少于 n 时可加，右括号少于左括号时才可加。",
+  "memory": "任何前缀都必须左括号不少于右括号。"
+}

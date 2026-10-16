@@ -2,6 +2,7 @@ import type { AppState } from './types';
 import { questions, profiles, defaultSettings } from '../server/seed.mjs';
 import { addLanguages } from '../server/languages.mjs';
 import { growth } from '../shared/learning.mjs';
+import { mergeCatalog, catalogSnapshot, currentCatalog } from '../shared/catalog.mjs';
 export interface StoredState extends AppState {
   version: number;
 }
@@ -19,20 +20,24 @@ export async function readLocal(): Promise<StoredState> {
     request.onerror = () => reject(request.error);
   });
   if (result) {
-    result.questions = result.questions.map(addLanguages);
+    result.catalog = currentCatalog(result.catalog);
+    result.questions = mergeCatalog(result.questions.map(addLanguages), result.catalog);
+    result.questionProgress ||= {};
     result.growth = growth(result.questions, result.attempts, result.sessions);
     return result;
   }
   const initial: StoredState = {
     version: 1,
     settings: { ...defaultSettings, hasApiKey: false, hasJudgeKey: false },
-    questions: questions.map(addLanguages),
+    questions: mergeCatalog(questions.map(addLanguages)),
     profiles,
     resume: { text: '', name: '', updatedAt: null },
     sessions: [],
     attempts: [],
     reviews: [],
     planDone: [],
+    questionProgress: {},
+    catalog: catalogSnapshot,
     growth: [],
     sources: { lastSync: null, lastError: null, added: 0, logs: [] },
   };

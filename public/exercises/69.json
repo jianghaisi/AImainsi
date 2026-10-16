@@ -1,0 +1,52 @@
+{
+  "number": "69",
+  "adapter": {
+    "name": "mySqrt",
+    "params": [
+      {
+        "name": "x",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "69"
+  },
+  "tests": [
+    {
+      "input": [
+        4
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        8
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def mySqrt(self, x: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} x\n * @return {number}\n */\nvar mySqrt = function(x) {\n    \n};",
+    "java": "class Solution {\n    public int mySqrt(int x) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int mySqrt(int x) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def mySqrt(self, x: int) -> int:\n        l, r = 0, x\n        while l <= r:\n            mid = (l + r) // 2\n            if mid * mid == x:\n                return mid\n            if mid * mid < x:\n                l = mid + 1\n            else:\n                r = mid - 1\n        return r\n",
+    "javascript": "/**\n * Binary Search\n * https://leetcode.com/problems/sqrtx/\n *\n * Time O(log(n)) | Space O(1)\n * @param {number} x\n * @return {number}\n */\nvar mySqrt = function (x) {\n  let left = 1;\n  let right = x;\n  while (left <= right) {\n    const mid = left + right >> 1;\n    if (mid * mid <= x && (mid + 1) * (mid + 1) > x) return mid;\n    if (mid * mid < x) {\n      left = mid + 1;\n    } else {\n      right = mid - 1;\n    }\n  }\n  return 0;\n};",
+    "java": "class Solution {\n    public int mySqrt(int x) {\n        \n        // Linear search way -> loop through for all nums till x\n        // then see if their square <= x\n\n        // Binary Search way -> we can optimise our approach by observing\n        // that nums till x are sorted\n\n        int left = 0;\n        int right = x;\n        int mid = 0;\n        int probableAns = 0;\n\n        while(left <= right){\n            mid = left + (right-left)/2;\n            if((long)mid*mid <= (long)x){\n                probableAns = mid;\n                // let's see if we can find a bigger num\n                left = mid+1;\n            }\n            else if((long)mid*mid > (long)x){\n                right = mid-1;\n            }\n        }\n\n        return probableAns;\n    }\n}\n",
+    "cpp": "/*\n  Given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as well.\n  You must not use any built-in exponent function or operator.\n\n  For example, do not use pow(x, 0.5) in c++ or x ** 0.5 in python.\n\n  Ex. Input: x = 4\n      Output: 2\n      Explanation: The square root of 4 is 2, so we return 2.\n\n  Time  : O(log N)\n  Space : O(1)\n*/\n\nclass Solution {\npublic:\n    int mySqrt(int x) {\n        if(x == 0 || x == 1)\n            return x;\n            \n        long long beg = 0, mid = 0, end = x/2;\n        while(beg <= end) {\n            mid = (beg + end)/2;\n            if(mid * mid < x) {\n                if((mid + 1) * (mid + 1) > x)\n                    return mid;\n                beg = mid+1;\n            } else if(mid * mid > x) {\n                if( (mid - 1) * (mid - 1) < x)\n                    return mid-1;\n                end = mid - 1;\n            } else \n                return mid;\n        }\n        return mid;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0069-sqrtx.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0069-sqrtx.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0069-sqrtx.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0069-sqrtx.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "返回非负整数平方根的整数部分。",
+  "explanation": "二分最大满足 mid²≤x 的整数，注意乘法溢出可用除法比较。",
+  "memory": "求左边界还是右边界先说清：这里保留最后一个合法值。"
+}

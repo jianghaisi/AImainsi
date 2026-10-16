@@ -44,6 +44,13 @@ try {
   await page.getByRole('button', { name: '载入参考实现' }).click();
   await page.getByRole('button', { name: '运行并提交' }).click();
   await page.getByText('通过 4 / 4 个用例').waitFor({ timeout: 45000 });
+  await page.getByLabel('训练题目').selectOption('lc-lru-cache');
+  await page.getByRole('button', { name: '展开参考实现' }).click();
+  await page.getByRole('button', { name: '载入参考实现' }).click();
+  await page.getByRole('button', { name: '运行并提交' }).click();
+  await page.getByText('通过 1 / 1 个用例').waitFor({ timeout: 45000 });
+  await page.getByRole('button', { name: '情报题库 QUESTION BANK' }).click();
+  await page.screenshot({ path: 'docs/question-bank-desktop.png', animations: 'disabled' });
   console.log(
     'Electron window, Python worker, encrypted key storage and redacted export verified.',
   );

@@ -1,0 +1,95 @@
+{
+  "number": "994",
+  "adapter": {
+    "name": "orangesRotting",
+    "params": [
+      {
+        "name": "grid",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "994"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            2,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          [
+            2,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": -1
+    },
+    {
+      "input": [
+        [
+          [
+            0,
+            2
+          ]
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def orangesRotting(self, grid: List[List[int]]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[][]} grid\n * @return {number}\n */\nvar orangesRotting = function(grid) {\n    \n};",
+    "java": "class Solution {\n    public int orangesRotting(int[][] grid) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int orangesRotting(vector<vector<int>>& grid) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def orangesRotting(self, grid: List[List[int]]) -> int:\n        q = collections.deque()\n        fresh = 0\n        time = 0\n\n        for r in range(len(grid)):\n            for c in range(len(grid[0])):\n                if grid[r][c] == 1:\n                    fresh += 1\n                if grid[r][c] == 2:\n                    q.append((r, c))\n\n        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]\n        while fresh > 0 and q:\n            length = len(q)\n            for i in range(length):\n                r, c = q.popleft()\n\n                for dr, dc in directions:\n                    row, col = r + dr, c + dc\n                    # if in bounds and nonrotten, make rotten\n                    # and add to q\n                    if (\n                        row in range(len(grid))\n                        and col in range(len(grid[0]))\n                        and grid[row][col] == 1\n                    ):\n                        grid[row][col] = 2\n                        q.append((row, col))\n                        fresh -= 1\n            time += 1\n        return time if fresh == 0 else -1\n",
+    "javascript": "const searchGrid = (grid, orangeCount = 0, queue = new Queue([])) => {\n  const [rows, cols] = [grid.length, grid[0].length];\n  for (let row = 0; row < rows; row++) {\n    /* Time O(ROWS) */\n    for (let col = 0; col < cols; col++) {\n      /* Time O(COLS) */\n      const isEmpty = grid[row][col] === 0;\n      if (!isEmpty) orangeCount++;\n      const isRotten = grid[row][col] === 2;\n      if (isRotten) queue.enqueue([row, col]); /* Space O(ROWS * COLS) */\n    }\n  }\n  return {\n    queue,\n    orangeCount\n  };\n};\nconst bfs = (grid, queue, rottenCount = 0, minutes = 0) => {\n  while (!queue.isEmpty()) {\n    rottenCount += queue.size();\n    for (let i = queue.size() - 1; 0 <= i; i--) {\n      /* Time O(WIDTH) */\n      expireFresh(grid, queue);\n    }\n    if (queue.size()) minutes++;\n  }\n  return {\n    rottenCount,\n    minutes\n  };\n};\n/**\n * https://leetcode.com/problems/rotting-oranges/\n * Time O((ROWS * COLS)^2) | Space O(1)\n * @param {number[][]} grid\n * @return {number}\n */\nvar orangesRotting = function (grid, minutes = 2) {\n  while (expireFresh(grid, minutes)) minutes++; /* Time O((ROWS * COLS)^2) */\n\n  return !hasFresh(grid) /* Time O(ROWS * COLS) */ ? minutes - 2 : -1;\n};\nvar expireFresh = (grid, minutes, toBeContinued = false) => {\n  const [rows, cols] = [grid.length, grid[0].length];\n  for (let row = 0; row < rows; row++) {\n    /* Time O(ROWS) */\n    for (let col = 0; col < cols; col++) {\n      /* Time O(COLS) */\n      const isEqual = grid[row][col] === minutes;\n      if (!isEqual) continue;\n      for (const [_row, _col] of getNeighbors(row, rows, col, cols)) {\n        const isFresh = grid[_row][_col] === 1;\n        if (!isFresh) continue;\n        grid[_row][_col] = minutes + 1;\n        toBeContinued = true;\n      }\n    }\n  }\n  return toBeContinued;\n};\nvar getNeighbors = (row, rows, col, cols) => [[0, 1], [0, -1], [1, 0], [-1, 0]].map(([_row, _col]) => [row + _row, col + _col]).filter(([_row, _col]) => 0 <= _row && _row < rows && 0 <= _col && _col < cols);\nconst hasFresh = grid => {\n  for (const row of grid) {\n    /* Time O(ROWS) */\n    for (const cell of row) {\n      /* Time O(COLS) */\n      const isFresh = cell === 1;\n      if (isFresh) return true;\n    }\n  }\n  return false;\n};",
+    "java": "class Solution {\n\n    public int orangesRotting(int[][] grid) {\n        int m = grid.length, n = grid[0].length;\n        Queue<int[]> queue = new LinkedList<>();\n        int fresh = 0;\n\n        for (int i = 0; i < m; i += 1) {\n            for (int j = 0; j < n; j += 1) {\n                if (grid[i][j] == 2) queue.offer(new int[] { i, j }); else if (\n                    grid[i][j] == 1\n                ) fresh += 1;\n            }\n        }\n\n        int count = 0;\n        int[][] dirs = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };\n        while (!queue.isEmpty() && fresh != 0) {\n            count += 1;\n            int sz = queue.size();\n            for (int i = 0; i < sz; i += 1) {\n                int[] rotten = queue.poll();\n                int r = rotten[0], c = rotten[1];\n                for (int[] dir : dirs) {\n                    int x = r + dir[0], y = c + dir[1];\n                    if (0 <= x && x < m && 0 <= y && y < n && grid[x][y] == 1) {\n                        grid[x][y] = 2;\n                        queue.offer(new int[] { x, y });\n                        fresh -= 1;\n                    }\n                }\n            }\n        }\n        return fresh == 0 ? count : -1;\n    }\n}\n",
+    "cpp": "/*\n    Given grid: 0 empty cell, 1 fresh orange, 2 rotten orange\n    Return min # of minutes until no cell has a fresh orange\n\n    BFS: rotten will contaminate neighbors first, then propagate out\n\n    Time: O(m x n)\n    Space: O(m x n)\n*/\n\nclass Solution {\npublic:\n    int orangesRotting(vector<vector<int>>& grid) {\n        int m = grid.size();\n        int n = grid[0].size();\n        \n        // build initial set of rotten oranges\n        queue<pair<int, int>> q;\n        int fresh = 0;\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                if (grid[i][j] == 2) {\n                    q.push({i, j});\n                } else if (grid[i][j] == 1) {\n                    fresh++;\n                }\n            }\n        }\n        // mark the start of a minute\n        q.push({-1, -1});\n        \n        int result = -1;\n        \n        // start rotting process via BFS\n        while (!q.empty()) {\n            int row = q.front().first;\n            int col = q.front().second;\n            q.pop();\n            \n            if (row == -1) {\n                // finish 1 minute of processing, mark next minute\n                result++;\n                if (!q.empty()) {\n                    q.push({-1, -1});\n                }\n            } else {\n                // rotten orange, contaminate its neighbors\n                for (int i = 0; i < dirs.size(); i++) {\n                    int x = row + dirs[i][0];\n                    int y = col + dirs[i][1];\n                    \n                    if (x < 0 || x >= m || y < 0 || y >= n) {\n                        continue;\n                    }\n                    \n                    if (grid[x][y] == 1) {\n                        // contaminate\n                        grid[x][y] = 2;\n                        fresh--;\n                        // this orange will now contaminate others\n                        q.push({x, y});\n                    }\n                }\n            }\n        }\n        \n        if (fresh == 0) {\n            return result;\n        }\n        return -1;\n    }\nprivate:\n    vector<vector<int>> dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0994-rotting-oranges.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0994-rotting-oranges.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0994-rotting-oranges.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0994-rotting-oranges.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "网格值 0 表示空格、1 表示新鲜橘子、2 表示腐烂橘子。每分钟腐烂向四邻扩散，返回全部腐烂的最短分钟数，不可能时返回 -1。",
+  "explanation": "把所有初始腐烂点同时入队，按层扩散，同时减少新鲜数。多源 BFS 保证最早到达时间。",
+  "memory": "所有源头从同一时刻出发，不能逐个源头单独计时。"
+}

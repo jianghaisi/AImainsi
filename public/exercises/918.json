@@ -1,0 +1,69 @@
+{
+  "number": "918",
+  "adapter": {
+    "name": "maxSubarraySumCircular",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "918"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          -2,
+          3,
+          -2
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          5,
+          -3,
+          5
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        [
+          -3,
+          -2,
+          -3
+        ]
+      ],
+      "expected": -2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def maxSubarraySumCircular(self, nums: list[int]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar maxSubarraySumCircular = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int maxSubarraySumCircular(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int maxSubarraySumCircular(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def maxSubarraySumCircular(self, nums: List[int]) -> int:\n        globMax, globMin = nums[0], nums[0]\n        curMax, curMin = 0, 0\n        total = 0\n        \n        for i, n in enumerate(nums):\n            curMax = max(curMax + n, n)\n            curMin = min(curMin + n, n)\n            total += n\n            globMax = max(curMax, globMax)\n            globMin = min(curMin, globMin)\n\n        return max(globMax, total - globMin) if globMax > 0 else globMax\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar maxSubarraySumCircular = function (nums) {\n  let [globalMax, globalMin] = [nums[0], nums[0]];\n  let [currentMax, currentMin] = [0, 0];\n  let total = 0;\n  for (num of nums) {\n    currentMax = Math.max(num, currentMax + num);\n    currentMin = Math.min(num, currentMin + num);\n    total += num;\n    globalMax = Math.max(globalMax, currentMax);\n    globalMin = Math.min(globalMin, currentMin);\n  }\n  return globalMax > 0 ? Math.max(globalMax, total - globalMin) : globalMax;\n};",
+    "java": "class Solution {\n    public int maxSubarraySumCircular(int[] nums) {\n        int curMax = 0, curMin = 0;\n        int globMax = nums[0], globMin = nums[0];\n        int total = 0;\n        for (int n : nums) {\n            curMax = Math.max(curMax + n, n);\n            curMin = Math.min(curMin + n, n);\n            total += n;\n            globMax = Math.max(curMax, globMax);\n            globMin = Math.min(curMin, globMin);\n        }\n        return globMax > 0 ? Math.max(globMax, total - globMin) : globMax;\n    }\n}\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0918-maximum-sum-circular-subarray.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0918-maximum-sum-circular-subarray.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0918-maximum-sum-circular-subarray.java"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "环形整数数组中求非空连续子数组的最大和。",
+  "explanation": "结果为普通最大子段和，或总和减最小子段和；全负时只取普通最大值。O(n)。",
+  "memory": "跨边界的最大段等于去掉中间最小段，不能留下空段。"
+}

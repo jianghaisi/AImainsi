@@ -1,0 +1,83 @@
+{
+  "number": "106",
+  "adapter": {
+    "name": "buildTree",
+    "params": [
+      {
+        "name": "inorder",
+        "type": "integer[]"
+      },
+      {
+        "name": "postorder",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "TreeNode",
+      "dealloc": true
+    },
+    "number": "106"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          9,
+          3,
+          15,
+          20,
+          7
+        ],
+        [
+          9,
+          15,
+          7,
+          20,
+          3
+        ]
+      ],
+      "expected": [
+        3,
+        9,
+        20,
+        null,
+        null,
+        15,
+        7
+      ]
+    },
+    {
+      "input": [
+        [
+          -1
+        ],
+        [
+          -1
+        ]
+      ],
+      "expected": [
+        -1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def buildTree(self, inorder: list[int], postorder: list[int]) -> TreeNode | None:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {number[]} inorder\n * @param {number[]} postorder\n * @return {TreeNode}\n */\nvar buildTree = function(inorder, postorder) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public TreeNode buildTree(int[] inorder, int[] postorder) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:\n        def buildTreeHelper(left, right):\n            if left > right:\n                return None\n\n            rootVal = postorder.pop()\n            rootNode = TreeNode(rootVal)\n\n            idx = inorderIndexMap[rootVal]\n            rootNode.right = buildTreeHelper(idx + 1, right)\n            rootNode.left = buildTreeHelper(left, idx - 1)\n            return rootNode\n\n        inorderIndexMap = {}\n        for (i, val) in enumerate(inorder):\n            inorderIndexMap[val] = i\n\n        return buildTreeHelper(0, len(postorder) - 1)\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * Recursion | Tree\n * Time O(n) | Space O(n)\n * https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/\n * @param {number[]} inorder\n * @param {number[]} postorder\n * @return {TreeNode}\n */\nvar buildTree = function (inorder, postorder) {\n  let globleIdx = inorder.length - 1;\n  const dfs = (start, end) => {\n    if (start === end) {\n      globleIdx--;\n      return new TreeNode(inorder[start]);\n    }\n    if (start > end) return null;\n    let i = start;\n    while (i < end + 1) {\n      if (inorder[i] === postorder[globleIdx]) break;\n      i++;\n    }\n    globleIdx--;\n    const currRoot = new TreeNode(inorder[i]);\n    currRoot.right = dfs(i + 1, end);\n    currRoot.left = dfs(start, i - 1);\n    return currRoot;\n  };\n  return dfs(0, globleIdx);\n};",
+    "java": "class Solution {\n\n    public TreeNode buildTree(int[] inorder, int[] postorder) {\n        HashMap<Integer, Integer> inMap = new HashMap<>();\n        for (int i = 0; i < inorder.length; i++) {\n            inMap.put(inorder[i], i);\n        }\n        return helper(\n            inorder,\n            0,\n            inorder.length - 1,\n            postorder,\n            0,\n            postorder.length - 1,\n            inMap\n        );\n    }\n\n    public TreeNode helper(\n        int[] inorder,\n        int iStart,\n        int iEnd,\n        int[] postorder,\n        int pStart,\n        int pEnd,\n        HashMap<Integer, Integer> inMap\n    ) {\n        if (pStart > pEnd || iStart > iEnd) {\n            return null;\n        }\n        TreeNode root = new TreeNode(postorder[pEnd]);\n        int index = inMap.get(postorder[pEnd]);\n        int numsLeft = index - iStart;\n        root.left =\n            helper(\n                inorder,\n                iStart,\n                index - 1,\n                postorder,\n                pStart,\n                pStart + numsLeft - 1,\n                inMap\n            );\n        root.right =\n            helper(\n                inorder,\n                index + 1,\n                iEnd,\n                postorder,\n                pStart + numsLeft,\n                pEnd - 1,\n                inMap\n            );\n        return root;\n    }\n}\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0106-construct-binary-tree-from-inorder-and-postorder-traversal.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0106-construct-binary-tree-from-inorder-and-postorder-traversal.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0106-construct-binary-tree-from-inorder-and-postorder-traversal.java"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "根据不重复值的中序与后序遍历重建二叉树。",
+  "explanation": "后序最后值为根，用中序索引划分子树，再递归构造。",
+  "memory": "从后序末尾消耗时，先构建右子树再构建左子树。"
+}

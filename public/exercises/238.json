@@ -1,0 +1,74 @@
+{
+  "number": "238",
+  "adapter": {
+    "name": "productExceptSelf",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "238"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": [
+        24,
+        12,
+        8,
+        6
+      ]
+    },
+    {
+      "input": [
+        [
+          -1,
+          1,
+          0,
+          -3,
+          3
+        ]
+      ],
+      "expected": [
+        0,
+        0,
+        9,
+        0,
+        0
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def productExceptSelf(self, nums: List[int]) -> List[int]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number[]}\n */\nvar productExceptSelf = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int[] productExceptSelf(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> productExceptSelf(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def productExceptSelf(self, nums: List[int]) -> List[int]:\n        res = [1] * (len(nums))\n\n        for i in range(1, len(nums)):\n            res[i] = res[i-1] * nums[i-1]\n        postfix = 1\n        for i in range(len(nums) - 1, -1, -1):\n            res[i] *= postfix\n            postfix *= nums[i]\n        return res\n",
+    "javascript": "/**\n * Array\n * Time O(N) | Space O(N)\n * https://leetcode.com/problems/product-of-array-except-self/\n * @param {number[]} nums\n * @return {number[]}\n */\nfunction productExceptSelf(nums) {\n  const result = [];\n  let prefix = 1;\n  let postfix = 1;\n  for (let i = 0; i < nums.length; i++) {\n    result[i] = prefix;\n    prefix *= nums[i];\n  }\n  for (let i = nums.length - 2; i >= 0; i--) {\n    postfix *= nums[i + 1];\n    result[i] *= postfix;\n  }\n  return result;\n}",
+    "java": "//Just store the left and right product (Try doing this with extra space first)\n//This one is constant space because we are returning the array we created\n//In first pass calculate the left product except self and in second calculate the right\n\nclass Solution {\n\n    public int[] productExceptSelf(int[] nums) {\n        int[] arr = new int[nums.length];\n        int right = 1, left = 1;\n        for (int i = 0; i < nums.length; i++) {\n            arr[i] = left;\n            left *= nums[i];\n        }\n        for (int i = nums.length - 1; i >= 0; i--) {\n            arr[i] *= right;\n            right *= nums[i];\n        }\n        return arr;\n    }\n\n    public int[] productExceptSelfNumsAsPrefix(int[] nums) {\n        int[] output = new int[nums.length];\n        output[0] = 1;\n\n        for (int i = 0; i < nums.length - 1; i++) output[i + 1] =\n            output[i] * nums[i];\n\n        for (int i = nums.length - 2; i >= 0; i--) {\n            output[i] = nums[i + 1] * output[i];\n            nums[i] = nums[i] * nums[i + 1];\n        }\n        return output;\n    }\n}\n",
+    "cpp": "/*\n    Given an integer array nums, return an array such that:\n    answer[i] is equal to the product of all elements of nums except nums[i]\n    Ex. nums = [1,2,3,4] -> [24,12,8,6], nums = [-1,1,0,-3,3] -> [0,0,9,0,0]\n\n    Calculate prefix products forward, then postfix backwards in a 2nd pass\n\n    Time: O(n)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    vector<int> productExceptSelf(vector<int>& nums) {\n        int n = nums.size();\n        vector<int> result(n, 1);\n        \n        int prefix = 1;\n        for (int i = 0; i < n; i++) {\n            result[i] = prefix;\n            prefix = prefix * nums[i];\n        }\n        \n        int postfix = 1;\n        for (int i = n - 1; i >= 0; i--) {\n            result[i] = result[i] * postfix;\n            postfix = postfix * nums[i];\n        }\n        \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0238-product-of-array-except-self.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0238-product-of-array-except-self.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0238-product-of-array-except-self.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0238-product-of-array-except-self.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "对每个位置返回数组其余所有元素的乘积，不使用除法。",
+  "explanation": "答案先记录左侧前缀乘积，再从右向左乘后缀积。避免除法，自然兼容零。O(n)。",
+  "memory": "每个答案只需要“左边全部”和“右边全部”，不包含自己。"
+}

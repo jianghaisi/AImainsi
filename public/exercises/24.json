@@ -1,0 +1,84 @@
+{
+  "number": "24",
+  "adapter": {
+    "name": "swapPairs",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      }
+    ],
+    "return": {
+      "type": "ListNode"
+    },
+    "number": "24"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": [
+        2,
+        1,
+        4,
+        3
+      ]
+    },
+    {
+      "input": [
+        []
+      ],
+      "expected": []
+    },
+    {
+      "input": [
+        [
+          1
+        ]
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        2,
+        1,
+        3
+      ]
+    }
+  ],
+  "starters": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def swapPairs(self, head: ListNode | None) -> ListNode | None:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @return {ListNode}\n */\nvar swapPairs = function(head) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode swapPairs(ListNode head) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* swapPairs(ListNode* head) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def swapPairs(self, head: ListNode) -> ListNode:\n        dummy = ListNode(0, head)\n        prev, curr = dummy, head\n\n        while curr and curr.next:\n            # save ptrs\n            nxtPair = curr.next.next\n            second = curr.next\n\n            # reverse this pair\n            second.next = curr\n            curr.next = nxtPair\n            prev.next = second\n\n            # update ptrs\n            prev = curr\n            curr = nxtPair\n\n        return dummy.next\n",
+    "java": "//Iterative version\nclass Solution {\n\n    public ListNode swapPairs(ListNode head) {\n        if (head == null || head.next == null) return head;\n        ListNode dummy = new ListNode(0);\n        dummy.next = head;\n        ListNode temp = dummy;\n        while (temp.next != null && temp.next.next != null) {\n            ListNode first = temp.next;\n            ListNode second = temp.next.next;\n            temp.next = second;\n            first.next = second.next;\n            second.next = first;\n            temp = first;\n        }\n        return dummy.next;\n    }\n}\n\n//Recursive version\nclass Solution {\n\n    public ListNode swapPairs(ListNode head) {\n        if (head == null || head.next == null) return head;\n        ListNode p = head.next;\n        head.next = swapPairs(head.next.next);\n        p.next = head;\n        return p;\n    }\n}\n",
+    "cpp": "/*\n  Given a linked list, swap every two adjacent nodes and return its head. \n  You must solve the problem without modifying the values in the list's nodes (i.e., only nodes themselves may be changed.)\n\n  Ex. Input: head = [1,2,3,4]\n      Output: [2,1,4,3]\n\n  Time  : O(N);\n  Space : O(1);\n*/\n\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* swapPairs(ListNode* head) {  \n        if (!head || !head->next) \n            return head;\n\n        ListNode *new_head = head->next;\n        ListNode *prev = NULL;\n\n        while (head && head->next) {\n            ListNode *next_pair = head->next->next;\n            ListNode *second = head->next;\n\n            if (prev)\n                prev->next = second;\n\n            second->next = head;\n            head->next = next_pair;\n\n            prev = head;\n            head = next_pair;\n        }\n        return new_head;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0024-swap-nodes-in-pairs.py",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0024-swap-nodes-in-pairs.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0024-swap-nodes-in-pairs.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "交换链表每对相邻节点，最后单独剩下的节点不变；需要调整连接而非只交换值。",
+  "explanation": "哑节点接入链表，每次保留前驱、第一节点、第二节点和后继，再重连三条边。",
+  "memory": "先记后继，第二到前、第一到后、前驱接第二。"
+}

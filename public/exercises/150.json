@@ -1,0 +1,84 @@
+{
+  "number": "150",
+  "adapter": {
+    "name": "evalRPN",
+    "params": [
+      {
+        "name": "tokens",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "150"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "2",
+          "1",
+          "+",
+          "3",
+          "*"
+        ]
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        [
+          "4",
+          "13",
+          "5",
+          "/",
+          "+"
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          "10",
+          "6",
+          "9",
+          "3",
+          "+",
+          "-11",
+          "*",
+          "/",
+          "*",
+          "17",
+          "+",
+          "5",
+          "+"
+        ]
+      ],
+      "expected": 22
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def evalRPN(self, tokens: List[str]) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string[]} tokens\n * @return {number}\n */\nvar evalRPN = function(tokens) {\n    \n};",
+    "java": "class Solution {\n    public int evalRPN(String[] tokens) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int evalRPN(vector<string>& tokens) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def evalRPN(self, tokens: List[str]) -> int:\n        stack = []\n        for c in tokens:\n            if c == \"+\":\n                stack.append(stack.pop() + stack.pop())\n            elif c == \"-\":\n                a, b = stack.pop(), stack.pop()\n                stack.append(b - a)\n            elif c == \"*\":\n                stack.append(stack.pop() * stack.pop())\n            elif c == \"/\":\n                a, b = stack.pop(), stack.pop()\n                stack.append(int(float(b) / a))\n            else:\n                stack.append(int(c))\n        return stack[0]\n",
+    "javascript": "/**\n * https://leetcode.com/problems/evaluate-reverse-polish-notation\n * Time O(N) | Space(N)\n * @param {string[]} tokens\n * @return {number}\n */\nvar evalRPN = function (tokens, stack = []) {\n  for (const char of tokens) {\n    /* Time O(N) */\n    const isOperation = char in OPERATORS;\n    if (isOperation) {\n      const value = performOperation(char, stack);\n      stack.push(value); /* Space O(N) */\n\n      continue;\n    }\n    stack.push(Number(char)); /* Space O(N) */\n  }\n  return stack.pop();\n};\nvar OPERATORS = {\n  '+': (a, b) => a + b,\n  '-': (a, b) => a - b,\n  '*': (a, b) => a * b,\n  '/': (a, b) => Math.trunc(a / b)\n};\nvar performOperation = (char, stack) => {\n  const [rightNum, leftNum] = [stack.pop(), stack.pop()];\n  const operation = OPERATORS[char];\n  return operation(leftNum, rightNum);\n};",
+    "java": "class Solution {\n\n    public int evalRPN(String[] tokens) {\n        Stack<Integer> stack = new Stack<>();\n        for (String token : tokens) {\n            if (token.equals(\"+\")) {\n                stack.add(stack.pop() + stack.pop());\n            } else if (token.equals(\"-\")) {\n                int a = stack.pop();\n                int b = stack.pop();\n                stack.add(b - a);\n            } else if (token.equals(\"*\")) {\n                stack.add(stack.pop() * stack.pop());\n            } else if (token.equals(\"/\")) {\n                int a = stack.pop();\n                int b = stack.pop();\n                stack.add(b / a);\n            } else {\n                stack.add(Integer.parseInt(token));\n            }\n        }\n        return stack.pop();\n    }\n}\n",
+    "cpp": "/*\n    Evaluate RPN, valid operators: +, -, *, /\n\n    Stack, if num push, if operator apply to top 2 nums\n\n    Time: O(n)\n    Space: O(n)\n*/\n\nclass Solution {\npublic:\n    int evalRPN(vector<string>& tokens) {\n        stack<int> stk;\n        \n        for (int i = 0; i < tokens.size(); i++) {\n            string token = tokens[i];\n            \n            if (token.size() > 1 || isdigit(token[0])) {\n                stk.push(stoi(token));\n                continue;\n            }\n            \n            int num2 = stk.top();\n            stk.pop();\n            int num1 = stk.top();\n            stk.pop();\n            \n            int result = 0;\n            if (token == \"+\") {\n                result = num1 + num2;\n            } else if (token == \"-\") {\n                result = num1 - num2;\n            } else if (token == \"*\") {\n                result = num1 * num2;\n            } else {\n                result = num1 / num2;\n            }\n            stk.push(result);\n        }\n        \n        return stk.top();\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0150-evaluate-reverse-polish-notation.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0150-evaluate-reverse-polish-notation.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0150-evaluate-reverse-polish-notation.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0150-evaluate-reverse-polish-notation.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "计算合法逆波兰表达式，整数除法向零截断。",
+  "explanation": "数字入栈，运算符弹出右操作数再弹出左操作数，结果入栈。",
+  "memory": "减法和除法注意弹栈顺序，负数除法向零截断。"
+}

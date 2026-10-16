@@ -1,0 +1,72 @@
+{
+  "number": "637",
+  "adapter": {
+    "name": "averageOfLevels",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "list<double>"
+    },
+    "number": "637"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      ],
+      "expected": [
+        3,
+        14.5,
+        11
+      ]
+    },
+    {
+      "input": [
+        [
+          3,
+          9,
+          20,
+          15,
+          7
+        ]
+      ],
+      "expected": [
+        3,
+        14.5,
+        11
+      ]
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def averageOfLevels(self, root: TreeNode | None) -> list[float]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @return {number[]}\n */\nvar averageOfLevels = function(root) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public List<Double> averageOfLevels(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<double> averageOfLevels(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def averageOfLevels(self,root):\n        level=[root] if root else [];out=[]\n        while level:\n            out.append(sum(n.val for n in level)/len(level))\n            level=[child for n in level for child in (n.left,n.right) if child]\n        return out\n",
+    "java": "//Apply Breadth first search.\n//Asked in Amazon and Meta\nclass Solution {\n\n    public List<Double> averageOfLevels(TreeNode root) {\n        List<Double> ans = new ArrayList<>();\n        Queue<TreeNode> q = new LinkedList();\n        q.offer(root);\n        while (!q.isEmpty()) {\n            int queue_size = q.size();\n            double avg = 0;\n            for (int i = 0; i < queue_size; i++) {\n                TreeNode cur = q.poll();\n                avg += cur.val;\n                if (cur.left != null) q.offer(cur.left);\n                if (cur.right != null) q.offer(cur.right);\n            }\n            ans.add(avg / queue_size);\n        }\n        return ans;\n    }\n}\n",
+    "cpp": "/*\n  Given the root of a binary tree, return the average value of the nodes on each level in the form of an array. \n  Answers within 10-5 of the actual answer will be accepted. \n\n  Ex. Input: root = [3,9,20,null,null,15,7]\n      Output: [3.00000,14.50000,11.00000]\n      Explanation: The average value of nodes on level 0 is 3, on level 1 is 14.5, and on level 2 is 11.\n      Hence return [3, 14.5, 11].\n\n  Time  : O(N)\n  Space : O(N)\n*/\n\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<double> averageOfLevels(TreeNode* root) {\n        vector <double> v;\n        if(root == NULL) \n            return v;\n        queue <TreeNode *> q;\n        q.push(root);\n\n        while(!q.empty()) {\n            double sum = 0, count = 0;\n            int siz = q.size();\n            for(int i = 0 ; i < siz ; i++) {\n                sum += q.front() -> val;\n                if(q.front() -> left)\n                    q.push(q.front() -> left);\n                if(q.front() -> right) \n                    q.push(q.front() -> right);\n                ++count;\n                q.pop();\n            }\n            v.push_back(sum / count);\n        }\n        return v;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0637-average-of-levels-in-binary-tree.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0637-average-of-levels-in-binary-tree.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "返回二叉树每一层节点值的平均数。",
+  "explanation": "层序遍历，固定本层节点数，累计后除以数量。O(n)。",
+  "memory": "开始处理层前先记录长度，别把下一层混入。"
+}

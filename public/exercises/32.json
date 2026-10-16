@@ -1,0 +1,52 @@
+{
+  "number": "32",
+  "adapter": {
+    "name": "longestValidParentheses",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "32"
+  },
+  "tests": [
+    {
+      "input": [
+        "(()"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        ")()())"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        ""
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def longestValidParentheses(self, s: str) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @return {number}\n */\nvar longestValidParentheses = function(s) {\n    \n};",
+    "java": "class Solution {\n    public int longestValidParentheses(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int longestValidParentheses(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def longestValidParentheses(self,s):\n        stack=[-1];best=0\n        for i,c in enumerate(s):\n            if c=='(':stack.append(i)\n            else:\n                stack.pop()\n                if stack:best=max(best,i-stack[-1])\n                else:stack.append(i)\n        return best\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "求括号字符串中最长合法连续括号片段的长度。",
+  "explanation": "栈保存未匹配位置，初始放 -1 作为边界。右括号匹配后，用当前下标减最新边界计算长度。",
+  "memory": "栈里存下标与断点，不只存括号字符。"
+}

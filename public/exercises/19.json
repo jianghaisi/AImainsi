@@ -1,0 +1,85 @@
+{
+  "number": "19",
+  "adapter": {
+    "name": "removeNthFromEnd",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode",
+        "dealloc": false
+      },
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "ListNode",
+      "dealloc": true
+    },
+    "number": "19"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        2
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": []
+    },
+    {
+      "input": [
+        [
+          1,
+          2
+        ],
+        1
+      ],
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def removeNthFromEnd(self, head: ListNode | None, n: int) -> ListNode | None:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @param {number} n\n * @return {ListNode}\n */\nvar removeNthFromEnd = function(head, n) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode removeNthFromEnd(ListNode head, int n) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* removeNthFromEnd(ListNode* head, int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:\n        dummy = ListNode(0, head)\n        left = dummy\n        right = head\n\n        while n > 0:\n            right = right.next\n            n -= 1\n\n        while right:\n            left = left.next\n            right = right.next\n\n        # delete\n        left.next = left.next.next\n        return dummy.next\n",
+    "javascript": "const moveFast = (fast, n) => {\n  for (let i = 1; i <= n + 1; i++) {\n    /* Time O(N) */\n    fast = fast.next;\n  }\n  return fast;\n};\nconst moveSlow = (slow, fast) => {\n  while (fast) {\n    /* Time O(N) */\n    slow = slow.next;\n    fast = fast.next;\n  }\n  return slow;\n};\n\n/**\n * https://leetcode.com/problems/remove-nth-node-from-end-of-list/\n * Time O(N) | Space O(1)\n * @param {ListNode} head\n * @param {number} n\n * @return {ListNode}\n */\nvar removeNthFromEnd = function (head, n) {\n  const length = getNthFromEnd(head, n); /* Time O(N) */\n\n  const isHead = length < 0;\n  if (isHead) return head.next;\n  const curr = moveNode(head, length); /* Time O(N) */\n\n  curr.next = curr.next.next;\n  return head;\n};\nconst getNthFromEnd = (curr, n, length = 0) => {\n  while (curr) {\n    /* Time O(N) */\n    curr = curr.next;\n    length++;\n  }\n  return length - n - 1;\n};\nconst moveNode = (curr, length) => {\n  while (length) {\n    /* Time O(N) */\n    curr = curr.next;\n    length--;\n  }\n  return curr;\n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\n\n//         Using Two Pointer Approach:\n//         Take a pointer second and put it at (n+1)th position from the beginning\n//         Take pointer first and move it forward till second reaches Last Node and second.next points to null\n//         At that point we would have reached the (n-1)th node from the end using the pointer first\n//         Unlink or Skip that node\n\nclass Solution {\n\n    public ListNode removeNthFromEnd(ListNode head, int n) {\n        if (head == null || head.next == null) return null;\n\n        ListNode temp = new ListNode(0);\n        temp.next = head;\n        ListNode first = temp, second = temp;\n\n        while (n > 0) {\n            second = second.next;\n            n--;\n        }\n\n        while (second.next != null) {\n            second = second.next;\n            first = first.next;\n        }\n\n        first.next = first.next.next;\n        return temp.next;\n    }\n}\n",
+    "cpp": "/*\n    Given head of a linked list, remove nth node from end of list\n    Ex. head = [1,2,3,4,5], n = 2 -> [1,2,3,5]\n\n    Create 2 pointers \"n\" apart, iterate until end, will be at nth\n\n    Time: O(n)\n    Space: O(1)\n*/\n\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* removeNthFromEnd(ListNode* head, int n) {\n        if (head->next == NULL) {\n            return NULL;\n        }\n        \n        ListNode* slow = head;\n        ListNode* fast = head;\n        \n        while (n > 0) {\n            fast = fast->next;\n            n--;\n        }\n        \n        if (fast == NULL) {\n            return head->next;\n        }\n        \n        while (fast->next != NULL) {\n            slow = slow->next;\n            fast = fast->next;\n        }\n        \n        slow->next = slow->next->next;\n        return head;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0019-remove-nth-node-from-end-of-list.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0019-remove-nth-node-from-end-of-list.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0019-remove-nth-node-from-end-of-list.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0019-remove-nth-node-from-end-of-list.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "删除链表倒数第 n 个节点，返回新头部。n 合法，链表用数组编码。",
+  "explanation": "哑节点后放两个指针，前指针先走 n+1 步，再同步推进，让后指针停在待删节点前。",
+  "memory": "先拉开固定间距，再一起走；哑节点处理删除头节点。"
+}

@@ -1,0 +1,94 @@
+{
+  "number": "739",
+  "adapter": {
+    "name": "dailyTemperatures",
+    "params": [
+      {
+        "name": "temperatures",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "739"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          73,
+          74,
+          75,
+          71,
+          69,
+          72,
+          76,
+          73
+        ]
+      ],
+      "expected": [
+        1,
+        1,
+        4,
+        2,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "input": [
+        [
+          30,
+          40,
+          50,
+          60
+        ]
+      ],
+      "expected": [
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "input": [
+        [
+          30,
+          60,
+          90
+        ]
+      ],
+      "expected": [
+        1,
+        1,
+        0
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def dailyTemperatures(self, temperatures: list[int]) -> list[int]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number[]} temperatures\n * @return {number[]}\n */\nvar dailyTemperatures = function(temperatures) {\n    \n};",
+    "java": "class Solution {\n    public int[] dailyTemperatures(int[] temperatures) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> dailyTemperatures(vector<int>& temperatures) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:\n        res = [0] * len(temperatures)\n        stack = []  # pair: [temp, index]\n\n        for i, t in enumerate(temperatures):\n            while stack and t > stack[-1][0]:\n                stackT, stackInd = stack.pop()\n                res[stackInd] = i - stackInd\n            stack.append((t, i))\n        return res\n",
+    "javascript": "const canShrink = (stack, temperatures, day) => {\n  const previousDay = stack[stack.length - 1];\n  const [prevTemperature, currTemperature] = [temperatures[previousDay], temperatures[day]];\n  const isWarmer = prevTemperature < currTemperature;\n  return stack.length && isWarmer;\n};\n\n/**\n * https://leetcode.com/problems/daily-temperatures\n * Time O(N) | Space O(1)\n * @param {number[]} temperatures\n * @return {number[]}\n */\nvar dailyTemperatures = function (temperatures, hottest = 0) {\n  const days = new Array(temperatures.length).fill(0);\n  for (let day = temperatures.length - 1; 0 <= day; day--) {\n    /* Time O(N + N) */\n    const temperature = temperatures[day];\n    const isHotter = hottest <= temperature;\n    if (isHotter) {\n      hottest = temperature;\n      continue; /* Time O(N + N) */\n    }\n    search(temperatures, day, temperature, days); /* Time O(N + N) | Ignore Space O(N) */\n  }\n  return days;\n};\nconst search = (temperatures, day, temperature, days, dayCount = 1) => {\n  const isHotter = () => temperatures[day + dayCount] <= temperature;\n  while (isHotter()) dayCount += days[day + dayCount]; /* Time O(N + N) */\n\n  days[day] = dayCount; /* Ignore Space O(N) */\n};",
+    "java": "class Solution {\n\n    public int[] dailyTemperatures(int[] temperatures) {\n        int[] ans = new int[temperatures.length];\n        Stack<Integer> stack = new Stack<>();\n        for (int currDay = 0; currDay < temperatures.length; currDay++) {\n            while (\n                !stack.isEmpty() &&\n                temperatures[currDay] > temperatures[stack.peek()]\n            ) {\n                int prevDay = stack.pop();\n                ans[prevDay] = currDay - prevDay;\n            }\n            stack.add(currDay);\n        }\n        return ans;\n    }\n}\n",
+    "cpp": "/*\n    Given array of temps, return an array w/ # of days until warmer\n    Ex. temperature = [73,74,75,71,69,72,76,73] -> [1,1,4,2,1,1,0,0]\n\n    Monotonic decr stack, at each day, compare incr from prev days\n\n    Time: O(n)\n    Space: O(n)\n*/\n\nclass Solution {\npublic:\n    vector<int> dailyTemperatures(vector<int>& temperatures) {\n        int n = temperatures.size();\n        \n        // pair: [index, temp]\n        stack<pair<int, int>> stk;\n        vector<int> result(n);\n        \n        for (int i = 0; i < n; i++) {\n            int currDay = i;\n            int currTemp = temperatures[i];\n            \n            while (!stk.empty() && stk.top().second < currTemp) {\n                int prevDay = stk.top().first;\n                int prevTemp = stk.top().second;\n                stk.pop();\n                \n                result[prevDay] = currDay - prevDay;\n            }\n            \n            stk.push({currDay, currTemp});\n        }\n        \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0739-daily-temperatures.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0739-daily-temperatures.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0739-daily-temperatures.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0739-daily-temperatures.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "对每天温度，返回需要等待多少天才会出现更高温度，之后没有更高则为零。",
+  "explanation": "单调递减栈保存尚未等到答案的下标，当前温度更高时依次弹出并计算距离。",
+  "memory": "栈里都是等待被解决的问题；更高温度到来时结算。"
+}

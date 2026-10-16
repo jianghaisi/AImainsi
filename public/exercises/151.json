@@ -1,0 +1,52 @@
+{
+  "number": "151",
+  "adapter": {
+    "name": "reverseWords",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "151"
+  },
+  "tests": [
+    {
+      "input": [
+        "the sky is blue"
+      ],
+      "expected": "blue is sky the"
+    },
+    {
+      "input": [
+        "  hello world  "
+      ],
+      "expected": "world hello"
+    },
+    {
+      "input": [
+        "a good   example"
+      ],
+      "expected": "example good a"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def reverseWords(self, s: str) -> str:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @return {string}\n */\nvar reverseWords = function(s) {\n    \n};",
+    "java": "class Solution {\n    public String reverseWords(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string reverseWords(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def reverseWords(self, s: str) -> str:\n        # Remove leading and trailing spaces\n        s = s.strip()\n        \n        # Split the string into words\n        words = s.split()\n        \n        # Reverse the order of words\n        words = words[::-1]\n        \n        # Join the words with a single space\n        reversed_str = ' '.join(words)\n        \n        return reversed_str\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0151-reverse-words-in-a-string.py"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "将句子中的单词逆序排列，结果仅保留单词之间的一个空格。",
+  "explanation": "拆分得到非空单词，逆序后用单空格连接。",
+  "memory": "反转的是单词顺序，单词内部保持不变。"
+}

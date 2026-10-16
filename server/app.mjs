@@ -4,6 +4,8 @@ import { z } from 'zod';
 import { randomUUID } from 'node:crypto';
 import { get, put, publicSettings } from './store.mjs';
 import { SOURCE } from './seed.mjs';
+import { updateProgress, mergeCatalog, currentCatalog } from '../shared/catalog.mjs';
+import { CATALOG_FEED, validateCatalog } from '../shared/catalog-feed.mjs';
 import {
   parseSource,
   importNotes,
@@ -86,6 +88,8 @@ app.get('/api/state', (_req, res) =>
     reviews: get('reviews'),
     sources: get('sources'),
     planDone: get('planDone'),
+    questionProgress: get('questionProgress'),
+    catalog: get('catalog'),
     growth: growth(get('questions'), get('attempts'), get('sessions')),
   }),
 );
@@ -574,7 +578,7 @@ app.post(
         'Content-Type': 'application/json',
         ...(settings.judgeKey ? { Authorization: `Bearer ${settings.judgeKey}` } : {}),
       },
-      body: JSON.stringify({ ...body, args: q.args, tests: q.tests }),
+      body: JSON.stringify({ ...body, args: q.args, tests: q.tests, adapter: q.adapter }),
     });
     if (!result.ok) throw new Error(`判题接口返回 HTTP ${result.status}`);
     const data = z
@@ -613,6 +617,35 @@ app.put(
     res.json(put('planDone', [...new Set(ids)]));
   }),
 );
+app.post(
+  '/api/question-progress',
+  route(async (req, res) => {
+    res.json(
+      put('questionProgress', updateProgress(get('questions'), get('questionProgress'), req.body)),
+    );
+  }),
+);
+app.post(
+  '/api/catalog/sync',
+  route(async (_req, res) => {
+    const response = await fetch(CATALOG_FEED, {
+      signal: AbortSignal.timeout(20000),
+      redirect: 'error',
+    });
+    if (!response.ok) throw Error(`题单更新返回 HTTP ${response.status}，已保留现有题库`);
+    const raw = await response.text();
+    if (raw.length > 8000000) throw Error('题单文件过大，已保留现有题库');
+    const incoming = validateCatalog(JSON.parse(raw)),
+      old = get('catalog');
+    const snapshot = currentCatalog(
+      Date.parse(incoming.updatedAt) >= Date.parse(old.updatedAt) ? incoming : old,
+    );
+    const merged = mergeCatalog(get('questions'), snapshot);
+    put('questions', merged);
+    put('catalog', snapshot);
+    res.json({ count: snapshot.questions.length, updatedAt: snapshot.updatedAt });
+  }),
+);
 app.get('/api/export', (_req, res) => {
   res.setHeader('Content-Disposition', 'attachment; filename="aimainsi-backup.json"');
   res.json({
@@ -626,6 +659,8 @@ app.get('/api/export', (_req, res) => {
     attempts: get('attempts'),
     reviews: get('reviews'),
     planDone: get('planDone'),
+    questionProgress: get('questionProgress'),
+    catalog: get('catalog'),
   });
 });
 app.use('/api', (_req, res) => res.status(404).json({ error: '接口不存在' }));

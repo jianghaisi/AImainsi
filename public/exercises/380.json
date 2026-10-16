@@ -1,0 +1,115 @@
+{
+  "number": "380",
+  "adapter": {
+    "classname": "RandomizedSet",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "params": [
+          {
+            "type": "integer",
+            "name": "val"
+          }
+        ],
+        "name": "insert",
+        "return": {
+          "type": "boolean"
+        }
+      },
+      {
+        "params": [
+          {
+            "type": "integer",
+            "name": "val"
+          }
+        ],
+        "return": {
+          "type": "boolean"
+        },
+        "name": "remove"
+      },
+      {
+        "params": [],
+        "name": "getRandom",
+        "return": {
+          "type": "integer"
+        }
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "systemdesign": true,
+    "number": "380"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "RandomizedSet",
+          "insert",
+          "remove",
+          "insert",
+          "getRandom",
+          "remove",
+          "insert",
+          "getRandom"
+        ],
+        [
+          [],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        true,
+        false,
+        true,
+        2,
+        true,
+        false,
+        2
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class RandomizedSet:\n\n    def __init__(self):\n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n    def insert(self, val: int) -> bool:\n        \n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n    def remove(self, val: int) -> bool:\n        \n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n    def getRandom(self) -> int:\n        \n\n        raise NotImplementedError(\"请完成此方法\")\n        \n\n\n# Your RandomizedSet object will be instantiated and called as such:\n# obj = RandomizedSet()\n# param_1 = obj.insert(val)\n# param_2 = obj.remove(val)\n# param_3 = obj.getRandom()",
+    "javascript": "\nvar RandomizedSet = function() {\n    \n};\n\n/** \n * @param {number} val\n * @return {boolean}\n */\nRandomizedSet.prototype.insert = function(val) {\n    \n};\n\n/** \n * @param {number} val\n * @return {boolean}\n */\nRandomizedSet.prototype.remove = function(val) {\n    \n};\n\n/**\n * @return {number}\n */\nRandomizedSet.prototype.getRandom = function() {\n    \n};\n\n/** \n * Your RandomizedSet object will be instantiated and called as such:\n * var obj = new RandomizedSet()\n * var param_1 = obj.insert(val)\n * var param_2 = obj.remove(val)\n * var param_3 = obj.getRandom()\n */",
+    "java": "class RandomizedSet {\n\n    public RandomizedSet() {\n        \n    }\n    \n    public boolean insert(int val) {\n        \n    }\n    \n    public boolean remove(int val) {\n        \n    }\n    \n    public int getRandom() {\n        \n    }\n}\n\n/**\n * Your RandomizedSet object will be instantiated and called as such:\n * RandomizedSet obj = new RandomizedSet();\n * boolean param_1 = obj.insert(val);\n * boolean param_2 = obj.remove(val);\n * int param_3 = obj.getRandom();\n */",
+    "cpp": "class RandomizedSet {\npublic:\n    RandomizedSet() {\n        \n    }\n    \n    bool insert(int val) {\n        \n    }\n    \n    bool remove(int val) {\n        \n    }\n    \n    int getRandom() {\n        \n    }\n};\n\n/**\n * Your RandomizedSet object will be instantiated and called as such:\n * RandomizedSet* obj = new RandomizedSet();\n * bool param_1 = obj->insert(val);\n * bool param_2 = obj->remove(val);\n * int param_3 = obj->getRandom();\n */"
+  },
+  "solutions": {
+    "python": "from random import choice\n\n\nclass RandomizedSet:\n\n    def __init__(self):\n        self.dict = {}\n        self.list = []\n\n    def insert(self, val: int) -> bool:\n        if val in self.dict:\n            return False\n\n        self.dict[val] = len(self.list)\n        self.list.append(val)\n\n        return True\n\n    def remove(self, val: int) -> bool:\n        if val not in self.dict:\n            return False\n\n        idx, last_element = self.dict[val], self.list[-1]\n        self.list[idx], self.dict[last_element] = last_element, idx\n        self.list.pop()\n        del self.dict[val]\n\n        return True\n\n    def getRandom(self) -> int:\n        return choice(self.list)\n",
+    "javascript": "var RandomizedSet = function () {\n  this.set = new Set();\n};\n\n/**\n * @param {number} val\n * @return {boolean}\n */\nRandomizedSet.prototype.insert = function (val) {\n  const res = !this.set.has(val);\n  if (res) {\n    this.set.add(val);\n  }\n  return res;\n};\n\n/**\n * @param {number} val\n * @return {boolean}\n */\nRandomizedSet.prototype.remove = function (val) {\n  return this.set.delete(val);\n};\n\n/**\n * @return {number}\n */\nRandomizedSet.prototype.getRandom = function () {\n  const keys = Array.from(this.set.keys());\n  const seed = Math.floor(Math.random() * keys.length);\n  return keys[seed];\n};\n\n/**\n * Your RandomizedSet object will be instantiated and called as such:\n * var obj = new RandomizedSet()\n * var param_1 = obj.insert(val)\n * var param_2 = obj.remove(val)\n * var param_3 = obj.getRandom()\n */",
+    "java": "class RandomizedSet {\n    private Map<Integer, Integer> indexing;\n    private List<Integer> numbers;\n\n    public RandomizedSet() {\n        this.indexing = new HashMap<>();\n        this.numbers = new ArrayList<>();\n    }\n    \n    // Append to the end, maintain indexing\n    // Delete by swapping with the end, maintain indexing\n    // Get random by getting a random index wrt list's size\n\n    public boolean insert(int val) {\n        if(this.indexing.containsKey(val)) {\n            return false;\n        }\n        int indexInsert = this.numbers.size();\n        this.numbers.add(val);\n        this.indexing.put(val, indexInsert);\n        return true;\n    }\n    \n    public boolean remove(int val) {\n        if(!this.indexing.containsKey(val)) {\n            return false;\n        }\n\n        int lastIndex = this.numbers.size() - 1;\n        int lastElement = this.numbers.get(lastIndex);\n        int indexElement = this.indexing.get(val);\n\n        // Swap with last element\n        this.numbers.set(indexElement, lastElement);\n\n        // Update indices [Add & Delete]\n        this.indexing.put(lastElement, indexElement);\n        this.indexing.remove(val);\n\n        // Remove from list\n        this.numbers.remove(lastIndex);\n        return true;\n    }\n    \n    public int getRandom() {\n        int randomIndex = (int) (Math.random() * this.numbers.size());\n        return this.numbers.get(randomIndex);\n    }\n}\n\n/**\n * Your RandomizedSet object will be instantiated and called as such:\n * RandomizedSet obj = new RandomizedSet();\n * boolean param_1 = obj.insert(val);\n * boolean param_2 = obj.remove(val);\n * int param_3 = obj.getRandom();\n */",
+    "cpp": "class RandomizedSet {\npublic:\n\n    unordered_map<int,int> indices;\n    vector<int> values;\n    RandomizedSet() {\n    }\n    \n    bool insert(int val) {\n\n        if(indices.find(val)==indices.end()){\n            values.push_back(val);\n            // store the index of that value\n            indices[val] = values.size() -1;\n            return true;\n        }\n        return false;\n    }\n    \n    bool remove(int val) {\n\n       if(indices.find(val)==indices.end()){\n           return false;\n       }\n\n        // find index of the value\n        int idx = indices[val];\n        // get the last value in the vector\n        // and change its index to curr val's index\n        indices[values[values.size()-1]] = idx;\n\n        // replace curr vals index with last \n        // last value\n        values[idx] = values[values.size()-1];\n\n        // so now the curr val is removed from the\n        // vector replaced by last value and so \n        // we could just remove last value \n        values.pop_back();\n\n        // also erase it from the hash map\n        indices.erase(val);\n        return true;\n    }\n    \n    int getRandom() {\n        return values[rand()%values.size()];\n    }\n};\n\n/**\n * Your RandomizedSet object will be instantiated and called as such:\n * RandomizedSet* obj = new RandomizedSet();\n * bool param_1 = obj->insert(val);\n * bool param_2 = obj->remove(val);\n * int param_3 = obj->getRandom();\n */"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0380-insert-delete-getrandom-o1.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0380-insert-delete-getrandom-o1.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0380-insert-delete-getrandom-o1.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0380-insert-delete-getrandom-o1.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "实现插入、删除、等概率随机取值，平均时间均为 O(1)。",
+  "explanation": "数组存元素，哈希表存下标；删除时用末项覆盖被删位置并更新索引。",
+  "memory": "删除要修复搬家元素的索引；随机取数组下标。"
+}

@@ -1,0 +1,85 @@
+{
+  "number": "102",
+  "adapter": {
+    "name": "levelOrder",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "list<list<integer>>",
+      "dealloc": true
+    },
+    "number": "102"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      ],
+      "expected": [
+        [
+          3
+        ],
+        [
+          9,
+          20
+        ],
+        [
+          15,
+          7
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          1
+        ]
+      ],
+      "expected": [
+        [
+          1
+        ]
+      ]
+    },
+    {
+      "input": [
+        []
+      ],
+      "expected": []
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def levelOrder(self, root: TreeNode | None) -> list[list[int]]:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @return {number[][]}\n */\nvar levelOrder = function(root) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public List<List<Integer>> levelOrder(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<vector<int>> levelOrder(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.left = None\n#         self.right = None\n\n\nclass Solution:\n    def levelOrder(self, root: TreeNode) -> List[List[int]]:\n        res = []\n        q = collections.deque()\n        if root:\n            q.append(root)\n\n        while q:\n            val = []\n\n            for i in range(len(q)):\n                node = q.popleft()\n                val.append(node.val)\n                if node.left:\n                    q.append(node.left)\n                if node.right:\n                    q.append(node.right)\n            res.append(val)\n        return res\n",
+    "javascript": "const bfs = (queue /* Space O(W) */, levels = []) => {\n  while (queue.length) {\n    // Time O(N)\n    const level = [];\n    for (let i = queue.length - 1; 0 <= i; i--) {\n      const node = queue.shift(); // Time O(N) ... This can be O(1) if we use an actual queue data structure\n\n      if (node.left) queue.push(node.left);\n      if (node.right) queue.push(node.right);\n      level.push(node.val);\n    }\n    levels.push(level.slice());\n  }\n  return levels;\n};\n\n/**\n * https://leetcode.com/problems/binary-tree-level-order-traversal/\n * Time O(N) | Space O(H)\n * @param {TreeNode} root\n * @return {number[]}\n */\nvar levelOrder = function (root, level = 0, levels = []) {\n  const isBaseCase = root === null;\n  if (isBaseCase) return levels;\n  const isLastNode = level === levels.length;\n  if (isLastNode) levels.push([]);\n  levels[level].push(root.val);\n  return dfs(root, level, levels); // Time O(N) | Space O(H)\n};\nconst dfs = (root, level, levels) => {\n  if (root.left) levelOrder(root.left, level + 1, levels);\n  if (root.right) levelOrder(root.right, level + 1, levels);\n  return levels;\n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n\n    public List<List<Integer>> levelOrder(TreeNode root) {\n        List<List<Integer>> res = new ArrayList<>();\n        Queue<TreeNode> queue = new LinkedList<>();\n\n        if (root == null) return res;\n\n        queue.add(root);\n        while (!queue.isEmpty()) {\n            int len = queue.size();\n            List<Integer> level = new ArrayList<>();\n            for (int i = 0; i < len; i++) {\n                TreeNode curr = queue.poll();\n                level.add(curr.val);\n                if (curr.left != null) {\n                    queue.add(curr.left);\n                }\n                if (curr.right != null) {\n                    queue.add(curr.right);\n                }\n            }\n            res.add(level);\n        }\n        return res;\n    }\n}\n",
+    "cpp": "/*\n    Given root of binary tree, return level order traversal of its nodes (left to right)\n    Ex. root = [3,9,20,null,null,15,7] -> [[3],[9,20],[15,7]]\n\n    Standard BFS traversal, at each level, push left & right nodes if they exist to queue\n\n    Time: O(n)\n    Space: O(n)\n*/\n\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<vector<int>> levelOrder(TreeNode* root) {\n        vector<vector<int>> result;\n        \n        if (root == NULL) {\n            return result;\n        }\n        \n        queue<TreeNode*> q;\n        q.push(root);\n        \n        while (!q.empty()) {\n            int count = q.size();\n            vector<int> curr;\n            \n            for (int i = 0; i < count; i++) {\n                TreeNode* node = q.front();\n                q.pop();\n                \n                curr.push_back(node->val);\n                \n                if (node->left != NULL) {\n                    q.push(node->left);\n                }\n                if (node->right != NULL) {\n                    q.push(node->right);\n                }\n            }\n            \n            result.push_back(curr);\n        }\n        \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0102-binary-tree-level-order-traversal.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0102-binary-tree-level-order-traversal.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0102-binary-tree-level-order-traversal.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0102-binary-tree-level-order-traversal.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "按层返回二叉树节点值，每层从左到右。",
+  "explanation": "队列每轮固定取当前层的队列长度，加入的子节点留到下一轮。",
+  "memory": "先冻结本层大小，才能把本层与新加入的下一层分开。"
+}

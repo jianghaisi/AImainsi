@@ -1,0 +1,52 @@
+{
+  "number": "70",
+  "adapter": {
+    "name": "climbStairs",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "70"
+  },
+  "tests": [
+    {
+      "input": [
+        2
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        3
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def climbStairs(self, n: int) -> int:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} n\n * @return {number}\n */\nvar climbStairs = function(n) {\n    \n};",
+    "java": "class Solution {\n    public int climbStairs(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int climbStairs(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def climbStairs(self, n: int) -> int:\n        if n <= 3:\n            return n\n        n1, n2 = 2, 3\n\n        for i in range(4, n + 1):\n            temp = n1 + n2\n            n1 = n2\n            n2 = temp\n        return n2\n",
+    "javascript": "function climbStairs(n) {\n  let a = 1,\n    b = 1;\n  for (let step = 2; step <= n; step++) [a, b] = [b, a + b];\n  return b;\n}\n",
+    "java": "//optimal\nclass Solution {\n\n    public int climbStairs(int n) {\n        int a = 1;\n        int b = 1;\n        int c;\n\n        for (int i = 0; i < n - 1; i++) {\n            c = a + b;\n            a = b;\n            b = c;\n        }\n        return b;\n    }\n}\n\n//bottom up\nclass Solution {\n\n    public int climbStairs(int n) {\n        int[] dp = new int[n + 1];\n        dp[0] = 1;\n        dp[1] = 1;\n\n        for (int i = 2; i < n + 1; i++) {\n            dp[i] = dp[i - 1] + dp[i - 2];\n        }\n        return dp[n];\n    }\n}\n\n//top down with memo[]\nclass Solution {\n\n    public int climbStairs(int n) {\n        int[] memo = new int[n + 1];\n        Arrays.fill(memo, -1);\n\n        return climbStairs(n - 1, memo) + climbStairs(n - 2, memo);\n    }\n\n    private int climbStairs(int n, int[] memo) {\n        if (n < 0) return 0;\n        if (n == 0 || n == 1) {\n            memo[n] = 1;\n            return memo[n];\n        }\n        if (memo[n] != -1) return memo[n];\n\n        memo[n] = climbStairs(n - 1, memo) + climbStairs(n - 2, memo);\n        return memo[n];\n    }\n}\n",
+    "cpp": "/*\n    Climbing stairs, either 1 or 2 steps, distinct ways to reach top\n    Ex. n = 2 -> 2 (1 + 1, 2), n = 3 -> 3 (1 + 1 + 1, 1 + 2, 2 + 1)\n\n    Recursion w/ memoization -> DP, why DP? Optimal substructure\n    Recurrence relation: dp[i] = dp[i - 1] + dp[i - 2]\n    Reach ith step in 2 ways: 1) 1 step from i-1, 2) 2 steps from i-2\n\n    Time: O(n)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    int climbStairs(int n) {\n        if (n == 1) {\n            return 1;\n        }\n        if (n == 2) {\n            return 2;\n        }\n        \n        int first = 1;\n        int second = 2;\n        \n        int result = 0;\n        \n        for (int i = 2; i < n; i++) {\n            result = first + second;\n            first = second;\n            second = result;\n        }\n        \n        return result;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0070-climbing-stairs.py",
+    "javascript": "序列原创适配",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0070-climbing-stairs.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0070-climbing-stairs.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "每次爬一阶或两阶，求到达第 n 阶的不同方式数。",
+  "explanation": "最后一步来自 n-1 或 n-2，因此用两个滚动状态累加。",
+  "memory": "按最后一步分类，两个来源互不重叠。"
+}

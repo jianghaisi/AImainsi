@@ -1,0 +1,52 @@
+{
+  "number": "202",
+  "adapter": {
+    "name": "isHappy",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "202"
+  },
+  "tests": [
+    {
+      "input": [
+        19
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        2
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def isHappy(self, n: int) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {number} n\n * @return {boolean}\n */\nvar isHappy = function(n) {\n    \n};",
+    "java": "class Solution {\n    public boolean isHappy(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isHappy(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def isHappy(self, n: int) -> bool:\n        slow, fast = n, self.sumSquareDigits(n)\n\n        while slow != fast:\n            fast = self.sumSquareDigits(fast)\n            fast = self.sumSquareDigits(fast)\n            slow = self.sumSquareDigits(slow)\n\n        return True if fast == 1 else False\n\n    def sumSquareDigits(self, n):\n        output = 0\n        while n:\n            output += (n % 10) ** 2\n            n = n // 10\n        return output\n",
+    "javascript": "/**\n * Slow Fast\n * Time O(log(N)) | Space O(1)\n * https://leetcode.com/problems/happy-number/\n * @param {number} n\n * @return {boolean}\n */\nvar isHappy = n => {\n  let [slow, fast] = [n, getNext(n)];\n  const hasCyle = () => fast === 1 || slow === fast;\n  while (!hasCyle()) {\n    /* Time O(log(N)) */\n    slow = getNext(slow); /* Time O(log(N)) */\n    fast = getNext(getNext(fast)); /* Time O(log(N)) */\n  }\n  return fast === 1;\n};\nvar getNext = (n, sum = 0) => {\n  while (0 < n) {\n    /* Time O(log(N)) */\n    const remainder = n % 10;\n    n = Math.floor(n / 10);\n    sum += remainder * remainder;\n  }\n  return sum;\n};",
+    "java": "class Solution {\n\n    public boolean isHappy(int n) {\n        if (n == 1 || n == -1) {\n            return true;\n        }\n\n        Set<Integer> visit = new HashSet<Integer>();\n\n        // compute square until getting duplicate value\n        while (!visit.contains(n)) {\n            visit.add(n);\n            // using helper function to compute the sum of squares\n            n = sumOfSquare(n);\n\n            if (n == 1) return true;\n        }\n\n        return false;\n    }\n\n    public int sumOfSquare(int n) {\n        int output = 0;\n\n        while (n != 0) {\n            int digit = n % 10;\n            digit = digit * digit;\n            output += digit;\n            n = n / 10;\n        }\n\n        return output;\n    }\n}\n",
+    "cpp": "/*\n    Given num, replace by sum of squares of its digits\n    Repeat until 1 or endless loop, determine if ends in 1\n    Ex. n = 19 -> true, 1^2 + 9^2 = 82, 8^2 + 2^2 = 68 ... 1\n\n    Detect cycle w/ slow/fast pointer technique\n    If happy will eventually be 1, else pointers will meet\n\n    Time: O(log n)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    bool isHappy(int n) {\n        int slow = n;\n        int fast = getNext(n);\n        \n        while (slow != fast && fast != 1) {\n            slow = getNext(slow);\n            fast = getNext(getNext(fast));\n        }\n        \n        if (fast == 1) {\n            return true;\n        }\n        return false;\n    }\nprivate:\n    int getNext(int n) {\n        int sum = 0;\n        while (n > 0) {\n            int digit = n % 10;\n            n /= 10;\n            sum += pow(digit, 2);\n        }\n        return sum;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0202-happy-number.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0202-happy-number.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0202-happy-number.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0202-happy-number.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "不断把正整数替换为各位数字平方和，判断最终能否到达 1。",
+  "explanation": "记录出现过的数字检测循环，或用快慢指针找环。",
+  "memory": "只有到达 1 才成功；其他重复状态代表陷入循环。"
+}

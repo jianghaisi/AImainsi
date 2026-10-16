@@ -1,0 +1,84 @@
+{
+  "number": "117",
+  "adapter": {
+    "name": "connect",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "TreeNode"
+    },
+    "languages": [
+      "cpp",
+      "java",
+      "python",
+      "csharp",
+      "javascript",
+      "python3",
+      "golang",
+      "swift",
+      "kotlin",
+      "ruby",
+      "c",
+      "scala",
+      "php",
+      "typescript"
+    ],
+    "manual": true,
+    "typescriptCustomType": "class _Node {\n    val: number\n    left: _Node | null\n    right: _Node | null\n    next: _Node | null\n\n    constructor(val?: number, left?: _Node, right?: _Node, next?: _Node) {\n        this.val = (val===undefined ? 0 : val)\n        this.left = (left===undefined ? null : left)\n        this.right = (right===undefined ? null : right)\n        this.next = (next===undefined ? null : next)\n    }\n}\n",
+    "number": "117"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          null,
+          7
+        ]
+      ],
+      "expected": [
+        1,
+        "#",
+        2,
+        3,
+        "#",
+        4,
+        5,
+        7,
+        "#"
+      ]
+    },
+    {
+      "input": [
+        []
+      ],
+      "expected": []
+    }
+  ],
+  "starters": {
+    "python": "\"\"\"\n# Definition for a Node.\nclass Node:\n    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):\n        raise NotImplementedError(\"请完成此方法\")\n        self.val = val\n        self.left = left\n        self.right = right\n        self.next = next\n\"\"\"\n\nclass Solution:\n    def connect(self, root: 'Node') -> 'Node':\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * // Definition for a _Node.\n * function _Node(val, left, right, next) {\n *    this.val = val === undefined ? null : val;\n *    this.left = left === undefined ? null : left;\n *    this.right = right === undefined ? null : right;\n *    this.next = next === undefined ? null : next;\n * };\n */\n\n/**\n * @param {_Node} root\n * @return {_Node}\n */\nvar connect = function(root) {\n    \n};",
+    "java": "/*\n// Definition for a Node.\nclass Node {\n    public int val;\n    public Node left;\n    public Node right;\n    public Node next;\n\n    public Node() {}\n    \n    public Node(int _val) {\n        val = _val;\n    }\n\n    public Node(int _val, Node _left, Node _right, Node _next) {\n        val = _val;\n        left = _left;\n        right = _right;\n        next = _next;\n    }\n};\n*/\n\nclass Solution {\n    public Node connect(Node root) {\n        \n    }\n}",
+    "cpp": "/*\n// Definition for a Node.\nclass Node {\npublic:\n    int val;\n    Node* left;\n    Node* right;\n    Node* next;\n\n    Node() : val(0), left(NULL), right(NULL), next(NULL) {}\n\n    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}\n\n    Node(int _val, Node* _left, Node* _right, Node* _next)\n        : val(_val), left(_left), right(_right), next(_next) {}\n};\n*/\n\nclass Solution {\npublic:\n    Node* connect(Node* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def connect(self,root):\n        level=root\n        while level:\n            dummy=TreeNode();tail=dummy\n            while level:\n                for child in (level.left,level.right):\n                    if child:tail.next=child;tail=child\n                level=level.next\n            level=dummy.next\n        return root\n",
+    "cpp": "/*\n  Given a binary tree\n\n  struct Node {\n    int val;\n    Node *left;\n    Node *right;\n    Node *next;\n  }\n  \n  Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.\n  \n  Initially, all next pointers are set to NULL.\n\n  Ex. Input: root = [1,2,3,4,5,null,7]\n      Output: [1,#,2,3,#,4,5,7,#]\n      Explanation: Given the above binary tree (Figure A), your function should populate each next pointer to point to its next right node,\n      just like in Figure B. The serialized output is in level order as connected by the next pointers, with '#' signifying the end of each level.\n\n  Time  : O(N)\n  Space : O(1)\n*/\n\n/*\n// Definition for a Node.\nclass Node {\npublic:\n    int val;\n    Node* left;\n    Node* right;\n    Node* next;\n\n    Node() : val(0), left(NULL), right(NULL), next(NULL) {}\n\n    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}\n\n    Node(int _val, Node* _left, Node* _right, Node* _next)\n        : val(_val), left(_left), right(_right), next(_next) {}\n};\n*/\n\nclass Solution {\npublic:\n    Node* connect(Node* root) {\n        if(root == NULL)\n            return NULL;\n        Node* parent = root;\n\n        while(parent) {\n            Node* newNode = new Node;\n            Node* temp = newNode;\n\n            while(parent) {\n                if(parent -> left) {\n                    temp -> next = parent -> left;\n                    temp = temp -> next;\n                }\n                if(parent -> right) {\n                    temp -> next = parent -> right;\n                    temp = temp -> next;\n                }\n                parent = parent -> next;\n            }\n            parent = newNode -> next;\n        }\n        return root;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0117-populating-next-right-pointers-in-each-node-ii.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "给任意二叉树的每个节点连接同层右邻 next 指针，层末为 null。",
+  "explanation": "沿当前层 next 遍历，用哨兵串接下一层所有子节点。O(n)，O(1) 额外空间。",
+  "memory": "一边走当前层，一边铺下一层。"
+}

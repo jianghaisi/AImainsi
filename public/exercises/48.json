@@ -1,0 +1,137 @@
+{
+  "number": "48",
+  "adapter": {
+    "name": "rotate",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "void"
+    },
+    "output": {
+      "paramindex": 0
+    },
+    "number": "48"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          7,
+          4,
+          1
+        ],
+        [
+          8,
+          5,
+          2
+        ],
+        [
+          9,
+          6,
+          3
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            5,
+            1,
+            9,
+            11
+          ],
+          [
+            2,
+            4,
+            8,
+            10
+          ],
+          [
+            13,
+            3,
+            6,
+            7
+          ],
+          [
+            15,
+            14,
+            12,
+            16
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          15,
+          13,
+          2,
+          5
+        ],
+        [
+          14,
+          3,
+          4,
+          1
+        ],
+        [
+          12,
+          6,
+          8,
+          9
+        ],
+        [
+          16,
+          7,
+          10,
+          11
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def rotate(self, matrix: list[list[int]]) -> None:\n        raise NotImplementedError(\"请完成此方法\")\n        \"\"\"\n        Do not return anything, modify matrix in-place instead.\n        \"\"\"\n        ",
+    "javascript": "/**\n * @param {number[][]} matrix\n * @return {void} Do not return anything, modify matrix in-place instead.\n */\nvar rotate = function(matrix) {\n    \n};",
+    "java": "class Solution {\n    public void rotate(int[][] matrix) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    void rotate(vector<vector<int>>& matrix) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def rotate(self, matrix: List[List[int]]) -> None:\n        \"\"\"\n        Do not return anything, modify matrix in-place instead.\n        \"\"\"\n        l, r = 0, len(matrix) - 1\n        while l < r:\n            for i in range(r - l):\n                top, bottom = l, r\n\n                # save the topleft\n                topLeft = matrix[top][l + i]\n\n                # move bottom left into top left\n                matrix[top][l + i] = matrix[bottom - i][l]\n\n                # move bottom right into bottom left\n                matrix[bottom - i][l] = matrix[bottom][r - i]\n\n                # move top right into bottom right\n                matrix[bottom][r - i] = matrix[top + i][r]\n\n                # move top left into top right\n                matrix[top + i][r] = topLeft\n            r -= 1\n            l += 1\n",
+    "javascript": "var swap1 = (matrix, row, col) => [matrix[row][col], matrix[col][row]] = [matrix[col][row], matrix[row][col]];\nvar reflect = matrix => {\n  const rows = matrix.length;\n  for (let row = 0; row < rows; row++) {\n    /* Time O(ROWS) */\n    for (let col = 0; col < rows / 2; col++) {\n      /* Time O(COLS) */\n      const reflection = rows - col - 1;\n      swap2(matrix, row, col, reflection);\n    }\n  }\n};\nvar swap2 = (matrix, row, col, reflection) => [matrix[row][col], matrix[row][reflection]] = [matrix[row][reflection], matrix[row][col]];\n\n/**\n * Time O(ROWS * COLS) | Space O(1)\n * https://leetcode.com/problems/rotate-image/\n * @param {number[][]} matrix\n * @return {void} Do not return anything, modify matrix in-place instead.\n */\nvar rotate = matrix => {\n  reverse(matrix); /* Time O(ROWS) */\n  transpose(matrix); /* Time O(ROWS * COLS) */\n};\nvar reverse = matrix => matrix.reverse();\nvar transpose = matrix => {\n  const rows = matrix.length;\n  for (let row = 0; row < rows; row++) {\n    /* Time O(ROWS) */\n    for (let col = 0; col < row; col++) {\n      /* Time O(COLS) */\n      swap(matrix, row, col);\n    }\n  }\n};\nvar swap = (matrix, row, col) => [matrix[row][col], matrix[col][row]] = [matrix[col][row], matrix[row][col]];",
+    "java": "class Solution {\n    public void rotate(int[][] matrix) {\n        int l = 0;\n        int r = matrix.length - 1;\n        \n        while ( l < r )\n        {\n            for(int i = 0; i < r - l; i++)\n            {\n                int top = l;\n                int bottom = r;\n                 //save the topleft\n                int topLeft = matrix[top][l + i];\n\n                //move bottom left into top left\n                matrix[top][l + i] = matrix[bottom - i][l];\n\n                // move bottom right into bottom left\n                matrix[bottom - i][l] = matrix[bottom][r - i];\n\n                // move top right into bottom right\n                matrix[bottom][r - i] = matrix[top + i][r];\n\n                // move top left into top right\n                matrix[top + i][r] = topLeft;\n                \n            }\n            \n            r -= 1;\n            l += 1;\n        }\n    }\n}\n",
+    "cpp": "/*\n    Given a 2D image matrix, rotate image 90 deg CW\n\n    Transpose + reflect (rev on diag then rev left to right)\n\n    Time: O(n^2)\n    Space: O(1)\n*/\n\nclass Solution {\npublic:\n    void rotate(vector<vector<int>>& matrix) {\n        int n = matrix.size();\n        for (int i = 0; i < n; i++) {\n            for (int j = i; j < n; j++) {\n                swap(matrix[i][j], matrix[j][i]);\n            }\n            reverse(matrix[i].begin(), matrix[i].end());\n        }\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0048-rotate-image.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0048-rotate-image.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0048-rotate-image.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0048-rotate-image.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "将 n×n 矩阵顺时针旋转九十度，原地修改。",
+  "explanation": "转置后反转每一行，等价于坐标从 (r,c) 变到 (c,n-1-r)。也可按四点循环交换。",
+  "memory": "先写坐标映射，再记转置加行反转，避免旋转方向记反。"
+}

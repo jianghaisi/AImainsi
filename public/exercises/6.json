@@ -1,0 +1,63 @@
+{
+  "number": "6",
+  "adapter": {
+    "name": "convert",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "numRows",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "6"
+  },
+  "tests": [
+    {
+      "input": [
+        "PAYPALISHIRING",
+        3
+      ],
+      "expected": "PAHNAPLSIIGYIR"
+    },
+    {
+      "input": [
+        "PAYPALISHIRING",
+        4
+      ],
+      "expected": "PINALSIGYAHRPI"
+    },
+    {
+      "input": [
+        "A",
+        1
+      ],
+      "expected": "A"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n    def convert(self, s: str, numRows: int) -> str:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * @param {string} s\n * @param {number} numRows\n * @return {string}\n */\nvar convert = function(s, numRows) {\n    \n};",
+    "java": "class Solution {\n    public String convert(String s, int numRows) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string convert(string s, int numRows) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def convert(self, s: str, numRows: int) -> str:\n        if numRows == 1 or numRows >= len(s):\n            return s\n\n        res = [\"\"] * numRows\n\n        index = 0\n        step = 1\n        for c in s:\n            res[index] += c\n            if index == 0:\n                step = 1\n            elif index == numRows - 1:\n                step = -1\n            index += step\n\n        return \"\".join(res)",
+    "java": "class Solution {\n    public String convert(String s, int numRows) {\n        if (numRows == 1)\n            return s;\n\n        StringBuilder res = new StringBuilder();\n        int increment = 2 * (numRows - 1);\n\n        for (int r = 0; r < numRows; r++) {\n            for (int i = r; i < s.length(); i += increment) {\n                res.append(s.charAt(i));\n                if (r > 0 && r < numRows - 1 && i + increment - 2 * r < s.length()) {\n                    res.append(s.charAt(i + increment - 2 * r));\n                }\n            }\n        }\n        return res.toString();\n    }\n}\n--------------------------------------------------------------------------------------------------------------------------\n//We check whether we are at the diagonal or not using a boolean and increment the pointer accordingly.\n\nclass Solution {\n\n    public String convert(String s, int row) {\n        if (row == 1) return s;\n        StringBuilder sb = new StringBuilder();\n        for (int i = 0; i < row; i++) {\n            int j = i;\n            if (i == 0 || i == row - 1) {\n                while (j < s.length()) {\n                    sb.append(s.charAt(j));\n                    j += 2 * (row - 1);\n                }\n            } else {\n                boolean diagonal = false;\n                while (j < s.length()) {\n                    if (!diagonal) {\n                        sb.append(s.charAt(j));\n                        j += 2 * (row - i - 1);\n                        diagonal = true;\n                    } else {\n                        sb.append(s.charAt(j));\n                        j += 2 * i;\n                        diagonal = false;\n                    }\n                }\n            }\n        }\n        return sb.toString();\n    }\n}\n",
+    "cpp": "/*\n    For each row the next chracter is at index 2 * (n -1) and \n    For middle rows there will be extra characters\n    Time: O(n)\n    Space: O(1)\n*/\nclass Solution {\npublic:\n    string convert(string s, int n) {\n        // Edge case\n        if(n == 1) return s;\n        // Other cases\n        // Take string to store answer\n        string ans = \"\";\n        // We are going to traverse each row\n        for(int row = 0; row < n ; row++){\n            // for each row the next chracter is at index 2 *  (n -1) \n            int increment = 2 *  (n -1);\n            // For first and last rows \n            for(int i = row; i < s.length(); i+= increment){\n                ans += s[i];\n                // For middle rows there will be extra characters\n                if(row > 0 && row < n-1 && i+increment - 2 * row < s.length()){\n                    ans += s[i+increment - 2 * row];\n                }\n            }\n        }\n        return ans;\n    }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0006-zigzag-conversion.py",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0006-zigzag-conversion.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0006-zigzag-conversion.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "按指定行数把字符串沿向下和斜向上的轨迹排列，再逐行读出。",
+  "explanation": "维护当前行和方向，触碰首尾行时翻转方向。O(n)。",
+  "memory": "只有一行直接返回，方向只在边界改变。"
+}

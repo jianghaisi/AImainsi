@@ -1,0 +1,98 @@
+{
+  "number": "236",
+  "adapter": {
+    "name": "lowestCommonAncestor",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      },
+      {
+        "name": "p",
+        "type": "integer"
+      },
+      {
+        "name": "q",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "TreeNode"
+    },
+    "manual": true,
+    "number": "236"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          5,
+          1,
+          6,
+          2,
+          0,
+          8,
+          null,
+          null,
+          7,
+          4
+        ],
+        5,
+        1
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          3,
+          5,
+          1,
+          6,
+          2,
+          0,
+          8,
+          null,
+          null,
+          7,
+          4
+        ],
+        5,
+        4
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        [
+          1,
+          2
+        ],
+        1,
+        2
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.left = None\n#         self.right = None\n\nclass Solution:\n    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val) {\n *     this.val = val;\n *     this.left = this.right = null;\n * }\n */\n/**\n * @param {TreeNode} root\n * @param {TreeNode} p\n * @param {TreeNode} q\n * @return {TreeNode}\n */\nvar lowestCommonAncestor = function(root, p, q) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.left = None\n#         self.right = None\n\nclass Solution:\n    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':\n        if not root:\n            return\n        if root == p or root == q:\n            return root\n\n        left = self.lowestCommonAncestor(root.left, p, q)\n        right = self.lowestCommonAncestor(root.right, p, q)\n\n        if left and right:\n            return root\n\n        if left:\n            return left\n        if right:\n            return right\n\n        return None\n",
+    "java": "class Solution {\n\n    public TreeNode lowestCommonAncestor(\n        TreeNode root,\n        TreeNode p,\n        TreeNode q\n    ) {\n        if (root == null) return null;\n        if ((root.val == p.val || root.val == q.val)) return root;\n        TreeNode left = lowestCommonAncestor(root.left, p, q);\n        TreeNode right = lowestCommonAncestor(root.right, p, q);\n\n        if (left != null && right != null) {\n            return root;\n        } else if (left != null) return left; else return right;\n    }\n}\n",
+    "cpp": "class Solution{    \n    public:    \n        bool isPowerOfThree(int n){            \n            if(n <= 0){                \n                return false;                \n            }            \n            while(n > 1){                \n                if(n % 3 != 0){                    \n                    return false;                    \n                }                \n                n = n / 3;                \n            }            \n            return true;\n        }\n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0236-lowest-common-ancestor-of-a-binary-tree.py",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0236-lowest-common-ancestor-of-a-binary-tree.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0236-power-of-three.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "在节点值唯一且目标节点存在的二叉树中，返回两个目标节点的最近公共祖先。本地输入目标值，适配器查找真实节点，输出祖先值。",
+  "explanation": "若当前是任一目标就返回它。左右都找到目标时当前为祖先；只一侧找到则向上传递该侧。",
+  "memory": "左右汇合处就是答案；祖先本身也可以是目标节点。"
+}

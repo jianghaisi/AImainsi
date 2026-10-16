@@ -1,0 +1,60 @@
+{
+  "number": "234",
+  "adapter": {
+    "name": "isPalindrome",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "234"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          2,
+          1
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def isPalindrome(self, head: Optional[ListNode]) -> bool:\n        raise NotImplementedError(\"请完成此方法\")\n        ",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @return {boolean}\n */\nvar isPalindrome = function(head) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public boolean isPalindrome(ListNode head) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    bool isPalindrome(ListNode* head) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def isPalindrome(self, head: ListNode) -> bool:\n        fast = head\n        slow = head\n        \n        # find the middle (slow)\n        while fast and fast.next:\n            fast = fast.next.next\n            slow = slow.next\n            \n        # reverse second half\n        prev = None\n        while slow:\n            tmp = slow.next\n            slow.next = prev\n            prev = slow\n            slow = tmp\n        \n        # check palindrome\n        left, right = head, prev\n        while right:\n            if left.val != right.val:\n                return False\n            left = left.next\n            right = right.next\n        return True\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @return {boolean}\n */\nvar isPalindrome = function (head) {\n  // find mid point\n  let slow = head;\n  let fast = head;\n  while (fast && fast.next) {\n    slow = slow.next;\n    fast = fast.next.next;\n  }\n\n  // reverse 2nd half\n  let curr = slow;\n  let prev = null;\n  while (curr) {\n    let next = curr.next;\n    curr.next = prev;\n    prev = curr;\n    curr = next;\n  }\n  let head2 = prev;\n\n  // compare both halfs\n  while (head && head2) {\n    if (head.val !== head2.val) {\n      return false;\n    }\n    head = head.next;\n    head2 = head2.next;\n  }\n  return true;\n};",
+    "java": "//reverse the later half\n//after reversing just start comparing if at any time the value doesn't match it's not a palindrome, i.e. return false, else it's a palindrome and return true.\n//It'll automatically take care of the edge cases of odd and even\n\nclass Solution {\n\n    public boolean isPalindrome(ListNode head) {\n        ListNode fast = head;\n        ListNode slow = head;\n        while (fast != null && fast.next != null) {\n            fast = fast.next.next;\n            slow = slow.next;\n        }\n        ListNode temp = reverse(slow);\n        while (temp != null && head != null) {\n            if (temp.val != head.val) return false;\n            temp = temp.next;\n            head = head.next;\n        }\n        return true;\n    }\n\n    public ListNode reverse(ListNode head) {\n        ListNode p = null;\n        ListNode q = null;\n        ListNode r = head;\n        while (r != null) {\n            p = q;\n            q = r;\n            r = r.next;\n            q.next = p;\n        }\n        return q;\n    }\n}\n",
+    "cpp": "class Solution{    \n    public:    \n        bool isPalindrome(ListNode* head){            \n            vector<int> v;            \n            while(head != nullptr){                \n                v.push_back(head -> val);                \n                head = head -> next;              \n            }         \n            for(int i = 0; i < v.size() / 2; i++){                \n                if(v[i] != v[v.size() - i - 1]){                    \n                    return false;                    \n                }                \n            }            \n            return true;\n        }    \n};\n"
+  },
+  "credits": {
+    "python": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/python/0234-palindrome-linked-list.py",
+    "javascript": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/javascript/0234-palindrome-linked-list.js",
+    "java": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/java/0234-palindrome-linked-list.java",
+    "cpp": "https://github.com/neetcode-gh/leetcode/blob/d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb/cpp/0234-palindrome-linked-list.cpp"
+  },
+  "upstreamCommit": "d5ebb3ea8bd4b52d605bc7aa179e22af684d31bb",
+  "description": "判断单链表的值序列是否为回文，输入使用数组编码。",
+  "explanation": "快慢指针找到中点，反转后半段后比较两半；如果题目要求结构不变，再反转恢复。",
+  "memory": "找中点、反后半、逐对比；奇数长度的中点不参与对比。"
+}
