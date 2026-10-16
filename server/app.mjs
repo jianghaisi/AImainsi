@@ -631,15 +631,12 @@ app.get('/api/export', (_req, res) => {
 app.use('/api', (_req, res) => res.status(404).json({ error: '接口不存在' }));
 app.use((error, _req, res, _next) => {
   const status = error instanceof z.ZodError ? 400 : error.status || 400;
-  res
-    .status(status)
-    .json({
-      error:
-        error instanceof z.ZodError
-          ? '输入校验失败：' +
-            error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('；')
-          : error.message || '请求失败',
-    });
+  res.status(status).json({
+    error:
+      error instanceof z.ZodError
+        ? '输入校验失败：' + error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('；')
+        : error.message || '请求失败',
+  });
 });
 export function startScheduler() {
   let lastAttempt = 0;
