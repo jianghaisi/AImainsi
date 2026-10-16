@@ -11,7 +11,7 @@
     "test:e2e": "playwright test",
     "postinstall": "node scripts/copy-runtime.mjs",
     "desktop": "electron .",
-    "desktop:build": "npm run build && electron-builder --win zip --x64 --config.electronDist=node_modules/electron/dist",
+    "desktop:build": "npm run build && node node_modules/electron/install.js && electron-builder --win zip --x64 --config.electronDist=node_modules/electron/dist",
     "android:sync": "npm run build && cap sync android",
     "android:build": "npm run android:sync && node scripts/build-android.mjs",
     "test:local": "playwright test --config playwright.local.config.ts",

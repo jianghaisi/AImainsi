@@ -18,6 +18,7 @@ jobs:
       - uses: actions/setup-java@v4
         with: {distribution: temurin, java-version: '21'}
       - run: npm ci
+      - run: npm run format:check
       - run: npm test
       - run: npm run build
       - run: npx playwright install --with-deps chromium
@@ -41,7 +42,10 @@ jobs:
         with: {node-version: 24, cache: npm}
       - uses: actions/setup-java@v4
         with: {distribution: temurin, java-version: '21'}
-      - uses: android-actions/setup-android@v3
+      - uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools'
+          log-accepted-android-sdk-licenses: false
       - run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
       - run: npm ci
       - run: chmod +x android/gradlew
