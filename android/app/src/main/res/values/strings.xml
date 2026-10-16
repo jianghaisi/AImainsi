@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">序列面试</string>
+    <string name="title_activity_main">序列面试</string>
+    <string name="package_name">org.aimainsi.sequence</string>
+    <string name="custom_url_scheme">org.aimainsi.sequence</string>
+</resources>
