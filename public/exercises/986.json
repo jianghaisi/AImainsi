@@ -1,0 +1,166 @@
+{
+  "number": "986",
+  "adapter": {
+    "name": "intervalIntersection",
+    "params": [
+      {
+        "name": "firstList",
+        "type": "integer[][]"
+      },
+      {
+        "name": "secondList",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer[][]"
+    },
+    "number": "986"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            0,
+            2
+          ],
+          [
+            5,
+            10
+          ],
+          [
+            13,
+            23
+          ],
+          [
+            24,
+            25
+          ]
+        ],
+        [
+          [
+            1,
+            5
+          ],
+          [
+            8,
+            12
+          ],
+          [
+            15,
+            24
+          ],
+          [
+            25,
+            26
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          2
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          15,
+          23
+        ],
+        [
+          24,
+          24
+        ],
+        [
+          25,
+          25
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            3
+          ],
+          [
+            5,
+            9
+          ]
+        ],
+        []
+      ],
+      "expected": []
+    },
+    {
+      "input": [
+        [],
+        [
+          [
+            4,
+            8
+          ],
+          [
+            10,
+            12
+          ]
+        ]
+      ],
+      "expected": []
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            7
+          ]
+        ],
+        [
+          [
+            3,
+            10
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          3,
+          7
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def intervalIntersection(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} firstList\n * @param {number[][]} secondList\n * @return {number[][]}\n */\nvar intervalIntersection = function(firstList, secondList) {\n    \n};",
+    "java": "class Solution {\n    public int[][] intervalIntersection(int[][] firstList, int[][] secondList) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> intervalIntersection(vector<vector<int>>& firstList, vector<vector<int>>& secondList) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def intervalIntersection(\r\n        self, firstList: List[List[int]], secondList: List[List[int]]\r\n    ) -> List[List[int]]:\r\n        i = j = 0\r\n        ans = []\r\n        while i < len(firstList) and j < len(secondList):\r\n            s1, e1, s2, e2 = *firstList[i], *secondList[j]\r\n            l, r = max(s1, s2), min(e1, e2)\r\n            if l <= r:\r\n                ans.append([l, r])\r\n            if e1 < e2:\r\n                i += 1\r\n            else:\r\n                j += 1\r\n        return ans\r\n",
+    "javascript": "function intervalIntersection(firstList, secondList) {\n    const n = firstList.length;\n    const m = secondList.length;\n    const res = [];\n    let i = 0;\n    let j = 0;\n    while (i < n && j < m) {\n        const start = Math.max(firstList[i][0], secondList[j][0]);\n        const end = Math.min(firstList[i][1], secondList[j][1]);\n        if (start <= end) {\n            res.push([start, end]);\n        }\n        if (firstList[i][1] < secondList[j][1]) {\n            i++;\n        }\n        else {\n            j++;\n        }\n    }\n    return res;\n}\n",
+    "java": "class Solution {\r\n    public int[][] intervalIntersection(int[][] firstList, int[][] secondList) {\r\n        List<int[]> ans = new ArrayList<>();\r\n        int m = firstList.length, n = secondList.length;\r\n        for (int i = 0, j = 0; i < m && j < n;) {\r\n            int l = Math.max(firstList[i][0], secondList[j][0]);\r\n            int r = Math.min(firstList[i][1], secondList[j][1]);\r\n            if (l <= r) {\r\n                ans.add(new int[] {l, r});\r\n            }\r\n            if (firstList[i][1] < secondList[j][1]) {\r\n                ++i;\r\n            } else {\r\n                ++j;\r\n            }\r\n        }\r\n        return ans.toArray(new int[ans.size()][]);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<int>> intervalIntersection(vector<vector<int>>& firstList, vector<vector<int>>& secondList) {\r\n        vector<vector<int>> ans;\r\n        int m = firstList.size(), n = secondList.size();\r\n        for (int i = 0, j = 0; i < m && j < n;) {\r\n            int l = max(firstList[i][0], secondList[j][0]);\r\n            int r = min(firstList[i][1], secondList[j][1]);\r\n            if (l <= r) ans.push_back({l, r});\r\n            if (firstList[i][1] < secondList[j][1])\r\n                ++i;\r\n            else\r\n                ++j;\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0986.Interval%20List%20Intersections/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0986.Interval%20List%20Intersections/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0986.Interval%20List%20Intersections/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0986.Interval%20List%20Intersections/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0986.Interval%20List%20Intersections/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：区间列表的交集。\n输入：firstList（integer[][]）、secondList（integer[][]）。\n训练提示：**思考**\r \r 两份闭区间列表各自已按端点排序且内部不相交，求所有交集。双指针指向当前区间，交集为 $[\\max(s_1,s_2),\\min(e_1,e_2)]$，若左端不超过右端则记录。结束较早的那条指针前进。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双指针\r\n\r\n\r\n\r\n思考\r\n\r\n两份闭区间列表各自已按端点排序且内部不相交，求所有交集。双指针指向当前区间，交集为 $[\\max(s_1,s_2),\\min(e_1,e_2)]$，若左端不超过右端则记录。结束较早的那条指针前进。",
+  "memory": "区间列表的交集 → 双指针。\n**思考**\r\n\r\n两份闭区间列表各自已按端点排序且内部不相交，求所有交集。双指针指向当前区间，交集为 $[\\max(s_1,s_2),\\min(e_1,e_2)]$，若左端不超过右端则记录。结束较早的那条指针前进。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

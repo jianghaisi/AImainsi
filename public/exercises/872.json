@@ -1,0 +1,93 @@
+{
+  "number": "872",
+  "adapter": {
+    "name": "leafSimilar",
+    "params": [
+      {
+        "name": "root1",
+        "type": "TreeNode"
+      },
+      {
+        "name": "root2",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "872"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          5,
+          1,
+          6,
+          2,
+          9,
+          8,
+          null,
+          null,
+          7,
+          4
+        ],
+        [
+          3,
+          5,
+          1,
+          6,
+          7,
+          4,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          9,
+          8
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public boolean leafSimilar(TreeNode root1, TreeNode root2) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool leafSimilar(TreeNode* root1, TreeNode* root2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, val=0, left=None, right=None):\r\n#         self.val = val\r\n#         self.left = left\r\n#         self.right = right\r\nclass Solution:\r\n    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:\r\n        def dfs(root: Optional[TreeNode], nums: List[int]) -> None:\r\n            if root.left == root.right:\r\n                nums.append(root.val)\r\n                return\r\n            if root.left:\r\n                dfs(root.left, nums)\r\n            if root.right:\r\n                dfs(root.right, nums)\r\n\r\n        l1, l2 = [], []\r\n        dfs(root1, l1)\r\n        dfs(root2, l2)\r\n        return l1 == l2\r\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode() {}\r\n *     TreeNode(int val) { this.val = val; }\r\n *     TreeNode(int val, TreeNode left, TreeNode right) {\r\n *         this.val = val;\r\n *         this.left = left;\r\n *         this.right = right;\r\n *     }\r\n * }\r\n */\r\nclass Solution {\r\n    public boolean leafSimilar(TreeNode root1, TreeNode root2) {\r\n        List<Integer> l1 = new ArrayList<>();\r\n        List<Integer> l2 = new ArrayList<>();\r\n        dfs(root1, l1);\r\n        dfs(root2, l2);\r\n        return l1.equals(l2);\r\n    }\r\n\r\n    private void dfs(TreeNode root, List<Integer> nums) {\r\n        if (root.left == root.right) {\r\n            nums.add(root.val);\r\n            return;\r\n        }\r\n        if (root.left != null) {\r\n            dfs(root.left, nums);\r\n        }\r\n        if (root.right != null) {\r\n            dfs(root.right, nums);\r\n        }\r\n    }\r\n}\r\n",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    bool leafSimilar(TreeNode* root1, TreeNode* root2) {\r\n        vector<int> l1, l2;\r\n        dfs(root1, l1);\r\n        dfs(root2, l2);\r\n        return l1 == l2;\r\n    }\r\n\r\n    void dfs(TreeNode* root, vector<int>& nums) {\r\n        if (root->left == root->right) {\r\n            nums.push_back(root->val);\r\n            return;\r\n        }\r\n        if (root->left) {\r\n            dfs(root->left, nums);\r\n        }\r\n        if (root->right) {\r\n            dfs(root->right, nums);\r\n        }\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0872.Leaf-Similar%20Trees/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0872.Leaf-Similar%20Trees/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0872.Leaf-Similar%20Trees/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0872.Leaf-Similar%20Trees/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：叶子相似的树。\n输入：root1（TreeNode）、root2（TreeNode）。\n训练提示：**思考**\r \r 比较两棵树从左到右的叶值序列。树很小，分别 DFS 收集叶子再比较即可。\r \r 左右皆空视为叶子。两棵树各收集一次，序列相等则为相似。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS\r\n\r\n\r\n\r\n思考\r\n\r\n比较两棵树从左到右的叶值序列。树很小，分别 DFS 收集叶子再比较即可。\r\n\r\n左右皆空视为叶子。两棵树各收集一次，序列相等则为相似。\r\n\r\n\r\n\r\n我们可以使用深度优先搜索来遍历两棵树的叶子节点，分别将叶子节点的值存储在两个列表 $l_1$ 和 $l_2$ 中，最后比较两个列表是否相等。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为树的节点数。",
+  "memory": "叶子相似的树 → DFS。\n**思考**\r\n\r\n比较两棵树从左到右的叶值序列。树很小，分别 DFS 收集叶子再比较即可。\r\n\r\n左右皆空视为叶子。两棵树各收集一次，序列相等则为相似。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

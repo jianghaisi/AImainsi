@@ -1,0 +1,87 @@
+{
+  "number": "547",
+  "adapter": {
+    "name": "findCircleNum",
+    "params": [
+      {
+        "name": "isConnected",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "manual": false,
+    "number": "547"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findCircleNum(self, isConnected: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} isConnected\n * @return {number}\n */\nvar findCircleNum = function(isConnected) {\n    \n};",
+    "java": "class Solution {\n    public int findCircleNum(int[][] isConnected) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findCircleNum(vector<vector<int>>& isConnected) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findCircleNum(self, isConnected: List[List[int]]) -> int:\r\n        def dfs(i: int):\r\n            vis[i] = True\r\n            for j, x in enumerate(isConnected[i]):\r\n                if not vis[j] and x:\r\n                    dfs(j)\r\n\r\n        n = len(isConnected)\r\n        vis = [False] * n\r\n        ans = 0\r\n        for i in range(n):\r\n            if not vis[i]:\r\n                dfs(i)\r\n                ans += 1\r\n        return ans\r\n",
+    "javascript": "function findCircleNum(isConnected) {\n    const n = isConnected.length;\n    const vis = Array(n).fill(false);\n    const dfs = (i) => {\n        vis[i] = true;\n        for (let j = 0; j < n; ++j) {\n            if (!vis[j] && isConnected[i][j]) {\n                dfs(j);\n            }\n        }\n    };\n    let ans = 0;\n    for (let i = 0; i < n; ++i) {\n        if (!vis[i]) {\n            dfs(i);\n            ++ans;\n        }\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    private int[][] g;\r\n    private boolean[] vis;\r\n\r\n    public int findCircleNum(int[][] isConnected) {\r\n        g = isConnected;\r\n        int n = g.length;\r\n        vis = new boolean[n];\r\n        int ans = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            if (!vis[i]) {\r\n                dfs(i);\r\n                ++ans;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n\r\n    private void dfs(int i) {\r\n        vis[i] = true;\r\n        for (int j = 0; j < g.length; ++j) {\r\n            if (!vis[j] && g[i][j] == 1) {\r\n                dfs(j);\r\n            }\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int findCircleNum(vector<vector<int>>& isConnected) {\r\n        int n = isConnected.size();\r\n        int ans = 0;\r\n        bool vis[n];\r\n        memset(vis, false, sizeof(vis));\r\n        auto dfs = [&](this auto&& dfs, int i) -> void {\r\n            vis[i] = true;\r\n            for (int j = 0; j < n; ++j) {\r\n                if (!vis[j] && isConnected[i][j]) {\r\n                    dfs(j);\r\n                }\r\n            }\r\n        };\r\n        for (int i = 0; i < n; ++i) {\r\n            if (!vis[i]) {\r\n                dfs(i);\r\n                ++ans;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0547.Number%20of%20Provinces/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0547.Number%20of%20Provinces/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0547.Number%20of%20Provinces/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0547.Number%20of%20Provinces/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0547.Number%20of%20Provinces/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：省份数量。\n输入：isConnected（integer[][]）。\n训练提示：**思考**\r \r 省份是连通块。邻接矩阵给出城市之间是否直接相连，从每个未访问城市 DFS/BFS 即可染完一块。\r \r 扫一遍城市，遇到未访问的起点就开一次 DFS 并把答案加一。访问数组保证每个城市只进入一次。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS\r\n\r\n\r\n\r\n思考\r\n\r\n省份是连通块。邻接矩阵给出城市之间是否直接相连，从每个未访问城市 DFS/BFS 即可染完一块。\r\n\r\n扫一遍城市，遇到未访问的起点就开一次 DFS 并把答案加一。访问数组保证每个城市只进入一次。\r\n\r\n\r\n\r\n我们创建一个数组 $\\textit{vis}$，用于记录每个城市是否被访问过。\r\n\r\n接下来，遍历每个城市 $i$，如果该城市未被访问过，则从该城市开始深度优先搜索，通过矩阵 $\\textit{isConnected}$ 得到与该城市直接相连的城市有哪些，这些城市和该城市属于同一个省，然后对这些城市继续深度优先搜索，直到同一个省的所有城市都被访问到，即可得到一个省，将答案 $\\textit{ans}$ 加 $1$，然后遍历下一个未被访问过的城市，直到遍历完所有的城市。\r\n\r\n最后返回答案即可。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n)$。其中 $n$ 是城市的数量。",
+  "memory": "省份数量 → DFS。\n**思考**\r\n\r\n省份是连通块。邻接矩阵给出城市之间是否直接相连，从每个未访问城市 DFS/BFS 即可染完一块。\r\n\r\n扫一遍城市，遇到未访问的起点就开一次 DFS 并把答案加一。访问数组保证每个城市只进入一次。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

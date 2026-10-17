@@ -1,0 +1,127 @@
+{
+  "number": "LCR 081",
+  "adapter": {
+    "name": "combinationSum",
+    "params": [
+      {
+        "name": "candidates",
+        "type": "integer[]"
+      },
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[][]"
+    },
+    "number": "LCR 081"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          3,
+          6,
+          7
+        ],
+        7
+      ],
+      "expected": [
+        [
+          7
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          2,
+          3,
+          5
+        ],
+        8
+      ],
+      "expected": [
+        [
+          2,
+          2,
+          2,
+          2
+        ],
+        [
+          2,
+          3,
+          3
+        ],
+        [
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          2
+        ],
+        1
+      ],
+      "expected": []
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": [
+        [
+          1
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        2
+      ],
+      "expected": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public List<List<Integer>> combinationSum(int[] candidates, int target) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:\r\n        ans = []\r\n        n = len(candidates)\r\n\r\n        def dfs(s, u, t):\r\n            if s == target:\r\n                ans.append(t.copy())\r\n                return\r\n            if s > target:\r\n                return\r\n            for i in range(u, n):\r\n                c = candidates[i]\r\n                t.append(c)\r\n                dfs(s + c, i, t)\r\n                t.pop()\r\n\r\n        dfs(0, 0, [])\r\n        return ans\r\n",
+    "java": "class Solution {\r\n    private List<List<Integer>> ans;\r\n    private int target;\r\n    private int[] candidates;\r\n\r\n    public List<List<Integer>> combinationSum(int[] candidates, int target) {\r\n        ans = new ArrayList<>();\r\n        this.target = target;\r\n        this.candidates = candidates;\r\n        dfs(0, 0, new ArrayList<>());\r\n        return ans;\r\n    }\r\n\r\n    private void dfs(int s, int u, List<Integer> t) {\r\n        if (s == target) {\r\n            ans.add(new ArrayList<>(t));\r\n            return;\r\n        }\r\n        if (s > target) {\r\n            return;\r\n        }\r\n        for (int i = u; i < candidates.length; ++i) {\r\n            int c = candidates[i];\r\n            t.add(c);\r\n            dfs(s + c, i, t);\r\n            t.remove(t.size() - 1);\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<int>> ans;\r\n    vector<int> candidates;\r\n    int target;\r\n\r\n    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {\r\n        this->candidates = candidates;\r\n        this->target = target;\r\n        vector<int> t;\r\n        dfs(0, 0, t);\r\n        return ans;\r\n    }\r\n\r\n    void dfs(int s, int u, vector<int>& t) {\r\n        if (s == target) {\r\n            ans.push_back(t);\r\n            return;\r\n        }\r\n        if (s > target) return;\r\n        for (int i = u; i < candidates.size(); ++i) {\r\n            int c = candidates[i];\r\n            t.push_back(c);\r\n            dfs(s + c, i, t);\r\n            t.pop_back();\r\n        }\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20081.%20%E5%85%81%E8%AE%B8%E9%87%8D%E5%A4%8D%E9%80%89%E6%8B%A9%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%84%E5%90%88/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20081.%20%E5%85%81%E8%AE%B8%E9%87%8D%E5%A4%8D%E9%80%89%E6%8B%A9%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%84%E5%90%88/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20081.%20%E5%85%81%E8%AE%B8%E9%87%8D%E5%A4%8D%E9%80%89%E6%8B%A9%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%84%E5%90%88/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20081.%20%E5%85%81%E8%AE%B8%E9%87%8D%E5%A4%8D%E9%80%89%E6%8B%A9%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%84%E5%90%88/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：组合总和。\n输入：candidates（integer[]）、target（integer）。\n训练提示：**思考**\r \r 选出若干数（可重复使用同一候选）使和为 $\\textit{target}$。需要列出全部组合而非计数。\r \r 回溯时从当前下标 $u$ 起枚举，递归仍传入 $i$ 而非 $i+1$，从而允许重复选取同一个数；和超过目标则剪枝。按下标递增枚举，避免 $[2,3]$ 与 $[3,2]$ 被当成不同组合。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n选出若干数（可重复使用同一候选）使和为 $\\textit{target}$。需要列出全部组合而非计数。\r\n\r\n回溯时从当前下标 $u$ 起枚举，递归仍传入 $i$ 而非 $i+1$，从而允许重复选取同一个数；和超过目标则剪枝。按下标递增枚举，避免 $[2,3]$ 与 $[3,2]$ 被当成不同组合。",
+  "memory": "组合总和 → 方法一。\n**思考**\r\n\r\n选出若干数（可重复使用同一候选）使和为 $\\textit{target}$。需要列出全部组合而非计数。\r\n\r\n回溯时从当前下标 $u$ 起枚举，递归仍传入 $i$ 而非 $i+1$，从而允许重复选取同一个数；和超过目标则剪枝。按下标递增枚举，避免 $[2,3]$ 与 $[3,2]$ 被当成不同组合。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

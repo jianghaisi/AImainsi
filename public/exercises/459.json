@@ -1,0 +1,60 @@
+{
+  "number": "459",
+  "adapter": {
+    "name": "repeatedSubstringPattern",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "459"
+  },
+  "tests": [
+    {
+      "input": [
+        "abab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aba"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "abcabcabcabc"
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def repeatedSubstringPattern(self, s: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @return {boolean}\n */\nvar repeatedSubstringPattern = function(s) {\n    \n};",
+    "java": "class Solution {\n    public boolean repeatedSubstringPattern(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool repeatedSubstringPattern(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def repeatedSubstringPattern(self, s: str) -> bool:\r\n        return (s + s).index(s, 1) < len(s)\r\n",
+    "javascript": "function repeatedSubstringPattern(s) {\n    return (s + s).slice(1, (s.length << 1) - 1).includes(s);\n}\n",
+    "java": "class Solution {\r\n    public boolean repeatedSubstringPattern(String s) {\r\n        String str = s + s;\r\n        return str.substring(1, str.length() - 1).contains(s);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool repeatedSubstringPattern(string s) {\r\n        return (s + s).find(s, 1) < s.size();\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0459.Repeated%20Substring%20Pattern/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0459.Repeated%20Substring%20Pattern/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0459.Repeated%20Substring%20Pattern/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0459.Repeated%20Substring%20Pattern/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0459.Repeated%20Substring%20Pattern/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：重复的子字符串。\n输入：s（string）。\n训练提示：**思考**\r \r 判断 $s$ 是否由某一真前缀重复而成。枚举前缀长度并比较是 $O(n^2)$。\r \r 构造 $s+s$，从下标 $1$ 起查找 $s$：若第一次出现的位置小于 $n$，说明 $s$ 在拼接串内部对齐，即存在周期。\r \r 查找从 $1$ 开始是为了避开开头的平凡匹配；位置等于 $n$ 表示只在正中间对齐，没有更小周期。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双倍字符串\r\n\r\n\r\n\r\n思考\r\n\r\n判断 $s$ 是否由某一真前缀重复而成。枚举前缀长度并比较是 $O(n^2)$。\r\n\r\n构造 $s+s$，从下标 $1$ 起查找 $s$：若第一次出现的位置小于 $n$，说明 $s$ 在拼接串内部对齐，即存在周期。\r\n\r\n查找从 $1$ 开始是为了避开开头的平凡匹配；位置等于 $n$ 表示只在正中间对齐，没有更小周期。\r\n\r\n\r\n\r\n若长度为 $n$ 的字符串 $s$ 由 $m$ 个重复子串组成，将 $s$ 拼接在自身上，得到字符串 $ss$，长度为 $2n$，此时若从下标 $1$ 开始查找 $s$，那么查找到的下标一定小于 $s$ 的长度。\r\n\r\n若长度为 $n$ 的字符串 $s$ 不由重复子串组成，将 $s$ 拼接在自身上，得到字符串 $ss$，长度为 $2n$，此时若从下标 $1$ 开始查找 $s$，那么查找到的下标一定等于 $s$ 的长度。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为字符串 $s$ 的长度。",
+  "memory": "重复的子字符串 → 双倍字符串。\n**思考**\r\n\r\n判断 $s$ 是否由某一真前缀重复而成。枚举前缀长度并比较是 $O(n^2)$。\r\n\r\n构造 $s+s$，从下标 $1$ 起查找 $s$：若第一次出现的位置小于 $n$，说明 $s$ 在拼接串内部对齐，即存在周期。\r\n\r\n查找从 $1$ 开始是为了避开开头的平凡匹配；位置等于 $n$ 表示只在正中间对齐，没有更小周期。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

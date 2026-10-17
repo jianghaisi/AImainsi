@@ -1,0 +1,126 @@
+{
+  "number": "LCR 148",
+  "adapter": {
+    "name": "validateBookSequences",
+    "params": [
+      {
+        "name": "putIn",
+        "type": "integer[]"
+      },
+      {
+        "name": "takeOut",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "LCR 148"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        [
+          9,
+          11,
+          10,
+          8,
+          7,
+          6
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        [
+          11,
+          9,
+          8,
+          10,
+          6,
+          7
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        [
+          4,
+          5,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        [
+          4,
+          3,
+          5,
+          1,
+          2
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def validateBookSequences(self, pushed: List[int], popped: List[int]) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} putIn\n * @param {number[]} takeOut\n * @return {boolean}\n */\nvar validateBookSequences = function(putIn, takeOut) {\n    \n};",
+    "java": "class Solution {\n    public boolean validateBookSequences(int[] putIn, int[] takeOut) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool validateBookSequences(vector<int>& putIn, vector<int>& takeOut) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def validateBookSequences(self, pushed: List[int], popped: List[int]) -> bool:\r\n        j, stk = 0, []\r\n        for v in pushed:\r\n            stk.append(v)\r\n            while stk and stk[-1] == popped[j]:\r\n                stk.pop()\r\n                j += 1\r\n        return j == len(pushed)\r\n",
+    "javascript": "function validateBookSequences(pushed, popped) {\n    const stk = [];\n    let j = 0;\n    for (const v of pushed) {\n        stk.push(v);\n        while (stk.length && stk[stk.length - 1] == popped[j]) {\n            stk.pop();\n            ++j;\n        }\n    }\n    return j == pushed.length;\n}\n",
+    "java": "class Solution {\r\n    public boolean validateBookSequences(int[] pushed, int[] popped) {\r\n        Deque<Integer> stk = new ArrayDeque<>();\r\n        int j = 0;\r\n        for (int v : pushed) {\r\n            stk.push(v);\r\n            while (!stk.isEmpty() && stk.peek() == popped[j]) {\r\n                stk.pop();\r\n                ++j;\r\n            }\r\n        }\r\n        return j == pushed.length;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool validateBookSequences(vector<int>& pushed, vector<int>& popped) {\r\n        stack<int> stk;\r\n        int j = 0;\r\n        for (int v : pushed) {\r\n            stk.push(v);\r\n            while (!stk.empty() && stk.top() == popped[j]) {\r\n                stk.pop();\r\n                ++j;\r\n            }\r\n        }\r\n        return j == pushed.size();\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9831.%20%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E3%80%81%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9831.%20%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E3%80%81%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9831.%20%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E3%80%81%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9831.%20%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E3%80%81%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9831.%20%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E3%80%81%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：验证图书取出顺序。\n输入：putIn（integer[]）、takeOut（integer[]）。\n训练提示：**思考**\r \r 合法弹出序列必须能由给定压入顺序经一个栈得到。按 `pushed` 入栈，栈顶若等于当前待弹出值就持续弹出。\r \r 若最终待弹出下标走完，则序列合法。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：栈模拟\r\n\r\n\r\n\r\n思考\r\n\r\n合法弹出序列必须能由给定压入顺序经一个栈得到。按 `pushed` 入栈，栈顶若等于当前待弹出值就持续弹出。\r\n\r\n若最终待弹出下标走完，则序列合法。\r\n\r\n\r\n\r\n遍历 `pushed` 序列，将每个数 `v` 依次压入栈中，压入后检查这个数是不是 `popped` 序列中下一个要弹出的值，如果是就循环把栈顶元素弹出。\r\n\r\n遍历结束，如果 `popped` 序列已经到末尾，说明是一个合法的序列，否则不是。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 是 `pushed` 序列的长度。",
+  "memory": "验证图书取出顺序 → 栈模拟。\n**思考**\r\n\r\n合法弹出序列必须能由给定压入顺序经一个栈得到。按 `pushed` 入栈，栈顶若等于当前待弹出值就持续弹出。\r\n\r\n若最终待弹出下标走完，则序列合法。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,150 @@
+{
+  "number": "721",
+  "adapter": {
+    "name": "accountsMerge",
+    "params": [
+      {
+        "name": "accounts",
+        "type": "list<list<string>>"
+      }
+    ],
+    "return": {
+      "type": "list<list<string>>"
+    },
+    "number": "721"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            "Gabe",
+            "Gabe0@m.co",
+            "Gabe3@m.co",
+            "Gabe1@m.co"
+          ],
+          [
+            "Kevin",
+            "Kevin3@m.co",
+            "Kevin5@m.co",
+            "Kevin0@m.co"
+          ],
+          [
+            "Ethan",
+            "Ethan5@m.co",
+            "Ethan4@m.co",
+            "Ethan0@m.co"
+          ],
+          [
+            "Hanzo",
+            "Hanzo3@m.co",
+            "Hanzo1@m.co",
+            "Hanzo0@m.co"
+          ],
+          [
+            "Fern",
+            "Fern5@m.co",
+            "Fern1@m.co",
+            "Fern0@m.co"
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          "Ethan",
+          "Ethan0@m.co",
+          "Ethan4@m.co",
+          "Ethan5@m.co"
+        ],
+        [
+          "Gabe",
+          "Gabe0@m.co",
+          "Gabe1@m.co",
+          "Gabe3@m.co"
+        ],
+        [
+          "Hanzo",
+          "Hanzo0@m.co",
+          "Hanzo1@m.co",
+          "Hanzo3@m.co"
+        ],
+        [
+          "Kevin",
+          "Kevin0@m.co",
+          "Kevin3@m.co",
+          "Kevin5@m.co"
+        ],
+        [
+          "Fern",
+          "Fern0@m.co",
+          "Fern1@m.co",
+          "Fern5@m.co"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            "John",
+            "johnsmith@mail.com",
+            "john_newyork@mail.com"
+          ],
+          [
+            "John",
+            "johnsmith@mail.com",
+            "john00@mail.com"
+          ],
+          [
+            "Mary",
+            "mary@mail.com"
+          ],
+          [
+            "John",
+            "johnnybravo@mail.com"
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          "John",
+          "john00@mail.com",
+          "john_newyork@mail.com",
+          "johnsmith@mail.com"
+        ],
+        [
+          "Mary",
+          "mary@mail.com"
+        ],
+        [
+          "John",
+          "johnnybravo@mail.com"
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[][]} accounts\n * @return {string[][]}\n */\nvar accountsMerge = function(accounts) {\n    \n};",
+    "java": "class Solution {\n    public List<List<String>> accountsMerge(List<List<String>> accounts) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class UnionFind:\r\n    def __init__(self, n):\r\n        self.p = list(range(n))\r\n        self.size = [1] * n\r\n\r\n    def find(self, x):\r\n        if self.p[x] != x:\r\n            self.p[x] = self.find(self.p[x])\r\n        return self.p[x]\r\n\r\n    def union(self, a, b):\r\n        pa, pb = self.find(a), self.find(b)\r\n        if pa == pb:\r\n            return False\r\n        if self.size[pa] > self.size[pb]:\r\n            self.p[pb] = pa\r\n            self.size[pa] += self.size[pb]\r\n        else:\r\n            self.p[pa] = pb\r\n            self.size[pb] += self.size[pa]\r\n        return True\r\n\r\n\r\nclass Solution:\r\n    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:\r\n        uf = UnionFind(len(accounts))\r\n        d = {}\r\n        for i, (_, *emails) in enumerate(accounts):\r\n            for email in emails:\r\n                if email in d:\r\n                    uf.union(i, d[email])\r\n                else:\r\n                    d[email] = i\r\n        g = defaultdict(set)\r\n        for i, (_, *emails) in enumerate(accounts):\r\n            root = uf.find(i)\r\n            g[root].update(emails)\r\n        return [[accounts[root][0]] + sorted(emails) for root, emails in g.items()]\r\n",
+    "javascript": "class UnionFind {\n    p;\n    size;\n    constructor(n) {\n        this.p = new Array(n);\n        this.size = new Array(n);\n        for (let i = 0; i < n; ++i) {\n            this.p[i] = i;\n            this.size[i] = 1;\n        }\n    }\n    find(x) {\n        if (this.p[x] !== x) {\n            this.p[x] = this.find(this.p[x]);\n        }\n        return this.p[x];\n    }\n    union(a, b) {\n        let pa = this.find(a), pb = this.find(b);\n        if (pa === pb) {\n            return false;\n        }\n        if (this.size[pa] > this.size[pb]) {\n            this.p[pb] = pa;\n            this.size[pa] += this.size[pb];\n        }\n        else {\n            this.p[pa] = pb;\n            this.size[pb] += this.size[pa];\n        }\n        return true;\n    }\n}\nfunction accountsMerge(accounts) {\n    const n = accounts.length;\n    const uf = new UnionFind(n);\n    const d = new Map();\n    for (let i = 0; i < n; ++i) {\n        for (let j = 1; j < accounts[i].length; ++j) {\n            const email = accounts[i][j];\n            if (d.has(email)) {\n                uf.union(i, d.get(email));\n            }\n            else {\n                d.set(email, i);\n            }\n        }\n    }\n    const g = new Map();\n    for (let i = 0; i < n; ++i) {\n        const root = uf.find(i);\n        if (!g.has(root)) {\n            g.set(root, new Set());\n        }\n        const emailSet = g.get(root);\n        for (let j = 1; j < accounts[i].length; ++j) {\n            emailSet.add(accounts[i][j]);\n        }\n    }\n    const ans = [];\n    for (const [root, emails] of g.entries()) {\n        const emailList = Array.from(emails).sort();\n        const mergedAccount = [accounts[root][0], ...emailList];\n        ans.push(mergedAccount);\n    }\n    return ans;\n}\n",
+    "java": "class UnionFind {\r\n    private final int[] p;\r\n    private final int[] size;\r\n\r\n    public UnionFind(int n) {\r\n        p = new int[n];\r\n        size = new int[n];\r\n        for (int i = 0; i < n; ++i) {\r\n            p[i] = i;\r\n            size[i] = 1;\r\n        }\r\n    }\r\n\r\n    public int find(int x) {\r\n        if (p[x] != x) {\r\n            p[x] = find(p[x]);\r\n        }\r\n        return p[x];\r\n    }\r\n\r\n    public boolean union(int a, int b) {\r\n        int pa = find(a), pb = find(b);\r\n        if (pa == pb) {\r\n            return false;\r\n        }\r\n        if (size[pa] > size[pb]) {\r\n            p[pb] = pa;\r\n            size[pa] += size[pb];\r\n        } else {\r\n            p[pa] = pb;\r\n            size[pb] += size[pa];\r\n        }\r\n        return true;\r\n    }\r\n}\r\n\r\nclass Solution {\r\n    public List<List<String>> accountsMerge(List<List<String>> accounts) {\r\n        int n = accounts.size();\r\n        UnionFind uf = new UnionFind(n);\r\n        Map<String, Integer> d = new HashMap<>();\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j = 1; j < accounts.get(i).size(); ++j) {\r\n                String email = accounts.get(i).get(j);\r\n                if (d.containsKey(email)) {\r\n                    uf.union(i, d.get(email));\r\n                } else {\r\n                    d.put(email, i);\r\n                }\r\n            }\r\n        }\r\n        Map<Integer, Set<String>> g = new HashMap<>();\r\n        for (int i = 0; i < n; ++i) {\r\n            int root = uf.find(i);\r\n            g.computeIfAbsent(root, k -> new HashSet<>())\r\n                .addAll(accounts.get(i).subList(1, accounts.get(i).size()));\r\n        }\r\n        List<List<String>> ans = new ArrayList<>();\r\n        for (var e : g.entrySet()) {\r\n            List<String> emails = new ArrayList<>(e.getValue());\r\n            Collections.sort(emails);\r\n            ans.add(new ArrayList<>());\r\n            ans.get(ans.size() - 1).add(accounts.get(e.getKey()).get(0));\r\n            ans.get(ans.size() - 1).addAll(emails);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class UnionFind {\r\npublic:\r\n    UnionFind(int n) {\r\n        p = vector<int>(n);\r\n        size = vector<int>(n, 1);\r\n        iota(p.begin(), p.end(), 0);\r\n    }\r\n\r\n    bool unite(int a, int b) {\r\n        int pa = find(a), pb = find(b);\r\n        if (pa == pb) {\r\n            return false;\r\n        }\r\n        if (size[pa] > size[pb]) {\r\n            p[pb] = pa;\r\n            size[pa] += size[pb];\r\n        } else {\r\n            p[pa] = pb;\r\n            size[pb] += size[pa];\r\n        }\r\n        return true;\r\n    }\r\n\r\n    int find(int x) {\r\n        if (p[x] != x) {\r\n            p[x] = find(p[x]);\r\n        }\r\n        return p[x];\r\n    }\r\n\r\nprivate:\r\n    vector<int> p, size;\r\n};\r\n\r\nclass Solution {\r\npublic:\r\n    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {\r\n        int n = accounts.size();\r\n        UnionFind uf(n);\r\n        unordered_map<string, int> d;\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j = 1; j < accounts[i].size(); ++j) {\r\n                const string& email = accounts[i][j];\r\n                if (d.find(email) != d.end()) {\r\n                    uf.unite(i, d[email]);\r\n                } else {\r\n                    d[email] = i;\r\n                }\r\n            }\r\n        }\r\n        unordered_map<int, set<string>> g;\r\n        for (int i = 0; i < n; ++i) {\r\n            int root = uf.find(i);\r\n            g[root].insert(accounts[i].begin() + 1, accounts[i].end());\r\n        }\r\n        vector<vector<string>> ans;\r\n        for (const auto& [root, s] : g) {\r\n            vector<string> emails(s.begin(), s.end());\r\n            emails.insert(emails.begin(), accounts[root][0]);\r\n            ans.push_back(emails);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0721.Accounts%20Merge/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0721.Accounts%20Merge/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0721.Accounts%20Merge/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0721.Accounts%20Merge/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0721.Accounts%20Merge/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：账户合并。\n输入：accounts（list<list<string>>）。\n训练提示：**思考**\r \r 同一人的多个账户会通过共享邮箱连通，需要按人合并邮箱并排序。账户数约 $1000$，若两两比较邮箱集合，既慢也难维护姓名。\r \r 连通关系发生在「账户」这一层：两个账户只要出现同一个邮箱就应合并。并查集按账户下标连边，邮箱到首次出现账户的映射用来发现这条边。\r \r 合并后再按根下标把邮箱收入集合，姓名取该根账户的名字，最后对邮箱排序输出。查找带路径压缩，总代价接近线性对数。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：并查集 + 哈希表\r\n\r\n\r\n\r\n思考\r\n\r\n同一人的多个账户会通过共享邮箱连通，需要按人合并邮箱并排序。账户数约 $1000$，若两两比较邮箱集合，既慢也难维护姓名。\r\n\r\n连通关系发生在「账户」这一层：两个账户只要出现同一个邮箱就应合并。并查集按账户下标连边，邮箱到首次出现账户的映射用来发现这条边。\r\n\r\n合并后再按根下标把邮箱收入集合，姓名取该根账户的名字，最后对邮箱排序输出。查找带路径压缩，总代价接近线性对数。\r\n\r\n\r\n\r\n根据题目描述，我们可以使用并查集，将具有相同邮箱地址的账户合并在一起。\r\n\r\n我们首先遍历所有的账户，对于第 $i$ 个账户，我们遍历其所有的邮箱地址，如果该邮箱地址在哈希表 $\\textit{d}$ 中出现过，则使用并查集，将该账户的编号 $i$ 与之前出现过的邮箱地址所属的账户编号进行合并；否则，将该邮箱地址与账户的编号 $i$ 进行映射。\r\n\r\n接下来，我们遍历所有的账户，对于第 $i$ 个账户，我们使用并查集找到其根节点，然后将该账户的所有邮箱地址添加到哈希表 $\\textit{g}$ 中，其中键为根节点，值为该账户的所有邮箱地址。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(n)$。其中 $n$ 为账户的数量。",
+  "memory": "账户合并 → 并查集 + 哈希表。\n**思考**\r\n\r\n同一人的多个账户会通过共享邮箱连通，需要按人合并邮箱并排序。账户数约 $1000$，若两两比较邮箱集合，既慢也难维护姓名。\r\n\r\n连通关系发生在「账户」这一层：两个账户只要出现同一个邮箱就应合并。并查集按账户下标连边，邮箱到首次出现账户的映射用来发现这条边。\r\n\r\n合并后再按根下标把邮箱收入集合，姓名取该根账户的名字，最后对邮箱排序输出。查找带路径压缩，总代价接近线性对数。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

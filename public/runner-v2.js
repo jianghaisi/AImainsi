@@ -1,11 +1,18 @@
 // Disposable worker: no application state or credentials are sent here.
 import {createExercise} from './exercise-runtime.mjs';
 import {judge,closeEnough} from './judge.mjs';
+import {runSQL} from './sql-runtime.mjs';
 self.onmessage=async({data})=>{
  try{
   const {language,code,tests,adapter}=data,results=[];
   const check=(actual,test)=>adapter?judge(actual,test.expected,test.input,adapter.number):closeEnough(actual,test.expected);
-  if(language==='python'){
+  if(language==='sql'){
+   if(!adapter?.database)throw Error('当前题目不支持 SQL');
+   self.postMessage({status:'正在加载本地 SQLite…'});
+   const {default:initSqlJs}=await import('/sqlite/sql-wasm.mjs');
+   const SQL=await initSqlJs({locateFile:file=>'/sqlite/'+file});
+   for(const test of tests){try{const actual=runSQL(SQL,code,adapter,test.input);results.push({actual,passed:check(actual,test)});}catch(e){results.push({passed:false,error:e.message});}}
+  }else if(language==='python'){
    self.postMessage({status:'正在加载本地 Python 运行时…'});
    const {loadPyodide}=await import('/pyodide/pyodide.mjs');
    const runtime=await loadPyodide({indexURL:'/pyodide/'});
@@ -21,9 +28,7 @@ _meta = json.loads(_adapter_json)
 _namespace = {}
 if _meta:
     exec(_adapter_source, _namespace)
-    _node_name = {'138':'RandomNode','133':'GraphNode','427':'QuadNode'}.get(str(_meta['number']), 'TreeNode')
-    _namespace['Node'] = _namespace[_node_name]
-    _namespace['_Node'] = _namespace['Node']
+    _namespace['_seq_setup'](_namespace, _meta)
 exec(_user_code, _namespace)
 _results = []
 for _case in _test_cases:

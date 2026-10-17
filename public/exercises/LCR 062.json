@@ -1,0 +1,130 @@
+{
+  "number": "LCR 062",
+  "adapter": {
+    "classname": "Trie",
+    "maxbytesperline": 200000,
+    "systemdesign": true,
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "name": "insert",
+        "params": [
+          {
+            "name": "word",
+            "type": "string"
+          }
+        ],
+        "return": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "search",
+        "params": [
+          {
+            "name": "word",
+            "type": "string"
+          }
+        ],
+        "return": {
+          "type": "boolean"
+        }
+      },
+      {
+        "name": "startsWith",
+        "params": [
+          {
+            "name": "prefix",
+            "type": "string"
+          }
+        ],
+        "return": {
+          "type": "boolean"
+        }
+      }
+    ],
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "LCR 062"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "Trie",
+          "insert",
+          "search",
+          "search",
+          "startsWith",
+          "insert",
+          "search"
+        ],
+        [
+          [],
+          [
+            "apple"
+          ],
+          [
+            "apple"
+          ],
+          [
+            "app"
+          ],
+          [
+            "app"
+          ],
+          [
+            "app"
+          ],
+          [
+            "app"
+          ]
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        true,
+        false,
+        true,
+        null,
+        true
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Trie:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def insert(self, word: str) -> None:\n        raise NotImplementedError('请完成此方法')\n\n    def search(self, word: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n\n    def startsWith(self, prefix: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Trie {\n\n    /** Initialize your data structure here. */\n    public Trie() {\n\n    }\n    \n    /** Inserts a word into the trie. */\n    public void insert(String word) {\n\n    }\n    \n    /** Returns if the word is in the trie. */\n    public boolean search(String word) {\n\n    }\n    \n    /** Returns if there is any word in the trie that starts with the given prefix. */\n    public boolean startsWith(String prefix) {\n\n    }\n}\n\n/**\n * Your Trie object will be instantiated and called as such:\n * Trie obj = new Trie();\n * obj.insert(word);\n * boolean param_2 = obj.search(word);\n * boolean param_3 = obj.startsWith(prefix);\n */",
+    "cpp": "class Trie {\npublic:\n    /** Initialize your data structure here. */\n    Trie() {\n\n    }\n    \n    /** Inserts a word into the trie. */\n    void insert(string word) {\n\n    }\n    \n    /** Returns if the word is in the trie. */\n    bool search(string word) {\n\n    }\n    \n    /** Returns if there is any word in the trie that starts with the given prefix. */\n    bool startsWith(string prefix) {\n\n    }\n};\n\n/**\n * Your Trie object will be instantiated and called as such:\n * Trie* obj = new Trie();\n * obj->insert(word);\n * bool param_2 = obj->search(word);\n * bool param_3 = obj->startsWith(prefix);\n */"
+  },
+  "solutions": {
+    "python": "class Trie:\r\n    def __init__(self):\r\n        self.children = [None] * 26\r\n        self.is_end = False\r\n\r\n    def insert(self, word: str) -> None:\r\n        node = self\r\n        for c in word:\r\n            idx = ord(c) - ord('a')\r\n            if node.children[idx] is None:\r\n                node.children[idx] = Trie()\r\n            node = node.children[idx]\r\n        node.is_end = True\r\n\r\n    def search(self, word: str) -> bool:\r\n        node = self._search_prefix(word)\r\n        return node is not None and node.is_end\r\n\r\n    def startsWith(self, prefix: str) -> bool:\r\n        node = self._search_prefix(prefix)\r\n        return node is not None\r\n\r\n    def _search_prefix(self, prefix: str):\r\n        node = self\r\n        for c in prefix:\r\n            idx = ord(c) - ord('a')\r\n            if node.children[idx] is None:\r\n                return None\r\n            node = node.children[idx]\r\n        return node\r\n\r\n\r\n# Your Trie object will be instantiated and called as such:\r\n# obj = Trie()\r\n# obj.insert(word)\r\n# param_2 = obj.search(word)\r\n# param_3 = obj.startsWith(prefix)\r\n",
+    "java": "class Trie {\r\n    private Trie[] children;\r\n    private boolean isEnd;\r\n\r\n    public Trie() {\r\n        children = new Trie[26];\r\n    }\r\n\r\n    public void insert(String word) {\r\n        Trie node = this;\r\n        for (char c : word.toCharArray()) {\r\n            int idx = c - 'a';\r\n            if (node.children[idx] == null) {\r\n                node.children[idx] = new Trie();\r\n            }\r\n            node = node.children[idx];\r\n        }\r\n        node.isEnd = true;\r\n    }\r\n\r\n    public boolean search(String word) {\r\n        Trie node = searchPrefix(word);\r\n        return node != null && node.isEnd;\r\n    }\r\n\r\n    public boolean startsWith(String prefix) {\r\n        Trie node = searchPrefix(prefix);\r\n        return node != null;\r\n    }\r\n\r\n    private Trie searchPrefix(String s) {\r\n        Trie node = this;\r\n        for (char c : s.toCharArray()) {\r\n            int idx = c - 'a';\r\n            if (node.children[idx] == null) {\r\n                return null;\r\n            }\r\n            node = node.children[idx];\r\n        }\r\n        return node;\r\n    }\r\n}\r\n\r\n/**\r\n * Your Trie object will be instantiated and called as such:\r\n * Trie obj = new Trie();\r\n * obj.insert(word);\r\n * boolean param_2 = obj.search(word);\r\n * boolean param_3 = obj.startsWith(prefix);\r\n */",
+    "cpp": "class Trie {\r\nprivate:\r\n    vector<Trie*> children;\r\n    bool isEnd;\r\n\r\n    Trie* searchPrefix(string s) {\r\n        Trie* node = this;\r\n        for (char c : s) {\r\n            int idx = c - 'a';\r\n            if (!node->children[idx]) return nullptr;\r\n            node = node->children[idx];\r\n        }\r\n        return node;\r\n    }\r\n\r\npublic:\r\n    Trie()\r\n        : children(26)\r\n        , isEnd(false) {}\r\n\r\n    void insert(string word) {\r\n        Trie* node = this;\r\n        for (char c : word) {\r\n            int idx = c - 'a';\r\n            if (!node->children[idx]) node->children[idx] = new Trie();\r\n            node = node->children[idx];\r\n        }\r\n        node->isEnd = true;\r\n    }\r\n\r\n    bool search(string word) {\r\n        Trie* node = searchPrefix(word);\r\n        return node != nullptr && node->isEnd;\r\n    }\r\n\r\n    bool startsWith(string prefix) {\r\n        Trie* node = searchPrefix(prefix);\r\n        return node != nullptr;\r\n    }\r\n};\r\n\r\n/**\r\n * Your Trie object will be instantiated and called as such:\r\n * Trie* obj = new Trie();\r\n * obj->insert(word);\r\n * bool param_2 = obj->search(word);\r\n * bool param_3 = obj->startsWith(prefix);\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20062.%20%E5%AE%9E%E7%8E%B0%E5%89%8D%E7%BC%80%E6%A0%91/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20062.%20%E5%AE%9E%E7%8E%B0%E5%89%8D%E7%BC%80%E6%A0%91/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20062.%20%E5%AE%9E%E7%8E%B0%E5%89%8D%E7%BC%80%E6%A0%91/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20062.%20%E5%AE%9E%E7%8E%B0%E5%89%8D%E7%BC%80%E6%A0%91/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：实现 Trie (前缀树)。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 需要支持插入单词、整词查询与前缀查询。若用哈希表存全部单词与全部前缀，空间随前缀种类线性增长，且前缀集合需额外维护。\r \r 按字符分层的 $26$ 叉树把公共前缀压到同一条路径上。插入沿路径建结点并在词尾打标记；查询与前缀判断走同一条下探路径，后者不要求终点为词尾。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：前缀树\r\n\r\n\r\n\r\n思考\r\n\r\n需要支持插入单词、整词查询与前缀查询。若用哈希表存全部单词与全部前缀，空间随前缀种类线性增长，且前缀集合需额外维护。\r\n\r\n按字符分层的 $26$ 叉树把公共前缀压到同一条路径上。插入沿路径建结点并在词尾打标记；查询与前缀判断走同一条下探路径，后者不要求终点为词尾。\r\n\r\n\r\n\r\n前缀树每个节点包括两部分：\r\n\r\n1. 指向子节点的指针数组 $children$，对于本题而言，数组长度为 $26$，即小写英文字母的数量。 $children[0]$ 对应小写字母 $a$，...， $children[25]$ 对应小写字母 $z$。\r\n1. 布尔字段 $isEnd$，表示该节点是否为字符串的结尾。\r\n\r\n1. 插入字符串\r\n\r\n我们从字典树的根开始，插入字符串。对于当前字符对应的子节点，有两种情况：\r\n\r\n- 子节点存在。沿着指针移动到子节点，继续处理下一个字符。\r\n- 子节点不存在。创建一个新的子节点，记录在 $children$ 数组的对应位置上，然后沿着指针移动到子节点，继续搜索下一个字符。\r\n\r\n重复以上步骤，直到处理字符串的最后一个字符，然后将当前节点标记为字符串的结尾。\r\n\r\n2. 查找前缀\r\n\r\n我们从字典树的根开始，查找前缀。对于当前字符对应的子节点，有两种情况：\r\n\r\n- 子节点存在。沿着指针移动到子节点，继续搜索下一个字符。\r\n- 子节点不存在。说明字典树中不包含该前缀，返回空指针。\r\n\r\n重复以上步骤，直到返回空指针或搜索完前缀的最后一个字符。\r\n\r\n若搜索到了前缀的末尾，就说明字典树中存在该前缀。此外，若前缀末尾对应节点的 $isEnd$ 为真，则说明字典树中存在该字符串。",
+  "memory": "实现 Trie (前缀树) → 前缀树。\n**思考**\r\n\r\n需要支持插入单词、整词查询与前缀查询。若用哈希表存全部单词与全部前缀，空间随前缀种类线性增长，且前缀集合需额外维护。\r\n\r\n按字符分层的 $26$ 叉树把公共前缀压到同一条路径上。插入沿路径建结点并在词尾打标记；查询与前缀判断走同一条下探路径，后者不要求终点为词尾。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

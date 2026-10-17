@@ -1,0 +1,1280 @@
+[
+  {
+    "id": "huawei",
+    "name": "华为",
+    "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+    "updatedAt": "2026-10-17T02:04:07.051Z",
+    "note": "来源文章中的面经样本与备考题单，非企业官方题库；不把样本频次视为出题概率。",
+    "questions": [
+      {
+        "number": "3",
+        "title": "3. 最长无重复子串",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=3"
+      },
+      {
+        "number": "42",
+        "title": "42. 接雨水",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=42"
+      },
+      {
+        "number": "15",
+        "title": "LC 15. 三数之和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=15"
+      },
+      {
+        "number": "11",
+        "title": "11. 盛最多水的容器",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=11"
+      },
+      {
+        "number": "209",
+        "title": "LC 209. 长度最小的子数组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=209"
+      },
+      {
+        "number": "239",
+        "title": "LC 239. 滑动窗口最大值",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=239"
+      },
+      {
+        "number": "200",
+        "title": "200. 岛屿数量",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=200"
+      },
+      {
+        "number": "207",
+        "title": "LC 207. 课程表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=207"
+      },
+      {
+        "number": "695",
+        "title": "LC 695. 岛屿的最大面积",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=695"
+      },
+      {
+        "number": "20",
+        "title": "20. 有效的括号",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=20"
+      },
+      {
+        "number": "394",
+        "title": "394. 字符串解码",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=394"
+      },
+      {
+        "number": "739",
+        "title": "739. 每日温度",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=739"
+      },
+      {
+        "number": "155",
+        "title": "155. 最小栈",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=155"
+      },
+      {
+        "number": "146",
+        "title": "LC 146. LRU 缓存",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=146"
+      },
+      {
+        "number": "206",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=206"
+      },
+      {
+        "number": "19",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=19"
+      },
+      {
+        "number": "21",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=21"
+      },
+      {
+        "number": "142",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=142"
+      },
+      {
+        "number": "2",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=2"
+      },
+      {
+        "number": "23",
+        "title": "LC 23. 合并K个升序链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=23"
+      },
+      {
+        "number": "92",
+        "title": "LC 92. 反转链表 II",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=92"
+      },
+      {
+        "number": "102",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=102"
+      },
+      {
+        "number": "124",
+        "title": "LC 124. 二叉树中的最大路径和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=124"
+      },
+      {
+        "number": "56",
+        "title": "56. 合并区间",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=56"
+      },
+      {
+        "number": "215",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=215"
+      },
+      {
+        "number": "704",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=704"
+      },
+      {
+        "number": "300",
+        "title": "LC 300. 最长递增子序列",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=300"
+      },
+      {
+        "number": "53",
+        "title": "LC 53. 最大子数组和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=53"
+      },
+      {
+        "number": "70",
+        "title": "LC 70. 爬楼梯",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=70"
+      },
+      {
+        "number": "64",
+        "title": "64. 最小路径和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=64"
+      },
+      {
+        "number": "72",
+        "title": "LC 72. 编辑距离",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=72"
+      },
+      {
+        "number": "46",
+        "title": "46. 全排列",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=46"
+      },
+      {
+        "number": "93",
+        "title": "LC 93. 复原 IP 地址",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=93"
+      },
+      {
+        "number": "1",
+        "title": "1. 两数之和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=1"
+      },
+      {
+        "number": "451",
+        "title": "LC 451. 根据字符出现频率排序",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=451"
+      },
+      {
+        "number": "55",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=55"
+      },
+      {
+        "number": "406",
+        "title": "LC 406. 根据身高重建队列",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=406"
+      },
+      {
+        "number": "54",
+        "title": "LC 54. 螺旋矩阵",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=54"
+      },
+      {
+        "number": "986",
+        "title": "986. 区间列表的交集",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=986"
+      },
+      {
+        "number": "456",
+        "title": "456. 132 模式",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=456"
+      },
+      {
+        "number": "240",
+        "title": "240. 搜索二维矩阵 II",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=240"
+      },
+      {
+        "number": "104",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=104"
+      },
+      {
+        "number": "139",
+        "title": "139. 单词拆分",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=139"
+      },
+      {
+        "number": "71",
+        "title": "71. 简化路径",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=71"
+      },
+      {
+        "number": "49",
+        "title": "49. 字母异位词分组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=49"
+      },
+      {
+        "number": "152",
+        "title": "152. 乘积最大子数组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=152"
+      },
+      {
+        "number": "718",
+        "title": "718. 最长重复子数组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=718"
+      },
+      {
+        "number": "1423",
+        "title": "1423. 最大点数",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=1423"
+      },
+      {
+        "number": "17",
+        "title": "17. 电话号码的字母组合",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=17"
+      },
+      {
+        "number": "994",
+        "title": "994. 腐烂的橘子",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=994"
+      },
+      {
+        "number": "134",
+        "title": "134. 加油站",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=134"
+      },
+      {
+        "number": "5",
+        "title": "5. 最长回文子串",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=5"
+      },
+      {
+        "number": "217",
+        "title": "217. 存在重复元素",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=217"
+      },
+      {
+        "number": "415",
+        "title": "415. 字符串相加",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=415"
+      },
+      {
+        "number": "91",
+        "title": "91. 解码方法",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=91"
+      },
+      {
+        "number": "121",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=121"
+      },
+      {
+        "number": "45",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=45"
+      },
+      {
+        "number": "763",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=763"
+      },
+      {
+        "number": "94",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=94"
+      },
+      {
+        "number": "35",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=35"
+      },
+      {
+        "number": "34",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=34"
+      },
+      {
+        "number": "33",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=33"
+      },
+      {
+        "number": "153",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=153"
+      },
+      {
+        "number": "347",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=347"
+      },
+      {
+        "number": "136",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=136"
+      },
+      {
+        "number": "169",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=169"
+      },
+      {
+        "number": "287",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=287"
+      },
+      {
+        "number": "75",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=75"
+      },
+      {
+        "number": "141",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=141"
+      },
+      {
+        "number": "234",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=234"
+      },
+      {
+        "number": "160",
+        "title": "练习",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/huawei/",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=160"
+      }
+    ]
+  },
+  {
+    "id": "bytedance",
+    "name": "字节跳动",
+    "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+    "updatedAt": "2026-10-17T02:04:07.397Z",
+    "note": "来源文章中的面经样本与备考题单，非企业官方题库；不把样本频次视为出题概率。",
+    "questions": [
+      {
+        "number": "206",
+        "title": "LC 206 反转链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=206"
+      },
+      {
+        "number": "25",
+        "title": "LC 25 K 个一组翻转链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=25"
+      },
+      {
+        "number": "19",
+        "title": "LC 19 删除链表的倒数第 N 个结点",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=19"
+      },
+      {
+        "number": "23",
+        "title": "LC 23 合并 K 个升序链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=23"
+      },
+      {
+        "number": "21",
+        "title": "LC 21 合并两个有序链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=21"
+      },
+      {
+        "number": "141",
+        "title": "LC 141 环形链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=141"
+      },
+      {
+        "number": "148",
+        "title": "LC 148 排序链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=148"
+      },
+      {
+        "number": "92",
+        "title": "LC 92 反转链表 II",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=92"
+      },
+      {
+        "number": "2",
+        "title": "LC 2 两数相加",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=2"
+      },
+      {
+        "number": "200",
+        "title": "LC 200 岛屿数量",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=200"
+      },
+      {
+        "number": "236",
+        "title": "LC 236 二叉树的最近公共祖先",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=236"
+      },
+      {
+        "number": "103",
+        "title": "LC 103 二叉树的锯齿形层序遍历",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=103"
+      },
+      {
+        "number": "102",
+        "title": "LC 102 二叉树的层序遍历",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=102"
+      },
+      {
+        "number": "199",
+        "title": "LC 199 二叉树的右视图",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=199"
+      },
+      {
+        "number": "572",
+        "title": "LC 572 另一棵树的子树",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=572"
+      },
+      {
+        "number": "104",
+        "title": "LC 104 二叉树的最大深度",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=104"
+      },
+      {
+        "number": "94",
+        "title": "LC 94 二叉树的中序遍历",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=94"
+      },
+      {
+        "number": "124",
+        "title": "LC 124 二叉树中的最大路径和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=124"
+      },
+      {
+        "number": "226",
+        "title": "LC 226 翻转二叉树",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=226"
+      },
+      {
+        "number": "695",
+        "title": "LC 695 岛屿的最大面积",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=695"
+      },
+      {
+        "number": "5",
+        "title": "LC 5 最长回文子串",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=5"
+      },
+      {
+        "number": "300",
+        "title": "LC 300 最长递增子序列",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=300"
+      },
+      {
+        "number": "72",
+        "title": "LC 72 编辑距离",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=72"
+      },
+      {
+        "number": "1143",
+        "title": "LC 1143 最长公共子序列",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=1143"
+      },
+      {
+        "number": "53",
+        "title": "LC 53 最大子数组和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=53"
+      },
+      {
+        "number": "121",
+        "title": "LC 121 买卖股票的最佳时机",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=121"
+      },
+      {
+        "number": "322",
+        "title": "LC 322 零钱兑换",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=322"
+      },
+      {
+        "number": "122",
+        "title": "LC 122 买卖股票的最佳时机 II",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=122"
+      },
+      {
+        "number": "198",
+        "title": "LC 198 打家劫舍",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=198"
+      },
+      {
+        "number": "70",
+        "title": "LC 70 爬楼梯",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=70"
+      },
+      {
+        "number": "3",
+        "title": "LC 3 无重复字符的最长子串",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=3"
+      },
+      {
+        "number": "15",
+        "title": "LC 15 三数之和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=15"
+      },
+      {
+        "number": "42",
+        "title": "LC 42 接雨水",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=42"
+      },
+      {
+        "number": "88",
+        "title": "LC 88 合并两个有序数组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=88"
+      },
+      {
+        "number": "209",
+        "title": "LC 209 长度最小的子数组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=209"
+      },
+      {
+        "number": "239",
+        "title": "LC 239 滑动窗口最大值",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=239"
+      },
+      {
+        "number": "146",
+        "title": "LC 146 LRU 缓存",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=146"
+      },
+      {
+        "number": "215",
+        "title": "LC 215 数组中的第 K 个最大元素",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=215"
+      },
+      {
+        "number": "20",
+        "title": "LC 20 有效的括号",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=20"
+      },
+      {
+        "number": "1",
+        "title": "LC 1 两数之和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=1"
+      },
+      {
+        "number": "46",
+        "title": "LC 46 全排列",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=46"
+      },
+      {
+        "number": "165",
+        "title": "LC 165 比较版本号",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=165"
+      },
+      {
+        "number": "232",
+        "title": "LC 232 用栈实现队列",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=232"
+      },
+      {
+        "number": "415",
+        "title": "LC 415 字符串相加",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=415"
+      },
+      {
+        "number": "22",
+        "title": "LC 22 括号生成",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=22"
+      },
+      {
+        "number": "56",
+        "title": "LC 56 合并区间",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=56"
+      },
+      {
+        "number": "33",
+        "title": "LC 33 搜索旋转排序数组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=33"
+      },
+      {
+        "number": "34",
+        "title": "LC 34 在排序数组中查找元素的第一个和最后一个位置",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=34"
+      },
+      {
+        "number": "912",
+        "title": "LC 912 排序数组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=912"
+      },
+      {
+        "number": "4",
+        "title": "LC 4 寻找两个正序数组的中位数",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=4"
+      },
+      {
+        "number": "75",
+        "title": "LC 75 颜色分类",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=75"
+      },
+      {
+        "number": "902",
+        "title": "LC 902 最大为 N 的数字组合",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/bytedance-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=902"
+      }
+    ]
+  },
+  {
+    "id": "tencent",
+    "name": "腾讯",
+    "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+    "updatedAt": "2026-10-17T02:04:07.786Z",
+    "note": "来源文章中的面经样本与备考题单，非企业官方题库；不把样本频次视为出题概率。",
+    "questions": [
+      {
+        "number": "146",
+        "title": "LeetCode 146 LRU 缓存",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=146"
+      },
+      {
+        "number": "912",
+        "title": "LeetCode 912 排序数组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=912"
+      },
+      {
+        "number": "3",
+        "title": "LeetCode 3 无重复字符最长子串",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=3"
+      },
+      {
+        "number": "53",
+        "title": "LeetCode 53 最大子数组和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=53"
+      },
+      {
+        "number": "215",
+        "title": "LeetCode 215 第K个最大元素",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=215"
+      },
+      {
+        "number": "300",
+        "title": "LeetCode 300 最长递增子序列",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=300"
+      },
+      {
+        "number": "206",
+        "title": "LeetCode 206 反转链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=206"
+      },
+      {
+        "number": "20",
+        "title": "LeetCode 20 有效的括号",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=20"
+      },
+      {
+        "number": "415",
+        "title": "LeetCode 415 字符串相加",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=415"
+      },
+      {
+        "number": "21",
+        "title": "LeetCode 21 合并两个有序链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=21"
+      },
+      {
+        "number": "1",
+        "title": "LC 1 两数之和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=1"
+      },
+      {
+        "number": "224",
+        "title": "LC 224 基本计算器",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=224"
+      },
+      {
+        "number": "347",
+        "title": "LC 347 前 K 个高频元素",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=347"
+      },
+      {
+        "number": "239",
+        "title": "LC 239 滑动窗口最大值",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=239"
+      },
+      {
+        "number": "231",
+        "title": "LC 231 2 的幂",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=231"
+      },
+      {
+        "number": "56",
+        "title": "LC 56 合并区间",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=56"
+      },
+      {
+        "number": "442",
+        "title": "LC 442 数组中重复的数据",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=442"
+      },
+      {
+        "number": "240",
+        "title": "LC 240 搜索二维矩阵 II",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=240"
+      },
+      {
+        "number": "75",
+        "title": "LC 75 颜色分类",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=75"
+      },
+      {
+        "number": "88",
+        "title": "LC 88 合并两个有序数组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=88"
+      },
+      {
+        "number": "54",
+        "title": "LC 54 螺旋矩阵",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=54"
+      },
+      {
+        "number": "165",
+        "title": "LC 165 比较版本号",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=165"
+      },
+      {
+        "number": "15",
+        "title": "LC 15 三数之和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=15"
+      },
+      {
+        "number": "43",
+        "title": "LC 43 字符串相乘",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=43"
+      },
+      {
+        "number": "209",
+        "title": "LC 209 长度最小的子数组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=209"
+      },
+      {
+        "number": "42",
+        "title": "LC 42 接雨水",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=42"
+      },
+      {
+        "number": "76",
+        "title": "LC 76 最小覆盖子串",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=76"
+      },
+      {
+        "number": "23",
+        "title": "LC 23 合并 K 个升序链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=23"
+      },
+      {
+        "number": "25",
+        "title": "LC 25 K 个一组翻转链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=25"
+      },
+      {
+        "number": "19",
+        "title": "LC 19 删除链表倒数第 N 个结点",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=19"
+      },
+      {
+        "number": "82",
+        "title": "LC 82 删除排序链表中的重复元素 II",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=82"
+      },
+      {
+        "number": "160",
+        "title": "LC 160 相交链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=160"
+      },
+      {
+        "number": "141",
+        "title": "LC 141 环形链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=141"
+      },
+      {
+        "number": "142",
+        "title": "LC 142 环形链表 II",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=142"
+      },
+      {
+        "number": "24",
+        "title": "LC 24 两两交换链表中的节点",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=24"
+      },
+      {
+        "number": "5",
+        "title": "LC 5 最长回文子串",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=5"
+      },
+      {
+        "number": "322",
+        "title": "LC 322 零钱兑换",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=322"
+      },
+      {
+        "number": "72",
+        "title": "LC 72 编辑距离",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=72"
+      },
+      {
+        "number": "70",
+        "title": "LC 70 爬楼梯",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=70"
+      },
+      {
+        "number": "121",
+        "title": "LC 121 买卖股票的最佳时机",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=121"
+      },
+      {
+        "number": "718",
+        "title": "LC 718 最长重复子数组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=718"
+      },
+      {
+        "number": "1262",
+        "title": "LC 1262 可被三整除的最大和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=1262"
+      },
+      {
+        "number": "102",
+        "title": "LC 102 二叉树层序遍历",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=102"
+      },
+      {
+        "number": "200",
+        "title": "LC 200 岛屿数量",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=200"
+      },
+      {
+        "number": "22",
+        "title": "LC 22 括号生成",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=22"
+      },
+      {
+        "number": "704",
+        "title": "LC 704 二分查找",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=704"
+      },
+      {
+        "number": "33",
+        "title": "LC 33 搜索旋转排序数组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=33"
+      },
+      {
+        "number": "287",
+        "title": "LC 287 寻找重复数",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=287"
+      },
+      {
+        "number": "153",
+        "title": "LC 153 寻找旋转排序数组中的最小值",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=153"
+      },
+      {
+        "number": "470",
+        "title": "LC 470 用 Rand7() 实现 Rand10()",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/tencent-202604/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=470"
+      }
+    ]
+  },
+  {
+    "id": "meituan",
+    "name": "美团",
+    "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+    "updatedAt": "2026-10-17T02:04:08.164Z",
+    "note": "来源文章中的面经样本与备考题单，非企业官方题库；不把样本频次视为出题概率。",
+    "questions": [
+      {
+        "number": "92",
+        "title": "LC 92 反转链表 II",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/reverse-linked-list-ii/"
+      },
+      {
+        "number": "102",
+        "title": "LC 102 二叉树的层序遍历",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=102"
+      },
+      {
+        "number": "206",
+        "title": "LC 206 反转链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=206"
+      },
+      {
+        "number": "88",
+        "title": "LC 88 合并两个有序数组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/merge-sorted-array/"
+      },
+      {
+        "number": "142",
+        "title": "LC 142 环形链表 II",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=142"
+      },
+      {
+        "number": "141",
+        "title": "LC 141 环形链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=141"
+      },
+      {
+        "number": "21",
+        "title": "LC 21 合并两个有序链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=21"
+      },
+      {
+        "number": "215",
+        "title": "LC 215 数组中的第 K 个最大元素",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=215"
+      },
+      {
+        "number": "144",
+        "title": "LC 144 二叉树的前序遍历",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/binary-tree-preorder-traversal/"
+      },
+      {
+        "number": "19",
+        "title": "LC 19 删除链表的倒数第 N 个节点",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=19"
+      },
+      {
+        "number": "43",
+        "title": "LC 43 字符串相乘",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/multiply-strings/"
+      },
+      {
+        "number": "82",
+        "title": "LC 82 删除排序链表中的重复元素 II",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/"
+      },
+      {
+        "number": "32",
+        "title": "LC 32 最长有效括号",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=32"
+      },
+      {
+        "number": "14",
+        "title": "LC 14 最长公共前缀",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/longest-common-prefix/"
+      },
+      {
+        "number": "111",
+        "title": "LC 111 二叉树的最小深度",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/minimum-depth-of-binary-tree/"
+      },
+      {
+        "number": "15",
+        "title": "LC 15 三数之和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=15"
+      },
+      {
+        "number": "143",
+        "title": "LC 143 重排链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/reorder-list/"
+      },
+      {
+        "number": "23",
+        "title": "LC 23 合并 K 个升序链表",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=23"
+      },
+      {
+        "number": "8",
+        "title": "LC 8 字符串转换整数（atoi）",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/string-to-integer-atoi/"
+      },
+      {
+        "number": "239",
+        "title": "LC 239 滑动窗口最大值",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=239"
+      },
+      {
+        "number": "146",
+        "title": "LC 146 LRU 缓存",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=146"
+      },
+      {
+        "number": "120",
+        "title": "LC 120 三角形最小路径和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/triangle/"
+      },
+      {
+        "number": "93",
+        "title": "LC 93 复原 IP 地址",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/restore-ip-addresses/"
+      },
+      {
+        "number": "718",
+        "title": "LC 718 最长重复子数组",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/maximum-length-of-repeated-subarray/"
+      },
+      {
+        "number": "16",
+        "title": "LC 16 最接近的三数之和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/3sum-closest/"
+      },
+      {
+        "number": "42",
+        "title": "LC 42 接雨水",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=42"
+      },
+      {
+        "number": "647",
+        "title": "LC 647 回文子串",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/palindromic-substrings/"
+      },
+      {
+        "number": "124",
+        "title": "LC 124 二叉树中的最大路径和",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=124"
+      },
+      {
+        "number": "128",
+        "title": "LC 128 最长连续序列",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=128"
+      },
+      {
+        "number": "236",
+        "title": "LC 236 二叉树的最近公共祖先",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=236"
+      },
+      {
+        "number": "468",
+        "title": "LC 468 验证 IP 地址",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/validate-ip-address/"
+      },
+      {
+        "number": "103",
+        "title": "LC 103 二叉树的锯齿形层序遍历",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/binary-tree-zigzag-level-order-traversal/"
+      },
+      {
+        "number": "5",
+        "title": "LC 5 最长回文子串",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://onefly.top/zero2Leetcode/playground.html?id=5"
+      },
+      {
+        "number": "326",
+        "title": "LC 326「3 的幂」",
+        "sourceUrl": "https://onefly.top/zero2Leetcode/05_interview/coding/meituan/index.html",
+        "referenceUrl": "https://leetcode.cn/problems/power-of-three/"
+      }
+    ]
+  }
+]

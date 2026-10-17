@@ -1,0 +1,60 @@
+{
+  "number": "LCR 190",
+  "adapter": {
+    "name": "encryptionCalculate",
+    "params": [
+      {
+        "name": "dataA",
+        "type": "integer"
+      },
+      {
+        "name": "dataB",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 190"
+  },
+  "tests": [
+    {
+      "input": [
+        5,
+        -1
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        1,
+        1
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def encryptionCalculate(self, a: int, b: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} dataA\n * @param {number} dataB\n * @return {number}\n */\nvar encryptionCalculate = function(dataA, dataB) {\n    \n};",
+    "java": "class Solution {\n    public int encryptionCalculate(int dataA, int dataB) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int encryptionCalculate(int dataA, int dataB) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def encryptionCalculate(self, a: int, b: int) -> int:\r\n        a, b = a & 0xFFFFFFFF, b & 0xFFFFFFFF\r\n        while b:\r\n            c = ((a & b) << 1) & 0xFFFFFFFF\r\n            a, b = a ^ b, c\r\n        return a if a < 0x80000000 else ~(a ^ 0xFFFFFFFF)\r\n",
+    "javascript": "function encryptionCalculate(a, b) {\n    while (b) {\n        const c = (a & b) << 1;\n        a ^= b;\n        b = c;\n    }\n    return a;\n}\n",
+    "java": "class Solution {\r\n    public int encryptionCalculate(int a, int b) {\r\n        while (b != 0) {\r\n            int c = (a & b) << 1;\r\n            a ^= b;\r\n            b = c;\r\n        }\r\n        return a;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int encryptionCalculate(int a, int b) {\r\n        while (b) {\r\n            unsigned int c = (unsigned int) (a & b) << 1;\r\n            a = a ^ b;\r\n            b = c;\r\n        }\r\n        return a;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9865.%20%E4%B8%8D%E7%94%A8%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4%E5%81%9A%E5%8A%A0%E6%B3%95/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9865.%20%E4%B8%8D%E7%94%A8%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4%E5%81%9A%E5%8A%A0%E6%B3%95/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9865.%20%E4%B8%8D%E7%94%A8%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4%E5%81%9A%E5%8A%A0%E6%B3%95/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9865.%20%E4%B8%8D%E7%94%A8%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4%E5%81%9A%E5%8A%A0%E6%B3%95/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9865.%20%E4%B8%8D%E7%94%A8%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4%E5%81%9A%E5%8A%A0%E6%B3%95/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：加密运算。\n输入：dataA（integer）、dataB（integer）。\n训练提示：**思考**\r \r 不能用四则运算，加法须拆成“无进位和”与“进位”。前者即异或，后者即与后左移。循环至进位为零。Python 整型无限长，需先限制在 $32$ 位并处理符号。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：位运算\r\n\r\n\r\n\r\n思考\r\n\r\n不能用四则运算，加法须拆成“无进位和”与“进位”。前者即异或，后者即与后左移。循环至进位为零。Python 整型无限长，需先限制在 $32$ 位并处理符号。\r\n\r\n\r\n\r\n两数字 $a$, $b$ 求和。\r\n\r\n假设 $a_i$ 和 $b_i$ 分别表示 $a$ 和 $b$ 的第 $i$ 个二进制位。一共有 $4$ 种情况：\r\n\r\n| $a_i$ | $b_i$ | 不进位的和 | 进位 |\r\n| ----- | ----- | ---------- | ---- |\r\n| 0     | 0     | 0          | 0    |\r\n| 0     | 1     | 1          | 0    |\r\n| 1     | 0     | 1          | 0    |\r\n| 1     | 1     | 0          | 1    |\r\n\r\n观察可以发现，“不进位的和”与“异或运算”有相同规律，而进位则与“与”运算规律相同，并且需要左移一位。\r\n\r\n- 对两数进行按位 `&` 与运算，然后左移一位，得到进位；\r\n- 对两数进行按位 `^` 异或运算，得到不进位的和；\r\n- 问题转换为求：“不进位的数 + 进位” 之和；\r\n- 循环，直至进位为 $0$，返回不进位的数即可（也可以用递归实现）。\r\n\r\n时间复杂度 $O(\\log M)$，空间复杂度 $O(1)$。其中 $M$ 为整数的最大值。",
+  "memory": "加密运算 → 位运算。\n**思考**\r\n\r\n不能用四则运算，加法须拆成“无进位和”与“进位”。前者即异或，后者即与后左移。循环至进位为零。Python 整型无限长，需先限制在 $32$ 位并处理符号。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,51 @@
+{
+  "number": "441",
+  "adapter": {
+    "name": "arrangeCoins",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "441"
+  },
+  "tests": [
+    {
+      "input": [
+        5
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        8
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def arrangeCoins(self, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int arrangeCoins(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int arrangeCoins(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def arrangeCoins(self, n: int) -> int:\r\n        return int(math.sqrt(2) * math.sqrt(n + 0.125) - 0.5)\r\n",
+    "java": "class Solution {\r\n    public int arrangeCoins(int n) {\r\n        return (int) (Math.sqrt(2) * Math.sqrt(n + 0.125) - 0.5);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int arrangeCoins(int n) {\r\n        return (int) (sqrt(2) * sqrt(n + 0.125) - 0.5);\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0441.Arranging%20Coins/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0441.Arranging%20Coins/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0441.Arranging%20Coins/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0441.Arranging%20Coins/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：排列硬币。\n输入：n（integer）。\n训练提示：**思考**\r \r 第 $x$ 行用 $x$ 枚硬币，完整行数满足 $x(x+1)/2\\le n$。枚举 $x$ 是线性的， $n$ 可达 $2^{31}-1$。\r \r 解不等式得到 $x\\le \\sqrt{2}\\,\\sqrt{n+1/8}-1/2$，直接取整。把 $2n$ 拆成 $\\sqrt{2}\\sqrt{n+1/8}$，减轻中间溢出。\r \r 闭式一次求值，代价为常数次浮点运算。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：数学推导\r\n\r\n\r\n\r\n思考\r\n\r\n第 $x$ 行用 $x$ 枚硬币，完整行数满足 $x(x+1)/2\\le n$。枚举 $x$ 是线性的， $n$ 可达 $2^{31}-1$。\r\n\r\n解不等式得到 $x\\le \\sqrt{2}\\,\\sqrt{n+1/8}-1/2$，直接取整。把 $2n$ 拆成 $\\sqrt{2}\\sqrt{n+1/8}$，减轻中间溢出。\r\n\r\n闭式一次求值，代价为常数次浮点运算。\r\n\r\n\r\n\r\n`(1 + x) * x / 2 <= n`，求解 x。\r\n\r\n`(x + 1/2)² <= 2n + 1/4`，即 `x <= sqrt(2n + 1/4) - 1/2`。\r\n\r\n由于 2n 可能溢出，故转换为 `x <= sqrt(2) * sqrt(n + 1/8) - 1/2`。",
+  "memory": "排列硬币 → 数学推导。\n**思考**\r\n\r\n第 $x$ 行用 $x$ 枚硬币，完整行数满足 $x(x+1)/2\\le n$。枚举 $x$ 是线性的， $n$ 可达 $2^{31}-1$。\r\n\r\n解不等式得到 $x\\le \\sqrt{2}\\,\\sqrt{n+1/8}-1/2$，直接取整。把 $2n$ 拆成 $\\sqrt{2}\\sqrt{n+1/8}$，减轻中间溢出。\r\n\r\n闭式一次求值，代价为常数次浮点运算。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

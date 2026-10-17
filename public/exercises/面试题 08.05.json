@@ -1,0 +1,60 @@
+{
+  "number": "面试题 08.05",
+  "adapter": {
+    "name": "multiply",
+    "params": [
+      {
+        "name": "A",
+        "type": "integer"
+      },
+      {
+        "name": "B",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 08.05"
+  },
+  "tests": [
+    {
+      "input": [
+        1,
+        10
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        3,
+        4
+      ],
+      "expected": 12
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def multiply(self, A: int, B: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} A\n * @param {number} B\n * @return {number}\n */\nvar multiply = function(A, B) {\n    \n};",
+    "java": "class Solution {\n    public int multiply(int A, int B) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int multiply(int A, int B) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def multiply(self, A: int, B: int) -> int:\r\n        if B == 1:\r\n            return A\r\n        if B & 1:\r\n            return (self.multiply(A, B >> 1) << 1) + A\r\n        return self.multiply(A, B >> 1) << 1\r\n",
+    "javascript": "function multiply(A, B) {\n    if (B === 1) {\n        return A;\n    }\n    if ((B & 1) === 1) {\n        return (multiply(A, B >> 1) << 1) + A;\n    }\n    return multiply(A, B >> 1) << 1;\n}\n",
+    "java": "class Solution {\r\n    public int multiply(int A, int B) {\r\n        if (B == 1) {\r\n            return A;\r\n        }\r\n        if ((B & 1) == 1) {\r\n            return (multiply(A, B >> 1) << 1) + A;\r\n        }\r\n        return multiply(A, B >> 1) << 1;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int multiply(int A, int B) {\r\n        if (B == 1) {\r\n            return A;\r\n        }\r\n        if ((B & 1) == 1) {\r\n            return (multiply(A, B >> 1) << 1) + A;\r\n        }\r\n        return multiply(A, B >> 1) << 1;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.05.Recursive%20Mulitply/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.05.Recursive%20Mulitply/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.05.Recursive%20Mulitply/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.05.Recursive%20Mulitply/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.05.Recursive%20Mulitply/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：递归乘法。\n输入：A（integer）、B（integer）。\n训练提示：**思考**\r \r 禁止用乘法算 $A\\times B$。把 $A$ 累加 $B$ 次是 $O(B)$，在乘数很大时偏慢。\r \r $A\\times B = 2A \\times \\lfloor B/2 \\rfloor$，奇数再加一次 $A$。每次将 $B$ 折半，递归深度为 $O(\\log B)$。\r \r 左移代替乘 $2$，右移代替除 $2$，并用 $B\\&1$ 判断奇偶。基准 $B=1$ 直接返回 $A$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递归 + 位运算\r\n\r\n\r\n\r\n思考\r\n\r\n禁止用乘法算 $A\\times B$。把 $A$ 累加 $B$ 次是 $O(B)$，在乘数很大时偏慢。\r\n\r\n$A\\times B = 2A \\times \\lfloor B/2 \\rfloor$，奇数再加一次 $A$。每次将 $B$ 折半，递归深度为 $O(\\log B)$。\r\n\r\n左移代替乘 $2$，右移代替除 $2$，并用 $B\\&1$ 判断奇偶。基准 $B=1$ 直接返回 $A$。\r\n\r\n\r\n\r\n我们先判断 $B$ 是否为 $1$，如果是，那么直接返回 $A$。\r\n\r\n否则，我们判断 $B$ 是否为奇数，如果是，那么我们可以将 $B$ 右移一位，然后递归调用函数，最后将结果左移一位，再加上 $A$。否则，我们可以将 $B$ 右移一位，然后递归调用函数，最后将结果左移一位。\r\n\r\n时间复杂度 $O(\\log n)$，空间复杂度 $O(\\log n)$。其中 $n$ 是 $B$ 的大小。",
+  "memory": "递归乘法 → 递归 + 位运算。\n**思考**\r\n\r\n禁止用乘法算 $A\\times B$。把 $A$ 累加 $B$ 次是 $O(B)$，在乘数很大时偏慢。\r\n\r\n$A\\times B = 2A \\times \\lfloor B/2 \\rfloor$，奇数再加一次 $A$。每次将 $B$ 折半，递归深度为 $O(\\log B)$。\r\n\r\n左移代替乘 $2$，右移代替除 $2$，并用 $B\\&1$ 判断奇偶。基准 $B=1$ 直接返回 $A$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

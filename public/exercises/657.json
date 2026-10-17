@@ -1,0 +1,54 @@
+{
+  "number": "657",
+  "adapter": {
+    "name": "judgeCircle",
+    "params": [
+      {
+        "name": "moves",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "657"
+  },
+  "tests": [
+    {
+      "input": [
+        "UD"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "LL"
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def judgeCircle(self, moves: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} moves\n * @return {boolean}\n */\nvar judgeCircle = function(moves) {\n    \n};",
+    "java": "class Solution {\n    public boolean judgeCircle(String moves) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool judgeCircle(string moves) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def judgeCircle(self, moves: str) -> bool:\r\n        x = y = 0\r\n        for c in moves:\r\n            match c:\r\n                case \"U\":\r\n                    y += 1\r\n                case \"D\":\r\n                    y -= 1\r\n                case \"L\":\r\n                    x -= 1\r\n                case \"R\":\r\n                    x += 1\r\n        return x == 0 and y == 0\r\n",
+    "javascript": "function judgeCircle(moves) {\n    let [x, y] = [0, 0];\n    for (const c of moves) {\n        if (c === 'U') {\n            y++;\n        }\n        else if (c === 'D') {\n            y--;\n        }\n        else if (c === 'L') {\n            x--;\n        }\n        else {\n            x++;\n        }\n    }\n    return x === 0 && y === 0;\n}\n",
+    "java": "class Solution {\r\n    public boolean judgeCircle(String moves) {\r\n        int x = 0, y = 0;\r\n        for (char c : moves.toCharArray()) {\r\n            switch (c) {\r\n                case 'U' -> y++;\r\n                case 'D' -> y--;\r\n                case 'L' -> x--;\r\n                case 'R' -> x++;\r\n            }\r\n        }\r\n        return x == 0 && y == 0;\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    bool judgeCircle(string moves) {\r\n        int x = 0, y = 0;\r\n        for (char c : moves) {\r\n            switch (c) {\r\n            case 'U': y++; break;\r\n            case 'D': y--; break;\r\n            case 'L': x--; break;\r\n            case 'R': x++; break;\r\n            }\r\n        }\r\n        return x == 0 && y == 0;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0657.Robot%20Return%20to%20Origin/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0657.Robot%20Return%20to%20Origin/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0657.Robot%20Return%20to%20Origin/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0657.Robot%20Return%20to%20Origin/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0657.Robot%20Return%20to%20Origin/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：机器人能否返回原点。\n输入：moves（string）。\n训练提示：**思考**\r \r 判断移动序列是否回到原点，只需净位移为零。\r \r 维护坐标 $(x,y)$，按 `UDLR` 加减，最后看是否都为 $0$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：维护坐标\r\n\r\n\r\n\r\n思考\r\n\r\n判断移动序列是否回到原点，只需净位移为零。\r\n\r\n维护坐标 $(x,y)$，按 `UDLR` 加减，最后看是否都为 $0$。\r\n\r\n\r\n\r\n我们可以维护一个坐标 $(x, y)$，分别表示机器人在水平方向和竖直方向上的移动。\r\n\r\n遍历字符串 $\\textit{moves}$，根据当前字符的不同，更新坐标 $(x, y)$：\r\n\r\n- 如果当前字符是 `'U'`，则 $y$ 加 $1$；\r\n- 如果当前字符是 `'D'`，则 $y$ 减 $1$；\r\n- 如果当前字符是 `'L'`，则 $x$ 减 $1$；\r\n- 如果当前字符是 `'R'`，则 $x$ 加 $1$。\r\n\r\n最后，判断 $x$ 和 $y$ 是否都为 $0$ 即可。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 为字符串 $\\textit{moves}$ 的长度。空间复杂度 $O(1)$。",
+  "memory": "机器人能否返回原点 → 维护坐标。\n**思考**\r\n\r\n判断移动序列是否回到原点，只需净位移为零。\r\n\r\n维护坐标 $(x,y)$，按 `UDLR` 加减，最后看是否都为 $0$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

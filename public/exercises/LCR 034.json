@@ -1,0 +1,77 @@
+{
+  "number": "LCR 034",
+  "adapter": {
+    "name": "isAlienSorted",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      },
+      {
+        "name": "order",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "LCR 034"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "hello",
+          "leetcode"
+        ],
+        "hlabcdefgijkmnopqrstuvwxyz"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          "word",
+          "world",
+          "row"
+        ],
+        "worldabcefghijkmnpqstuvxyz"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        [
+          "apple",
+          "app"
+        ],
+        "abcdefghijklmnopqrstuvwxyz"
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def isAlienSorted(self, words: List[str], order: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[]} words\n * @param {string} order\n * @return {boolean}\n */\nvar isAlienSorted = function(words, order) {\n\n};",
+    "java": "class Solution {\n    public boolean isAlienSorted(String[] words, String order) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isAlienSorted(vector<string>& words, string order) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def isAlienSorted(self, words: List[str], order: str) -> bool:\r\n        index = {c: i for i, c in enumerate(order)}\r\n        for i in range(len(words) - 1):\r\n            w1, w2 = words[i], words[i + 1]\r\n            l1, l2 = len(w1), len(w2)\r\n            flag = False\r\n            for j in range(max(l1, l2)):\r\n                i1, i2 = (\r\n                    -1 if j >= l1 else index[w1[j]],\r\n                    -1 if j >= l2 else index[w2[j]],\r\n                )\r\n                if i1 > i2:\r\n                    # 说明不是按字典序排序，直接返回False\r\n                    return False\r\n                if i1 < i2:\r\n                    # 说明当前两单词是按字典序排序，无需再往下进行循环比较\r\n                    break\r\n        return True\r\n",
+    "javascript": "function isAlienSorted(words, order) {\n    let charMap = new Map();\n    for (let i = 0; i < order.length; i++) {\n        charMap.set(order[i], i);\n    }\n    function compare(str1, str2) {\n        const n = Math.min(str1.length, str2.length);\n        for (let i = 0; i < n; i++) {\n            let k1 = str1[i], k2 = str2[i];\n            if (k1 != k2)\n                return charMap.get(k1) < charMap.get(k2);\n        }\n        return n == str1.length;\n    }\n    for (let i = 1; i < words.length; i++) {\n        if (!compare(words[i - 1], words[i]))\n            return false;\n    }\n    return true;\n}\n",
+    "java": "class Solution {\r\n    public boolean isAlienSorted(String[] words, String order) {\r\n        int[] index = new int[26];\r\n        for (int i = 0; i < index.length; ++i) {\r\n            index[order.charAt(i) - 'a'] = i;\r\n        }\r\n        for (int i = 0; i < words.length - 1; ++i) {\r\n            String w1 = words[i];\r\n            String w2 = words[i + 1];\r\n            int l1 = w1.length(), l2 = w2.length();\r\n            for (int j = 0; j < Math.max(l1, l2); ++j) {\r\n                int i1 = j >= l1 ? -1 : index[w1.charAt(j) - 'a'];\r\n                int i2 = j >= l2 ? -1 : index[w2.charAt(j) - 'a'];\r\n                if (i1 > i2) {\r\n                    // 说明不是按字典序排序，直接返回False\r\n                    return false;\r\n                }\r\n                if (i1 < i2) {\r\n                    // 说明当前两单词是按字典序排序，无需再往下进行循环比较\r\n                    break;\r\n                }\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool isAlienSorted(vector<string>& words, string order) {\r\n        vector<int> index(26);\r\n        for (int i = 0; i < index.size(); ++i)\r\n            index[order[i] - 'a'] = i;\r\n        for (int i = 0; i < words.size() - 1; ++i) {\r\n            string w1 = words[i];\r\n            string w2 = words[i + 1];\r\n            int l1 = w1.size(), l2 = w2.size();\r\n            for (int j = 0; j < max(l1, l2); ++j) {\r\n                int i1 = j >= l1 ? -1 : index[w1[j] - 'a'];\r\n                int i2 = j >= l2 ? -1 : index[w2[j] - 'a'];\r\n                if (i1 > i2)\r\n                    return false;\r\n                if (i1 < i2)\r\n                    break;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20034.%20%E5%A4%96%E6%98%9F%E8%AF%AD%E8%A8%80%E6%98%AF%E5%90%A6%E6%8E%92%E5%BA%8F/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20034.%20%E5%A4%96%E6%98%9F%E8%AF%AD%E8%A8%80%E6%98%AF%E5%90%A6%E6%8E%92%E5%BA%8F/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20034.%20%E5%A4%96%E6%98%9F%E8%AF%AD%E8%A8%80%E6%98%AF%E5%90%A6%E6%8E%92%E5%BA%8F/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20034.%20%E5%A4%96%E6%98%9F%E8%AF%AD%E8%A8%80%E6%98%AF%E5%90%A6%E6%8E%92%E5%BA%8F/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20034.%20%E5%A4%96%E6%98%9F%E8%AF%AD%E8%A8%80%E6%98%AF%E5%90%A6%E6%8E%92%E5%BA%8F/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：验证外星语词典。\n输入：words（string[]）、order（string）。\n训练提示：**思考**\r \r 判断单词列表是否按外星字母表非递减。只需验证相邻单词，因为字典序具有传递性。\r \r 先把字母映到次序下标，再对相邻两词逐位比较：当前位更大则失败，更小则这对已有序，相等则继续。较短词当作在缺失位置上更小，从而处理前缀关系。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n判断单词列表是否按外星字母表非递减。只需验证相邻单词，因为字典序具有传递性。\r\n\r\n先把字母映到次序下标，再对相邻两词逐位比较：当前位更大则失败，更小则这对已有序，相等则继续。较短词当作在缺失位置上更小，从而处理前缀关系。",
+  "memory": "验证外星语词典 → 方法一。\n**思考**\r\n\r\n判断单词列表是否按外星字母表非递减。只需验证相邻单词，因为字典序具有传递性。\r\n\r\n先把字母映到次序下标，再对相邻两词逐位比较：当前位更大则失败，更小则这对已有序，相等则继续。较短词当作在缺失位置上更小，从而处理前缀关系。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

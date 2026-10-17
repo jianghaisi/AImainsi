@@ -1,0 +1,69 @@
+{
+  "number": "LCR 176",
+  "adapter": {
+    "name": "isBalanced",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "LCR 176"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          2,
+          3,
+          3,
+          null,
+          null,
+          4,
+          4
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def isBalanced(self, root: TreeNode) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public boolean isBalanced(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool isBalanced(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.left = None\r\n#         self.right = None\r\n\r\n\r\nclass Solution:\r\n    def isBalanced(self, root: TreeNode) -> bool:\r\n        def dfs(root):\r\n            if root is None:\r\n                return 0\r\n            l, r = dfs(root.left), dfs(root.right)\r\n            if l == -1 or r == -1 or abs(l - r) > 1:\r\n                return -1\r\n            return 1 + max(l, r)\r\n\r\n        return dfs(root) != -1\r\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public boolean isBalanced(TreeNode root) {\r\n        return dfs(root) != -1;\r\n    }\r\n\r\n    private int dfs(TreeNode root) {\r\n        if (root == null) {\r\n            return 0;\r\n        }\r\n        int l = dfs(root.left);\r\n        int r = dfs(root.right);\r\n        if (l == -1 || r == -1 || Math.abs(l - r) > 1) {\r\n            return -1;\r\n        }\r\n        return 1 + Math.max(l, r);\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    bool isBalanced(TreeNode* root) {\r\n        function<int(TreeNode*)> dfs = [&](TreeNode* root) -> int {\r\n            if (!root) {\r\n                return 0;\r\n            }\r\n            int l = dfs(root->left);\r\n            int r = dfs(root->right);\r\n            if (l == -1 || r == -1 || abs(l - r) > 1) {\r\n                return -1;\r\n            }\r\n            return 1 + max(l, r);\r\n        };\r\n        return dfs(root) != -1;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9855%20-%20II.%20%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9855%20-%20II.%20%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9855%20-%20II.%20%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9855%20-%20II.%20%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：判断是否为平衡二叉树。\n输入：root（TreeNode）。\n训练提示：**思考**\r \r 若先求高度再判断平衡，同一结点会被反复访问。后序时同时返回高度：左右已不平衡或高度差大于 $1$ 则向上传 $-1$，否则返回较大高度加一。根不为 $-1$ 即平衡。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递归\r\n\r\n\r\n\r\n思考\r\n\r\n若先求高度再判断平衡，同一结点会被反复访问。后序时同时返回高度：左右已不平衡或高度差大于 $1$ 则向上传 $-1$，否则返回较大高度加一。根不为 $-1$ 即平衡。\r\n\r\n\r\n\r\n我们设计一个递归函数 $dfs(root)$，函数返回值为 $root$ 节点的深度，如果 $root$ 节点不平衡，返回值为 $-1$。\r\n\r\n函数 $dfs(root)$ 的递归过程如下：\r\n\r\n- 如果 $root$ 为空，返回 $0$。\r\n- 递归计算左右子树的深度，记为 $l$ 和 $r$。\r\n- 如果 $l$ 或 $r$ 为 $-1$，或者 $l$ 和 $r$ 的差的绝对值大于 $1$，返回 $-1$。\r\n- 否则，返回 $max(l, r) + 1$。\r\n\r\n如果 $dfs(root)$ 返回值不为 $-1$，则说明 $root$ 节点平衡，返回 `true`，否则返回 `false`。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为二叉树的节点数。",
+  "memory": "判断是否为平衡二叉树 → 递归。\n**思考**\r\n\r\n若先求高度再判断平衡，同一结点会被反复访问。后序时同时返回高度：左右已不平衡或高度差大于 $1$ 则向上传 $-1$，否则返回较大高度加一。根不为 $-1$ 即平衡。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

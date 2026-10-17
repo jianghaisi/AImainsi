@@ -1,0 +1,118 @@
+{
+  "number": "LCR 059",
+  "adapter": {
+    "classname": "KthLargest",
+    "maxbytesperline": 200000,
+    "systemdesign": true,
+    "constructor": {
+      "params": [
+        {
+          "name": "k",
+          "type": "integer"
+        },
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "add",
+        "params": [
+          {
+            "name": "val",
+            "type": "integer"
+          }
+        ],
+        "return": {
+          "type": "integer"
+        }
+      }
+    ],
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "LCR 059"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "KthLargest",
+          "add",
+          "add",
+          "add",
+          "add",
+          "add"
+        ],
+        [
+          [
+            3,
+            [
+              4,
+              5,
+              8,
+              2
+            ]
+          ],
+          [
+            3
+          ],
+          [
+            5
+          ],
+          [
+            10
+          ],
+          [
+            9
+          ],
+          [
+            4
+          ]
+        ]
+      ],
+      "expected": [
+        null,
+        4,
+        5,
+        5,
+        8,
+        8
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class KthLargest:\n\n    def __init__(self, k: int, nums: List[int]):\n        raise NotImplementedError('请完成此方法')\n\n    def add(self, val: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class KthLargest {\n\n    public KthLargest(int k, int[] nums) {\n        \n    }\n    \n    public int add(int val) {\n        \n    }\n}\n\n/**\n * Your KthLargest object will be instantiated and called as such:\n * KthLargest obj = new KthLargest(k, nums);\n * int param_1 = obj.add(val);\n */",
+    "cpp": "class KthLargest {\npublic:\n    KthLargest(int k, vector<int>& nums) {\n        \n    }\n    \n    int add(int val) {\n        \n    }\n};\n\n/**\n * Your KthLargest object will be instantiated and called as such:\n * KthLargest* obj = new KthLargest(k, nums);\n * int param_1 = obj->add(val);\n */"
+  },
+  "solutions": {
+    "python": "class KthLargest:\r\n    def __init__(self, k: int, nums: List[int]):\r\n        self.q = []\r\n        self.size = k\r\n        for num in nums:\r\n            self.add(num)\r\n\r\n    def add(self, val: int) -> int:\r\n        heappush(self.q, val)\r\n        if len(self.q) > self.size:\r\n            heappop(self.q)\r\n        return self.q[0]\r\n\r\n\r\n# Your KthLargest object will be instantiated and called as such:\r\n# obj = KthLargest(k, nums)\r\n# param_1 = obj.add(val)\r\n",
+    "java": "class KthLargest {\r\n    private PriorityQueue<Integer> q;\r\n    private int size;\r\n\r\n    public KthLargest(int k, int[] nums) {\r\n        q = new PriorityQueue<>(k);\r\n        size = k;\r\n        for (int num : nums) {\r\n            add(num);\r\n        }\r\n    }\r\n\r\n    public int add(int val) {\r\n        q.offer(val);\r\n        if (q.size() > size) {\r\n            q.poll();\r\n        }\r\n        return q.peek();\r\n    }\r\n}\r\n\r\n/**\r\n * Your KthLargest object will be instantiated and called as such:\r\n * KthLargest obj = new KthLargest(k, nums);\r\n * int param_1 = obj.add(val);\r\n */",
+    "cpp": "class KthLargest {\r\npublic:\r\n    priority_queue<int, vector<int>, greater<int>> q;\r\n    int size;\r\n\r\n    KthLargest(int k, vector<int>& nums) {\r\n        size = k;\r\n        for (int num : nums) add(num);\r\n    }\r\n\r\n    int add(int val) {\r\n        q.push(val);\r\n        if (q.size() > size) q.pop();\r\n        return q.top();\r\n    }\r\n};\r\n\r\n/**\r\n * Your KthLargest object will be instantiated and called as such:\r\n * KthLargest* obj = new KthLargest(k, nums);\r\n * int param_1 = obj->add(val);\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20059.%20%E6%95%B0%E6%8D%AE%E6%B5%81%E7%9A%84%E7%AC%AC%20K%20%E5%A4%A7%E6%95%B0%E5%80%BC/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20059.%20%E6%95%B0%E6%8D%AE%E6%B5%81%E7%9A%84%E7%AC%AC%20K%20%E5%A4%A7%E6%95%B0%E5%80%BC/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20059.%20%E6%95%B0%E6%8D%AE%E6%B5%81%E7%9A%84%E7%AC%AC%20K%20%E5%A4%A7%E6%95%B0%E5%80%BC/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20059.%20%E6%95%B0%E6%8D%AE%E6%B5%81%E7%9A%84%E7%AC%AC%20K%20%E5%A4%A7%E6%95%B0%E5%80%BC/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：数据流中的第 K 大元素。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 数据流中动态询问第 $k$ 大。若每次排序，单次代价过高。\r \r 大小为 $k$ 的小根堆保存当前最大的 $k$ 个数，堆顶即第 $k$ 大。新元素入堆后若超过 $k$ 则弹出最小值。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n数据流中动态询问第 $k$ 大。若每次排序，单次代价过高。\r\n\r\n大小为 $k$ 的小根堆保存当前最大的 $k$ 个数，堆顶即第 $k$ 大。新元素入堆后若超过 $k$ 则弹出最小值。",
+  "memory": "数据流中的第 K 大元素 → 方法一。\n**思考**\r\n\r\n数据流中动态询问第 $k$ 大。若每次排序，单次代价过高。\r\n\r\n大小为 $k$ 的小根堆保存当前最大的 $k$ 个数，堆顶即第 $k$ 大。新元素入堆后若超过 $k$ 则弹出最小值。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

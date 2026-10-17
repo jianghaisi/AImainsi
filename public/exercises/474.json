@@ -1,0 +1,76 @@
+{
+  "number": "474",
+  "adapter": {
+    "name": "findMaxForm",
+    "params": [
+      {
+        "name": "strs",
+        "type": "string[]"
+      },
+      {
+        "name": "m",
+        "type": "integer"
+      },
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "474"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "10",
+          "0001",
+          "111001",
+          "1",
+          "0"
+        ],
+        5,
+        3
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          "10",
+          "0",
+          "1"
+        ],
+        1,
+        1
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findMaxForm(self, strs: List[str], m: int, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[]} strs\n * @param {number} m\n * @param {number} n\n * @return {number}\n */\nvar findMaxForm = function(strs, m, n) {\n    \n};",
+    "java": "class Solution {\n    public int findMaxForm(String[] strs, int m, int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findMaxForm(vector<string>& strs, int m, int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findMaxForm(self, strs: List[str], m: int, n: int) -> int:\r\n        sz = len(strs)\r\n        f = [[[0] * (n + 1) for _ in range(m + 1)] for _ in range(sz + 1)]\r\n        for i, s in enumerate(strs, 1):\r\n            a, b = s.count(\"0\"), s.count(\"1\")\r\n            for j in range(m + 1):\r\n                for k in range(n + 1):\r\n                    f[i][j][k] = f[i - 1][j][k]\r\n                    if j >= a and k >= b:\r\n                        f[i][j][k] = max(f[i][j][k], f[i - 1][j - a][k - b] + 1)\r\n        return f[sz][m][n]\r\n",
+    "javascript": "function findMaxForm(strs, m, n) {\n    const sz = strs.length;\n    const f = Array.from({ length: sz + 1 }, () => Array.from({ length: m + 1 }, () => Array.from({ length: n + 1 }, () => 0)));\n    const count = (s) => {\n        let a = 0;\n        for (const c of s) {\n            a += c === '0' ? 1 : 0;\n        }\n        return [a, s.length - a];\n    };\n    for (let i = 1; i <= sz; ++i) {\n        const [a, b] = count(strs[i - 1]);\n        for (let j = 0; j <= m; ++j) {\n            for (let k = 0; k <= n; ++k) {\n                f[i][j][k] = f[i - 1][j][k];\n                if (j >= a && k >= b) {\n                    f[i][j][k] = Math.max(f[i][j][k], f[i - 1][j - a][k - b] + 1);\n                }\n            }\n        }\n    }\n    return f[sz][m][n];\n}\n",
+    "java": "class Solution {\r\n    public int findMaxForm(String[] strs, int m, int n) {\r\n        int sz = strs.length;\r\n        int[][][] f = new int[sz + 1][m + 1][n + 1];\r\n        for (int i = 1; i <= sz; ++i) {\r\n            int[] cnt = count(strs[i - 1]);\r\n            for (int j = 0; j <= m; ++j) {\r\n                for (int k = 0; k <= n; ++k) {\r\n                    f[i][j][k] = f[i - 1][j][k];\r\n                    if (j >= cnt[0] && k >= cnt[1]) {\r\n                        f[i][j][k] = Math.max(f[i][j][k], f[i - 1][j - cnt[0]][k - cnt[1]] + 1);\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        return f[sz][m][n];\r\n    }\r\n\r\n    private int[] count(String s) {\r\n        int[] cnt = new int[2];\r\n        for (int i = 0; i < s.length(); ++i) {\r\n            ++cnt[s.charAt(i) - '0'];\r\n        }\r\n        return cnt;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int findMaxForm(vector<string>& strs, int m, int n) {\r\n        int sz = strs.size();\r\n        vector<vector<vector<int>>> f(sz + 1, vector<vector<int>>(m + 1, vector<int>(n + 1)));\r\n        for (int i = 1; i <= sz; ++i) {\r\n            auto [a, b] = count(strs[i - 1]);\r\n            for (int j = 0; j <= m; ++j) {\r\n                for (int k = 0; k <= n; ++k) {\r\n                    f[i][j][k] = f[i - 1][j][k];\r\n                    if (j >= a && k >= b) {\r\n                        f[i][j][k] = max(f[i][j][k], f[i - 1][j - a][k - b] + 1);\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        return f[sz][m][n];\r\n    }\r\n\r\n    pair<int, int> count(string& s) {\r\n        int a = count_if(s.begin(), s.end(), [](char c) { return c == '0'; });\r\n        return {a, s.size() - a};\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0474.Ones%20and%20Zeroes/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0474.Ones%20and%20Zeroes/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0474.Ones%20and%20Zeroes/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0474.Ones%20and%20Zeroes/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0474.Ones%20and%20Zeroes/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：一和零。\n输入：strs（string[]）、m（integer）、n（integer）。\n训练提示：**思考**\r \r 在 $0$、 $1$ 个数受限下选最多字符串，是二维费用的 $0$-$1$ 背包。子集枚举不可行。\r \r $f[i][j][k]$：前 $i$ 个串、至多 $j$ 个 $0$、 $k$ 个 $1$ 的最大个数。不选抄上一行，选则加上 $1$（费用够时）。\r \r 先统计当前串的 $0/1$ 个数再填表，保证转移用的是这一件物品的费用。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n在 $0$、 $1$ 个数受限下选最多字符串，是二维费用的 $0$-$1$ 背包。子集枚举不可行。\r\n\r\n$f[i][j][k]$：前 $i$ 个串、至多 $j$ 个 $0$、 $k$ 个 $1$ 的最大个数。不选抄上一行，选则加上 $1$（费用够时）。\r\n\r\n先统计当前串的 $0/1$ 个数再填表，保证转移用的是这一件物品的费用。\r\n\r\n\r\n\r\n我们定义 $f[i][j][k]$ 表示在前 $i$ 个字符串中，使用 $j$ 个 0 和 $k$ 个 1 的情况下最多可以得到的字符串数量。初始时 $f[i][j][k]=0$，答案为 $f[sz][m][n]$，其中 $sz$ 是数组 $strs$ 的长度。\r\n\r\n对于 $f[i][j][k]$，我们有两种决策：\r\n\r\n- 不选第 $i$ 个字符串，此时 $f[i][j][k]=f[i-1][j][k]$；\r\n- 选第 $i$ 个字符串，此时 $f[i][j][k]=f[i-1][j-a][k-b]+1$，其中 $a$ 和 $b$ 分别是第 $i$ 个字符串中 $0$ 和 $1$ 的数量。\r\n\r\n我们取两种决策中的最大值，即可得到 $f[i][j][k]$ 的值。\r\n\r\n最终的答案即为 $f[sz][m][n]$。\r\n\r\n时间复杂度 $O(sz \\times m \\times n)$，空间复杂度 $O(sz \\times m \\times n)$。其中 $sz$ 是数组 $strs$ 的长度；而 $m$ 和 $n$ 分别是字符串中 $0$ 和 $1$ 的数量上限。",
+  "memory": "一和零 → 动态规划。\n**思考**\r\n\r\n在 $0$、 $1$ 个数受限下选最多字符串，是二维费用的 $0$-$1$ 背包。子集枚举不可行。\r\n\r\n$f[i][j][k]$：前 $i$ 个串、至多 $j$ 个 $0$、 $k$ 个 $1$ 的最大个数。不选抄上一行，选则加上 $1$（费用够时）。\r\n\r\n先统计当前串的 $0/1$ 个数再填表，保证转移用的是这一件物品的费用。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

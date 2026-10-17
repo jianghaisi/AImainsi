@@ -1,0 +1,58 @@
+{
+  "number": "面试题 16.17",
+  "adapter": {
+    "name": "maxSubArray",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 16.17"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          -2,
+          1,
+          -3,
+          4,
+          -1,
+          2,
+          1,
+          -5,
+          4
+        ]
+      ],
+      "expected": 6
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def maxSubArray(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar maxSubArray = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int maxSubArray(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int maxSubArray(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def maxSubArray(self, nums: List[int]) -> int:\r\n        ans = f = -inf\r\n        for x in nums:\r\n            f = max(f, 0) + x\r\n            ans = max(ans, f)\r\n        return ans\r\n",
+    "javascript": "function maxSubArray(nums) {\n    let [ans, f] = [-Infinity, -Infinity];\n    for (const x of nums) {\n        f = Math.max(f, 0) + x;\n        ans = Math.max(ans, f);\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int maxSubArray(int[] nums) {\r\n        int ans = Integer.MIN_VALUE, f = Integer.MIN_VALUE;\r\n        for (int x : nums) {\r\n            f = Math.max(f, 0) + x;\r\n            ans = Math.max(ans, f);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int maxSubArray(vector<int>& nums) {\r\n        int ans = INT_MIN, f = INT_MIN;\r\n        for (int x : nums) {\r\n            f = max(f, 0) + x;\r\n            ans = max(ans, f);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.17.Contiguous%20Sequence/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.17.Contiguous%20Sequence/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.17.Contiguous%20Sequence/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.17.Contiguous%20Sequence/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.17.Contiguous%20Sequence/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：连续数列。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 最大子段和。枚举左右端点再求和是立方或平方，数组很长时不合适。\r \r 以 $i$ 结尾的最佳段，要么接上 $i-1$ 的最佳段，要么独自从 $i$ 开始，即 Kadane。\r \r 滚动 $f=\\max(f,0)+x$，并维护全局最大。空间 $O(1)$，与「只依赖上一位置」一致。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n最大子段和。枚举左右端点再求和是立方或平方，数组很长时不合适。\r\n\r\n以 $i$ 结尾的最佳段，要么接上 $i-1$ 的最佳段，要么独自从 $i$ 开始，即 Kadane。\r\n\r\n滚动 $f=\\max(f,0)+x$，并维护全局最大。空间 $O(1)$，与「只依赖上一位置」一致。\r\n\r\n\r\n\r\n我们定义 $f[i]$ 表示以 $nums[i]$ 结尾的连续子数组的最大和，那么状态转移方程为：\r\n\r\n$$\r\nf[i] = \\max(f[i-1], 0) + nums[i]\r\n$$\r\n\r\n其中 $f[0] = nums[0]$。\r\n\r\n答案为 $\\max\\limits_{i=0}^{n-1}f[i]$。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为数组长度。\r\n\r\n我们注意到 $f[i]$ 只与 $f[i-1]$ 有关，所以我们可以用一个变量 $f$ 来表示 $f[i-1]$，从而将空间复杂度降低到 $O(1)$。",
+  "memory": "连续数列 → 动态规划。\n**思考**\r\n\r\n最大子段和。枚举左右端点再求和是立方或平方，数组很长时不合适。\r\n\r\n以 $i$ 结尾的最佳段，要么接上 $i-1$ 的最佳段，要么独自从 $i$ 开始，即 Kadane。\r\n\r\n滚动 $f=\\max(f,0)+x$，并维护全局最大。空间 $O(1)$，与「只依赖上一位置」一致。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

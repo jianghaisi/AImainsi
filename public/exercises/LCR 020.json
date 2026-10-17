@@ -1,0 +1,51 @@
+{
+  "number": "LCR 020",
+  "adapter": {
+    "name": "countSubstrings",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 020"
+  },
+  "tests": [
+    {
+      "input": [
+        "abc"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "aaa"
+      ],
+      "expected": 6
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def countSubstrings(self, s: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int countSubstrings(String s) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int countSubstrings(string s) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def countSubstrings(self, s: str) -> int:\r\n        def f(i, j):\r\n            cnt = 0\r\n            while i >= 0 and j < n:\r\n                if s[i] != s[j]:\r\n                    break\r\n                cnt += 1\r\n                i, j = i - 1, j + 1\r\n            return cnt\r\n\r\n        n = len(s)\r\n        return sum(f(i, i) + f(i, i + 1) for i in range(n))\r\n",
+    "java": "class Solution {\r\n    private String s;\r\n\r\n    public int countSubstrings(String s) {\r\n        int ans = 0;\r\n        this.s = s;\r\n        for (int i = 0; i < s.length(); ++i) {\r\n            ans += f(i, i);\r\n            ans += f(i, i + 1);\r\n        }\r\n        return ans;\r\n    }\r\n\r\n    private int f(int i, int j) {\r\n        int cnt = 0;\r\n        for (; i >= 0 && j < s.length() && s.charAt(i) == s.charAt(j); --i, ++j) {\r\n            ++cnt;\r\n        }\r\n        return cnt;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int countSubstrings(string s) {\r\n        int ans = 0;\r\n        int n = s.size();\r\n        auto f = [&](int i, int j) -> int {\r\n            int cnt = 0;\r\n            for (; i >= 0 && j < n && s[i] == s[j]; --i, ++j) {\r\n                ++cnt;\r\n            }\r\n            return cnt;\r\n        };\r\n        for (int i = 0; i < n; ++i) {\r\n            ans += f(i, i) + f(i, i + 1);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20020.%20%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%AA%E6%95%B0/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20020.%20%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%AA%E6%95%B0/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20020.%20%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%AA%E6%95%B0/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20020.%20%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%AA%E6%95%B0/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：回文子串。\n输入：s（string）。\n训练提示：**思考**\r \r 统计回文子串个数。枚举每个子串再判定是 $O(n^3)$。\r \r 回文由中心唯一确定。对每个位置分别按奇数、偶数长度向两侧扩展，每次成功匹配计一。扩展在失配处停止，总代价 $O(n^2)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：从中心向两侧扩展回文串\r\n\r\n\r\n\r\n思考\r\n\r\n统计回文子串个数。枚举每个子串再判定是 $O(n^3)$。\r\n\r\n回文由中心唯一确定。对每个位置分别按奇数、偶数长度向两侧扩展，每次成功匹配计一。扩展在失配处停止，总代价 $O(n^2)$。\r\n\r\n\r\n\r\n我们可以枚举回文串的中间点，然后向左右两边扩展，统计回文串的数量。注意，回文串可能包含奇数个字符，也可能不包含。因此这两种情况都要考虑。\r\n\r\n时间复杂度 $O(n^2)$，其中 $n$ 是字符串 `s` 的长度。",
+  "memory": "回文子串 → 从中心向两侧扩展回文串。\n**思考**\r\n\r\n统计回文子串个数。枚举每个子串再判定是 $O(n^3)$。\r\n\r\n回文由中心唯一确定。对每个位置分别按奇数、偶数长度向两侧扩展，每次成功匹配计一。扩展在失配处停止，总代价 $O(n^2)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

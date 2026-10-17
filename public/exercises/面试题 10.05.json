@@ -1,0 +1,88 @@
+{
+  "number": "面试题 10.05",
+  "adapter": {
+    "name": "findString",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      },
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 10.05"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "at",
+          "",
+          "",
+          "",
+          "ball",
+          "",
+          "",
+          "car",
+          "",
+          "",
+          "dad",
+          "",
+          ""
+        ],
+        "ta"
+      ],
+      "expected": -1
+    },
+    {
+      "input": [
+        [
+          "at",
+          "",
+          "",
+          "",
+          "ball",
+          "",
+          "",
+          "car",
+          "",
+          "",
+          "dad",
+          "",
+          ""
+        ],
+        "ball"
+      ],
+      "expected": 4
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findString(self, words: List[str], s: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[]} words\n * @param {string} s\n * @return {number}\n */\nvar findString = function(words, s) {\n    \n};",
+    "java": "class Solution {\n    public int findString(String[] words, String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findString(vector<string>& words, string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findString(self, words: List[str], s: str) -> int:\r\n        def dfs(i: int, j: int) -> int:\r\n            if i > j:\r\n                return -1\r\n            mid = (i + j) >> 1\r\n            l = dfs(i, mid - 1)\r\n            if l != -1:\r\n                return l\r\n            if words[mid] == s:\r\n                return mid\r\n            return dfs(mid + 1, j)\r\n\r\n        return dfs(0, len(words) - 1)\r\n",
+    "javascript": "function findString(words, s) {\n    const dfs = (i, j) => {\n        if (i > j) {\n            return -1;\n        }\n        const mid = (i + j) >> 1;\n        const l = dfs(i, mid - 1);\n        if (l !== -1) {\n            return l;\n        }\n        if (words[mid] === s) {\n            return mid;\n        }\n        return dfs(mid + 1, j);\n    };\n    return dfs(0, words.length - 1);\n}\n",
+    "java": "class Solution {\r\n    public int findString(String[] words, String s) {\r\n        return dfs(words, s, 0, words.length - 1);\r\n    }\r\n\r\n    private int dfs(String[] words, String s, int i, int j) {\r\n        if (i > j) {\r\n            return -1;\r\n        }\r\n        int mid = (i + j) >> 1;\r\n        int l = dfs(words, s, i, mid - 1);\r\n        if (l != -1) {\r\n            return l;\r\n        }\r\n        if (words[mid].equals(s)) {\r\n            return mid;\r\n        }\r\n        return dfs(words, s, mid + 1, j);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int findString(vector<string>& words, string s) {\r\n        function<int(int, int)> dfs = [&](int i, int j) {\r\n            if (i > j) {\r\n                return -1;\r\n            }\r\n            int mid = (i + j) >> 1;\r\n            int l = dfs(i, mid - 1);\r\n            if (l != -1) {\r\n                return l;\r\n            }\r\n            if (words[mid] == s) {\r\n                return mid;\r\n            }\r\n            return dfs(mid + 1, j);\r\n        };\r\n        return dfs(0, words.size() - 1);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.05.Sparse%20Array%20Search/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.05.Sparse%20Array%20Search/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.05.Sparse%20Array%20Search/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.05.Sparse%20Array%20Search/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.05.Sparse%20Array%20Search/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：稀疏数组搜索。\n输入：words（string[]）、s（string）。\n训练提示：**思考**\r \r 有序字符串数组夹杂空串，要找 $s$ 的下标。跳过空串后二分仍然可行，实现时中点落在空串上需要额外探查。\r \r 代码采用与魔术下标相同的分治：先搜左半以保证最左命中，再看中点，再搜右半。空串只是不等于 $s$，自然被跳过。\r \r 最坏仍线性，但先左后中的次序满足「若有多个相同串则返回最左」的隐含需求，且无需特判空串。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分搜索\r\n\r\n\r\n\r\n思考\r\n\r\n有序字符串数组夹杂空串，要找 $s$ 的下标。跳过空串后二分仍然可行，实现时中点落在空串上需要额外探查。\r\n\r\n代码采用与魔术下标相同的分治：先搜左半以保证最左命中，再看中点，再搜右半。空串只是不等于 $s$，自然被跳过。\r\n\r\n最坏仍线性，但先左后中的次序满足「若有多个相同串则返回最左」的隐含需求，且无需特判空串。\r\n\r\n\r\n\r\n我们设计一个函数 $dfs(i, j)$，表示在数组 $nums[i, j]$ 中寻找目标字符串。如果找到了，返回目标字符串所在的下标，否则返回 $-1$。那么答案就是 $dfs(0, n-1)$。\r\n\r\n函数 $dfs(i, j)$ 的实现如下：\r\n\r\n1. 如果 $i > j$，返回 $-1$。\r\n2. 否则，我们取中间位置 $mid = (i + j) / 2$，然后递归调用 $dfs(i, mid-1)$，如果返回值不为 $-1$，说明在左半部分找到了目标字符串，直接返回。否则，如果 $words[mid] = s$，说明找到了目前字符串，直接返回。否则，递归调用 $dfs(mid+1, j)$ 并返回。\r\n\r\n时间复杂度最坏情况下为 $O(n \\times m)$，空间复杂度最坏情况下为 $O(n)$。其中 $n$ 和 $m$ 分别是字符串数组的长度和字符串 $s$ 的长度。",
+  "memory": "稀疏数组搜索 → 二分搜索。\n**思考**\r\n\r\n有序字符串数组夹杂空串，要找 $s$ 的下标。跳过空串后二分仍然可行，实现时中点落在空串上需要额外探查。\r\n\r\n代码采用与魔术下标相同的分治：先搜左半以保证最左命中，再看中点，再搜右半。空串只是不等于 $s$，自然被跳过。\r\n\r\n最坏仍线性，但先左后中的次序满足「若有多个相同串则返回最左」的隐含需求，且无需特判空串。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

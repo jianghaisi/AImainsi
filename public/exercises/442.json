@@ -1,0 +1,80 @@
+{
+  "number": "442",
+  "adapter": {
+    "name": "findDuplicates",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<integer>"
+    },
+    "number": "442"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          4,
+          3,
+          2,
+          7,
+          8,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": [
+        2,
+        3
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          1,
+          2
+        ]
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": [
+        [
+          1
+        ]
+      ],
+      "expected": []
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findDuplicates(self, nums: List[int]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number[]}\n */\nvar findDuplicates = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public List<Integer> findDuplicates(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> findDuplicates(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findDuplicates(self, nums: List[int]) -> List[int]:\r\n        for i in range(len(nums)):\r\n            while nums[i] != nums[nums[i] - 1]:\r\n                nums[nums[i] - 1], nums[i] = nums[i], nums[nums[i] - 1]\r\n        return [v for i, v in enumerate(nums) if v != i + 1]\r\n",
+    "javascript": "function findDuplicates(nums) {\n    for (let i = 0; i < nums.length; i++) {\n        while (nums[i] !== nums[nums[i] - 1]) {\n            const temp = nums[i];\n            nums[i] = nums[temp - 1];\n            nums[temp - 1] = temp;\n        }\n    }\n    const ans = [];\n    for (let i = 0; i < nums.length; i++) {\n        if (nums[i] !== i + 1) {\n            ans.push(nums[i]);\n        }\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public List<Integer> findDuplicates(int[] nums) {\r\n        int n = nums.length;\r\n        for (int i = 0; i < n; ++i) {\r\n            while (nums[i] != nums[nums[i] - 1]) {\r\n                swap(nums, i, nums[i] - 1);\r\n            }\r\n        }\r\n        List<Integer> ans = new ArrayList<>();\r\n        for (int i = 0; i < n; ++i) {\r\n            if (nums[i] != i + 1) {\r\n                ans.add(nums[i]);\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n\r\n    void swap(int[] nums, int i, int j) {\r\n        int t = nums[i];\r\n        nums[i] = nums[j];\r\n        nums[j] = t;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> findDuplicates(vector<int>& nums) {\r\n        int n = nums.size();\r\n        for (int i = 0; i < n; ++i) {\r\n            while (nums[i] != nums[nums[i] - 1]) {\r\n                swap(nums[i], nums[nums[i] - 1]);\r\n            }\r\n        }\r\n        vector<int> ans;\r\n        for (int i = 0; i < n; ++i) {\r\n            if (nums[i] != i + 1) {\r\n                ans.push_back(nums[i]);\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0442.Find%20All%20Duplicates%20in%20an%20Array/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0442.Find%20All%20Duplicates%20in%20an%20Array/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0442.Find%20All%20Duplicates%20in%20an%20Array/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0442.Find%20All%20Duplicates%20in%20an%20Array/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0442.Find%20All%20Duplicates%20in%20an%20Array/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：数组中重复的数据。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 每个值落在 $[1,n]$ 且至多出现两次，进阶要求线性时间、常数额外空间。哈希表能找重复，但多用 $O(n)$ 空间。\r \r 把 $v$ 交换到下标 $v-1$（循环排序）。结束后位置 $i$ 上若不是 $i+1$，则该值是多出来的重复。\r \r 交换持续到 $nums[i]=nums[nums[i]-1]$，重复值会与已就位的那个撞车而停下，不会死循环。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n每个值落在 $[1,n]$ 且至多出现两次，进阶要求线性时间、常数额外空间。哈希表能找重复，但多用 $O(n)$ 空间。\r\n\r\n把 $v$ 交换到下标 $v-1$（循环排序）。结束后位置 $i$ 上若不是 $i+1$，则该值是多出来的重复。\r\n\r\n交换持续到 $nums[i]=nums[nums[i]-1]$，重复值会与已就位的那个撞车而停下，不会死循环。",
+  "memory": "数组中重复的数据 → 方法一。\n**思考**\r\n\r\n每个值落在 $[1,n]$ 且至多出现两次，进阶要求线性时间、常数额外空间。哈希表能找重复，但多用 $O(n)$ 空间。\r\n\r\n把 $v$ 交换到下标 $v-1$（循环排序）。结束后位置 $i$ 上若不是 $i+1$，则该值是多出来的重复。\r\n\r\n交换持续到 $nums[i]=nums[nums[i]-1]$，重复值会与已就位的那个撞车而停下，不会死循环。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

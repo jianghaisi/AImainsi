@@ -1,0 +1,108 @@
+{
+  "number": "LCR 180",
+  "adapter": {
+    "name": "fileCombination",
+    "params": [
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[][]"
+    },
+    "number": "LCR 180"
+  },
+  "tests": [
+    {
+      "input": [
+        12
+      ],
+      "expected": [
+        [
+          3,
+          4,
+          5
+        ]
+      ]
+    },
+    {
+      "input": [
+        18
+      ],
+      "expected": [
+        [
+          3,
+          4,
+          5,
+          6
+        ],
+        [
+          5,
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "input": [
+        9
+      ],
+      "expected": [
+        [
+          2,
+          3,
+          4
+        ],
+        [
+          4,
+          5
+        ]
+      ]
+    },
+    {
+      "input": [
+        15
+      ],
+      "expected": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        [
+          4,
+          5,
+          6
+        ],
+        [
+          7,
+          8
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def fileCombination(self, target: int) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int[][] fileCombination(int target) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> fileCombination(int target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def fileCombination(self, target: int) -> List[List[int]]:\r\n        l, r = 1, 2\r\n        ans = []\r\n        while l < r:\r\n            s = (l + r) * (r - l + 1) // 2\r\n            if s == target:\r\n                ans.append(list(range(l, r + 1)))\r\n                l += 1\r\n            elif s < target:\r\n                r += 1\r\n            else:\r\n                l += 1\r\n        return ans\r\n",
+    "java": "class Solution {\r\n    public int[][] fileCombination(int target) {\r\n        int l = 1, r = 2;\r\n        List<int[]> ans = new ArrayList<>();\r\n        while (l < r) {\r\n            int s = (l + r) * (r - l + 1) / 2;\r\n            if (s == target) {\r\n                int[] t = new int[r - l + 1];\r\n                for (int i = l; i <= r; ++i) {\r\n                    t[i - l] = i;\r\n                }\r\n                ans.add(t);\r\n                ++l;\r\n            } else if (s < target) {\r\n                ++r;\r\n            } else {\r\n                ++l;\r\n            }\r\n        }\r\n        return ans.toArray(new int[0][]);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<int>> fileCombination(int target) {\r\n        vector<vector<int>> ans;\r\n        int l = 1, r = 2;\r\n        while (l < r) {\r\n            int s = (l + r) * (r - l + 1) / 2;\r\n            if (s == target) {\r\n                vector<int> t(r - l + 1);\r\n                iota(t.begin(), t.end(), l);\r\n                ans.emplace_back(t);\r\n                ++l;\r\n            } else if (s < target) {\r\n                ++r;\r\n            } else {\r\n                ++l;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9857%20-%20II.%20%E5%92%8C%E4%B8%BAs%E7%9A%84%E8%BF%9E%E7%BB%AD%E6%AD%A3%E6%95%B0%E5%BA%8F%E5%88%97/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9857%20-%20II.%20%E5%92%8C%E4%B8%BAs%E7%9A%84%E8%BF%9E%E7%BB%AD%E6%AD%A3%E6%95%B0%E5%BA%8F%E5%88%97/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9857%20-%20II.%20%E5%92%8C%E4%B8%BAs%E7%9A%84%E8%BF%9E%E7%BB%AD%E6%AD%A3%E6%95%B0%E5%BA%8F%E5%88%97/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9857%20-%20II.%20%E5%92%8C%E4%B8%BAs%E7%9A%84%E8%BF%9E%E7%BB%AD%E6%AD%A3%E6%95%B0%E5%BA%8F%E5%88%97/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：文件组合。\n输入：target（integer）。\n训练提示：**思考**\r \r 连续正整数之和有闭式，枚举左右端即可。和小于目标则右端右移，大于则左端右移，相等则记录该区间。左端追上右端时结束。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双指针\r\n\r\n\r\n\r\n思考\r\n\r\n连续正整数之和有闭式，枚举左右端即可。和小于目标则右端右移，大于则左端右移，相等则记录该区间。左端追上右端时结束。\r\n\r\n\r\n\r\n我们可以使用双指针的方法，维护一个区间 $[l,.. r]$，使得区间内的数之和 $s$ 为 target，如果区间内的数之和小于 target，则右指针 $l$ 右移，如果区间内的数之和大于 target，则左指针 $l$ 右移，直到左指针到达 target 的一半为止。\r\n\r\n时间复杂度 $O(target)$，忽略答案的空间消耗，空间复杂度 $O(1)$。",
+  "memory": "文件组合 → 双指针。\n**思考**\r\n\r\n连续正整数之和有闭式，枚举左右端即可。和小于目标则右端右移，大于则左端右移，相等则记录该区间。左端追上右端时结束。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

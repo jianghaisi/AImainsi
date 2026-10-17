@@ -524,7 +524,7 @@ app.post(
     const body = z
       .object({
         questionId: str,
-        language: z.enum(['python', 'javascript', 'java', 'cpp']),
+        language: z.enum(['python', 'javascript', 'java', 'cpp', 'sql']),
         code: z.string().max(50000),
         passed: z.number().int().nonnegative(),
         total: z.number().int().positive(),

@@ -4,7 +4,7 @@ export const settingsSchema = z.object({
   name: str.min(1).max(60),
   targetCompany: str.max(100),
   role: str.min(1).max(100),
-  language: z.enum(['python', 'javascript', 'java', 'cpp']),
+  language: z.enum(['python', 'javascript', 'java', 'cpp', 'sql']),
   interviewLanguage: z.enum(['zh', 'en']),
   minutes: z.number().int().min(5).max(120),
   rounds: z.number().int().min(1).max(15),

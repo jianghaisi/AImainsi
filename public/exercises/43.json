@@ -1,0 +1,60 @@
+{
+  "number": "43",
+  "adapter": {
+    "name": "multiply",
+    "params": [
+      {
+        "name": "num1",
+        "type": "string"
+      },
+      {
+        "name": "num2",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "43"
+  },
+  "tests": [
+    {
+      "input": [
+        "2",
+        "3"
+      ],
+      "expected": "6"
+    },
+    {
+      "input": [
+        "123",
+        "456"
+      ],
+      "expected": "56088"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def multiply(self, num1: str, num2: str) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} num1\n * @param {string} num2\n * @return {string}\n */\nvar multiply = function(num1, num2) {\n    \n};",
+    "java": "class Solution {\n    public String multiply(String num1, String num2) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string multiply(string num1, string num2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def multiply(self, num1: str, num2: str) -> str:\r\n        if num1 == \"0\" or num2 == \"0\":\r\n            return \"0\"\r\n        m, n = len(num1), len(num2)\r\n        arr = [0] * (m + n)\r\n        for i in range(m - 1, -1, -1):\r\n            a = int(num1[i])\r\n            for j in range(n - 1, -1, -1):\r\n                b = int(num2[j])\r\n                arr[i + j + 1] += a * b\r\n        for i in range(m + n - 1, 0, -1):\r\n            arr[i - 1] += arr[i] // 10\r\n            arr[i] %= 10\r\n        i = 0 if arr[0] else 1\r\n        return \"\".join(str(x) for x in arr[i:])\r\n",
+    "javascript": "function multiply(num1, num2) {\n    if (num1 === '0' || num2 === '0') {\n        return '0';\n    }\n    const m = num1.length;\n    const n = num2.length;\n    const arr = Array(m + n).fill(0);\n    for (let i = m - 1; i >= 0; i--) {\n        const a = +num1[i];\n        for (let j = n - 1; j >= 0; j--) {\n            const b = +num2[j];\n            arr[i + j + 1] += a * b;\n        }\n    }\n    for (let i = arr.length - 1; i > 0; i--) {\n        arr[i - 1] += Math.floor(arr[i] / 10);\n        arr[i] %= 10;\n    }\n    let i = 0;\n    while (i < arr.length && arr[i] === 0) {\n        i++;\n    }\n    return arr.slice(i).join('');\n}\n",
+    "java": "class Solution {\r\n    public String multiply(String num1, String num2) {\r\n        if (\"0\".equals(num1) || \"0\".equals(num2)) {\r\n            return \"0\";\r\n        }\r\n        int m = num1.length(), n = num2.length();\r\n        int[] arr = new int[m + n];\r\n        for (int i = m - 1; i >= 0; --i) {\r\n            int a = num1.charAt(i) - '0';\r\n            for (int j = n - 1; j >= 0; --j) {\r\n                int b = num2.charAt(j) - '0';\r\n                arr[i + j + 1] += a * b;\r\n            }\r\n        }\r\n        for (int i = arr.length - 1; i > 0; --i) {\r\n            arr[i - 1] += arr[i] / 10;\r\n            arr[i] %= 10;\r\n        }\r\n        int i = arr[0] == 0 ? 1 : 0;\r\n        StringBuilder ans = new StringBuilder();\r\n        for (; i < arr.length; ++i) {\r\n            ans.append(arr[i]);\r\n        }\r\n        return ans.toString();\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    string multiply(string num1, string num2) {\r\n        if (num1 == \"0\" || num2 == \"0\") {\r\n            return \"0\";\r\n        }\r\n        int m = num1.size(), n = num2.size();\r\n        vector<int> arr(m + n);\r\n        for (int i = m - 1; i >= 0; --i) {\r\n            int a = num1[i] - '0';\r\n            for (int j = n - 1; j >= 0; --j) {\r\n                int b = num2[j] - '0';\r\n                arr[i + j + 1] += a * b;\r\n            }\r\n        }\r\n        for (int i = arr.size() - 1; i; --i) {\r\n            arr[i - 1] += arr[i] / 10;\r\n            arr[i] %= 10;\r\n        }\r\n        int i = arr[0] ? 0 : 1;\r\n        string ans;\r\n        for (; i < arr.size(); ++i) {\r\n            ans += '0' + arr[i];\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0043.Multiply%20Strings/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0043.Multiply%20Strings/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0043.Multiply%20Strings/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0043.Multiply%20Strings/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0043.Multiply%20Strings/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：字符串相乘。\n输入：num1（string）、num2（string）。\n训练提示：**思考**\r \r 题目不允许将输入直接转为整数，也不允许使用内置大整数库。两串长度可达 $200$，普通整型无法容纳乘积。\r \r 竖式乘法给出位置关系： $\\textit{num1}$ 的第 $i$ 位与 $\\textit{num2}$ 的第 $j$ 位之积只贡献到固定的数位，各位的进位可以在全部累加之后再统一处理。\r \r 乘积长度至多为 $m+n$。我们可以申请长度为 $m+n$ 的数组作为草稿纸，按位累加后再从低位向高位进位，最后去掉可能的前导零。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：数学乘法模拟\r\n\r\n\r\n\r\n思考\r\n\r\n题目不允许将输入直接转为整数，也不允许使用内置大整数库。两串长度可达 $200$，普通整型无法容纳乘积。\r\n\r\n竖式乘法给出位置关系： $\\textit{num1}$ 的第 $i$ 位与 $\\textit{num2}$ 的第 $j$ 位之积只贡献到固定的数位，各位的进位可以在全部累加之后再统一处理。\r\n\r\n乘积长度至多为 $m+n$。我们可以申请长度为 $m+n$ 的数组作为草稿纸，按位累加后再从低位向高位进位，最后去掉可能的前导零。\r\n\r\n\r\n\r\n假设 $num1$ 和 $num2$ 的长度分别为 $m$ 和 $n$，则它们的乘积的长度最多为 $m + n$。\r\n\r\n证明如下：\r\n\r\n- 如果 $num1$ 和 $num2$ 都取最小值，那么它们的乘积为 ${10}^{m - 1} \\times {10}^{n - 1} = {10}^{m + n - 2}$，长度为 $m + n - 1$。\r\n- 如果 $num1$ 和 $num2$ 都取最大值，那么它们的乘积为 $({10}^m - 1) \\times ({10}^n - 1) = {10}^{m + n} - {10}^m - {10}^n + 1$，长度为 $m + n$。\r\n\r\n因此，我们可以申请一个长度为 $m + n$ 的数组，用于存储乘积的每一位。\r\n\r\n从低位到高位，依次计算乘积的每一位，最后将数组转换为字符串即可。\r\n\r\n注意判断最高位是否为 $0$，如果是，则去掉。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m + n)$。其中 $m$ 和 $n$ 分别为 $num1$ 和 $num2$ 的长度。",
+  "memory": "字符串相乘 → 数学乘法模拟。\n**思考**\r\n\r\n题目不允许将输入直接转为整数，也不允许使用内置大整数库。两串长度可达 $200$，普通整型无法容纳乘积。\r\n\r\n竖式乘法给出位置关系： $\\textit{num1}$ 的第 $i$ 位与 $\\textit{num2}$ 的第 $j$ 位之积只贡献到固定的数位，各位的进位可以在全部累加之后再统一处理。\r\n\r\n乘积长度至多为 $m+n$。我们可以申请长度为 $m+n$ 的数组作为草稿纸，按位累加后再从低位向高位进位，最后去掉可能的前导零。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

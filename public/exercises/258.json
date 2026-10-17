@@ -1,0 +1,51 @@
+{
+  "number": "258",
+  "adapter": {
+    "name": "addDigits",
+    "params": [
+      {
+        "name": "num",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "258"
+  },
+  "tests": [
+    {
+      "input": [
+        38
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        0
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def addDigits(self, num: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int addDigits(int num) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int addDigits(int num) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def addDigits(self, num: int) -> int:\r\n        return 0 if num == 0 else (num - 1) % 9 + 1\r\n",
+    "java": "class Solution {\r\n    public int addDigits(int num) {\r\n        return (num - 1) % 9 + 1;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int addDigits(int num) {\r\n        return (num - 1) % 9 + 1;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0258.Add%20Digits/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0258.Add%20Digits/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0258.Add%20Digits/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0258.Add%20Digits/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：各位相加。\n输入：num（integer）。\n训练提示：**思考**\r \r 反复求各位和最终得到一位数，即数根。对非负整数有闭式： $\\textit{num}=0$ 时为 $0$，否则为 $(\\textit{num}-1)\\bmod 9+1$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n反复求各位和最终得到一位数，即数根。对非负整数有闭式： $\\textit{num}=0$ 时为 $0$，否则为 $(\\textit{num}-1)\\bmod 9+1$。",
+  "memory": "各位相加 → 方法一。\n**思考**\r\n\r\n反复求各位和最终得到一位数，即数根。对非负整数有闭式： $\\textit{num}=0$ 时为 $0$，否则为 $(\\textit{num}-1)\\bmod 9+1$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

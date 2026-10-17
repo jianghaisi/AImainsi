@@ -1,0 +1,53 @@
+{
+  "number": "面试题 16.07",
+  "adapter": {
+    "name": "maximum",
+    "params": [
+      {
+        "name": "a",
+        "type": "integer"
+      },
+      {
+        "name": "b",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 16.07"
+  },
+  "tests": [
+    {
+      "input": [
+        1,
+        2
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def maximum(self, a: int, b: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} a\n * @param {number} b\n * @return {number}\n */\nvar maximum = function(a, b) {\n    \n};",
+    "java": "class Solution {\n    public int maximum(int a, int b) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int maximum(int a, int b) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def maximum(self, a: int, b: int) -> int:\r\n        k = (int(((a - b) & 0xFFFFFFFFFFFFFFFF) >> 63)) & 1\r\n        return a * (k ^ 1) + b * k\r\n",
+    "javascript": "function maximum(a, b) {\n    const k = Number(((BigInt(a) - BigInt(b)) >> BigInt(63)) & BigInt(1));\n    return a * (k ^ 1) + b * k;\n}\n",
+    "java": "class Solution {\r\n    public int maximum(int a, int b) {\r\n        int k = (int) (((long) a - (long) b) >> 63) & 1;\r\n        return a * (k ^ 1) + b * k;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int maximum(int a, int b) {\r\n        int k = ((static_cast<long long>(a) - static_cast<long long>(b)) >> 63) & 1;\r\n        return a * (k ^ 1) + b * k;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.07.Maximum/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.07.Maximum/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.07.Maximum/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.07.Maximum/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.07.Maximum/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最大数值。\n输入：a（integer）、b（integer）。\n训练提示：**思考**\r \r 不用比较运算求 $\\max(a,b)$。条件分支或 `if` 通常会编译成比较。\r \r $a-b$ 的符号位标明谁更大：符号为 $1$ 则 $a<b$。\r \r 取出 $64$ 位视图下的符号位 $k$，返回 $a(k\\oplus 1)+b k$。用位运算与乘法选择，而不写关系运算符。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：位运算\r\n\r\n\r\n\r\n思考\r\n\r\n不用比较运算求 $\\max(a,b)$。条件分支或 `if` 通常会编译成比较。\r\n\r\n$a-b$ 的符号位标明谁更大：符号为 $1$ 则 $a<b$。\r\n\r\n取出 $64$ 位视图下的符号位 $k$，返回 $a(k\\oplus 1)+b k$。用位运算与乘法选择，而不写关系运算符。\r\n\r\n\r\n\r\n我们可以提取 $a-b$ 的符号位 $k$，如果符号位为 $1$，说明 $a \\lt b$；如果符号位为 $0$，说明 $a \\ge b$。\r\n\r\n那么最后的结果就是 $a \\times (k \\oplus 1) + b \\times k$。\r\n\r\n时间复杂度 $O(1)$，空间复杂度 $O(1)$。",
+  "memory": "最大数值 → 位运算。\n**思考**\r\n\r\n不用比较运算求 $\\max(a,b)$。条件分支或 `if` 通常会编译成比较。\r\n\r\n$a-b$ 的符号位标明谁更大：符号为 $1$ 则 $a<b$。\r\n\r\n取出 $64$ 位视图下的符号位 $k$，返回 $a(k\\oplus 1)+b k$。用位运算与乘法选择，而不写关系运算符。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,118 @@
+{
+  "number": "934",
+  "adapter": {
+    "name": "shortestBridge",
+    "params": [
+      {
+        "name": "grid",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "934"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def shortestBridge(self, grid: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int shortestBridge(int[][] grid) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int shortestBridge(vector<vector<int>>& grid) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def shortestBridge(self, grid: List[List[int]]) -> int:\r\n        def dfs(i, j):\r\n            q.append((i, j))\r\n            grid[i][j] = 2\r\n            for a, b in pairwise(dirs):\r\n                x, y = i + a, j + b\r\n                if 0 <= x < n and 0 <= y < n and grid[x][y] == 1:\r\n                    dfs(x, y)\r\n\r\n        n = len(grid)\r\n        dirs = (-1, 0, 1, 0, -1)\r\n        q = deque()\r\n        i, j = next((i, j) for i in range(n) for j in range(n) if grid[i][j])\r\n        dfs(i, j)\r\n        ans = 0\r\n        while 1:\r\n            for _ in range(len(q)):\r\n                i, j = q.popleft()\r\n                for a, b in pairwise(dirs):\r\n                    x, y = i + a, j + b\r\n                    if 0 <= x < n and 0 <= y < n:\r\n                        if grid[x][y] == 1:\r\n                            return ans\r\n                        if grid[x][y] == 0:\r\n                            grid[x][y] = 2\r\n                            q.append((x, y))\r\n            ans += 1\r\n",
+    "java": "class Solution {\r\n    private int[] dirs = {-1, 0, 1, 0, -1};\r\n    private Deque<int[]> q = new ArrayDeque<>();\r\n    private int[][] grid;\r\n    private int n;\r\n\r\n    public int shortestBridge(int[][] grid) {\r\n        this.grid = grid;\r\n        n = grid.length;\r\n        for (int i = 0, x = 1; i < n && x == 1; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                if (grid[i][j] == 1) {\r\n                    dfs(i, j);\r\n                    x = 0;\r\n                    break;\r\n                }\r\n            }\r\n        }\r\n        int ans = 0;\r\n        while (true) {\r\n            for (int i = q.size(); i > 0; --i) {\r\n                var p = q.pollFirst();\r\n                for (int k = 0; k < 4; ++k) {\r\n                    int x = p[0] + dirs[k], y = p[1] + dirs[k + 1];\r\n                    if (x >= 0 && x < n && y >= 0 && y < n) {\r\n                        if (grid[x][y] == 1) {\r\n                            return ans;\r\n                        }\r\n                        if (grid[x][y] == 0) {\r\n                            grid[x][y] = 2;\r\n                            q.offer(new int[] {x, y});\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n            ++ans;\r\n        }\r\n    }\r\n\r\n    private void dfs(int i, int j) {\r\n        grid[i][j] = 2;\r\n        q.offer(new int[] {i, j});\r\n        for (int k = 0; k < 4; ++k) {\r\n            int x = i + dirs[k], y = j + dirs[k + 1];\r\n            if (x >= 0 && x < n && y >= 0 && y < n && grid[x][y] == 1) {\r\n                dfs(x, y);\r\n            }\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    const static inline vector<int> dirs = {-1, 0, 1, 0, -1};\r\n\r\n    int shortestBridge(vector<vector<int>>& grid) {\r\n        int n = grid.size();\r\n        queue<pair<int, int>> q;\r\n        function<void(int, int)> dfs = [&](int i, int j) {\r\n            grid[i][j] = 2;\r\n            q.emplace(i, j);\r\n            for (int k = 0; k < 4; ++k) {\r\n                int x = i + dirs[k], y = j + dirs[k + 1];\r\n                if (x >= 0 && x < n && y >= 0 && y < n && grid[x][y] == 1) {\r\n                    dfs(x, y);\r\n                }\r\n            }\r\n        };\r\n        for (int i = 0, x = 1; i < n && x; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                if (grid[i][j]) {\r\n                    dfs(i, j);\r\n                    x = 0;\r\n                    break;\r\n                }\r\n            }\r\n        }\r\n        int ans = 0;\r\n        while (1) {\r\n            for (int h = q.size(); h; --h) {\r\n                auto [i, j] = q.front();\r\n                q.pop();\r\n                for (int k = 0; k < 4; ++k) {\r\n                    int x = i + dirs[k], y = j + dirs[k + 1];\r\n                    if (x >= 0 && x < n && y >= 0 && y < n) {\r\n                        if (grid[x][y] == 1) return ans;\r\n                        if (grid[x][y] == 0) {\r\n                            grid[x][y] = 2;\r\n                            q.emplace(x, y);\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n            ++ans;\r\n        }\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0934.Shortest%20Bridge/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0934.Shortest%20Bridge/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0934.Shortest%20Bridge/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0934.Shortest%20Bridge/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最短的桥。\n输入：grid（integer[][]）。\n训练提示：**思考**\r \r 恰有两座岛，最少翻转次数等于两岛之间的最短距离。先 DFS 把其中一座岛全部入队并标成已访，再从这圈陆地向外 BFS 扩张水域；第一次碰到另一座岛时的层数即为答案。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS + BFS\r\n\r\n\r\n\r\n思考\r\n\r\n恰有两座岛，最少翻转次数等于两岛之间的最短距离。先 DFS 把其中一座岛全部入队并标成已访，再从这圈陆地向外 BFS 扩张水域；第一次碰到另一座岛时的层数即为答案。\r\n\r\n\r\n\r\n题目求解的是最小翻转次数，使得两个岛屿相连，实际上等价于求解两个岛屿之间的最短距离。\r\n\r\n因此，我们可以先通过 DFS 将其中一个岛屿的所有点找出来，放到一个队列 $q$ 中。然后通过 BFS 一层层向外扩展，直至碰到另一个岛屿，此时将当前扩展的层数作为答案返回即可。\r\n\r\n在 DFS 和 BFS 搜索的过程中，我们直接将已经访问过的点标记为 $2$，这样就不会重复访问。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n^2)$。其中 $n$ 为矩阵的行数或列数。",
+  "memory": "最短的桥 → DFS + BFS。\n**思考**\r\n\r\n恰有两座岛，最少翻转次数等于两岛之间的最短距离。先 DFS 把其中一座岛全部入队并标成已访，再从这圈陆地向外 BFS 扩张水域；第一次碰到另一座岛时的层数即为答案。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

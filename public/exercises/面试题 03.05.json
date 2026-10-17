@@ -1,0 +1,149 @@
+{
+  "number": "面试题 03.05",
+  "adapter": {
+    "classname": "SortedStack",
+    "maxbytesperline": 200000,
+    "systemdesign": true,
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "name": "push",
+        "params": [
+          {
+            "name": "val",
+            "type": "integer"
+          }
+        ],
+        "return": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "pop",
+        "params": [],
+        "return": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "peek",
+        "params": [],
+        "return": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "isEmpty",
+        "params": [],
+        "return": {
+          "type": "boolean"
+        }
+      }
+    ],
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "面试题 03.05"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "SortedStack",
+          "push",
+          "push",
+          "peek",
+          "pop",
+          "peek"
+        ],
+        [
+          [],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        1,
+        null,
+        2
+      ]
+    },
+    {
+      "input": [
+        [
+          "SortedStack",
+          "pop",
+          "pop",
+          "push",
+          "pop",
+          "isEmpty"
+        ],
+        [
+          [],
+          [],
+          [],
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        true
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class SortedStack:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def push(self, val: int) -> None:\n        raise NotImplementedError('请完成此方法')\n\n    def pop(self) -> None:\n        raise NotImplementedError('请完成此方法')\n\n    def peek(self) -> int:\n        raise NotImplementedError('请完成此方法')\n\n    def isEmpty(self) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "\nvar SortedStack = function() {\n    \n};\n\n/** \n * @param {number} val\n * @return {void}\n */\nSortedStack.prototype.push = function(val) {\n    \n};\n\n/**\n * @return {void}\n */\nSortedStack.prototype.pop = function() {\n    \n};\n\n/**\n * @return {number}\n */\nSortedStack.prototype.peek = function() {\n    \n};\n\n/**\n * @return {boolean}\n */\nSortedStack.prototype.isEmpty = function() {\n    \n};\n\n/** \n * Your SortedStack object will be instantiated and called as such:\n * var obj = new SortedStack()\n * obj.push(val)\n * obj.pop()\n * var param_3 = obj.peek()\n * var param_4 = obj.isEmpty()\n */",
+    "java": "class SortedStack {\n\n    public SortedStack() {\n        \n    }\n    \n    public void push(int val) {\n        \n    }\n    \n    public void pop() {\n        \n    }\n    \n    public int peek() {\n        \n    }\n    \n    public boolean isEmpty() {\n        \n    }\n}\n\n/**\n * Your SortedStack object will be instantiated and called as such:\n * SortedStack obj = new SortedStack();\n * obj.push(val);\n * obj.pop();\n * int param_3 = obj.peek();\n * boolean param_4 = obj.isEmpty();\n */",
+    "cpp": "class SortedStack {\npublic:\n    SortedStack() {\n        \n    }\n    \n    void push(int val) {\n        \n    }\n    \n    void pop() {\n        \n    }\n    \n    int peek() {\n        \n    }\n    \n    bool isEmpty() {\n        \n    }\n};\n\n/**\n * Your SortedStack object will be instantiated and called as such:\n * SortedStack* obj = new SortedStack();\n * obj->push(val);\n * obj->pop();\n * int param_3 = obj->peek();\n * bool param_4 = obj->isEmpty();\n */"
+  },
+  "solutions": {
+    "python": "class SortedStack:\r\n\r\n    def __init__(self):\r\n        self.stk = []\r\n\r\n    def push(self, val: int) -> None:\r\n        t = []\r\n        while self.stk and self.stk[-1] < val:\r\n            t.append(self.stk.pop())\r\n        self.stk.append(val)\r\n        while t:\r\n            self.stk.append(t.pop())\r\n\r\n    def pop(self) -> None:\r\n        if not self.isEmpty():\r\n            self.stk.pop()\r\n\r\n    def peek(self) -> int:\r\n        return -1 if self.isEmpty() else self.stk[-1]\r\n\r\n    def isEmpty(self) -> bool:\r\n        return not self.stk\r\n\r\n\r\n# Your SortedStack object will be instantiated and called as such:\r\n# obj = SortedStack()\r\n# obj.push(val)\r\n# obj.pop()\r\n# param_3 = obj.peek()\r\n# param_4 = obj.isEmpty()\r\n",
+    "javascript": "class SortedStack {\n    stk = [];\n    constructor() { }\n    push(val) {\n        const t = [];\n        while (this.stk.length > 0 && this.stk.at(-1) < val) {\n            t.push(this.stk.pop());\n        }\n        this.stk.push(val);\n        while (t.length > 0) {\n            this.stk.push(t.pop());\n        }\n    }\n    pop() {\n        if (!this.isEmpty()) {\n            this.stk.pop();\n        }\n    }\n    peek() {\n        return this.isEmpty() ? -1 : this.stk.at(-1);\n    }\n    isEmpty() {\n        return this.stk.length === 0;\n    }\n}\n/**\n * Your SortedStack object will be instantiated and called as such:\n * var obj = new SortedStack()\n * obj.push(val)\n * obj.pop()\n * var param_3 = obj.peek()\n * var param_4 = obj.isEmpty()\n */\n",
+    "java": "class SortedStack {\r\n    private Deque<Integer> stk = new ArrayDeque<>();\r\n\r\n    public SortedStack() {\r\n    }\r\n\r\n    public void push(int val) {\r\n        Deque<Integer> t = new ArrayDeque<>();\r\n        while (!stk.isEmpty() && stk.peek() < val) {\r\n            t.push(stk.pop());\r\n        }\r\n        stk.push(val);\r\n        while (!t.isEmpty()) {\r\n            stk.push(t.pop());\r\n        }\r\n    }\r\n\r\n    public void pop() {\r\n        if (!isEmpty()) {\r\n            stk.pop();\r\n        }\r\n    }\r\n\r\n    public int peek() {\r\n        return isEmpty() ? -1 : stk.peek();\r\n    }\r\n\r\n    public boolean isEmpty() {\r\n        return stk.isEmpty();\r\n    }\r\n}\r\n\r\n/**\r\n * Your SortedStack object will be instantiated and called as such:\r\n * SortedStack obj = new SortedStack();\r\n * obj.push(val);\r\n * obj.pop();\r\n * int param_3 = obj.peek();\r\n * boolean param_4 = obj.isEmpty();\r\n */",
+    "cpp": "class SortedStack {\r\npublic:\r\n    SortedStack() {\r\n    }\r\n\r\n    void push(int val) {\r\n        stack<int> t;\r\n        while (!stk.empty() && stk.top() < val) {\r\n            t.push(stk.top());\r\n            stk.pop();\r\n        }\r\n        stk.push(val);\r\n        while (!t.empty()) {\r\n            stk.push(t.top());\r\n            t.pop();\r\n        }\r\n    }\r\n\r\n    void pop() {\r\n        if (!isEmpty()) {\r\n            stk.pop();\r\n        }\r\n    }\r\n\r\n    int peek() {\r\n        return isEmpty() ? -1 : stk.top();\r\n    }\r\n\r\n    bool isEmpty() {\r\n        return stk.empty();\r\n    }\r\n\r\nprivate:\r\n    stack<int> stk;\r\n};\r\n\r\n/**\r\n * Your SortedStack object will be instantiated and called as such:\r\n * SortedStack* obj = new SortedStack();\r\n * obj->push(val);\r\n * obj->pop();\r\n * int param_3 = obj->peek();\r\n * bool param_4 = obj->isEmpty();\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.05.Sort%20of%20Stacks/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.05.Sort%20of%20Stacks/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.05.Sort%20of%20Stacks/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.05.Sort%20of%20Stacks/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.05.Sort%20of%20Stacks/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：栈排序。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 栈顶需始终为当前最小元素。若只在查询时排序，则无法用栈接口表达；若允许用另一个栈，则可在插入时恢复有序。\r \r 要让新值 $val$ 落到正确深度，须暂时弹出所有比它更小的栈顶（它们应更靠近栈顶），放入 $val$ 后再压回。\r \r 辅助栈 $t$ 承接这些较小元素，`push` 结束后 $stk$ 自顶向下仍非降。`pop`/`peek`/`isEmpty` 只碰栈顶，为 $O(1)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：栈 + 辅助栈\r\n\r\n\r\n\r\n思考\r\n\r\n栈顶需始终为当前最小元素。若只在查询时排序，则无法用栈接口表达；若允许用另一个栈，则可在插入时恢复有序。\r\n\r\n要让新值 $val$ 落到正确深度，须暂时弹出所有比它更小的栈顶（它们应更靠近栈顶），放入 $val$ 后再压回。\r\n\r\n辅助栈 $t$ 承接这些较小元素，`push` 结束后 $stk$ 自顶向下仍非降。`pop`/`peek`/`isEmpty` 只碰栈顶，为 $O(1)$。\r\n\r\n\r\n\r\n我们定义一个栈 $stk$，用于存放元素。\r\n\r\n在 `push` 操作中，我们定义一个辅助栈 $t$，用于存放 $stk$ 中比当前元素小的元素。我们将 $stk$ 中比当前元素小的元素全部弹出并存放到 $t$ 中，然后将当前元素压入 $stk$，最后将 $t$ 中的元素全部弹出并压入 $stk$。时间复杂度 $O(n)$。\r\n\r\n在 `pop` 操作中，我们只需要判断 $stk$ 是否为空，如果不为空，则弹出栈顶元素。时间复杂度 $O(1)$。\r\n\r\n在 `peek` 操作中，我们只需要判断 $stk$ 是否为空，如果为空则返回 -1，否则返回栈顶元素。时间复杂度 $O(1)$。\r\n\r\n在 `isEmpty` 操作中，我们只需要判断 $stk$ 是否为空。时间复杂度 $O(1)$。\r\n\r\n空间复杂度 $O(n)$，其中 $n$ 为栈中元素的个数。",
+  "memory": "栈排序 → 栈 + 辅助栈。\n**思考**\r\n\r\n栈顶需始终为当前最小元素。若只在查询时排序，则无法用栈接口表达；若允许用另一个栈，则可在插入时恢复有序。\r\n\r\n要让新值 $val$ 落到正确深度，须暂时弹出所有比它更小的栈顶（它们应更靠近栈顶），放入 $val$ 后再压回。\r\n\r\n辅助栈 $t$ 承接这些较小元素，`push` 结束后 $stk$ 自顶向下仍非降。`pop`/`peek`/`isEmpty` 只碰栈顶，为 $O(1)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

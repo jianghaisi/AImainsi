@@ -1,0 +1,135 @@
+{
+  "number": "面试题 03.02",
+  "adapter": {
+    "classname": "MinStack",
+    "maxbytesperline": 130000,
+    "constructor": {
+      "params": [
+        {
+          "type": "integer",
+          "name": "maxSize",
+          "lang": "c",
+          "value": "64000"
+        }
+      ],
+      "comment": "initialize your data structure here."
+    },
+    "methods": [
+      {
+        "name": "push",
+        "params": [
+          {
+            "type": "integer",
+            "name": "x"
+          }
+        ],
+        "return": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "pop",
+        "params": [],
+        "return": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "top",
+        "params": [],
+        "return": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "getMin",
+        "params": [],
+        "return": {
+          "type": "integer"
+        }
+      }
+    ],
+    "systemdesign": true,
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "面试题 03.02"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "MinStack",
+          "push",
+          "push",
+          "push",
+          "getMin",
+          "pop",
+          "top",
+          "getMin"
+        ],
+        [
+          [],
+          [
+            -2
+          ],
+          [
+            0
+          ],
+          [
+            -3
+          ],
+          [],
+          [],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        -3,
+        null,
+        0,
+        -2
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class MinStack:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def push(self, val: int) -> None:\n        raise NotImplementedError('请完成此方法')\n\n    def pop(self) -> None:\n        raise NotImplementedError('请完成此方法')\n\n    def top(self) -> int:\n        raise NotImplementedError('请完成此方法')\n\n    def getMin(self) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * initialize your data structure here.\n */\nvar MinStack = function() {\n    \n};\n\n/** \n * @param {number} x\n * @return {void}\n */\nMinStack.prototype.push = function(x) {\n    \n};\n\n/**\n * @return {void}\n */\nMinStack.prototype.pop = function() {\n    \n};\n\n/**\n * @return {number}\n */\nMinStack.prototype.top = function() {\n    \n};\n\n/**\n * @return {number}\n */\nMinStack.prototype.getMin = function() {\n    \n};\n\n/** \n * Your MinStack object will be instantiated and called as such:\n * var obj = new MinStack()\n * obj.push(x)\n * obj.pop()\n * var param_3 = obj.top()\n * var param_4 = obj.getMin()\n */",
+    "java": "class MinStack {\n\n    /** initialize your data structure here. */\n    public MinStack() {\n        \n    }\n    \n    public void push(int x) {\n        \n    }\n    \n    public void pop() {\n        \n    }\n    \n    public int top() {\n        \n    }\n    \n    public int getMin() {\n        \n    }\n}\n\n/**\n * Your MinStack object will be instantiated and called as such:\n * MinStack obj = new MinStack();\n * obj.push(x);\n * obj.pop();\n * int param_3 = obj.top();\n * int param_4 = obj.getMin();\n */",
+    "cpp": "class MinStack {\npublic:\n    /** initialize your data structure here. */\n    MinStack() {\n        \n    }\n    \n    void push(int x) {\n        \n    }\n    \n    void pop() {\n        \n    }\n    \n    int top() {\n        \n    }\n    \n    int getMin() {\n        \n    }\n};\n\n/**\n * Your MinStack object will be instantiated and called as such:\n * MinStack* obj = new MinStack();\n * obj->push(x);\n * obj->pop();\n * int param_3 = obj->top();\n * int param_4 = obj->getMin();\n */"
+  },
+  "solutions": {
+    "python": "class MinStack:\r\n    def __init__(self):\r\n        \"\"\"\r\n        initialize your data structure here.\r\n        \"\"\"\r\n        self.s = []\r\n        self.mins = [inf]\r\n\r\n    def push(self, val: int) -> None:\r\n        self.s.append(val)\r\n        self.mins.append(min(self.mins[-1], val))\r\n\r\n    def pop(self) -> None:\r\n        self.s.pop()\r\n        self.mins.pop()\r\n\r\n    def top(self) -> int:\r\n        return self.s[-1]\r\n\r\n    def getMin(self) -> int:\r\n        return self.mins[-1]\r\n\r\n\r\n# Your MinStack object will be instantiated and called as such:\r\n# obj = MinStack()\r\n# obj.push(val)\r\n# obj.pop()\r\n# param_3 = obj.top()\r\n# param_4 = obj.getMin()\r\n",
+    "javascript": "class MinStack {\n    stack;\n    mins;\n    constructor() {\n        this.stack = [];\n        this.mins = [];\n    }\n    push(x) {\n        this.stack.push(x);\n        this.mins.push(Math.min(this.getMin(), x));\n    }\n    pop() {\n        this.stack.pop();\n        this.mins.pop();\n    }\n    top() {\n        return this.stack[this.stack.length - 1];\n    }\n    getMin() {\n        return this.mins.length == 0 ? Infinity : this.mins[this.mins.length - 1];\n    }\n}\n/**\n * Your MinStack object will be instantiated and called as such:\n * var obj = new MinStack()\n * obj.push(x)\n * obj.pop()\n * var param_3 = obj.top()\n * var param_4 = obj.getMin()\n */\n",
+    "java": "class MinStack {\r\n    private Deque<Integer> stk1 = new ArrayDeque<>();\r\n    private Deque<Integer> stk2 = new ArrayDeque<>();\r\n\r\n    /** initialize your data structure here. */\r\n    public MinStack() {\r\n        stk2.push(Integer.MAX_VALUE);\r\n    }\r\n\r\n    public void push(int x) {\r\n        stk1.push(x);\r\n        stk2.push(Math.min(x, stk2.peek()));\r\n    }\r\n\r\n    public void pop() {\r\n        stk1.pop();\r\n        stk2.pop();\r\n    }\r\n\r\n    public int top() {\r\n        return stk1.peek();\r\n    }\r\n\r\n    public int getMin() {\r\n        return stk2.peek();\r\n    }\r\n}\r\n\r\n/**\r\n * Your MinStack object will be instantiated and called as such:\r\n * MinStack obj = new MinStack();\r\n * obj.push(x);\r\n * obj.pop();\r\n * int param_3 = obj.top();\r\n * int param_4 = obj.getMin();\r\n */",
+    "cpp": "class MinStack {\r\npublic:\r\n    /** initialize your data structure here. */\r\n    MinStack() {\r\n        stk2.push(INT_MAX);\r\n    }\r\n\r\n    void push(int x) {\r\n        stk1.push(x);\r\n        stk2.push(min(x, stk2.top()));\r\n    }\r\n\r\n    void pop() {\r\n        stk1.pop();\r\n        stk2.pop();\r\n    }\r\n\r\n    int top() {\r\n        return stk1.top();\r\n    }\r\n\r\n    int getMin() {\r\n        return stk2.top();\r\n    }\r\n\r\nprivate:\r\n    stack<int> stk1;\r\n    stack<int> stk2;\r\n};\r\n\r\n/**\r\n * Your MinStack object will be instantiated and called as such:\r\n * MinStack* obj = new MinStack();\r\n * obj->push(x);\r\n * obj->pop();\r\n * int param_3 = obj->top();\r\n * int param_4 = obj->getMin();\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.02.Min%20Stack/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.02.Min%20Stack/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.02.Min%20Stack/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.02.Min%20Stack/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.02.Min%20Stack/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：栈的最小值。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 栈的 `getMin` 若每次扫描全部元素，则该操作为线性，无法与 $O(1)$ 的 `push`/`pop` 匹配。\r \r 每个前缀的最小值在压入时即可确定，且随弹出回退到上一前缀的最小值。因此额外维护一条与数据栈同步的「当前最小」栈。\r \r `mins` 初始放入 $+\\infty$，每次 `push` 写入 $\\min(mins[-1], val)$，`pop` 两栈同弹。`getMin` 直接读 `mins` 栈顶，各操作均为 $O(1)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双栈\r\n\r\n\r\n\r\n思考\r\n\r\n栈的 `getMin` 若每次扫描全部元素，则该操作为线性，无法与 $O(1)$ 的 `push`/`pop` 匹配。\r\n\r\n每个前缀的最小值在压入时即可确定，且随弹出回退到上一前缀的最小值。因此额外维护一条与数据栈同步的「当前最小」栈。\r\n\r\n`mins` 初始放入 $+\\infty$，每次 `push` 写入 $\\min(mins[-1], val)$，`pop` 两栈同弹。`getMin` 直接读 `mins` 栈顶，各操作均为 $O(1)$。\r\n\r\n\r\n\r\n我们用两个栈来实现，其中`stk1` 用来存储数据，`stk2` 用来存储当前栈中的最小值。初始时，`stk2` 中存储一个极大值。\r\n\r\n- 当我们向栈中压入一个元素 `x` 时，我们将 `x` 压入 `stk1`，并将 `min(x, stk2[-1])` 压入 `stk2`。\r\n- 当我们从栈中弹出一个元素时，我们将 `stk1` 和 `stk2` 的栈顶元素都弹出。\r\n- 当我们要获取当前栈中的栈顶元素时，我们只需要返回 `stk1` 的栈顶元素即可。\r\n- 当我们要获取当前栈中的最小值时，我们只需要返回 `stk2` 的栈顶元素即可。\r\n\r\n时间复杂度：对于每个操作，时间复杂度均为 $O(1)$，空间复杂度 $O(n)$。",
+  "memory": "栈的最小值 → 双栈。\n**思考**\r\n\r\n栈的 `getMin` 若每次扫描全部元素，则该操作为线性，无法与 $O(1)$ 的 `push`/`pop` 匹配。\r\n\r\n每个前缀的最小值在压入时即可确定，且随弹出回退到上一前缀的最小值。因此额外维护一条与数据栈同步的「当前最小」栈。\r\n\r\n`mins` 初始放入 $+\\infty$，每次 `push` 写入 $\\min(mins[-1], val)$，`pop` 两栈同弹。`getMin` 直接读 `mins` 栈顶，各操作均为 $O(1)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

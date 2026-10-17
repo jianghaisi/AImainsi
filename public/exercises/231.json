@@ -1,0 +1,60 @@
+{
+  "number": "231",
+  "adapter": {
+    "name": "isPowerOfTwo",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "231"
+  },
+  "tests": [
+    {
+      "input": [
+        1
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        16
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        3
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def isPowerOfTwo(self, n: int) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @return {boolean}\n */\nvar isPowerOfTwo = function(n) {\n    \n};",
+    "java": "class Solution {\n    public boolean isPowerOfTwo(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isPowerOfTwo(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def isPowerOfTwo(self, n: int) -> bool:\r\n        return n > 0 and (n & (n - 1)) == 0\r\n",
+    "javascript": "function isPowerOfTwo(n) {\n    return n > 0 && (n & (n - 1)) === 0;\n}\n",
+    "java": "class Solution {\r\n    public boolean isPowerOfTwo(int n) {\r\n        return n > 0 && (n & (n - 1)) == 0;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool isPowerOfTwo(int n) {\r\n        return n > 0 && (n & (n - 1)) == 0;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0231.Power%20of%20Two/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0231.Power%20of%20Two/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0231.Power%20of%20Two/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0231.Power%20of%20Two/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0231.Power%20of%20Two/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：2 的幂。\n输入：n（integer）。\n训练提示：**思考**\r \r 循环除以 $2$ 可判定，但位运算一步即可。2 的幂在二进制中恰有一个 $1$，因此 $n>0$ 且 $n\\mathrel{\\&}(n-1)=0$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：位运算\r\n\r\n\r\n\r\n思考\r\n\r\n循环除以 $2$ 可判定，但位运算一步即可。2 的幂在二进制中恰有一个 $1$，因此 $n>0$ 且 $n\\mathrel{\\&}(n-1)=0$。\r\n\r\n\r\n\r\n根据位运算的性质，执行 $\\texttt{n\\&(n-1)}$ 可以消去二进制形式的 $n$ 的最后一位 $1$。因此，如果 $n \\gt 0$，并且满足 $\\texttt{n\\&(n-1)}$ 结果为 $0$，则说明 $n$ 是 $2$ 的幂。\r\n\r\n时间复杂度 $O(1)$，空间复杂度 $O(1)$。",
+  "memory": "2 的幂 → 位运算。\n**思考**\r\n\r\n循环除以 $2$ 可判定，但位运算一步即可。2 的幂在二进制中恰有一个 $1$，因此 $n>0$ 且 $n\\mathrel{\\&}(n-1)=0$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

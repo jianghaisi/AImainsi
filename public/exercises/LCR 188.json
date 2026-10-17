@@ -1,0 +1,93 @@
+{
+  "number": "LCR 188",
+  "adapter": {
+    "name": "bestTiming",
+    "params": [
+      {
+        "name": "prices",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 188"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          6,
+          2,
+          9,
+          8,
+          5
+        ]
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        [
+          8,
+          12,
+          15,
+          7,
+          3,
+          10
+        ]
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        [
+          7,
+          1,
+          5,
+          3,
+          6,
+          4
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        [
+          7,
+          6,
+          4,
+          3,
+          1
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def bestTiming(self, prices: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} prices\n * @return {number}\n */\nvar bestTiming = function(prices) {\n    \n};",
+    "java": "class Solution {\n    public int bestTiming(int[] prices) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int bestTiming(vector<int>& prices) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def bestTiming(self, prices: List[int]) -> int:\r\n        mi, ans = inf, 0\r\n        for x in prices:\r\n            ans = max(ans, x - mi)\r\n            mi = min(mi, x)\r\n        return ans\r\n",
+    "javascript": "function bestTiming(prices) {\n    let res = 0;\n    let min = Infinity;\n    for (const price of prices) {\n        res = Math.max(res, price - min);\n        min = Math.min(min, price);\n    }\n    return res;\n}\n",
+    "java": "class Solution {\r\n    public int bestTiming(int[] prices) {\r\n        int mi = 1 << 30, ans = 0;\r\n        for (int x : prices) {\r\n            ans = Math.max(ans, x - mi);\r\n            mi = Math.min(mi, x);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int bestTiming(vector<int>& prices) {\r\n        int mi = 1 << 30, ans = 0;\r\n        for (int& x : prices) {\r\n            ans = max(ans, x - mi);\r\n            mi = min(mi, x);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9863.%20%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9863.%20%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9863.%20%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9863.%20%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9863.%20%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：买卖芯片的最佳时机。\n输入：prices（integer[]）。\n训练提示：**思考**\r \r 只能先买后卖一次，枚举买卖日为平方级。固定卖出日，最优买入即此前最低价。扫一遍维护最低价与最大差即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n只能先买后卖一次，枚举买卖日为平方级。固定卖出日，最优买入即此前最低价。扫一遍维护最低价与最大差即可。\r\n\r\n\r\n\r\n我们可以枚举当前的股票价格作为卖出价格，那么买入价格就是在它之前的最低股票价格，此时的利润就是卖出价格减去买入价格。我们可以用一个变量 `mi` 记录之前的最低股票价格，用一个变量 `ans` 记录最大利润，找出最大利润即可。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(1)$。其中 $n$ 是数组 `prices` 的长度。",
+  "memory": "买卖芯片的最佳时机 → 动态规划。\n**思考**\r\n\r\n只能先买后卖一次，枚举买卖日为平方级。固定卖出日，最优买入即此前最低价。扫一遍维护最低价与最大差即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

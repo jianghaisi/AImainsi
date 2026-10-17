@@ -1,0 +1,66 @@
+{
+  "number": "LCR 189",
+  "adapter": {
+    "name": "mechanicalAccumulator",
+    "params": [
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 189"
+  },
+  "tests": [
+    {
+      "input": [
+        5
+      ],
+      "expected": 15
+    },
+    {
+      "input": [
+        7
+      ],
+      "expected": 28
+    },
+    {
+      "input": [
+        3
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        9
+      ],
+      "expected": 45
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def mechanicalAccumulator(self, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} target\n * @return {number}\n */\nvar mechanicalAccumulator = function(target) {\n    \n};",
+    "java": "class Solution {\n    public int mechanicalAccumulator(int target) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int mechanicalAccumulator(int target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def mechanicalAccumulator(self, n: int) -> int:\r\n        return n and (n + self.mechanicalAccumulator(n - 1))\r\n",
+    "javascript": "var mechanicalAccumulator = function (n) {\n    return n && n + mechanicalAccumulator(n - 1);\n};\n",
+    "java": "class Solution {\r\n    public int mechanicalAccumulator(int n) {\r\n        int s = n;\r\n        boolean t = n > 0 && (s += mechanicalAccumulator(n - 1)) > 0;\r\n        return s;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int mechanicalAccumulator(int n) {\r\n        n && (n += mechanicalAccumulator(n - 1));\r\n        return n;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9864.%20%E6%B1%821+2+%E2%80%A6+n/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9864.%20%E6%B1%821+2+%E2%80%A6+n/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9864.%20%E6%B1%821+2+%E2%80%A6+n/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9864.%20%E6%B1%821+2+%E2%80%A6+n/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9864.%20%E6%B1%821+2+%E2%80%A6+n/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：设计机械累加器。\n输入：target（integer）。\n训练提示：**思考**\r \r 题目禁止乘除与循环判断，等差公式与普通循环都不能直接写。逻辑与运算具有短路性质：当 $n$ 为 $0$ 时不再递归。\r \r 因此写成 $n$ 与 $n+sum(n-1)$ 的合取，递归累加至 $0$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n题目禁止乘除与循环判断，等差公式与普通循环都不能直接写。逻辑与运算具有短路性质：当 $n$ 为 $0$ 时不再递归。\r\n\r\n因此写成 $n$ 与 $n+sum(n-1)$ 的合取，递归累加至 $0$。",
+  "memory": "设计机械累加器 → 方法一。\n**思考**\r\n\r\n题目禁止乘除与循环判断，等差公式与普通循环都不能直接写。逻辑与运算具有短路性质：当 $n$ 为 $0$ 时不再递归。\r\n\r\n因此写成 $n$ 与 $n+sum(n-1)$ 的合取，递归累加至 $0$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,140 @@
+{
+  "number": "LCR 129",
+  "adapter": {
+    "name": "wordPuzzle",
+    "params": [
+      {
+        "name": "grid",
+        "type": "character[][]"
+      },
+      {
+        "name": "target",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "LCR 129"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            "A",
+            "B",
+            "C",
+            "E"
+          ],
+          [
+            "S",
+            "F",
+            "C",
+            "S"
+          ],
+          [
+            "A",
+            "D",
+            "E",
+            "E"
+          ]
+        ],
+        "ABCCED"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          [
+            "A",
+            "B",
+            "C",
+            "E"
+          ],
+          [
+            "S",
+            "F",
+            "C",
+            "S"
+          ],
+          [
+            "A",
+            "D",
+            "E",
+            "E"
+          ]
+        ],
+        "SEE"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          [
+            "A",
+            "B",
+            "C",
+            "E"
+          ],
+          [
+            "S",
+            "F",
+            "C",
+            "S"
+          ],
+          [
+            "A",
+            "D",
+            "E",
+            "E"
+          ]
+        ],
+        "ABCB"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "c",
+            "d"
+          ]
+        ],
+        "abcd"
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def wordPuzzle(self, board: List[List[str]], word: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {character[][]} grid\n * @param {string} target\n * @return {boolean}\n */\nvar wordPuzzle = function(grid, target) {\n    \n};",
+    "java": "class Solution {\n    public boolean wordPuzzle(char[][] grid, String target) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool wordPuzzle(vector<vector<char>>& grid, string target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def wordPuzzle(self, board: List[List[str]], word: str) -> bool:\r\n        def dfs(i, j, k):\r\n            if k == len(word):\r\n                return True\r\n            if i < 0 or i >= m or j < 0 or j >= n or board[i][j] != word[k]:\r\n                return False\r\n            board[i][j] = \"\"\r\n            dirs = (-1, 0, 1, 0, -1)\r\n            ans = any(dfs(i + a, j + b, k + 1) for a, b in pairwise(dirs))\r\n            board[i][j] = word[k]\r\n            return ans\r\n\r\n        m, n = len(board), len(board[0])\r\n        return any(dfs(i, j, 0) for i in range(m) for j in range(n))\r\n",
+    "javascript": "function wordPuzzle(board, word) {\n    const m = board.length;\n    const n = board[0].length;\n    const dfs = (i, j, k) => {\n        if ((board[i] ?? [])[j] !== word[k]) {\n            return false;\n        }\n        if (++k === word.length) {\n            return true;\n        }\n        const temp = board[i][j];\n        board[i][j] = ' ';\n        if (dfs(i + 1, j, k) || dfs(i, j + 1, k) || dfs(i - 1, j, k) || dfs(i, j - 1, k)) {\n            return true;\n        }\n        board[i][j] = temp;\n        return false;\n    };\n    for (let i = 0; i < m; i++) {\n        for (let j = 0; j < n; j++) {\n            if (dfs(i, j, 0)) {\n                return true;\n            }\n        }\n    }\n    return false;\n}\n",
+    "java": "class Solution {\r\n    private char[][] board;\r\n    private String word;\r\n    private int m;\r\n    private int n;\r\n\r\n    public boolean wordPuzzle(char[][] board, String word) {\r\n        m = board.length;\r\n        n = board[0].length;\r\n        this.board = board;\r\n        this.word = word;\r\n        for (int i = 0; i < m; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                if (dfs(i, j, 0)) {\r\n                    return true;\r\n                }\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n\r\n    private boolean dfs(int i, int j, int k) {\r\n        if (k == word.length()) {\r\n            return true;\r\n        }\r\n        if (i < 0 || i >= m || j < 0 || j >= n || word.charAt(k) != board[i][j]) {\r\n            return false;\r\n        }\r\n        board[i][j] = ' ';\r\n        int[] dirs = {-1, 0, 1, 0, -1};\r\n        boolean ans = false;\r\n        for (int l = 0; l < 4; ++l) {\r\n            ans = ans || dfs(i + dirs[l], j + dirs[l + 1], k + 1);\r\n        }\r\n        board[i][j] = word.charAt(k);\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool wordPuzzle(vector<vector<char>>& board, string word) {\r\n        int m = board.size(), n = board[0].size();\r\n        int dirs[5] = {-1, 0, 1, 0, -1};\r\n        function<bool(int, int, int)> dfs = [&](int i, int j, int k) -> bool {\r\n            if (k == word.size()) {\r\n                return true;\r\n            }\r\n            if (i < 0 || i >= m || j < 0 || j >= n || board[i][j] != word[k]) {\r\n                return false;\r\n            }\r\n            board[i][j] = '.';\r\n            bool ans = 0;\r\n            for (int l = 0; l < 4; ++l) {\r\n                ans |= dfs(i + dirs[l], j + dirs[l + 1], k + 1);\r\n            }\r\n            board[i][j] = word[k];\r\n            return ans;\r\n        };\r\n        for (int i = 0; i < m; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                if (dfs(i, j, 0)) {\r\n                    return true;\r\n                }\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9812.%20%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9812.%20%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9812.%20%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9812.%20%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9812.%20%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：字母迷宫。\n输入：grid（character[][]）、target（string）。\n训练提示：**思考**\r \r 路径须在相邻格中依次匹配，起点未知。 $m,n$ 与单词长度有限，从每个格子出发搜索可行。\r \r 为此枚举起点并 DFS：匹配失败则回溯，访问过的格先清空再还原，避免重复使用同一格。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：枚举 + DFS\r\n\r\n\r\n\r\n思考\r\n\r\n路径须在相邻格中依次匹配，起点未知。 $m,n$ 与单词长度有限，从每个格子出发搜索可行。\r\n\r\n为此枚举起点并 DFS：匹配失败则回溯，访问过的格先清空再还原，避免重复使用同一格。\r\n\r\n\r\n\r\n我们可以枚举矩阵的每个位置 $(i, j)$，以该位置为起点，采用深度优先搜索的方法寻找字符串 `word` 的路径。如果找到了一条路径，即可返回 `true`，否则在枚举完所有的位置后，返回 `false`。\r\n\r\n那么问题的转换为如何采用深度优先搜索的方法寻找字符串 `word` 的路径。我们可以设计一个函数 $dfs(i, j, k)$，表示从位置 $(i, j)$ 开始，且当前将要匹配的字符为 `word[k]` 的情况下，是否能够找到字符串 `word` 的路径。如果能找到，返回 `true`，否则返回 `false`。\r\n\r\n函数 $dfs(i, j, k)$ 的执行流程如下：\r\n\r\n- 如果当前字符 `word[k]` 已经匹配到字符串 `word` 的末尾，说明已经找到了字符串 `word` 的路径，返回 `true`。\r\n- 如果当前位置 $(i, j)$ 超出矩阵边界，或者当前位置的字符与 `word[k]` 不同，说明当前位置不在字符串 `word` 的路径上，返回 `false`。\r\n- 否则，我们将当前位置的字符标记为已访问（防止重复搜索），然后分别向当前位置的上、下、左、右四个方向继续匹配字符 `word[k + 1]`，只要有一条路径能够匹配到字符串 `word` 的路径，就说明能够找到字符串 `word` 的路径，返回 `true`。在回溯时，我们要将当前位置的字符还原为未访问过的状态。\r\n\r\n时间复杂度 $O(m \\times n \\times 3^k)$，空间复杂度 $O(m \\times n)$。其中 $m$ 和 $n$ 分别为矩阵的行数和列数，而 $k$ 为字符串 `word` 的长度。我们需要枚举矩阵中的每个位置，然后对于每个位置，我们最多需要搜索三个方向。",
+  "memory": "字母迷宫 → 枚举 + DFS。\n**思考**\r\n\r\n路径须在相邻格中依次匹配，起点未知。 $m,n$ 与单词长度有限，从每个格子出发搜索可行。\r\n\r\n为此枚举起点并 DFS：匹配失败则回溯，访问过的格先清空再还原，避免重复使用同一格。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

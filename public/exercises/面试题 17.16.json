@@ -1,0 +1,80 @@
+{
+  "number": "面试题 17.16",
+  "adapter": {
+    "name": "massage",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 17.16"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          2,
+          7,
+          9,
+          3,
+          1
+        ]
+      ],
+      "expected": 12
+    },
+    {
+      "input": [
+        [
+          2,
+          1,
+          4,
+          5,
+          3,
+          1,
+          1,
+          3
+        ]
+      ],
+      "expected": 12
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def massage(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar massage = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int massage(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int massage(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def massage(self, nums: List[int]) -> int:\r\n        f = g = 0\r\n        for x in nums:\r\n            f, g = g + x, max(f, g)\r\n        return max(f, g)\r\n",
+    "javascript": "function massage(nums) {\n    let f = 0, g = 0;\n    for (const x of nums) {\n        const ff = g + x;\n        const gg = Math.max(f, g);\n        f = ff;\n        g = gg;\n    }\n    return Math.max(f, g);\n}\n",
+    "java": "class Solution {\r\n    public int massage(int[] nums) {\r\n        int f = 0, g = 0;\r\n        for (int x : nums) {\r\n            int ff = g + x;\r\n            int gg = Math.max(f, g);\r\n            f = ff;\r\n            g = gg;\r\n        }\r\n        return Math.max(f, g);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int massage(vector<int>& nums) {\r\n        int f = 0, g = 0;\r\n        for (int& x : nums) {\r\n            int ff = g + x;\r\n            int gg = max(f, g);\r\n            f = ff;\r\n            g = gg;\r\n        }\r\n        return max(f, g);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.16.The%20Masseuse/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.16.The%20Masseuse/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.16.The%20Masseuse/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.16.The%20Masseuse/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.16.The%20Masseuse/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：按摩师。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 预约不能相邻，求最长总时长。这与打家劫舍相同；递归选或不选而不记忆会重复。\r \r 到第 $i$ 项时只需「选它（则上一项必拒）」与「拒它」两个状态。\r \r $f$ 为选当前， $g$ 为拒当前：滚动 $f,g = g+x, \\max(f,g)$。答案为二者最大，空间 $O(1)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n预约不能相邻，求最长总时长。这与打家劫舍相同；递归选或不选而不记忆会重复。\r\n\r\n到第 $i$ 项时只需「选它（则上一项必拒）」与「拒它」两个状态。\r\n\r\n$f$ 为选当前， $g$ 为拒当前：滚动 $f,g = g+x, \\max(f,g)$。答案为二者最大，空间 $O(1)$。\r\n\r\n\r\n\r\n我们定义状态 $f[i]$ 表示考虑前 $i$ 个预约，且第 $i$ 个预约被接受的情况下，最长的预约时长；定义状态 $g[i]$ 表示考虑前 $i$ 个预约，且第 $i$ 个预约被拒绝的情况下，最长的预约时长。\r\n\r\n考虑第 $i$ 个预约，如果第 $i$ 个预约被接受，那么第 $i-1$ 个预约一定不能被接受，即 $f[i]=g[i-1]+nums[i]$；如果第 $i$ 个预约被拒绝，那么第 $i-1$ 个预约可以被接受，也可以被拒绝，即 $g[i]=max(f[i-1],g[i-1])$。\r\n\r\n所以，我们可以写出状态转移方程：\r\n\r\n$$\r\n\\begin{aligned}\r\nf[i] &= g[i-1]+nums[i] \\\\\r\ng[i] &= max(f[i-1],g[i-1])\r\n\\end{aligned}\r\n$$\r\n\r\n最终的答案即为 $max(f[n-1],g[n-1])$，其中 $n$ 为预约的数量。\r\n\r\n我们可以将空间复杂度优化至 $O(1)$，即使用两个变量 $f$ 和 $g$ 来代替数组 $f$ 和 $g$。",
+  "memory": "按摩师 → 动态规划。\n**思考**\r\n\r\n预约不能相邻，求最长总时长。这与打家劫舍相同；递归选或不选而不记忆会重复。\r\n\r\n到第 $i$ 项时只需「选它（则上一项必拒）」与「拒它」两个状态。\r\n\r\n$f$ 为选当前， $g$ 为拒当前：滚动 $f,g = g+x, \\max(f,g)$。答案为二者最大，空间 $O(1)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

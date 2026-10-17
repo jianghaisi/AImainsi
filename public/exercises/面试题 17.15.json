@@ -1,0 +1,56 @@
+{
+  "number": "面试题 17.15",
+  "adapter": {
+    "name": "longestWord",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "面试题 17.15"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "cat",
+          "banana",
+          "dog",
+          "nana",
+          "walk",
+          "walker",
+          "dogwalker"
+        ]
+      ],
+      "expected": "dogwalker"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def longestWord(self, words: List[str]) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[]} words\n * @return {string}\n */\nvar longestWord = function(words) {\n    \n};",
+    "java": "class Solution {\n    public String longestWord(String[] words) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string longestWord(vector<string>& words) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def longestWord(self, words: List[str]) -> str:\r\n        def dfs(w: str) -> bool:\r\n            if not w:\r\n                return True\r\n            for k in range(1, len(w) + 1):\r\n                if w[:k] in s and dfs(w[k:]):\r\n                    return True\r\n            return False\r\n\r\n        s = set(words)\r\n        words.sort(key=lambda x: (-len(x), x))\r\n        for w in words:\r\n            s.remove(w)\r\n            if dfs(w):\r\n                return w\r\n        return \"\"\r\n",
+    "javascript": "function longestWord(words) {\n    const s = new Set(words);\n    words.sort((a, b) => (a.length === b.length ? a.localeCompare(b) : b.length - a.length));\n    const dfs = (w) => {\n        if (w === '') {\n            return true;\n        }\n        for (let k = 1; k <= w.length; ++k) {\n            if (s.has(w.substring(0, k)) && dfs(w.substring(k))) {\n                return true;\n            }\n        }\n        return false;\n    };\n    for (const w of words) {\n        s.delete(w);\n        if (dfs(w)) {\n            return w;\n        }\n    }\n    return '';\n}\n",
+    "java": "class Solution {\r\n    private Set<String> s = new HashSet<>();\r\n\r\n    public String longestWord(String[] words) {\r\n        for (String w : words) {\r\n            s.add(w);\r\n        }\r\n        Arrays.sort(words, (a, b) -> {\r\n            if (a.length() != b.length()) {\r\n                return b.length() - a.length();\r\n            }\r\n            return a.compareTo(b);\r\n        });\r\n        for (String w : words) {\r\n            s.remove(w);\r\n            if (dfs(w)) {\r\n                return w;\r\n            }\r\n        }\r\n        return \"\";\r\n    }\r\n\r\n    private boolean dfs(String w) {\r\n        if (w.length() == 0) {\r\n            return true;\r\n        }\r\n        for (int k = 1; k <= w.length(); ++k) {\r\n            if (s.contains(w.substring(0, k)) && dfs(w.substring(k))) {\r\n                return true;\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    string longestWord(vector<string>& words) {\r\n        unordered_set<string> s(words.begin(), words.end());\r\n        ranges::sort(words, [&](const string& a, const string& b) {\r\n            return a.size() > b.size() || (a.size() == b.size() && a < b);\r\n        });\r\n        auto dfs = [&](this auto&& dfs, string w) -> bool {\r\n            if (w.empty()) {\r\n                return true;\r\n            }\r\n            for (int k = 1; k <= w.size(); ++k) {\r\n                if (s.contains(w.substr(0, k)) && dfs(w.substr(k))) {\r\n                    return true;\r\n                }\r\n            }\r\n            return false;\r\n        };\r\n        for (const string& w : words) {\r\n            s.erase(w);\r\n            if (dfs(w)) {\r\n                return w;\r\n            }\r\n        }\r\n        return \"\";\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.15.Longest%20Word/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.15.Longest%20Word/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.15.Longest%20Word/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.15.Longest%20Word/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.15.Longest%20Word/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最长单词。\n输入：words（string[]）。\n训练提示：**思考**\r \r 由词典中其他词（可重复）拼成的最长词，并列取字典序最小。对每个词做完全背包式切分，先处理长词可早停。\r \r 按长度降序、字典序升序排列后，第一个能被拼出的即答案。\r \r 查询前把自身移出集合，以免「用自己拼自己」。 $dfs$ 枚举前缀是否在集合中。找不到则空串。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：哈希表 + 排序 + DFS\r\n\r\n\r\n\r\n思考\r\n\r\n由词典中其他词（可重复）拼成的最长词，并列取字典序最小。对每个词做完全背包式切分，先处理长词可早停。\r\n\r\n按长度降序、字典序升序排列后，第一个能被拼出的即答案。\r\n\r\n查询前把自身移出集合，以免「用自己拼自己」。 $dfs$ 枚举前缀是否在集合中。找不到则空串。\r\n\r\n\r\n\r\n注意，题目中，每个单词实际上允许重复使用。\r\n\r\n我们可以用一个哈希表 $\\textit{s}$ 存储所有单词，然后对单词按照长度降序排序，如果长度相同，按照字典序升序排序。\r\n\r\n接下来，我们遍历排序后的单词列表，对于每个单词 $\\textit{w}$，我们先将其从哈希表 $\\textit{s}$ 中移除，然后使用深度优先搜索 $\\textit{dfs}$ 判断 $\\textit{w}$ 是否可以由其他单词组成，如果可以，返回 $\\textit{w}$。\r\n\r\n函数 $\\textit{dfs}$ 的执行逻辑如下：\r\n\r\n- 如果 $\\textit{w}$ 为空，返回 $\\text{true}$；\r\n- 遍历 $\\textit{w}$ 的所有前缀，如果前缀在哈希表 $\\textit{s}$ 中且 $\\textit{dfs}$ 返回 $\\text{true}$，则返回 $\\text{true}$；\r\n- 如果没有符合条件的前缀，返回 $\\text{false}$。\r\n\r\n如果没有找到符合条件的单词，返回空字符串。\r\n\r\n时间复杂度 $O(m \\times n \\times \\log n + n \\times 2^M)$，空间复杂度 $O(m \\times n)$。其中 $n$ 和 $m$ 分别为单词列表的长度和单词的平均长度，而 $M$ 为最长单词的长度。",
+  "memory": "最长单词 → 哈希表 + 排序 + DFS。\n**思考**\r\n\r\n由词典中其他词（可重复）拼成的最长词，并列取字典序最小。对每个词做完全背包式切分，先处理长词可早停。\r\n\r\n按长度降序、字典序升序排列后，第一个能被拼出的即答案。\r\n\r\n查询前把自身移出集合，以免「用自己拼自己」。 $dfs$ 枚举前缀是否在集合中。找不到则空串。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

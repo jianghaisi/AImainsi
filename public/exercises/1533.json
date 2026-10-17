@@ -1,0 +1,59 @@
+{
+  "number": "1533",
+  "adapter": {
+    "name": "getIndex",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "manual": true,
+    "number": "1533"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          7,
+          7,
+          7,
+          7,
+          10,
+          7,
+          7,
+          7
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          6,
+          6,
+          12
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def getIndex(self, reader: 'ArrayReader') -> int:\n        raise NotImplementedError('请完成此方法')\n"
+  },
+  "solutions": {
+    "python": "# \"\"\"\r\n# This is ArrayReader's API interface.\r\n# You should not implement it, or speculate about its implementation\r\n# \"\"\"\r\n# class ArrayReader(object):\r\n# \t # Compares the sum of arr[l..r] with the sum of arr[x..y]\r\n# \t # return 1 if sum(arr[l..r]) > sum(arr[x..y])\r\n# \t # return 0 if sum(arr[l..r]) == sum(arr[x..y])\r\n# \t # return -1 if sum(arr[l..r]) < sum(arr[x..y])\r\n#    def compareSub(self, l: int, r: int, x: int, y: int) -> int:\r\n#\r\n# \t # Returns the length of the array\r\n#    def length(self) -> int:\r\n#\r\n\r\n\r\nclass Solution:\r\n    def getIndex(self, reader: 'ArrayReader') -> int:\r\n        left, right = 0, reader.length() - 1\r\n        while left < right:\r\n            t1, t2, t3 = (\r\n                left,\r\n                left + (right - left) // 3,\r\n                left + ((right - left) // 3) * 2 + 1,\r\n            )\r\n            cmp = reader.compareSub(t1, t2, t2 + 1, t3)\r\n            if cmp == 0:\r\n                left = t3 + 1\r\n            elif cmp == 1:\r\n                right = t2\r\n            else:\r\n                left, right = t2 + 1, t3\r\n        return left\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1533.Find%20the%20Index%20of%20the%20Large%20Integer/Solution.py"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1533.Find%20the%20Index%20of%20the%20Large%20Integer/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：找到最大整数的索引。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 数组除一个较大值外全相等，只能通过比较两段区间和来定位，且长度可达 $5\\times 10^5$，线性次比较不够，必须对数次缩小范围。\r \r 将当前区间近似三等分：比较左段 $[t_1,t_2]$ 与中段 $[t_2+1,t_3]$。和相等则大数在剩下的右段；左段更大则落在左段；否则落在中段。每次丢掉约三分之一，直至左右端重合。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n数组除一个较大值外全相等，只能通过比较两段区间和来定位，且长度可达 $5\\times 10^5$，线性次比较不够，必须对数次缩小范围。\r\n\r\n将当前区间近似三等分：比较左段 $[t_1,t_2]$ 与中段 $[t_2+1,t_3]$。和相等则大数在剩下的右段；左段更大则落在左段；否则落在中段。每次丢掉约三分之一，直至左右端重合。",
+  "memory": "找到最大整数的索引 → 方法一。\n**思考**\r\n\r\n数组除一个较大值外全相等，只能通过比较两段区间和来定位，且长度可达 $5\\times 10^5$，线性次比较不够，必须对数次缩小范围。\r\n\r\n将当前区间近似三等分：比较左段 $[t_1,t_2]$ 与中段 $[t_2+1,t_3]$。和相等则大数在剩下的右段；左段更大则落在左段；否则落在中段。每次丢掉约三分之一，直至左右端重合。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

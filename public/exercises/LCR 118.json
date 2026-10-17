@@ -1,0 +1,91 @@
+{
+  "number": "LCR 118",
+  "adapter": {
+    "name": "findRedundantConnection",
+    "params": [
+      {
+        "name": "edges",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "LCR 118"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      ],
+      "expected": [
+        2,
+        3
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        4
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int[] findRedundantConnection(int[][] edges) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> findRedundantConnection(vector<vector<int>>& edges) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:\r\n        def find(x):\r\n            if p[x] != x:\r\n                p[x] = find(p[x])\r\n            return p[x]\r\n\r\n        p = list(range(1010))\r\n        for a, b in edges:\r\n            if find(a) == find(b):\r\n                return [a, b]\r\n            p[find(a)] = find(b)\r\n        return []\r\n",
+    "java": "class Solution {\r\n    private int[] p;\r\n\r\n    public int[] findRedundantConnection(int[][] edges) {\r\n        p = new int[1010];\r\n        for (int i = 0; i < p.length; ++i) {\r\n            p[i] = i;\r\n        }\r\n        for (int[] e : edges) {\r\n            int a = e[0], b = e[1];\r\n            if (find(a) == find(b)) {\r\n                return e;\r\n            }\r\n            p[find(a)] = find(b);\r\n        }\r\n        return null;\r\n    }\r\n\r\n    private int find(int x) {\r\n        if (p[x] != x) {\r\n            p[x] = find(p[x]);\r\n        }\r\n        return p[x];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> p;\r\n\r\n    vector<int> findRedundantConnection(vector<vector<int>>& edges) {\r\n        p.resize(1010);\r\n        for (int i = 0; i < p.size(); ++i) p[i] = i;\r\n        for (auto& e : edges) {\r\n            int a = e[0], b = e[1];\r\n            if (find(a) == find(b)) return e;\r\n            p[find(a)] = find(b);\r\n        }\r\n        return {};\r\n    }\r\n\r\n    int find(int x) {\r\n        if (p[x] != x) p[x] = find(p[x]);\r\n        return p[x];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20118.%20%E5%A4%9A%E4%BD%99%E7%9A%84%E8%BE%B9/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20118.%20%E5%A4%9A%E4%BD%99%E7%9A%84%E8%BE%B9/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20118.%20%E5%A4%9A%E4%BD%99%E7%9A%84%E8%BE%B9/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20118.%20%E5%A4%9A%E4%BD%99%E7%9A%84%E8%BE%B9/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：冗余连接。\n输入：edges（integer[][]）。\n训练提示：**思考**\r \r 在本是树的图上多了一条边，要找那条使图出现环的边，且若有多条则取输入中最后出现的。\r \r 按输入顺序把边加入并查集：若两端已在同一集合，这条边就是多余的，直接返回。由于后出现的边更晚检测，自然满足「最后出现」的要求。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n在本是树的图上多了一条边，要找那条使图出现环的边，且若有多条则取输入中最后出现的。\r\n\r\n按输入顺序把边加入并查集：若两端已在同一集合，这条边就是多余的，直接返回。由于后出现的边更晚检测，自然满足「最后出现」的要求。",
+  "memory": "冗余连接 → 方法一。\n**思考**\r\n\r\n在本是树的图上多了一条边，要找那条使图出现环的边，且若有多条则取输入中最后出现的。\r\n\r\n按输入顺序把边加入并查集：若两端已在同一集合，这条边就是多余的，直接返回。由于后出现的边更晚检测，自然满足「最后出现」的要求。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,48 @@
+{
+  "number": "面试题 17.09",
+  "adapter": {
+    "name": "getKthMagicNumber",
+    "params": [
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 17.09"
+  },
+  "tests": [
+    {
+      "input": [
+        5
+      ],
+      "expected": 9
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def getKthMagicNumber(self, k: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} k\n * @return {number}\n */\nvar getKthMagicNumber = function(k) {\n    \n};",
+    "java": "class Solution {\n    public int getKthMagicNumber(int k) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int getKthMagicNumber(int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def getKthMagicNumber(self, k: int) -> int:\r\n        h = [1]\r\n        vis = {1}\r\n        for _ in range(k - 1):\r\n            cur = heappop(h)\r\n            for f in (3, 5, 7):\r\n                if (nxt := cur * f) not in vis:\r\n                    vis.add(nxt)\r\n                    heappush(h, nxt)\r\n        return h[0]\r\n",
+    "javascript": "function getKthMagicNumber(k) {\n    const dp = [1];\n    const index = [0, 0, 0];\n    while (dp.length < k) {\n        const a = dp[index[0]] * 3;\n        const b = dp[index[1]] * 5;\n        const c = dp[index[2]] * 7;\n        const num = Math.min(a, b, c);\n        dp.push(num);\n        if (a === num) {\n            index[0]++;\n        }\n        if (b === num) {\n            index[1]++;\n        }\n        if (c === num) {\n            index[2]++;\n        }\n    }\n    return dp[k - 1];\n}\n",
+    "java": "class Solution {\r\n    private static final int[] FACTORS = new int[] {3, 5, 7};\r\n\r\n    public int getKthMagicNumber(int k) {\r\n        PriorityQueue<Long> q = new PriorityQueue<>();\r\n        Set<Long> vis = new HashSet<>();\r\n        q.offer(1L);\r\n        vis.add(1L);\r\n        while (--k > 0) {\r\n            long cur = q.poll();\r\n            for (int f : FACTORS) {\r\n                long nxt = cur * f;\r\n                if (!vis.contains(nxt)) {\r\n                    q.offer(nxt);\r\n                    vis.add(nxt);\r\n                }\r\n            }\r\n        }\r\n        long ans = q.poll();\r\n        return (int) ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    const vector<int> factors = {3, 5, 7};\r\n\r\n    int getKthMagicNumber(int k) {\r\n        priority_queue<long, vector<long>, greater<long>> q;\r\n        unordered_set<long> vis;\r\n        q.push(1l);\r\n        vis.insert(1l);\r\n        for (int i = 0; i < k - 1; ++i) {\r\n            long cur = q.top();\r\n            q.pop();\r\n            for (int f : factors) {\r\n                long nxt = cur * f;\r\n                if (!vis.count(nxt)) {\r\n                    vis.insert(nxt);\r\n                    q.push(nxt);\r\n                }\r\n            }\r\n        }\r\n        return (int) q.top();\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.09.Get%20Kth%20Magic%20Number/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.09.Get%20Kth%20Magic%20Number/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.09.Get%20Kth%20Magic%20Number/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.09.Get%20Kth%20Magic%20Number/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.09.Get%20Kth%20Magic%20Number/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：第 k 个数。\n输入：k（integer）。\n训练提示：**思考**\r \r 只含因子 $3,5,7$ 的第 $k$ 小正整数。从 $1$ 起乘因子会重复生成，集合去重后若再排序，整体偏慢。\r \r 小根堆弹出当前最小，再乘 $3,5,7$ 投入堆，并用 $vis$ 避免同一乘积入堆两次。\r \r 循环 $k-1$ 次后堆顶即第 $k$ 个数。每个值至多展开三次，代价 $O(k\\log k)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：优先队列（小根堆）\r\n\r\n\r\n\r\n思考\r\n\r\n只含因子 $3,5,7$ 的第 $k$ 小正整数。从 $1$ 起乘因子会重复生成，集合去重后若再排序，整体偏慢。\r\n\r\n小根堆弹出当前最小，再乘 $3,5,7$ 投入堆，并用 $vis$ 避免同一乘积入堆两次。\r\n\r\n循环 $k-1$ 次后堆顶即第 $k$ 个数。每个值至多展开三次，代价 $O(k\\log k)$。\r\n\r\n\r\n\r\n用一个小根堆维护当前最小的数，每次取出最小的数，然后乘以 $3$, $5$, $7$，分别加入堆中，直到取出第 $k$ 个数。\r\n\r\n时间复杂度 $O(k\\times \\log k)$，空间复杂度 $O(k)$。",
+  "memory": "第 k 个数 → 优先队列（小根堆）。\n**思考**\r\n\r\n只含因子 $3,5,7$ 的第 $k$ 小正整数。从 $1$ 起乘因子会重复生成，集合去重后若再排序，整体偏慢。\r\n\r\n小根堆弹出当前最小，再乘 $3,5,7$ 投入堆，并用 $vis$ 避免同一乘积入堆两次。\r\n\r\n循环 $k-1$ 次后堆顶即第 $k$ 个数。每个值至多展开三次，代价 $O(k\\log k)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

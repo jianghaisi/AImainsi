@@ -1,0 +1,74 @@
+{
+  "number": "LCR 060",
+  "adapter": {
+    "name": "topKFrequent",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "LCR 060"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          1,
+          1,
+          2,
+          2,
+          3
+        ],
+        2
+      ],
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def topKFrequent(self, nums: List[int], k: int) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number[]}\n */\nvar topKFrequent = function(nums, k) {\n\n};",
+    "java": "class Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> topKFrequent(vector<int>& nums, int k) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def topKFrequent(self, nums: List[int], k: int) -> List[int]:\r\n        cnt = Counter(nums)\r\n        return [v[0] for v in cnt.most_common(k)]\r\n",
+    "javascript": "function topKFrequent(nums, k) {\n    let hashMap = new Map();\n    for (let num of nums) {\n        hashMap.set(num, (hashMap.get(num) || 0) + 1);\n    }\n    let list = [...hashMap];\n    list.sort((a, b) => b[1] - a[1]);\n    let ans = [];\n    for (let i = 0; i < k; i++) {\n        ans.push(list[i][0]);\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int[] topKFrequent(int[] nums, int k) {\r\n        Map<Integer, Long> frequency = Arrays.stream(nums).boxed().collect(\r\n            Collectors.groupingBy(Function.identity(), Collectors.counting()));\r\n        Queue<Map.Entry<Integer, Long>> queue = new PriorityQueue<>(Map.Entry.comparingByValue());\r\n        for (var entry : frequency.entrySet()) {\r\n            queue.offer(entry);\r\n            if (queue.size() > k) {\r\n                queue.poll();\r\n            }\r\n        }\r\n        return queue.stream().mapToInt(Map.Entry::getKey).toArray();\r\n    }\r\n}",
+    "cpp": "using pii = pair<int, int>;\r\n\r\nclass Solution {\r\npublic:\r\n    vector<int> topKFrequent(vector<int>& nums, int k) {\r\n        unordered_map<int, int> cnt;\r\n        for (int v : nums) ++cnt[v];\r\n        priority_queue<pii, vector<pii>, greater<pii>> pq;\r\n        for (auto& [num, freq] : cnt) {\r\n            pq.push({freq, num});\r\n            if (pq.size() > k) {\r\n                pq.pop();\r\n            }\r\n        }\r\n        vector<int> ans(k);\r\n        for (int i = 0; i < k; ++i) {\r\n            ans[i] = pq.top().second;\r\n            pq.pop();\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20060.%20%E5%87%BA%E7%8E%B0%E9%A2%91%E7%8E%87%E6%9C%80%E9%AB%98%E7%9A%84%20k%20%E4%B8%AA%E6%95%B0%E5%AD%97/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20060.%20%E5%87%BA%E7%8E%B0%E9%A2%91%E7%8E%87%E6%9C%80%E9%AB%98%E7%9A%84%20k%20%E4%B8%AA%E6%95%B0%E5%AD%97/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20060.%20%E5%87%BA%E7%8E%B0%E9%A2%91%E7%8E%87%E6%9C%80%E9%AB%98%E7%9A%84%20k%20%E4%B8%AA%E6%95%B0%E5%AD%97/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20060.%20%E5%87%BA%E7%8E%B0%E9%A2%91%E7%8E%87%E6%9C%80%E9%AB%98%E7%9A%84%20k%20%E4%B8%AA%E6%95%B0%E5%AD%97/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20060.%20%E5%87%BA%E7%8E%B0%E9%A2%91%E7%8E%87%E6%9C%80%E9%AB%98%E7%9A%84%20k%20%E4%B8%AA%E6%95%B0%E5%AD%97/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：前 K 个高频元素。\n输入：nums（integer[]）、k（integer）。\n训练提示：**思考**\r \r 求出现次数最高的 $k$ 个数。全排序后取前 $k$ 个是 $O(n\\log n)$。\r \r 先计数，再取频次最高的 $k$ 项。语言自带的 $\\textit{most\\_common}$ 即按频次选出前 $k$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：哈希表 + 优先队列（小根堆）\r\n\r\n\r\n\r\n思考\r\n\r\n求出现次数最高的 $k$ 个数。全排序后取前 $k$ 个是 $O(n\\log n)$。\r\n\r\n先计数，再取频次最高的 $k$ 项。语言自带的 $\\textit{most\\_common}$ 即按频次选出前 $k$。\r\n\r\n\r\n\r\n使用哈希表统计每个元素出现的次数，然后使用优先队列（小根堆）维护前 $k$ 个出现次数最多的元素。\r\n\r\n时间复杂度 $O(n\\log k)$。",
+  "memory": "前 K 个高频元素 → 哈希表 + 优先队列（小根堆）。\n**思考**\r\n\r\n求出现次数最高的 $k$ 个数。全排序后取前 $k$ 个是 $O(n\\log n)$。\r\n\r\n先计数，再取频次最高的 $k$ 项。语言自带的 $\\textit{most\\_common}$ 即按频次选出前 $k$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

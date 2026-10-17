@@ -1,0 +1,57 @@
+{
+  "number": "1312",
+  "adapter": {
+    "name": "minInsertions",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1312"
+  },
+  "tests": [
+    {
+      "input": [
+        "zzazz"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "mbadm"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "leetcode"
+      ],
+      "expected": 5
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def minInsertions(self, s: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int minInsertions(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minInsertions(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def minInsertions(self, s: str) -> int:\r\n        @cache\r\n        def dfs(i: int, j: int) -> int:\r\n            if i >= j:\r\n                return 0\r\n            if s[i] == s[j]:\r\n                return dfs(i + 1, j - 1)\r\n            return 1 + min(dfs(i + 1, j), dfs(i, j - 1))\r\n\r\n        return dfs(0, len(s) - 1)\r\n",
+    "java": "class Solution {\r\n    private Integer[][] f;\r\n    private String s;\r\n\r\n    public int minInsertions(String s) {\r\n        this.s = s;\r\n        int n = s.length();\r\n        f = new Integer[n][n];\r\n        return dfs(0, n - 1);\r\n    }\r\n\r\n    private int dfs(int i, int j) {\r\n        if (i >= j) {\r\n            return 0;\r\n        }\r\n        if (f[i][j] != null) {\r\n            return f[i][j];\r\n        }\r\n        int ans = 1 << 30;\r\n        if (s.charAt(i) == s.charAt(j)) {\r\n            ans = dfs(i + 1, j - 1);\r\n        } else {\r\n            ans = Math.min(dfs(i + 1, j), dfs(i, j - 1)) + 1;\r\n        }\r\n        return f[i][j] = ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int minInsertions(string s) {\r\n        int n = s.size();\r\n        int f[n][n];\r\n        memset(f, -1, sizeof(f));\r\n        function<int(int, int)> dfs = [&](int i, int j) -> int {\r\n            if (i >= j) {\r\n                return 0;\r\n            }\r\n            if (f[i][j] != -1) {\r\n                return f[i][j];\r\n            }\r\n            int ans = 1 << 30;\r\n            if (s[i] == s[j]) {\r\n                ans = dfs(i + 1, j - 1);\r\n            } else {\r\n                ans = min(dfs(i + 1, j), dfs(i, j - 1)) + 1;\r\n            }\r\n            return f[i][j] = ans;\r\n        };\r\n        return dfs(0, n - 1);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1312.Minimum%20Insertion%20Steps%20to%20Make%20a%20String%20Palindrome/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1312.Minimum%20Insertion%20Steps%20to%20Make%20a%20String%20Palindrome/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1312.Minimum%20Insertion%20Steps%20to%20Make%20a%20String%20Palindrome/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1312.Minimum%20Insertion%20Steps%20to%20Make%20a%20String%20Palindrome/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：让字符串成为回文串的最少插入次数。\n输入：s（string）。\n训练提示：**思考**\r \r 把 $s$ 变成回文的最少插入次数。枚举所有插入方案， $n \\le 500$，状态空间过大。子问题由左右端点决定：若 $s[i]=s[j]$，只需处理开区间；否则在左侧或右侧插入一个与对端相同的字符，取两者较小者再加一。\r \r 区间互相重叠，同一 $(i,j)$ 会被反复问到。记忆化 $dfs(i,j)$ 后每个区间只算一次，复杂度 $O(n^2)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：记忆化搜索\r\n\r\n\r\n\r\n思考\r\n\r\n把 $s$ 变成回文的最少插入次数。枚举所有插入方案， $n \\le 500$，状态空间过大。子问题由左右端点决定：若 $s[i]=s[j]$，只需处理开区间；否则在左侧或右侧插入一个与对端相同的字符，取两者较小者再加一。\r\n\r\n区间互相重叠，同一 $(i,j)$ 会被反复问到。记忆化 $dfs(i,j)$ 后每个区间只算一次，复杂度 $O(n^2)$。\r\n\r\n\r\n\r\n我们设计一个函数 $dfs(i, j)$，表示将字符串 $s[i..j]$ 变成回文串所需要的最少操作次数。那么答案就是 $dfs(0, n - 1)$。\r\n\r\n函数 $dfs(i, j)$ 的计算过程如下：\r\n\r\n如果 $i \\geq j$，此时无需插入任何字符，我们直接返回 $0$。\r\n\r\n否则，我们判断 $s[i]$ 与 $s[j]$ 是否相等，如果 $s[i]=s[j]$，那么我们只需要将 $s[i+1..j-1]$ 变成回文串，那么我们返回 $dfs(i + 1, j - 1)$。否则，我们可以在 $s[i]$ 的左侧或者 $s[j]$ 的右侧插入一个与另一侧相同的字符，那么 $dfs(i, j) = \\min(dfs(i + 1, j), dfs(i, j - 1)) + 1$。\r\n\r\n为了避免重复计算，我们可以使用记忆化搜索，即使用哈希表或者数组来存储已经计算过的函数值。\r\n\r\n最后，我们返回 $dfs(0, n - 1)$ 即可。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n^2)$。其中 $n$ 为字符串 $s$ 的长度。",
+  "memory": "让字符串成为回文串的最少插入次数 → 记忆化搜索。\n**思考**\r\n\r\n把 $s$ 变成回文的最少插入次数。枚举所有插入方案， $n \\le 500$，状态空间过大。子问题由左右端点决定：若 $s[i]=s[j]$，只需处理开区间；否则在左侧或右侧插入一个与对端相同的字符，取两者较小者再加一。\r\n\r\n区间互相重叠，同一 $(i,j)$ 会被反复问到。记忆化 $dfs(i,j)$ 后每个区间只算一次，复杂度 $O(n^2)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

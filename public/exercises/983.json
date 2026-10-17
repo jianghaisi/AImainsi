@@ -1,0 +1,88 @@
+{
+  "number": "983",
+  "adapter": {
+    "name": "mincostTickets",
+    "params": [
+      {
+        "name": "days",
+        "type": "integer[]"
+      },
+      {
+        "name": "costs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "983"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          4,
+          6,
+          7,
+          8,
+          20
+        ],
+        [
+          2,
+          7,
+          15
+        ]
+      ],
+      "expected": 11
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          30,
+          31
+        ],
+        [
+          2,
+          7,
+          15
+        ]
+      ],
+      "expected": 17
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def mincostTickets(self, days: List[int], costs: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} days\n * @param {number[]} costs\n * @return {number}\n */\nvar mincostTickets = function(days, costs) {\n    \n};",
+    "java": "class Solution {\n    public int mincostTickets(int[] days, int[] costs) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int mincostTickets(vector<int>& days, vector<int>& costs) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def mincostTickets(self, days: List[int], costs: List[int]) -> int:\r\n        @cache\r\n        def dfs(i: int) -> int:\r\n            if i >= n:\r\n                return 0\r\n            ans = inf\r\n            for c, v in zip(costs, valid):\r\n                j = bisect_left(days, days[i] + v)\r\n                ans = min(ans, c + dfs(j))\r\n            return ans\r\n\r\n        n = len(days)\r\n        valid = [1, 7, 30]\r\n        return dfs(0)\r\n",
+    "javascript": "function mincostTickets(days, costs) {\n    const n = days.length;\n    const f = Array(n).fill(0);\n    const valid = [1, 7, 30];\n    const search = (x) => {\n        let [l, r] = [0, n];\n        while (l < r) {\n            const mid = (l + r) >> 1;\n            if (days[mid] >= x) {\n                r = mid;\n            }\n            else {\n                l = mid + 1;\n            }\n        }\n        return l;\n    };\n    const dfs = (i) => {\n        if (i >= n) {\n            return 0;\n        }\n        if (f[i]) {\n            return f[i];\n        }\n        f[i] = Infinity;\n        for (let k = 0; k < 3; ++k) {\n            const j = search(days[i] + valid[k]);\n            f[i] = Math.min(f[i], dfs(j) + costs[k]);\n        }\n        return f[i];\n    };\n    return dfs(0);\n}\n",
+    "java": "class Solution {\r\n    private final int[] valid = {1, 7, 30};\r\n    private int[] days;\r\n    private int[] costs;\r\n    private Integer[] f;\r\n    private int n;\r\n\r\n    public int mincostTickets(int[] days, int[] costs) {\r\n        n = days.length;\r\n        f = new Integer[n];\r\n        this.days = days;\r\n        this.costs = costs;\r\n        return dfs(0);\r\n    }\r\n\r\n    private int dfs(int i) {\r\n        if (i >= n) {\r\n            return 0;\r\n        }\r\n        if (f[i] != null) {\r\n            return f[i];\r\n        }\r\n        f[i] = Integer.MAX_VALUE;\r\n        for (int k = 0; k < 3; ++k) {\r\n            int j = Arrays.binarySearch(days, days[i] + valid[k]);\r\n            j = j < 0 ? -j - 1 : j;\r\n            f[i] = Math.min(f[i], dfs(j) + costs[k]);\r\n        }\r\n        return f[i];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int mincostTickets(vector<int>& days, vector<int>& costs) {\r\n        int valid[3] = {1, 7, 30};\r\n        int n = days.size();\r\n        int f[n];\r\n        memset(f, 0, sizeof(f));\r\n        function<int(int)> dfs = [&](int i) {\r\n            if (i >= n) {\r\n                return 0;\r\n            }\r\n            if (f[i]) {\r\n                return f[i];\r\n            }\r\n            f[i] = INT_MAX;\r\n            for (int k = 0; k < 3; ++k) {\r\n                int j = lower_bound(days.begin(), days.end(), days[i] + valid[k]) - days.begin();\r\n                f[i] = min(f[i], dfs(j) + costs[k]);\r\n            }\r\n            return f[i];\r\n        };\r\n        return dfs(0);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0983.Minimum%20Cost%20For%20Tickets/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0983.Minimum%20Cost%20For%20Tickets/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0983.Minimum%20Cost%20For%20Tickets/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0983.Minimum%20Cost%20For%20Tickets/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0983.Minimum%20Cost%20For%20Tickets/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最低票价。\n输入：days（integer[]）、costs（integer[]）。\n训练提示：**思考**\r \r 出行日必须被 $1/7/30$ 日票覆盖，求最少花费。在第 $i$ 次出行买哪种票，下一次未覆盖的出行可用二分定位。 $dfs(i)$ 对三种票取最小，出行次数 $\\le 365$，记忆化即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：记忆化搜索 + 二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n出行日必须被 $1/7/30$ 日票覆盖，求最少花费。在第 $i$ 次出行买哪种票，下一次未覆盖的出行可用二分定位。 $dfs(i)$ 对三种票取最小，出行次数 $\\le 365$，记忆化即可。\r\n\r\n\r\n\r\n我们定义一个函数 $\\textit{dfs(i)}$，表示从第 $i$ 次出行开始到最后一次出行结束所需的最小花费。那么答案为 $\\textit{dfs(0)}$。\r\n\r\n函数 $\\textit{dfs(i)}$ 的执行过程如下：\r\n\r\n- 如果 $i \\geq n$，表示所有出行已经结束，返回 $0$；\r\n- 否则，我们需要考虑三种购买方式，分别是购买 $1$ 天通行证、购买 $7$ 天通行证和购买 $30$ 天通行证。我们分别计算这三种购买方式的花费，并且利用二分查找，找到下一次出行的下标 $j$，然后递归调用 $\\textit{dfs(j)}$，最后返回这三种购买方式的最小花费。\r\n\r\n为了避免重复计算，我们使用记忆化搜索，将已经计算过的结果保存起来。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(n)$。其中 $n$ 表示出行的次数。",
+  "memory": "最低票价 → 记忆化搜索 + 二分查找。\n**思考**\r\n\r\n出行日必须被 $1/7/30$ 日票覆盖，求最少花费。在第 $i$ 次出行买哪种票，下一次未覆盖的出行可用二分定位。 $dfs(i)$ 对三种票取最小，出行次数 $\\le 365$，记忆化即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

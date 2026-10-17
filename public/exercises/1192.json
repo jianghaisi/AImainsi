@@ -1,0 +1,92 @@
+{
+  "number": "1192",
+  "adapter": {
+    "name": "criticalConnections",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      },
+      {
+        "type": "list<list<integer>>",
+        "name": "connections"
+      }
+    ],
+    "return": {
+      "type": "list<list<integer>>"
+    },
+    "number": "1192"
+  },
+  "tests": [
+    {
+      "input": [
+        4,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "input": [
+        2,
+        [
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          1
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @param {number[][]} connections\n * @return {number[][]}\n */\nvar criticalConnections = function(n, connections) {\n    \n};",
+    "java": "class Solution {\n    public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> criticalConnections(int n, vector<vector<int>>& connections) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def criticalConnections(\r\n        self, n: int, connections: List[List[int]]\r\n    ) -> List[List[int]]:\r\n        def tarjan(a: int, fa: int):\r\n            nonlocal now\r\n            now += 1\r\n            dfn[a] = low[a] = now\r\n            for b in g[a]:\r\n                if b == fa:\r\n                    continue\r\n                if not dfn[b]:\r\n                    tarjan(b, a)\r\n                    low[a] = min(low[a], low[b])\r\n                    if low[b] > dfn[a]:\r\n                        ans.append([a, b])\r\n                else:\r\n                    low[a] = min(low[a], dfn[b])\r\n\r\n        g = [[] for _ in range(n)]\r\n        for a, b in connections:\r\n            g[a].append(b)\r\n            g[b].append(a)\r\n\r\n        dfn = [0] * n\r\n        low = [0] * n\r\n        now = 0\r\n        ans = []\r\n        tarjan(0, -1)\r\n        return ans\r\n",
+    "javascript": "function criticalConnections(n, connections) {\n    let now = 0;\n    const g = Array(n)\n        .fill(0)\n        .map(() => []);\n    const dfn = Array(n).fill(0);\n    const low = Array(n).fill(0);\n    for (const [a, b] of connections) {\n        g[a].push(b);\n        g[b].push(a);\n    }\n    const ans = [];\n    const tarjan = (a, fa) => {\n        dfn[a] = low[a] = ++now;\n        for (const b of g[a]) {\n            if (b === fa) {\n                continue;\n            }\n            if (!dfn[b]) {\n                tarjan(b, a);\n                low[a] = Math.min(low[a], low[b]);\n                if (low[b] > dfn[a]) {\n                    ans.push([a, b]);\n                }\n            }\n            else {\n                low[a] = Math.min(low[a], dfn[b]);\n            }\n        }\n    };\n    tarjan(0, -1);\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    private int now;\r\n    private List<Integer>[] g;\r\n    private List<List<Integer>> ans = new ArrayList<>();\r\n    private int[] dfn;\r\n    private int[] low;\r\n\r\n    public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {\r\n        g = new List[n];\r\n        Arrays.setAll(g, k -> new ArrayList<>());\r\n        dfn = new int[n];\r\n        low = new int[n];\r\n        for (var e : connections) {\r\n            int a = e.get(0), b = e.get(1);\r\n            g[a].add(b);\r\n            g[b].add(a);\r\n        }\r\n        tarjan(0, -1);\r\n        return ans;\r\n    }\r\n\r\n    private void tarjan(int a, int fa) {\r\n        dfn[a] = low[a] = ++now;\r\n        for (int b : g[a]) {\r\n            if (b == fa) {\r\n                continue;\r\n            }\r\n            if (dfn[b] == 0) {\r\n                tarjan(b, a);\r\n                low[a] = Math.min(low[a], low[b]);\r\n                if (low[b] > dfn[a]) {\r\n                    ans.add(List.of(a, b));\r\n                }\r\n            } else {\r\n                low[a] = Math.min(low[a], dfn[b]);\r\n            }\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<int>> criticalConnections(int n, vector<vector<int>>& connections) {\r\n        int now = 0;\r\n        vector<int> dfn(n);\r\n        vector<int> low(n);\r\n        vector<int> g[n];\r\n        for (auto& e : connections) {\r\n            int a = e[0], b = e[1];\r\n            g[a].push_back(b);\r\n            g[b].push_back(a);\r\n        }\r\n        vector<vector<int>> ans;\r\n        function<void(int, int)> tarjan = [&](int a, int fa) -> void {\r\n            dfn[a] = low[a] = ++now;\r\n            for (int b : g[a]) {\r\n                if (b == fa) {\r\n                    continue;\r\n                }\r\n                if (!dfn[b]) {\r\n                    tarjan(b, a);\r\n                    low[a] = min(low[a], low[b]);\r\n                    if (low[b] > dfn[a]) {\r\n                        ans.push_back({a, b});\r\n                    }\r\n                } else {\r\n                    low[a] = min(low[a], dfn[b]);\r\n                }\r\n            }\r\n        };\r\n        tarjan(0, -1);\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1192.Critical%20Connections%20in%20a%20Network/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1192.Critical%20Connections%20in%20a%20Network/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1192.Critical%20Connections%20in%20a%20Network/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1192.Critical%20Connections%20in%20a%20Network/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1192.Critical%20Connections%20in%20a%20Network/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：查找集群内的关键连接。\n输入：n（integer）、connections（list<list<integer>>）。\n训练提示：**思考**\r \r 关键连接即桥：删除后连通分量增加。对每条边判断连通性若用并查集或 BFS，边数大时达不到要求。Tarjan 在一次 DFS 中维护发现序 $dfn$ 与最早返祖 $low$，树边满足 $low[v]>dfn[u]$ 时即为桥。无向图需跳过父边，避免把树边误当返祖。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：Tarjan 算法\r\n\r\n\r\n\r\n思考\r\n\r\n关键连接即桥：删除后连通分量增加。对每条边判断连通性若用并查集或 BFS，边数大时达不到要求。Tarjan 在一次 DFS 中维护发现序 $dfn$ 与最早返祖 $low$，树边满足 $low[v]>dfn[u]$ 时即为桥。无向图需跳过父边，避免把树边误当返祖。\r\n\r\n\r\n\r\n此题中的「关键连接」即为「桥」。\r\n\r\n「桥」：在一连通的无向图中，若去除某一边后会使得图不再连通，则这条边可以视作「桥」。\r\n\r\n与之相应的概念还有「割点」。\r\n\r\n「割点」：在一连通的无向图中，若去除某一点及所有与其相连的边后会使得图不再连通，则这个点可以视作「割点」。\r\n\r\n用于求图中的「桥」与「割点」有一算法：tarjan 算法，这个算法使用先递归的访问相邻节点后访问节点自身的 dfs 方法，通过记录「访问的顺序：DFN」以及在递归结束后访问节点自身时探索其可以回溯到的最早被访问的节点来更新「最早可回溯的节点：low」，可以实现在 $O(n)$ 时间内找到图的「桥」与「割点」。同时，此种算法可以用于查找有向图中的强连通分量。",
+  "memory": "查找集群内的关键连接 → Tarjan 算法。\n**思考**\r\n\r\n关键连接即桥：删除后连通分量增加。对每条边判断连通性若用并查集或 BFS，边数大时达不到要求。Tarjan 在一次 DFS 中维护发现序 $dfn$ 与最早返祖 $low$，树边满足 $low[v]>dfn[u]$ 时即为桥。无向图需跳过父边，避免把树边误当返祖。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,86 @@
+{
+  "number": "682",
+  "adapter": {
+    "name": "calPoints",
+    "params": [
+      {
+        "name": "operations",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "682"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "5",
+          "2",
+          "C",
+          "D",
+          "+"
+        ]
+      ],
+      "expected": 30
+    },
+    {
+      "input": [
+        [
+          "5",
+          "-2",
+          "4",
+          "C",
+          "D",
+          "9",
+          "+",
+          "+"
+        ]
+      ],
+      "expected": 27
+    },
+    {
+      "input": [
+        [
+          "1"
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          "1",
+          "C"
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def calPoints(self, operations: List[str]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[]} operations\n * @return {number}\n */\nvar calPoints = function(operations) {\n    \n};",
+    "java": "class Solution {\n    public int calPoints(String[] operations) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int calPoints(vector<string>& operations) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def calPoints(self, operations: List[str]) -> int:\r\n        stk = []\r\n        for op in operations:\r\n            if op == \"+\":\r\n                stk.append(stk[-1] + stk[-2])\r\n            elif op == \"D\":\r\n                stk.append(stk[-1] << 1)\r\n            elif op == \"C\":\r\n                stk.pop()\r\n            else:\r\n                stk.append(int(op))\r\n        return sum(stk)\r\n",
+    "javascript": "function calPoints(operations) {\n    const stk = [];\n    for (const op of operations) {\n        if (op === '+') {\n            stk.push(stk.at(-1) + stk.at(-2));\n        }\n        else if (op === 'D') {\n            stk.push(stk.at(-1) << 1);\n        }\n        else if (op === 'C') {\n            stk.pop();\n        }\n        else {\n            stk.push(+op);\n        }\n    }\n    return stk.reduce((a, b) => a + b, 0);\n}\n",
+    "java": "class Solution {\r\n    public int calPoints(String[] operations) {\r\n        Deque<Integer> stk = new ArrayDeque<>();\r\n        for (String op : operations) {\r\n            if (\"+\".equals(op)) {\r\n                int a = stk.pop();\r\n                int b = stk.peek();\r\n                stk.push(a);\r\n                stk.push(a + b);\r\n            } else if (\"D\".equals(op)) {\r\n                stk.push(stk.peek() << 1);\r\n            } else if (\"C\".equals(op)) {\r\n                stk.pop();\r\n            } else {\r\n                stk.push(Integer.valueOf(op));\r\n            }\r\n        }\r\n        return stk.stream().mapToInt(Integer::intValue).sum();\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int calPoints(vector<string>& operations) {\r\n        vector<int> stk;\r\n        for (auto& op : operations) {\r\n            int n = stk.size();\r\n            if (op == \"+\") {\r\n                stk.push_back(stk[n - 1] + stk[n - 2]);\r\n            } else if (op == \"D\") {\r\n                stk.push_back(stk[n - 1] << 1);\r\n            } else if (op == \"C\") {\r\n                stk.pop_back();\r\n            } else {\r\n                stk.push_back(stoi(op));\r\n            }\r\n        }\r\n        return accumulate(stk.begin(), stk.end(), 0);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0682.Baseball%20Game/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0682.Baseball%20Game/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0682.Baseball%20Game/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0682.Baseball%20Game/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0682.Baseball%20Game/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：棒球比赛。\n输入：operations（string[]）。\n训练提示：**思考**\r \r 操作依赖「上一分」「上两分」或撤销，顺序扫描时必须能取到最近记录。\r \r 栈保存每回合得分：`+` 取栈顶两项之和，`D` 翻倍栈顶，`C` 弹出，数字入栈。最后求和。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：栈 + 模拟\r\n\r\n\r\n\r\n思考\r\n\r\n操作依赖「上一分」「上两分」或撤销，顺序扫描时必须能取到最近记录。\r\n\r\n栈保存每回合得分：`+` 取栈顶两项之和，`D` 翻倍栈顶，`C` 弹出，数字入栈。最后求和。\r\n\r\n\r\n\r\n我们可以使用栈来模拟这个过程。\r\n\r\n遍历 $\\textit{operations}$，对于每个操作：\r\n\r\n- 如果是 `+`，则将栈顶两个元素相加，然后将结果入栈；\r\n- 如果是 `D`，则将栈顶元素的值乘以 2，然后将结果入栈；\r\n- 如果是 `C`，则将栈顶元素出栈；\r\n- 如果是数字，将数字入栈。\r\n\r\n最后，将栈中的所有元素求和即为答案。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为 $\\textit{operations}$ 的长度。",
+  "memory": "棒球比赛 → 栈 + 模拟。\n**思考**\r\n\r\n操作依赖「上一分」「上两分」或撤销，顺序扫描时必须能取到最近记录。\r\n\r\n栈保存每回合得分：`+` 取栈顶两项之和，`D` 翻倍栈顶，`C` 弹出，数字入栈。最后求和。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

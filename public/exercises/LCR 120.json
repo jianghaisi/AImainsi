@@ -1,0 +1,69 @@
+{
+  "number": "LCR 120",
+  "adapter": {
+    "name": "findRepeatDocument",
+    "params": [
+      {
+        "name": "documents",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 120"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          5,
+          3,
+          0,
+          5,
+          0
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        [
+          2,
+          3,
+          1,
+          0,
+          2,
+          5,
+          3
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findRepeatDocument(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} documents\n * @return {number}\n */\nvar findRepeatDocument = function(documents) {\n    \n};",
+    "java": "class Solution {\n    public int findRepeatDocument(int[] documents) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findRepeatDocument(vector<int>& documents) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findRepeatDocument(self, nums: List[int]) -> int:\r\n        for a, b in pairwise(sorted(nums)):\r\n            if a == b:\r\n                return a\r\n",
+    "javascript": "function findRepeatDocument(nums) {\n    for (let i = 0;; ++i) {\n        while (nums[i] != i) {\n            const j = nums[i];\n            if (nums[j] == j) {\n                return j;\n            }\n            [nums[i], nums[j]] = [nums[j], nums[i]];\n        }\n    }\n}\n",
+    "java": "class Solution {\r\n    public int findRepeatDocument(int[] nums) {\r\n        Arrays.sort(nums);\r\n        for (int i = 0;; ++i) {\r\n            if (nums[i] == nums[i + 1]) {\r\n                return nums[i];\r\n            }\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int findRepeatDocument(vector<int>& nums) {\r\n        sort(nums.begin(), nums.end());\r\n        for (int i = 0;; ++i) {\r\n            if (nums[i] == nums[i + 1]) {\r\n                return nums[i];\r\n            }\r\n        }\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9803.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9803.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9803.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9803.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9803.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：寻找文件副本。\n输入：documents（integer[]）。\n训练提示：**思考**\r \r 数字均落在 $0\\sim n-1$，长度 $n\\le 10^5$。两两比较可以找出重复值，但比较次数为平方级，在该规模下偏慢。\r \r 若先排序，相同数字会相邻，只需扫一遍相邻对。因此对 `nums` 排序后用 `pairwise` 比较，一旦相等即可返回。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序\r\n\r\n\r\n\r\n思考\r\n\r\n数字均落在 $0\\sim n-1$，长度 $n\\le 10^5$。两两比较可以找出重复值，但比较次数为平方级，在该规模下偏慢。\r\n\r\n若先排序，相同数字会相邻，只需扫一遍相邻对。因此对 `nums` 排序后用 `pairwise` 比较，一旦相等即可返回。\r\n\r\n\r\n\r\n我们可以先对数组 `nums` 进行排序，然后遍历排序后的数组，判断相邻的两个元素是否相等，如果相等，即找到了一个重复的数字，返回该数字即可。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(\\log n)$。其中 $n$ 是数组 `nums` 的长度。",
+  "memory": "寻找文件副本 → 排序。\n**思考**\r\n\r\n数字均落在 $0\\sim n-1$，长度 $n\\le 10^5$。两两比较可以找出重复值，但比较次数为平方级，在该规模下偏慢。\r\n\r\n若先排序，相同数字会相邻，只需扫一遍相邻对。因此对 `nums` 排序后用 `pairwise` 比较，一旦相等即可返回。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

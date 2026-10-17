@@ -1,0 +1,97 @@
+{
+  "number": "LCR 125",
+  "adapter": {
+    "classname": "CQueue",
+    "maxbytesperline": 200000,
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "name": "appendTail",
+        "params": [
+          {
+            "type": "integer",
+            "name": "value"
+          }
+        ],
+        "return": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "deleteHead",
+        "params": [],
+        "return": {
+          "type": "integer"
+        }
+      }
+    ],
+    "systemdesign": true,
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "LCR 125"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "CQueue",
+          "appendTail",
+          "deleteHead",
+          "deleteHead"
+        ],
+        [
+          [],
+          [
+            3
+          ],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        3,
+        -1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class CQueue:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def appendTail(self, value: int) -> None:\n        raise NotImplementedError('请完成此方法')\n\n    def deleteHead(self) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "\nvar CQueue = function() {\n    \n};\n\n/** \n * @param {number} value\n * @return {void}\n */\nCQueue.prototype.appendTail = function(value) {\n    \n};\n\n/**\n * @return {number}\n */\nCQueue.prototype.deleteHead = function() {\n    \n};\n\n/** \n * Your CQueue object will be instantiated and called as such:\n * var obj = new CQueue()\n * obj.appendTail(value)\n * var param_2 = obj.deleteHead()\n */",
+    "java": "class CQueue {\n\n    public CQueue() {\n        \n    }\n    \n    public void appendTail(int value) {\n        \n    }\n    \n    public int deleteHead() {\n        \n    }\n}\n\n/**\n * Your CQueue object will be instantiated and called as such:\n * CQueue obj = new CQueue();\n * obj.appendTail(value);\n * int param_2 = obj.deleteHead();\n */",
+    "cpp": "class CQueue {\npublic:\n    CQueue() {\n        \n    }\n    \n    void appendTail(int value) {\n        \n    }\n    \n    int deleteHead() {\n        \n    }\n};\n\n/**\n * Your CQueue object will be instantiated and called as such:\n * CQueue* obj = new CQueue();\n * obj->appendTail(value);\n * int param_2 = obj->deleteHead();\n */"
+  },
+  "solutions": {
+    "python": "class CQueue:\r\n    def __init__(self):\r\n        self.stk1 = []\r\n        self.stk2 = []\r\n\r\n    def appendTail(self, value: int) -> None:\r\n        self.stk1.append(value)\r\n\r\n    def deleteHead(self) -> int:\r\n        if not self.stk2:\r\n            while self.stk1:\r\n                self.stk2.append(self.stk1.pop())\r\n        return -1 if not self.stk2 else self.stk2.pop()\r\n\r\n\r\n# Your CQueue object will be instantiated and called as such:\r\n# obj = CQueue()\r\n# obj.appendTail(value)\r\n# param_2 = obj.deleteHead()\r\n",
+    "javascript": "class CQueue {\n    stk1;\n    stk2;\n    constructor() {\n        this.stk1 = [];\n        this.stk2 = [];\n    }\n    appendTail(value) {\n        this.stk1.push(value);\n    }\n    deleteHead() {\n        if (this.stk2.length == 0) {\n            while (this.stk1.length) {\n                this.stk2.push(this.stk1.pop());\n            }\n        }\n        return this.stk2.length == 0 ? -1 : this.stk2.pop();\n    }\n}\n/**\n * Your CQueue object will be instantiated and called as such:\n * var obj = new CQueue()\n * obj.appendTail(value)\n * var param_2 = obj.deleteHead()\n */\n",
+    "java": "class CQueue {\r\n    private Deque<Integer> stk1 = new ArrayDeque<>();\r\n    private Deque<Integer> stk2 = new ArrayDeque<>();\r\n\r\n    public CQueue() {\r\n    }\r\n\r\n    public void appendTail(int value) {\r\n        stk1.push(value);\r\n    }\r\n\r\n    public int deleteHead() {\r\n        if (stk2.isEmpty()) {\r\n            while (!stk1.isEmpty()) {\r\n                stk2.push(stk1.pop());\r\n            }\r\n        }\r\n        return stk2.isEmpty() ? -1 : stk2.pop();\r\n    }\r\n}\r\n\r\n/**\r\n * Your CQueue object will be instantiated and called as such:\r\n * CQueue obj = new CQueue();\r\n * obj.appendTail(value);\r\n * int param_2 = obj.deleteHead();\r\n */",
+    "cpp": "class CQueue {\r\npublic:\r\n    CQueue() {\r\n    }\r\n\r\n    void appendTail(int value) {\r\n        stk1.push(value);\r\n    }\r\n\r\n    int deleteHead() {\r\n        if (stk2.empty()) {\r\n            while (!stk1.empty()) {\r\n                stk2.push(stk1.top());\r\n                stk1.pop();\r\n            }\r\n        }\r\n        if (stk2.empty()) {\r\n            return -1;\r\n        }\r\n        int ans = stk2.top();\r\n        stk2.pop();\r\n        return ans;\r\n    }\r\n\r\nprivate:\r\n    stack<int> stk1, stk2;\r\n};\r\n\r\n/**\r\n * Your CQueue object will be instantiated and called as such:\r\n * CQueue* obj = new CQueue();\r\n * obj->appendTail(value);\r\n * int param_2 = obj->deleteHead();\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9809.%20%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9809.%20%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9809.%20%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9809.%20%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9809.%20%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：图书整理 II。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 栈只能后进先出，队列要先进先出。单个栈无法同时满足两端操作，需要第二个栈把顺序反过来。\r \r `stk1` 收尾部入队；出队时若 `stk2` 为空，则把 `stk1` 倒入 `stk2`，栈顶即队头。每个元素至多进出两次。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双栈\r\n\r\n\r\n\r\n思考\r\n\r\n栈只能后进先出，队列要先进先出。单个栈无法同时满足两端操作，需要第二个栈把顺序反过来。\r\n\r\n`stk1` 收尾部入队；出队时若 `stk2` 为空，则把 `stk1` 倒入 `stk2`，栈顶即队头。每个元素至多进出两次。\r\n\r\n\r\n\r\n我们可以使用两个栈来实现队列，其中一个栈 `stk1` 用来存储输入的元素，另一个栈 `stk2` 用来输出元素。\r\n\r\n当调用 `appendTail()` 方法时，我们将元素压入 `stk1` 中。\r\n\r\n当调用 `deleteHead()` 方法时，如果此时栈 `stk2` 为空，我们将栈 `stk1` 中的元素逐个弹出并压入栈 `stk2` 中，然后弹出栈 `stk2` 的栈顶元素即可。如果此时栈 `stk2` 不为空，我们直接弹出栈 `stk2` 的栈顶元素即可。如果两个栈都为空，说明队列中没有元素，返回 `-1`。\r\n\r\n时间复杂度上，对于 `appendTail()` 方法，时间复杂度为 $O(1)$；对于 `deleteHead()` 方法，时间复杂度为 $O(n)$；空间复杂度为 $O(n)$。其中 $n$ 为队列中的元素个数。",
+  "memory": "图书整理 II → 双栈。\n**思考**\r\n\r\n栈只能后进先出，队列要先进先出。单个栈无法同时满足两端操作，需要第二个栈把顺序反过来。\r\n\r\n`stk1` 收尾部入队；出队时若 `stk2` 为空，则把 `stk1` 倒入 `stk2`，栈顶即队头。每个元素至多进出两次。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

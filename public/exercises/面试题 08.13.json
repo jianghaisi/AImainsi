@@ -1,0 +1,91 @@
+{
+  "number": "面试题 08.13",
+  "adapter": {
+    "name": "pileBox",
+    "params": [
+      {
+        "name": "box",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 08.13"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            2,
+            2,
+            2
+          ],
+          [
+            3,
+            3,
+            3
+          ]
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            2,
+            3,
+            4
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            3,
+            4,
+            5
+          ]
+        ]
+      ],
+      "expected": 10
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def pileBox(self, box: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} box\n * @return {number}\n */\nvar pileBox = function(box) {\n    \n};",
+    "java": "class Solution {\n    public int pileBox(int[][] box) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int pileBox(vector<vector<int>>& box) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def pileBox(self, box: List[List[int]]) -> int:\r\n        box.sort(key=lambda x: (x[0], -x[1]))\r\n        n = len(box)\r\n        f = [0] * n\r\n        for i in range(n):\r\n            for j in range(i):\r\n                if box[j][1] < box[i][1] and box[j][2] < box[i][2]:\r\n                    f[i] = max(f[i], f[j])\r\n            f[i] += box[i][2]\r\n        return max(f)\r\n",
+    "javascript": "function pileBox(box) {\n    box.sort((a, b) => (a[0] === b[0] ? b[1] - a[1] : a[0] - b[0]));\n    const n = box.length;\n    const f = new Array(n).fill(0);\n    let ans = 0;\n    for (let i = 0; i < n; ++i) {\n        for (let j = 0; j < i; ++j) {\n            if (box[j][1] < box[i][1] && box[j][2] < box[i][2]) {\n                f[i] = Math.max(f[i], f[j]);\n            }\n        }\n        f[i] += box[i][2];\n        ans = Math.max(ans, f[i]);\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int pileBox(int[][] box) {\r\n        Arrays.sort(box, (a, b) -> a[0] == b[0] ? b[1] - a[1] : a[0] - b[0]);\r\n        int n = box.length;\r\n        int[] f = new int[n];\r\n        int ans = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j = 0; j < i; ++j) {\r\n                if (box[j][1] < box[i][1] && box[j][2] < box[i][2]) {\r\n                    f[i] = Math.max(f[i], f[j]);\r\n                }\r\n            }\r\n            f[i] += box[i][2];\r\n            ans = Math.max(ans, f[i]);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int pileBox(vector<vector<int>>& box) {\r\n        sort(box.begin(), box.end(), [](const vector<int>& a, const vector<int>& b) {\r\n            return a[0] < b[0] || (a[0] == b[0] && b[1] < a[1]);\r\n        });\r\n        int n = box.size();\r\n        int f[n];\r\n        memset(f, 0, sizeof(f));\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j = 0; j < i; ++j) {\r\n                if (box[j][1] < box[i][1] && box[j][2] < box[i][2]) {\r\n                    f[i] = max(f[i], f[j]);\r\n                }\r\n            }\r\n            f[i] += box[i][2];\r\n        }\r\n        return *max_element(f, f + n);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.13.Pile%20Box/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.13.Pile%20Box/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.13.Pile%20Box/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.13.Pile%20Box/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.13.Pile%20Box/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：堆箱子。\n输入：box（integer[][]）。\n训练提示：**思考**\r \r 箱子须在长宽高上都严格更小才能叠上，求最大高度。搜索所有叠放顺序是阶乘级。\r \r 先按宽度排序后，问题接近「三维严格递增的最长链」，可用 $O(n^2)$ 的 LIS 式 DP。宽相同则深度降序，避免宽相等却被当成可叠。\r \r $f[i]$ 为以 $i$ 为底的最大高度，枚举 $j<i$ 且深、高都更小的箱子转移，再加上 $box[i]$ 的高。答案为 $f$ 的最大值。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序 + 动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n箱子须在长宽高上都严格更小才能叠上，求最大高度。搜索所有叠放顺序是阶乘级。\r\n\r\n先按宽度排序后，问题接近「三维严格递增的最长链」，可用 $O(n^2)$ 的 LIS 式 DP。宽相同则深度降序，避免宽相等却被当成可叠。\r\n\r\n$f[i]$ 为以 $i$ 为底的最大高度，枚举 $j<i$ 且深、高都更小的箱子转移，再加上 $box[i]$ 的高。答案为 $f$ 的最大值。\r\n\r\n\r\n\r\n我们先将箱子按照宽度升序、深度降序的顺序进行排序，然后使用动态规划求解。\r\n\r\n定义 $f[i]$ 表示以第 $i$ 个箱子为底部的最大高度。对于 $f[i]$，我们枚举 $j \\in [0, i)$，如果 $box[j][1] \\lt box[i][1]$ 且 $box[j][2] \\lt box[i][2]$，那么我们可以将第 $j$ 个箱子放在第 $i$ 个箱子上面，此时 $f[i] = \\max\\{f[i], f[j]\\}$。最后我们将 $f[i]$ 加上第 $i$ 个箱子的高度，即可得到 $f[i]$ 的最终值。\r\n\r\n答案为 $f$ 中的最大值。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n)$。其中 $n$ 是箱子的数目。",
+  "memory": "堆箱子 → 排序 + 动态规划。\n**思考**\r\n\r\n箱子须在长宽高上都严格更小才能叠上，求最大高度。搜索所有叠放顺序是阶乘级。\r\n\r\n先按宽度排序后，问题接近「三维严格递增的最长链」，可用 $O(n^2)$ 的 LIS 式 DP。宽相同则深度降序，避免宽相等却被当成可叠。\r\n\r\n$f[i]$ 为以 $i$ 为底的最大高度，枚举 $j<i$ 且深、高都更小的箱子转移，再加上 $box[i]$ 的高。答案为 $f$ 的最大值。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

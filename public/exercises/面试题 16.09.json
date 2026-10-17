@@ -1,0 +1,129 @@
+{
+  "number": "面试题 16.09",
+  "adapter": {
+    "classname": "Operations",
+    "maxbytesperline": 200000,
+    "systemdesign": true,
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "name": "minus",
+        "params": [
+          {
+            "name": "a",
+            "type": "integer"
+          },
+          {
+            "name": "b",
+            "type": "integer"
+          }
+        ],
+        "return": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "multiply",
+        "params": [
+          {
+            "name": "a",
+            "type": "integer"
+          },
+          {
+            "name": "b",
+            "type": "integer"
+          }
+        ],
+        "return": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "divide",
+        "params": [
+          {
+            "name": "a",
+            "type": "integer"
+          },
+          {
+            "name": "b",
+            "type": "integer"
+          }
+        ],
+        "return": {
+          "type": "integer"
+        }
+      }
+    ],
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "面试题 16.09"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "Operations",
+          "minus",
+          "multiply",
+          "divide",
+          "divide"
+        ],
+        [
+          [],
+          [
+            5,
+            7
+          ],
+          [
+            -3,
+            4
+          ],
+          [
+            13,
+            -3
+          ],
+          [
+            -13,
+            3
+          ]
+        ]
+      ],
+      "expected": [
+        null,
+        -2,
+        -12,
+        -4,
+        -4
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Operations:\n\n    def minus(self, a, b):\n        raise NotImplementedError('请完成此方法')\n\n    def multiply(self, a, b):\n        raise NotImplementedError('请完成此方法')\n\n    def divide(self, a, b):\n        raise NotImplementedError('请完成此方法')\n"
+  },
+  "solutions": {
+    "python": "class Operations:\n    def negate(self,a):\n        step=-1 if a>0 else 1;result=0\n        while a!=0:\n            delta=step\n            while (a>0 and a+delta+delta>=0) or (a<0 and a+delta+delta<=0):delta+=delta\n            a+=delta;result+=delta\n        return result\n    def minus(self,a,b):return a+self.negate(b)\n    def multiply(self,a,b):\n        negative=b<0\n        if negative:b=self.negate(b)\n        chunks=[];count=1;value=a\n        while count<=b:chunks.append((count,value));count+=count;value+=value\n        result=0\n        for count,value in reversed(chunks):\n            if count<=b:b=self.minus(b,count);result+=value\n        return self.negate(result) if negative else result\n    def divide(self,a,b):\n        if b==0:raise ValueError(\"division by zero\")\n        negative=(a<0)!=(b<0)\n        if a<0:a=self.negate(a)\n        if b<0:b=self.negate(b)\n        chunks=[];count=1;value=b\n        while value<=a:chunks.append((value,count));value+=value;count+=count\n        result=0\n        for value,count in reversed(chunks):\n            if value<=a:a=self.minus(a,value);result+=count\n        return self.negate(result) if negative else result\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideLicense": "MIT",
+  "description": "设计 Operations 类，实现 minus(a,b)、multiply(a,b)、divide(a,b)。只能用加法完成数值运算，不使用减、乘、除、取模或位运算；允许比较、分支、循环和整数常量。除法向零截断，除数非零。",
+  "explanation": "先实现取相反数：以 ±1 为步长，通过倍增加速把数值移到零，累计的步长就是相反数。减法转为加相反数。乘法保存倍增的次数与数值，再从大到小选取；除法保存倍增的除数，从大到小试减并累加商。符号独立处理，最后恢复。",
+  "memory": "先解决取负，再复用减法；乘法选倍数，除法减倍数。倍增也用 x+x。检查 -13/3=-4、13/-3=-4，避免语言的向下取整规则混入题意。"
+}

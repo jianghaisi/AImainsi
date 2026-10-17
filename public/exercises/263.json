@@ -1,0 +1,57 @@
+{
+  "number": "263",
+  "adapter": {
+    "name": "isUgly",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "263"
+  },
+  "tests": [
+    {
+      "input": [
+        6
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        1
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        14
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def isUgly(self, n: int) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public boolean isUgly(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isUgly(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def isUgly(self, n: int) -> bool:\r\n        if n < 1:\r\n            return False\r\n        for x in [2, 3, 5]:\r\n            while n % x == 0:\r\n                n //= x\r\n        return n == 1\r\n",
+    "java": "class Solution {\r\n    public boolean isUgly(int n) {\r\n        if (n < 1) return false;\r\n        while (n % 2 == 0) {\r\n            n /= 2;\r\n        }\r\n        while (n % 3 == 0) {\r\n            n /= 3;\r\n        }\r\n        while (n % 5 == 0) {\r\n            n /= 5;\r\n        }\r\n        return n == 1;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool isUgly(int n) {\r\n        if (n < 1) return false;\r\n        while (n % 2 == 0) {\r\n            n /= 2;\r\n        }\r\n        while (n % 3 == 0) {\r\n            n /= 3;\r\n        }\r\n        while (n % 5 == 0) {\r\n            n /= 5;\r\n        }\r\n        return n == 1;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0263.Ugly%20Number/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0263.Ugly%20Number/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0263.Ugly%20Number/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0263.Ugly%20Number/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：丑数。\n输入：n（integer）。\n训练提示：**思考**\r \r 丑数的质因子只能是 $2,3,5$。非正数直接否决；否则不断除掉这三个因子，最后剩 $1$ 则为丑数。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n丑数的质因子只能是 $2,3,5$。非正数直接否决；否则不断除掉这三个因子，最后剩 $1$ 则为丑数。",
+  "memory": "丑数 → 方法一。\n**思考**\r\n\r\n丑数的质因子只能是 $2,3,5$。非正数直接否决；否则不断除掉这三个因子，最后剩 $1$ 则为丑数。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

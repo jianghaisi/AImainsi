@@ -1,0 +1,111 @@
+{
+  "number": "1372",
+  "adapter": {
+    "name": "longestZigZag",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1372"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          1
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        [
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1
+        ]
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def longestZigZag(self, root: TreeNode) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public int longestZigZag(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int longestZigZag(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, val=0, left=None, right=None):\r\n#         self.val = val\r\n#         self.left = left\r\n#         self.right = right\r\nclass Solution:\r\n    def longestZigZag(self, root: TreeNode) -> int:\r\n        def dfs(root, l, r):\r\n            if root is None:\r\n                return\r\n            nonlocal ans\r\n            ans = max(ans, l, r)\r\n            dfs(root.left, r + 1, 0)\r\n            dfs(root.right, 0, l + 1)\r\n\r\n        ans = 0\r\n        dfs(root, 0, 0)\r\n        return ans\r\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode() {}\r\n *     TreeNode(int val) { this.val = val; }\r\n *     TreeNode(int val, TreeNode left, TreeNode right) {\r\n *         this.val = val;\r\n *         this.left = left;\r\n *         this.right = right;\r\n *     }\r\n * }\r\n */\r\nclass Solution {\r\n    private int ans;\r\n\r\n    public int longestZigZag(TreeNode root) {\r\n        dfs(root, 0, 0);\r\n        return ans;\r\n    }\r\n\r\n    private void dfs(TreeNode root, int l, int r) {\r\n        if (root == null) {\r\n            return;\r\n        }\r\n        ans = Math.max(ans, Math.max(l, r));\r\n        dfs(root.left, r + 1, 0);\r\n        dfs(root.right, 0, l + 1);\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    int ans = 0;\r\n\r\n    int longestZigZag(TreeNode* root) {\r\n        dfs(root, 0, 0);\r\n        return ans;\r\n    }\r\n\r\n    void dfs(TreeNode* root, int l, int r) {\r\n        if (!root) return;\r\n        ans = max(ans, max(l, r));\r\n        dfs(root->left, r + 1, 0);\r\n        dfs(root->right, 0, l + 1);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1372.Longest%20ZigZag%20Path%20in%20a%20Binary%20Tree/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1372.Longest%20ZigZag%20Path%20in%20a%20Binary%20Tree/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1372.Longest%20ZigZag%20Path%20in%20a%20Binary%20Tree/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1372.Longest%20ZigZag%20Path%20in%20a%20Binary%20Tree/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：二叉树中的最长交错路径。\n输入：root（TreeNode）。\n训练提示：**思考**\r \r 之字形路径须左右交替下降。从每个节点、每种方向重新搜索会重复子树。DFS 时携带「若下一步向左/向右，当前已有的交错长度」： $l$ 表示到达本节点时最后一步向左的长度， $r$ 同理向右。进入左孩子时新的向左长度是 $r+1$，向右长度清零；右孩子对称。全程维护最大值。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS\r\n\r\n\r\n\r\n思考\r\n\r\n之字形路径须左右交替下降。从每个节点、每种方向重新搜索会重复子树。DFS 时携带「若下一步向左/向右，当前已有的交错长度」： $l$ 表示到达本节点时最后一步向左的长度， $r$ 同理向右。进入左孩子时新的向左长度是 $r+1$，向右长度清零；右孩子对称。全程维护最大值。\r\n\r\n\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 是树中节点的个数。",
+  "memory": "二叉树中的最长交错路径 → DFS。\n**思考**\r\n\r\n之字形路径须左右交替下降。从每个节点、每种方向重新搜索会重复子树。DFS 时携带「若下一步向左/向右，当前已有的交错长度」： $l$ 表示到达本节点时最后一步向左的长度， $r$ 同理向右。进入左孩子时新的向左长度是 $r+1$，向右长度清零；右孩子对称。全程维护最大值。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,48 @@
+{
+  "number": "面试题 05.07",
+  "adapter": {
+    "name": "exchangeBits",
+    "params": [
+      {
+        "name": "num",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 05.07"
+  },
+  "tests": [
+    {
+      "input": [
+        3
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def exchangeBits(self, num: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} num\n * @return {number}\n */\nvar exchangeBits = function(num) {\n    \n};",
+    "java": "class Solution {\n    public int exchangeBits(int num) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int exchangeBits(int num) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def exchangeBits(self, num: int) -> int:\r\n        return ((num & 0x55555555) << 1) | ((num & 0xAAAAAAAA) >> 1)\r\n",
+    "javascript": "function exchangeBits(num) {\n    return ((num & 0x55555555) << 1) | ((num & 0xaaaaaaaa) >>> 1);\n}\n",
+    "java": "class Solution {\r\n    public int exchangeBits(int num) {\r\n        return ((num & 0x55555555) << 1) | ((num & 0xaaaaaaaa)) >> 1;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int exchangeBits(int num) {\r\n        return ((num & 0x55555555) << 1) | ((num & 0xaaaaaaaa)) >> 1;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.07.Exchange/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.07.Exchange/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.07.Exchange/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.07.Exchange/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.07.Exchange/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：配对交换。\n输入：num（integer）。\n训练提示：**思考**\r \r 要交换相邻奇偶位。循环里每次抽两位交换，需要约 $16$ 轮。\r \r 全部偶数位、奇数位可以一次用掩码取出，再整体错位拼回。\r \r $0x55555555$ 取出偶数位后左移， $0xAAAAAAAA$ 取出奇数位后右移，最后按位或。常数次运算，无循环。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：位运算\r\n\r\n\r\n\r\n思考\r\n\r\n要交换相邻奇偶位。循环里每次抽两位交换，需要约 $16$ 轮。\r\n\r\n全部偶数位、奇数位可以一次用掩码取出，再整体错位拼回。\r\n\r\n$0x55555555$ 取出偶数位后左移， $0xAAAAAAAA$ 取出奇数位后右移，最后按位或。常数次运算，无循环。\r\n\r\n\r\n\r\n我们可以将 $\\textit{num}$ 与 $\\textit{0x55555555}$ 进行与运算，得到的结果是 $\\textit{num}$ 的偶数位，然后将其左移一位。再将 $\\textit{num}$ 与 $\\textit{0xaaaaaaaa}$ 进行与运算，得到的结果是 $\\textit{num}$ 的奇数位，然后将其右移一位。最后将两个结果进行或运算，即可得到答案。\r\n\r\n时间复杂度 $O(1)$，空间复杂度 $O(1)$。",
+  "memory": "配对交换 → 位运算。\n**思考**\r\n\r\n要交换相邻奇偶位。循环里每次抽两位交换，需要约 $16$ 轮。\r\n\r\n全部偶数位、奇数位可以一次用掩码取出，再整体错位拼回。\r\n\r\n$0x55555555$ 取出偶数位后左移， $0xAAAAAAAA$ 取出奇数位后右移，最后按位或。常数次运算，无循环。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

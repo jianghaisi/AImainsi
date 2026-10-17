@@ -1,0 +1,76 @@
+{
+  "number": "LCR 091",
+  "adapter": {
+    "name": "minCost",
+    "params": [
+      {
+        "name": "costs",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 091"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            17,
+            2,
+            17
+          ],
+          [
+            16,
+            16,
+            5
+          ],
+          [
+            14,
+            3,
+            19
+          ]
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        [
+          [
+            7,
+            6,
+            2
+          ]
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def minCost(self, costs: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} costs\n * @return {number}\n */\nvar minCost = function(costs) {\n\n};",
+    "java": "class Solution {\n    public int minCost(int[][] costs) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minCost(vector<vector<int>>& costs) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def minCost(self, costs: List[List[int]]) -> int:\r\n        r, g, b = 0, 0, 0\r\n        for cost in costs:\r\n            _r, _g, _b = r, g, b\r\n            r = min(_g, _b) + cost[0]\r\n            g = min(_r, _b) + cost[1]\r\n            b = min(_r, _g) + cost[2]\r\n        return min(r, g, b)\r\n",
+    "javascript": "function minCost(costs) {\n    let [r, g, b] = [0, 0, 0];\n    for (const [_r, _g, _b] of costs) {\n        [r, g, b] = [_r + Math.min(g, b), _g + Math.min(r, b), _b + Math.min(r, g)];\n    }\n    return Math.min(r, g, b);\n}\n",
+    "java": "class Solution {\r\n    public int minCost(int[][] costs) {\r\n        int r = 0, g = 0, b = 0;\r\n        for (int[] cost : costs) {\r\n            int _r = r, _g = g, _b = b;\r\n            r = Math.min(_g, _b) + cost[0];\r\n            g = Math.min(_r, _b) + cost[1];\r\n            b = Math.min(_r, _g) + cost[2];\r\n        }\r\n        return Math.min(r, Math.min(g, b));\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int minCost(vector<vector<int>>& costs) {\r\n        int r = 0, g = 0, b = 0;\r\n        for (auto& cost : costs) {\r\n            int _r = r, _g = g, _b = b;\r\n            r = min(_g, _b) + cost[0];\r\n            g = min(_r, _b) + cost[1];\r\n            b = min(_r, _g) + cost[2];\r\n        }\r\n        return min(r, min(g, b));\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20091.%20%E7%B2%89%E5%88%B7%E6%88%BF%E5%AD%90/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20091.%20%E7%B2%89%E5%88%B7%E6%88%BF%E5%AD%90/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20091.%20%E7%B2%89%E5%88%B7%E6%88%BF%E5%AD%90/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20091.%20%E7%B2%89%E5%88%B7%E6%88%BF%E5%AD%90/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20091.%20%E7%B2%89%E5%88%B7%E6%88%BF%E5%AD%90/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：粉刷房子。\n输入：costs（integer[][]）。\n训练提示：**思考**\r \r 相邻房屋颜色不同，求最小总费用。若对每间枚举颜色再递归，会重复计算同一前缀。\r \r 刷到当前房屋某色的最小费用，等于上一间另外两色的较小者加上本色费用。三个变量滚动即可记下上一间的三种颜色。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n相邻房屋颜色不同，求最小总费用。若对每间枚举颜色再递归，会重复计算同一前缀。\r\n\r\n刷到当前房屋某色的最小费用，等于上一间另外两色的较小者加上本色费用。三个变量滚动即可记下上一间的三种颜色。",
+  "memory": "粉刷房子 → 方法一。\n**思考**\r\n\r\n相邻房屋颜色不同，求最小总费用。若对每间枚举颜色再递归，会重复计算同一前缀。\r\n\r\n刷到当前房屋某色的最小费用，等于上一间另外两色的较小者加上本色费用。三个变量滚动即可记下上一间的三种颜色。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

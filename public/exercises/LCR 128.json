@@ -1,0 +1,87 @@
+{
+  "number": "LCR 128",
+  "adapter": {
+    "name": "inventoryManagement",
+    "params": [
+      {
+        "name": "stock",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 128"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          4,
+          5,
+          8,
+          3,
+          4
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          5,
+          7,
+          9,
+          1,
+          2
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          3,
+          4,
+          5,
+          1,
+          2
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          2,
+          2,
+          2,
+          0,
+          1
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def inventoryManagement(self, numbers: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int inventoryManagement(int[] stock) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int inventoryManagement(vector<int>& stock) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def inventoryManagement(self, numbers: List[int]) -> int:\r\n        l, r = 0, len(numbers) - 1\r\n        while l < r:\r\n            m = (l + r) >> 1\r\n            if numbers[m] > numbers[r]:\r\n                l = m + 1\r\n            elif numbers[m] < numbers[r]:\r\n                r = m\r\n            else:\r\n                r -= 1\r\n        return numbers[l]\r\n",
+    "java": "class Solution {\r\n    public int inventoryManagement(int[] numbers) {\r\n        int l = 0, r = numbers.length - 1;\r\n        while (l < r) {\r\n            int m = (l + r) >>> 1;\r\n            if (numbers[m] > numbers[r]) {\r\n                l = m + 1;\r\n            } else if (numbers[m] < numbers[r]) {\r\n                r = m;\r\n            } else {\r\n                --r;\r\n            }\r\n        }\r\n        return numbers[l];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int inventoryManagement(vector<int>& numbers) {\r\n        int l = 0, r = numbers.size() - 1;\r\n        while (l < r) {\r\n            int mid = (l + r) >> 1;\r\n            if (numbers[mid] > numbers[r]) {\r\n                l = mid + 1;\r\n            } else if (numbers[mid] < numbers[r]) {\r\n                r = mid;\r\n            } else {\r\n                --r;\r\n            }\r\n        }\r\n        return numbers[l];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9811.%20%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9811.%20%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9811.%20%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9811.%20%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：库存管理 I。\n输入：stock（integer[]）。\n训练提示：**思考**\r \r 旋转后的数组可看成两段递增，线性扫一遍能找到最小值，但未利用半有序。无重复时可对半判断哪段有序；存在重复时，中点与右端相等则无法判定。\r \r 与右端比较：中点更大则最小在右半；更小则最小在中点或左侧；相等则右端可丢。收缩至 $l$ 与 $r$ 重合。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n旋转后的数组可看成两段递增，线性扫一遍能找到最小值，但未利用半有序。无重复时可对半判断哪段有序；存在重复时，中点与右端相等则无法判定。\r\n\r\n与右端比较：中点更大则最小在右半；更小则最小在中点或左侧；相等则右端可丢。收缩至 $l$ 与 $r$ 重合。\r\n\r\n\r\n\r\n二分查找的变种，需要考虑重复元素的情况。\r\n\r\n我们定义两个指针 $l$ 和 $r$ 分别指向数组的左右两端，每次取中间元素 `numbers[mid]` 与右端元素 `numbers[r]` 比较，有以下三种情况：\r\n\r\n- `numbers[mid] > numbers[r]`：中间元素一定不是最小值，因此 $l = mid + 1$；\r\n- `numbers[mid] < numbers[r]`：中间元素可能是最小值，因此 $r = mid$；\r\n- `numbers[mid] == numbers[r]`：无法确定最小值的位置，但可以简单地缩小搜索范围，因此 $r = r - 1$。\r\n\r\n循环结束时，指针 $l$ 和 $r$ 指向同一个元素，即为最小值。\r\n\r\n时间复杂度 $O(\\log n)$，空间复杂度 $O(1)$。其中 $n$ 为数组长度。",
+  "memory": "库存管理 I → 二分查找。\n**思考**\r\n\r\n旋转后的数组可看成两段递增，线性扫一遍能找到最小值，但未利用半有序。无重复时可对半判断哪段有序；存在重复时，中点与右端相等则无法判定。\r\n\r\n与右端比较：中点更大则最小在右半；更小则最小在中点或左侧；相等则右端可丢。收缩至 $l$ 与 $r$ 重合。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

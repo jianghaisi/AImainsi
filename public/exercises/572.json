@@ -1,0 +1,85 @@
+{
+  "number": "572",
+  "adapter": {
+    "name": "isSubtree",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      },
+      {
+        "name": "subRoot",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "572"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          4,
+          5,
+          1,
+          2
+        ],
+        [
+          4,
+          1,
+          2
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          3,
+          4,
+          5,
+          1,
+          2,
+          null,
+          null,
+          null,
+          null,
+          0
+        ],
+        [
+          4,
+          1,
+          2
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @param {TreeNode} subRoot\n * @return {boolean}\n */\nvar isSubtree = function(root, subRoot) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public boolean isSubtree(TreeNode root, TreeNode subRoot) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool isSubtree(TreeNode* root, TreeNode* subRoot) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, val=0, left=None, right=None):\r\n#         self.val = val\r\n#         self.left = left\r\n#         self.right = right\r\nclass Solution:\r\n    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:\r\n        def same(p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:\r\n            if p is None or q is None:\r\n                return p is q\r\n            return p.val == q.val and same(p.left, q.left) and same(p.right, q.right)\r\n\r\n        if root is None:\r\n            return False\r\n        return (\r\n            same(root, subRoot)\r\n            or self.isSubtree(root.left, subRoot)\r\n            or self.isSubtree(root.right, subRoot)\r\n        )\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction isSubtree(root, subRoot) {\n    const same = (p, q) => {\n        if (!p || !q) {\n            return p === q;\n        }\n        return p.val === q.val && same(p.left, q.left) && same(p.right, q.right);\n    };\n    if (!root) {\n        return false;\n    }\n    return same(root, subRoot) || isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);\n}\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode() {}\r\n *     TreeNode(int val) { this.val = val; }\r\n *     TreeNode(int val, TreeNode left, TreeNode right) {\r\n *         this.val = val;\r\n *         this.left = left;\r\n *         this.right = right;\r\n *     }\r\n * }\r\n */\r\nclass Solution {\r\n    public boolean isSubtree(TreeNode root, TreeNode subRoot) {\r\n        if (root == null) {\r\n            return false;\r\n        }\r\n        return same(root, subRoot) || isSubtree(root.left, subRoot)\r\n            || isSubtree(root.right, subRoot);\r\n    }\r\n\r\n    private boolean same(TreeNode p, TreeNode q) {\r\n        if (p == null || q == null) {\r\n            return p == q;\r\n        }\r\n        return p.val == q.val && same(p.left, q.left) && same(p.right, q.right);\r\n    }\r\n}\r\n",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    bool isSubtree(TreeNode* root, TreeNode* subRoot) {\r\n        if (!root) {\r\n            return false;\r\n        }\r\n        return same(root, subRoot) || isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);\r\n    }\r\n\r\n    bool same(TreeNode* p, TreeNode* q) {\r\n        if (!p || !q) {\r\n            return p == q;\r\n        }\r\n        return p->val == q->val && same(p->left, q->left) && same(p->right, q->right);\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0572.Subtree%20of%20Another%20Tree/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0572.Subtree%20of%20Another%20Tree/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0572.Subtree%20of%20Another%20Tree/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0572.Subtree%20of%20Another%20Tree/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0572.Subtree%20of%20Another%20Tree/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：另一棵树的子树。\n输入：root（TreeNode）、subRoot（TreeNode）。\n训练提示：**思考**\r \r 判断 $subRoot$ 是否等于 $root$ 的某一棵子树。对每个节点做一次树相等比较，最坏 $O(mn)$，在本题规模下可接受。\r \r `same` 同时走两棵树比较结构与值。外层 DFS 在每个节点调用 `same`，命中即返回真。先比根再比左右，短路失败分支。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS\r\n\r\n\r\n\r\n思考\r\n\r\n判断 $subRoot$ 是否等于 $root$ 的某一棵子树。对每个节点做一次树相等比较，最坏 $O(mn)$，在本题规模下可接受。\r\n\r\n`same` 同时走两棵树比较结构与值。外层 DFS 在每个节点调用 `same`，命中即返回真。先比根再比左右，短路失败分支。\r\n\r\n\r\n\r\n我们定义一个辅助函数 $\\textit{same}(p, q)$，用于判断以 $p$ 为根节点的树和以 $q$ 为根节点的树是否相等。如果两棵树的根节点的值相等，并且它们的左子树和右子树也分别相等，那么这两棵树是相等的。\r\n\r\n在 $\\textit{isSubtree}(\\textit{root}, \\textit{subRoot})$ 函数中，我们首先判断 $\\textit{root}$ 是否为空，如果为空，则返回 $\\text{false}$。否则，我们判断 $\\textit{root}$ 和 $\\textit{subRoot}$ 是否相等，如果相等，则返回 $\\text{true}$。否则，我们递归地判断 $\\textit{root}$ 的左子树和右子树是否包含 $\\textit{subRoot}$。\r\n\r\n时间复杂度 $O(n \\times m)$，空间复杂度 $O(n)$。其中 $n$ 和 $m$ 分别是树 $root$ 和树 $subRoot$ 的节点个数。",
+  "memory": "另一棵树的子树 → DFS。\n**思考**\r\n\r\n判断 $subRoot$ 是否等于 $root$ 的某一棵子树。对每个节点做一次树相等比较，最坏 $O(mn)$，在本题规模下可接受。\r\n\r\n`same` 同时走两棵树比较结构与值。外层 DFS 在每个节点调用 `same`，命中即返回真。先比根再比左右，短路失败分支。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

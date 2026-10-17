@@ -1,0 +1,95 @@
+{
+  "number": "面试题 08.10",
+  "adapter": {
+    "name": "floodFill",
+    "params": [
+      {
+        "name": "image",
+        "type": "integer[][]"
+      },
+      {
+        "name": "sr",
+        "type": "integer"
+      },
+      {
+        "name": "sc",
+        "type": "integer"
+      },
+      {
+        "name": "newColor",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[][]"
+    },
+    "number": "面试题 08.10"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ],
+        1,
+        1,
+        2
+      ],
+      "expected": [
+        [
+          2,
+          2,
+          2
+        ],
+        [
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          0,
+          1
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} image\n * @param {number} sr\n * @param {number} sc\n * @param {number} newColor\n * @return {number[][]}\n */\nvar floodFill = function(image, sr, sc, newColor) {\n    \n};",
+    "java": "class Solution {\n    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def floodFill(\r\n        self, image: List[List[int]], sr: int, sc: int, newColor: int\r\n    ) -> List[List[int]]:\r\n        def dfs(i, j):\r\n            if (\r\n                not 0 <= i < m\r\n                or not 0 <= j < n\r\n                or image[i][j] != oc\r\n                or image[i][j] == newColor\r\n            ):\r\n                return\r\n            image[i][j] = newColor\r\n            for a, b in pairwise(dirs):\r\n                dfs(i + a, j + b)\r\n\r\n        dirs = (-1, 0, 1, 0, -1)\r\n        m, n = len(image), len(image[0])\r\n        oc = image[sr][sc]\r\n        dfs(sr, sc)\r\n        return image\r\n",
+    "javascript": "function floodFill(image, sr, sc, newColor) {\n    const dfs = (i, j) => {\n        if (i < 0 || i >= m) {\n            return;\n        }\n        if (j < 0 || j >= n) {\n            return;\n        }\n        if (image[i][j] !== oc || image[i][j] === nc) {\n            return;\n        }\n        image[i][j] = nc;\n        for (let k = 0; k < 4; ++k) {\n            dfs(i + dirs[k], j + dirs[k + 1]);\n        }\n    };\n    const dirs = [-1, 0, 1, 0, -1];\n    const [m, n] = [image.length, image[0].length];\n    const oc = image[sr][sc];\n    const nc = newColor;\n    dfs(sr, sc);\n    return image;\n}\n",
+    "java": "class Solution {\r\n    private int[] dirs = {-1, 0, 1, 0, -1};\r\n    private int[][] image;\r\n    private int nc;\r\n    private int oc;\r\n\r\n    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {\r\n        nc = newColor;\r\n        oc = image[sr][sc];\r\n        this.image = image;\r\n        dfs(sr, sc);\r\n        return image;\r\n    }\r\n\r\n    private void dfs(int i, int j) {\r\n        if (i < 0 || i >= image.length || j < 0 || j >= image[0].length || image[i][j] != oc\r\n            || image[i][j] == nc) {\r\n            return;\r\n        }\r\n        image[i][j] = nc;\r\n        for (int k = 0; k < 4; ++k) {\r\n            dfs(i + dirs[k], j + dirs[k + 1]);\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {\r\n        int m = image.size(), n = image[0].size();\r\n        int oc = image[sr][sc];\r\n        int dirs[5] = {-1, 0, 1, 0, -1};\r\n        function<void(int, int)> dfs = [&](int i, int j) {\r\n            if (i < 0 || i >= m || j < 0 || j >= n || image[i][j] != oc || image[i][j] == newColor) {\r\n                return;\r\n            }\r\n            image[i][j] = newColor;\r\n            for (int k = 0; k < 4; ++k) {\r\n                dfs(i + dirs[k], j + dirs[k + 1]);\r\n            }\r\n        };\r\n        dfs(sr, sc);\r\n        return image;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.10.Color%20Fill/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.10.Color%20Fill/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.10.Color%20Fill/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.10.Color%20Fill/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.10.Color%20Fill/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：颜色填充。\n输入：image（integer[][]）、sr（integer）、sc（integer）、newColor（integer）。\n训练提示：**思考**\r \r 从 $(sr,sc)$ 把四连通的原色块改成新色。扫描全图再判断连通会把不相干的同色也改掉。\r \r 只需访问与起点连通且颜色为 $oc$ 的格子，深度优先即可。\r \r 越界、颜色不是 $oc$、或已经是新色则返回；否则改色并向四邻递归。与新色相同的判断同时防止 $oc=newColor$ 时无限递归。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS\r\n\r\n\r\n\r\n思考\r\n\r\n从 $(sr,sc)$ 把四连通的原色块改成新色。扫描全图再判断连通会把不相干的同色也改掉。\r\n\r\n只需访问与起点连通且颜色为 $oc$ 的格子，深度优先即可。\r\n\r\n越界、颜色不是 $oc$、或已经是新色则返回；否则改色并向四邻递归。与新色相同的判断同时防止 $oc=newColor$ 时无限递归。\r\n\r\n\r\n\r\n我们设计一个函数 $dfs(i, j)$，表示从 $(i, j)$ 开始填充颜色。如果 $(i, j)$ 不在图像范围内，或者 $(i, j)$ 的颜色不是原来的颜色，或者 $(i, j)$ 的颜色已经被填充成新的颜色，就返回。否则，将 $(i, j)$ 的颜色填充成新的颜色，然后递归搜索 $(i, j)$ 的上下左右四个方向。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m \\times n)$。其中 $m$ 和 $n$ 分别为图像的行数和列数。",
+  "memory": "颜色填充 → DFS。\n**思考**\r\n\r\n从 $(sr,sc)$ 把四连通的原色块改成新色。扫描全图再判断连通会把不相干的同色也改掉。\r\n\r\n只需访问与起点连通且颜色为 $oc$ 的格子，深度优先即可。\r\n\r\n越界、颜色不是 $oc$、或已经是新色则返回；否则改色并向四邻递归。与新色相同的判断同时防止 $oc=newColor$ 时无限递归。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

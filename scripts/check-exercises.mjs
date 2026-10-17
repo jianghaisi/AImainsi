@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import vm from 'node:vm';
 import { createExercise } from '../public/exercise-runtime.mjs';
 import { judge } from '../public/judge.mjs';
 const python = JSON.parse(fs.readFileSync('.tools/catalog/python-results.json', 'utf8'));
@@ -13,7 +14,15 @@ for (const file of fs.readdirSync('public/exercises')) {
       const values = python.find((r) => r.number === p.number)?.output;
       for (let i = 0; i < p.tests.length; i++) {
         const t = p.tests[i],
-          result = run ? { actual: run(t.input) } : values[i];
+          result = run
+            ? {
+                actual: vm.runInNewContext(
+                  'run(input)',
+                  { run, input: t.input },
+                  { timeout: 1000 },
+                ),
+              }
+            : values?.[i];
         count++;
         if (!result || result.error || !judge(result.actual, t.expected, t.input, p.number))
           failures.push({ number: p.number, lang, i, ...result, expected: t.expected });
@@ -24,5 +33,19 @@ for (const file of fs.readdirSync('public/exercises')) {
   }
 }
 fs.writeFileSync('.tools/catalog/check-failures.json', JSON.stringify(failures, null, 2));
-console.log(JSON.stringify({ count, failures }, null, 2));
+console.log(
+  JSON.stringify(
+    {
+      count,
+      failures: failures.map((f) => [
+        f.number,
+        f.lang,
+        f.i,
+        f.error?.split('\n').slice(-2).join(' ') || [f.actual, f.expected],
+      ]),
+    },
+    null,
+    2,
+  ),
+);
 process.exitCode = failures.length ? 1 : 0;

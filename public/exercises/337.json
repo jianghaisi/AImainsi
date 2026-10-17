@@ -1,0 +1,70 @@
+{
+  "number": "337",
+  "adapter": {
+    "name": "rob",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "337"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          2,
+          3,
+          null,
+          3,
+          null,
+          1
+        ]
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        [
+          3,
+          4,
+          5,
+          1,
+          3,
+          null,
+          1
+        ]
+      ],
+      "expected": 9
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def rob(self, root: Optional[TreeNode]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @return {number}\n */\nvar rob = function(root) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public int rob(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int rob(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, val=0, left=None, right=None):\r\n#         self.val = val\r\n#         self.left = left\r\n#         self.right = right\r\nclass Solution:\r\n    def rob(self, root: Optional[TreeNode]) -> int:\r\n        def dfs(root: Optional[TreeNode]) -> (int, int):\r\n            if root is None:\r\n                return 0, 0\r\n            la, lb = dfs(root.left)\r\n            ra, rb = dfs(root.right)\r\n            return root.val + lb + rb, max(la, lb) + max(ra, rb)\r\n\r\n        return max(dfs(root))\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction rob(root) {\n    const dfs = (root) => {\n        if (!root) {\n            return [0, 0];\n        }\n        const [la, lb] = dfs(root.left);\n        const [ra, rb] = dfs(root.right);\n        return [root.val + lb + rb, Math.max(la, lb) + Math.max(ra, rb)];\n    };\n    return Math.max(...dfs(root));\n}\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode() {}\r\n *     TreeNode(int val) { this.val = val; }\r\n *     TreeNode(int val, TreeNode left, TreeNode right) {\r\n *         this.val = val;\r\n *         this.left = left;\r\n *         this.right = right;\r\n *     }\r\n * }\r\n */\r\nclass Solution {\r\n    public int rob(TreeNode root) {\r\n        int[] ans = dfs(root);\r\n        return Math.max(ans[0], ans[1]);\r\n    }\r\n\r\n    private int[] dfs(TreeNode root) {\r\n        if (root == null) {\r\n            return new int[2];\r\n        }\r\n        int[] l = dfs(root.left);\r\n        int[] r = dfs(root.right);\r\n        return new int[] {root.val + l[1] + r[1], Math.max(l[0], l[1]) + Math.max(r[0], r[1])};\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    int rob(TreeNode* root) {\r\n        function<pair<int, int>(TreeNode*)> dfs = [&](TreeNode* root) -> pair<int, int> {\r\n            if (!root) {\r\n                return make_pair(0, 0);\r\n            }\r\n            auto [la, lb] = dfs(root->left);\r\n            auto [ra, rb] = dfs(root->right);\r\n            return make_pair(root->val + lb + rb, max(la, lb) + max(ra, rb));\r\n        };\r\n        auto [a, b] = dfs(root);\r\n        return max(a, b);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0337.House%20Robber%20III/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0337.House%20Robber%20III/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0337.House%20Robber%20III/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0337.House%20Robber%20III/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0337.House%20Robber%20III/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：打家劫舍 III。\n输入：root（TreeNode）。\n训练提示：**思考**\r \r 树上相邻结点不能同时偷。若对每个结点分别计算「偷/不偷」再重复遍历子树，同一子树会被多次展开。\r \r 后序返回二元组：偷根、不偷根。偷根则左右只能取不偷；不偷根则左右各自取较大者。根处再取二者最大。每个结点只访问一次。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：树形 DP\r\n\r\n\r\n\r\n思考\r\n\r\n树上相邻结点不能同时偷。若对每个结点分别计算「偷/不偷」再重复遍历子树，同一子树会被多次展开。\r\n\r\n后序返回二元组：偷根、不偷根。偷根则左右只能取不偷；不偷根则左右各自取较大者。根处再取二者最大。每个结点只访问一次。\r\n\r\n\r\n\r\n我们定义一个函数 $dfs(root)$，表示偷取以 $root$ 为根的二叉树的最大金额。该函数返回一个二元组 $(a, b)$，其中 $a$ 表示偷取 $root$ 节点时能得到的最大金额，而 $b$ 表示不偷取 $root$ 节点时能得到的最大金额。\r\n\r\n函数 $dfs(root)$ 的计算过程如下：\r\n\r\n如果 $root$ 为空，那么显然有 $dfs(root) = (0, 0)$。\r\n\r\n否则，我们首先计算出左右子节点的结果，即 $dfs(root.left)$ 和 $dfs(root.right)$，这样就得到了两对值 $(l_a, l_b)$ 以及 $(r_a, r_b)$。对于 $dfs(root)$ 的结果，我们可以分为两种情况：\r\n\r\n- 如果偷取 $root$ 节点，那么不能偷取其左右子节点，结果为 $root.val + l_b + r_b$；\r\n- 如果不偷取 $root$ 节点，那么可以偷取其左右子节点，结果为 $\\max(l_a, l_b) + \\max(r_a, r_b)$。\r\n\r\n在主函数中，我们可以直接返回 $dfs(root)$ 的较大值，即 $\\max(dfs(root))$。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 是二叉树的节点数。",
+  "memory": "打家劫舍 III → 树形 DP。\n**思考**\r\n\r\n树上相邻结点不能同时偷。若对每个结点分别计算「偷/不偷」再重复遍历子树，同一子树会被多次展开。\r\n\r\n后序返回二元组：偷根、不偷根。偷根则左右只能取不偷；不偷根则左右各自取较大者。根处再取二者最大。每个结点只访问一次。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

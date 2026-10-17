@@ -1,0 +1,60 @@
+{
+  "number": "712",
+  "adapter": {
+    "name": "minimumDeleteSum",
+    "params": [
+      {
+        "name": "s1",
+        "type": "string"
+      },
+      {
+        "name": "s2",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "712"
+  },
+  "tests": [
+    {
+      "input": [
+        "sea",
+        "eat"
+      ],
+      "expected": 231
+    },
+    {
+      "input": [
+        "delete",
+        "leet"
+      ],
+      "expected": 403
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def minimumDeleteSum(self, s1: str, s2: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s1\n * @param {string} s2\n * @return {number}\n */\nvar minimumDeleteSum = function(s1, s2) {\n    \n};",
+    "java": "class Solution {\n    public int minimumDeleteSum(String s1, String s2) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minimumDeleteSum(string s1, string s2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def minimumDeleteSum(self, s1: str, s2: str) -> int:\r\n        m, n = len(s1), len(s2)\r\n        f = [[0] * (n + 1) for _ in range(m + 1)]\r\n        for i in range(1, m + 1):\r\n            f[i][0] = f[i - 1][0] + ord(s1[i - 1])\r\n        for j in range(1, n + 1):\r\n            f[0][j] = f[0][j - 1] + ord(s2[j - 1])\r\n        for i in range(1, m + 1):\r\n            for j in range(1, n + 1):\r\n                if s1[i - 1] == s2[j - 1]:\r\n                    f[i][j] = f[i - 1][j - 1]\r\n                else:\r\n                    f[i][j] = min(\r\n                        f[i - 1][j] + ord(s1[i - 1]), f[i][j - 1] + ord(s2[j - 1])\r\n                    )\r\n        return f[m][n]\r\n",
+    "javascript": "function minimumDeleteSum(s1, s2) {\n    const m = s1.length;\n    const n = s2.length;\n    const f = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));\n    for (let i = 1; i <= m; ++i) {\n        f[i][0] = f[i - 1][0] + s1[i - 1].charCodeAt(0);\n    }\n    for (let j = 1; j <= n; ++j) {\n        f[0][j] = f[0][j - 1] + s2[j - 1].charCodeAt(0);\n    }\n    for (let i = 1; i <= m; ++i) {\n        for (let j = 1; j <= n; ++j) {\n            if (s1[i - 1] === s2[j - 1]) {\n                f[i][j] = f[i - 1][j - 1];\n            }\n            else {\n                f[i][j] = Math.min(f[i - 1][j] + s1[i - 1].charCodeAt(0), f[i][j - 1] + s2[j - 1].charCodeAt(0));\n            }\n        }\n    }\n    return f[m][n];\n}\n",
+    "java": "class Solution {\r\n    public int minimumDeleteSum(String s1, String s2) {\r\n        int m = s1.length(), n = s2.length();\r\n        int[][] f = new int[m + 1][n + 1];\r\n        for (int i = 1; i <= m; ++i) {\r\n            f[i][0] = f[i - 1][0] + s1.charAt(i - 1);\r\n        }\r\n        for (int j = 1; j <= n; ++j) {\r\n            f[0][j] = f[0][j - 1] + s2.charAt(j - 1);\r\n        }\r\n        for (int i = 1; i <= m; ++i) {\r\n            for (int j = 1; j <= n; ++j) {\r\n                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {\r\n                    f[i][j] = f[i - 1][j - 1];\r\n                } else {\r\n                    f[i][j]\r\n                        = Math.min(f[i - 1][j] + s1.charAt(i - 1), f[i][j - 1] + s2.charAt(j - 1));\r\n                }\r\n            }\r\n        }\r\n        return f[m][n];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int minimumDeleteSum(string s1, string s2) {\r\n        int m = s1.size(), n = s2.size();\r\n        int f[m + 1][n + 1];\r\n        memset(f, 0, sizeof f);\r\n        for (int i = 1; i <= m; ++i) {\r\n            f[i][0] = f[i - 1][0] + s1[i - 1];\r\n        }\r\n        for (int j = 1; j <= n; ++j) {\r\n            f[0][j] = f[0][j - 1] + s2[j - 1];\r\n        }\r\n        for (int i = 1; i <= m; ++i) {\r\n            for (int j = 1; j <= n; ++j) {\r\n                if (s1[i - 1] == s2[j - 1]) {\r\n                    f[i][j] = f[i - 1][j - 1];\r\n                } else {\r\n                    f[i][j] = min(f[i - 1][j] + s1[i - 1], f[i][j - 1] + s2[j - 1]);\r\n                }\r\n            }\r\n        }\r\n        return f[m][n];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0712.Minimum%20ASCII%20Delete%20Sum%20for%20Two%20Strings/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0712.Minimum%20ASCII%20Delete%20Sum%20for%20Two%20Strings/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0712.Minimum%20ASCII%20Delete%20Sum%20for%20Two%20Strings/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0712.Minimum%20ASCII%20Delete%20Sum%20for%20Two%20Strings/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0712.Minimum%20ASCII%20Delete%20Sum%20for%20Two%20Strings/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：两个字符串的最小ASCII删除和。\n输入：s1（string）、s2（string）。\n训练提示：**思考**\r \r 要使两串相等，只能删除字符，代价为被删字符的 ASCII 之和。长度至多 $1000$，若对每个对齐位置递归删除，子问题会大量重叠。\r \r 这与编辑距离同类：若末字符相同则不必删；否则必须删掉其中一侧的末字符，并累加其码值。空串对另一串的代价是该串全部码值之和。\r \r 令 $f[i][j]$ 为前缀 $s_1[:i]$ 与 $s_2[:j]$ 的最小删除和，按上述转移填表，答案为 $f[m][n]$。时间与空间均为 $O(mn)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n要使两串相等，只能删除字符，代价为被删字符的 ASCII 之和。长度至多 $1000$，若对每个对齐位置递归删除，子问题会大量重叠。\r\n\r\n这与编辑距离同类：若末字符相同则不必删；否则必须删掉其中一侧的末字符，并累加其码值。空串对另一串的代价是该串全部码值之和。\r\n\r\n令 $f[i][j]$ 为前缀 $s_1[:i]$ 与 $s_2[:j]$ 的最小删除和，按上述转移填表，答案为 $f[m][n]$。时间与空间均为 $O(mn)$。\r\n\r\n\r\n\r\n我们定义 $f[i][j]$ 表示使得 $s_1$ 的前 $i$ 个字符和 $s_2$ 的前 $j$ 个字符相等所需删除字符的 ASCII 值的最小和。那么答案就是 $f[m][n]$。\r\n\r\n如果 $s_1[i-1] = s_2[j-1]$，那么 $f[i][j] = f[i-1][j-1]$。否则，我们可以删除 $s_1[i-1]$ 或者 $s_2[j-1]$ 中的一个，使得 $f[i][j]$ 达到最小。因此，状态转移方程如下：\r\n\r\n$$\r\nf[i][j]=\r\n\\begin{cases}\r\nf[i-1][j-1], & s_1[i-1] = s_2[j-1] \\\\\r\nmin(f[i-1][j] + s_1[i-1], f[i][j-1] + s_2[j-1]), & s_1[i-1] \\neq s_2[j-1]\r\n\\end{cases}\r\n$$\r\n\r\n初始状态为 $f[0][j] = f[0][j-1] + s_2[j-1]$, $f[i][0] = f[i-1][0] + s_1[i-1]$。\r\n\r\n最后返回 $f[m][n]$ 即可。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m \\times n)$。其中 $m$ 和 $n$ 分别是 $s_1$ 和 $s_2$ 的长度。\r\n\r\n相似题目：\r\n\r\n- [1143. 最长公共子序列](https://github.com/doocs/leetcode/blob/main/solution/1100-1199/1143.Longest%20Common%20Subsequence/README.md)",
+  "memory": "两个字符串的最小ASCII删除和 → 动态规划。\n**思考**\r\n\r\n要使两串相等，只能删除字符，代价为被删字符的 ASCII 之和。长度至多 $1000$，若对每个对齐位置递归删除，子问题会大量重叠。\r\n\r\n这与编辑距离同类：若末字符相同则不必删；否则必须删掉其中一侧的末字符，并累加其码值。空串对另一串的代价是该串全部码值之和。\r\n\r\n令 $f[i][j]$ 为前缀 $s_1[:i]$ 与 $s_2[:j]$ 的最小删除和，按上述转移填表，答案为 $f[m][n]$。时间与空间均为 $O(mn)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,59 @@
+{
+  "number": "LCR 117",
+  "adapter": {
+    "name": "numSimilarGroups",
+    "params": [
+      {
+        "name": "strs",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 117"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "tars",
+          "rats",
+          "arts",
+          "star"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          "omv",
+          "ovm"
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def numSimilarGroups(self, strs: List[str]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int numSimilarGroups(String[] strs) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int numSimilarGroups(vector<string>& strs) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def numSimilarGroups(self, strs: List[str]) -> int:\r\n        def find(x):\r\n            if p[x] != x:\r\n                p[x] = find(p[x])\r\n            return p[x]\r\n\r\n        n, l = len(strs), len(strs[0])\r\n        p = list(range(n))\r\n        for i in range(n):\r\n            for j in range(i + 1, n):\r\n                if sum(strs[i][k] != strs[j][k] for k in range(l)) <= 2:\r\n                    p[find(i)] = find(j)\r\n        return sum(i == find(i) for i in range(n))\r\n",
+    "java": "class Solution {\r\n    private int[] p;\r\n\r\n    public int numSimilarGroups(String[] strs) {\r\n        int n = strs.length;\r\n        p = new int[n];\r\n        for (int i = 0; i < n; ++i) {\r\n            p[i] = i;\r\n        }\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j = i + 1; j < n; ++j) {\r\n                if (check(strs[i], strs[j])) {\r\n                    p[find(i)] = find(j);\r\n                }\r\n            }\r\n        }\r\n        int res = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            if (i == find(i)) {\r\n                ++res;\r\n            }\r\n        }\r\n        return res;\r\n    }\r\n\r\n    private boolean check(String a, String b) {\r\n        int cnt = 0;\r\n        int n = a.length();\r\n        for (int i = 0; i < n; ++i) {\r\n            if (a.charAt(i) != b.charAt(i)) {\r\n                ++cnt;\r\n            }\r\n        }\r\n        return cnt <= 2;\r\n    }\r\n\r\n    private int find(int x) {\r\n        if (p[x] != x) {\r\n            p[x] = find(p[x]);\r\n        }\r\n        return p[x];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> p;\r\n\r\n    int numSimilarGroups(vector<string>& strs) {\r\n        int n = strs.size();\r\n        p.resize(n);\r\n        for (int i = 0; i < n; ++i) p[i] = i;\r\n        for (int i = 0; i < n; ++i)\r\n            for (int j = i + 1; j < n; ++j)\r\n                if (check(strs[i], strs[j]))\r\n                    p[find(i)] = find(j);\r\n        int ans = 0;\r\n        for (int i = 0; i < n; ++i)\r\n            if (i == find(i))\r\n                ++ans;\r\n        return ans;\r\n    }\r\n\r\n    bool check(string a, string b) {\r\n        int cnt = 0;\r\n        for (int i = 0; i < a.size(); ++i)\r\n            if (a[i] != b[i])\r\n                ++cnt;\r\n        return cnt <= 2;\r\n    }\r\n\r\n    int find(int x) {\r\n        if (p[x] != x) p[x] = find(p[x]);\r\n        return p[x];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20117.%20%E7%9B%B8%E4%BC%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20117.%20%E7%9B%B8%E4%BC%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20117.%20%E7%9B%B8%E4%BC%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20117.%20%E7%9B%B8%E4%BC%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：相似字符串组。\n输入：strs（string[]）。\n训练提示：**思考**\r \r 两个异构词若至多两位不同则相似，相似关系可传递。求连通块个数。\r \r 对每对字符串统计不同位置，不超过两处则在并查集中合并。最后统计根的个数。串长与个数均不大，两两比较可以接受。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n两个异构词若至多两位不同则相似，相似关系可传递。求连通块个数。\r\n\r\n对每对字符串统计不同位置，不超过两处则在并查集中合并。最后统计根的个数。串长与个数均不大，两两比较可以接受。",
+  "memory": "相似字符串组 → 方法一。\n**思考**\r\n\r\n两个异构词若至多两位不同则相似，相似关系可传递。求连通块个数。\r\n\r\n对每对字符串统计不同位置，不超过两处则在并查集中合并。最后统计根的个数。串长与个数均不大，两两比较可以接受。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

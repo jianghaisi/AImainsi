@@ -1,0 +1,134 @@
+{
+  "number": "1146",
+  "adapter": {
+    "classname": "SnapshotArray",
+    "maxbytesperline": 400000,
+    "constructor": {
+      "params": [
+        {
+          "type": "integer",
+          "name": "length"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "params": [
+          {
+            "type": "integer",
+            "name": "index"
+          },
+          {
+            "type": "integer",
+            "name": "val"
+          }
+        ],
+        "name": "set",
+        "return": {
+          "type": "void"
+        }
+      },
+      {
+        "params": [],
+        "name": "snap",
+        "return": {
+          "type": "integer"
+        }
+      },
+      {
+        "params": [
+          {
+            "type": "integer",
+            "name": "index"
+          },
+          {
+            "type": "integer",
+            "name": "snap_id"
+          }
+        ],
+        "name": "get",
+        "return": {
+          "type": "integer"
+        }
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "systemdesign": true,
+    "manual": false,
+    "number": "1146"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "SnapshotArray",
+          "set",
+          "snap",
+          "set",
+          "get"
+        ],
+        [
+          [
+            3
+          ],
+          [
+            0,
+            5
+          ],
+          [],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        0,
+        null,
+        5
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class SnapshotArray:\n\n    def __init__(self, length: int):\n        raise NotImplementedError('请完成此方法')\n\n    def set(self, index: int, val: int) -> None:\n        raise NotImplementedError('请完成此方法')\n\n    def snap(self) -> int:\n        raise NotImplementedError('请完成此方法')\n\n    def get(self, index: int, snap_id: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} length\n */\nvar SnapshotArray = function(length) {\n    \n};\n\n/** \n * @param {number} index \n * @param {number} val\n * @return {void}\n */\nSnapshotArray.prototype.set = function(index, val) {\n    \n};\n\n/**\n * @return {number}\n */\nSnapshotArray.prototype.snap = function() {\n    \n};\n\n/** \n * @param {number} index \n * @param {number} snap_id\n * @return {number}\n */\nSnapshotArray.prototype.get = function(index, snap_id) {\n    \n};\n\n/** \n * Your SnapshotArray object will be instantiated and called as such:\n * var obj = new SnapshotArray(length)\n * obj.set(index,val)\n * var param_2 = obj.snap()\n * var param_3 = obj.get(index,snap_id)\n */",
+    "java": "class SnapshotArray {\n\n    public SnapshotArray(int length) {\n        \n    }\n    \n    public void set(int index, int val) {\n        \n    }\n    \n    public int snap() {\n        \n    }\n    \n    public int get(int index, int snap_id) {\n        \n    }\n}\n\n/**\n * Your SnapshotArray object will be instantiated and called as such:\n * SnapshotArray obj = new SnapshotArray(length);\n * obj.set(index,val);\n * int param_2 = obj.snap();\n * int param_3 = obj.get(index,snap_id);\n */",
+    "cpp": "class SnapshotArray {\npublic:\n    SnapshotArray(int length) {\n        \n    }\n    \n    void set(int index, int val) {\n        \n    }\n    \n    int snap() {\n        \n    }\n    \n    int get(int index, int snap_id) {\n        \n    }\n};\n\n/**\n * Your SnapshotArray object will be instantiated and called as such:\n * SnapshotArray* obj = new SnapshotArray(length);\n * obj->set(index,val);\n * int param_2 = obj->snap();\n * int param_3 = obj->get(index,snap_id);\n */"
+  },
+  "solutions": {
+    "python": "class SnapshotArray:\r\n\r\n    def __init__(self, length: int):\r\n        self.arr = [[] for _ in range(length)]\r\n        self.i = 0\r\n\r\n    def set(self, index: int, val: int) -> None:\r\n        self.arr[index].append((self.i, val))\r\n\r\n    def snap(self) -> int:\r\n        self.i += 1\r\n        return self.i - 1\r\n\r\n    def get(self, index: int, snap_id: int) -> int:\r\n        i = bisect_left(self.arr[index], (snap_id, inf)) - 1\r\n        return 0 if i < 0 else self.arr[index][i][1]\r\n\r\n\r\n# Your SnapshotArray object will be instantiated and called as such:\r\n# obj = SnapshotArray(length)\r\n# obj.set(index,val)\r\n# param_2 = obj.snap()\r\n# param_3 = obj.get(index,snap_id)\r\n",
+    "javascript": "class SnapshotArray {\n    arr;\n    i = 0;\n    constructor(length) {\n        this.arr = Array.from({ length }, () => []);\n    }\n    set(index, val) {\n        this.arr[index].push([this.i, val]);\n    }\n    snap() {\n        return this.i++;\n    }\n    get(index, snap_id) {\n        let [l, r] = [0, this.arr[index].length];\n        while (l < r) {\n            const mid = (l + r) >> 1;\n            if (this.arr[index][mid][0] > snap_id) {\n                r = mid;\n            }\n            else {\n                l = mid + 1;\n            }\n        }\n        --l;\n        return l < 0 ? 0 : this.arr[index][l][1];\n    }\n}\n/**\n * Your SnapshotArray object will be instantiated and called as such:\n * var obj = new SnapshotArray(length)\n * obj.set(index,val)\n * var param_2 = obj.snap()\n * var param_3 = obj.get(index,snap_id)\n */\n",
+    "java": "class SnapshotArray {\r\n    private List<int[]>[] arr;\r\n    private int idx;\r\n\r\n    public SnapshotArray(int length) {\r\n        arr = new List[length];\r\n        Arrays.setAll(arr, k -> new ArrayList<>());\r\n    }\r\n\r\n    public void set(int index, int val) {\r\n        arr[index].add(new int[] {idx, val});\r\n    }\r\n\r\n    public int snap() {\r\n        return idx++;\r\n    }\r\n\r\n    public int get(int index, int snap_id) {\r\n        int l = 0, r = arr[index].size();\r\n        while (l < r) {\r\n            int mid = (l + r) >> 1;\r\n            if (arr[index].get(mid)[0] > snap_id) {\r\n                r = mid;\r\n            } else {\r\n                l = mid + 1;\r\n            }\r\n        }\r\n        --l;\r\n        return l < 0 ? 0 : arr[index].get(l)[1];\r\n    }\r\n}\r\n\r\n/**\r\n * Your SnapshotArray object will be instantiated and called as such:\r\n * SnapshotArray obj = new SnapshotArray(length);\r\n * obj.set(index,val);\r\n * int param_2 = obj.snap();\r\n * int param_3 = obj.get(index,snap_id);\r\n */",
+    "cpp": "class SnapshotArray {\r\npublic:\r\n    SnapshotArray(int length) {\r\n        arr.resize(length);\r\n    }\r\n\r\n    void set(int index, int val) {\r\n        arr[index].emplace_back(i, val);\r\n    }\r\n\r\n    int snap() {\r\n        return i++;\r\n    }\r\n\r\n    int get(int index, int snap_id) {\r\n        auto it = upper_bound(arr[index].begin(), arr[index].end(), make_pair(snap_id, INT_MAX));\r\n        return it == arr[index].begin() ? 0 : prev(it)->second;\r\n    }\r\n\r\nprivate:\r\n    vector<vector<pair<int, int>>> arr;\r\n    int i = 0;\r\n};\r\n\r\n/**\r\n * Your SnapshotArray object will be instantiated and called as such:\r\n * SnapshotArray* obj = new SnapshotArray(length);\r\n * obj->set(index,val);\r\n * int param_2 = obj->snap();\r\n * int param_3 = obj->get(index,snap_id);\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1146.Snapshot%20Array/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1146.Snapshot%20Array/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1146.Snapshot%20Array/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1146.Snapshot%20Array/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1146.Snapshot%20Array/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：快照数组。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 每次 `snap` 若复制整个数组，空间与快照次数、长度之积成正比。每个下标只记录「快照编号 $\\to$ 值」的变更历史，`set` 追加当前快照号与新值。`get` 在该下标的有序历史上二分到 $\\le snap\\_id$ 的最后一次修改；若无修改则默认为 $0$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：数组 + 二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n每次 `snap` 若复制整个数组，空间与快照次数、长度之积成正比。每个下标只记录「快照编号 $\\to$ 值」的变更历史，`set` 追加当前快照号与新值。`get` 在该下标的有序历史上二分到 $\\le snap\\_id$ 的最后一次修改；若无修改则默认为 $0$。\r\n\r\n\r\n\r\n我们维护一个长度为 $\\textit{length}$ 的数组，数组中的每个元素是一个列表，用来存储每次设置的值以及对应的快照 ID。\r\n\r\n调用 `set` 方法时，将值和快照 ID 添加到对应索引的列表中。时间复杂度 $O(1)$。\r\n\r\n调用 `snap` 方法时，我们先将快照 ID 加一，然后返回快照 ID 减一。时间复杂度 $O(1)$。\r\n\r\n调用 `get` 方法时，我们使用二分查找找到对应位置的第一个快照 ID 大于 `snap_id` 的值，然后返回前一个的值。如果找不到，则返回 0。时间复杂度 $O(\\log n)$。\r\n\r\n空间复杂度 $O(n)$。",
+  "memory": "快照数组 → 数组 + 二分查找。\n**思考**\r\n\r\n每次 `snap` 若复制整个数组，空间与快照次数、长度之积成正比。每个下标只记录「快照编号 $\\to$ 值」的变更历史，`set` 追加当前快照号与新值。`get` 在该下标的有序历史上二分到 $\\le snap\\_id$ 的最后一次修改；若无修改则默认为 $0$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,60 @@
+{
+  "number": "LCR 094",
+  "adapter": {
+    "name": "minCut",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 094"
+  },
+  "tests": [
+    {
+      "input": [
+        "aab"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "a"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "ab"
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def minCut(self, s: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @return {number}\n */\nvar minCut = function(s) {\n\n};",
+    "java": "class Solution {\n    public int minCut(String s) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minCut(string s) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def minCut(self, s: str) -> int:\r\n        n = len(s)\r\n        g = [[True] * n for _ in range(n)]\r\n        for i in range(n - 1, -1, -1):\r\n            for j in range(i + 1, n):\r\n                g[i][j] = s[i] == s[j] and g[i + 1][j - 1]\r\n        f = list(range(n))\r\n        for i in range(1, n):\r\n            for j in range(i + 1):\r\n                if g[j][i]:\r\n                    f[i] = min(f[i], 1 + f[j - 1] if j else 0)\r\n        return f[-1]\r\n",
+    "javascript": "function minCut(s) {\n    const n = s.length;\n    const g = Array(n)\n        .fill(0)\n        .map(() => Array(n).fill(true));\n    for (let i = n - 1; ~i; --i) {\n        for (let j = i + 1; j < n; ++j) {\n            g[i][j] = s[i] === s[j] && g[i + 1][j - 1];\n        }\n    }\n    const f = Array(n)\n        .fill(0)\n        .map((_, i) => i);\n    for (let i = 1; i < n; ++i) {\n        for (let j = 0; j <= i; ++j) {\n            if (g[j][i]) {\n                f[i] = Math.min(f[i], j ? 1 + f[j - 1] : 0);\n            }\n        }\n    }\n    return f[n - 1];\n}\n",
+    "java": "class Solution {\r\n    public int minCut(String s) {\r\n        int n = s.length();\r\n        boolean[][] g = new boolean[n][n];\r\n        for (var row : g) {\r\n            Arrays.fill(row, true);\r\n        }\r\n        for (int i = n - 1; i >= 0; --i) {\r\n            for (int j = i + 1; j < n; ++j) {\r\n                g[i][j] = s.charAt(i) == s.charAt(j) && g[i + 1][j - 1];\r\n            }\r\n        }\r\n        int[] f = new int[n];\r\n        for (int i = 0; i < n; ++i) {\r\n            f[i] = i;\r\n        }\r\n        for (int i = 1; i < n; ++i) {\r\n            for (int j = 0; j <= i; ++j) {\r\n                if (g[j][i]) {\r\n                    f[i] = Math.min(f[i], j > 0 ? 1 + f[j - 1] : 0);\r\n                }\r\n            }\r\n        }\r\n        return f[n - 1];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int minCut(string s) {\r\n        int n = s.size();\r\n        bool g[n][n];\r\n        memset(g, true, sizeof(g));\r\n        for (int i = n - 1; ~i; --i) {\r\n            for (int j = i + 1; j < n; ++j) {\r\n                g[i][j] = s[i] == s[j] && g[i + 1][j - 1];\r\n            }\r\n        }\r\n        int f[n];\r\n        iota(f, f + n, 0);\r\n        for (int i = 1; i < n; ++i) {\r\n            for (int j = 0; j <= i; ++j) {\r\n                if (g[j][i]) {\r\n                    f[i] = min(f[i], j ? 1 + f[j - 1] : 0);\r\n                }\r\n            }\r\n        }\r\n        return f[n - 1];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20094.%20%E6%9C%80%E5%B0%91%E5%9B%9E%E6%96%87%E5%88%86%E5%89%B2/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20094.%20%E6%9C%80%E5%B0%91%E5%9B%9E%E6%96%87%E5%88%86%E5%89%B2/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20094.%20%E6%9C%80%E5%B0%91%E5%9B%9E%E6%96%87%E5%88%86%E5%89%B2/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20094.%20%E6%9C%80%E5%B0%91%E5%9B%9E%E6%96%87%E5%88%86%E5%89%B2/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20094.%20%E6%9C%80%E5%B0%91%E5%9B%9E%E6%96%87%E5%88%86%E5%89%B2/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：分割回文串 II。\n输入：s（string）。\n训练提示：**思考**\r \r 求最少切割次数使每段都是回文。枚举全部切割方案是指数级的。\r \r 先预处理任意子串是否回文，再令 $f[i]$ 为前缀 $s[0..i]$ 的最少刀数。枚举上一个切点 $j$，当 $s[j..i]$ 为回文时用 $f[j-1]+1$ 更新； $j=0$ 则整段已是回文，刀数为 $0$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n求最少切割次数使每段都是回文。枚举全部切割方案是指数级的。\r\n\r\n先预处理任意子串是否回文，再令 $f[i]$ 为前缀 $s[0..i]$ 的最少刀数。枚举上一个切点 $j$，当 $s[j..i]$ 为回文时用 $f[j-1]+1$ 更新； $j=0$ 则整段已是回文，刀数为 $0$。\r\n\r\n\r\n\r\n我们先预处理得到字符串 $s$ 的每一个子串 $s[i..j]$ 是否为回文串，记录在二维数组 $g[i][j]$ 中，其中 $g[i][j]$ 表示子串 $s[i..j]$ 是否为回文串。\r\n\r\n接下来，我们定义 $f[i]$ 表示字符串 $s[0..i-1]$ 的最少分割次数，初始时 $f[i]=i$。\r\n\r\n接下来，我们考虑 $f[i]$ 如何进行状态转移。我们可以枚举上一个分割点 $j$，如果子串 $s[j..i]$ 是一个回文串，那么 $f[i]$ 就可以从 $f[j]$ 转移而来。如果 $j=0$，那么说明 $s[0..i]$ 本身就是一个回文串，此时不需要进行分割，即 $f[i]=0$。因此，状态转移方程如下：\r\n\r\n$$\r\nf[i]=\\min_{0\\leq j \\leq i}\\begin{cases} f[j-1]+1, & \\textit{if}\\ g[j][i]=\\textit{True} \\\\ 0, & \\textit{if}\\ g[0][i]=\\textit{True} \\end{cases}\r\n$$\r\n\r\n答案即为 $f[n]$，其中 $n$ 是字符串 $s$ 的长度。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n^2)$。其中 $n$ 是字符串 $s$ 的长度。",
+  "memory": "分割回文串 II → 动态规划。\n**思考**\r\n\r\n求最少切割次数使每段都是回文。枚举全部切割方案是指数级的。\r\n\r\n先预处理任意子串是否回文，再令 $f[i]$ 为前缀 $s[0..i]$ 的最少刀数。枚举上一个切点 $j$，当 $s[j..i]$ 为回文时用 $f[j-1]+1$ 更新； $j=0$ 则整段已是回文，刀数为 $0$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

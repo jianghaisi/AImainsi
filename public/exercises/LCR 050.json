@@ -1,0 +1,86 @@
+{
+  "number": "LCR 050",
+  "adapter": {
+    "name": "pathSum",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      },
+      {
+        "name": "targetSum",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 050"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          10,
+          5,
+          -3,
+          3,
+          2,
+          null,
+          11,
+          3,
+          -2,
+          null,
+          1
+        ],
+        8
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          5,
+          4,
+          8,
+          11,
+          null,
+          13,
+          4,
+          7,
+          2,
+          null,
+          null,
+          5,
+          1
+        ],
+        22
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @param {number} targetSum\n * @return {number}\n */\nvar pathSum = function(root, targetSum) {\n\n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public int pathSum(TreeNode root, int targetSum) {\n\n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int pathSum(TreeNode* root, int targetSum) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, val=0, left=None, right=None):\r\n#         self.val = val\r\n#         self.left = left\r\n#         self.right = right\r\nclass Solution:\r\n    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:\r\n        def dfs(node, s):\r\n            if node is None:\r\n                return 0\r\n            s += node.val\r\n            ans = cnt[s - targetSum]\r\n            cnt[s] += 1\r\n            ans += dfs(node.left, s)\r\n            ans += dfs(node.right, s)\r\n            cnt[s] -= 1\r\n            return ans\r\n\r\n        cnt = Counter({0: 1})\r\n        return dfs(root, 0)\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction pathSum(root, targetSum) {\n    const cnt = new Map();\n    const dfs = (node, s) => {\n        if (!node) {\n            return 0;\n        }\n        s += node.val;\n        let ans = cnt.get(s - targetSum) ?? 0;\n        cnt.set(s, (cnt.get(s) ?? 0) + 1);\n        ans += dfs(node.left, s);\n        ans += dfs(node.right, s);\n        cnt.set(s, (cnt.get(s) ?? 0) - 1);\n        return ans;\n    };\n    cnt.set(0, 1);\n    return dfs(root, 0);\n}\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode() {}\r\n *     TreeNode(int val) { this.val = val; }\r\n *     TreeNode(int val, TreeNode left, TreeNode right) {\r\n *         this.val = val;\r\n *         this.left = left;\r\n *         this.right = right;\r\n *     }\r\n * }\r\n */\r\nclass Solution {\r\n    private Map<Long, Integer> cnt = new HashMap<>();\r\n    private int targetSum;\r\n\r\n    public int pathSum(TreeNode root, int targetSum) {\r\n        cnt.put(0L, 1);\r\n        this.targetSum = targetSum;\r\n        return dfs(root, 0);\r\n    }\r\n\r\n    private int dfs(TreeNode node, long s) {\r\n        if (node == null) {\r\n            return 0;\r\n        }\r\n        s += node.val;\r\n        int ans = cnt.getOrDefault(s - targetSum, 0);\r\n        cnt.merge(s, 1, Integer::sum);\r\n        ans += dfs(node.left, s);\r\n        ans += dfs(node.right, s);\r\n        cnt.merge(s, -1, Integer::sum);\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    int pathSum(TreeNode* root, int targetSum) {\r\n        unordered_map<long, int> cnt;\r\n        cnt[0] = 1;\r\n        function<int(TreeNode*, long)> dfs = [&](TreeNode* node, long s) -> int {\r\n            if (!node) return 0;\r\n            s += node->val;\r\n            int ans = cnt[s - targetSum];\r\n            ++cnt[s];\r\n            ans += dfs(node->left, s) + dfs(node->right, s);\r\n            --cnt[s];\r\n            return ans;\r\n        };\r\n        return dfs(root, 0);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20050.%20%E5%90%91%E4%B8%8B%E7%9A%84%E8%B7%AF%E5%BE%84%E8%8A%82%E7%82%B9%E4%B9%8B%E5%92%8C/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20050.%20%E5%90%91%E4%B8%8B%E7%9A%84%E8%B7%AF%E5%BE%84%E8%8A%82%E7%82%B9%E4%B9%8B%E5%92%8C/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20050.%20%E5%90%91%E4%B8%8B%E7%9A%84%E8%B7%AF%E5%BE%84%E8%8A%82%E7%82%B9%E4%B9%8B%E5%92%8C/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20050.%20%E5%90%91%E4%B8%8B%E7%9A%84%E8%B7%AF%E5%BE%84%E8%8A%82%E7%82%B9%E4%B9%8B%E5%92%8C/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20050.%20%E5%90%91%E4%B8%8B%E7%9A%84%E8%B7%AF%E5%BE%84%E8%8A%82%E7%82%B9%E4%B9%8B%E5%92%8C/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：路径总和 III。\n输入：root（TreeNode）、targetSum（integer）。\n训练提示：**思考**\r \r 路径只需向下，不必经过根。对每个结点再做一次向下搜索是 $O(n^2)$。\r \r 与数组中和为 $k$ 的子数组相同：前缀和之差等于 $\\textit{targetSum}$。递归时用哈希表统计根到当前结点的前缀和次数，回溯时撤销，以免串到另一条分支。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：哈希表 + 前缀和 + 递归\r\n\r\n\r\n\r\n思考\r\n\r\n路径只需向下，不必经过根。对每个结点再做一次向下搜索是 $O(n^2)$。\r\n\r\n与数组中和为 $k$ 的子数组相同：前缀和之差等于 $\\textit{targetSum}$。递归时用哈希表统计根到当前结点的前缀和次数，回溯时撤销，以免串到另一条分支。\r\n\r\n\r\n\r\n我们可以运用前缀和的思想，对二叉树进行递归遍历，同时用哈希表 $cnt$ 统计从根节点到当前节点的路径上各个前缀和出现的次数。\r\n\r\n我们设计一个递归函数 $dfs(node, s)$，表示当前遍历到的节点为 $node$，从根节点到当前节点的路径上的前缀和为 $s$。函数的返回值是统计以 $node$ 节点及其子树节点作为路径终点且路径和为 $targetSum$ 的路径数目。那么答案就是 $dfs(root, 0)$。\r\n\r\n函数 $dfs(node, s)$ 的递归过程如下：\r\n\r\n- 如果当前节点 $node$ 为空，则返回 $0$。\r\n- 计算从根节点到当前节点的路径上的前缀和 $s$。\r\n- 用 $cnt[s - targetSum]$ 表示以当前节点为路径终点且路径和为 $targetSum$ 的路径数目，其中 $cnt[s - targetSum]$ 即为 $cnt$ 中前缀和为 $s - targetSum$ 的个数。\r\n- 将前缀和 $s$ 的计数值加 $1$，即 $cnt[s] = cnt[s] + 1$。\r\n- 递归地遍历当前节点的左右子节点，即调用函数 $dfs(node.left, s)$ 和 $dfs(node.right, s)$，并将它们的返回值相加。\r\n- 在返回值计算完成以后，需要将当前节点的前缀和 $s$ 的计数值减 $1$，即执行 $cnt[s] = cnt[s] - 1$。\r\n- 最后返回答案。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 是二叉树的节点个数。",
+  "memory": "路径总和 III → 哈希表 + 前缀和 + 递归。\n**思考**\r\n\r\n路径只需向下，不必经过根。对每个结点再做一次向下搜索是 $O(n^2)$。\r\n\r\n与数组中和为 $k$ 的子数组相同：前缀和之差等于 $\\textit{targetSum}$。递归时用哈希表统计根到当前结点的前缀和次数，回溯时撤销，以免串到另一条分支。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

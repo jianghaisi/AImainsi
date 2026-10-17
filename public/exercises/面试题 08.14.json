@@ -1,0 +1,57 @@
+{
+  "number": "面试题 08.14",
+  "adapter": {
+    "name": "countEval",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "result",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 08.14"
+  },
+  "tests": [
+    {
+      "input": [
+        "1^0|0|1",
+        0
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "0&0&0&1^1|0",
+        1
+      ],
+      "expected": 10
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def countEval(self, s: str, result: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int countEval(String s, int result) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int countEval(string s, int result) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def countEval(self, s: str, result: int) -> int:\r\n        @cache\r\n        def dfs(s):\r\n            res = [0] * 2\r\n            if s in '01':\r\n                res[int(s)] = 1\r\n                return res\r\n            for k, op in enumerate(s):\r\n                if op in '&^|':\r\n                    left, right = dfs(s[:k]), dfs(s[k + 1 :])\r\n                    for i, v1 in enumerate(left):\r\n                        for j, v2 in enumerate(right):\r\n                            if op == '&':\r\n                                v = i & j\r\n                            elif op == '^':\r\n                                v = i ^ j\r\n                            elif op == '|':\r\n                                v = i | j\r\n                            res[v] += v1 * v2\r\n            return res\r\n\r\n        ans = dfs(s)\r\n        return ans[result] if 0 <= result < 2 else 0\r\n",
+    "java": "class Solution {\r\n    private Map<String, int[]> memo;\r\n\r\n    public int countEval(String s, int result) {\r\n        memo = new HashMap<>();\r\n        int[] ans = dfs(s);\r\n        return result == 0 || result == 1 ? ans[result] : 0;\r\n    }\r\n\r\n    private int[] dfs(String s) {\r\n        if (memo.containsKey(s)) {\r\n            return memo.get(s);\r\n        }\r\n        int[] res = new int[2];\r\n        if (s.length() == 1) {\r\n            res[Integer.parseInt(s)] = 1;\r\n            return res;\r\n        }\r\n        for (int k = 0; k < s.length(); ++k) {\r\n            char op = s.charAt(k);\r\n            if (op == '&' || op == '|' || op == '^') {\r\n                int[] left = dfs(s.substring(0, k));\r\n                int[] right = dfs(s.substring(k + 1));\r\n                for (int i = 0; i < 2; ++i) {\r\n                    for (int j = 0; j < 2; ++j) {\r\n                        int v = 0;\r\n                        if (op == '&') {\r\n                            v = i & j;\r\n                        } else if (op == '|') {\r\n                            v = i | j;\r\n                        } else if (op == '^') {\r\n                            v = i ^ j;\r\n                        }\r\n                        res[v] += left[i] * right[j];\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        memo.put(s, res);\r\n        return res;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    unordered_map<string, vector<int>> memo;\r\n\r\n    int countEval(string s, int result) {\r\n        vector<int> ans = dfs(s);\r\n        return result == 0 || result == 1 ? ans[result] : 0;\r\n    }\r\n\r\n    vector<int> dfs(string s) {\r\n        if (memo.count(s)) return memo[s];\r\n        vector<int> res(2);\r\n        if (s.size() == 1) {\r\n            res[s[0] - '0'] = 1;\r\n            return res;\r\n        }\r\n        for (int k = 0; k < s.size(); ++k) {\r\n            if (s[k] == '0' || s[k] == '1') continue;\r\n            vector<int> left = dfs(s.substr(0, k));\r\n            vector<int> right = dfs(s.substr(k + 1, s.size() - k));\r\n            for (int i = 0; i < 2; ++i) {\r\n                for (int j = 0; j < 2; ++j) {\r\n                    int v = 0;\r\n                    if (s[k] == '&')\r\n                        v = i & j;\r\n                    else if (s[k] == '|')\r\n                        v = i | j;\r\n                    else if (s[k] == '^')\r\n                        v = i ^ j;\r\n                    res[v] += left[i] * right[j];\r\n                }\r\n            }\r\n        }\r\n        memo[s] = res;\r\n        return res;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.14.Boolean%20Evaluation/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.14.Boolean%20Evaluation/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.14.Boolean%20Evaluation/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.14.Boolean%20Evaluation/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：布尔运算。\n输入：s（string）、result（integer）。\n训练提示：**思考**\r \r 在布尔表达式的运算符处加括号，统计结果等于 $result$ 的方案数。不同切分点对应不同的运算树，枚举切分是区间问题。\r \r 子串的真、假方案数互相独立，记忆化后每个子串只算一次。\r \r $dfs(s)$ 返回长度为 $2$ 的数组：下标 $0/1$ 分别为得到假、真的方法数。在每个运算符处拆成左右，按 $\\&$、 $|$、 $\\hat{}$ 组合。单字符 `'0'`/`'1'` 为基准。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：记忆化搜索\r\n\r\n\r\n\r\n思考\r\n\r\n在布尔表达式的运算符处加括号，统计结果等于 $result$ 的方案数。不同切分点对应不同的运算树，枚举切分是区间问题。\r\n\r\n子串的真、假方案数互相独立，记忆化后每个子串只算一次。\r\n\r\n$dfs(s)$ 返回长度为 $2$ 的数组：下标 $0/1$ 分别为得到假、真的方法数。在每个运算符处拆成左右，按 $\\&$、 $|$、 $\\hat{}$ 组合。单字符 `'0'`/`'1'` 为基准。",
+  "memory": "布尔运算 → 记忆化搜索。\n**思考**\r\n\r\n在布尔表达式的运算符处加括号，统计结果等于 $result$ 的方案数。不同切分点对应不同的运算树，枚举切分是区间问题。\r\n\r\n子串的真、假方案数互相独立，记忆化后每个子串只算一次。\r\n\r\n$dfs(s)$ 返回长度为 $2$ 的数组：下标 $0/1$ 分别为得到假、真的方法数。在每个运算符处拆成左右，按 $\\&$、 $|$、 $\\hat{}$ 组合。单字符 `'0'`/`'1'` 为基准。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

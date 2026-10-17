@@ -1,0 +1,99 @@
+{
+  "number": "LCR 042",
+  "adapter": {
+    "classname": "RecentCounter",
+    "maxbytesperline": 200000,
+    "systemdesign": true,
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "name": "ping",
+        "params": [
+          {
+            "name": "t",
+            "type": "integer"
+          }
+        ],
+        "return": {
+          "type": "integer"
+        }
+      }
+    ],
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "LCR 042"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "RecentCounter",
+          "ping",
+          "ping",
+          "ping",
+          "ping"
+        ],
+        [
+          [],
+          [
+            1
+          ],
+          [
+            100
+          ],
+          [
+            3001
+          ],
+          [
+            3002
+          ]
+        ]
+      ],
+      "expected": [
+        null,
+        1,
+        2,
+        3,
+        3
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class RecentCounter:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def ping(self, t: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "\nvar RecentCounter = function() {\n\n};\n\n/** \n * @param {number} t\n * @return {number}\n */\nRecentCounter.prototype.ping = function(t) {\n\n};\n\n/**\n * Your RecentCounter object will be instantiated and called as such:\n * var obj = new RecentCounter()\n * var param_1 = obj.ping(t)\n */",
+    "java": "class RecentCounter {\n\n    public RecentCounter() {\n\n    }\n    \n    public int ping(int t) {\n\n    }\n}\n\n/**\n * Your RecentCounter object will be instantiated and called as such:\n * RecentCounter obj = new RecentCounter();\n * int param_1 = obj.ping(t);\n */",
+    "cpp": "class RecentCounter {\npublic:\n    RecentCounter() {\n\n    }\n    \n    int ping(int t) {\n\n    }\n};\n\n/**\n * Your RecentCounter object will be instantiated and called as such:\n * RecentCounter* obj = new RecentCounter();\n * int param_1 = obj->ping(t);\n */"
+  },
+  "solutions": {
+    "python": "class RecentCounter:\r\n    def __init__(self):\r\n        self.q = deque()\r\n\r\n    def ping(self, t: int) -> int:\r\n        self.q.append(t)\r\n        while self.q[0] < t - 3000:\r\n            self.q.popleft()\r\n        return len(self.q)\r\n\r\n\r\n# Your RecentCounter object will be instantiated and called as such:\r\n# obj = RecentCounter()\r\n# param_1 = obj.ping(t)\r\n",
+    "javascript": "class RecentCounter {\n    stack;\n    cnt;\n    constructor() {\n        this.stack = [];\n        this.cnt = 0;\n    }\n    ping(t) {\n        while (this.stack.length && this.stack[0] + 3000 < t) {\n            this.cnt--;\n            this.stack.shift();\n        }\n        this.cnt++;\n        this.stack.push(t);\n        return this.cnt;\n    }\n}\n",
+    "java": "class RecentCounter {\r\n    private Deque<Integer> q;\r\n\r\n    public RecentCounter() {\r\n        q = new LinkedList<>();\r\n    }\r\n\r\n    public int ping(int t) {\r\n        q.offerLast(t);\r\n        while (q.peekFirst() < t - 3000) {\r\n            q.pollFirst();\r\n        }\r\n        return q.size();\r\n    }\r\n}\r\n\r\n/**\r\n * Your RecentCounter object will be instantiated and called as such:\r\n * RecentCounter obj = new RecentCounter();\r\n * int param_1 = obj.ping(t);\r\n */",
+    "cpp": "class RecentCounter {\r\npublic:\r\n    deque<int> q;\r\n\r\n    RecentCounter() {\r\n    }\r\n\r\n    int ping(int t) {\r\n        q.push_back(t);\r\n        while (q.front() < t - 3000) {\r\n            q.pop_front();\r\n        }\r\n        return q.size();\r\n    }\r\n};\r\n\r\n/**\r\n * Your RecentCounter object will be instantiated and called as such:\r\n * RecentCounter* obj = new RecentCounter();\r\n * int param_1 = obj->ping(t);\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20042.%20%E6%9C%80%E8%BF%91%E8%AF%B7%E6%B1%82%E6%AC%A1%E6%95%B0/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20042.%20%E6%9C%80%E8%BF%91%E8%AF%B7%E6%B1%82%E6%AC%A1%E6%95%B0/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20042.%20%E6%9C%80%E8%BF%91%E8%AF%B7%E6%B1%82%E6%AC%A1%E6%95%B0/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20042.%20%E6%9C%80%E8%BF%91%E8%AF%B7%E6%B1%82%E6%AC%A1%E6%95%B0/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20042.%20%E6%9C%80%E8%BF%91%E8%AF%B7%E6%B1%82%E6%AC%A1%E6%95%B0/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最近的请求次数。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 每次询问 $[t-3000,t]$ 内的请求数。若每次扫描全部历史，请求次数增多后会变慢。\r \r 时间戳单调递增，过期请求只出现在队列头部。新请求入队后弹出所有早于 $t-3000$ 的时间戳，队列长度即答案。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n每次询问 $[t-3000,t]$ 内的请求数。若每次扫描全部历史，请求次数增多后会变慢。\r\n\r\n时间戳单调递增，过期请求只出现在队列头部。新请求入队后弹出所有早于 $t-3000$ 的时间戳，队列长度即答案。",
+  "memory": "最近的请求次数 → 方法一。\n**思考**\r\n\r\n每次询问 $[t-3000,t]$ 内的请求数。若每次扫描全部历史，请求次数增多后会变慢。\r\n\r\n时间戳单调递增，过期请求只出现在队列头部。新请求入队后弹出所有早于 $t-3000$ 的时间戳，队列长度即答案。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

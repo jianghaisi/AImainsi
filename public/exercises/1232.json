@@ -1,0 +1,101 @@
+{
+  "number": "1232",
+  "adapter": {
+    "name": "checkStraightLine",
+    "params": [
+      {
+        "name": "coordinates",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "1232"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ]
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            7,
+            7
+          ]
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def checkStraightLine(self, coordinates: List[List[int]]) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public boolean checkStraightLine(int[][] coordinates) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool checkStraightLine(vector<vector<int>>& coordinates) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def checkStraightLine(self, coordinates: List[List[int]]) -> bool:\r\n        x1, y1 = coordinates[0]\r\n        x2, y2 = coordinates[1]\r\n        for x, y in coordinates[2:]:\r\n            if (x - x1) * (y2 - y1) != (y - y1) * (x2 - x1):\r\n                return False\r\n        return True\r\n",
+    "java": "class Solution {\r\n    public boolean checkStraightLine(int[][] coordinates) {\r\n        int x1 = coordinates[0][0], y1 = coordinates[0][1];\r\n        int x2 = coordinates[1][0], y2 = coordinates[1][1];\r\n        for (int i = 2; i < coordinates.length; ++i) {\r\n            int x = coordinates[i][0], y = coordinates[i][1];\r\n            if ((x - x1) * (y2 - y1) != (y - y1) * (x2 - x1)) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool checkStraightLine(vector<vector<int>>& coordinates) {\r\n        int x1 = coordinates[0][0], y1 = coordinates[0][1];\r\n        int x2 = coordinates[1][0], y2 = coordinates[1][1];\r\n        for (int i = 2; i < coordinates.size(); ++i) {\r\n            int x = coordinates[i][0], y = coordinates[i][1];\r\n            if ((x - x1) * (y2 - y1) != (y - y1) * (x2 - x1)) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1232.Check%20If%20It%20Is%20a%20Straight%20Line/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1232.Check%20If%20It%20Is%20a%20Straight%20Line/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1232.Check%20If%20It%20Is%20a%20Straight%20Line/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1232.Check%20If%20It%20Is%20a%20Straight%20Line/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：缀点成线。\n输入：coordinates（integer[][]）。\n训练提示：**思考**\r \r 共线当且仅当任意两点与第一点构成的向量平行。斜率比较会遇到竖直边与浮点误差。叉积 $(x-x_1)(y_2-y_1)=(y-y_1)(x_2-x_1)$ 避免除法。\r \r 取前两点为基准，对其余点检验该等式。 $n \\le 1000$，一遍线性即可。点不重复，无需处理零向量。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：数学\r\n\r\n\r\n\r\n思考\r\n\r\n共线当且仅当任意两点与第一点构成的向量平行。斜率比较会遇到竖直边与浮点误差。叉积 $(x-x_1)(y_2-y_1)=(y-y_1)(x_2-x_1)$ 避免除法。\r\n\r\n取前两点为基准，对其余点检验该等式。 $n \\le 1000$，一遍线性即可。点不重复，无需处理零向量。\r\n\r\n\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 表示 `coordinates` 数组的长度。空间复杂度 $O(1)$。",
+  "memory": "缀点成线 → 数学。\n**思考**\r\n\r\n共线当且仅当任意两点与第一点构成的向量平行。斜率比较会遇到竖直边与浮点误差。叉积 $(x-x_1)(y_2-y_1)=(y-y_1)(x_2-x_1)$ 避免除法。\r\n\r\n取前两点为基准，对其余点检验该等式。 $n \\le 1000$，一遍线性即可。点不重复，无需处理零向量。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

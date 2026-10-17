@@ -1,0 +1,81 @@
+{
+  "number": "841",
+  "adapter": {
+    "name": "canVisitAllRooms",
+    "params": [
+      {
+        "name": "rooms",
+        "type": "list<list<integer>>"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "841"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ],
+          []
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            3
+          ],
+          [
+            3,
+            0,
+            1
+          ],
+          [
+            2
+          ],
+          [
+            0
+          ]
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} rooms\n * @return {boolean}\n */\nvar canVisitAllRooms = function(rooms) {\n    \n};",
+    "java": "class Solution {\n    public boolean canVisitAllRooms(List<List<Integer>> rooms) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool canVisitAllRooms(vector<vector<int>>& rooms) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:\r\n        def dfs(i: int):\r\n            if i in vis:\r\n                return\r\n            vis.add(i)\r\n            for j in rooms[i]:\r\n                dfs(j)\r\n\r\n        vis = set()\r\n        dfs(0)\r\n        return len(vis) == len(rooms)\r\n",
+    "javascript": "function canVisitAllRooms(rooms) {\n    const n = rooms.length;\n    const vis = Array(n).fill(false);\n    const dfs = (i) => {\n        if (vis[i]) {\n            return;\n        }\n        vis[i] = true;\n        for (const j of rooms[i]) {\n            dfs(j);\n        }\n    };\n    dfs(0);\n    return vis.every(v => v);\n}\n",
+    "java": "class Solution {\r\n    private int cnt;\r\n    private boolean[] vis;\r\n    private List<List<Integer>> g;\r\n\r\n    public boolean canVisitAllRooms(List<List<Integer>> rooms) {\r\n        g = rooms;\r\n        vis = new boolean[g.size()];\r\n        dfs(0);\r\n        return cnt == g.size();\r\n    }\r\n\r\n    private void dfs(int i) {\r\n        if (vis[i]) {\r\n            return;\r\n        }\r\n        vis[i] = true;\r\n        ++cnt;\r\n        for (int j : g.get(i)) {\r\n            dfs(j);\r\n        }\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    bool canVisitAllRooms(vector<vector<int>>& rooms) {\r\n        int n = rooms.size();\r\n        int cnt = 0;\r\n        bool vis[n];\r\n        memset(vis, false, sizeof(vis));\r\n        function<void(int)> dfs = [&](int i) {\r\n            if (vis[i]) {\r\n                return;\r\n            }\r\n            vis[i] = true;\r\n            ++cnt;\r\n            for (int j : rooms[i]) {\r\n                dfs(j);\r\n            }\r\n        };\r\n        dfs(0);\r\n        return cnt == n;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0841.Keys%20and%20Rooms/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0841.Keys%20and%20Rooms/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0841.Keys%20and%20Rooms/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0841.Keys%20and%20Rooms/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0841.Keys%20and%20Rooms/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：钥匙和房间。\n输入：rooms（list<list<integer>>）。\n训练提示：**思考**\r \r 房间构成有向图，钥匙即出边，问从 $0$ 出发能否到达全部房间。 $n\\le 1000$，一次图遍历即可。\r \r DFS 从 $0$ 沿钥匙深入，访问集合大小等于房间数则成功。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS\r\n\r\n\r\n\r\n思考\r\n\r\n房间构成有向图，钥匙即出边，问从 $0$ 出发能否到达全部房间。 $n\\le 1000$，一次图遍历即可。\r\n\r\nDFS 从 $0$ 沿钥匙深入，访问集合大小等于房间数则成功。\r\n\r\n\r\n\r\n我们可以使用深度优先搜索的方法遍历整张图，统计可以到达的节点个数，并利用数组 `vis` 标记当前节点是否访问过，以防止重复访问。\r\n\r\n最后统计访问过的节点个数，若与节点总数相同则说明可以访问所有节点，否则说明存在无法到达的节点。\r\n\r\n时间复杂度 $O(n + m)$，空间复杂度 $O(n)$，其中 $n$ 为节点个数，而 $m$ 为边的个数。",
+  "memory": "钥匙和房间 → DFS。\n**思考**\r\n\r\n房间构成有向图，钥匙即出边，问从 $0$ 出发能否到达全部房间。 $n\\le 1000$，一次图遍历即可。\r\n\r\nDFS 从 $0$ 沿钥匙深入，访问集合大小等于房间数则成功。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

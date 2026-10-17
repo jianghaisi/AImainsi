@@ -1,0 +1,72 @@
+{
+  "number": "LCR 070",
+  "adapter": {
+    "name": "singleNonDuplicate",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 070"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          1,
+          2,
+          3,
+          3,
+          4,
+          4,
+          8,
+          8
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          3,
+          3,
+          7,
+          7,
+          10,
+          11,
+          11
+        ]
+      ],
+      "expected": 10
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def singleNonDuplicate(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar singleNonDuplicate = function(nums) {\n\n};",
+    "java": "class Solution {\n    public int singleNonDuplicate(int[] nums) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int singleNonDuplicate(vector<int>& nums) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def singleNonDuplicate(self, nums: List[int]) -> int:\r\n        left, right = 0, len(nums) - 1\r\n        while left < right:\r\n            mid = (left + right) >> 1\r\n            # Equals to: if (mid % 2 == 0 and nums[mid] != nums[mid + 1]) or (mid % 2 == 1 and nums[mid] != nums[mid - 1]):\r\n            if nums[mid] != nums[mid ^ 1]:\r\n                right = mid\r\n            else:\r\n                left = mid + 1\r\n        return nums[left]\r\n",
+    "javascript": "function singleNonDuplicate(nums) {\n    let left = 0, right = nums.length - 1;\n    while (left < right) {\n        const mid = (left + right) >> 1;\n        if (nums[mid] != nums[mid ^ 1]) {\n            right = mid;\n        }\n        else {\n            left = mid + 1;\n        }\n    }\n    return nums[left];\n}\n",
+    "java": "class Solution {\r\n    public int singleNonDuplicate(int[] nums) {\r\n        int left = 0, right = nums.length - 1;\r\n        while (left < right) {\r\n            int mid = (left + right) >> 1;\r\n            // if ((mid % 2 == 0 && nums[mid] != nums[mid + 1]) || (mid % 2 == 1 && nums[mid] !=\r\n            // nums[mid - 1])) {\r\n            if (nums[mid] != nums[mid ^ 1]) {\r\n                right = mid;\r\n            } else {\r\n                left = mid + 1;\r\n            }\r\n        }\r\n        return nums[left];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int singleNonDuplicate(vector<int>& nums) {\r\n        int left = 0, right = nums.size() - 1;\r\n        while (left < right) {\r\n            int mid = left + right >> 1;\r\n            if (nums[mid] != nums[mid ^ 1])\r\n                right = mid;\r\n            else\r\n                left = mid + 1;\r\n        }\r\n        return nums[left];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20070.%20%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20070.%20%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20070.%20%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20070.%20%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20070.%20%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：有序数组中的单一元素。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 有序数组中除一个元素外均成对相邻出现。异或全部元素也能得到答案，但没有用上有序。\r \r 成对元素占据偶数与随后的奇数下标。若 $mid$ 与它对偶位置（ $mid\\oplus 1$）上的值不同，则单独元素在左半含中点；否则在右半。二分即可定位。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n有序数组中除一个元素外均成对相邻出现。异或全部元素也能得到答案，但没有用上有序。\r\n\r\n成对元素占据偶数与随后的奇数下标。若 $mid$ 与它对偶位置（ $mid\\oplus 1$）上的值不同，则单独元素在左半含中点；否则在右半。二分即可定位。",
+  "memory": "有序数组中的单一元素 → 方法一。\n**思考**\r\n\r\n有序数组中除一个元素外均成对相邻出现。异或全部元素也能得到答案，但没有用上有序。\r\n\r\n成对元素占据偶数与随后的奇数下标。若 $mid$ 与它对偶位置（ $mid\\oplus 1$）上的值不同，则单独元素在左半含中点；否则在右半。二分即可定位。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,150 @@
+{
+  "number": "LCR 043",
+  "adapter": {
+    "classname": "CBTInserter",
+    "maxbytesperline": 200000,
+    "systemdesign": true,
+    "constructor": {
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "insert",
+        "params": [
+          {
+            "name": "v",
+            "type": "integer"
+          }
+        ],
+        "return": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "get_root",
+        "params": [],
+        "return": {
+          "type": "TreeNode"
+        }
+      }
+    ],
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "LCR 043"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "CBTInserter",
+          "insert",
+          "get_root"
+        ],
+        [
+          [
+            [
+              1
+            ]
+          ],
+          [
+            2
+          ],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        1,
+        [
+          1,
+          2
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "CBTInserter",
+          "insert",
+          "insert",
+          "get_root"
+        ],
+        [
+          [
+            [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          ],
+          [
+            7
+          ],
+          [
+            8
+          ],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        3,
+        4,
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class CBTInserter:\n\n    def __init__(self, root: Optional[TreeNode]):\n        raise NotImplementedError('请完成此方法')\n\n    def insert(self, val: int) -> int:\n        raise NotImplementedError('请完成此方法')\n\n    def get_root(self) -> Optional[TreeNode]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n */\nvar CBTInserter = function(root) {\n\n};\n\n/** \n * @param {number} v\n * @return {number}\n */\nCBTInserter.prototype.insert = function(v) {\n\n};\n\n/**\n * @return {TreeNode}\n */\nCBTInserter.prototype.get_root = function() {\n\n};\n\n/**\n * Your CBTInserter object will be instantiated and called as such:\n * var obj = new CBTInserter(root)\n * var param_1 = obj.insert(v)\n * var param_2 = obj.get_root()\n */",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass CBTInserter {\n\n    public CBTInserter(TreeNode root) {\n\n    }\n    \n    public int insert(int v) {\n\n    }\n    \n    public TreeNode get_root() {\n\n    }\n}\n\n/**\n * Your CBTInserter object will be instantiated and called as such:\n * CBTInserter obj = new CBTInserter(root);\n * int param_1 = obj.insert(v);\n * TreeNode param_2 = obj.get_root();\n */",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass CBTInserter {\npublic:\n    CBTInserter(TreeNode* root) {\n\n    }\n    \n    int insert(int v) {\n\n    }\n    \n    TreeNode* get_root() {\n\n    }\n};\n\n/**\n * Your CBTInserter object will be instantiated and called as such:\n * CBTInserter* obj = new CBTInserter(root);\n * int param_1 = obj->insert(v);\n * TreeNode* param_2 = obj->get_root();\n */"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, val=0, left=None, right=None):\r\n#         self.val = val\r\n#         self.left = left\r\n#         self.right = right\r\nclass CBTInserter:\r\n\r\n    def __init__(self, root: Optional[TreeNode]):\r\n        self.tree = []\r\n        q = deque([root])\r\n        while q:\r\n            for _ in range(len(q)):\r\n                node = q.popleft()\r\n                self.tree.append(node)\r\n                if node.left:\r\n                    q.append(node.left)\r\n                if node.right:\r\n                    q.append(node.right)\r\n\r\n    def insert(self, val: int) -> int:\r\n        p = self.tree[(len(self.tree) - 1) // 2]\r\n        node = TreeNode(val)\r\n        self.tree.append(node)\r\n        if p.left is None:\r\n            p.left = node\r\n        else:\r\n            p.right = node\r\n        return p.val\r\n\r\n    def get_root(self) -> Optional[TreeNode]:\r\n        return self.tree[0]\r\n\r\n\r\n# Your CBTInserter object will be instantiated and called as such:\r\n# obj = CBTInserter(root)\r\n# param_1 = obj.insert(val)\r\n# param_2 = obj.get_root()\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nclass CBTInserter {\n    tree = [];\n    constructor(root) {\n        if (root === null) {\n            return;\n        }\n        const q = [root];\n        while (q.length) {\n            const t = [];\n            for (const node of q) {\n                this.tree.push(node);\n                node.left !== null && t.push(node.left);\n                node.right !== null && t.push(node.right);\n            }\n            q.splice(0, q.length, ...t);\n        }\n    }\n    insert(val) {\n        const p = this.tree[(this.tree.length - 1) >> 1];\n        const node = new TreeNode(val);\n        this.tree.push(node);\n        if (p.left === null) {\n            p.left = node;\n        }\n        else {\n            p.right = node;\n        }\n        return p.val;\n    }\n    get_root() {\n        return this.tree[0];\n    }\n}\n/**\n * Your CBTInserter object will be instantiated and called as such:\n * var obj = new CBTInserter(root)\n * var param_1 = obj.insert(val)\n * var param_2 = obj.get_root()\n */\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode() {}\r\n *     TreeNode(int val) { this.val = val; }\r\n *     TreeNode(int val, TreeNode left, TreeNode right) {\r\n *         this.val = val;\r\n *         this.left = left;\r\n *         this.right = right;\r\n *     }\r\n * }\r\n */\r\nclass CBTInserter {\r\n    private List<TreeNode> tree = new ArrayList<>();\r\n\r\n    public CBTInserter(TreeNode root) {\r\n        Deque<TreeNode> q = new ArrayDeque<>();\r\n        q.offer(root);\r\n        while (!q.isEmpty()) {\r\n            for (int i = q.size(); i > 0; --i) {\r\n                TreeNode node = q.poll();\r\n                tree.add(node);\r\n                if (node.left != null) {\r\n                    q.offer(node.left);\r\n                }\r\n                if (node.right != null) {\r\n                    q.offer(node.right);\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    public int insert(int val) {\r\n        TreeNode p = tree.get((tree.size() - 1) / 2);\r\n        TreeNode node = new TreeNode(val);\r\n        tree.add(node);\r\n        if (p.left == null) {\r\n            p.left = node;\r\n        } else {\r\n            p.right = node;\r\n        }\r\n        return p.val;\r\n    }\r\n\r\n    public TreeNode get_root() {\r\n        return tree.get(0);\r\n    }\r\n}\r\n\r\n/**\r\n * Your CBTInserter object will be instantiated and called as such:\r\n * CBTInserter obj = new CBTInserter(root);\r\n * int param_1 = obj.insert(val);\r\n * TreeNode param_2 = obj.get_root();\r\n */",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\r\n * };\r\n */\r\nclass CBTInserter {\r\npublic:\r\n    CBTInserter(TreeNode* root) {\r\n        queue<TreeNode*> q{{root}};\r\n        while (q.size()) {\r\n            for (int i = q.size(); i; --i) {\r\n                auto node = q.front();\r\n                q.pop();\r\n                tree.push_back(node);\r\n                if (node->left) {\r\n                    q.push(node->left);\r\n                }\r\n                if (node->right) {\r\n                    q.push(node->right);\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    int insert(int val) {\r\n        auto p = tree[(tree.size() - 1) / 2];\r\n        auto node = new TreeNode(val);\r\n        tree.push_back(node);\r\n        if (!p->left) {\r\n            p->left = node;\r\n        } else {\r\n            p->right = node;\r\n        }\r\n        return p->val;\r\n    }\r\n\r\n    TreeNode* get_root() {\r\n        return tree[0];\r\n    }\r\n\r\nprivate:\r\n    vector<TreeNode*> tree;\r\n};\r\n\r\n/**\r\n * Your CBTInserter object will be instantiated and called as such:\r\n * CBTInserter* obj = new CBTInserter(root);\r\n * int param_1 = obj->insert(val);\r\n * TreeNode* param_2 = obj->get_root();\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20043.%20%E5%BE%80%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E6%B7%BB%E5%8A%A0%E8%8A%82%E7%82%B9/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20043.%20%E5%BE%80%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E6%B7%BB%E5%8A%A0%E8%8A%82%E7%82%B9/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20043.%20%E5%BE%80%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E6%B7%BB%E5%8A%A0%E8%8A%82%E7%82%B9/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20043.%20%E5%BE%80%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E6%B7%BB%E5%8A%A0%E8%8A%82%E7%82%B9/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20043.%20%E5%BE%80%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E6%B7%BB%E5%8A%A0%E8%8A%82%E7%82%B9/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：完全二叉树插入器。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 完全二叉树的插入位置由结点个数唯一确定。每次从根层序查找第一个空孩子，插入次数多时重复遍历。\r \r 初始化时层序把已有结点装入数组，完全二叉树中下标 $i$ 的父结点在 $\\lfloor(i-1)/2\\rfloor$。新结点追加到数组末尾，并接到该父结点尚空的左或右孩子上，插入为常数时间。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：BFS\r\n\r\n\r\n\r\n思考\r\n\r\n完全二叉树的插入位置由结点个数唯一确定。每次从根层序查找第一个空孩子，插入次数多时重复遍历。\r\n\r\n初始化时层序把已有结点装入数组，完全二叉树中下标 $i$ 的父结点在 $\\lfloor(i-1)/2\\rfloor$。新结点追加到数组末尾，并接到该父结点尚空的左或右孩子上，插入为常数时间。\r\n\r\n\r\n\r\n我们可以使用一个数组 $tree$ 来存储完全二叉树的所有节点。在初始化时，我们使用一个队列 $q$ 来层序遍历给定的树，并将所有节点存储到数组 $tree$ 中。\r\n\r\n在插入节点时，我们可以通过数组 $tree$ 来找到新节点的父节点 $p$。然后我们创建一个新节点 $node$，将其插入到数组 $tree$ 中，并将 $node$ 作为 $p$ 的左子节点或右子节点。最后返回 $p$ 的值。\r\n\r\n在获取根节点时，我们直接返回数组 $tree$ 的第一个元素。\r\n\r\n时间复杂度方面，初始化时需要 $O(n)$ 的时间，插入节点和获取根节点的时间复杂度均为 $O(1)$。空间复杂度为 $O(n)$。其中 $n$ 为树中节点的数量。",
+  "memory": "完全二叉树插入器 → BFS。\n**思考**\r\n\r\n完全二叉树的插入位置由结点个数唯一确定。每次从根层序查找第一个空孩子，插入次数多时重复遍历。\r\n\r\n初始化时层序把已有结点装入数组，完全二叉树中下标 $i$ 的父结点在 $\\lfloor(i-1)/2\\rfloor$。新结点追加到数组末尾，并接到该父结点尚空的左或右孩子上，插入为常数时间。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,134 @@
+{
+  "number": "1615",
+  "adapter": {
+    "name": "maximalNetworkRank",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      },
+      {
+        "type": "integer[][]",
+        "name": "roads"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1615"
+  },
+  "tests": [
+    {
+      "input": [
+        4,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        5,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        8,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            5,
+            7
+          ]
+        ]
+      ],
+      "expected": 5
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @param {number[][]} roads\n * @return {number}\n */\nvar maximalNetworkRank = function(n, roads) {\n    \n};",
+    "java": "class Solution {\n    public int maximalNetworkRank(int n, int[][] roads) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int maximalNetworkRank(int n, vector<vector<int>>& roads) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:\r\n        g = [[0] * n for _ in range(n)]\r\n        cnt = [0] * n\r\n        for a, b in roads:\r\n            g[a][b] = g[b][a] = 1\r\n            cnt[a] += 1\r\n            cnt[b] += 1\r\n        return max(cnt[a] + cnt[b] - g[a][b] for a in range(n) for b in range(a + 1, n))\r\n",
+    "javascript": "function maximalNetworkRank(n, roads) {\n    const g = Array.from({ length: n }, () => Array(n).fill(0));\n    const cnt = Array(n).fill(0);\n    for (const [a, b] of roads) {\n        g[a][b] = 1;\n        g[b][a] = 1;\n        ++cnt[a];\n        ++cnt[b];\n    }\n    let ans = 0;\n    for (let a = 0; a < n; ++a) {\n        for (let b = a + 1; b < n; ++b) {\n            ans = Math.max(ans, cnt[a] + cnt[b] - g[a][b]);\n        }\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int maximalNetworkRank(int n, int[][] roads) {\r\n        int[][] g = new int[n][n];\r\n        int[] cnt = new int[n];\r\n        for (var r : roads) {\r\n            int a = r[0], b = r[1];\r\n            g[a][b] = 1;\r\n            g[b][a] = 1;\r\n            ++cnt[a];\r\n            ++cnt[b];\r\n        }\r\n        int ans = 0;\r\n        for (int a = 0; a < n; ++a) {\r\n            for (int b = a + 1; b < n; ++b) {\r\n                ans = Math.max(ans, cnt[a] + cnt[b] - g[a][b]);\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int maximalNetworkRank(int n, vector<vector<int>>& roads) {\r\n        int cnt[n];\r\n        int g[n][n];\r\n        memset(cnt, 0, sizeof(cnt));\r\n        memset(g, 0, sizeof(g));\r\n        for (auto& r : roads) {\r\n            int a = r[0], b = r[1];\r\n            g[a][b] = g[b][a] = 1;\r\n            ++cnt[a];\r\n            ++cnt[b];\r\n        }\r\n        int ans = 0;\r\n        for (int a = 0; a < n; ++a) {\r\n            for (int b = a + 1; b < n; ++b) {\r\n                ans = max(ans, cnt[a] + cnt[b] - g[a][b]);\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1600-1699/1615.Maximal%20Network%20Rank/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1600-1699/1615.Maximal%20Network%20Rank/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1600-1699/1615.Maximal%20Network%20Rank/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1600-1699/1615.Maximal%20Network%20Rank/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1600-1699/1615.Maximal%20Network%20Rank/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最大网络秩。\n输入：n（integer）、roads（integer[][]）。\n训练提示：**思考**\r \r 网络秩是两座城市的度数之和，若它们之间有边则再减一以免重复计算。城市数量通常不大，枚举所有无序对即可。\r \r 若每对城市都回头扫描道路列表，判断相邻的代价会乘上道路条数。\r \r 建边时用一维数组 $\\textit{cnt}$ 累加度数，用二维数组 $\\textit{g}$ 以 $0/1$ 记下是否相邻。枚举 $a \\lt b$ 时秩为 $\\textit{cnt}[a] + \\textit{cnt}[b] - \\textit{g}[a][b]$，二重循环取最大值。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：计数\r\n\r\n\r\n\r\n思考\r\n\r\n网络秩是两座城市的度数之和，若它们之间有边则再减一以免重复计算。城市数量通常不大，枚举所有无序对即可。\r\n\r\n若每对城市都回头扫描道路列表，判断相邻的代价会乘上道路条数。\r\n\r\n建边时用一维数组 $\\textit{cnt}$ 累加度数，用二维数组 $\\textit{g}$ 以 $0/1$ 记下是否相邻。枚举 $a \\lt b$ 时秩为 $\\textit{cnt}[a] + \\textit{cnt}[b] - \\textit{g}[a][b]$，二重循环取最大值。\r\n\r\n\r\n\r\n我们可以用一维数组 $\\textit{cnt}$ 记录每个城市的度，用二维数组 $\\textit{g}$ 记录每对城市之间是否有道路相连，如果城市 $a$ 和城市 $b$ 之间有道路相连，则 $\\textit{g}[a][b] = \\textit{g}[b][a] = 1$，否则 $\\textit{g}[a][b] = \\textit{g}[b][a] = 0$。\r\n\r\n接下来，我们枚举每对城市 $(a, b)$，其中 $a \\lt b$，计算它们的网络秩，即 $\\textit{cnt}[a] + \\textit{cnt}[b] - \\textit{g}[a][b]$，取其中的最大值即为答案。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n^2)$。其中 $n$ 是城市的数量。",
+  "memory": "最大网络秩 → 计数。\n**思考**\r\n\r\n网络秩是两座城市的度数之和，若它们之间有边则再减一以免重复计算。城市数量通常不大，枚举所有无序对即可。\r\n\r\n若每对城市都回头扫描道路列表，判断相邻的代价会乘上道路条数。\r\n\r\n建边时用一维数组 $\\textit{cnt}$ 累加度数，用二维数组 $\\textit{g}$ 以 $0/1$ 记下是否相邻。枚举 $a \\lt b$ 时秩为 $\\textit{cnt}[a] + \\textit{cnt}[b] - \\textit{g}[a][b]$，二重循环取最大值。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

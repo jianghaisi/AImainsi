@@ -1,0 +1,62 @@
+{
+  "number": "LCR 085",
+  "adapter": {
+    "name": "generateParenthesis",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "string[]"
+    },
+    "number": "LCR 085"
+  },
+  "tests": [
+    {
+      "input": [
+        3
+      ],
+      "expected": [
+        "((()))",
+        "(()())",
+        "(())()",
+        "()(())",
+        "()()()"
+      ]
+    },
+    {
+      "input": [
+        1
+      ],
+      "expected": [
+        "()"
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def generateParenthesis(self, n: int) -> List[str]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @return {string[]}\n */\nvar generateParenthesis = function(n) {\n\n};",
+    "java": "class Solution {\n    public List<String> generateParenthesis(int n) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def generateParenthesis(self, n: int) -> List[str]:\r\n        def dfs(left, right, t):\r\n            if left == n and right == n:\r\n                ans.append(t)\r\n                return\r\n            if left < n:\r\n                dfs(left + 1, right, t + '(')\r\n            if right < left:\r\n                dfs(left, right + 1, t + ')')\r\n\r\n        ans = []\r\n        dfs(0, 0, '')\r\n        return ans\r\n",
+    "javascript": "function generateParenthesis(n) {\n    let ans = [];\n    let dfs = function (left, right, t) {\n        if (left == n && right == n) {\n            ans.push(t);\n            return;\n        }\n        if (left < n) {\n            dfs(left + 1, right, t + '(');\n        }\n        if (right < left) {\n            dfs(left, right + 1, t + ')');\n        }\n    };\n    dfs(0, 0, '');\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public List<String> generateParenthesis(int n) {\r\n        List<String> ans = new ArrayList<>();\r\n        dfs(0, 0, n, \"\", ans);\r\n        return ans;\r\n    }\r\n\r\n    private void dfs(int left, int right, int n, String t, List<String> ans) {\r\n        if (left == n && right == n) {\r\n            ans.add(t);\r\n            return;\r\n        }\r\n        if (left < n) {\r\n            dfs(left + 1, right, n, t + \"(\", ans);\r\n        }\r\n        if (right < left) {\r\n            dfs(left, right + 1, n, t + \")\", ans);\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<string> generateParenthesis(int n) {\r\n        vector<string> ans;\r\n        dfs(0, 0, n, \"\", ans);\r\n        return ans;\r\n    }\r\n\r\n    void dfs(int left, int right, int n, string t, vector<string>& ans) {\r\n        if (left == n && right == n) {\r\n            ans.push_back(t);\r\n            return;\r\n        }\r\n        if (left < n) dfs(left + 1, right, n, t + \"(\", ans);\r\n        if (right < left) dfs(left, right + 1, n, t + \")\", ans);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20085.%20%E7%94%9F%E6%88%90%E5%8C%B9%E9%85%8D%E7%9A%84%E6%8B%AC%E5%8F%B7/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20085.%20%E7%94%9F%E6%88%90%E5%8C%B9%E9%85%8D%E7%9A%84%E6%8B%AC%E5%8F%B7/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20085.%20%E7%94%9F%E6%88%90%E5%8C%B9%E9%85%8D%E7%9A%84%E6%8B%AC%E5%8F%B7/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20085.%20%E7%94%9F%E6%88%90%E5%8C%B9%E9%85%8D%E7%9A%84%E6%8B%AC%E5%8F%B7/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20085.%20%E7%94%9F%E6%88%90%E5%8C%B9%E9%85%8D%E7%9A%84%E6%8B%AC%E5%8F%B7/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：括号生成。\n输入：n（integer）。\n训练提示：**思考**\r \r 生成 $n$ 对括号的全部合法串。若先生成再检验，非法前缀也会被展开。\r \r 回溯时维护已放左、右括号个数：左括号未用尽则可放左；右括号少于左括号则可放右。这样生成的每一条路径都合法。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n生成 $n$ 对括号的全部合法串。若先生成再检验，非法前缀也会被展开。\r\n\r\n回溯时维护已放左、右括号个数：左括号未用尽则可放左；右括号少于左括号则可放右。这样生成的每一条路径都合法。",
+  "memory": "括号生成 → 方法一。\n**思考**\r\n\r\n生成 $n$ 对括号的全部合法串。若先生成再检验，非法前缀也会被展开。\r\n\r\n回溯时维护已放左、右括号个数：左括号未用尽则可放左；右括号少于左括号则可放右。这样生成的每一条路径都合法。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

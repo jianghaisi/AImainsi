@@ -1,0 +1,98 @@
+{
+  "number": "802",
+  "adapter": {
+    "name": "eventualSafeNodes",
+    "params": [
+      {
+        "name": "graph",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "list<integer>"
+    },
+    "number": "802"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            5
+          ],
+          [
+            0
+          ],
+          [
+            5
+          ],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        2,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            0,
+            4
+          ],
+          []
+        ]
+      ],
+      "expected": [
+        4
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public List<Integer> eventualSafeNodes(int[][] graph) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:\r\n        rg = defaultdict(list)\r\n        indeg = [0] * len(graph)\r\n        for i, vs in enumerate(graph):\r\n            for j in vs:\r\n                rg[j].append(i)\r\n            indeg[i] = len(vs)\r\n        q = deque([i for i, v in enumerate(indeg) if v == 0])\r\n        while q:\r\n            i = q.popleft()\r\n            for j in rg[i]:\r\n                indeg[j] -= 1\r\n                if indeg[j] == 0:\r\n                    q.append(j)\r\n        return [i for i, v in enumerate(indeg) if v == 0]\r\n",
+    "java": "class Solution {\r\n    public List<Integer> eventualSafeNodes(int[][] graph) {\r\n        int n = graph.length;\r\n        int[] indeg = new int[n];\r\n        List<Integer>[] rg = new List[n];\r\n        Arrays.setAll(rg, k -> new ArrayList<>());\r\n        Deque<Integer> q = new ArrayDeque<>();\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j : graph[i]) {\r\n                rg[j].add(i);\r\n            }\r\n            indeg[i] = graph[i].length;\r\n            if (indeg[i] == 0) {\r\n                q.offer(i);\r\n            }\r\n        }\r\n        while (!q.isEmpty()) {\r\n            int i = q.pollFirst();\r\n            for (int j : rg[i]) {\r\n                if (--indeg[j] == 0) {\r\n                    q.offer(j);\r\n                }\r\n            }\r\n        }\r\n        List<Integer> ans = new ArrayList<>();\r\n        for (int i = 0; i < n; ++i) {\r\n            if (indeg[i] == 0) {\r\n                ans.add(i);\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {\r\n        int n = graph.size();\r\n        vector<int> indeg(n);\r\n        vector<vector<int>> rg(n);\r\n        queue<int> q;\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j : graph[i]) rg[j].push_back(i);\r\n            indeg[i] = graph[i].size();\r\n            if (indeg[i] == 0) q.push(i);\r\n        }\r\n        while (!q.empty()) {\r\n            int i = q.front();\r\n            q.pop();\r\n            for (int j : rg[i])\r\n                if (--indeg[j] == 0) q.push(j);\r\n        }\r\n        vector<int> ans;\r\n        for (int i = 0; i < n; ++i)\r\n            if (indeg[i] == 0) ans.push_back(i);\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0802.Find%20Eventual%20Safe%20States/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0802.Find%20Eventual%20Safe%20States/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0802.Find%20Eventual%20Safe%20States/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0802.Find%20Eventual%20Safe%20States/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：找到最终的安全状态。\n输入：graph（integer[][]）。\n训练提示：**思考**\r \r 最终安全点是出发后必然进入出度为 $0$ 的结点、且途中不进入环的点。对每个点沿出边搜索是否能走到环，会在同一条链上重复遍历。\r \r 将边反向后，原图出度变为入度。从入度为 $0$ 的点做拓扑删除，能被删掉的点恰好是无法走到环的点，亦即安全点。 $n\\le 10^4$ 时一次线性遍历即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：拓扑排序\r\n\r\n\r\n\r\n思考\r\n\r\n最终安全点是出发后必然进入出度为 $0$ 的结点、且途中不进入环的点。对每个点沿出边搜索是否能走到环，会在同一条链上重复遍历。\r\n\r\n将边反向后，原图出度变为入度。从入度为 $0$ 的点做拓扑删除，能被删掉的点恰好是无法走到环的点，亦即安全点。 $n\\le 10^4$ 时一次线性遍历即可。\r\n\r\n\r\n\r\n出度为零的点是安全的，如果一个点只能到达安全的点，那么它同样是安全的，所以问题转换成了拓扑排序。\r\n\r\n我们可以将图中所有边反向，得到一个反图，然后在反图上运行拓扑排序。\r\n\r\n时间复杂度 $O(n+m)$，其中 $n$ 表示图中的点数， $m$ 表示图中的边数。",
+  "memory": "找到最终的安全状态 → 拓扑排序。\n**思考**\r\n\r\n最终安全点是出发后必然进入出度为 $0$ 的结点、且途中不进入环的点。对每个点沿出边搜索是否能走到环，会在同一条链上重复遍历。\r\n\r\n将边反向后，原图出度变为入度。从入度为 $0$ 的点做拓扑删除，能被删掉的点恰好是无法走到环的点，亦即安全点。 $n\\le 10^4$ 时一次线性遍历即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

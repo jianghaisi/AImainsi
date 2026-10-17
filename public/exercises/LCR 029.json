@@ -1,0 +1,83 @@
+{
+  "number": "LCR 029",
+  "adapter": {
+    "name": "insert",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      },
+      {
+        "name": "insertVal",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "ListNode"
+    },
+    "number": "LCR 029"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          4,
+          1
+        ],
+        2
+      ],
+      "expected": [
+        3,
+        4,
+        1,
+        2
+      ]
+    },
+    {
+      "input": [
+        [],
+        1
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        0
+      ],
+      "expected": [
+        1,
+        0
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def insert(self, head: 'Node', insertVal: int) -> 'Node':\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * // Definition for a Node.\n * function Node(val, next) {\n *     this.val = val;\n *     this.next = next;\n * };\n */\n\n/**\n * @param {Node} head\n * @param {number} insertVal\n * @return {Node}\n */\nvar insert = function(head, insertVal) {\n    \n};",
+    "java": "/*\n// Definition for a Node.\nclass Node {\n    public int val;\n    public Node next;\n\n    public Node() {}\n\n    public Node(int _val) {\n        val = _val;\n    }\n\n    public Node(int _val, Node _next) {\n        val = _val;\n        next = _next;\n    }\n};\n*/\n\nclass Solution {\n    public Node insert(Node head, int insertVal) {\n        \n    }\n}",
+    "cpp": "/*\n// Definition for a Node.\nclass Node {\npublic:\n    int val;\n    Node* next;\n\n    Node() {}\n\n    Node(int _val) {\n        val = _val;\n        next = NULL;\n    }\n\n    Node(int _val, Node* _next) {\n        val = _val;\n        next = _next;\n    }\n};\n*/\n\nclass Solution {\npublic:\n    Node* insert(Node* head, int insertVal) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "\"\"\"\r\n# Definition for a Node.\r\nclass Node:\r\n    def __init__(self, val=None, next=None):\r\n        self.val = val\r\n        self.next = next\r\n\"\"\"\r\n\r\n\r\nclass Solution:\r\n    def insert(self, head: 'Node', insertVal: int) -> 'Node':\r\n        node = Node(insertVal)\r\n        if head is None:\r\n            node.next = node\r\n            return node\r\n        p = head\r\n        while True:\r\n            if (\r\n                p.val <= insertVal\r\n                and insertVal <= p.next.val\r\n                or p.val > p.next.val\r\n                and (insertVal <= p.next.val or insertVal >= p.val)\r\n                or p.next == head\r\n            ):\r\n                node.next = p.next\r\n                p.next = node\r\n                break\r\n\r\n            p = p.next\r\n        return head\r\n",
+    "javascript": "/**\n * Definition for node.\n * class Node {\n *     val: number\n *     next: Node | null\n *     constructor(val?: number, next?: Node) {\n *         this.val = (val===undefined ? 0 : val);\n *         this.next = (next===undefined ? null : next);\n *     }\n * }\n */\nfunction insert(head, insertVal) {\n    const newNode = new Node(insertVal);\n    if (head == null) {\n        newNode.next = newNode;\n        return newNode;\n    }\n    const dummy = new Node(0, head);\n    let cur = dummy.next;\n    while (cur.next != dummy.next) {\n        const val = cur.val;\n        const nextVal = cur.next.val;\n        if (val > nextVal) {\n            if ((insertVal >= val && insertVal >= nextVal) ||\n                (insertVal <= val && insertVal <= nextVal)) {\n                break;\n            }\n        }\n        else {\n            if (insertVal >= val && insertVal <= nextVal) {\n                break;\n            }\n        }\n        cur = cur.next;\n    }\n    newNode.next = cur.next;\n    cur.next = newNode;\n    return dummy.next;\n}\n",
+    "java": "/*\r\n// Definition for a Node.\r\nclass Node {\r\n    public int val;\r\n    public Node next;\r\n\r\n    public Node() {}\r\n\r\n    public Node(int _val) {\r\n        val = _val;\r\n    }\r\n\r\n    public Node(int _val, Node _next) {\r\n        val = _val;\r\n        next = _next;\r\n    }\r\n};\r\n*/\r\n\r\nclass Solution {\r\n    public Node insert(Node head, int insertVal) {\r\n        Node node = new Node(insertVal);\r\n        if (head == null) {\r\n            node.next = node;\r\n            return node;\r\n        }\r\n        Node p = head;\r\n        for (;;) {\r\n            if (p.val <= insertVal && insertVal <= p.next.val\r\n                || p.val > p.next.val && (insertVal <= p.next.val || insertVal >= p.val)\r\n                || p.next == head) {\r\n                node.next = p.next;\r\n                p.next = node;\r\n                break;\r\n            }\r\n            p = p.next;\r\n        }\r\n        return head;\r\n    }\r\n}",
+    "cpp": "/*\r\n// Definition for a Node.\r\nclass Node {\r\npublic:\r\n    int val;\r\n    Node* next;\r\n\r\n    Node() {}\r\n\r\n    Node(int _val) {\r\n        val = _val;\r\n        next = NULL;\r\n    }\r\n\r\n    Node(int _val, Node* _next) {\r\n        val = _val;\r\n        next = _next;\r\n    }\r\n};\r\n*/\r\n\r\nclass Solution {\r\npublic:\r\n    Node* insert(Node* head, int insertVal) {\r\n        Node* node = new Node(insertVal);\r\n        if (!head) {\r\n            node->next = node;\r\n            return node;\r\n        }\r\n        Node *prev = head, *curr = head->next;\r\n        while (curr != head) {\r\n            if ((prev->val <= insertVal && insertVal <= curr->val) || (prev->val > curr->val && (insertVal >= prev->val || insertVal <= curr->val))) break;\r\n            prev = curr;\r\n            curr = curr->next;\r\n        }\r\n        prev->next = node;\r\n        node->next = curr;\r\n        return head;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20029.%20%E6%8E%92%E5%BA%8F%E7%9A%84%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20029.%20%E6%8E%92%E5%BA%8F%E7%9A%84%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20029.%20%E6%8E%92%E5%BA%8F%E7%9A%84%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20029.%20%E6%8E%92%E5%BA%8F%E7%9A%84%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20029.%20%E6%8E%92%E5%BA%8F%E7%9A%84%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：循环有序列表的插入。\n输入：head（ListNode）、insertVal（integer）。\n训练提示：**思考**\r \r 在非递减循环链表中插入新值，并处理空表、单结点与跨越最大值到最小值的缝隙。\r \r 沿环走一圈，插入位置只有三类：落在某段升序之间；落在最大值与最小值之间；或者走完整圈仍无缝可插（全相等）。按这三类条件插入后即可退出。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n在非递减循环链表中插入新值，并处理空表、单结点与跨越最大值到最小值的缝隙。\r\n\r\n沿环走一圈，插入位置只有三类：落在某段升序之间；落在最大值与最小值之间；或者走完整圈仍无缝可插（全相等）。按这三类条件插入后即可退出。",
+  "memory": "循环有序列表的插入 → 方法一。\n**思考**\r\n\r\n在非递减循环链表中插入新值，并处理空表、单结点与跨越最大值到最小值的缝隙。\r\n\r\n沿环走一圈，插入位置只有三类：落在某段升序之间；落在最大值与最小值之间；或者走完整圈仍无缝可插（全相等）。按这三类条件插入后即可退出。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,54 @@
+{
+  "number": "1137",
+  "adapter": {
+    "name": "tribonacci",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1137"
+  },
+  "tests": [
+    {
+      "input": [
+        4
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        25
+      ],
+      "expected": 1389537
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def tribonacci(self, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @return {number}\n */\nvar tribonacci = function(n) {\n    \n};",
+    "java": "class Solution {\n    public int tribonacci(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int tribonacci(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def tribonacci(self, n: int) -> int:\r\n        a, b, c = 0, 1, 1\r\n        for _ in range(n):\r\n            a, b, c = b, c, a + b + c\r\n        return a\r\n",
+    "javascript": "function tribonacci(n) {\n    let [a, b, c] = [0, 1, 1];\n    while (n--) {\n        let d = a + b + c;\n        a = b;\n        b = c;\n        c = d;\n    }\n    return a;\n}\n",
+    "java": "class Solution {\r\n    public int tribonacci(int n) {\r\n        int a = 0, b = 1, c = 1;\r\n        while (n-- > 0) {\r\n            int d = a + b + c;\r\n            a = b;\r\n            b = c;\r\n            c = d;\r\n        }\r\n        return a;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int tribonacci(int n) {\r\n        long long a = 0, b = 1, c = 1;\r\n        while (n--) {\r\n            long long d = a + b + c;\r\n            a = b;\r\n            b = c;\r\n            c = d;\r\n        }\r\n        return (int) a;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1137.N-th%20Tribonacci%20Number/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1137.N-th%20Tribonacci%20Number/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1137.N-th%20Tribonacci%20Number/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1137.N-th%20Tribonacci%20Number/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1100-1199/1137.N-th%20Tribonacci%20Number/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：第 N 个泰波那契数。\n输入：n（integer）。\n训练提示：**思考**\r \r 泰波那契由三项递推定义， $n\\le 37$ 时线性递推足够。用三个变量滚动保存最近三项，循环 $n$ 次后返回第一项，空间为常数。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n泰波那契由三项递推定义， $n\\le 37$ 时线性递推足够。用三个变量滚动保存最近三项，循环 $n$ 次后返回第一项，空间为常数。\r\n\r\n\r\n\r\n根据题目中给出的递推式，我们可以使用动态规划求解。\r\n\r\n我们定义三个变量 $a$, $b$, $c$，分别表示 $T_{n-3}$, $T_{n-2}$, $T_{n-1}$，初始值分别为 $0$, $1$, $1$。\r\n\r\n然后从 $n$ 减小到 $0$，每次更新 $a$, $b$, $c$ 的值，直到 $n$ 为 $0$ 时，答案即为 $a$。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(1)$。其中 $n$ 为给定的整数。",
+  "memory": "第 N 个泰波那契数 → 动态规划。\n**思考**\r\n\r\n泰波那契由三项递推定义， $n\\le 37$ 时线性递推足够。用三个变量滚动保存最近三项，循环 $n$ 次后返回第一项，空间为常数。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

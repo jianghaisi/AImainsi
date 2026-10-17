@@ -1,0 +1,60 @@
+{
+  "number": "468",
+  "adapter": {
+    "name": "validIPAddress",
+    "params": [
+      {
+        "name": "queryIP",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "468"
+  },
+  "tests": [
+    {
+      "input": [
+        "172.16.254.1"
+      ],
+      "expected": "IPv4"
+    },
+    {
+      "input": [
+        "2001:0db8:85a3:0:0:8A2E:0370:7334"
+      ],
+      "expected": "IPv6"
+    },
+    {
+      "input": [
+        "256.256.256.256"
+      ],
+      "expected": "Neither"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def validIPAddress(self, queryIP: str) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} queryIP\n * @return {string}\n */\nvar validIPAddress = function(queryIP) {\n    \n};",
+    "java": "class Solution {\n    public String validIPAddress(String queryIP) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string validIPAddress(string queryIP) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def validIPAddress(self, queryIP: str) -> str:\r\n        def is_ipv4(s: str) -> bool:\r\n            ss = s.split(\".\")\r\n            if len(ss) != 4:\r\n                return False\r\n            for t in ss:\r\n                if len(t) > 1 and t[0] == \"0\":\r\n                    return False\r\n                if not t.isdigit() or not 0 <= int(t) <= 255:\r\n                    return False\r\n            return True\r\n\r\n        def is_ipv6(s: str) -> bool:\r\n            ss = s.split(\":\")\r\n            if len(ss) != 8:\r\n                return False\r\n            for t in ss:\r\n                if not 1 <= len(t) <= 4:\r\n                    return False\r\n                if not all(c in \"0123456789abcdefABCDEF\" for c in t):\r\n                    return False\r\n            return True\r\n\r\n        if is_ipv4(queryIP):\r\n            return \"IPv4\"\r\n        if is_ipv6(queryIP):\r\n            return \"IPv6\"\r\n        return \"Neither\"\r\n",
+    "javascript": "function validIPAddress(queryIP) {\n    if (isIPv4(queryIP)) {\n        return 'IPv4';\n    }\n    if (isIPv6(queryIP)) {\n        return 'IPv6';\n    }\n    return 'Neither';\n}\nfunction isIPv4(s) {\n    if (s.endsWith('.')) {\n        return false;\n    }\n    const ss = s.split('.');\n    if (ss.length !== 4) {\n        return false;\n    }\n    for (const t of ss) {\n        if (t.length === 0 || (t.length > 1 && t[0] === '0')) {\n            return false;\n        }\n        const x = convert(t);\n        if (x < 0 || x > 255) {\n            return false;\n        }\n    }\n    return true;\n}\nfunction isIPv6(s) {\n    if (s.endsWith(':')) {\n        return false;\n    }\n    const ss = s.split(':');\n    if (ss.length !== 8) {\n        return false;\n    }\n    for (const t of ss) {\n        if (t.length < 1 || t.length > 4) {\n            return false;\n        }\n        for (const c of t) {\n            if (!isHexDigit(c)) {\n                return false;\n            }\n        }\n    }\n    return true;\n}\nfunction convert(s) {\n    let x = 0;\n    for (const c of s) {\n        if (!isDigit(c)) {\n            return -1;\n        }\n        x = x * 10 + (c.charCodeAt(0) - '0'.charCodeAt(0));\n        if (x > 255) {\n            return x;\n        }\n    }\n    return x;\n}\nfunction isDigit(c) {\n    return c >= '0' && c <= '9';\n}\nfunction isHexDigit(c) {\n    return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');\n}\n",
+    "java": "class Solution {\r\n    public String validIPAddress(String queryIP) {\r\n        if (isIPv4(queryIP)) {\r\n            return \"IPv4\";\r\n        }\r\n        if (isIPv6(queryIP)) {\r\n            return \"IPv6\";\r\n        }\r\n        return \"Neither\";\r\n    }\r\n\r\n    private boolean isIPv4(String s) {\r\n        if (s.endsWith(\".\")) {\r\n            return false;\r\n        }\r\n        String[] ss = s.split(\"\\\\.\");\r\n        if (ss.length != 4) {\r\n            return false;\r\n        }\r\n        for (String t : ss) {\r\n            if (t.length() == 0 || t.length() > 1 && t.charAt(0) == '0') {\r\n                return false;\r\n            }\r\n            int x = convert(t);\r\n            if (x < 0 || x > 255) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n\r\n    private boolean isIPv6(String s) {\r\n        if (s.endsWith(\":\")) {\r\n            return false;\r\n        }\r\n        String[] ss = s.split(\":\");\r\n        if (ss.length != 8) {\r\n            return false;\r\n        }\r\n        for (String t : ss) {\r\n            if (t.length() < 1 || t.length() > 4) {\r\n                return false;\r\n            }\r\n            for (char c : t.toCharArray()) {\r\n                if (!Character.isDigit(c)\r\n                    && !\"0123456789abcdefABCDEF\".contains(String.valueOf(c))) {\r\n                    return false;\r\n                }\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n\r\n    private int convert(String s) {\r\n        int x = 0;\r\n        for (char c : s.toCharArray()) {\r\n            if (!Character.isDigit(c)) {\r\n                return -1;\r\n            }\r\n            x = x * 10 + (c - '0');\r\n            if (x > 255) {\r\n                return x;\r\n            }\r\n        }\r\n        return x;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    string validIPAddress(string queryIP) {\r\n        if (isIPv4(queryIP)) {\r\n            return \"IPv4\";\r\n        }\r\n        if (isIPv6(queryIP)) {\r\n            return \"IPv6\";\r\n        }\r\n        return \"Neither\";\r\n    }\r\n\r\nprivate:\r\n    bool isIPv4(const string& s) {\r\n        if (s.empty() || s.back() == '.') {\r\n            return false;\r\n        }\r\n        vector<string> ss = split(s, '.');\r\n        if (ss.size() != 4) {\r\n            return false;\r\n        }\r\n        for (const string& t : ss) {\r\n            if (t.empty() || (t.size() > 1 && t[0] == '0')) {\r\n                return false;\r\n            }\r\n            int x = convert(t);\r\n            if (x < 0 || x > 255) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n\r\n    bool isIPv6(const string& s) {\r\n        if (s.empty() || s.back() == ':') {\r\n            return false;\r\n        }\r\n        vector<string> ss = split(s, ':');\r\n        if (ss.size() != 8) {\r\n            return false;\r\n        }\r\n        for (const string& t : ss) {\r\n            if (t.size() < 1 || t.size() > 4) {\r\n                return false;\r\n            }\r\n            for (char c : t) {\r\n                if (!isxdigit(c)) {\r\n                    return false;\r\n                }\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n\r\n    int convert(const string& s) {\r\n        int x = 0;\r\n        for (char c : s) {\r\n            if (!isdigit(c)) {\r\n                return -1;\r\n            }\r\n            x = x * 10 + (c - '0');\r\n            if (x > 255) {\r\n                return x;\r\n            }\r\n        }\r\n        return x;\r\n    }\r\n\r\n    vector<string> split(const string& s, char delimiter) {\r\n        vector<string> tokens;\r\n        string token;\r\n        istringstream iss(s);\r\n        while (getline(iss, token, delimiter)) {\r\n            tokens.push_back(token);\r\n        }\r\n        return tokens;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0468.Validate%20IP%20Address/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0468.Validate%20IP%20Address/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0468.Validate%20IP%20Address/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0468.Validate%20IP%20Address/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0468.Validate%20IP%20Address/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：验证IP地址。\n输入：queryIP（string）。\n训练提示：**思考**\r \r 要区分 IPv4、IPv6 与非法。正则可以写，但前导零、空段、字符集等边界更容易在拆分后逐段检查。\r \r 按 `.` 分成 $4$ 段判 IPv4：禁止前导零，必须是 $0$– $255$ 的数字。按 `:` 分成 $8$ 段判 IPv6：长度 $1$– $4$ 且均为十六进制。都不满足则 $\\texttt{Neither}$。\r \r 先 IPv4 再 IPv6，两种格式的分隔符不同，不会同时成立。空段会在长度或 $\\texttt{isdigit}$ 检查中失败。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：模拟\r\n\r\n\r\n\r\n思考\r\n\r\n要区分 IPv4、IPv6 与非法。正则可以写，但前导零、空段、字符集等边界更容易在拆分后逐段检查。\r\n\r\n按 `.` 分成 $4$ 段判 IPv4：禁止前导零，必须是 $0$– $255$ 的数字。按 `:` 分成 $8$ 段判 IPv6：长度 $1$– $4$ 且均为十六进制。都不满足则 $\\texttt{Neither}$。\r\n\r\n先 IPv4 再 IPv6，两种格式的分隔符不同，不会同时成立。空段会在长度或 $\\texttt{isdigit}$ 检查中失败。\r\n\r\n\r\n\r\n我们可以定义两个函数 `isIPv4` 和 `isIPv6` 来判断一个字符串是否是有效的 IPv4 地址和 IPv6 地址。\r\n\r\n函数 `isIPv4` 的实现如下：\r\n\r\n1. 我们首先判断字符串 `s` 是否以 `.` 结尾，如果是的话，说明 `s` 不是一个有效的 IPv4 地址，直接返回 `false`。\r\n1. 然后我们将字符串 `s` 以 `.` 分割成一个字符串数组 `ss`，如果 `ss` 的长度不等于 `4`，说明 `s` 不是一个有效的 IPv4 地址，直接返回 `false`。\r\n1. 对于数组 `ss` 中的每个字符串 `t`，我们判断：\r\n    - 如果 `t` 的长度大于 `1` 且 `t` 的第一个字符是 `0`，说明 `t` 不是一个有效的 IPv4 地址，直接返回 `false`。\r\n    - 如果 `t` 不是一个数字或者 `t` 不在 `0` 到 `255` 的范围内，说明 `t` 不是一个有效的 IPv4 地址，直接返回 `false`。\r\n1. 如果上述条件都不满足，说明 `s` 是一个有效的 IPv4 地址，返回 `true`。\r\n\r\n函数 `isIPv6` 的实现如下：\r\n\r\n1. 我们首先判断字符串 `s` 是否以 `:` 结尾，如果是的话，说明 `s` 不是一个有效的 IPv6 地址，直接返回 `false`。\r\n1. 然后我们将字符串 `s` 以 `:` 分割成一个字符串数组 `ss`，如果 `ss` 的长度不等于 `8`，说明 `s` 不是一个有效的 IPv6 地址，直接返回 `false`。\r\n1. 对于数组 `ss` 中的每个字符串 `t`，我们判断：\r\n    - 如果 `t` 的长度小于 `1` 或大于 `4`，说明 `t` 不是一个有效的 IPv6 地址，直接返回 `false`。\r\n    - 如果 `t` 中的字符不全是 `0` 到 `9` 和 `a` 到 `f`（不区分大小写），说明 `t` 不是一个有效的 IPv6 地址，直接返回 `false`。\r\n1. 如果上述条件都不满足，说明 `s` 是一个有效的 IPv6 地址，返回 `true`。\r\n\r\n最后，我们调用 `isIPv4` 和 `isIPv6` 函数判断 `queryIP` 是不是一个有效的 IPv4 地址或 IPv6 地址，如果都不是，返回 `Neither`。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为字符串 `queryIP` 的长度。",
+  "memory": "验证IP地址 → 模拟。\n**思考**\r\n\r\n要区分 IPv4、IPv6 与非法。正则可以写，但前导零、空段、字符集等边界更容易在拆分后逐段检查。\r\n\r\n按 `.` 分成 $4$ 段判 IPv4：禁止前导零，必须是 $0$– $255$ 的数字。按 `:` 分成 $8$ 段判 IPv6：长度 $1$– $4$ 且均为十六进制。都不满足则 $\\texttt{Neither}$。\r\n\r\n先 IPv4 再 IPv6，两种格式的分隔符不同，不会同时成立。空段会在长度或 $\\texttt{isdigit}$ 检查中失败。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

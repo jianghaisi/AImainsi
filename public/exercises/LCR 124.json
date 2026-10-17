@@ -1,0 +1,86 @@
+{
+  "number": "LCR 124",
+  "adapter": {
+    "name": "deduceTree",
+    "params": [
+      {
+        "name": "preorder",
+        "type": "integer[]"
+      },
+      {
+        "name": "inorder",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "TreeNode"
+    },
+    "number": "LCR 124"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          9,
+          20,
+          15,
+          7
+        ],
+        [
+          9,
+          3,
+          15,
+          20,
+          7
+        ]
+      ],
+      "expected": [
+        3,
+        9,
+        20,
+        null,
+        null,
+        15,
+        7
+      ]
+    },
+    {
+      "input": [
+        [
+          -1
+        ],
+        [
+          -1
+        ]
+      ],
+      "expected": [
+        -1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def deduceTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {number[]} preorder\n * @param {number[]} inorder\n * @return {TreeNode}\n */\nvar deduceTree = function(preorder, inorder) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public TreeNode deduceTree(int[] preorder, int[] inorder) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* deduceTree(vector<int>& preorder, vector<int>& inorder) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.left = None\r\n#         self.right = None\r\n\r\n\r\nclass Solution:\r\n    def deduceTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:\r\n        def dfs(i, j, n):\r\n            if n < 1:\r\n                return None\r\n            root = TreeNode(preorder[i])\r\n            k = d[preorder[i]]\r\n            l = k - j\r\n            root.left = dfs(i + 1, j, l)\r\n            root.right = dfs(i + 1 + l, k + 1, n - l - 1)\r\n            return root\r\n\r\n        d = {v: i for i, v in enumerate(inorder)}\r\n        return dfs(0, 0, len(preorder))\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction deduceTree(preorder, inorder) {\n    const d = new Map();\n    const n = inorder.length;\n    for (let i = 0; i < n; ++i) {\n        d.set(inorder[i], i);\n    }\n    const dfs = (i, j, n) => {\n        if (n < 1) {\n            return null;\n        }\n        const k = d.get(preorder[i]) ?? 0;\n        const l = k - j;\n        const root = new TreeNode(preorder[i]);\n        root.left = dfs(i + 1, j, l);\n        root.right = dfs(i + 1 + l, k + 1, n - l - 1);\n        return root;\n    };\n    return dfs(0, 0, n);\n}\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    private Map<Integer, Integer> d = new HashMap<>();\r\n    private int[] preorder;\r\n    private int[] inorder;\r\n\r\n    public TreeNode deduceTree(int[] preorder, int[] inorder) {\r\n        int n = inorder.length;\r\n        for (int i = 0; i < n; ++i) {\r\n            d.put(inorder[i], i);\r\n        }\r\n        this.preorder = preorder;\r\n        this.inorder = inorder;\r\n        return dfs(0, 0, n);\r\n    }\r\n\r\n    private TreeNode dfs(int i, int j, int n) {\r\n        if (n < 1) {\r\n            return null;\r\n        }\r\n        int k = d.get(preorder[i]);\r\n        int l = k - j;\r\n        TreeNode root = new TreeNode(preorder[i]);\r\n        root.left = dfs(i + 1, j, l);\r\n        root.right = dfs(i + 1 + l, k + 1, n - l - 1);\r\n        return root;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    TreeNode* deduceTree(vector<int>& preorder, vector<int>& inorder) {\r\n        unordered_map<int, int> d;\r\n        int n = inorder.size();\r\n        for (int i = 0; i < n; ++i) {\r\n            d[inorder[i]] = i;\r\n        }\r\n        function<TreeNode*(int, int, int)> dfs = [&](int i, int j, int n) -> TreeNode* {\r\n            if (n < 1) {\r\n                return nullptr;\r\n            }\r\n            int k = d[preorder[i]];\r\n            int l = k - j;\r\n            TreeNode* root = new TreeNode(preorder[i]);\r\n            root->left = dfs(i + 1, j, l);\r\n            root->right = dfs(i + 1 + l, k + 1, n - l - 1);\r\n            return root;\r\n        };\r\n        return dfs(0, 0, n);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9807.%20%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9807.%20%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9807.%20%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9807.%20%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9807.%20%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：推理二叉树。\n输入：preorder（integer[]）、inorder（integer[]）。\n训练提示：**思考**\r \r 前序首元素是根，中序把它左右切开。每次在中序里线性找根是 $O(n)$，整棵树会到 $O(n^2)$。结点值互异，可预处理中序值到下标。\r \r 递归时用 $d[preorder[i]]$ 切出左右长度，再对两段分别建树。查找降为 $O(1)$，总时间线性。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：哈希表 + 递归\r\n\r\n\r\n\r\n思考\r\n\r\n前序首元素是根，中序把它左右切开。每次在中序里线性找根是 $O(n)$，整棵树会到 $O(n^2)$。结点值互异，可预处理中序值到下标。\r\n\r\n递归时用 $d[preorder[i]]$ 切出左右长度，再对两段分别建树。查找降为 $O(1)$，总时间线性。\r\n\r\n\r\n\r\n由于我们每一次都需要在中序序列中找到根节点的位置，因此我们可以使用哈希表 $d$ 来存储中序序列的值和索引，这样可以将查找的时间复杂度降低到 $O(1)$。\r\n\r\n接下来，我们设计一个递归函数 $dfs(i, j, n)$，表示在前序序列中，从第 $i$ 个节点开始的 $n$ 个节点，对应的中序序列中，从第 $j$ 个节点开始的 $n$ 个节点，构造出的二叉树。\r\n\r\n函数 $dfs(i, j, n)$ 的执行过程如下：\r\n\r\n如果 $n = 0$，说明已经没有节点了，返回 $null$；\r\n\r\n否则，我们取前序序列的第 $i$ 个节点作为根节点，创建一个树节点，即 `root = new TreeNode(preorder[i])`，然后我们在中序序列中找到根节点的位置，记为 $k$，则根节点左边的 $k - j$ 个节点为左子树，右边的 $n - k + j - 1$ 个节点为右子树。递归地调用函数 $dfs(i + 1, j, k - j)$ 构造左子树，调用函数 $dfs(i + k - j + 1, k + 1, n - k + j - 1)$ 构造右子树。最后返回根节点 `root`。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 是二叉树的节点个数。",
+  "memory": "推理二叉树 → 哈希表 + 递归。\n**思考**\r\n\r\n前序首元素是根，中序把它左右切开。每次在中序里线性找根是 $O(n)$，整棵树会到 $O(n^2)$。结点值互异，可预处理中序值到下标。\r\n\r\n递归时用 $d[preorder[i]]$ 切出左右长度，再对两段分别建树。查找降为 $O(1)$，总时间线性。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

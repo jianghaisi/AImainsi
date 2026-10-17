@@ -1,0 +1,83 @@
+{
+  "number": "LCR 036",
+  "adapter": {
+    "name": "evalRPN",
+    "params": [
+      {
+        "name": "tokens",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 036"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "2",
+          "1",
+          "+",
+          "3",
+          "*"
+        ]
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        [
+          "4",
+          "13",
+          "5",
+          "/",
+          "+"
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          "10",
+          "6",
+          "9",
+          "3",
+          "+",
+          "-11",
+          "*",
+          "/",
+          "*",
+          "17",
+          "+",
+          "5",
+          "+"
+        ]
+      ],
+      "expected": 22
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def evalRPN(self, tokens: List[str]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int evalRPN(String[] tokens) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int evalRPN(vector<string>& tokens) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def evalRPN(self, tokens: List[str]) -> int:\r\n        nums = []\r\n        for t in tokens:\r\n            if len(t) > 1 or t.isdigit():\r\n                nums.append(int(t))\r\n            else:\r\n                if t == \"+\":\r\n                    nums[-2] += nums[-1]\r\n                elif t == \"-\":\r\n                    nums[-2] -= nums[-1]\r\n                elif t == \"*\":\r\n                    nums[-2] *= nums[-1]\r\n                else:\r\n                    nums[-2] = int(nums[-2] / nums[-1])\r\n                nums.pop()\r\n        return nums[0]\r\n",
+    "java": "class Solution {\r\n    public int evalRPN(String[] tokens) {\r\n        Deque<Integer> stk = new ArrayDeque<>();\r\n        for (String t : tokens) {\r\n            if (t.length() > 1 || Character.isDigit(t.charAt(0))) {\r\n                stk.push(Integer.parseInt(t));\r\n            } else {\r\n                int y = stk.pop();\r\n                int x = stk.pop();\r\n                switch (t) {\r\n                case \"+\":\r\n                    stk.push(x + y);\r\n                    break;\r\n                case \"-\":\r\n                    stk.push(x - y);\r\n                    break;\r\n                case \"*\":\r\n                    stk.push(x * y);\r\n                    break;\r\n                default:\r\n                    stk.push(x / y);\r\n                    break;\r\n                }\r\n            }\r\n        }\r\n        return stk.pop();\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int evalRPN(vector<string>& tokens) {\r\n        stack<int> stk;\r\n        for (auto& t : tokens) {\r\n            if (t.size() > 1 || isdigit(t[0])) {\r\n                stk.push(stoi(t));\r\n            } else {\r\n                int y = stk.top();\r\n                stk.pop();\r\n                int x = stk.top();\r\n                stk.pop();\r\n                if (t[0] == '+')\r\n                    stk.push(x + y);\r\n                else if (t[0] == '-')\r\n                    stk.push(x - y);\r\n                else if (t[0] == '*')\r\n                    stk.push(x * y);\r\n                else\r\n                    stk.push(x / y);\r\n            }\r\n        }\r\n        return stk.top();\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20036.%20%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20036.%20%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20036.%20%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20036.%20%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：逆波兰表达式求值。\n输入：tokens（string[]）。\n训练提示：**思考**\r \r 后缀表达式的运算符紧跟在操作数之后，无需括号。从左到右扫描时，尚未消耗的操作数正好可用栈保存。\r \r 遇到数字则入栈；遇到运算符则弹出两个操作数计算后再压回。除法按向零取整，与题目约定一致。栈中最后剩下的即表达式值。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n后缀表达式的运算符紧跟在操作数之后，无需括号。从左到右扫描时，尚未消耗的操作数正好可用栈保存。\r\n\r\n遇到数字则入栈；遇到运算符则弹出两个操作数计算后再压回。除法按向零取整，与题目约定一致。栈中最后剩下的即表达式值。",
+  "memory": "逆波兰表达式求值 → 方法一。\n**思考**\r\n\r\n后缀表达式的运算符紧跟在操作数之后，无需括号。从左到右扫描时，尚未消耗的操作数正好可用栈保存。\r\n\r\n遇到数字则入栈；遇到运算符则弹出两个操作数计算后再压回。除法按向零取整，与题目约定一致。栈中最后剩下的即表达式值。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

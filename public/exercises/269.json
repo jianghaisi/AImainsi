@@ -1,0 +1,64 @@
+{
+  "number": "269",
+  "adapter": {
+    "name": "alienOrder",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "269"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "wrt",
+          "wrf",
+          "er",
+          "ett",
+          "rftt"
+        ]
+      ],
+      "expected": "wertf"
+    },
+    {
+      "input": [
+        [
+          "z",
+          "x"
+        ]
+      ],
+      "expected": "zx"
+    },
+    {
+      "input": [
+        [
+          "z",
+          "x",
+          "z"
+        ]
+      ],
+      "expected": ""
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def alienOrder(self, words: List[str]) -> str:\n        raise NotImplementedError('请完成此方法')\n"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def alienOrder(self, words: List[str]) -> str:\r\n        g = [[False] * 26 for _ in range(26)]\r\n        s = [False] * 26\r\n        cnt = 0\r\n        n = len(words)\r\n        for i in range(n - 1):\r\n            for c in words[i]:\r\n                if cnt == 26:\r\n                    break\r\n                o = ord(c) - ord('a')\r\n                if not s[o]:\r\n                    cnt += 1\r\n                    s[o] = True\r\n            m = len(words[i])\r\n            for j in range(m):\r\n                if j >= len(words[i + 1]):\r\n                    return ''\r\n                c1, c2 = words[i][j], words[i + 1][j]\r\n                if c1 == c2:\r\n                    continue\r\n                o1, o2 = ord(c1) - ord('a'), ord(c2) - ord('a')\r\n                if g[o2][o1]:\r\n                    return ''\r\n                g[o1][o2] = True\r\n                break\r\n        for c in words[n - 1]:\r\n            if cnt == 26:\r\n                break\r\n            o = ord(c) - ord('a')\r\n            if not s[o]:\r\n                cnt += 1\r\n                s[o] = True\r\n\r\n        indegree = [0] * 26\r\n        for i in range(26):\r\n            for j in range(26):\r\n                if i != j and s[i] and s[j] and g[i][j]:\r\n                    indegree[j] += 1\r\n        q = deque()\r\n        ans = []\r\n        for i in range(26):\r\n            if s[i] and indegree[i] == 0:\r\n                q.append(i)\r\n        while q:\r\n            t = q.popleft()\r\n            ans.append(chr(t + ord('a')))\r\n            for i in range(26):\r\n                if s[i] and i != t and g[t][i]:\r\n                    indegree[i] -= 1\r\n                    if indegree[i] == 0:\r\n                        q.append(i)\r\n        return '' if len(ans) < cnt else ''.join(ans)\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0269.Alien%20Dictionary/Solution.py"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0269.Alien%20Dictionary/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：火星词典。\n输入：words（string[]）。\n训练提示：**思考**\r \r 字典序由相邻单词的第一处不同字母给出有向边。后一词是前一词前缀、或出现反向边，则无合法序。\r \r 对出现过的字母做拓扑排序：入度为 $0$ 的入队，排出顺序即为字母序；排出个数不足则有环。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：拓扑排序 + BFS\r\n\r\n\r\n\r\n思考\r\n\r\n字典序由相邻单词的第一处不同字母给出有向边。后一词是前一词前缀、或出现反向边，则无合法序。\r\n\r\n对出现过的字母做拓扑排序：入度为 $0$ 的入队，排出顺序即为字母序；排出个数不足则有环。\r\n\r\n\r\n\r\n用数组 $g$ 记录在火星字典中的字母先后关系， $g[i][j] = true$ 表示字母 $i + 'a'$ 在字母 $j + 'a'$ 的前面；用数组 $s$ 记录当前字典出现过的字母， $cnt$ 表示出现过的字母数。\r\n\r\n一个很简单的想法是遍历每一个单词，比较该单词和其后的所有单词，把所有的先后关系更新进数组 $g$，这样遍历时间复杂度为 $O(n^3)$；但是我们发现其实比较相邻的两个单词就可以了，比如 $a < b < c$ 则比较 $a < b$ 和 $b < c$， $a$ 和 $c$ 的关系便确定了。因此算法可以优化成比较相邻两个单词，时间复杂度为 $O(n²)$。\r\n\r\n出现矛盾的情况：\r\n\r\n- $g[i][j]$ = $g[j][i]$ = $true$；\r\n- 后一个单词是前一个单词的前缀；\r\n- 在拓扑排序后 $ans$ 的长度小于统计到的字母个数。\r\n\r\n拓扑排序：\r\n\r\n- 统计所有出现的字母入度；\r\n- 将所有入度为 $0$ 的字母加入队列；\r\n- 当队列不空，出队并更新其他字母的入度，入度为 $0$ 则入队，同时出队时将当前字母加入 $ans$ 的结尾；\r\n- 得到的便是字母的拓扑序，也就是火星字典的字母顺序。",
+  "memory": "火星词典 → 拓扑排序 + BFS。\n**思考**\r\n\r\n字典序由相邻单词的第一处不同字母给出有向边。后一词是前一词前缀、或出现反向边，则无合法序。\r\n\r\n对出现过的字母做拓扑排序：入度为 $0$ 的入队，排出顺序即为字母序；排出个数不足则有环。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

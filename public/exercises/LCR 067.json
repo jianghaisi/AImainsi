@@ -1,0 +1,98 @@
+{
+  "number": "LCR 067",
+  "adapter": {
+    "name": "findMaximumXOR",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 067"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          10,
+          5,
+          25,
+          2,
+          8
+        ]
+      ],
+      "expected": 28
+    },
+    {
+      "input": [
+        [
+          0
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        [
+          2,
+          4
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          8,
+          10,
+          2
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        [
+          14,
+          70,
+          53,
+          83,
+          49,
+          91,
+          36,
+          80,
+          92,
+          51,
+          66,
+          70
+        ]
+      ],
+      "expected": 127
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findMaximumXOR(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int findMaximumXOR(int[] nums) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findMaximumXOR(vector<int>& nums) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findMaximumXOR(self, nums: List[int]) -> int:\r\n        max = 0\r\n        mask = 0\r\n        for i in range(30, -1, -1):\r\n            current = 1 << i\r\n            # 期望的二进制前缀\r\n            mask = mask ^ current\r\n            # 在当前前缀下, 数组内的前缀位数所有情况集合\r\n            s = set()\r\n            for num in nums:\r\n                s.add(num & mask)\r\n            # 期望最终异或值的从右数第i位为1, 再根据异或运算的特性推算假设是否成立\r\n            flag = max | current\r\n            for prefix in s:\r\n                if prefix ^ flag in s:\r\n                    max = flag\r\n                    break\r\n        return max\r\n",
+    "java": "class Solution {\r\n\r\n    public int findMaximumXOR(int[] numbers) {\r\n        int max = 0;\r\n        int mask = 0;\r\n        for (int i = 30; i >= 0; i--) {\r\n            int current = 1 << i;\r\n            // 期望的二进制前缀\r\n            mask = mask ^ current;\r\n            // 在当前前缀下, 数组内的前缀位数所有情况集合\r\n            Set<Integer> set = new HashSet<>();\r\n            for (int j = 0, k = numbers.length; j < k; j++) {\r\n                set.add(mask & numbers[j]);\r\n            }\r\n            // 期望最终异或值的从右数第i位为1, 再根据异或运算的特性推算假设是否成立\r\n            int flag = max | current;\r\n            for (Integer prefix : set) {\r\n                if (set.contains(prefix ^ flag)) {\r\n                    max = flag;\r\n                    break;\r\n                }\r\n            }\r\n        }\r\n        return max;\r\n    }\r\n}",
+    "cpp": "class Trie {\r\npublic:\r\n    vector<Trie*> children;\r\n    string v;\r\n    Trie()\r\n        : children(2) {}\r\n\r\n    void insert(int x) {\r\n        Trie* node = this;\r\n        for (int i = 30; ~i; --i) {\r\n            int v = (x >> i) & 1;\r\n            if (!node->children[v]) node->children[v] = new Trie();\r\n            node = node->children[v];\r\n        }\r\n    }\r\n\r\n    int search(int x) {\r\n        Trie* node = this;\r\n        int res = 0;\r\n        for (int i = 30; ~i; --i) {\r\n            int v = (x >> i) & 1;\r\n            if (node->children[v ^ 1]) {\r\n                res = res << 1 | 1;\r\n                node = node->children[v ^ 1];\r\n            } else {\r\n                res <<= 1;\r\n                node = node->children[v];\r\n            }\r\n        }\r\n        return res;\r\n    }\r\n};\r\n\r\nclass Solution {\r\npublic:\r\n    int findMaximumXOR(vector<int>& nums) {\r\n        Trie* trie = new Trie();\r\n        int ans = 0;\r\n        for (int v : nums) {\r\n            trie->insert(v);\r\n            ans = max(ans, trie->search(v));\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20067.%20%E6%9C%80%E5%A4%A7%E7%9A%84%E5%BC%82%E6%88%96/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20067.%20%E6%9C%80%E5%A4%A7%E7%9A%84%E5%BC%82%E6%88%96/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20067.%20%E6%9C%80%E5%A4%A7%E7%9A%84%E5%BC%82%E6%88%96/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20067.%20%E6%9C%80%E5%A4%A7%E7%9A%84%E5%BC%82%E6%88%96/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：数组中两个数的最大异或值。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 求数组中两数异或的最大值。枚举所有数对是平方级的， $n\\le 2\\times 10^5$。\r \r 从高位到低位确定答案：假设当前位能取 $1$，则在已有前缀集合中检查是否存在两个前缀异或等于该假设。能取则保留，否则该位为 $0$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：哈希表\r\n\r\n\r\n\r\n思考\r\n\r\n求数组中两数异或的最大值。枚举所有数对是平方级的， $n\\le 2\\times 10^5$。\r\n\r\n从高位到低位确定答案：假设当前位能取 $1$，则在已有前缀集合中检查是否存在两个前缀异或等于该假设。能取则保留，否则该位为 $0$。",
+  "memory": "数组中两个数的最大异或值 → 哈希表。\n**思考**\r\n\r\n求数组中两数异或的最大值。枚举所有数对是平方级的， $n\\le 2\\times 10^5$。\r\n\r\n从高位到低位确定答案：假设当前位能取 $1$，则在已有前缀集合中检查是否存在两个前缀异或等于该假设。能取则保留，否则该位为 $0$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,63 @@
+{
+  "number": "976",
+  "adapter": {
+    "name": "largestPerimeter",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "976"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          1,
+          2
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          1,
+          10
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def largestPerimeter(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar largestPerimeter = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int largestPerimeter(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int largestPerimeter(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def largestPerimeter(self, nums: List[int]) -> int:\r\n        nums.sort()\r\n        for i in range(len(nums) - 1, 1, -1):\r\n            if (c := nums[i - 1] + nums[i - 2]) > nums[i]:\r\n                return c + nums[i]\r\n        return 0\r\n",
+    "javascript": "function largestPerimeter(nums) {\n    nums.sort((a, b) => a - b);\n    for (let i = nums.length - 1; i > 1; --i) {\n        const [a, b, c] = nums.slice(i - 2, i + 1);\n        if (a + b > c) {\n            return a + b + c;\n        }\n    }\n    return 0;\n}\n",
+    "java": "class Solution {\r\n    public int largestPerimeter(int[] nums) {\r\n        Arrays.sort(nums);\r\n        for (int i = nums.length - 1; i >= 2; --i) {\r\n            int c = nums[i - 1] + nums[i - 2];\r\n            if (c > nums[i]) {\r\n                return c + nums[i];\r\n            }\r\n        }\r\n        return 0;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int largestPerimeter(vector<int>& nums) {\r\n        ranges::sort(nums);\r\n        for (int i = nums.size() - 1; i > 1; --i) {\r\n            int c = nums[i - 1] + nums[i - 2];\r\n            if (c > nums[i]) {\r\n                return c + nums[i];\r\n            }\r\n        }\r\n        return 0;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0976.Largest%20Perimeter%20Triangle/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0976.Largest%20Perimeter%20Triangle/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0976.Largest%20Perimeter%20Triangle/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0976.Largest%20Perimeter%20Triangle/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0976.Largest%20Perimeter%20Triangle/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：三角形的最大周长。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 三边 $a\\le b\\le c$ 能围成三角形当且仅当 $a+b>c$，周长尽量大。枚举所有三元组为立方级。排序后从大到小枚举 $c$，取紧邻的两条边；一旦满足不等式即为最大周长，否则该 $c$ 不可能。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序 + 贪心\r\n\r\n\r\n\r\n思考\r\n\r\n三边 $a\\le b\\le c$ 能围成三角形当且仅当 $a+b>c$，周长尽量大。枚举所有三元组为立方级。排序后从大到小枚举 $c$，取紧邻的两条边；一旦满足不等式即为最大周长，否则该 $c$ 不可能。\r\n\r\n\r\n\r\n我们不妨假设三角形的三条边长分别为 $a \\leq b \\leq c$，则三角形的面积不为零等价于 $a + b \\gt c$。\r\n\r\n我们可以枚举最大的边长 $c$，然后从剩下的边长中选取两个最大的边长 $a$ 和 $b$，如果 $a + b \\gt c$，则可以构成一个面积不为零的三角形，且该三角形的周长最大；否则继续枚举下一个最大的边长 $c$。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(\\log n)$。其中 $n$ 为数组 $\\textit{nums}$ 的长度。",
+  "memory": "三角形的最大周长 → 排序 + 贪心。\n**思考**\r\n\r\n三边 $a\\le b\\le c$ 能围成三角形当且仅当 $a+b>c$，周长尽量大。枚举所有三元组为立方级。排序后从大到小枚举 $c$，取紧邻的两条边；一旦满足不等式即为最大周长，否则该 $c$ 不可能。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

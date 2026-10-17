@@ -1,0 +1,143 @@
+{
+  "number": "1275",
+  "adapter": {
+    "name": "tictactoe",
+    "params": [
+      {
+        "name": "moves",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "1275"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      ],
+      "expected": "A"
+    },
+    {
+      "input": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      ],
+      "expected": "B"
+    },
+    {
+      "input": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      ],
+      "expected": "Draw"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def tictactoe(self, moves: List[List[int]]) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} moves\n * @return {string}\n */\nvar tictactoe = function(moves) {\n    \n};",
+    "java": "class Solution {\n    public String tictactoe(int[][] moves) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string tictactoe(vector<vector<int>>& moves) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def tictactoe(self, moves: List[List[int]]) -> str:\r\n        n = len(moves)\r\n        cnt = [0] * 8\r\n        for k in range(n - 1, -1, -2):\r\n            i, j = moves[k]\r\n            cnt[i] += 1\r\n            cnt[j + 3] += 1\r\n            if i == j:\r\n                cnt[6] += 1\r\n            if i + j == 2:\r\n                cnt[7] += 1\r\n            if any(v == 3 for v in cnt):\r\n                return \"B\" if k & 1 else \"A\"\r\n        return \"Draw\" if n == 9 else \"Pending\"\r\n",
+    "javascript": "function tictactoe(moves) {\n    const n = moves.length;\n    const cnt = new Array(8).fill(0);\n    for (let k = n - 1; k >= 0; k -= 2) {\n        const [i, j] = moves[k];\n        cnt[i]++;\n        cnt[j + 3]++;\n        if (i == j) {\n            cnt[6]++;\n        }\n        if (i + j == 2) {\n            cnt[7]++;\n        }\n        if (cnt[i] == 3 || cnt[j + 3] == 3 || cnt[6] == 3 || cnt[7] == 3) {\n            return k % 2 == 0 ? 'A' : 'B';\n        }\n    }\n    return n == 9 ? 'Draw' : 'Pending';\n}\n",
+    "java": "class Solution {\r\n    public String tictactoe(int[][] moves) {\r\n        int n = moves.length;\r\n        int[] cnt = new int[8];\r\n        for (int k = n - 1; k >= 0; k -= 2) {\r\n            int i = moves[k][0], j = moves[k][1];\r\n            cnt[i]++;\r\n            cnt[j + 3]++;\r\n            if (i == j) {\r\n                cnt[6]++;\r\n            }\r\n            if (i + j == 2) {\r\n                cnt[7]++;\r\n            }\r\n            if (cnt[i] == 3 || cnt[j + 3] == 3 || cnt[6] == 3 || cnt[7] == 3) {\r\n                return k % 2 == 0 ? \"A\" : \"B\";\r\n            }\r\n        }\r\n        return n == 9 ? \"Draw\" : \"Pending\";\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    string tictactoe(vector<vector<int>>& moves) {\r\n        int n = moves.size();\r\n        int cnt[8]{};\r\n        for (int k = n - 1; k >= 0; k -= 2) {\r\n            int i = moves[k][0], j = moves[k][1];\r\n            cnt[i]++;\r\n            cnt[j + 3]++;\r\n            if (i == j) {\r\n                cnt[6]++;\r\n            }\r\n            if (i + j == 2) {\r\n                cnt[7]++;\r\n            }\r\n            if (cnt[i] == 3 || cnt[j + 3] == 3 || cnt[6] == 3 || cnt[7] == 3) {\r\n                return k % 2 == 0 ? \"A\" : \"B\";\r\n            }\r\n        }\r\n        return n == 9 ? \"Draw\" : \"Pending\";\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1275.Find%20Winner%20on%20a%20Tic%20Tac%20Toe%20Game/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1275.Find%20Winner%20on%20a%20Tic%20Tac%20Toe%20Game/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1275.Find%20Winner%20on%20a%20Tic%20Tac%20Toe%20Game/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1275.Find%20Winner%20on%20a%20Tic%20Tac%20Toe%20Game/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1275.Find%20Winner%20on%20a%20Tic%20Tac%20Toe%20Game/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：找出井字棋的获胜者。\n输入：moves（integer[][]）。\n训练提示：**思考**\r \r $moves$ 合法且某人获胜后不会再下，故只需检查最后落子方是否已连成三。从后向前隔步取该方棋子，累计行、列、对角次数，达到 $3$ 即胜。否则满 $9$ 步为平局，未满则未结束。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：判断最后一个落棋的人能否获胜\r\n\r\n\r\n\r\n思考\r\n\r\n$moves$ 合法且某人获胜后不会再下，故只需检查最后落子方是否已连成三。从后向前隔步取该方棋子，累计行、列、对角次数，达到 $3$ 即胜。否则满 $9$ 步为平局，未满则未结束。\r\n\r\n\r\n\r\n由于 `moves` 都有效，也即是说，不存在某个人获胜后，其他人仍然落棋的情况。因此，只需判断最后一个落棋的人能否获胜即可。\r\n\r\n我们用一个长度为 $8$ 的数组 `cnt` 记录行、列以及对角线的落棋次数。其中 $cnt[0, 1, 2]$ 分别表示第 $0, 1, 2$ 行的落棋次数，而 $cnt[3, 4, 5]$ 分别表示第 $0, 1, 2$ 列的落棋次数，另外 $cnt[6]$ 和 $cnt[7]$ 分别表示两条对角线的落棋次数。落棋过程中，如果某个人在某一行、列或对角线上落棋次数达到 $3$ 次，则该人获胜。\r\n\r\n如果最后一个落棋的人没有获胜，那么我们判断棋盘是否已满，如果已满，则平局；否则，游戏尚未结束。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为 `moves` 的长度。",
+  "memory": "找出井字棋的获胜者 → 判断最后一个落棋的人能否获胜。\n**思考**\r\n\r\n$moves$ 合法且某人获胜后不会再下，故只需检查最后落子方是否已连成三。从后向前隔步取该方棋子，累计行、列、对角次数，达到 $3$ 即胜。否则满 $9$ 步为平局，未满则未结束。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

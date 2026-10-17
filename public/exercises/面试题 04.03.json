@@ -1,0 +1,79 @@
+{
+  "number": "面试题 04.03",
+  "adapter": {
+    "name": "listOfDepth",
+    "params": [
+      {
+        "name": "tree",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "ListNode[]"
+    },
+    "number": "面试题 04.03"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          null,
+          7,
+          8
+        ]
+      ],
+      "expected": [
+        [
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          7
+        ],
+        [
+          8
+        ]
+      ]
+    },
+    {
+      "input": [
+        []
+      ],
+      "expected": []
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def listOfDepth(self, tree):\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {TreeNode} tree\n * @return {ListNode[]}\n */\nvar listOfDepth = function(tree) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\n/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode[] listOfDepth(TreeNode tree) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    vector<ListNode*> listOfDepth(TreeNode* tree) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def listOfDepth(self,tree):\n        result=[];level=[tree] if tree else []\n        while level:\n            dummy=ListNode();tail=dummy;next_level=[]\n            for node in level:\n                tail.next=ListNode(node.val);tail=tail.next\n                if node.left:next_level.append(node.left)\n                if node.right:next_level.append(node.right)\n            result.append(dummy.next);level=next_level\n        return result\n",
+    "javascript": "function listOfDepth(tree) {\n let level=tree?[tree]:[],result=[];\n while(level.length){const dummy=new ListNode();let tail=dummy,next=[];for(const node of level){tail.next=new ListNode(node.val);tail=tail.next;if(node.left)next.push(node.left);if(node.right)next.push(node.right);}result.push(dummy.next);level=next;}return result;\n}",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode(int x) { val = x; }\r\n * }\r\n */\r\n/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public ListNode[] listOfDepth(TreeNode tree) {\r\n        List<ListNode> ans = new ArrayList<>();\r\n        Deque<TreeNode> q = new ArrayDeque<>();\r\n        q.offer(tree);\r\n        while (!q.isEmpty()) {\r\n            ListNode dummy = new ListNode(0);\r\n            ListNode cur = dummy;\r\n            for (int k = q.size(); k > 0; --k) {\r\n                TreeNode node = q.poll();\r\n                cur.next = new ListNode(node.val);\r\n                cur = cur.next;\r\n                if (node.left != null) {\r\n                    q.offer(node.left);\r\n                }\r\n                if (node.right != null) {\r\n                    q.offer(node.right);\r\n                }\r\n            }\r\n            ans.add(dummy.next);\r\n        }\r\n        return ans.toArray(new ListNode[0]);\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\r\n * };\r\n */\r\n/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode(int x) : val(x), next(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    vector<ListNode*> listOfDepth(TreeNode* tree) {\r\n        vector<ListNode*> ans;\r\n        queue<TreeNode*> q{{tree}};\r\n        while (!q.empty()) {\r\n            ListNode* dummy = new ListNode(0);\r\n            ListNode* cur = dummy;\r\n            for (int k = q.size(); k; --k) {\r\n                TreeNode* node = q.front();\r\n                q.pop();\r\n                cur->next = new ListNode(node->val);\r\n                cur = cur->next;\r\n                if (node->left) {\r\n                    q.push(node->left);\r\n                }\r\n                if (node->right) {\r\n                    q.push(node->right);\r\n                }\r\n            }\r\n            ans.push_back(dummy->next);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "javascript": "序列原创适配",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.03.List%20of%20Depth/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.03.List%20of%20Depth/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.03.List%20of%20Depth/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：特定深度节点链表。\n输入：tree（TreeNode）。\n训练提示：**思考**\r \r 要把每一层节点串成一条链表。先 DFS 记下深度再分组，需要额外按深度索引的数组，且不是层的自然顺序。\r \r 层序遍历一次取出整层，正好对应一条链表。\r \r 队列保存当前层，弹出时尾插到带虚拟头的链表，同时把左右孩子入队。每层结束将 `dummy.next` 加入答案。每个节点进出队列一次。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：BFS 层序遍历\r\n\r\n\r\n\r\n思考\r\n\r\n要把每一层节点串成一条链表。先 DFS 记下深度再分组，需要额外按深度索引的数组，且不是层的自然顺序。\r\n\r\n层序遍历一次取出整层，正好对应一条链表。\r\n\r\n队列保存当前层，弹出时尾插到带虚拟头的链表，同时把左右孩子入队。每层结束将 `dummy.next` 加入答案。每个节点进出队列一次。\r\n\r\n\r\n\r\n我们可以使用 BFS 层序遍历的方法，每次遍历一层，将当前层的节点值存入链表中，然后将链表加入到结果数组中。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为二叉树的节点数。",
+  "memory": "特定深度节点链表 → BFS 层序遍历。\n**思考**\r\n\r\n要把每一层节点串成一条链表。先 DFS 记下深度再分组，需要额外按深度索引的数组，且不是层的自然顺序。\r\n\r\n层序遍历一次取出整层，正好对应一条链表。\r\n\r\n队列保存当前层，弹出时尾插到带虚拟头的链表，同时把左右孩子入队。每层结束将 `dummy.next` 加入答案。每个节点进出队列一次。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

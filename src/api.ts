@@ -26,4 +26,10 @@ export function date(value: string | null | undefined, short = false) {
       )
     : '尚未同步';
 }
-export const languages = { python: 'Python', javascript: 'JavaScript', java: 'Java', cpp: 'C++' };
+export const languages = {
+  python: 'Python',
+  javascript: 'JavaScript',
+  java: 'Java',
+  cpp: 'C++',
+  sql: 'SQL · SQLite',
+};

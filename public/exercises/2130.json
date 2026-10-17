@@ -1,0 +1,73 @@
+{
+  "number": "2130",
+  "adapter": {
+    "name": "pairSum",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "2130"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          5,
+          4,
+          2,
+          1
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          4,
+          2,
+          2,
+          3
+        ]
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        [
+          1,
+          100000
+        ]
+      ],
+      "expected": 100001
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def pairSum(self, head: Optional[ListNode]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @return {number}\n */\nvar pairSum = function(head) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public int pairSum(ListNode head) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    int pairSum(ListNode* head) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, val=0, next=None):\r\n#         self.val = val\r\n#         self.next = next\r\nclass Solution:\r\n    def pairSum(self, head: Optional[ListNode]) -> int:\r\n        s = []\r\n        while head:\r\n            s.append(head.val)\r\n            head = head.next\r\n        n = len(s)\r\n        return max(s[i] + s[-(i + 1)] for i in range(n >> 1))\r\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction pairSum(head) {\n    const arr = [];\n    let node = head;\n    while (node) {\n        arr.push(node.val);\n        node = node.next;\n    }\n    const n = arr.length;\n    let ans = 0;\n    for (let i = 0; i < n >> 1; i++) {\n        ans = Math.max(ans, arr[i] + arr[n - 1 - i]);\n    }\n    return ans;\n}\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode() {}\r\n *     ListNode(int val) { this.val = val; }\r\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\r\n * }\r\n */\r\nclass Solution {\r\n    public int pairSum(ListNode head) {\r\n        List<Integer> s = new ArrayList<>();\r\n        for (; head != null; head = head.next) {\r\n            s.add(head.val);\r\n        }\r\n        int ans = 0, n = s.size();\r\n        for (int i = 0; i < (n >> 1); ++i) {\r\n            ans = Math.max(ans, s.get(i) + s.get(n - 1 - i));\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode() : val(0), next(nullptr) {}\r\n *     ListNode(int x) : val(x), next(nullptr) {}\r\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    int pairSum(ListNode* head) {\r\n        vector<int> s;\r\n        for (; head != nullptr; head = head->next) s.push_back(head->val);\r\n        int ans = 0, n = s.size();\r\n        for (int i = 0; i < (n >> 1); ++i) ans = max(ans, s[i] + s[n - i - 1]);\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2100-2199/2130.Maximum%20Twin%20Sum%20of%20a%20Linked%20List/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2100-2199/2130.Maximum%20Twin%20Sum%20of%20a%20Linked%20List/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2100-2199/2130.Maximum%20Twin%20Sum%20of%20a%20Linked%20List/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2100-2199/2130.Maximum%20Twin%20Sum%20of%20a%20Linked%20List/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2100-2199/2130.Maximum%20Twin%20Sum%20of%20a%20Linked%20List/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：链表最大孪生和。\n输入：head（ListNode）。\n训练提示：**思考**\r \r 孪生结点是与对称下标配对的两个值，需要最大和。链表不能按下标随机访问，若反复走链表定位配对，时间为二次。\r \r 将值收入数组后，下标 $i$ 与 $n-1-i$ 可直接相加， $n$ 为偶数且至多 $10^5$，线性额外空间可接受。\r \r 遍历存入数组，再对前一半下标取 $s[i]+s[-(i+1)]$ 的最大值。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：模拟\r\n\r\n\r\n\r\n思考\r\n\r\n孪生结点是与对称下标配对的两个值，需要最大和。链表不能按下标随机访问，若反复走链表定位配对，时间为二次。\r\n\r\n将值收入数组后，下标 $i$ 与 $n-1-i$ 可直接相加， $n$ 为偶数且至多 $10^5$，线性额外空间可接受。\r\n\r\n遍历存入数组，再对前一半下标取 $s[i]+s[-(i+1)]$ 的最大值。\r\n\r\n\r\n\r\n我们可以将链表中的节点值依次存入数组中，然后使用双指针分别指向数组的开头和结尾，计算每对孪生节点的孪生和，取最大值即为答案。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 是链表的节点数。",
+  "memory": "链表最大孪生和 → 模拟。\n**思考**\r\n\r\n孪生结点是与对称下标配对的两个值，需要最大和。链表不能按下标随机访问，若反复走链表定位配对，时间为二次。\r\n\r\n将值收入数组后，下标 $i$ 与 $n-1-i$ 可直接相加， $n$ 为偶数且至多 $10^5$，线性额外空间可接受。\r\n\r\n遍历存入数组，再对前一半下标取 $s[i]+s[-(i+1)]$ 的最大值。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

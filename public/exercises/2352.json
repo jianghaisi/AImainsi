@@ -1,0 +1,95 @@
+{
+  "number": "2352",
+  "adapter": {
+    "name": "equalPairs",
+    "params": [
+      {
+        "name": "grid",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "2352"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            3,
+            2,
+            1
+          ],
+          [
+            1,
+            7,
+            6
+          ],
+          [
+            2,
+            7,
+            7
+          ]
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          [
+            3,
+            1,
+            2,
+            2
+          ],
+          [
+            1,
+            4,
+            4,
+            5
+          ],
+          [
+            2,
+            4,
+            2,
+            2
+          ],
+          [
+            2,
+            4,
+            2,
+            2
+          ]
+        ]
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def equalPairs(self, grid: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} grid\n * @return {number}\n */\nvar equalPairs = function(grid) {\n    \n};",
+    "java": "class Solution {\n    public int equalPairs(int[][] grid) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int equalPairs(vector<vector<int>>& grid) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def equalPairs(self, grid: List[List[int]]) -> int:\r\n        n = len(grid)\r\n        ans = 0\r\n        for i in range(n):\r\n            for j in range(n):\r\n                ans += all(grid[i][k] == grid[k][j] for k in range(n))\r\n        return ans\r\n",
+    "javascript": "function equalPairs(grid) {\n    const n = grid.length;\n    let ans = 0;\n    for (let i = 0; i < n; ++i) {\n        for (let j = 0; j < n; ++j) {\n            let ok = 1;\n            for (let k = 0; k < n; ++k) {\n                if (grid[i][k] !== grid[k][j]) {\n                    ok = 0;\n                    break;\n                }\n            }\n            ans += ok;\n        }\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int equalPairs(int[][] grid) {\r\n        int n = grid.length;\r\n        int ans = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                int ok = 1;\r\n                for (int k = 0; k < n; ++k) {\r\n                    if (grid[i][k] != grid[k][j]) {\r\n                        ok = 0;\r\n                        break;\r\n                    }\r\n                }\r\n                ans += ok;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int equalPairs(vector<vector<int>>& grid) {\r\n        int n = grid.size();\r\n        int ans = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                int ok = 1;\r\n                for (int k = 0; k < n; ++k) {\r\n                    if (grid[i][k] != grid[k][j]) {\r\n                        ok = 0;\r\n                        break;\r\n                    }\r\n                }\r\n                ans += ok;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2300-2399/2352.Equal%20Row%20and%20Column%20Pairs/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2300-2399/2352.Equal%20Row%20and%20Column%20Pairs/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2300-2399/2352.Equal%20Row%20and%20Column%20Pairs/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2300-2399/2352.Equal%20Row%20and%20Column%20Pairs/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2300-2399/2352.Equal%20Row%20and%20Column%20Pairs/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：相等行列对。\n输入：grid（integer[][]）。\n训练提示：**思考**\r \r 统计与某行完全相同的列的对数。 $n \\le 200$，三重循环比较一行与一列的 $n$ 个位置可以接受。\r \r 枚举行 $i$、列 $j$，用 $\\textit{all}$ 判断 $grid[i][k]=grid[k][j]$。无需先哈希整行，实现与题意一致。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：模拟\r\n\r\n\r\n\r\n思考\r\n\r\n统计与某行完全相同的列的对数。 $n \\le 200$，三重循环比较一行与一列的 $n$ 个位置可以接受。\r\n\r\n枚举行 $i$、列 $j$，用 $\\textit{all}$ 判断 $grid[i][k]=grid[k][j]$。无需先哈希整行，实现与题意一致。\r\n\r\n\r\n\r\n我们直接将矩阵 $grid$ 的每一行和每一列进行比较，如果相等，那么就是一对相等行列对，答案加一。\r\n\r\n时间复杂度 $O(n^3)$，其中 $n$ 为矩阵 $grid$ 的行数或列数。空间复杂度 $O(1)$。",
+  "memory": "相等行列对 → 模拟。\n**思考**\r\n\r\n统计与某行完全相同的列的对数。 $n \\le 200$，三重循环比较一行与一列的 $n$ 个位置可以接受。\r\n\r\n枚举行 $i$、列 $j$，用 $\\textit{all}$ 判断 $grid[i][k]=grid[k][j]$。无需先哈希整行，实现与题意一致。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,21 +1,18 @@
 import { test, expect } from '@playwright/test';
 import snapshot from '../../shared/catalog-data.json' with { type: 'json' };
-test('mobile index progress and notes persist independently of test scores', async ({ page }) => {
+test('former index questions open as mobile exercises and keep study notes', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/#bank');
-  await page.getByRole('button', { name: /浏览全部 12 套题单/ }).click();
+  await page.getByRole('button', { name: /浏览全部 16 套题单/ }).click();
   await page.locator('.collection-card').filter({ hasText: '程序员面试金典' }).click();
-  await page.getByLabel('筛选类型').selectOption('reference');
   await page.locator('.question-table tbody tr').first().locator('td:nth-child(2) button').click();
-  await page.getByLabel('我已在原站或自行完成（手动记录）').check();
+  await expect(page.getByLabel('代码编辑器')).toHaveValue(/class Solution/);
+  await page.getByRole('button', { name: '记忆卡片', exact: true }).click();
   await page.getByLabel('我的思路与易错点').fill('记住边界，明天再复述');
   await page.getByRole('button', { name: '保存笔记', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('笔记已保存');
-  await page.getByRole('button', { name: '关闭', exact: true }).click();
   await page.reload();
-  await page.getByLabel('筛选进度').selectOption('manual');
-  await expect(page.locator('.question-table tbody tr')).toHaveCount(1);
-  await page.locator('.question-table tbody tr').first().locator('td:nth-child(2) button').click();
+  await page.getByRole('button', { name: '记忆卡片', exact: true }).click();
   await expect(page.getByLabel('我的思路与易错点')).toHaveValue('记住边界，明天再复述');
   const stored = await page.evaluate(async () => {
     const db = await new Promise<IDBDatabase>((r) => {
@@ -41,7 +38,7 @@ test('published catalog refresh keeps progress, rejects broken feeds and remains
     (route) => route.fulfill({ json: snapshot }),
   );
   await page.getByRole('button', { name: '更新题单', exact: true }).click();
-  await expect(page.getByRole('status')).toContainText('647 道题');
+  await expect(page.getByRole('status')).toContainText('671 道题');
   await expect(page.getByRole('button', { name: '取消收藏 两数之和', exact: true })).toBeVisible();
   await page.route(
     'https://raw.githubusercontent.com/jianghaisi/AImainsi/main/shared/catalog-data.json',

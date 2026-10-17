@@ -1,0 +1,84 @@
+{
+  "number": "LCR 145",
+  "adapter": {
+    "name": "checkSymmetricTree",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "LCR 145"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          6,
+          7,
+          7,
+          8,
+          9,
+          9,
+          8
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          2,
+          null,
+          3,
+          null,
+          3
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          2,
+          3,
+          4,
+          4,
+          3
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def checkSymmetricTree(self, root: TreeNode) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @return {boolean}\n */\nvar checkSymmetricTree = function(root) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public boolean checkSymmetricTree(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool checkSymmetricTree(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.left = None\r\n#         self.right = None\r\n\r\n\r\nclass Solution:\r\n    def checkSymmetricTree(self, root: TreeNode) -> bool:\r\n        def dfs(a, b):\r\n            if a is None and b is None:\r\n                return True\r\n            if a is None or b is None or a.val != b.val:\r\n                return False\r\n            return dfs(a.left, b.right) and dfs(a.right, b.left)\r\n\r\n        return dfs(root, root)\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction checkSymmetricTree(root) {\n    const dfs = (a, b) => {\n        if (!a && !b) {\n            return true;\n        }\n        if (!a || !b || a.val != b.val) {\n            return false;\n        }\n        return dfs(a.left, b.right) && dfs(a.right, b.left);\n    };\n    return dfs(root, root);\n}\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public boolean checkSymmetricTree(TreeNode root) {\r\n        return dfs(root, root);\r\n    }\r\n\r\n    private boolean dfs(TreeNode a, TreeNode b) {\r\n        if (a == null && b == null) {\r\n            return true;\r\n        }\r\n        if (a == null || b == null || a.val != b.val) {\r\n            return false;\r\n        }\r\n        return dfs(a.left, b.right) && dfs(a.right, b.left);\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    bool checkSymmetricTree(TreeNode* root) {\r\n        function<bool(TreeNode*, TreeNode*)> dfs = [&](TreeNode* a, TreeNode* b) -> bool {\r\n            if (!a && !b) {\r\n                return true;\r\n            }\r\n            if (!a || !b || a->val != b->val) {\r\n                return false;\r\n            }\r\n            return dfs(a->left, b->right) && dfs(a->right, b->left);\r\n        };\r\n        return dfs(root, root);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9828.%20%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9828.%20%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9828.%20%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9828.%20%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9828.%20%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：判断对称二叉树。\n输入：root（TreeNode）。\n训练提示：**思考**\r \r 对称要求左右子树互为镜像，只比较根值不够。把“两棵树是否镜像”抽成函数：同时看左的左与右的右、左的右与右的左。\r \r 对根调用 $dfs(root,root)$，空对空为真，一侧空或值不同为假。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递归\r\n\r\n\r\n\r\n思考\r\n\r\n对称要求左右子树互为镜像，只比较根值不够。把“两棵树是否镜像”抽成函数：同时看左的左与右的右、左的右与右的左。\r\n\r\n对根调用 $dfs(root,root)$，空对空为真，一侧空或值不同为假。\r\n\r\n\r\n\r\n我们设计一个递归函数 `dfs`，它接收两个参数 `a` 和 `b`，分别代表两棵树的根节点。我们可以对 `a` 和 `b` 进行如下判断：\r\n\r\n- 如果 `a` 和 `b` 都为空，说明两棵树都遍历完了，返回 `true`；\r\n- 如果 `a` 和 `b` 中有且只有一个为空，说明两棵树的结构不同，返回 `false`；\r\n- 如果 `a` 和 `b` 的值不相等，说明两棵树的结构不同，返回 `false`；\r\n- 如果 `a` 和 `b` 的值相等，那么我们分别递归地判断 `a` 的左子树和 `b` 的右子树，以及 `a` 的右子树和 `b` 的左子树是否对称。\r\n\r\n最后，我们返回 `dfs(root, root)`，即判断 `root` 的左子树和右子树是否对称。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 是二叉树的节点数。",
+  "memory": "判断对称二叉树 → 递归。\n**思考**\r\n\r\n对称要求左右子树互为镜像，只比较根值不够。把“两棵树是否镜像”抽成函数：同时看左的左与右的右、左的右与右的左。\r\n\r\n对根调用 $dfs(root,root)$，空对空为真，一侧空或值不同为假。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

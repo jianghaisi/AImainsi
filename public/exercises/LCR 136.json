@@ -1,0 +1,75 @@
+{
+  "number": "LCR 136",
+  "adapter": {
+    "name": "deleteNode",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      },
+      {
+        "name": "val",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "ListNode"
+    },
+    "number": "LCR 136"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          4,
+          5,
+          1,
+          9
+        ],
+        5
+      ],
+      "expected": [
+        4,
+        1,
+        9
+      ]
+    },
+    {
+      "input": [
+        [
+          4,
+          5,
+          1,
+          9
+        ],
+        1
+      ],
+      "expected": [
+        4,
+        5,
+        9
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def deleteNode(self, head: ListNode, val: int) -> ListNode:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode deleteNode(ListNode head, int val) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* deleteNode(ListNode* head, int val) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.next = None\r\nclass Solution:\r\n    def deleteNode(self, head: ListNode, val: int) -> ListNode:\r\n        dummy = cur = ListNode(0, head)\r\n        while cur.next:\r\n            if cur.next.val == val:\r\n                cur.next = cur.next.next\r\n                break\r\n            cur = cur.next\r\n        return dummy.next\r\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public ListNode deleteNode(ListNode head, int val) {\r\n        ListNode dummy = new ListNode(0, head);\r\n        for (ListNode cur = dummy; cur.next != null; cur = cur.next) {\r\n            if (cur.next.val == val) {\r\n                cur.next = cur.next.next;\r\n                break;\r\n            }\r\n        }\r\n        return dummy.next;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode(int x) : val(x), next(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    ListNode* deleteNode(ListNode* head, int val) {\r\n        ListNode* dummy = new ListNode(0, head);\r\n        for (ListNode* cur = dummy; cur->next; cur = cur->next) {\r\n            if (cur->next->val == val) {\r\n                cur->next = cur->next->next;\r\n                break;\r\n            }\r\n        }\r\n        return dummy->next;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9818.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9818.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9818.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9818.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：删除链表的节点。\n输入：head（ListNode）、val（integer）。\n训练提示：**思考**\r \r 删除给定值的结点，可能删掉头结点，直接改 `head` 需要特判。加哑结点后，统一看 `cur.next` 是否为目标。\r \r 扫到后改 `next` 并停止，返回 `dummy.next`。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：模拟\r\n\r\n\r\n\r\n思考\r\n\r\n删除给定值的结点，可能删掉头结点，直接改 `head` 需要特判。加哑结点后，统一看 `cur.next` 是否为目标。\r\n\r\n扫到后改 `next` 并停止，返回 `dummy.next`。\r\n\r\n\r\n\r\n我们先创建一个虚拟头节点 `dummy`，令 `dummy.next = head`，然后创建一个指针 `cur` 指向 `dummy`。\r\n\r\n遍历链表，当 `cur.next.val == val` 时，将 `cur.next` 指向 `cur.next.next`，然后跳出循环。\r\n\r\n最后返回 `dummy.next` 即可。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(1)$。其中 $n$ 为链表的长度。",
+  "memory": "删除链表的节点 → 模拟。\n**思考**\r\n\r\n删除给定值的结点，可能删掉头结点，直接改 `head` 需要特判。加哑结点后，统一看 `cur.next` 是否为目标。\r\n\r\n扫到后改 `next` 并停止，返回 `dummy.next`。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

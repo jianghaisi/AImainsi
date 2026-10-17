@@ -1,0 +1,67 @@
+{
+  "number": "面试题 17.07",
+  "adapter": {
+    "name": "trulyMostPopular",
+    "params": [
+      {
+        "name": "names",
+        "type": "string[]"
+      },
+      {
+        "name": "synonyms",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "string[]"
+    },
+    "number": "面试题 17.07"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "John(15)",
+          "Jon(12)",
+          "Chris(13)",
+          "Kris(4)",
+          "Christopher(19)"
+        ],
+        [
+          "(Jon,John)",
+          "(John,Johnny)",
+          "(Chris,Kris)",
+          "(Chris,Christopher)"
+        ]
+      ],
+      "expected": [
+        "John(27)",
+        "Chris(36)"
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def trulyMostPopular(self, names: List[str], synonyms: List[str]) -> List[str]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[]} names\n * @param {string[]} synonyms\n * @return {string[]}\n */\nvar trulyMostPopular = function(names, synonyms) {\n    \n};",
+    "java": "class Solution {\n    public String[] trulyMostPopular(String[] names, String[] synonyms) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<string> trulyMostPopular(vector<string>& names, vector<string>& synonyms) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def trulyMostPopular(self, names: List[str], synonyms: List[str]) -> List[str]:\r\n        def dfs(a):\r\n            vis.add(a)\r\n            mi, x = a, cnt[a]\r\n            for b in g[a]:\r\n                if b not in vis:\r\n                    t, y = dfs(b)\r\n                    if mi > t:\r\n                        mi = t\r\n                    x += y\r\n            return mi, x\r\n\r\n        g = defaultdict(list)\r\n        for e in synonyms:\r\n            a, b = e[1:-1].split(',')\r\n            g[a].append(b)\r\n            g[b].append(a)\r\n        s = set()\r\n        cnt = defaultdict(int)\r\n        for x in names:\r\n            name, freq = x[:-1].split(\"(\")\r\n            s.add(name)\r\n            cnt[name] = int(freq)\r\n        vis = set()\r\n        ans = []\r\n        for name in s:\r\n            if name not in vis:\r\n                name, freq = dfs(name)\r\n                ans.append(f\"{name}({freq})\")\r\n        return ans\r\n",
+    "javascript": "function trulyMostPopular(names, synonyms) {\n    const map = new Map();\n    for (const synonym of synonyms) {\n        const [k1, k2] = [...synonym]\n            .slice(1, synonym.length - 1)\n            .join('')\n            .split(',');\n        const [v1, v2] = [map.get(k1) ?? k1, map.get(k2) ?? k2];\n        const min = v1 < v2 ? v1 : v2;\n        const max = v1 < v2 ? v2 : v1;\n        map.set(k1, min);\n        map.set(k2, min);\n        for (const [k, v] of map.entries()) {\n            if (v === max) {\n                map.set(k, min);\n            }\n        }\n    }\n    const keyCount = new Map();\n    for (const name of names) {\n        const num = name.match(/\\d+/)[0];\n        const k = name.split('(')[0];\n        const key = map.get(k) ?? k;\n        keyCount.set(key, (keyCount.get(key) ?? 0) + Number(num));\n    }\n    return [...keyCount.entries()].map(([k, v]) => `${k}(${v})`);\n}\n",
+    "java": "class Solution {\r\n    private Map<String, List<String>> g = new HashMap<>();\r\n    private Map<String, Integer> cnt = new HashMap<>();\r\n    private Set<String> vis = new HashSet<>();\r\n    private int freq;\r\n\r\n    public String[] trulyMostPopular(String[] names, String[] synonyms) {\r\n        for (String pairs : synonyms) {\r\n            String[] pair = pairs.substring(1, pairs.length() - 1).split(\",\");\r\n            String a = pair[0], b = pair[1];\r\n            g.computeIfAbsent(a, k -> new ArrayList<>()).add(b);\r\n            g.computeIfAbsent(b, k -> new ArrayList<>()).add(a);\r\n        }\r\n        Set<String> s = new HashSet<>();\r\n        for (String x : names) {\r\n            int i = x.indexOf('(');\r\n            String name = x.substring(0, i);\r\n            s.add(name);\r\n            cnt.put(name, Integer.parseInt(x.substring(i + 1, x.length() - 1)));\r\n        }\r\n        List<String> res = new ArrayList<>();\r\n        for (String name : s) {\r\n            if (!vis.contains(name)) {\r\n                freq = 0;\r\n                name = dfs(name);\r\n                res.add(name + \"(\" + freq + \")\");\r\n            }\r\n        }\r\n        return res.toArray(new String[0]);\r\n    }\r\n\r\n    private String dfs(String a) {\r\n        String mi = a;\r\n        vis.add(a);\r\n        freq += cnt.getOrDefault(a, 0);\r\n        for (String b : g.getOrDefault(a, new ArrayList<>())) {\r\n            if (!vis.contains(b)) {\r\n                String t = dfs(b);\r\n                if (t.compareTo(mi) < 0) {\r\n                    mi = t;\r\n                }\r\n            }\r\n        }\r\n        return mi;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<string> trulyMostPopular(vector<string>& names, vector<string>& synonyms) {\r\n        unordered_map<string, vector<string>> g;\r\n        unordered_map<string, int> cnt;\r\n        for (auto& e : synonyms) {\r\n            int i = e.find(',');\r\n            string a = e.substr(1, i - 1);\r\n            string b = e.substr(i + 1, e.size() - i - 2);\r\n            g[a].emplace_back(b);\r\n            g[b].emplace_back(a);\r\n        }\r\n        unordered_set<string> s;\r\n        for (auto& e : names) {\r\n            int i = e.find('(');\r\n            string name = e.substr(0, i);\r\n            s.insert(name);\r\n            cnt[name] += stoi(e.substr(i + 1, e.size() - i - 2));\r\n        }\r\n        unordered_set<string> vis;\r\n        int freq = 0;\r\n\r\n        function<string(string)> dfs = [&](string a) -> string {\r\n            string res = a;\r\n            vis.insert(a);\r\n            freq += cnt[a];\r\n            for (auto& b : g[a]) {\r\n                if (!vis.count(b)) {\r\n                    string t = dfs(b);\r\n                    if (t < res) {\r\n                        res = move(t);\r\n                    }\r\n                }\r\n            }\r\n            return move(res);\r\n        };\r\n\r\n        vector<string> ans;\r\n        for (auto& name : s) {\r\n            if (!vis.count(name)) {\r\n                freq = 0;\r\n                string x = dfs(name);\r\n                ans.emplace_back(x + \"(\" + to_string(freq) + \")\");\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.07.Baby%20Names/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.07.Baby%20Names/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.07.Baby%20Names/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.07.Baby%20Names/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.07.Baby%20Names/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：婴儿名字。\n输入：names（string[]）、synonyms（string[]）。\n训练提示：**思考**\r \r 同义词把名字连成连通块，块内频率相加，字典序最小者为代表。并查集可以，DFS 同样遍历分量。\r \r 先建无向图并记下每个名字的频次，再对未访问点搜索整块。\r \r $dfs$ 返回块内最小名字与频率和。解析 `Name(freq)` 与 `(a,b)` 后，对集合 $s$ 中每个未访名字调用一次。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：哈希表 + DFS\r\n\r\n\r\n\r\n思考\r\n\r\n同义词把名字连成连通块，块内频率相加，字典序最小者为代表。并查集可以，DFS 同样遍历分量。\r\n\r\n先建无向图并记下每个名字的频次，再对未访问点搜索整块。\r\n\r\n$dfs$ 返回块内最小名字与频率和。解析 `Name(freq)` 与 `(a,b)` 后，对集合 $s$ 中每个未访名字调用一次。\r\n\r\n\r\n\r\n对于每个同义词对，我们将其两个名字建立双向边，存放在邻接表 $g$ 中，然后，我们遍历所有名字，将其存放在集合 $s$ 中，同时将其频率存放在哈希表 $cnt$ 中。\r\n\r\n接下来，我们遍历集合 $s$ 中的每个名字，如果该名字未被访问过，则进行深度优先搜索，找到该名字所在的连通分量中的所有名字，以字典序最小的名字为真实名字，将其频率求和，即为真实名字的频率。然后，我们将该名字以及其频率存放在答案数组中。\r\n\r\n遍历完所有名字后，答案数组即为所求。\r\n\r\n时间复杂度 $O(n + m)$，空间复杂度 $O(n + m)$。其中 $n$ 和 $m$ 分别为名字数组和同义词数组的长度。",
+  "memory": "婴儿名字 → 哈希表 + DFS。\n**思考**\r\n\r\n同义词把名字连成连通块，块内频率相加，字典序最小者为代表。并查集可以，DFS 同样遍历分量。\r\n\r\n先建无向图并记下每个名字的频次，再对未访问点搜索整块。\r\n\r\n$dfs$ 返回块内最小名字与频率和。解析 `Name(freq)` 与 `(a,b)` 后，对集合 $s$ 中每个未访名字调用一次。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

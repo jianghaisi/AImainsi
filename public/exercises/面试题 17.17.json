@@ -1,0 +1,78 @@
+{
+  "number": "面试题 17.17",
+  "adapter": {
+    "name": "multiSearch",
+    "params": [
+      {
+        "name": "big",
+        "type": "string"
+      },
+      {
+        "name": "smalls",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "integer[][]"
+    },
+    "number": "面试题 17.17"
+  },
+  "tests": [
+    {
+      "input": [
+        "mississippi",
+        [
+          "is",
+          "ppi",
+          "hi",
+          "sis",
+          "i",
+          "ssippi"
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          4
+        ],
+        [
+          8
+        ],
+        [],
+        [
+          3
+        ],
+        [
+          1,
+          4,
+          7,
+          10
+        ],
+        [
+          5
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def multiSearch(self, big: str, smalls: List[str]) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int[][] multiSearch(String big, String[] smalls) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> multiSearch(string big, vector<string>& smalls) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Trie:\r\n    def __init__(self):\r\n        self.idx = -1\r\n        self.children = [None] * 26\r\n\r\n    def insert(self, word, i):\r\n        node = self\r\n        for c in word:\r\n            idx = ord(c) - ord('a')\r\n            if node.children[idx] is None:\r\n                node.children[idx] = Trie()\r\n            node = node.children[idx]\r\n        node.idx = i\r\n\r\n    def search(self, word):\r\n        res = []\r\n        node = self\r\n        for c in word:\r\n            idx = ord(c) - ord('a')\r\n            if node.children[idx] is None:\r\n                return res\r\n            node = node.children[idx]\r\n            if node.idx != -1:\r\n                res.append(node.idx)\r\n        return res\r\n\r\n\r\nclass Solution:\r\n    def multiSearch(self, big: str, smalls: List[str]) -> List[List[int]]:\r\n        tree = Trie()\r\n        for i, s in enumerate(smalls):\r\n            tree.insert(s, i)\r\n        n = len(smalls)\r\n        ans = [[] for _ in range(n)]\r\n        for i in range(len(big)):\r\n            s = big[i:]\r\n            for idx in tree.search(s):\r\n                ans[idx].append(i)\r\n        return ans\r\n",
+    "java": "class Solution {\r\n    public int[][] multiSearch(String big, String[] smalls) {\r\n        Trie tree = new Trie();\r\n        int n = smalls.length;\r\n        for (int i = 0; i < n; ++i) {\r\n            tree.insert(smalls[i], i);\r\n        }\r\n        List<List<Integer>> res = new ArrayList<>();\r\n        for (int i = 0; i < n; ++i) {\r\n            res.add(new ArrayList<>());\r\n        }\r\n        for (int i = 0; i < big.length(); ++i) {\r\n            String s = big.substring(i);\r\n            List<Integer> t = tree.search(s);\r\n            for (int idx : t) {\r\n                res.get(idx).add(i);\r\n            }\r\n        }\r\n        int[][] ans = new int[n][];\r\n        for (int i = 0; i < n; ++i) {\r\n            ans[i] = res.get(i).stream().mapToInt(Integer::intValue).toArray();\r\n        }\r\n        return ans;\r\n    }\r\n}\r\n\r\nclass Trie {\r\n    private int idx;\r\n    private Trie[] children;\r\n\r\n    public Trie() {\r\n        idx = -1;\r\n        children = new Trie[26];\r\n    }\r\n\r\n    public void insert(String word, int i) {\r\n        Trie node = this;\r\n        for (char c : word.toCharArray()) {\r\n            c -= 'a';\r\n            if (node.children[c] == null) {\r\n                node.children[c] = new Trie();\r\n            }\r\n            node = node.children[c];\r\n        }\r\n        node.idx = i;\r\n    }\r\n\r\n    public List<Integer> search(String word) {\r\n        Trie node = this;\r\n        List<Integer> res = new ArrayList<>();\r\n        for (char c : word.toCharArray()) {\r\n            c -= 'a';\r\n            if (node.children[c] == null) {\r\n                return res;\r\n            }\r\n            node = node.children[c];\r\n            if (node.idx != -1) {\r\n                res.add(node.idx);\r\n            }\r\n        }\r\n        return res;\r\n    }\r\n}",
+    "cpp": "class Trie {\r\nprivate:\r\n    vector<Trie*> children;\r\n    int idx;\r\n\r\npublic:\r\n    Trie()\r\n        : children(26)\r\n        , idx(-1) {}\r\n\r\n    void insert(string word, int i) {\r\n        Trie* node = this;\r\n        for (char c : word) {\r\n            int idx = c - 'a';\r\n            if (!node->children[idx]) node->children[idx] = new Trie();\r\n            node = node->children[idx];\r\n        }\r\n        node->idx = i;\r\n    }\r\n\r\n    vector<int> search(string word) {\r\n        Trie* node = this;\r\n        vector<int> res;\r\n        for (char c : word) {\r\n            int idx = c - 'a';\r\n            if (!node->children[idx]) return res;\r\n            node = node->children[idx];\r\n            if (node->idx != -1) res.push_back(node->idx);\r\n        }\r\n        return res;\r\n    }\r\n};\r\n\r\nclass Solution {\r\npublic:\r\n    vector<vector<int>> multiSearch(string big, vector<string>& smalls) {\r\n        Trie* tree = new Trie();\r\n        int n = smalls.size();\r\n        for (int i = 0; i < n; ++i) tree->insert(smalls[i], i);\r\n        vector<vector<int>> ans(n);\r\n        for (int i = 0, m = big.size(); i < m; ++i) {\r\n            string s = big.substr(i, m - i);\r\n            vector<int> t = tree->search(s);\r\n            for (int& idx : t) ans[idx].push_back(i);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.17.Multi%20Search/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.17.Multi%20Search/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.17.Multi%20Search/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.17.Multi%20Search/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：多次搜索。\n输入：big（string）、smalls（string[]）。\n训练提示：**思考**\r \r 在长串 $big$ 中定位多个模式的全部出现。对每个模式做一次朴素或 KMP，模式一多就重复扫主串。\r \r 把所有 $smalls$ 插入一棵前缀树，从 $big$ 的每个起点沿树走，途经的词结束位置即一次命中。\r \r `insert` 在词尾记下下标；`search` 沿后缀收集这些下标。主串每个起点走至多词长步，共享前缀只建一次。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：前缀树\r\n\r\n\r\n\r\n思考\r\n\r\n在长串 $big$ 中定位多个模式的全部出现。对每个模式做一次朴素或 KMP，模式一多就重复扫主串。\r\n\r\n把所有 $smalls$ 插入一棵前缀树，从 $big$ 的每个起点沿树走，途经的词结束位置即一次命中。\r\n\r\n`insert` 在词尾记下下标；`search` 沿后缀收集这些下标。主串每个起点走至多词长步，共享前缀只建一次。",
+  "memory": "多次搜索 → 前缀树。\n**思考**\r\n\r\n在长串 $big$ 中定位多个模式的全部出现。对每个模式做一次朴素或 KMP，模式一多就重复扫主串。\r\n\r\n把所有 $smalls$ 插入一棵前缀树，从 $big$ 的每个起点沿树走，途经的词结束位置即一次命中。\r\n\r\n`insert` 在词尾记下下标；`search` 沿后缀收集这些下标。主串每个起点走至多词长步，共享前缀只建一次。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

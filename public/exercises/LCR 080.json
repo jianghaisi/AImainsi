@@ -1,0 +1,54 @@
+{
+  "number": "LCR 080",
+  "adapter": {
+    "name": "combine",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[][]"
+    },
+    "number": "LCR 080"
+  },
+  "tests": [
+    {
+      "input": [
+        1,
+        1
+      ],
+      "expected": [
+        [
+          1
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def combine(self, n: int, k: int) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public List<List<Integer>> combine(int n, int k) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> combine(int n, int k) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def combine(self, n: int, k: int) -> List[List[int]]:\r\n        res = []\r\n\r\n        def dfs(i, n, k, t):\r\n            if len(t) == k:\r\n                res.append(t.copy())\r\n                return\r\n            for j in range(i, n + 1):\r\n                t.append(j)\r\n                dfs(j + 1, n, k, t)\r\n                t.pop()\r\n\r\n        dfs(1, n, k, [])\r\n        return res\r\n",
+    "java": "class Solution {\r\n    public List<List<Integer>> combine(int n, int k) {\r\n        List<List<Integer>> res = new ArrayList<>();\r\n        dfs(1, n, k, new ArrayList<>(), res);\r\n        return res;\r\n    }\r\n\r\n    private void dfs(int i, int n, int k, List<Integer> t, List<List<Integer>> res) {\r\n        if (t.size() == k) {\r\n            res.add(new ArrayList<>(t));\r\n            return;\r\n        }\r\n        for (int j = i; j <= n; ++j) {\r\n            t.add(j);\r\n            dfs(j + 1, n, k, t, res);\r\n            t.remove(t.size() - 1);\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<int>> combine(int n, int k) {\r\n        vector<vector<int>> res;\r\n        vector<int> t;\r\n        dfs(1, n, k, t, res);\r\n        return res;\r\n    }\r\n\r\n    void dfs(int i, int n, int k, vector<int> t, vector<vector<int>>& res) {\r\n        if (t.size() == k) {\r\n            res.push_back(t);\r\n            return;\r\n        }\r\n        for (int j = i; j <= n; ++j) {\r\n            t.push_back(j);\r\n            dfs(j + 1, n, k, t, res);\r\n            t.pop_back();\r\n        }\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20080.%20%E5%90%AB%E6%9C%89%20k%20%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%84%E5%90%88/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20080.%20%E5%90%AB%E6%9C%89%20k%20%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%84%E5%90%88/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20080.%20%E5%90%AB%E6%9C%89%20k%20%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%84%E5%90%88/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20080.%20%E5%90%AB%E6%9C%89%20k%20%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%84%E5%90%88/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：组合。\n输入：n（integer）、k（integer）。\n训练提示：**思考**\r \r 从 $1..n$ 中选 $k$ 个数。组合数不大，回溯即可。\r \r 按升序枚举下一个数，路径长度达到 $k$ 时收录。下标只向前推进，避免生成排列意义上的重复。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n从 $1..n$ 中选 $k$ 个数。组合数不大，回溯即可。\r\n\r\n按升序枚举下一个数，路径长度达到 $k$ 时收录。下标只向前推进，避免生成排列意义上的重复。",
+  "memory": "组合 → 方法一。\n**思考**\r\n\r\n从 $1..n$ 中选 $k$ 个数。组合数不大，回溯即可。\r\n\r\n按升序枚举下一个数，路径长度达到 $k$ 时收录。下标只向前推进，避免生成排列意义上的重复。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

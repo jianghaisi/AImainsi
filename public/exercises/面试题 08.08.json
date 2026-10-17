@@ -1,0 +1,61 @@
+{
+  "number": "面试题 08.08",
+  "adapter": {
+    "name": "permutation",
+    "params": [
+      {
+        "name": "S",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string[]"
+    },
+    "number": "面试题 08.08"
+  },
+  "tests": [
+    {
+      "input": [
+        "qqe"
+      ],
+      "expected": [
+        "eqq",
+        "qeq",
+        "qqe"
+      ]
+    },
+    {
+      "input": [
+        "ab"
+      ],
+      "expected": [
+        "ab",
+        "ba"
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def permutation(self, S: str) -> List[str]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} S\n * @return {string[]}\n */\nvar permutation = function(S) {\n    \n};",
+    "java": "class Solution {\n    public String[] permutation(String S) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<string> permutation(string S) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def permutation(self, S: str) -> List[str]:\r\n        def dfs(i: int):\r\n            if i >= n:\r\n                ans.append(\"\".join(t))\r\n                return\r\n            for j, c in enumerate(s):\r\n                if not vis[j] and (j == 0 or s[j] != s[j - 1] or vis[j - 1]):\r\n                    vis[j] = True\r\n                    t[i] = c\r\n                    dfs(i + 1)\r\n                    vis[j] = False\r\n\r\n        s = sorted(S)\r\n        ans = []\r\n        t = s[:]\r\n        n = len(s)\r\n        vis = [False] * n\r\n        dfs(0)\r\n        return ans\r\n",
+    "javascript": "function permutation(S) {\n    const s = S.split('').sort();\n    const n = s.length;\n    const t = Array(n).fill('');\n    const vis = Array(n).fill(false);\n    const ans = [];\n    const dfs = (i) => {\n        if (i >= n) {\n            ans.push(t.join(''));\n            return;\n        }\n        for (let j = 0; j < n; ++j) {\n            if (!vis[j] && (j === 0 || s[j] !== s[j - 1] || vis[j - 1])) {\n                vis[j] = true;\n                t[i] = s[j];\n                dfs(i + 1);\n                vis[j] = false;\n            }\n        }\n    };\n    dfs(0);\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    private char[] s;\r\n    private char[] t;\r\n    private boolean[] vis;\r\n    private List<String> ans = new ArrayList<>();\r\n\r\n    public String[] permutation(String S) {\r\n        int n = S.length();\r\n        s = S.toCharArray();\r\n        Arrays.sort(s);\r\n        t = new char[n];\r\n        vis = new boolean[n];\r\n        dfs(0);\r\n        return ans.toArray(new String[0]);\r\n    }\r\n\r\n    private void dfs(int i) {\r\n        if (i >= s.length) {\r\n            ans.add(new String(t));\r\n            return;\r\n        }\r\n        for (int j = 0; j < s.length; ++j) {\r\n            if (!vis[j] && (j == 0 || s[j] != s[j - 1] || vis[j - 1])) {\r\n                vis[j] = true;\r\n                t[i] = s[j];\r\n                dfs(i + 1);\r\n                vis[j] = false;\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<string> permutation(string S) {\r\n        ranges::sort(S);\r\n        string t = S;\r\n        int n = t.size();\r\n        vector<bool> vis(n);\r\n        vector<string> ans;\r\n        auto dfs = [&](this auto&& dfs, int i) {\r\n            if (i >= n) {\r\n                ans.emplace_back(t);\r\n                return;\r\n            }\r\n            for (int j = 0; j < n; ++j) {\r\n                if (!vis[j] && (j == 0 || S[j] != S[j - 1] || vis[j - 1])) {\r\n                    vis[j] = true;\r\n                    t[i] = S[j];\r\n                    dfs(i + 1);\r\n                    vis[j] = false;\r\n                }\r\n            }\r\n        };\r\n        dfs(0);\r\n        return ans;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.08.Permutation%20II/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.08.Permutation%20II/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.08.Permutation%20II/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.08.Permutation%20II/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.08.Permutation%20II/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：有重复字符串的排列组合。\n输入：S（string）。\n训练提示：**思考**\r \r 与上一题相比字符可重复，直接沿用「按下标去重」会得到相同排列多次。\r \r 先排序使相同字符相邻，再规定：只有当前一个相同字符已经被选用时，才能选用后一个，从而同一值在同一层只展开一次。\r \r 条件 `j==0 or s[j]!=s[j-1] or vis[j-1]` 实现该偏序。其余回溯结构与无重复情形相同。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序 + 回溯\r\n\r\n\r\n\r\n思考\r\n\r\n与上一题相比字符可重复，直接沿用「按下标去重」会得到相同排列多次。\r\n\r\n先排序使相同字符相邻，再规定：只有当前一个相同字符已经被选用时，才能选用后一个，从而同一值在同一层只展开一次。\r\n\r\n条件 `j==0 or s[j]!=s[j-1] or vis[j-1]` 实现该偏序。其余回溯结构与无重复情形相同。\r\n\r\n\r\n\r\n我们可以先对字符串按照字符进行排序，这样就可以将重复的字符放在一起，方便我们进行去重。\r\n\r\n然后，我们设计一个函数 $\\textit{dfs}(i)$，表示当前需要填写第 $i$ 个位置的字符。函数的具体实现如下：\r\n\r\n- 如果 $i = n$，说明我们已经填写完毕，将当前排列加入答案数组中，然后返回。\r\n- 否则，我们枚举第 $i$ 个位置的字符 $\\textit{s}[j]$，其中 $j$ 的范围是 $[0, n - 1]$。我们需要保证 $\\textit{s}[j]$ 没有被使用过，并且与前面枚举的字符不同，这样才能保证当前排列不重复。如果满足条件，我们就可以填写 $\\textit{s}[j]$，并继续递归地填写下一个位置，即调用 $\\textit{dfs}(i + 1)$。在递归调用结束后，我们需要将 $\\textit{s}[j]$ 标记为未使用，以便于进行后面的枚举。\r\n\r\n在主函数中，我们首先对字符串进行排序，然后调用 $\\textit{dfs}(0)$，即从第 $0$ 个位置开始填写，最终返回答案数组即可。\r\n\r\n时间复杂度 $O(n \\times n!)$，空间复杂度 $O(n)$。其中 $n$ 是字符串 $s$ 的长度。需要进行 $n!$ 次枚举，每次枚举需要 $O(n)$ 的时间来判断是否重复。另外，我们需要一个标记数组来标记每个位置是否被使用过，因此空间复杂度为 $O(n)$。",
+  "memory": "有重复字符串的排列组合 → 排序 + 回溯。\n**思考**\r\n\r\n与上一题相比字符可重复，直接沿用「按下标去重」会得到相同排列多次。\r\n\r\n先排序使相同字符相邻，再规定：只有当前一个相同字符已经被选用时，才能选用后一个，从而同一值在同一层只展开一次。\r\n\r\n条件 `j==0 or s[j]!=s[j-1] or vis[j-1]` 实现该偏序。其余回溯结构与无重复情形相同。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

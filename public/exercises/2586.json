@@ -1,0 +1,76 @@
+{
+  "number": "2586",
+  "adapter": {
+    "name": "vowelStrings",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      },
+      {
+        "type": "integer",
+        "name": "left"
+      },
+      {
+        "type": "integer",
+        "name": "right"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "2586"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "are",
+          "amy",
+          "u"
+        ],
+        0,
+        2
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          "hey",
+          "aeo",
+          "mu",
+          "ooo",
+          "artro"
+        ],
+        1,
+        4
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def vowelStrings(self, words: List[str], left: int, right: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[]} words\n * @param {number} left\n * @param {number} right\n * @return {number}\n */\nvar vowelStrings = function(words, left, right) {\n    \n};",
+    "java": "class Solution {\n    public int vowelStrings(String[] words, int left, int right) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int vowelStrings(vector<string>& words, int left, int right) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def vowelStrings(self, words: List[str], left: int, right: int) -> int:\r\n        return sum(\r\n            w[0] in 'aeiou' and w[-1] in 'aeiou' for w in words[left : right + 1]\r\n        )\r\n",
+    "javascript": "function vowelStrings(words, left, right) {\n    let ans = 0;\n    const check = ['a', 'e', 'i', 'o', 'u'];\n    for (let i = left; i <= right; ++i) {\n        const w = words[i];\n        if (check.includes(w[0]) && check.includes(w.at(-1))) {\n            ++ans;\n        }\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int vowelStrings(String[] words, int left, int right) {\r\n        int ans = 0;\r\n        for (int i = left; i <= right; ++i) {\r\n            var w = words[i];\r\n            if (check(w.charAt(0)) && check(w.charAt(w.length() - 1))) {\r\n                ++ans;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n\r\n    private boolean check(char c) {\r\n        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int vowelStrings(vector<string>& words, int left, int right) {\r\n        auto check = [](char c) -> bool {\r\n            return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';\r\n        };\r\n        int ans = 0;\r\n        for (int i = left; i <= right; ++i) {\r\n            auto w = words[i];\r\n            ans += check(w[0]) && check(w[w.size() - 1]);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2500-2599/2586.Count%20the%20Number%20of%20Vowel%20Strings%20in%20Range/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2500-2599/2586.Count%20the%20Number%20of%20Vowel%20Strings%20in%20Range/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2500-2599/2586.Count%20the%20Number%20of%20Vowel%20Strings%20in%20Range/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2500-2599/2586.Count%20the%20Number%20of%20Vowel%20Strings%20in%20Range/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2500-2599/2586.Count%20the%20Number%20of%20Vowel%20Strings%20in%20Range/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：统计范围内的元音字符串数。\n输入：words（string[]）、left（integer）、right（integer）。\n训练提示：**思考**\r \r 统计下标落在 $[\\textit{left},\\textit{right}]$ 且首尾都是元音的单词。区间长度与 $n$ 同阶，直接切片判断即可，无需前缀和。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：模拟\r\n\r\n\r\n\r\n思考\r\n\r\n统计下标落在 $[\\textit{left},\\textit{right}]$ 且首尾都是元音的单词。区间长度与 $n$ 同阶，直接切片判断即可，无需前缀和。\r\n\r\n\r\n\r\n我们只需要遍历区间 $[left,.. right]$ 内的字符串，判断其是否以元音字母开头和结尾即可。若是，则答案加一。\r\n\r\n遍历结束后，返回答案即可。\r\n\r\n时间复杂度 $O(m)$，空间复杂度 $O(1)$。其中 $m = right - left + 1$。",
+  "memory": "统计范围内的元音字符串数 → 模拟。\n**思考**\r\n\r\n统计下标落在 $[\\textit{left},\\textit{right}]$ 且首尾都是元音的单词。区间长度与 $n$ 同阶，直接切片判断即可，无需前缀和。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

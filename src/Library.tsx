@@ -106,7 +106,7 @@ export function Bank({
             ? !['passed', 'manual'].includes(statusOf(q.id))
             : statusOf(q.id) === progressFilter)) &&
       (topic === '全部领域' || q.topic === topic) &&
-      (company === '全部公司' || q.company === company) &&
+      (company === '全部公司' || q.company === company || q.companies?.includes(company)) &&
       (kind === 'all' || q.kind === kind) &&
       `${q.number || ''} ${q.englishTitle || ''} ${q.title} ${q.topic} ${q.description}`
         .toLowerCase()
@@ -159,7 +159,7 @@ export function Bank({
           <Database size={23} />
           <span>
             <strong>{state.questions.filter((q) => q.status === 'published').length}</strong>{' '}
-            题目与索引
+            道学习题目
           </span>
         </div>
         <p>
@@ -167,6 +167,26 @@ export function Bank({
           道可运行训练
         </p>
         <span className="sync-label">题单快照 / {date(state.catalog.updatedAt)}</span>
+      </div>
+      <div className="company-plans" aria-label="大厂面经题单">
+        <span>按目标公司练习</span>
+        {plans
+          .filter((p) => p.id.startsWith('company-'))
+          .map((p) => (
+            <button
+              key={p.id}
+              aria-pressed={planId === p.id}
+              onClick={() => {
+                setPlanId(p.id);
+                setCompany('全部公司');
+                setTopic('全部领域');
+                setSearch('');
+                setPage(0);
+              }}
+            >
+              {p.name.replace('面经题单', '')} <small>{p.questionIds.length} 题</small>
+            </button>
+          ))}
       </div>
       <div className="collection-grid" aria-label="选择训练题单">
         {(showAllPlans
@@ -185,7 +205,10 @@ export function Bank({
               key={p.id}
               className={`collection-card ${planId === p.id ? 'active' : ''}`}
               aria-pressed={planId === p.id}
-              onClick={() => setPlanId(p.id)}
+              onClick={() => {
+                setPlanId(p.id);
+                setCompany('全部公司');
+              }}
             >
               <span className="collection-top">
                 <strong>{p.name}</strong>
@@ -215,9 +238,11 @@ export function Bank({
           <span className="eyebrow">YOUR NEXT STEP</span>
           <h2>{plan?.name || '全部题目'}</h2>
           <p className="hint">
-            {planId === 'hot200'
-              ? 'Hot 200 为本项目整理的扩展题单：Hot 100 + 经典 150 + LeetCode 75 去重补齐，不代表官方排名。'
-              : '根据原站公开题单整理。同一道题只记录一份进度。'}{' '}
+            {planId.startsWith('company-')
+              ? plan?.description
+              : planId === 'hot200'
+                ? 'Hot 200 为本项目整理的扩展题单：Hot 100 + 经典 150 + LeetCode 75 去重补齐，不代表官方排名。'
+                : '根据原站公开题单整理。同一道题只记录一份进度。'}{' '}
             {plan && (
               <External url={plan.sourceUrl || 'https://leetcode.cn/studyplan/'}>题单来源</External>
             )}
@@ -230,7 +255,14 @@ export function Bank({
               下一道未完成 <ArrowRight size={15} />
             </Button>
           )}
-          <Button onClick={() => setPlanId('all')}>全部题目</Button>
+          <Button
+            onClick={() => {
+              setPlanId('all');
+              setCompany('全部公司');
+            }}
+          >
+            全部题目
+          </Button>
         </div>
       </div>
       <div className="filter-bar">
@@ -248,8 +280,18 @@ export function Bank({
             <option key={t}>{t}</option>
           ))}
         </select>
-        <select aria-label="筛选公司" value={company} onChange={(e) => setCompany(e.target.value)}>
-          {['全部公司', ...new Set(state.questions.map((q) => q.company))].map((t) => (
+        <select
+          aria-label="筛选公司"
+          value={company}
+          onChange={(e) => {
+            setCompany(e.target.value);
+            setPlanId('all');
+          }}
+        >
+          {[
+            '全部公司',
+            ...new Set(state.questions.flatMap((q) => [q.company, ...(q.companies || [])])),
+          ].map((t) => (
             <option key={t}>{t}</option>
           ))}
         </select>
@@ -324,6 +366,7 @@ export function Bank({
                         : '原站练习 · 本地记录'}{' '}
                     · {labels[statusOf(q.id)]}
                     {q.paidOnly ? ' · 原站会员题' : ''}
+                    {q.companies?.length ? ` · ${q.companies.join(' / ')}` : ''}
                   </small>
                 </td>
                 <td>

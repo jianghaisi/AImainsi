@@ -1,0 +1,81 @@
+{
+  "number": "面试题 08.04",
+  "adapter": {
+    "name": "subsets",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<list<integer>>",
+      "dealloc": true
+    },
+    "number": "面试题 08.04"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        [
+          3
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          2
+        ],
+        []
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def subsets(self, nums: List[int]) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number[][]}\n */\nvar subsets = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public List<List<Integer>> subsets(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> subsets(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def subsets(self, nums: List[int]) -> List[List[int]]:\r\n        def dfs(u, t):\r\n            if u == len(nums):\r\n                ans.append(t[:])\r\n                return\r\n            dfs(u + 1, t)\r\n            t.append(nums[u])\r\n            dfs(u + 1, t)\r\n            t.pop()\r\n\r\n        ans = []\r\n        dfs(0, [])\r\n        return ans\r\n",
+    "javascript": "function subsets(nums) {\n    const res = [[]];\n    nums.forEach(num => {\n        res.forEach(item => {\n            res.push(item.concat(num));\n        });\n    });\n    return res;\n}\n",
+    "java": "class Solution {\r\n    private List<List<Integer>> ans = new ArrayList<>();\r\n    private int[] nums;\r\n\r\n    public List<List<Integer>> subsets(int[] nums) {\r\n        this.nums = nums;\r\n        dfs(0, new ArrayList<>());\r\n        return ans;\r\n    }\r\n\r\n    private void dfs(int u, List<Integer> t) {\r\n        if (u == nums.length) {\r\n            ans.add(new ArrayList<>(t));\r\n            return;\r\n        }\r\n        dfs(u + 1, t);\r\n        t.add(nums[u]);\r\n        dfs(u + 1, t);\r\n        t.remove(t.size() - 1);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<int>> subsets(vector<int>& nums) {\r\n        vector<vector<int>> ans;\r\n        vector<int> t;\r\n        dfs(0, nums, t, ans);\r\n        return ans;\r\n    }\r\n\r\n    void dfs(int u, vector<int>& nums, vector<int>& t, vector<vector<int>>& ans) {\r\n        if (u == nums.size()) {\r\n            ans.push_back(t);\r\n            return;\r\n        }\r\n        dfs(u + 1, nums, t, ans);\r\n        t.push_back(nums[u]);\r\n        dfs(u + 1, nums, t, ans);\r\n        t.pop_back();\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.04.Power%20Set/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.04.Power%20Set/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.04.Power%20Set/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.04.Power%20Set/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.04.Power%20Set/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：幂集。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 幂集大小为 $2^n$，必须枚举。对每个元素独立决定选或不选，递归树恰好覆盖全部子集。\r \r $dfs(u,t)$ 先不选 $nums[u]$，再选入后回溯弹出。到达 $u=n$ 时拷贝 $t$。\r \r 先递归不选再选，生成顺序与「从空集逐步扩张」一致；弹出保证 $t$ 被各分支共享而不互相污染。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递归枚举\r\n\r\n\r\n\r\n思考\r\n\r\n幂集大小为 $2^n$，必须枚举。对每个元素独立决定选或不选，递归树恰好覆盖全部子集。\r\n\r\n$dfs(u,t)$ 先不选 $nums[u]$，再选入后回溯弹出。到达 $u=n$ 时拷贝 $t$。\r\n\r\n先递归不选再选，生成顺序与「从空集逐步扩张」一致；弹出保证 $t$ 被各分支共享而不互相污染。\r\n\r\n\r\n\r\n我们设计一个递归函数 $dfs(u, t)$，它的参数为当前枚举到的元素的下标 $u$，以及当前的子集 $t$。\r\n\r\n当前枚举到的元素下标为 $u$，我们可以选择将其加入子集 $t$ 中，也可以选择不加入子集 $t$ 中。递归这两种选择，即可得到所有的子集。\r\n\r\n时间复杂度 $O(n \\times 2^n)$，空间复杂度 $O(n)$。其中 $n$ 为数组的长度。数组中每个元素有两种状态，即选择或不选择，共 $2^n$ 种状态，每种状态需要 $O(n)$ 的时间来构造子集。",
+  "memory": "幂集 → 递归枚举。\n**思考**\r\n\r\n幂集大小为 $2^n$，必须枚举。对每个元素独立决定选或不选，递归树恰好覆盖全部子集。\r\n\r\n$dfs(u,t)$ 先不选 $nums[u]$，再选入后回溯弹出。到达 $u=n$ 时拷贝 $t$。\r\n\r\n先递归不选再选，生成顺序与「从空集逐步扩张」一致；弹出保证 $t$ 被各分支共享而不互相污染。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

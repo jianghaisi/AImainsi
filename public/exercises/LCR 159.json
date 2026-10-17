@@ -1,0 +1,103 @@
+{
+  "number": "LCR 159",
+  "adapter": {
+    "name": "inventoryManagement",
+    "params": [
+      {
+        "name": "stock",
+        "type": "integer[]"
+      },
+      {
+        "name": "cnt",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "LCR 159"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          5,
+          7,
+          4
+        ],
+        1
+      ],
+      "expected": [
+        2
+      ]
+    },
+    {
+      "input": [
+        [
+          0,
+          2,
+          3,
+          6
+        ],
+        2
+      ],
+      "expected": [
+        0,
+        2
+      ]
+    },
+    {
+      "input": [
+        [
+          3,
+          2,
+          1
+        ],
+        2
+      ],
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "input": [
+        [
+          0,
+          1,
+          2,
+          1
+        ],
+        1
+      ],
+      "expected": [
+        0
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def inventoryManagement(self, arr: List[int], k: int) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} stock\n * @param {number} cnt\n * @return {number[]}\n */\nvar inventoryManagement = function(stock, cnt) {\n    \n};",
+    "java": "class Solution {\n    public int[] inventoryManagement(int[] stock, int cnt) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> inventoryManagement(vector<int>& stock, int cnt) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def inventoryManagement(self, arr: List[int], k: int) -> List[int]:\r\n        arr.sort()\r\n        return arr[:k]\r\n",
+    "javascript": "function inventoryManagement(arr, k) {\n    let start = 0;\n    let end = arr.length;\n    while (start < end && end > k) {\n        const index = start + Math.floor(Math.random() * (end - start));\n        [arr[start], arr[index]] = [arr[index], arr[start]];\n        const num = arr[start];\n        let mark = start;\n        for (let i = start + 1; i < end; i++) {\n            if (arr[i] < num) {\n                mark++;\n                [arr[i], arr[mark]] = [arr[mark], arr[i]];\n            }\n        }\n        [arr[start], arr[mark]] = [arr[mark], arr[start]];\n        if (mark >= k) {\n            end = mark;\n        }\n        else {\n            start = mark + 1;\n        }\n    }\n    return arr.slice(0, k);\n}\n",
+    "java": "class Solution {\r\n    public int[] inventoryManagement(int[] arr, int k) {\r\n        Arrays.sort(arr);\r\n        int[] ans = new int[k];\r\n        for (int i = 0; i < k; ++i) {\r\n            ans[i] = arr[i];\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> inventoryManagement(vector<int>& arr, int k) {\r\n        sort(arr.begin(), arr.end());\r\n        return vector<int>(arr.begin(), arr.begin() + k);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9840.%20%E6%9C%80%E5%B0%8F%E7%9A%84k%E4%B8%AA%E6%95%B0/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9840.%20%E6%9C%80%E5%B0%8F%E7%9A%84k%E4%B8%AA%E6%95%B0/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9840.%20%E6%9C%80%E5%B0%8F%E7%9A%84k%E4%B8%AA%E6%95%B0/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9840.%20%E6%9C%80%E5%B0%8F%E7%9A%84k%E4%B8%AA%E6%95%B0/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9840.%20%E6%9C%80%E5%B0%8F%E7%9A%84k%E4%B8%AA%E6%95%B0/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：库存管理 III。\n输入：stock（integer[]）、cnt（integer）。\n训练提示：**思考**\r \r 取最小 $k$ 个数，不必得到第 $k$ 小之外的相对次序。全排序后截前 $k$ 位即可， $n$ 规模下 $O(n\\log n)$ 可接受。\r \r 后续方法再分别用堆和划分降低不必要的排序开销。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序\r\n\r\n\r\n\r\n思考\r\n\r\n取最小 $k$ 个数，不必得到第 $k$ 小之外的相对次序。全排序后截前 $k$ 位即可， $n$ 规模下 $O(n\\log n)$ 可接受。\r\n\r\n后续方法再分别用堆和划分降低不必要的排序开销。\r\n\r\n\r\n\r\n我们可以直接对数组 `arr` 按从小到大排序，然后取前 $k$ 个数即可。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(\\log n)$。其中 $n$ 为数组 `arr` 的长度。",
+  "memory": "库存管理 III → 排序。\n**思考**\r\n\r\n取最小 $k$ 个数，不必得到第 $k$ 小之外的相对次序。全排序后截前 $k$ 位即可， $n$ 规模下 $O(n\\log n)$ 可接受。\r\n\r\n后续方法再分别用堆和划分降低不必要的排序开销。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

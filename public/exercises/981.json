@@ -1,0 +1,126 @@
+{
+  "number": "981",
+  "adapter": {
+    "classname": "TimeMap",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "params": [
+          {
+            "type": "string",
+            "name": "key"
+          },
+          {
+            "type": "string",
+            "name": "value"
+          },
+          {
+            "type": "integer",
+            "name": "timestamp"
+          }
+        ],
+        "return": {
+          "type": "void"
+        },
+        "name": "set"
+      },
+      {
+        "params": [
+          {
+            "type": "string",
+            "name": "key"
+          },
+          {
+            "type": "integer",
+            "name": "timestamp"
+          }
+        ],
+        "return": {
+          "type": "string"
+        },
+        "name": "get"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "systemdesign": true,
+    "number": "981"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "TimeMap",
+          "set",
+          "get",
+          "get",
+          "set",
+          "get",
+          "get"
+        ],
+        [
+          [],
+          [
+            "foo",
+            "bar",
+            1
+          ],
+          [
+            "foo",
+            1
+          ],
+          [
+            "foo",
+            3
+          ],
+          [
+            "foo",
+            "bar2",
+            4
+          ],
+          [
+            "foo",
+            4
+          ],
+          [
+            "foo",
+            5
+          ]
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        "bar",
+        "bar",
+        null,
+        "bar2",
+        "bar2"
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class TimeMap:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def set(self, key: str, value: str, timestamp: int) -> None:\n        raise NotImplementedError('请完成此方法')\n\n    def get(self, key: str, timestamp: int) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class TimeMap {\n\n    public TimeMap() {\n        \n    }\n    \n    public void set(String key, String value, int timestamp) {\n        \n    }\n    \n    public String get(String key, int timestamp) {\n        \n    }\n}\n\n/**\n * Your TimeMap object will be instantiated and called as such:\n * TimeMap obj = new TimeMap();\n * obj.set(key,value,timestamp);\n * String param_2 = obj.get(key,timestamp);\n */",
+    "cpp": "class TimeMap {\npublic:\n    TimeMap() {\n        \n    }\n    \n    void set(string key, string value, int timestamp) {\n        \n    }\n    \n    string get(string key, int timestamp) {\n        \n    }\n};\n\n/**\n * Your TimeMap object will be instantiated and called as such:\n * TimeMap* obj = new TimeMap();\n * obj->set(key,value,timestamp);\n * string param_2 = obj->get(key,timestamp);\n */"
+  },
+  "solutions": {
+    "python": "class TimeMap:\r\n    def __init__(self):\r\n        self.ktv = defaultdict(list)\r\n\r\n    def set(self, key: str, value: str, timestamp: int) -> None:\r\n        self.ktv[key].append((timestamp, value))\r\n\r\n    def get(self, key: str, timestamp: int) -> str:\r\n        if key not in self.ktv:\r\n            return ''\r\n        tv = self.ktv[key]\r\n        i = bisect_right(tv, (timestamp, chr(127)))\r\n        return tv[i - 1][1] if i else ''\r\n\r\n\r\n# Your TimeMap object will be instantiated and called as such:\r\n# obj = TimeMap()\r\n# obj.set(key,value,timestamp)\r\n# param_2 = obj.get(key,timestamp)\r\n",
+    "java": "class TimeMap {\r\n    private Map<String, TreeMap<Integer, String>> ktv = new HashMap<>();\r\n\r\n    public TimeMap() {\r\n    }\r\n\r\n    public void set(String key, String value, int timestamp) {\r\n        ktv.computeIfAbsent(key, k -> new TreeMap<>()).put(timestamp, value);\r\n    }\r\n\r\n    public String get(String key, int timestamp) {\r\n        if (!ktv.containsKey(key)) {\r\n            return \"\";\r\n        }\r\n        var tv = ktv.get(key);\r\n        Integer t = tv.floorKey(timestamp);\r\n        return t == null ? \"\" : tv.get(t);\r\n    }\r\n}\r\n\r\n/**\r\n * Your TimeMap object will be instantiated and called as such:\r\n * TimeMap obj = new TimeMap();\r\n * obj.set(key,value,timestamp);\r\n * String param_2 = obj.get(key,timestamp);\r\n */",
+    "cpp": "class TimeMap {\r\npublic:\r\n    TimeMap() {\r\n    }\r\n\r\n    void set(string key, string value, int timestamp) {\r\n        ktv[key].emplace_back(timestamp, value);\r\n    }\r\n\r\n    string get(string key, int timestamp) {\r\n        auto& pairs = ktv[key];\r\n        pair<int, string> p = {timestamp, string({127})};\r\n        auto i = upper_bound(pairs.begin(), pairs.end(), p);\r\n        return i == pairs.begin() ? \"\" : (i - 1)->second;\r\n    }\r\n\r\nprivate:\r\n    unordered_map<string, vector<pair<int, string>>> ktv;\r\n};\r\n\r\n/**\r\n * Your TimeMap object will be instantiated and called as such:\r\n * TimeMap* obj = new TimeMap();\r\n * obj->set(key,value,timestamp);\r\n * string param_2 = obj->get(key,timestamp);\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0981.Time%20Based%20Key-Value%20Store/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0981.Time%20Based%20Key-Value%20Store/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0981.Time%20Based%20Key-Value%20Store/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0981.Time%20Based%20Key-Value%20Store/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：基于时间的键值存储。\n输入：操作名称与参数序列。\n训练提示：**思考**\r \r `set` 的时间戳严格递增，同一 key 的历史天然有序。`get` 要不超过给定时间戳的最近一次值，线性扫描在 $2\\times 10^5$ 次调用下偏慢。按 key 存 $(timestamp,value)$ 列表，查询时二分上界即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：哈希表 + 有序集合（或二分查找）\r\n\r\n\r\n\r\n思考\r\n\r\n`set` 的时间戳严格递增，同一 key 的历史天然有序。`get` 要不超过给定时间戳的最近一次值，线性扫描在 $2\\times 10^5$ 次调用下偏慢。按 key 存 $(timestamp,value)$ 列表，查询时二分上界即可。\r\n\r\n\r\n\r\n我们可以用哈希表 $\\textit{kvt}$ 记录键值对，其中键为字符串 $\\textit{key}$，值为一个有序集合，集合中的每个元素为一个二元组 $(\\textit{timestamp}, \\textit{value})$，表示键 $\\textit{key}$ 在时间戳 $\\textit{timestamp}$ 时对应的值为 $\\textit{value}$。\r\n\r\n当我们需要查询键 $\\textit{key}$ 在时间戳 $\\textit{timestamp}$ 时对应的值时，我们可以通过有序集合的方法找到最大的时间戳 $\\textit{timestamp}'$，使得 $\\textit{timestamp}' \\leq \\textit{timestamp}$，然后返回对应的值即可。\r\n\r\n时间复杂度方面，对于 $\\textit{set}$ 操作，由于哈希表的插入操作的时间复杂度为 $O(1)$，因此时间复杂度为 $O(1)$。对于 $\\textit{get}$ 操作，由于哈希表的查找操作的时间复杂度为 $O(1)$，而有序集合的查找操作的时间复杂度为 $O(\\log n)$，因此时间复杂度为 $O(\\log n)$。空间复杂度为 $O(n)$，其中 $n$ 为 $\\textit{set}$ 操作的次数。",
+  "memory": "基于时间的键值存储 → 哈希表 + 有序集合（或二分查找）。\n**思考**\r\n\r\n`set` 的时间戳严格递增，同一 key 的历史天然有序。`get` 要不超过给定时间戳的最近一次值，线性扫描在 $2\\times 10^5$ 次调用下偏慢。按 key 存 $(timestamp,value)$ 列表，查询时二分上界即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

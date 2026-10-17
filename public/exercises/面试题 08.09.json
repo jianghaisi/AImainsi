@@ -1,0 +1,54 @@
+{
+  "number": "面试题 08.09",
+  "adapter": {
+    "name": "generateParenthesis",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "list<string>"
+    },
+    "number": "面试题 08.09"
+  },
+  "tests": [
+    {
+      "input": [
+        3
+      ],
+      "expected": [
+        "((()))",
+        "(()())",
+        "(())()",
+        "()(())",
+        "()()()"
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def generateParenthesis(self, n: int) -> List[str]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @return {string[]}\n */\nvar generateParenthesis = function(n) {\n    \n};",
+    "java": "class Solution {\n    public List<String> generateParenthesis(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def generateParenthesis(self, n: int) -> List[str]:\r\n        def dfs(l, r, t):\r\n            if l > n or r > n or l < r:\r\n                return\r\n            if l == n and r == n:\r\n                ans.append(t)\r\n                return\r\n            dfs(l + 1, r, t + '(')\r\n            dfs(l, r + 1, t + ')')\r\n\r\n        ans = []\r\n        dfs(0, 0, '')\r\n        return ans\r\n",
+    "javascript": "function generateParenthesis(n) {\n    function dfs(l, r, t) {\n        if (l > n || r > n || l < r) {\n            return;\n        }\n        if (l == n && r == n) {\n            ans.push(t);\n            return;\n        }\n        dfs(l + 1, r, t + '(');\n        dfs(l, r + 1, t + ')');\n    }\n    let ans = [];\n    dfs(0, 0, '');\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    private List<String> ans = new ArrayList<>();\r\n    private int n;\r\n\r\n    public List<String> generateParenthesis(int n) {\r\n        this.n = n;\r\n        dfs(0, 0, \"\");\r\n        return ans;\r\n    }\r\n\r\n    private void dfs(int l, int r, String t) {\r\n        if (l > n || r > n || l < r) {\r\n            return;\r\n        }\r\n        if (l == n && r == n) {\r\n            ans.add(t);\r\n            return;\r\n        }\r\n        dfs(l + 1, r, t + \"(\");\r\n        dfs(l, r + 1, t + \")\");\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<string> generateParenthesis(int n) {\r\n        vector<string> ans;\r\n        auto dfs = [&](this auto&& dfs, int l, int r, string t) {\r\n            if (l > n || r > n || l < r) return;\r\n            if (l == n && r == n) {\r\n                ans.push_back(t);\r\n                return;\r\n            }\r\n            dfs(l + 1, r, t + \"(\");\r\n            dfs(l, r + 1, t + \")\");\r\n        };\r\n        dfs(0, 0, \"\");\r\n        return ans;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.09.Bracket/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.09.Bracket/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.09.Bracket/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.09.Bracket/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.09.Bracket/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：括号。\n输入：n（integer）。\n训练提示：**思考**\r \r 生成 $n$ 对括号的全部合法串。 $n\\le 8$，全 $2^{2n}$ 再过滤可行，但大量前缀在中途已非法。\r \r 合法前缀始终满足左括号数不少于右括号数，且两者都不超过 $n$。\r \r $dfs(l,r,t)$ 在 $l<r$ 或越界时剪枝，在 $l=r=n$ 时收录。先试 `'('` 再试 `')'`，只生成合法串。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS + 剪枝\r\n\r\n\r\n\r\n思考\r\n\r\n生成 $n$ 对括号的全部合法串。 $n\\le 8$，全 $2^{2n}$ 再过滤可行，但大量前缀在中途已非法。\r\n\r\n合法前缀始终满足左括号数不少于右括号数，且两者都不超过 $n$。\r\n\r\n$dfs(l,r,t)$ 在 $l<r$ 或越界时剪枝，在 $l=r=n$ 时收录。先试 `'('` 再试 `')'`，只生成合法串。\r\n\r\n\r\n\r\n题目中 $n$ 的范围为 $[1, 8]$，因此我们直接通过“暴力搜索 + 剪枝”的方式快速解决本题。\r\n\r\n我们设计函数 `dfs(l, r, t)`，其中 $l$ 和 $r$ 分别表示左括号和右括号的数量，而 $t$ 表示当前的括号序列。那么我们可以得到如下的递归结构：\r\n\r\n- 如果 $l \\gt n$ 或者 $r \\gt n$ 或者 $l \\lt r$，那么当前括号组合 $t$ 不合法，直接返回；\r\n- 如果 $l = n$ 且 $r = n$，那么当前括号组合 $t$ 合法，将其加入答案数组 `ans` 中，直接返回；\r\n- 我们可以选择添加一个左括号，递归执行 `dfs(l + 1, r, t + \"(\")`；\r\n- 我们也可以选择添加一个右括号，递归执行 `dfs(l, r + 1, t + \")\")`。\r\n\r\n时间复杂度 $O(2^{n\\times 2} \\times n)$，空间复杂度 $O(n)$。",
+  "memory": "括号 → DFS + 剪枝。\n**思考**\r\n\r\n生成 $n$ 对括号的全部合法串。 $n\\le 8$，全 $2^{2n}$ 再过滤可行，但大量前缀在中途已非法。\r\n\r\n合法前缀始终满足左括号数不少于右括号数，且两者都不超过 $n$。\r\n\r\n$dfs(l,r,t)$ 在 $l<r$ 或越界时剪枝，在 $l=r=n$ 时收录。先试 `'('` 再试 `')'`，只生成合法串。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

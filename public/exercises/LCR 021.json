@@ -1,0 +1,82 @@
+{
+  "number": "LCR 021",
+  "adapter": {
+    "name": "removeNthFromEnd",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      },
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "ListNode"
+    },
+    "number": "LCR 021"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        2
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": []
+    },
+    {
+      "input": [
+        [
+          1,
+          2
+        ],
+        1
+      ],
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode removeNthFromEnd(ListNode head, int n) {\n\n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* removeNthFromEnd(ListNode* head, int n) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, val=0, next=None):\r\n#         self.val = val\r\n#         self.next = next\r\nclass Solution:\r\n    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:\r\n        dummy = ListNode(next=head)\r\n        slow, fast = dummy, dummy\r\n        for _ in range(n):\r\n            fast = fast.next\r\n        while fast.next:\r\n            slow = slow.next\r\n            fast = fast.next\r\n        slow.next = slow.next.next\r\n        return dummy.next\r\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode() {}\r\n *     ListNode(int val) { this.val = val; }\r\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\r\n * }\r\n */\r\nclass Solution {\r\n    public ListNode removeNthFromEnd(ListNode head, int n) {\r\n        ListNode dummy = new ListNode(0, head);\r\n        ListNode fast = dummy, slow = dummy;\r\n        while (n-- > 0) {\r\n            fast = fast.next;\r\n        }\r\n        while (fast.next != null) {\r\n            slow = slow.next;\r\n            fast = fast.next;\r\n        }\r\n        slow.next = slow.next.next;\r\n        return dummy.next;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode() : val(0), next(nullptr) {}\r\n *     ListNode(int x) : val(x), next(nullptr) {}\r\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    ListNode* removeNthFromEnd(ListNode* head, int n) {\r\n        ListNode* dummy = new ListNode(0, head);\r\n        ListNode* fast = dummy;\r\n        ListNode* slow = dummy;\r\n        while (n--) {\r\n            fast = fast->next;\r\n        }\r\n        while (fast->next) {\r\n            slow = slow->next;\r\n            fast = fast->next;\r\n        }\r\n        slow->next = slow->next->next;\r\n        return dummy->next;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20021.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC%20n%20%E4%B8%AA%E7%BB%93%E7%82%B9/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20021.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC%20n%20%E4%B8%AA%E7%BB%93%E7%82%B9/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20021.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC%20n%20%E4%B8%AA%E7%BB%93%E7%82%B9/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20021.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC%20n%20%E4%B8%AA%E7%BB%93%E7%82%B9/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：删除链表的倒数第 N 个结点。\n输入：head（ListNode）、n（integer）。\n训练提示：**思考**\r \r 删除倒数第 $n$ 个结点。先走一遍得到长度再定位，需要两次遍历。\r \r 快指针先走 $n$ 步，再与慢指针同步前进，快指针到末尾时慢指针恰在待删结点前驱。哑结点接在头部，使删除头结点与删除中间结点同一套指针操作。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n删除倒数第 $n$ 个结点。先走一遍得到长度再定位，需要两次遍历。\r\n\r\n快指针先走 $n$ 步，再与慢指针同步前进，快指针到末尾时慢指针恰在待删结点前驱。哑结点接在头部，使删除头结点与删除中间结点同一套指针操作。",
+  "memory": "删除链表的倒数第 N 个结点 → 方法一。\n**思考**\r\n\r\n删除倒数第 $n$ 个结点。先走一遍得到长度再定位，需要两次遍历。\r\n\r\n快指针先走 $n$ 步，再与慢指针同步前进，快指针到末尾时慢指针恰在待删结点前驱。哑结点接在头部，使删除头结点与删除中间结点同一套指针操作。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

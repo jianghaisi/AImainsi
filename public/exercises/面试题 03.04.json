@@ -1,0 +1,130 @@
+{
+  "number": "面试题 03.04",
+  "adapter": {
+    "classname": "MyQueue",
+    "constructor": {
+      "params": [
+        {
+          "type": "integer",
+          "name": "maxSize",
+          "lang": "c",
+          "value": "64000"
+        }
+      ],
+      "comment": "Initialize your data structure here."
+    },
+    "methods": [
+      {
+        "name": "push",
+        "params": [
+          {
+            "type": "integer",
+            "name": "x"
+          }
+        ],
+        "return": {
+          "type": "void"
+        },
+        "comment": "Push element x to the back of queue."
+      },
+      {
+        "name": "pop",
+        "params": [],
+        "return": {
+          "type": "integer"
+        },
+        "comment": "Removes the element from in front of queue and returns that element."
+      },
+      {
+        "name": "peek",
+        "params": [],
+        "return": {
+          "type": "integer"
+        },
+        "comment": "Get the front element."
+      },
+      {
+        "name": "empty",
+        "params": [],
+        "return": {
+          "type": "boolean"
+        },
+        "comment": "Returns whether the queue is empty."
+      }
+    ],
+    "systemdesign": true,
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "面试题 03.04"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "MyQueue",
+          "push",
+          "push",
+          "peek",
+          "pop",
+          "empty"
+        ],
+        [
+          [],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        1,
+        1,
+        false
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class MyQueue:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def push(self, x: int) -> None:\n        raise NotImplementedError('请完成此方法')\n\n    def pop(self) -> int:\n        raise NotImplementedError('请完成此方法')\n\n    def peek(self) -> int:\n        raise NotImplementedError('请完成此方法')\n\n    def empty(self) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Initialize your data structure here.\n */\nvar MyQueue = function() {\n    \n};\n\n/**\n * Push element x to the back of queue. \n * @param {number} x\n * @return {void}\n */\nMyQueue.prototype.push = function(x) {\n    \n};\n\n/**\n * Removes the element from in front of queue and returns that element.\n * @return {number}\n */\nMyQueue.prototype.pop = function() {\n    \n};\n\n/**\n * Get the front element.\n * @return {number}\n */\nMyQueue.prototype.peek = function() {\n    \n};\n\n/**\n * Returns whether the queue is empty.\n * @return {boolean}\n */\nMyQueue.prototype.empty = function() {\n    \n};\n\n/** \n * Your MyQueue object will be instantiated and called as such:\n * var obj = new MyQueue()\n * obj.push(x)\n * var param_2 = obj.pop()\n * var param_3 = obj.peek()\n * var param_4 = obj.empty()\n */",
+    "java": "class MyQueue {\n\n    /** Initialize your data structure here. */\n    public MyQueue() {\n        \n    }\n    \n    /** Push element x to the back of queue. */\n    public void push(int x) {\n        \n    }\n    \n    /** Removes the element from in front of queue and returns that element. */\n    public int pop() {\n        \n    }\n    \n    /** Get the front element. */\n    public int peek() {\n        \n    }\n    \n    /** Returns whether the queue is empty. */\n    public boolean empty() {\n        \n    }\n}\n\n/**\n * Your MyQueue object will be instantiated and called as such:\n * MyQueue obj = new MyQueue();\n * obj.push(x);\n * int param_2 = obj.pop();\n * int param_3 = obj.peek();\n * boolean param_4 = obj.empty();\n */",
+    "cpp": "class MyQueue {\npublic:\n    /** Initialize your data structure here. */\n    MyQueue() {\n        \n    }\n    \n    /** Push element x to the back of queue. */\n    void push(int x) {\n        \n    }\n    \n    /** Removes the element from in front of queue and returns that element. */\n    int pop() {\n        \n    }\n    \n    /** Get the front element. */\n    int peek() {\n        \n    }\n    \n    /** Returns whether the queue is empty. */\n    bool empty() {\n        \n    }\n};\n\n/**\n * Your MyQueue object will be instantiated and called as such:\n * MyQueue* obj = new MyQueue();\n * obj->push(x);\n * int param_2 = obj->pop();\n * int param_3 = obj->peek();\n * bool param_4 = obj->empty();\n */"
+  },
+  "solutions": {
+    "python": "class MyQueue:\r\n    def __init__(self):\r\n        self.stk1 = []\r\n        self.stk2 = []\r\n\r\n    def push(self, x: int) -> None:\r\n        self.stk1.append(x)\r\n\r\n    def pop(self) -> int:\r\n        self.move()\r\n        return self.stk2.pop()\r\n\r\n    def peek(self) -> int:\r\n        self.move()\r\n        return self.stk2[-1]\r\n\r\n    def empty(self) -> bool:\r\n        return not self.stk1 and not self.stk2\r\n\r\n    def move(self):\r\n        if not self.stk2:\r\n            while self.stk1:\r\n                self.stk2.append(self.stk1.pop())\r\n\r\n\r\n# Your MyQueue object will be instantiated and called as such:\r\n# obj = MyQueue()\r\n# obj.push(x)\r\n# param_2 = obj.pop()\r\n# param_3 = obj.peek()\r\n# param_4 = obj.empty()\r\n",
+    "javascript": "class MyQueue {\n    stk1;\n    stk2;\n    constructor() {\n        this.stk1 = [];\n        this.stk2 = [];\n    }\n    push(x) {\n        this.stk1.push(x);\n    }\n    pop() {\n        this.move();\n        return this.stk2.pop();\n    }\n    peek() {\n        this.move();\n        return this.stk2.at(-1);\n    }\n    empty() {\n        return !this.stk1.length && !this.stk2.length;\n    }\n    move() {\n        if (!this.stk2.length) {\n            while (this.stk1.length) {\n                this.stk2.push(this.stk1.pop());\n            }\n        }\n    }\n}\n/**\n * Your MyQueue object will be instantiated and called as such:\n * var obj = new MyQueue()\n * obj.push(x)\n * var param_2 = obj.pop()\n * var param_3 = obj.peek()\n * var param_4 = obj.empty()\n */\n",
+    "java": "class MyQueue {\r\n    private Deque<Integer> stk1 = new ArrayDeque<>();\r\n    private Deque<Integer> stk2 = new ArrayDeque<>();\r\n\r\n    public MyQueue() {\r\n    }\r\n\r\n    public void push(int x) {\r\n        stk1.push(x);\r\n    }\r\n\r\n    public int pop() {\r\n        move();\r\n        return stk2.pop();\r\n    }\r\n\r\n    public int peek() {\r\n        move();\r\n        return stk2.peek();\r\n    }\r\n\r\n    public boolean empty() {\r\n        return stk1.isEmpty() && stk2.isEmpty();\r\n    }\r\n\r\n    private void move() {\r\n        while (stk2.isEmpty()) {\r\n            while (!stk1.isEmpty()) {\r\n                stk2.push(stk1.pop());\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n/**\r\n * Your MyQueue object will be instantiated and called as such:\r\n * MyQueue obj = new MyQueue();\r\n * obj.push(x);\r\n * int param_2 = obj.pop();\r\n * int param_3 = obj.peek();\r\n * boolean param_4 = obj.empty();\r\n */",
+    "cpp": "class MyQueue {\r\npublic:\r\n    MyQueue() {\r\n    }\r\n\r\n    void push(int x) {\r\n        stk1.push(x);\r\n    }\r\n\r\n    int pop() {\r\n        move();\r\n        int ans = stk2.top();\r\n        stk2.pop();\r\n        return ans;\r\n    }\r\n\r\n    int peek() {\r\n        move();\r\n        return stk2.top();\r\n    }\r\n\r\n    bool empty() {\r\n        return stk1.empty() && stk2.empty();\r\n    }\r\n\r\nprivate:\r\n    stack<int> stk1;\r\n    stack<int> stk2;\r\n\r\n    void move() {\r\n        if (stk2.empty()) {\r\n            while (!stk1.empty()) {\r\n                stk2.push(stk1.top());\r\n                stk1.pop();\r\n            }\r\n        }\r\n    }\r\n};\r\n\r\n/**\r\n * Your MyQueue object will be instantiated and called as such:\r\n * MyQueue* obj = new MyQueue();\r\n * obj->push(x);\r\n * int param_2 = obj->pop();\r\n * int param_3 = obj->peek();\r\n * bool param_4 = obj->empty();\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.04.Implement%20Queue%20using%20Stacks/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.04.Implement%20Queue%20using%20Stacks/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.04.Implement%20Queue%20using%20Stacks/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.04.Implement%20Queue%20using%20Stacks/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.04.Implement%20Queue%20using%20Stacks/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：化栈为队。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 栈是后进先出，队列要先进先出。每次入队都把已有元素倒到辅助栈再倒回，正确但使 `push` 成为线性。\r \r 入队与出队的次序相反，只需在出队侧再反转一次。为此用 `stk1` 只负责入队，`stk2` 只负责出队；仅当 `stk2` 为空时才把 `stk1` 一次性倒入。\r \r `move` 保证每个元素至多从 `stk1` 迁到 `stk2` 一次，出队与取队首均摊 $O(1)$。判空则看两栈是否都空。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双栈\r\n\r\n\r\n\r\n思考\r\n\r\n栈是后进先出，队列要先进先出。每次入队都把已有元素倒到辅助栈再倒回，正确但使 `push` 成为线性。\r\n\r\n入队与出队的次序相反，只需在出队侧再反转一次。为此用 `stk1` 只负责入队，`stk2` 只负责出队；仅当 `stk2` 为空时才把 `stk1` 一次性倒入。\r\n\r\n`move` 保证每个元素至多从 `stk1` 迁到 `stk2` 一次，出队与取队首均摊 $O(1)$。判空则看两栈是否都空。\r\n\r\n\r\n\r\n我们使用两个栈，其中栈 `stk1`用于入队，另一个栈 `stk2` 用于出队。\r\n\r\n入队时，直接将元素入栈 `stk1`。时间复杂度 $O(1)$。\r\n\r\n出队时，先判断栈 `stk2` 是否为空，如果为空，则将栈 `stk1` 中的元素全部出栈并入栈 `stk2`，然后再从栈 `stk2` 中出栈一个元素。如果栈 `stk2` 不为空，则直接从栈 `stk2` 中出栈一个元素。均摊时间复杂度 $O(1)$。\r\n\r\n获取队首元素时，先判断栈 `stk2` 是否为空，如果为空，则将栈 `stk1` 中的元素全部出栈并入栈 `stk2`，然后再从栈 `stk2` 中获取栈顶元素。如果栈 `stk2` 不为空，则直接从栈 `stk2` 中获取栈顶元素。均摊时间复杂度 $O(1)$。\r\n\r\n判断队列是否为空时，只要判断两个栈是否都为空即可。时间复杂度 $O(1)$。",
+  "memory": "化栈为队 → 双栈。\n**思考**\r\n\r\n栈是后进先出，队列要先进先出。每次入队都把已有元素倒到辅助栈再倒回，正确但使 `push` 成为线性。\r\n\r\n入队与出队的次序相反，只需在出队侧再反转一次。为此用 `stk1` 只负责入队，`stk2` 只负责出队；仅当 `stk2` 为空时才把 `stk1` 一次性倒入。\r\n\r\n`move` 保证每个元素至多从 `stk1` 迁到 `stk2` 一次，出队与取队首均摊 $O(1)$。判空则看两栈是否都空。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

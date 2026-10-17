@@ -1,0 +1,64 @@
+{
+  "number": "154",
+  "adapter": {
+    "name": "findMin",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "154"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          3,
+          5
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          2,
+          2,
+          2,
+          0,
+          1
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findMin(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar findMin = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int findMin(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findMin(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findMin(self, nums: List[int]) -> int:\r\n        l, r = 0, len(nums) - 1\r\n        while l < r:\r\n            mid = (l + r) >> 1\r\n            if nums[mid] > nums[r]:\r\n                l = mid + 1\r\n            elif nums[mid] == nums[r]:\r\n                r -= 1\r\n            else:\r\n                r = mid\r\n        return nums[l]\r\n",
+    "javascript": "function findMin(nums) {\n    let l = 0, r = nums.length - 1;\n    while (l < r) {\n        let mid = (l + r) >> 1;\n        if (nums[mid] > nums[r]) {\n            l = mid + 1;\n        }\n        else if (nums[mid] == nums[r]) {\n            r--;\n        }\n        else {\n            r = mid;\n        }\n    }\n    return nums[l];\n}\n",
+    "java": "class Solution {\r\n    public int findMin(int[] nums) {\r\n        int l = 0, r = nums.length - 1;\r\n        while (l < r) {\r\n            int mid = (l + r) >> 1;\r\n            if (nums[mid] > nums[r]) {\r\n                l = mid + 1;\r\n            } else if (nums[mid] == nums[r]) {\r\n                r--;\r\n            } else {\r\n                r = mid;\r\n            }\r\n        }\r\n        return nums[l];\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    int findMin(vector<int>& nums) {\r\n        int l = 0, r = nums.size() - 1;\r\n        while (l < r) {\r\n            int mid = (l + r) >> 1;\r\n            if (nums[mid] > nums[r]) {\r\n                l = mid + 1;\r\n            } else if (nums[mid] == nums[r]) {\r\n                r--;\r\n            } else {\r\n                r = mid;\r\n            }\r\n        }\r\n        return nums[l];\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0154.Find%20Minimum%20in%20Rotated%20Sorted%20Array%20II/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0154.Find%20Minimum%20in%20Rotated%20Sorted%20Array%20II/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0154.Find%20Minimum%20in%20Rotated%20Sorted%20Array%20II/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0154.Find%20Minimum%20in%20Rotated%20Sorted%20Array%20II/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0154.Find%20Minimum%20in%20Rotated%20Sorted%20Array%20II/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：寻找旋转排序数组中的最小值 II。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 与上一题相比允许重复。 $\\textit{nums}[\\textit{mid}]=\\textit{nums}[r]$ 时无法判断最小值在哪一侧，只能把 $r$ 减一缩小范围。最坏全相等时退化为 $O(n)$，这是重复元素带来的代价。其余分支仍按旋转数组的二分收缩。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n与上一题相比允许重复。 $\\textit{nums}[\\textit{mid}]=\\textit{nums}[r]$ 时无法判断最小值在哪一侧，只能把 $r$ 减一缩小范围。最坏全相等时退化为 $O(n)$，这是重复元素带来的代价。其余分支仍按旋转数组的二分收缩。\r\n\r\n\r\n\r\n我们定义二分查找的左边界 $l = 0$，右边界 $r = n - 1$。每次计算中间位置 $mid = (l + r) \\gg 1$，比较 $nums[mid]$ 和 $nums[r]$ 的大小关系：\r\n\r\n- 如果 $nums[mid] > nums[r]$，说明最小值在 $mid$ 的右侧，因此将 $l$ 更新为 $mid + 1$。\r\n- 如果 $nums[mid] = nums[r]$，无法确定最小值的位置，但可以将 $r$ 向左移动一位，即 $r = r - 1$，以缩小搜索范围。\r\n- 如果 $nums[mid] < nums[r]$，说明最小值在 $mid$ 的左侧或 $mid$ 本身，因此将 $r$ 更新为 $mid$。\r\n\r\n当 $l$ 与 $r$ 相遇时，指针 $l$ 就指向了最小值的位置，返回 $nums[l]$ 即可。\r\n\r\n时间复杂度 $O(n)$，最坏情况下数组中所有元素都相同，需要遍历整个数组。空间复杂度 $O(1)$。",
+  "memory": "寻找旋转排序数组中的最小值 II → 二分查找。\n**思考**\r\n\r\n与上一题相比允许重复。 $\\textit{nums}[\\textit{mid}]=\\textit{nums}[r]$ 时无法判断最小值在哪一侧，只能把 $r$ 减一缩小范围。最坏全相等时退化为 $O(n)$，这是重复元素带来的代价。其余分支仍按旋转数组的二分收缩。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

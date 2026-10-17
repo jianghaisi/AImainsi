@@ -1,0 +1,90 @@
+{
+  "number": "LCR 109",
+  "adapter": {
+    "name": "openLock",
+    "params": [
+      {
+        "name": "deadends",
+        "type": "string[]"
+      },
+      {
+        "name": "target",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 109"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "0201",
+          "0101",
+          "0102",
+          "1212",
+          "2002"
+        ],
+        "0202"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          "8888"
+        ],
+        "0009"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          "8887",
+          "8889",
+          "8878",
+          "8898",
+          "8788",
+          "8988",
+          "7888",
+          "9888"
+        ],
+        "8888"
+      ],
+      "expected": -1
+    },
+    {
+      "input": [
+        [
+          "0000"
+        ],
+        "8888"
+      ],
+      "expected": -1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def openLock(self, deadends: List[str], target: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int openLock(String[] deadends, String target) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int openLock(vector<string>& deadends, string target) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def openLock(self, deadends: List[str], target: str) -> int:\r\n        s = set(deadends)\r\n        if target in s or '0000' in s:\r\n            return -1\r\n        if target == '0000':\r\n            return 0\r\n\r\n        def prev(c):\r\n            return '9' if c == '0' else str(int(c) - 1)\r\n\r\n        def next(c):\r\n            return '0' if c == '9' else str(int(c) + 1)\r\n\r\n        def get(t):\r\n            res = []\r\n            t = list(t)\r\n            for i in range(4):\r\n                c = t[i]\r\n                t[i] = prev(c)\r\n                res.append(''.join(t))\r\n                t[i] = next(c)\r\n                res.append(''.join(t))\r\n                t[i] = c\r\n            return res\r\n\r\n        visited = set()\r\n        q = deque([('0000', 0)])\r\n        while q:\r\n            status, step = q.popleft()\r\n            for t in get(status):\r\n                if t in visited or t in s:\r\n                    continue\r\n                if t == target:\r\n                    return step + 1\r\n                q.append((t, step + 1))\r\n                visited.add(t)\r\n        return -1\r\n",
+    "java": "class Solution {\r\n    public int openLock(String[] deadends, String target) {\r\n        Set<String> s = new HashSet<>(Arrays.asList(deadends));\r\n        if (s.contains(target) || s.contains(\"0000\")) {\r\n            return -1;\r\n        }\r\n        if (Objects.equals(target, \"0000\")) {\r\n            return 0;\r\n        }\r\n        Set<String> visited = new HashSet<>();\r\n        Deque<String> q = new ArrayDeque<>();\r\n        q.offerLast(\"0000\");\r\n        int step = 0;\r\n        while (!q.isEmpty()) {\r\n            ++step;\r\n            for (int i = 0, n = q.size(); i < n; ++i) {\r\n                String status = q.pollFirst();\r\n                for (String t : get(status)) {\r\n                    if (visited.contains(t) || s.contains(t)) {\r\n                        continue;\r\n                    }\r\n                    if (Objects.equals(t, target)) {\r\n                        return step;\r\n                    }\r\n                    q.offerLast(t);\r\n                    visited.add(t);\r\n                }\r\n            }\r\n        }\r\n        return -1;\r\n    }\r\n\r\n    private char prev(char c) {\r\n        return c == '0' ? '9' : (char) (c - 1);\r\n    }\r\n\r\n    private char next(char c) {\r\n        return c == '9' ? '0' : (char) (c + 1);\r\n    }\r\n\r\n    private List<String> get(String t) {\r\n        List res = new ArrayList<>();\r\n        char[] chars = t.toCharArray();\r\n        for (int i = 0; i < 4; ++i) {\r\n            char c = chars[i];\r\n            chars[i] = prev(c);\r\n            res.add(String.valueOf(chars));\r\n            chars[i] = next(c);\r\n            res.add(String.valueOf(chars));\r\n            chars[i] = c;\r\n        }\r\n        return res;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int openLock(vector<string>& deadends, string target) {\r\n        unordered_set<string> s(deadends.begin(), deadends.end());\r\n        if (s.count(target) || s.count(\"0000\")) return -1;\r\n        if (target == \"0000\") return 0;\r\n        unordered_set<string> visited;\r\n        queue<string> q;\r\n        q.push(\"0000\");\r\n        int step = 0;\r\n        while (!q.empty()) {\r\n            ++step;\r\n            for (int i = 0, n = q.size(); i < n; ++i) {\r\n                string status = q.front();\r\n                q.pop();\r\n                for (auto t : get(status)) {\r\n                    if (visited.count(t) || s.count(t)) continue;\r\n                    if (t == target) return step;\r\n                    q.push(t);\r\n                    visited.insert(t);\r\n                }\r\n            }\r\n        }\r\n        return -1;\r\n    }\r\n\r\n    char prev(char c) {\r\n        return c == '0' ? '9' : (char) (c - 1);\r\n    }\r\n\r\n    char next(char c) {\r\n        return c == '9' ? '0' : (char) (c + 1);\r\n    }\r\n\r\n    vector<string> get(string& t) {\r\n        vector<string> res;\r\n        for (int i = 0; i < 4; ++i) {\r\n            char c = t[i];\r\n            t[i] = prev(c);\r\n            res.push_back(t);\r\n            t[i] = next(c);\r\n            res.push_back(t);\r\n            t[i] = c;\r\n        }\r\n        return res;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20109.%20%E5%BC%80%E5%AF%86%E7%A0%81%E9%94%81/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20109.%20%E5%BC%80%E5%AF%86%E7%A0%81%E9%94%81/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20109.%20%E5%BC%80%E5%AF%86%E7%A0%81%E9%94%81/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20109.%20%E5%BC%80%E5%AF%86%E7%A0%81%E9%94%81/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：打开转盘锁。\n输入：deadends（string[]）、target（string）。\n训练提示：**思考**\r \r 四位转盘每次转动一位，避开死亡数字，求最少步数。状态空间 $10^4$，适合最短路。\r \r 每个状态有 $8$ 个邻居（四位各加减一）。从 $0000$ 出发 BFS，死亡数字与已访问状态不入队，首次到达 $\\textit{target}$ 的层数即答案。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n四位转盘每次转动一位，避开死亡数字，求最少步数。状态空间 $10^4$，适合最短路。\r\n\r\n每个状态有 $8$ 个邻居（四位各加减一）。从 $0000$ 出发 BFS，死亡数字与已访问状态不入队，首次到达 $\\textit{target}$ 的层数即答案。",
+  "memory": "打开转盘锁 → 方法一。\n**思考**\r\n\r\n四位转盘每次转动一位，避开死亡数字，求最少步数。状态空间 $10^4$，适合最短路。\r\n\r\n每个状态有 $8$ 个邻居（四位各加减一）。从 $0000$ 出发 BFS，死亡数字与已访问状态不入队，首次到达 $\\textit{target}$ 的层数即答案。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,59 @@
+{
+  "number": "面试题 17.24",
+  "adapter": {
+    "name": "getMaxMatrix",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "面试题 17.24"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            -1
+          ]
+        ]
+      ],
+      "expected": [
+        0,
+        1,
+        0,
+        1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def getMaxMatrix(self, matrix: List[List[int]]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int[] getMaxMatrix(int[][] matrix) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> getMaxMatrix(vector<vector<int>>& matrix) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def getMaxMatrix(self, matrix: List[List[int]]) -> List[int]:\r\n        m, n = len(matrix), len(matrix[0])\r\n        s = [[0] * n for _ in range(m + 1)]\r\n        for i in range(m):\r\n            for j in range(n):\r\n                # 构造列前缀和\r\n                s[i + 1][j] = s[i][j] + matrix[i][j]\r\n\r\n        mx = matrix[0][0]\r\n        ans = [0, 0, 0, 0]\r\n        for i1 in range(m):\r\n            for i2 in range(i1, m):\r\n                nums = [0] * n\r\n                for j in range(n):\r\n                    nums[j] = s[i2 + 1][j] - s[i1][j]\r\n\r\n                start = 0\r\n                f = nums[0]\r\n                for j in range(1, n):\r\n                    if f > 0:\r\n                        f += nums[j]\r\n                    else:\r\n                        f = nums[j]\r\n                        start = j\r\n                    if f > mx:\r\n                        mx = f\r\n                        ans = [i1, start, i2, j]\r\n        return ans\r\n",
+    "java": "class Solution {\r\n    public int[] getMaxMatrix(int[][] matrix) {\r\n        int m = matrix.length, n = matrix[0].length;\r\n        int[][] s = new int[m + 1][n];\r\n        for (int i = 0; i < m; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                s[i + 1][j] = s[i][j] + matrix[i][j];\r\n            }\r\n        }\r\n        int mx = matrix[0][0];\r\n        int[] ans = new int[] {0, 0, 0, 0};\r\n        for (int i1 = 0; i1 < m; ++i1) {\r\n            for (int i2 = i1; i2 < m; ++i2) {\r\n                int[] nums = new int[n];\r\n                for (int j = 0; j < n; ++j) {\r\n                    nums[j] = s[i2 + 1][j] - s[i1][j];\r\n                }\r\n                int start = 0;\r\n                int f = nums[0];\r\n                for (int j = 1; j < n; ++j) {\r\n                    if (f > 0) {\r\n                        f += nums[j];\r\n                    } else {\r\n                        f = nums[j];\r\n                        start = j;\r\n                    }\r\n                    if (f > mx) {\r\n                        mx = f;\r\n                        ans = new int[] {i1, start, i2, j};\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> getMaxMatrix(vector<vector<int>>& matrix) {\r\n        int m = matrix.size(), n = matrix[0].size();\r\n        vector<vector<int>> s(m + 1, vector<int>(n));\r\n        for (int i = 0; i < m; ++i)\r\n            for (int j = 0; j < n; ++j)\r\n                s[i + 1][j] = s[i][j] + matrix[i][j];\r\n        int mx = matrix[0][0];\r\n        vector<int> ans(4);\r\n        for (int i1 = 0; i1 < m; ++i1) {\r\n            for (int i2 = i1; i2 < m; ++i2) {\r\n                vector<int> nums;\r\n                for (int j = 0; j < n; ++j)\r\n                    nums.push_back(s[i2 + 1][j] - s[i1][j]);\r\n                int start = 0;\r\n                int f = nums[0];\r\n                for (int j = 1; j < n; ++j) {\r\n                    if (f > 0)\r\n                        f += nums[j];\r\n                    else {\r\n                        f = nums[j];\r\n                        start = j;\r\n                    }\r\n                    if (f > mx) {\r\n                        mx = f;\r\n                        ans[0] = i1;\r\n                        ans[1] = start;\r\n                        ans[2] = i2;\r\n                        ans[3] = j;\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.24.Max%20Submatrix/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.24.Max%20Submatrix/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.24.Max%20Submatrix/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.24.Max%20Submatrix/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最大子矩阵。\n输入：matrix（integer[][]）。\n训练提示：**思考**\r \r 最大子矩阵和及其坐标。四重枚举再求和是 $O(n^4)$ 以上。\r \r 固定上下行后，各列压缩成一维，问题化为 Kadane 最大子段和，并可同时记下左右端。\r \r 列前缀和 $s$ 使一段行的列和为 $O(1)$。对每对 $(i_1,i_2)$ 跑 Kadane，用 $start$ 记录段首，刷新全局 $mx$ 与 $[i_1,start,i_2,j]$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n最大子矩阵和及其坐标。四重枚举再求和是 $O(n^4)$ 以上。\r\n\r\n固定上下行后，各列压缩成一维，问题化为 Kadane 最大子段和，并可同时记下左右端。\r\n\r\n列前缀和 $s$ 使一段行的列和为 $O(1)$。对每对 $(i_1,i_2)$ 跑 Kadane，用 $start$ 记录段首，刷新全局 $mx$ 与 $[i_1,start,i_2,j]$。",
+  "memory": "最大子矩阵 → 方法一。\n**思考**\r\n\r\n最大子矩阵和及其坐标。四重枚举再求和是 $O(n^4)$ 以上。\r\n\r\n固定上下行后，各列压缩成一维，问题化为 Kadane 最大子段和，并可同时记下左右端。\r\n\r\n列前缀和 $s$ 使一段行的列和为 $O(1)$。对每对 $(i_1,i_2)$ 跑 Kadane，用 $start$ 记录段首，刷新全局 $mx$ 与 $[i_1,start,i_2,j]$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

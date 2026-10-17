@@ -1,0 +1,86 @@
+{
+  "number": "LCR 157",
+  "adapter": {
+    "name": "goodsOrder",
+    "params": [
+      {
+        "name": "goods",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string[]"
+    },
+    "number": "LCR 157"
+  },
+  "tests": [
+    {
+      "input": [
+        "agew"
+      ],
+      "expected": [
+        "aegw",
+        "aewg",
+        "agew",
+        "agwe",
+        "aweg",
+        "awge",
+        "eagw",
+        "eawg",
+        "egaw",
+        "egwa",
+        "ewag",
+        "ewga",
+        "gaew",
+        "gawe",
+        "geaw",
+        "gewa",
+        "gwae",
+        "gwea",
+        "waeg",
+        "wage",
+        "weag",
+        "wega",
+        "wgae",
+        "wgea"
+      ]
+    },
+    {
+      "input": [
+        "abc"
+      ],
+      "expected": [
+        "abc",
+        "acb",
+        "bac",
+        "bca",
+        "cab",
+        "cba"
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def goodsOrder(self, s: str) -> List[str]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} goods\n * @return {string[]}\n */\nvar goodsOrder = function(goods) {\n    \n};",
+    "java": "class Solution {\n    public String[] goodsOrder(String goods) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<string> goodsOrder(string goods) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def goodsOrder(self, s: str) -> List[str]:\r\n        def dfs(i):\r\n            if i == len(s) - 1:\r\n                ans.append(''.join(cs))\r\n                return\r\n            vis = set()\r\n            for j in range(i, len(s)):\r\n                if cs[j] not in vis:\r\n                    vis.add(cs[j])\r\n                    cs[i], cs[j] = cs[j], cs[i]\r\n                    dfs(i + 1)\r\n                    cs[i], cs[j] = cs[j], cs[i]\r\n\r\n        ans = []\r\n        cs = list(s)\r\n        dfs(0)\r\n        return ans\r\n",
+    "javascript": "function goodsOrder(s) {\n    const n = s.length;\n    const cs = s.split('');\n    const set = new Set();\n    const dfs = (i) => {\n        if (i === n) {\n            set.add(cs.join(''));\n            return;\n        }\n        dfs(i + 1);\n        for (let j = i + 1; j < n; j++) {\n            [cs[i], cs[j]] = [cs[j], cs[i]];\n            dfs(i + 1);\n            [cs[i], cs[j]] = [cs[j], cs[i]];\n        }\n    };\n    dfs(0);\n    return [...set];\n}\n",
+    "java": "class Solution {\r\n    private List<String> ans = new ArrayList<>();\r\n    private char[] cs;\r\n\r\n    public String[] goodsOrder(String s) {\r\n        cs = s.toCharArray();\r\n        dfs(0);\r\n        return ans.toArray(new String[ans.size()]);\r\n    }\r\n\r\n    private void dfs(int i) {\r\n        if (i == cs.length - 1) {\r\n            ans.add(String.valueOf(cs));\r\n            return;\r\n        }\r\n        Set<Character> vis = new HashSet<>();\r\n        for (int j = i; j < cs.length; ++j) {\r\n            if (vis.add(cs[j])) {\r\n                swap(i, j);\r\n                dfs(i + 1);\r\n                swap(i, j);\r\n            }\r\n        }\r\n    }\r\n\r\n    private void swap(int i, int j) {\r\n        char t = cs[i];\r\n        cs[i] = cs[j];\r\n        cs[j] = t;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<string> goodsOrder(string s) {\r\n        vector<string> ans;\r\n        function<void(int)> dfs = [&](int i) {\r\n            if (i == s.size() - 1) {\r\n                ans.push_back(s);\r\n                return;\r\n            }\r\n            unordered_set<char> vis;\r\n            for (int j = i; j < s.size(); ++j) {\r\n                if (!vis.count(s[j])) {\r\n                    vis.insert(s[j]);\r\n                    swap(s[i], s[j]);\r\n                    dfs(i + 1);\r\n                    swap(s[i], s[j]);\r\n                }\r\n            }\r\n        };\r\n        dfs(0);\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9838.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9838.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9838.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9838.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9838.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：套餐内商品的排列顺序。\n输入：goods（string）。\n训练提示：**思考**\r \r 求全部排列且须去重， $n$ 不大，回溯可接受。在位置 $i$ 从后缀中选未用过的字符交换进来，同层用集合避免相同字符重复作为候选。\r \r 填到末位则加入答案，回溯时换回。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：回溯 + 哈希表\r\n\r\n\r\n\r\n思考\r\n\r\n求全部排列且须去重， $n$ 不大，回溯可接受。在位置 $i$ 从后缀中选未用过的字符交换进来，同层用集合避免相同字符重复作为候选。\r\n\r\n填到末位则加入答案，回溯时换回。\r\n\r\n\r\n\r\n我们设计一个函数 $dfs(i)$，表示当前排列到了第 $i$ 个位置，我们需要在第 $i$ 个位置上填入一个字符，这个字符可以从 $s[i..n-1]$ 中任意选择。\r\n\r\n函数 $dfs(i)$ 的执行过程如下：\r\n\r\n- 如果 $i = n-1$，说明当前排列已经填满，将当前排列加入答案，返回。\r\n- 否则，我们需要在 $s[i..n-1]$ 中选择一个字符填入第 $i$ 个位置，我们可以使用哈希表记录哪些字符已经被填过，从而避免重复填入相同的字符。\r\n- 在 $s[i..n-1]$ 中选择一个字符填入第 $i$ 个位置，然后递归执行函数 $dfs(i+1)$，即填入第 $i+1$ 个位置。\r\n- 回溯，撤销选择，即将第 $i$ 个位置的字符填回原位。\r\n\r\n我们在主函数中调用函数 $dfs(0)$，即从第 0 个位置开始填入字符。最后返回答案数组即可。\r\n\r\n时间复杂度 $O(n! \\times n)$，空间复杂度 $O(n)$。其中 $n$ 是字符串 $s$ 的长度。需要进行 $n!$ 次排列，每次排列需要 $O(n)$ 的时间复制字符串。",
+  "memory": "套餐内商品的排列顺序 → 回溯 + 哈希表。\n**思考**\r\n\r\n求全部排列且须去重， $n$ 不大，回溯可接受。在位置 $i$ 从后缀中选未用过的字符交换进来，同层用集合避免相同字符重复作为候选。\r\n\r\n填到末位则加入答案，回溯时换回。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,114 @@
+{
+  "number": "901",
+  "adapter": {
+    "classname": "StockSpanner",
+    "maxbytesperline": 200000,
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "name": "next",
+        "params": [
+          {
+            "type": "integer",
+            "name": "price"
+          }
+        ],
+        "return": {
+          "type": "integer"
+        }
+      }
+    ],
+    "systemdesign": true,
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "901"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "StockSpanner",
+          "next",
+          "next",
+          "next",
+          "next",
+          "next",
+          "next",
+          "next"
+        ],
+        [
+          [],
+          [
+            100
+          ],
+          [
+            80
+          ],
+          [
+            60
+          ],
+          [
+            70
+          ],
+          [
+            60
+          ],
+          [
+            75
+          ],
+          [
+            85
+          ]
+        ]
+      ],
+      "expected": [
+        null,
+        1,
+        1,
+        1,
+        2,
+        1,
+        4,
+        6
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class StockSpanner:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def next(self, price: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "\nvar StockSpanner = function() {\n    \n};\n\n/** \n * @param {number} price\n * @return {number}\n */\nStockSpanner.prototype.next = function(price) {\n    \n};\n\n/** \n * Your StockSpanner object will be instantiated and called as such:\n * var obj = new StockSpanner()\n * var param_1 = obj.next(price)\n */",
+    "java": "class StockSpanner {\n\n    public StockSpanner() {\n        \n    }\n    \n    public int next(int price) {\n        \n    }\n}\n\n/**\n * Your StockSpanner object will be instantiated and called as such:\n * StockSpanner obj = new StockSpanner();\n * int param_1 = obj.next(price);\n */",
+    "cpp": "class StockSpanner {\npublic:\n    StockSpanner() {\n        \n    }\n    \n    int next(int price) {\n        \n    }\n};\n\n/**\n * Your StockSpanner object will be instantiated and called as such:\n * StockSpanner* obj = new StockSpanner();\n * int param_1 = obj->next(price);\n */"
+  },
+  "solutions": {
+    "python": "class StockSpanner:\r\n    def __init__(self):\r\n        self.stk = []\r\n\r\n    def next(self, price: int) -> int:\r\n        cnt = 1\r\n        while self.stk and self.stk[-1][0] <= price:\r\n            cnt += self.stk.pop()[1]\r\n        self.stk.append((price, cnt))\r\n        return cnt\r\n\r\n\r\n# Your StockSpanner object will be instantiated and called as such:\r\n# obj = StockSpanner()\r\n# param_1 = obj.next(price)\r\n",
+    "javascript": "class StockSpanner {\n    stk;\n    constructor() {\n        this.stk = [];\n    }\n    next(price) {\n        let cnt = 1;\n        while (this.stk.length && this.stk.at(-1)[0] <= price) {\n            cnt += this.stk.pop()[1];\n        }\n        this.stk.push([price, cnt]);\n        return cnt;\n    }\n}\n/**\n * Your StockSpanner object will be instantiated and called as such:\n * var obj = new StockSpanner()\n * var param_1 = obj.next(price)\n */\n",
+    "java": "class StockSpanner {\r\n    private Deque<int[]> stk = new ArrayDeque<>();\r\n\r\n    public StockSpanner() {\r\n    }\r\n\r\n    public int next(int price) {\r\n        int cnt = 1;\r\n        while (!stk.isEmpty() && stk.peek()[0] <= price) {\r\n            cnt += stk.pop()[1];\r\n        }\r\n        stk.push(new int[] {price, cnt});\r\n        return cnt;\r\n    }\r\n}\r\n\r\n/**\r\n * Your StockSpanner object will be instantiated and called as such:\r\n * StockSpanner obj = new StockSpanner();\r\n * int param_1 = obj.next(price);\r\n */",
+    "cpp": "class StockSpanner {\r\npublic:\r\n    StockSpanner() {\r\n    }\r\n\r\n    int next(int price) {\r\n        int cnt = 1;\r\n        while (!stk.empty() && stk.top().first <= price) {\r\n            cnt += stk.top().second;\r\n            stk.pop();\r\n        }\r\n        stk.emplace(price, cnt);\r\n        return cnt;\r\n    }\r\n\r\nprivate:\r\n    stack<pair<int, int>> stk;\r\n};\r\n\r\n/**\r\n * Your StockSpanner object will be instantiated and called as such:\r\n * StockSpanner* obj = new StockSpanner();\r\n * int param_1 = obj->next(price);\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0901.Online%20Stock%20Span/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0901.Online%20Stock%20Span/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0901.Online%20Stock%20Span/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0901.Online%20Stock%20Span/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0901.Online%20Stock%20Span/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：股票价格跨度。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 每次查询若从当日向前扫描，直到遇到更大价格，则调用次数较多时合计为平方级。已经被更早价格覆盖的连续段不必重算：若栈顶价格不超过当日 $price$，其跨度可以并入当日。\r \r 为此维护价格从栈底到栈顶单调递减的栈，元素为 $(price, cnt)$。弹出并累加后入栈，每个价格至多进出一次，单次查询均摊常数。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：单调栈\r\n\r\n\r\n\r\n思考\r\n\r\n每次查询若从当日向前扫描，直到遇到更大价格，则调用次数较多时合计为平方级。已经被更早价格覆盖的连续段不必重算：若栈顶价格不超过当日 $price$，其跨度可以并入当日。\r\n\r\n为此维护价格从栈底到栈顶单调递减的栈，元素为 $(price, cnt)$。弹出并累加后入栈，每个价格至多进出一次，单次查询均摊常数。\r\n\r\n\r\n\r\n根据题目描述，我们可以知道，对于当日价格 $price$，从这个价格开始往前找，找到第一个比这个价格大的价格，这两个价格的下标差 $cnt$ 就是当日价格的跨度。\r\n\r\n这实际上是经典的单调栈模型，找出左侧第一个比当前元素大的元素。\r\n\r\n我们维护一个从栈底到栈顶价格单调递减的栈，栈中每个元素存放的是 $(price, cnt)$ 数据对，其中 $price$ 表示价格，而 $cnt$ 表示当前价格的跨度。\r\n\r\n出现价格 $price$ 时，我们将其与栈顶元素进行比较，如果栈顶元素的价格小于等于 $price$，则将当日价格的跨度 $cnt$ 加上栈顶元素的跨度，然后将栈顶元素出栈，直到栈顶元素的价格大于 $price$，或者栈为空为止。\r\n\r\n最后将 $(price, cnt)$ 入栈，返回 $cnt$ 即可。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 是调用 `next(price)` 的次数。",
+  "memory": "股票价格跨度 → 单调栈。\n**思考**\r\n\r\n每次查询若从当日向前扫描，直到遇到更大价格，则调用次数较多时合计为平方级。已经被更早价格覆盖的连续段不必重算：若栈顶价格不超过当日 $price$，其跨度可以并入当日。\r\n\r\n为此维护价格从栈底到栈顶单调递减的栈，元素为 $(price, cnt)$。弹出并累加后入栈，每个价格至多进出一次，单次查询均摊常数。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,60 @@
+{
+  "number": "709",
+  "adapter": {
+    "name": "toLowerCase",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "709"
+  },
+  "tests": [
+    {
+      "input": [
+        "Hello"
+      ],
+      "expected": "hello"
+    },
+    {
+      "input": [
+        "here"
+      ],
+      "expected": "here"
+    },
+    {
+      "input": [
+        "LOVELY"
+      ],
+      "expected": "lovely"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def toLowerCase(self, s: str) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @return {string}\n */\nvar toLowerCase = function(s) {\n    \n};",
+    "java": "class Solution {\n    public String toLowerCase(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string toLowerCase(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def toLowerCase(self, s: str) -> str:\r\n        return \"\".join([chr(ord(c) | 32) if c.isupper() else c for c in s])\r\n",
+    "javascript": "function toLowerCase(s) {\n    return s.toLowerCase();\n}\n",
+    "java": "class Solution {\r\n    public String toLowerCase(String s) {\r\n        char[] cs = s.toCharArray();\r\n        for (int i = 0; i < cs.length; ++i) {\r\n            if (cs[i] >= 'A' && cs[i] <= 'Z') {\r\n                cs[i] |= 32;\r\n            }\r\n        }\r\n        return String.valueOf(cs);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    string toLowerCase(string s) {\r\n        for (char& c : s) {\r\n            if (c >= 'A' && c <= 'Z') {\r\n                c |= 32;\r\n            }\r\n        }\r\n        return s;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0709.To%20Lower%20Case/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0709.To%20Lower%20Case/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0709.To%20Lower%20Case/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0709.To%20Lower%20Case/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0709.To%20Lower%20Case/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：转换成小写字母。\n输入：s（string）。\n训练提示：**思考**\r \r 将字符串中的大写字母改为小写，长度不超过 $100$。直接调用库函数即可，也可以按 ASCII 自行转换。\r \r 大写与对应小写恰好相差 $32$，在二进制上等价于把第 $5$ 位置 $1$。对大写字母做按位或 $32$ 便得到小写，其余字符保持不变。\r \r 遍历每个字符，若为大写则 $\\operatorname{ord}(c)\\,|\\,32$，再拼回字符串。时间 $O(n)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：模拟\r\n\r\n\r\n\r\n思考\r\n\r\n将字符串中的大写字母改为小写，长度不超过 $100$。直接调用库函数即可，也可以按 ASCII 自行转换。\r\n\r\n大写与对应小写恰好相差 $32$，在二进制上等价于把第 $5$ 位置 $1$。对大写字母做按位或 $32$ 便得到小写，其余字符保持不变。\r\n\r\n遍历每个字符，若为大写则 $\\operatorname{ord}(c)\\,|\\,32$，再拼回字符串。时间 $O(n)$。\r\n\r\n\r\n\r\n我们可以遍历字符串，对于每个大写字母，将其转换为小写字母。最后返回转换后的字符串即可。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 为字符串的长度。忽略答案的空间消耗，空间复杂度 $O(1)$。",
+  "memory": "转换成小写字母 → 模拟。\n**思考**\r\n\r\n将字符串中的大写字母改为小写，长度不超过 $100$。直接调用库函数即可，也可以按 ASCII 自行转换。\r\n\r\n大写与对应小写恰好相差 $32$，在二进制上等价于把第 $5$ 位置 $1$。对大写字母做按位或 $32$ 便得到小写，其余字符保持不变。\r\n\r\n遍历每个字符，若为大写则 $\\operatorname{ord}(c)\\,|\\,32$，再拼回字符串。时间 $O(n)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

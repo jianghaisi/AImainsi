@@ -1,0 +1,86 @@
+{
+  "number": "面试题 08.02",
+  "adapter": {
+    "name": "pathWithObstacles",
+    "params": [
+      {
+        "name": "obstacleGrid",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "list<list<integer>>",
+      "dealloc": true
+    },
+    "number": "面试题 08.02"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def pathWithObstacles(self, obstacleGrid: List[List[int]]) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} obstacleGrid\n * @return {number[][]}\n */\nvar pathWithObstacles = function(obstacleGrid) {\n    \n};",
+    "java": "class Solution {\n    public List<List<Integer>> pathWithObstacles(int[][] obstacleGrid) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> pathWithObstacles(vector<vector<int>>& obstacleGrid) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def pathWithObstacles(self, obstacleGrid: List[List[int]]) -> List[List[int]]:\r\n        def dfs(i, j):\r\n            if i >= m or j >= n or obstacleGrid[i][j] == 1:\r\n                return False\r\n            ans.append([i, j])\r\n            obstacleGrid[i][j] = 1\r\n            if (i == m - 1 and j == n - 1) or dfs(i + 1, j) or dfs(i, j + 1):\r\n                return True\r\n            ans.pop()\r\n            return False\r\n\r\n        m, n = len(obstacleGrid), len(obstacleGrid[0])\r\n        ans = []\r\n        return ans if dfs(0, 0) else []\r\n",
+    "javascript": "function pathWithObstacles(obstacleGrid) {\n    const m = obstacleGrid.length;\n    const n = obstacleGrid[0].length;\n    const res = [];\n    const dfs = (i, j) => {\n        if (i === m || j === n || obstacleGrid[i][j] === 1) {\n            return false;\n        }\n        res.push([i, j]);\n        obstacleGrid[i][j] = 1;\n        if ((i + 1 === m && j + 1 === n) || dfs(i + 1, j) || dfs(i, j + 1)) {\n            return true;\n        }\n        res.pop();\n        return false;\n    };\n    if (dfs(0, 0)) {\n        return res;\n    }\n    return [];\n}\n",
+    "java": "class Solution {\r\n    private List<List<Integer>> ans = new ArrayList<>();\r\n    private int[][] g;\r\n    private int m;\r\n    private int n;\r\n\r\n    public List<List<Integer>> pathWithObstacles(int[][] obstacleGrid) {\r\n        g = obstacleGrid;\r\n        m = g.length;\r\n        n = g[0].length;\r\n        return dfs(0, 0) ? ans : Collections.emptyList();\r\n    }\r\n\r\n    private boolean dfs(int i, int j) {\r\n        if (i >= m || j >= n || g[i][j] == 1) {\r\n            return false;\r\n        }\r\n        ans.add(List.of(i, j));\r\n        g[i][j] = 1;\r\n        if ((i == m - 1 && j == n - 1) || dfs(i + 1, j) || dfs(i, j + 1)) {\r\n            return true;\r\n        }\r\n        ans.remove(ans.size() - 1);\r\n        return false;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<int>> pathWithObstacles(vector<vector<int>>& obstacleGrid) {\r\n        int m = obstacleGrid.size();\r\n        int n = obstacleGrid[0].size();\r\n        vector<vector<int>> ans;\r\n        auto dfs = [&](this auto&& dfs, int i, int j) -> bool {\r\n            if (i >= m || j >= n || obstacleGrid[i][j] == 1) {\r\n                return false;\r\n            }\r\n            ans.push_back({i, j});\r\n            obstacleGrid[i][j] = 1;\r\n            if ((i == m - 1 && j == n - 1) || dfs(i + 1, j) || dfs(i, j + 1)) {\r\n                return true;\r\n            }\r\n            ans.pop_back();\r\n            return false;\r\n        };\r\n        return dfs(0, 0) ? ans : vector<vector<int>>();\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.02.Robot%20in%20a%20Grid/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.02.Robot%20in%20a%20Grid/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.02.Robot%20in%20a%20Grid/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.02.Robot%20in%20a%20Grid/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.02.Robot%20in%20a%20Grid/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：迷路的机器人。\n输入：obstacleGrid（integer[][]）。\n训练提示：**思考**\r \r 从左上走到右下，只向右或向下，且避开障碍，并返回一条路径。网格规模允许搜索，但同一格子重复进入会浪费。\r \r 找到任意一条即可，深度优先沿「下、右」尝试，失败则回溯。\r \r 进入格子时写入路径并立刻把格子标为障碍，避免重入；到达终点或某方向成功则保留路径，否则弹出。原地标记省去单独的 $vis$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS\r\n\r\n\r\n\r\n思考\r\n\r\n从左上走到右下，只向右或向下，且避开障碍，并返回一条路径。网格规模允许搜索，但同一格子重复进入会浪费。\r\n\r\n找到任意一条即可，深度优先沿「下、右」尝试，失败则回溯。\r\n\r\n进入格子时写入路径并立刻把格子标为障碍，避免重入；到达终点或某方向成功则保留路径，否则弹出。原地标记省去单独的 $vis$。\r\n\r\n\r\n\r\n我们可以使用深度优先搜索来解决本题。我们从左上角开始，向右或向下移动，直到到达右下角。如果在某一步，我们发现当前位置是障碍物，或者当前位置已经在路径中，那么我们就返回，否则我们将当前位置加入路径中，并且标记当前位置为已经访问过，然后继续向右或向下移动。\r\n\r\n如果最终能够到达右下角，那么我们就找到了一条可行的路径，否则说明不存在可行的路径。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m \\times n)$。其中 $m$ 和 $n$ 分别是网格的行数和列数。",
+  "memory": "迷路的机器人 → DFS。\n**思考**\r\n\r\n从左上走到右下，只向右或向下，且避开障碍，并返回一条路径。网格规模允许搜索，但同一格子重复进入会浪费。\r\n\r\n找到任意一条即可，深度优先沿「下、右」尝试，失败则回溯。\r\n\r\n进入格子时写入路径并立刻把格子标为障碍，避免重入；到达终点或某方向成功则保留路径，否则弹出。原地标记省去单独的 $vis$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,47 @@
+{
+  "number": "470",
+  "adapter": {
+    "name": "rand10",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "manual": true,
+    "typescriptCustomType": "function rand7(): number {\n    return Math.floor(Math.random() * (7)) + 1;\n}",
+    "number": "470"
+  },
+  "tests": [
+    {
+      "input": [
+        2000
+      ],
+      "expected": "2000 个 1 至 10 的整数，各值频率接近均匀分布（统计容差内）。"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def rand10(self):\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * The rand7() API is already defined for you.\n * var rand7 = function() {}\n * @return {number} a random integer in the range 1 to 7\n */\nvar rand10 = function() {\n    \n};",
+    "java": "/**\n * The rand7() API is already defined in the parent class SolBase.\n * public int rand7();\n * @return a random integer in the range 1 to 7\n */\nclass Solution extends SolBase {\n    public int rand10() {\n        \n    }\n}",
+    "cpp": "// The rand7() API is already defined for you.\n// int rand7();\n// @return a random integer in the range 1 to 7\n\nclass Solution {\npublic:\n    int rand10() {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# The rand7() API is already defined for you.\r\n# def rand7():\r\n# @return a random integer in the range 1 to 7\r\n\r\n\r\nclass Solution:\r\n    def rand10(self):\r\n        \"\"\"\r\n        :rtype: int\r\n        \"\"\"\r\n        while 1:\r\n            i = rand7() - 1\r\n            j = rand7()\r\n            x = i * 7 + j\r\n            if x <= 40:\r\n                return x % 10 + 1\r\n",
+    "javascript": "/**\n * The rand7() API is already defined for you.\n * function rand7(): number {}\n * @return a random integer in the range 1 to 7\n */\nfunction rand10() {\n    while (true) {\n        const i = rand7() - 1;\n        const j = rand7();\n        const x = i * 7 + j;\n        if (x <= 40) {\n            return (x % 10) + 1;\n        }\n    }\n}\n",
+    "java": "/**\r\n * The rand7() API is already defined in the parent class SolBase.\r\n * public int rand7();\r\n * @return a random integer in the range 1 to 7\r\n */\r\nclass Solution extends SolBase {\r\n    public int rand10() {\r\n        while (true) {\r\n            int i = rand7() - 1;\r\n            int j = rand7();\r\n            int x = i * 7 + j;\r\n            if (x <= 40) {\r\n                return x % 10 + 1;\r\n            }\r\n        }\r\n    }\r\n}",
+    "cpp": "// The rand7() API is already defined for you.\r\n// int rand7();\r\n// @return a random integer in the range 1 to 7\r\n\r\nclass Solution {\r\npublic:\r\n    int rand10() {\r\n        while (1) {\r\n            int i = rand7() - 1;\r\n            int j = rand7();\r\n            int x = i * 7 + j;\r\n            if (x <= 40) {\r\n                return x % 10 + 1;\r\n            }\r\n        }\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0470.Implement%20Rand10()%20Using%20Rand7()/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0470.Implement%20Rand10()%20Using%20Rand7()/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0470.Implement%20Rand10()%20Using%20Rand7()/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0470.Implement%20Rand10()%20Using%20Rand7()/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0470.Implement%20Rand10()%20Using%20Rand7()/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：用 Rand7() 实现 Rand10()。\n输入：n（integer）。\n训练提示：**思考**\r \r 用均匀的 $rand7$ 造均匀的 $rand10$。直接 $\\textit{rand7}\\bmod 10$ 会偏斜。两次调用可生成 $[1,49]$ 的均匀整数。\r \r 拒绝采样：保留 $[1,40]$，映射为 $x\\bmod 10+1$；落在 $41$– $49$ 则重来。 $40$ 能被 $10$ 整除，十个残差各出现四次，因而均匀。\r \r 期望调用次数为常数。拒绝区间保证每个结果概率相同。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：拒绝采样\r\n\r\n\r\n\r\n思考\r\n\r\n用均匀的 $rand7$ 造均匀的 $rand10$。直接 $\\textit{rand7}\\bmod 10$ 会偏斜。两次调用可生成 $[1,49]$ 的均匀整数。\r\n\r\n拒绝采样：保留 $[1,40]$，映射为 $x\\bmod 10+1$；落在 $41$– $49$ 则重来。 $40$ 能被 $10$ 整除，十个残差各出现四次，因而均匀。\r\n\r\n期望调用次数为常数。拒绝区间保证每个结果概率相同。\r\n\r\n\r\n\r\n我们可以使用拒绝采样的方法实现等概率生成任意区间的随机数。拒绝采样的思路是如果生成的随机数落在我们希望的区间内，那么就返回该随机数，否则会不断生成直到生成一个落在区间内的随机数为止。\r\n\r\n对于本题，我们可以通过调用 $rand7()$ 两次来实现生成 $[1,10]$ 以内的随机数，具体如下：\r\n\r\n我们生成一个大于等于 $1$ 且小于等于 $40$ 的整数 $x$，其中等概率生成的方式为 $x = (rand7() - 1) \\times 7 + rand7()$，然后，我们返回 $x \\bmod 10 + 1$ 即可。\r\n\r\n期望时间复杂度为 $O(1)$，但是最坏情况下会达到无穷大的时间复杂度。空间复杂度为 $O(1)$。",
+  "memory": "用 Rand7() 实现 Rand10() → 拒绝采样。\n**思考**\r\n\r\n用均匀的 $rand7$ 造均匀的 $rand10$。直接 $\\textit{rand7}\\bmod 10$ 会偏斜。两次调用可生成 $[1,49]$ 的均匀整数。\r\n\r\n拒绝采样：保留 $[1,40]$，映射为 $x\\bmod 10+1$；落在 $41$– $49$ 则重来。 $40$ 能被 $10$ 整除，十个残差各出现四次，因而均匀。\r\n\r\n期望调用次数为常数。拒绝区间保证每个结果概率相同。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

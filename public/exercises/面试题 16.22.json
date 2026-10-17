@@ -1,0 +1,67 @@
+{
+  "number": "面试题 16.22",
+  "adapter": {
+    "name": "printKMoves",
+    "params": [
+      {
+        "name": "K",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "list<string>",
+      "dealloc": true
+    },
+    "number": "面试题 16.22"
+  },
+  "tests": [
+    {
+      "input": [
+        0
+      ],
+      "expected": [
+        "R"
+      ]
+    },
+    {
+      "input": [
+        2
+      ],
+      "expected": [
+        "_X",
+        "LX"
+      ]
+    },
+    {
+      "input": [
+        5
+      ],
+      "expected": [
+        "_U",
+        "X_",
+        "XX"
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def printKMoves(self, K: int) -> List[str]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public List<String> printKMoves(int K) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<string> printKMoves(int K) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def printKMoves(self, K: int) -> List[str]:\r\n        x1 = y1 = x2 = y2 = 0\r\n        dirs = (0, 1, 0, -1, 0)\r\n        d = \"RDLU\"\r\n        x = y = 0\r\n        p = 0\r\n        black = set()\r\n        for _ in range(K):\r\n            if (x, y) in black:\r\n                black.remove((x, y))\r\n                p = (p + 3) % 4\r\n            else:\r\n                black.add((x, y))\r\n                p = (p + 1) % 4\r\n            x += dirs[p]\r\n            y += dirs[p + 1]\r\n            x1 = min(x1, x)\r\n            y1 = min(y1, y)\r\n            x2 = max(x2, x)\r\n            y2 = max(y2, y)\r\n        m, n = x2 - x1 + 1, y2 - y1 + 1\r\n        g = [[\"_\"] * n for _ in range(m)]\r\n        for i, j in black:\r\n            g[i - x1][j - y1] = \"X\"\r\n        g[x - x1][y - y1] = d[p]\r\n        return [\"\".join(row) for row in g]\r\n",
+    "java": "class Solution {\r\n    public List<String> printKMoves(int K) {\r\n        int x1 = 0, y1 = 0, x2 = 0, y2 = 0;\r\n        int[] dirs = {0, 1, 0, -1, 0};\r\n        String d = \"RDLU\";\r\n        int x = 0, y = 0, p = 0;\r\n        Set<List<Integer>> black = new HashSet<>();\r\n        while (K-- > 0) {\r\n            List<Integer> t = List.of(x, y);\r\n            if (black.add(t)) {\r\n                p = (p + 1) % 4;\r\n            } else {\r\n                black.remove(t);\r\n                p = (p + 3) % 4;\r\n            }\r\n            x += dirs[p];\r\n            y += dirs[p + 1];\r\n            x1 = Math.min(x1, x);\r\n            y1 = Math.min(y1, y);\r\n            x2 = Math.max(x2, x);\r\n            y2 = Math.max(y2, y);\r\n        }\r\n        int m = x2 - x1 + 1;\r\n        int n = y2 - y1 + 1;\r\n        char[][] g = new char[m][n];\r\n        for (char[] row : g) {\r\n            Arrays.fill(row, '_');\r\n        }\r\n        for (List<Integer> t : black) {\r\n            int i = t.get(0) - x1;\r\n            int j = t.get(1) - y1;\r\n            g[i][j] = 'X';\r\n        }\r\n        g[x - x1][y - y1] = d.charAt(p);\r\n        List<String> ans = new ArrayList<>();\r\n        for (char[] row : g) {\r\n            ans.add(String.valueOf(row));\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<string> printKMoves(int K) {\r\n        int x1 = 0, y1 = 0, x2 = 0, y2 = 0;\r\n        int dirs[5] = {0, 1, 0, -1, 0};\r\n        string d = \"RDLU\";\r\n        int x = 0, y = 0, p = 0;\r\n        set<pair<int, int>> black;\r\n        while (K--) {\r\n            auto t = make_pair(x, y);\r\n            if (black.count(t)) {\r\n                black.erase(t);\r\n                p = (p + 3) % 4;\r\n            } else {\r\n                black.insert(t);\r\n                p = (p + 1) % 4;\r\n            }\r\n            x += dirs[p];\r\n            y += dirs[p + 1];\r\n            x1 = min(x1, x);\r\n            y1 = min(y1, y);\r\n            x2 = max(x2, x);\r\n            y2 = max(y2, y);\r\n        }\r\n        int m = x2 - x1 + 1, n = y2 - y1 + 1;\r\n        vector<string> g(m, string(n, '_'));\r\n        for (auto& [i, j] : black) {\r\n            g[i - x1][j - y1] = 'X';\r\n        }\r\n        g[x - x1][y - y1] = d[p];\r\n        return g;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.22.Langtons%20Ant/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.22.Langtons%20Ant/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.22.Langtons%20Ant/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.22.Langtons%20Ant/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：兰顿蚂蚁。\n输入：K（integer）。\n训练提示：**思考**\r \r 兰顿蚂蚁在无限白格上走 $K$ 步。二维数组无法预知边界，开极大网格浪费空间。\r \r 只有黑格需要记录，用集合存储；同时维护走过区域的坐标极值以便最后裁剪。\r \r 白格变黑并右转，黑格变白并左转，再按 $dirs$ 前进一步。结束后把黑格写成 `X`，蚂蚁位置写成方向字符。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：哈希表 + 模拟\r\n\r\n\r\n\r\n思考\r\n\r\n兰顿蚂蚁在无限白格上走 $K$ 步。二维数组无法预知边界，开极大网格浪费空间。\r\n\r\n只有黑格需要记录，用集合存储；同时维护走过区域的坐标极值以便最后裁剪。\r\n\r\n白格变黑并右转，黑格变白并左转，再按 $dirs$ 前进一步。结束后把黑格写成 `X`，蚂蚁位置写成方向字符。\r\n\r\n\r\n\r\n我们使用哈希表 $\\textit{black}$ 来记录所有黑色方格的位置，哈希表 $\\textit{dirs}$ 来记录蚂蚁的四个方向。我们使用变量 $x$, $y$ 来记录蚂蚁的位置，使用变量 $p$ 来记录蚂蚁的方向。我们使用变量 $x_1$, $y_1$, $x_2$, $y_2$ 来记录所有黑色方格的最小横坐标、最小纵坐标、最大横坐标、最大纵坐标。\r\n\r\n我们模拟蚂蚁的行走过程。如果蚂蚁所在的方格是白色的，那么蚂蚁向右转 $90$ 度，将方格涂黑，向前移动一个单位。如果蚂蚁所在的方格是黑色的，那么蚂蚁向左转 $90$ 度，将方格涂白，向前移动一个单位。在模拟的过程中，我们不断更新 $x_1$, $y_1$, $x_2$, $y_2$ 的值，使得它们能够包含蚂蚁走过的所有方格。\r\n\r\n模拟结束后，我们根据 $x_1$, $y_1$, $x_2$, $y_2$ 的值，构造出答案矩阵 $g$。然后，我们将蚂蚁所在的位置涂上蚂蚁的方向，同时将所有黑色方格涂上 $X$，最后返回答案矩阵。\r\n\r\n时间复杂度 $O(K)$，空间复杂度 $O(K)$。其中 $K$ 是蚂蚁行走的步数。",
+  "memory": "兰顿蚂蚁 → 哈希表 + 模拟。\n**思考**\r\n\r\n兰顿蚂蚁在无限白格上走 $K$ 步。二维数组无法预知边界，开极大网格浪费空间。\r\n\r\n只有黑格需要记录，用集合存储；同时维护走过区域的坐标极值以便最后裁剪。\r\n\r\n白格变黑并右转，黑格变白并左转，再按 $dirs$ 前进一步。结束后把黑格写成 `X`，蚂蚁位置写成方向字符。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,90 @@
+{
+  "number": "面试题 02.03",
+  "adapter": {
+    "name": "deleteNode",
+    "params": [
+      {
+        "name": "node",
+        "type": "ListNode"
+      },
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "void"
+    },
+    "output": {
+      "paramindex": 0
+    },
+    "languages": [
+      "cpp",
+      "java",
+      "python",
+      "c",
+      "csharp",
+      "javascript",
+      "ruby",
+      "golang",
+      "python3"
+    ],
+    "manual": true,
+    "number": "面试题 02.03"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          4,
+          5,
+          1,
+          9
+        ],
+        5
+      ],
+      "expected": [
+        4,
+        1,
+        9
+      ]
+    },
+    {
+      "input": [
+        [
+          4,
+          5,
+          1,
+          9
+        ],
+        1
+      ],
+      "expected": [
+        4,
+        5,
+        9
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def deleteNode(self, node):\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode(int x) { val = x; }\n * }\n */\nclass Solution {\n    public void deleteNode(ListNode node) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode(int x) : val(x), next(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    void deleteNode(ListNode* node) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.next = None\r\n\r\n\r\nclass Solution:\r\n    def deleteNode(self, node):\r\n        node.val = node.next.val\r\n        node.next = node.next.next\r\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public void deleteNode(ListNode node) {\r\n        node.val = node.next.val;\r\n        node.next = node.next.next;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode(int x) : val(x), next(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    void deleteNode(ListNode* node) {\r\n        node->val = node->next->val;\r\n        node->next = node->next->next;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.03.Delete%20Middle%20Node/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.03.Delete%20Middle%20Node/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.03.Delete%20Middle%20Node/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.03.Delete%20Middle%20Node/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：删除中间节点。\n输入：node（ListNode）、n（integer）。\n训练提示：**思考**\r \r 通常删除节点需要其前驱以改写 `next`。本题只给出待删节点本身，且保证它不是尾节点，因此无法沿链表回溯。\r \r 删除的可见效果是该位置的值与后继关系消失。把后继的值拷到当前节点，再跳过后继，从调用者视角即等价于删掉了当前节点。\r \r 两步赋值 `node.val = node.next.val` 与 `node.next = node.next.next` 即可，时间和空间均为常数。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：节点赋值\r\n\r\n\r\n\r\n思考\r\n\r\n通常删除节点需要其前驱以改写 `next`。本题只给出待删节点本身，且保证它不是尾节点，因此无法沿链表回溯。\r\n\r\n删除的可见效果是该位置的值与后继关系消失。把后继的值拷到当前节点，再跳过后继，从调用者视角即等价于删掉了当前节点。\r\n\r\n两步赋值 `node.val = node.next.val` 与 `node.next = node.next.next` 即可，时间和空间均为常数。\r\n\r\n\r\n\r\n我们可以将当前节点的值替换为下一个节点的值，然后删除下一个节点。这样就可以达到删除当前节点的目的。\r\n\r\n时间复杂度 $O(1)$，空间复杂度 $O(1)$。",
+  "memory": "删除中间节点 → 节点赋值。\n**思考**\r\n\r\n通常删除节点需要其前驱以改写 `next`。本题只给出待删节点本身，且保证它不是尾节点，因此无法沿链表回溯。\r\n\r\n删除的可见效果是该位置的值与后继关系消失。把后继的值拷到当前节点，再跳过后继，从调用者视角即等价于删掉了当前节点。\r\n\r\n两步赋值 `node.val = node.next.val` 与 `node.next = node.next.next` 即可，时间和空间均为常数。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

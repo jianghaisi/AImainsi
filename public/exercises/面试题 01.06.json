@@ -1,0 +1,51 @@
+{
+  "number": "面试题 01.06",
+  "adapter": {
+    "name": "compressString",
+    "params": [
+      {
+        "name": "S",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "面试题 01.06"
+  },
+  "tests": [
+    {
+      "input": [
+        "aabcccccaaa"
+      ],
+      "expected": "a2b1c5a3"
+    },
+    {
+      "input": [
+        "abbccd"
+      ],
+      "expected": "abbccd"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def compressString(self, S: str) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public String compressString(String S) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string compressString(string S) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def compressString(self, S: str) -> str:\r\n        t = \"\".join(a + str(len(list(b))) for a, b in groupby(S))\r\n        return min(S, t, key=len)\r\n",
+    "java": "class Solution {\r\n    public String compressString(String S) {\r\n        int n = S.length();\r\n        StringBuilder sb = new StringBuilder();\r\n        for (int i = 0; i < n;) {\r\n            int j = i + 1;\r\n            while (j < n && S.charAt(j) == S.charAt(i)) {\r\n                ++j;\r\n            }\r\n            sb.append(S.charAt(i)).append(j - i);\r\n            i = j;\r\n        }\r\n        String t = sb.toString();\r\n        return t.length() < n ? t : S;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    string compressString(string S) {\r\n        int n = S.size();\r\n        string t;\r\n        for (int i = 0; i < n;) {\r\n            int j = i + 1;\r\n            while (j < n && S[j] == S[i]) {\r\n                ++j;\r\n            }\r\n            t += S[i];\r\n            t += to_string(j - i);\r\n            i = j;\r\n        }\r\n        return t.size() < n ? t : S;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.06.Compress%20String/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.06.Compress%20String/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.06.Compress%20String/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.06.Compress%20String/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：字符串压缩。\n输入：S（string）。\n训练提示：**思考**\r \r 压缩串由「字符 + 连续出现次数」拼接而成，短于原串才采用。暴力对每个位置向右数相同字符，最坏仍是线性，但指针会反复回退，实现不清晰。\r \r 同一段连续字符只需报告一次，关键是找出每段的左右端点。\r \r `groupby`（或显式双指针）按相等关系分段，将字符与段长写入 $t$，最后按长度取 $S$ 与 $t$ 中较短者。扫描各字符恰好一次，与「双指针找连续段」同构。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双指针\r\n\r\n\r\n\r\n思考\r\n\r\n压缩串由「字符 + 连续出现次数」拼接而成，短于原串才采用。暴力对每个位置向右数相同字符，最坏仍是线性，但指针会反复回退，实现不清晰。\r\n\r\n同一段连续字符只需报告一次，关键是找出每段的左右端点。\r\n\r\n`groupby`（或显式双指针）按相等关系分段，将字符与段长写入 $t$，最后按长度取 $S$ 与 $t$ 中较短者。扫描各字符恰好一次，与「双指针找连续段」同构。\r\n\r\n\r\n\r\n我们可以利用双指针找出每个连续字符的起始位置和结束位置，计算出连续字符的长度，然后将字符和长度拼接到字符串 $t$ 中。\r\n\r\n最后，我们比较 $t$ 和 $S$ 的长度，如果 $t$ 的长度小于 $S$，则返回 $t$，否则返回 $S$。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为字符串长度。",
+  "memory": "字符串压缩 → 双指针。\n**思考**\r\n\r\n压缩串由「字符 + 连续出现次数」拼接而成，短于原串才采用。暴力对每个位置向右数相同字符，最坏仍是线性，但指针会反复回退，实现不清晰。\r\n\r\n同一段连续字符只需报告一次，关键是找出每段的左右端点。\r\n\r\n`groupby`（或显式双指针）按相等关系分段，将字符与段长写入 $t$，最后按长度取 $S$ 与 $t$ 中较短者。扫描各字符恰好一次，与「双指针找连续段」同构。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

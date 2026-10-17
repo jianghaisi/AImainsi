@@ -1,0 +1,69 @@
+{
+  "number": "面试题 17.11",
+  "adapter": {
+    "name": "findClosest",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      },
+      {
+        "name": "word1",
+        "type": "string"
+      },
+      {
+        "name": "word2",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 17.11"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "I",
+          "am",
+          "a",
+          "student",
+          "from",
+          "a",
+          "university",
+          "in",
+          "a",
+          "city"
+        ],
+        "a",
+        "student"
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findClosest(self, words: List[str], word1: str, word2: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[]} words\n * @param {string} word1\n * @param {string} word2\n * @return {number}\n */\nvar findClosest = function(words, word1, word2) {\n    \n};",
+    "java": "class Solution {\n    public int findClosest(String[] words, String word1, String word2) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findClosest(vector<string>& words, string word1, string word2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findClosest(self, words: List[str], word1: str, word2: str) -> int:\r\n        i, j = inf, -inf\r\n        ans = inf\r\n        for k, w in enumerate(words):\r\n            if w == word1:\r\n                i = k\r\n            elif w == word2:\r\n                j = k\r\n            ans = min(ans, abs(i - j))\r\n        return ans\r\n",
+    "javascript": "function findClosest(words, word1, word2) {\n    let [i, j, ans] = [Infinity, -Infinity, Infinity];\n    for (let k = 0; k < words.length; ++k) {\n        if (words[k] === word1) {\n            i = k;\n        }\n        else if (words[k] === word2) {\n            j = k;\n        }\n        ans = Math.min(ans, Math.abs(i - j));\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int findClosest(String[] words, String word1, String word2) {\r\n        final int inf = 1 << 29;\r\n        int i = inf, j = -inf, ans = inf;\r\n        for (int k = 0; k < words.length; ++k) {\r\n            if (words[k].equals(word1)) {\r\n                i = k;\r\n            } else if (words[k].equals(word2)) {\r\n                j = k;\r\n            }\r\n            ans = Math.min(ans, Math.abs(i - j));\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int findClosest(vector<string>& words, string word1, string word2) {\r\n        const int inf = 1 << 29;\r\n        int i = inf, j = -inf;\r\n        int ans = inf;\r\n        for (int k = 0; k < words.size(); ++k) {\r\n            if (words[k] == word1) {\r\n                i = k;\r\n            } else if (words[k] == word2) {\r\n                j = k;\r\n            }\r\n            ans = min(ans, abs(i - j));\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.11.Find%20Closest/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.11.Find%20Closest/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.11.Find%20Closest/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.11.Find%20Closest/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.11.Find%20Closest/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：单词距离。\n输入：words（string[]）、word1（string）、word2（string）。\n训练提示：**思考**\r \r 单词表中两个词最近距离。记下所有下标再两两比较，最坏平方。\r \r 最近的一对一定涉及某次出现与对方上一次出现，故扫一遍维护两词最近下标即可。\r \r $i$、 $j$ 分别记录 $word1$、 $word2$ 的最近位置，每步更新 $|i-j|$。一词多次出现时只保留最近一次，已足够。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：一次遍历\r\n\r\n\r\n\r\n思考\r\n\r\n单词表中两个词最近距离。记下所有下标再两两比较，最坏平方。\r\n\r\n最近的一对一定涉及某次出现与对方上一次出现，故扫一遍维护两词最近下标即可。\r\n\r\n$i$、 $j$ 分别记录 $word1$、 $word2$ 的最近位置，每步更新 $|i-j|$。一词多次出现时只保留最近一次，已足够。\r\n\r\n\r\n\r\n我们用两个指针 $i$ 和 $j$ 分别记录两个单词 $\\textit{word1}$ 和 $\\textit{word2}$ 最近出现的位置，初始时 $i = \\infty$, $j = -\\infty$。\r\n\r\n接下来我们遍历整个文本文件，对于每个单词 $w$，如果 $w$ 等于 $\\textit{word1}$，我们更新 $i = k$，其中 $k$ 是当前单词的下标；如果 $w$ 等于 $\\textit{word2}$，我们更新 $j = k$。然后我们更新答案 $ans = \\min(ans, |i - j|)$。\r\n\r\n遍历结束后，我们返回答案 $ans$。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 是文本文件中的单词数。空间复杂度 $O(1)$。",
+  "memory": "单词距离 → 一次遍历。\n**思考**\r\n\r\n单词表中两个词最近距离。记下所有下标再两两比较，最坏平方。\r\n\r\n最近的一对一定涉及某次出现与对方上一次出现，故扫一遍维护两词最近下标即可。\r\n\r\n$i$、 $j$ 分别记录 $word1$、 $word2$ 的最近位置，每步更新 $|i-j|$。一词多次出现时只保留最近一次，已足够。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

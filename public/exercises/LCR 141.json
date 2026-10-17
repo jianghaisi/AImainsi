@@ -1,0 +1,80 @@
+{
+  "number": "LCR 141",
+  "adapter": {
+    "name": "trainningPlan",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode",
+        "dealloc": false
+      }
+    ],
+    "return": {
+      "type": "ListNode",
+      "dealloc": true
+    },
+    "number": "LCR 141"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": [
+        5,
+        4,
+        3,
+        2,
+        1
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": [
+        2,
+        1
+      ]
+    },
+    {
+      "input": [
+        []
+      ],
+      "expected": []
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def trainningPlan(self, head: ListNode) -> ListNode:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @return {ListNode}\n */\nvar trainningPlan = function(head) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode trainningPlan(ListNode head) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* trainningPlan(ListNode* head) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.next = None\r\n\r\n\r\nclass Solution:\r\n    def trainningPlan(self, head: ListNode) -> ListNode:\r\n        dummy = ListNode()\r\n        curr = head\r\n        while curr:\r\n            next = curr.next\r\n            curr.next = dummy.next\r\n            dummy.next = curr\r\n            curr = next\r\n        return dummy.next\r\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction trainningPlan(head) {\n    const dummy = new ListNode(0);\n    let curr = head;\n    while (curr) {\n        const next = curr.next;\n        curr.next = dummy.next;\n        dummy.next = curr;\n        curr = next;\n    }\n    return dummy.next;\n}\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public ListNode trainningPlan(ListNode head) {\r\n        ListNode dummy = new ListNode(0);\r\n        ListNode curr = head;\r\n        while (curr != null) {\r\n            ListNode next = curr.next;\r\n            curr.next = dummy.next;\r\n            dummy.next = curr;\r\n            curr = next;\r\n        }\r\n        return dummy.next;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode(int x) : val(x), next(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    ListNode* trainningPlan(ListNode* head) {\r\n        ListNode* dummy = new ListNode(0);\r\n        ListNode* curr = head;\r\n        while (curr) {\r\n            ListNode* next = curr->next;\r\n            curr->next = dummy->next;\r\n            dummy->next = curr;\r\n            curr = next;\r\n        }\r\n        return dummy->next;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9824.%20%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9824.%20%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9824.%20%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9824.%20%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9824.%20%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：训练计划 III。\n输入：head（ListNode）。\n训练提示：**思考**\r \r 反转即把每个结点的 `next` 指向上一个。从头依次摘下结点，用头插法接到哑结点后面，遍历结束时哑结点之后即新头。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：头插法\r\n\r\n\r\n\r\n思考\r\n\r\n反转即把每个结点的 `next` 指向上一个。从头依次摘下结点，用头插法接到哑结点后面，遍历结束时哑结点之后即新头。\r\n\r\n\r\n\r\n创建虚拟头节点 $dummy$，遍历链表，将每个节点依次插入 $dummy$ 的下一个节点。遍历结束，返回 $dummy.next$。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(1)$。其中 $n$ 为链表的长度。",
+  "memory": "训练计划 III → 头插法。\n**思考**\r\n\r\n反转即把每个结点的 `next` 指向上一个。从头依次摘下结点，用头插法接到哑结点后面，遍历结束时哑结点之后即新头。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

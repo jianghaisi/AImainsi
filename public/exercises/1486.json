@@ -1,0 +1,74 @@
+{
+  "number": "1486",
+  "adapter": {
+    "name": "xorOperation",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      },
+      {
+        "type": "integer",
+        "name": "start"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1486"
+  },
+  "tests": [
+    {
+      "input": [
+        5,
+        0
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        4,
+        3
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        1,
+        7
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        10,
+        5
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def xorOperation(self, n: int, start: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @param {number} start\n * @return {number}\n */\nvar xorOperation = function(n, start) {\n    \n};",
+    "java": "class Solution {\n    public int xorOperation(int n, int start) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int xorOperation(int n, int start) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def xorOperation(self, n: int, start: int) -> int:\r\n        return reduce(xor, ((start + 2 * i) for i in range(n)))\r\n",
+    "javascript": "function xorOperation(n, start) {\n    let ans = 0;\n    for (let i = 0; i < n; ++i) {\n        ans ^= start + 2 * i;\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int xorOperation(int n, int start) {\r\n        int ans = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            ans ^= start + 2 * i;\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int xorOperation(int n, int start) {\r\n        int ans = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            ans ^= start + 2 * i;\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1400-1499/1486.XOR%20Operation%20in%20an%20Array/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1400-1499/1486.XOR%20Operation%20in%20an%20Array/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1400-1499/1486.XOR%20Operation%20in%20an%20Array/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1400-1499/1486.XOR%20Operation%20in%20an%20Array/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1400-1499/1486.XOR%20Operation%20in%20an%20Array/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：数组异或操作。\n输入：n（integer）、start（integer）。\n训练提示：**思考**\r \r $n\\le 1000$，按下标生成 $start+2i$ 并依次异或即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：模拟\r\n\r\n\r\n\r\n思考\r\n\r\n$n\\le 1000$，按下标生成 $start+2i$ 并依次异或即可。\r\n\r\n\r\n\r\n我们可以直接模拟算出数组中所有元素的异或结果。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 为数组长度。空间复杂度 $O(1)$。",
+  "memory": "数组异或操作 → 模拟。\n**思考**\r\n\r\n$n\\le 1000$，按下标生成 $start+2i$ 并依次异或即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

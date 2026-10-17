@@ -1,0 +1,54 @@
+{
+  "number": "LCR 165",
+  "adapter": {
+    "name": "crackNumber",
+    "params": [
+      {
+        "name": "ciphertext",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 165"
+  },
+  "tests": [
+    {
+      "input": [
+        216612
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        12258
+      ],
+      "expected": 5
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def crackNumber(self, num: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} ciphertext\n * @return {number}\n */\nvar crackNumber = function(ciphertext) {\n    \n};",
+    "java": "class Solution {\n    public int crackNumber(int ciphertext) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int crackNumber(int ciphertext) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def crackNumber(self, num: int) -> int:\r\n        @cache\r\n        def dfs(i):\r\n            if i >= n - 1:\r\n                return 1\r\n            ans = dfs(i + 1)\r\n            if s[i] == \"1\" or (s[i] == \"2\" and s[i + 1] < \"6\"):\r\n                ans += dfs(i + 2)\r\n            return ans\r\n\r\n        s = str(num)\r\n        n = len(s)\r\n        return dfs(0)\r\n",
+    "javascript": "function crackNumber(num) {\n    const s = num.toString();\n    const n = s.length;\n    const f = new Array(n).fill(0);\n    const dfs = (i) => {\n        if (i >= n - 1) {\n            return 1;\n        }\n        if (f[i]) {\n            return f[i];\n        }\n        let ans = dfs(i + 1);\n        if (s[i] === '1' || (s[i] === '2' && s[i + 1] < '6')) {\n            ans += dfs(i + 2);\n        }\n        f[i] = ans;\n        return ans;\n    };\n    return dfs(0);\n}\n",
+    "java": "class Solution {\r\n    private int n;\r\n    private char[] s;\r\n    private Integer[] f;\r\n\r\n    public int crackNumber(int num) {\r\n        s = String.valueOf(num).toCharArray();\r\n        n = s.length;\r\n        f = new Integer[n];\r\n        return dfs(0);\r\n    }\r\n\r\n    private int dfs(int i) {\r\n        if (i >= n - 1) {\r\n            return 1;\r\n        }\r\n        if (f[i] != null) {\r\n            return f[i];\r\n        }\r\n        int ans = dfs(i + 1);\r\n        if (s[i] == '1' || (s[i] == '2' && s[i + 1] < '6')) {\r\n            ans += dfs(i + 2);\r\n        }\r\n        return f[i] = ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int crackNumber(int num) {\r\n        string s = to_string(num);\r\n        int n = s.size();\r\n        int f[12]{};\r\n        function<int(int)> dfs = [&](int i) -> int {\r\n            if (i >= n - 1) {\r\n                return 1;\r\n            }\r\n            if (f[i]) {\r\n                return f[i];\r\n            }\r\n            int ans = dfs(i + 1);\r\n            if (s[i] == '1' || (s[i] == '2' && s[i + 1] < '6')) {\r\n                ans += dfs(i + 2);\r\n            }\r\n            return f[i] = ans;\r\n        };\r\n        return dfs(0);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9846.%20%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9846.%20%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9846.%20%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9846.%20%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9846.%20%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：解密数字。\n输入：ciphertext（integer）。\n训练提示：**思考**\r \r 每位可单独翻译，两位若在 $10\\sim 25$ 也可合译，方案数满足类似斐波那契的递推，子问题重叠。\r \r 令 $dfs(i)$ 为从位置 $i$ 起的方案数：必加 $dfs(i+1)$，合法双位再加 $dfs(i+2)$。记忆化避免重复。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：记忆化搜索\r\n\r\n\r\n\r\n思考\r\n\r\n每位可单独翻译，两位若在 $10\\sim 25$ 也可合译，方案数满足类似斐波那契的递推，子问题重叠。\r\n\r\n令 $dfs(i)$ 为从位置 $i$ 起的方案数：必加 $dfs(i+1)$，合法双位再加 $dfs(i+2)$。记忆化避免重复。\r\n\r\n\r\n\r\n我们先将数字 `num` 转为字符串 $s$，字符串 $s$ 的长度记为 $n$。\r\n\r\n然后我们设计一个函数 $dfs(i)$，表示从索引为 $i$ 的数字开始的不同翻译的数目。那么答案就是 $dfs(0)$。\r\n\r\n函数 $dfs(i)$ 的计算如下：\r\n\r\n- 如果 $i \\ge n - 1$，说明已经翻译到最后一个数字或者越过最后一个字符，均只有一种翻译方法，返回 $1$；\r\n- 否则，我们可以选择翻译索引为 $i$ 的数字，此时翻译方法数目为 $dfs(i + 1)$；如果索引为 $i$ 的数字和索引为 $i + 1$ 的数字可以组成一个有效的字符（即 $s[i] == 1$ 或者 $s[i] == 2$ 且 $s[i + 1] \\lt 6$），那么我们还可以选择翻译索引为 $i$ 和索引为 $i + 1$ 的数字，此时翻译方法数目为 $dfs(i + 2)$。因此 $dfs(i) = dfs(i+1) + dfs(i+2)$。\r\n\r\n过程中我们可以使用记忆化搜索，将已经计算过的 $dfs(i)$ 的值存储起来，避免重复计算。\r\n\r\n时间复杂度 $O(\\log num)$，空间复杂度 $O(\\log num)$。其中 $num$ 为给定的数字。",
+  "memory": "解密数字 → 记忆化搜索。\n**思考**\r\n\r\n每位可单独翻译，两位若在 $10\\sim 25$ 也可合译，方案数满足类似斐波那契的递推，子问题重叠。\r\n\r\n令 $dfs(i)$ 为从位置 $i$ 起的方案数：必加 $dfs(i+1)$，合法双位再加 $dfs(i+2)$。记忆化避免重复。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

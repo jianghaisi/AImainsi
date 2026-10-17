@@ -1,0 +1,78 @@
+{
+  "number": "面试题 17.10",
+  "adapter": {
+    "name": "majorityElement",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 17.10"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          5,
+          9,
+          5,
+          9,
+          5,
+          5,
+          5
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        [
+          3,
+          2
+        ]
+      ],
+      "expected": -1
+    },
+    {
+      "input": [
+        [
+          2,
+          2,
+          1,
+          1,
+          1,
+          2,
+          2
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def majorityElement(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int majorityElement(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int majorityElement(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def majorityElement(self, nums: List[int]) -> int:\r\n        cnt = m = 0\r\n        for v in nums:\r\n            if cnt == 0:\r\n                m, cnt = v, 1\r\n            else:\r\n                cnt += 1 if m == v else -1\r\n        return m if nums.count(m) > len(nums) // 2 else -1\r\n",
+    "java": "class Solution {\r\n    public int majorityElement(int[] nums) {\r\n        int cnt = 0, m = 0;\r\n        for (int v : nums) {\r\n            if (cnt == 0) {\r\n                m = v;\r\n                cnt = 1;\r\n            } else {\r\n                cnt += (m == v ? 1 : -1);\r\n            }\r\n        }\r\n        cnt = 0;\r\n        for (int v : nums) {\r\n            if (m == v) {\r\n                ++cnt;\r\n            }\r\n        }\r\n        return cnt > nums.length / 2 ? m : -1;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int majorityElement(vector<int>& nums) {\r\n        int cnt = 0, m = 0;\r\n        for (int& v : nums) {\r\n            if (cnt == 0) {\r\n                m = v;\r\n                cnt = 1;\r\n            } else\r\n                cnt += (m == v ? 1 : -1);\r\n        }\r\n        cnt = count(nums.begin(), nums.end(), m);\r\n        return cnt > nums.size() / 2 ? m : -1;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.10.Find%20Majority%20Element/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.10.Find%20Majority%20Element/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.10.Find%20Majority%20Element/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.10.Find%20Majority%20Element/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：主要元素。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 多数元素出现次数超过一半，不存在则返回 $-1$。哈希计数可以得到答案，题目同时希望额外空间为常数。\r \r 摩尔投票：不同的值两两抵消，若存在多数，最后留下的候选必是它。\r \r 第一遍产生候选 $m$，第二遍 `count` 确认是否过半。计数器归零时更换候选人，与经典写法一致。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：摩尔投票法\r\n\r\n\r\n\r\n思考\r\n\r\n多数元素出现次数超过一半，不存在则返回 $-1$。哈希计数可以得到答案，题目同时希望额外空间为常数。\r\n\r\n摩尔投票：不同的值两两抵消，若存在多数，最后留下的候选必是它。\r\n\r\n第一遍产生候选 $m$，第二遍 `count` 确认是否过半。计数器归零时更换候选人，与经典写法一致。\r\n\r\n\r\n\r\n摩尔投票法的基本步骤如下：\r\n\r\n初始化元素 $m$，并给计数器 $cnt$ 赋初值 $cnt=0$。对于输入列表中每一个元素 $x$：\r\n\r\n1. 若 $cnt=0$，那么 $m=x$ and $cnt=1$；\r\n1. 否则若 $m=x$，那么 $cnt=cnt+1$；\r\n1. 否则 $cnt=cnt-1$。\r\n\r\n一般而言，摩尔投票法需要对输入的列表进行两次遍历。在第一次遍历中，我们生成候选值 $m$，如果存在多数，那么该候选值就是多数值。在第二次遍历中，只需要简单地计算候选值的频率，以确认是否是多数值。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(1)$。",
+  "memory": "主要元素 → 摩尔投票法。\n**思考**\r\n\r\n多数元素出现次数超过一半，不存在则返回 $-1$。哈希计数可以得到答案，题目同时希望额外空间为常数。\r\n\r\n摩尔投票：不同的值两两抵消，若存在多数，最后留下的候选必是它。\r\n\r\n第一遍产生候选 $m$，第二遍 `count` 确认是否过半。计数器归零时更换候选人，与经典写法一致。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

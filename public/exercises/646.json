@@ -1,0 +1,80 @@
+{
+  "number": "646",
+  "adapter": {
+    "name": "findLongestChain",
+    "params": [
+      {
+        "name": "pairs",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "646"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            7,
+            8
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findLongestChain(self, pairs: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} pairs\n * @return {number}\n */\nvar findLongestChain = function(pairs) {\n    \n};",
+    "java": "class Solution {\n    public int findLongestChain(int[][] pairs) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findLongestChain(vector<vector<int>>& pairs) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findLongestChain(self, pairs: List[List[int]]) -> int:\r\n        pairs.sort(key=lambda x: x[1])\r\n        ans, pre = 0, -inf\r\n        for a, b in pairs:\r\n            if pre < a:\r\n                ans += 1\r\n                pre = b\r\n        return ans\r\n",
+    "javascript": "function findLongestChain(pairs) {\n    pairs.sort((a, b) => a[1] - b[1]);\n    let [ans, pre] = [0, -Infinity];\n    for (const [a, b] of pairs) {\n        if (pre < a) {\n            ++ans;\n            pre = b;\n        }\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int findLongestChain(int[][] pairs) {\r\n        Arrays.sort(pairs, (a, b) -> Integer.compare(a[1], b[1]));\r\n        int ans = 0, pre = Integer.MIN_VALUE;\r\n        for (var p : pairs) {\r\n            if (pre < p[0]) {\r\n                ++ans;\r\n                pre = p[1];\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    int findLongestChain(vector<vector<int>>& pairs) {\r\n        ranges::sort(pairs, {}, [](const auto& p) { return p[1]; });\r\n        int ans = 0, pre = INT_MIN;\r\n        for (const auto& p : pairs) {\r\n            if (pre < p[0]) {\r\n                pre = p[1];\r\n                ++ans;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0646.Maximum%20Length%20of%20Pair%20Chain/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0646.Maximum%20Length%20of%20Pair%20Chain/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0646.Maximum%20Length%20of%20Pair%20Chain/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0646.Maximum%20Length%20of%20Pair%20Chain/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0646.Maximum%20Length%20of%20Pair%20Chain/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最长数对链。\n输入：pairs（integer[][]）。\n训练提示：**思考**\r \r 数对链要求严格递增，类似最长递增子序列，DP 为 $O(n^2)$，对数可达 $10^3$ 以上时希望更快。\r \r 按右端点排序后，能接就接：右端越小越容易再接后面的对。一次扫描即得多条链的最大长度。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序 + 贪心\r\n\r\n\r\n\r\n思考\r\n\r\n数对链要求严格递增，类似最长递增子序列，DP 为 $O(n^2)$，对数可达 $10^3$ 以上时希望更快。\r\n\r\n按右端点排序后，能接就接：右端越小越容易再接后面的对。一次扫描即得多条链的最大长度。\r\n\r\n\r\n\r\n我们将所有数对按照第二个数的升序排序，用一个变量 $\\textit{pre}$ 维护已经选择的数对的第二个数的最大值。\r\n\r\n遍历排序后的数对，如果当前数对的第一个数大于 $\\textit{pre}$，那么我们可以贪心地选择当前数对，答案加一，并将 $\\textit{pre}$ 更新为当前数对的第二个数。\r\n\r\n遍历结束后，返回答案即可。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(\\log n)$。其中 $n$ 为数对的数量。",
+  "memory": "最长数对链 → 排序 + 贪心。\n**思考**\r\n\r\n数对链要求严格递增，类似最长递增子序列，DP 为 $O(n^2)$，对数可达 $10^3$ 以上时希望更快。\r\n\r\n按右端点排序后，能接就接：右端越小越容易再接后面的对。一次扫描即得多条链的最大长度。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

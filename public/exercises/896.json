@@ -1,0 +1,74 @@
+{
+  "number": "896",
+  "adapter": {
+    "name": "isMonotonic",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "896"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          2,
+          3
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          6,
+          5,
+          4,
+          4
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def isMonotonic(self, nums: List[int]) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {boolean}\n */\nvar isMonotonic = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public boolean isMonotonic(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isMonotonic(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def isMonotonic(self, nums: List[int]) -> bool:\r\n        asc = all(a <= b for a, b in pairwise(nums))\r\n        desc = all(a >= b for a, b in pairwise(nums))\r\n        return asc or desc\r\n",
+    "javascript": "function isMonotonic(nums) {\n    let [asc, desc] = [false, false];\n    for (let i = 1; i < nums.length; ++i) {\n        if (nums[i - 1] < nums[i]) {\n            asc = true;\n        }\n        else if (nums[i - 1] > nums[i]) {\n            desc = true;\n        }\n        if (asc && desc) {\n            return false;\n        }\n    }\n    return true;\n}\n",
+    "java": "class Solution {\r\n    public boolean isMonotonic(int[] nums) {\r\n        boolean asc = false, desc = false;\r\n        for (int i = 1; i < nums.length; ++i) {\r\n            if (nums[i - 1] < nums[i]) {\r\n                asc = true;\r\n            } else if (nums[i - 1] > nums[i]) {\r\n                desc = true;\r\n            }\r\n            if (asc && desc) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool isMonotonic(vector<int>& nums) {\r\n        bool asc = false, desc = false;\r\n        for (int i = 1; i < nums.size(); ++i) {\r\n            if (nums[i - 1] < nums[i]) {\r\n                asc = true;\r\n            } else if (nums[i - 1] > nums[i]) {\r\n                desc = true;\r\n            }\r\n            if (asc && desc) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0896.Monotonic%20Array/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0896.Monotonic%20Array/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0896.Monotonic%20Array/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0896.Monotonic%20Array/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0896.Monotonic%20Array/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：单调数列。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 判断数组是否单调不降或不升。 $n\\le 10^5$，一次遍历同时检查两种方向即可。\r \r 相邻两两比较，分别验证是否全 $\\le$ 或全 $\\ge$，满足其一即为单调。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：一次遍历\r\n\r\n\r\n\r\n思考\r\n\r\n判断数组是否单调不降或不升。 $n\\le 10^5$，一次遍历同时检查两种方向即可。\r\n\r\n相邻两两比较，分别验证是否全 $\\le$ 或全 $\\ge$，满足其一即为单调。\r\n\r\n\r\n\r\n遍历数组，如果出现递增或递减的情况，记录下来。判断是否出现过递增和递减的情况，如果都出现过，说明不是单调数组，返回 `false`。\r\n\r\n否则遍历结束，说明是单调数组，返回 `true`。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 为数组长度。空间复杂度 $O(1)$。",
+  "memory": "单调数列 → 一次遍历。\n**思考**\r\n\r\n判断数组是否单调不降或不升。 $n\\le 10^5$，一次遍历同时检查两种方向即可。\r\n\r\n相邻两两比较，分别验证是否全 $\\le$ 或全 $\\ge$，满足其一即为单调。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,60 @@
+{
+  "number": "LCR 092",
+  "adapter": {
+    "name": "minFlipsMonoIncr",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 092"
+  },
+  "tests": [
+    {
+      "input": [
+        "00110"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "010110"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "00011000"
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def minFlipsMonoIncr(self, s: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @return {number}\n */\nvar minFlipsMonoIncr = function(s) {\n\n};",
+    "java": "class Solution {\n    public int minFlipsMonoIncr(String s) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minFlipsMonoIncr(string s) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def minFlipsMonoIncr(self, s: str) -> int:\r\n        left0, right0 = 0, s.count(\"0\")\r\n        n = len(s)\r\n        ans = min(right0, n - right0)\r\n        for i, c in enumerate(s, 1):\r\n            x = int(c)\r\n            right0 -= x ^ 1\r\n            left0 += x ^ 1\r\n            ans = min(ans, i - left0 + right0)\r\n        return ans\r\n",
+    "javascript": "function minFlipsMonoIncr(s) {\n    const n = s.length;\n    let [left0, right0] = [0, 0];\n    for (const c of s) {\n        right0 += c === '0' ? 1 : 0;\n    }\n    let ans = Math.min(right0, n - right0);\n    for (let i = 1; i <= n; ++i) {\n        const x = s[i - 1] === '0' ? 0 : 1;\n        right0 -= x ^ 1;\n        left0 += x ^ 1;\n        ans = Math.min(ans, i - left0 + right0);\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int minFlipsMonoIncr(String s) {\r\n        int n = s.length();\r\n        int left0 = 0, right0 = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            if (s.charAt(i) == '0') {\r\n                ++right0;\r\n            }\r\n        }\r\n        int ans = Math.min(right0, n - right0);\r\n        for (int i = 1; i <= n; ++i) {\r\n            int x = s.charAt(i - 1) == '0' ? 0 : 1;\r\n            right0 -= x ^ 1;\r\n            left0 += x ^ 1;\r\n            ans = Math.min(ans, i - left0 + right0);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int minFlipsMonoIncr(string s) {\r\n        int n = s.size();\r\n        int left0 = 0, right0 = 0;\r\n        for (char& c : s) {\r\n            right0 += c == '0';\r\n        }\r\n        int ans = min(right0, n - right0);\r\n        for (int i = 1; i <= n; ++i) {\r\n            int x = s[i - 1] == '1';\r\n            right0 -= x ^ 1;\r\n            left0 += x ^ 1;\r\n            ans = min(ans, i - left0 + right0);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20092.%20%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20092.%20%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20092.%20%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20092.%20%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20092.%20%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：将字符串翻转到单调递增。\n输入：s（string）。\n训练提示：**思考**\r \r 把串变成单调不减的 $01$ 串。最终形态必是若干 $0$ 后接若干 $1$（含全 $0$ 或全 $1$）。\r \r 枚举分界位置：分界左侧的 $1$ 与右侧的 $0$ 需要翻转。预处理右侧 $0$ 的个数，从左扫到右时即可在线性时间内更新两侧计数并取最小翻转次数。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：枚举\r\n\r\n\r\n\r\n思考\r\n\r\n把串变成单调不减的 $01$ 串。最终形态必是若干 $0$ 后接若干 $1$（含全 $0$ 或全 $1$）。\r\n\r\n枚举分界位置：分界左侧的 $1$ 与右侧的 $0$ 需要翻转。预处理右侧 $0$ 的个数，从左扫到右时即可在线性时间内更新两侧计数并取最小翻转次数。\r\n\r\n\r\n\r\n我们先预处理得到右侧的 $0$ 的个数，记为 $right0$，初始化一个变量 $left0$，表示左侧的 $0$ 的个数。如果最终字符串变成全 `'0'` 或者全 `'1'`，那么答案为 $ans= \\min(right0, n - right0)$。\r\n\r\n接下来，我们枚举每个位置作为 `'0'` 和 `'1'` 的分界点（约定分界点为 `'0'`），计算出以当前位置为分界点的答案，最后取最小值即可。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 是字符串的长度。空间复杂度 $O(1)$。",
+  "memory": "将字符串翻转到单调递增 → 枚举。\n**思考**\r\n\r\n把串变成单调不减的 $01$ 串。最终形态必是若干 $0$ 后接若干 $1$（含全 $0$ 或全 $1$）。\r\n\r\n枚举分界位置：分界左侧的 $1$ 与右侧的 $0$ 需要翻转。预处理右侧 $0$ 的个数，从左扫到右时即可在线性时间内更新两侧计数并取最小翻转次数。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

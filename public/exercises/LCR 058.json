@@ -1,0 +1,95 @@
+{
+  "number": "LCR 058",
+  "adapter": {
+    "classname": "MyCalendar",
+    "maxbytesperline": 200000,
+    "systemdesign": true,
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "name": "book",
+        "params": [
+          {
+            "name": "start",
+            "type": "integer"
+          },
+          {
+            "name": "end",
+            "type": "integer"
+          }
+        ],
+        "return": {
+          "type": "boolean"
+        }
+      }
+    ],
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "LCR 058"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "MyCalendar",
+          "book",
+          "book",
+          "book"
+        ],
+        [
+          [],
+          [
+            10,
+            20
+          ],
+          [
+            15,
+            25
+          ],
+          [
+            20,
+            30
+          ]
+        ]
+      ],
+      "expected": [
+        null,
+        true,
+        false,
+        true
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class MyCalendar:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def book(self, start, end):\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class MyCalendar {\n\n    public MyCalendar() {\n\n    }\n    \n    public boolean book(int start, int end) {\n\n    }\n}\n\n/**\n * Your MyCalendar object will be instantiated and called as such:\n * MyCalendar obj = new MyCalendar();\n * boolean param_1 = obj.book(start,end);\n */"
+  },
+  "solutions": {
+    "python": "class MyCalendar:\n    def __init__(self): self.intervals=[]\n    def book(self,start,end):\n        i=bisect_left(self.intervals,(start,end))\n        if i and self.intervals[i-1][1]>start:return False\n        if i<len(self.intervals) and self.intervals[i][0]<end:return False\n        self.intervals.insert(i,(start,end));return True\n",
+    "java": "class MyCalendar {\r\n\r\n    private final TreeMap<Integer, Integer> tm = new TreeMap<>();\r\n\r\n    public MyCalendar() {\r\n    }\r\n\r\n    public boolean book(int start, int end) {\r\n        Map.Entry<Integer, Integer> ent = tm.floorEntry(start);\r\n        if (ent != null && ent.getValue() > start) {\r\n            return false;\r\n        }\r\n        ent = tm.ceilingEntry(start);\r\n        if (ent != null && ent.getKey() < end) {\r\n            return false;\r\n        }\r\n        tm.put(start, end);\r\n        return true;\r\n    }\r\n}\r\n\r\n/**\r\n * Your MyCalendar object will be instantiated and called as such: MyCalendar\r\n * obj = new MyCalendar(); boolean param_1 = obj.book(start,end);\r\n */\r\n"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20058.%20%E6%97%A5%E7%A8%8B%E8%A1%A8/Solution.java"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20058.%20%E6%97%A5%E7%A8%8B%E8%A1%A8/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：我的日程安排表 I。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 预约区间不可重叠。每次插入都扫描已有区间，预约次数增多后是平方级的。\r \r 有序表按结束时间存放区间。用 $\\textit{start}$ 找到第一个结束时间大于它的区间，若该区间的开始早于当前结束则冲突。否则以结束时间为键插入。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "按开始时间保存互不重叠的半开区间 [start,end)。二分找到插入位置，只需比较前一区间的结束与后一区间的开始。端点相等不冲突。本实现使用有序数组，每次预约的插入成本 O(n)，查询位置 O(log n)，空间 O(n)。",
+  "memory": "我的日程安排表 I → 方法一。\n**思考**\r\n\r\n预约区间不可重叠。每次插入都扫描已有区间，预约次数增多后是平方级的。\r\n\r\n有序表按结束时间存放区间。用 $\\textit{start}$ 找到第一个结束时间大于它的区间，若该区间的开始早于当前结束则冲突。否则以结束时间为键插入。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,57 @@
+{
+  "number": "LCR 122",
+  "adapter": {
+    "name": "pathEncryption",
+    "params": [
+      {
+        "name": "path",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "LCR 122"
+  },
+  "tests": [
+    {
+      "input": [
+        "a.aef.qerf.bb"
+      ],
+      "expected": "a aef qerf bb"
+    },
+    {
+      "input": [
+        ""
+      ],
+      "expected": ""
+    },
+    {
+      "input": [
+        "plain"
+      ],
+      "expected": "plain"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def pathEncryption(self, path: str) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} path\n * @return {string}\n */\nvar pathEncryption = function(path) {\n    \n};",
+    "java": "class Solution {\n    public String pathEncryption(String path) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string pathEncryption(string path) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def pathEncryption(self, path: str) -> str:\n        return path.replace(\".\", \" \")\n",
+    "javascript": "function pathEncryption(path) { return path.replaceAll(\".\", \" \"); }"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "javascript": "序列原创适配",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9805.%20%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9805.%20%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideLicense": "MIT",
+  "description": "将路径字符串中的每个英文句点 . 替换成一个空格，其他字符保持原样。返回替换后的字符串。",
+  "explanation": "逐字符扫描，遇到句点输出空格，否则输出原字符。时间 O(n)，返回新字符串需要 O(n) 空间。",
+  "memory": "路径分隔符是句点，不是原版 Offer 的空格。用 a.b → a b 和空字符串校验方向，记住“只改分隔符”。"
+}

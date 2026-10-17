@@ -1,0 +1,61 @@
+{
+  "number": "LCR 035",
+  "adapter": {
+    "name": "findMinDifference",
+    "params": [
+      {
+        "name": "timePoints",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 035"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "23:59",
+          "00:00"
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          "00:00",
+          "23:59",
+          "00:00"
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findMinDifference(self, timePoints: List[str]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[]} timePoints\n * @return {number}\n */\nvar findMinDifference = function(timePoints) {\n\n};",
+    "java": "class Solution {\n    public int findMinDifference(List<String> timePoints) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findMinDifference(vector<string>& timePoints) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findMinDifference(self, timePoints: List[str]) -> int:\r\n        if len(timePoints) > 1440:\r\n            return 0\r\n        nums = sorted(int(x[:2]) * 60 + int(x[3:]) for x in timePoints)\r\n        nums.append(nums[0] + 1440)\r\n        return min(b - a for a, b in pairwise(nums))\r\n",
+    "javascript": "function findMinDifference(timePoints) {\n    if (timePoints.length > 1440) {\n        return 0;\n    }\n    const n = timePoints.length;\n    const nums = Array(n + 1);\n    for (let i = 0; i < n; ++i) {\n        const [hours, minutes] = timePoints[i].split(':').map(Number);\n        nums[i] = hours * 60 + minutes;\n    }\n    nums.sort((a, b) => a - b);\n    nums[n] = nums[0] + 1440;\n    let ans = 1 << 30;\n    for (let i = 1; i <= n; ++i) {\n        ans = Math.min(ans, nums[i] - nums[i - 1]);\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int findMinDifference(List<String> timePoints) {\r\n        if (timePoints.size() > 1440) {\r\n            return 0;\r\n        }\r\n        int n = timePoints.size();\r\n        int[] nums = new int[n + 1];\r\n        for (int i = 0; i < n; ++i) {\r\n            String[] t = timePoints.get(i).split(\":\");\r\n            nums[i] = Integer.parseInt(t[0]) * 60 + Integer.parseInt(t[1]);\r\n        }\r\n        Arrays.sort(nums, 0, n);\r\n        nums[n] = nums[0] + 1440;\r\n        int ans = 1 << 30;\r\n        for (int i = 1; i <= n; ++i) {\r\n            ans = Math.min(ans, nums[i] - nums[i - 1]);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int findMinDifference(vector<string>& timePoints) {\r\n        if (timePoints.size() > 1440) {\r\n            return 0;\r\n        }\r\n        int n = timePoints.size();\r\n        vector<int> nums(n + 1);\r\n        for (int i = 0; i < n; ++i) {\r\n            int hours = stoi(timePoints[i].substr(0, 2));\r\n            int minutes = stoi(timePoints[i].substr(3, 2));\r\n            nums[i] = hours * 60 + minutes;\r\n        }\r\n        sort(nums.begin(), nums.begin() + n);\r\n        nums[n] = nums[0] + 1440;\r\n        int ans = INT_MAX;\r\n        for (int i = 1; i <= n; ++i) {\r\n            ans = min(ans, nums[i] - nums[i - 1]);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20035.%20%E6%9C%80%E5%B0%8F%E6%97%B6%E9%97%B4%E5%B7%AE/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20035.%20%E6%9C%80%E5%B0%8F%E6%97%B6%E9%97%B4%E5%B7%AE/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20035.%20%E6%9C%80%E5%B0%8F%E6%97%B6%E9%97%B4%E5%B7%AE/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20035.%20%E6%9C%80%E5%B0%8F%E6%97%B6%E9%97%B4%E5%B7%AE/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20035.%20%E6%9C%80%E5%B0%8F%E6%97%B6%E9%97%B4%E5%B7%AE/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最小时间差。\n输入：timePoints（string[]）。\n训练提示：**思考**\r \r 求时间点之间的最小分钟差。一天只有 $1440$ 个不同时刻，点数超过该值必有重复，差为 $0$。\r \r 化为分钟后排序，相邻差的最小值即候选答案。一天是环，还要把最小时刻加 $1440$ 接到末尾，以覆盖跨午夜的那一对。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序\r\n\r\n\r\n\r\n思考\r\n\r\n求时间点之间的最小分钟差。一天只有 $1440$ 个不同时刻，点数超过该值必有重复，差为 $0$。\r\n\r\n化为分钟后排序，相邻差的最小值即候选答案。一天是环，还要把最小时刻加 $1440$ 接到末尾，以覆盖跨午夜的那一对。\r\n\r\n\r\n\r\n我们注意到，时间点最多只有 $24 \\times 60 = 1440$ 个，因此，当 $timePoints$ 长度超过 $1440$，说明有重复的时间点，提前返回 $0$。\r\n\r\n接下来，我们首先遍历时间列表，将其转换为“分钟制”列表 $nums$，比如，对于时间点 `13:14`，将其转换为 $13 \\times 60 + 14$。\r\n\r\n接着将“分钟制”列表按升序排列，然后将此列表的最小时间 $nums[0]$ 加上 $1440$ 追加至列表尾部，用于处理最大值、最小值的差值这种特殊情况。\r\n\r\n最后遍历“分钟制”列表，找出相邻两个时间的最小值即可。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(n)$。其中 $n$ 为时间点个数。",
+  "memory": "最小时间差 → 排序。\n**思考**\r\n\r\n求时间点之间的最小分钟差。一天只有 $1440$ 个不同时刻，点数超过该值必有重复，差为 $0$。\r\n\r\n化为分钟后排序，相邻差的最小值即候选答案。一天是环，还要把最小时刻加 $1440$ 接到末尾，以覆盖跨午夜的那一对。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

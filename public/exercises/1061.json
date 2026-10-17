@@ -1,0 +1,74 @@
+{
+  "number": "1061",
+  "adapter": {
+    "name": "smallestEquivalentString",
+    "params": [
+      {
+        "name": "s1",
+        "type": "string"
+      },
+      {
+        "name": "s2",
+        "type": "string"
+      },
+      {
+        "name": "baseStr",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "1061"
+  },
+  "tests": [
+    {
+      "input": [
+        "parker",
+        "morris",
+        "parser"
+      ],
+      "expected": "makkek"
+    },
+    {
+      "input": [
+        "hello",
+        "world",
+        "hold"
+      ],
+      "expected": "hdld"
+    },
+    {
+      "input": [
+        "leetcode",
+        "programs",
+        "sourcecode"
+      ],
+      "expected": "aauaaaaada"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def smallestEquivalentString(self, s1: str, s2: str, baseStr: str) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s1\n * @param {string} s2\n * @param {string} baseStr\n * @return {string}\n */\nvar smallestEquivalentString = function(s1, s2, baseStr) {\n    \n};",
+    "java": "class Solution {\n    public String smallestEquivalentString(String s1, String s2, String baseStr) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string smallestEquivalentString(string s1, string s2, string baseStr) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def smallestEquivalentString(self, s1: str, s2: str, baseStr: str) -> str:\r\n        def find(x: int) -> int:\r\n            if p[x] != x:\r\n                p[x] = find(p[x])\r\n            return p[x]\r\n\r\n        p = list(range(26))\r\n        for a, b in zip(s1, s2):\r\n            x, y = ord(a) - ord(\"a\"), ord(b) - ord(\"a\")\r\n            px, py = find(x), find(y)\r\n            if px < py:\r\n                p[py] = px\r\n            else:\r\n                p[px] = py\r\n        return \"\".join(chr(find(ord(c) - ord(\"a\")) + ord(\"a\")) for c in baseStr)\r\n",
+    "javascript": "function smallestEquivalentString(s1, s2, baseStr) {\n    const p = Array.from({ length: 26 }, (_, i) => i);\n    const find = (x) => {\n        if (p[x] !== x) {\n            p[x] = find(p[x]);\n        }\n        return p[x];\n    };\n    for (let i = 0; i < s1.length; i++) {\n        const x = s1.charCodeAt(i) - 'a'.charCodeAt(0);\n        const y = s2.charCodeAt(i) - 'a'.charCodeAt(0);\n        const px = find(x);\n        const py = find(y);\n        if (px < py) {\n            p[py] = px;\n        }\n        else {\n            p[px] = py;\n        }\n    }\n    const s = [];\n    for (let i = 0; i < baseStr.length; i++) {\n        const c = baseStr.charCodeAt(i) - 'a'.charCodeAt(0);\n        s.push(String.fromCharCode('a'.charCodeAt(0) + find(c)));\n    }\n    return s.join('');\n}\n",
+    "java": "class Solution {\r\n    private final int[] p = new int[26];\r\n\r\n    public String smallestEquivalentString(String s1, String s2, String baseStr) {\r\n        for (int i = 0; i < p.length; ++i) {\r\n            p[i] = i;\r\n        }\r\n        for (int i = 0; i < s1.length(); ++i) {\r\n            int x = s1.charAt(i) - 'a';\r\n            int y = s2.charAt(i) - 'a';\r\n            int px = find(x), py = find(y);\r\n            if (px < py) {\r\n                p[py] = px;\r\n            } else {\r\n                p[px] = py;\r\n            }\r\n        }\r\n        char[] s = baseStr.toCharArray();\r\n        for (int i = 0; i < s.length; ++i) {\r\n            s[i] = (char) ('a' + find(s[i] - 'a'));\r\n        }\r\n        return String.valueOf(s);\r\n    }\r\n\r\n    private int find(int x) {\r\n        if (p[x] != x) {\r\n            p[x] = find(p[x]);\r\n        }\r\n        return p[x];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    string smallestEquivalentString(string s1, string s2, string baseStr) {\r\n        vector<int> p(26);\r\n        iota(p.begin(), p.end(), 0);\r\n        auto find = [&](this auto&& find, int x) -> int {\r\n            if (p[x] != x) {\r\n                p[x] = find(p[x]);\r\n            }\r\n            return p[x];\r\n        };\r\n        for (int i = 0; i < s1.length(); ++i) {\r\n            int x = s1[i] - 'a';\r\n            int y = s2[i] - 'a';\r\n            int px = find(x), py = find(y);\r\n            if (px < py) {\r\n                p[py] = px;\r\n            } else {\r\n                p[px] = py;\r\n            }\r\n        }\r\n        string s;\r\n        for (char c : baseStr) {\r\n            s.push_back('a' + find(c - 'a'));\r\n        }\r\n        return s;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1061.Lexicographically%20Smallest%20Equivalent%20String/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1061.Lexicographically%20Smallest%20Equivalent%20String/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1061.Lexicographically%20Smallest%20Equivalent%20String/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1061.Lexicographically%20Smallest%20Equivalent%20String/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1061.Lexicographically%20Smallest%20Equivalent%20String/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：按字典序排列最小的等效字符串。\n输入：s1（string）、s2（string）、baseStr（string）。\n训练提示：**思考**\r \r 等价关系可传递，要把 $baseStr$ 每个字符换成其所在等价类的最小字母。 $26$ 个字母用并查集维护连通分量即可。\r \r 合并 $s1[i]$ 与 $s2[i]$ 时，总是把较大的根挂到较小的根上，使代表元即字典序最小字符。\r \r 最后对 $baseStr$ 每个字符输出其根对应的字母。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：并查集\r\n\r\n\r\n\r\n思考\r\n\r\n等价关系可传递，要把 $baseStr$ 每个字符换成其所在等价类的最小字母。 $26$ 个字母用并查集维护连通分量即可。\r\n\r\n合并 $s1[i]$ 与 $s2[i]$ 时，总是把较大的根挂到较小的根上，使代表元即字典序最小字符。\r\n\r\n最后对 $baseStr$ 每个字符输出其根对应的字母。\r\n\r\n\r\n\r\n我们可以使用并查集来处理等价字符的关系。每个字符可以看作一个节点，等价关系可以看作是连接这些节点的边。通过并查集，我们可以将所有等价的字符归为一类，并且在查询时能够快速找到每个字符的代表元素。我们在进行合并操作时，始终将代表元素设置为字典序最小的字符，这样可以确保最终得到的字符串是按字典序排列的最小等价字符串。\r\n\r\n时间复杂度 $O((n + m) \\times \\log |\\Sigma|)$，空间复杂度 $O(|\\Sigma|)$。其中 $n$ 是字符串 $s1$ 和 $s2$ 的长度，而 $m$ 是字符串 $baseStr$ 的长度，而 $|\\Sigma|$ 是字符集的大小，本题中 $|\\Sigma| = 26$。",
+  "memory": "按字典序排列最小的等效字符串 → 并查集。\n**思考**\r\n\r\n等价关系可传递，要把 $baseStr$ 每个字符换成其所在等价类的最小字母。 $26$ 个字母用并查集维护连通分量即可。\r\n\r\n合并 $s1[i]$ 与 $s2[i]$ 时，总是把较大的根挂到较小的根上，使代表元即字典序最小字符。\r\n\r\n最后对 $baseStr$ 每个字符输出其根对应的字母。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

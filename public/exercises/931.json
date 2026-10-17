@@ -1,0 +1,79 @@
+{
+  "number": "931",
+  "adapter": {
+    "name": "minFallingPathSum",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "931"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            6,
+            5,
+            4
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ]
+      ],
+      "expected": 13
+    },
+    {
+      "input": [
+        [
+          [
+            -19,
+            57
+          ],
+          [
+            -40,
+            -5
+          ]
+        ]
+      ],
+      "expected": -59
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def minFallingPathSum(self, matrix: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} matrix\n * @return {number}\n */\nvar minFallingPathSum = function(matrix) {\n    \n};",
+    "java": "class Solution {\n    public int minFallingPathSum(int[][] matrix) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minFallingPathSum(vector<vector<int>>& matrix) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def minFallingPathSum(self, matrix: List[List[int]]) -> int:\r\n        n = len(matrix)\r\n        f = [0] * n\r\n        for row in matrix:\r\n            g = [0] * n\r\n            for j, x in enumerate(row):\r\n                l, r = max(0, j - 1), min(n, j + 2)\r\n                g[j] = min(f[l:r]) + x\r\n            f = g\r\n        return min(f)\r\n",
+    "javascript": "function minFallingPathSum(matrix) {\n    const n = matrix.length;\n    const f = new Array(n).fill(0);\n    for (const row of matrix) {\n        const g = f.slice();\n        for (let j = 0; j < n; ++j) {\n            if (j > 0) {\n                g[j] = Math.min(g[j], f[j - 1]);\n            }\n            if (j + 1 < n) {\n                g[j] = Math.min(g[j], f[j + 1]);\n            }\n            g[j] += row[j];\n        }\n        f.splice(0, n, ...g);\n    }\n    return Math.min(...f);\n}\n",
+    "java": "class Solution {\r\n    public int minFallingPathSum(int[][] matrix) {\r\n        int n = matrix.length;\r\n        var f = new int[n];\r\n        for (var row : matrix) {\r\n            var g = f.clone();\r\n            for (int j = 0; j < n; ++j) {\r\n                if (j > 0) {\r\n                    g[j] = Math.min(g[j], f[j - 1]);\r\n                }\r\n                if (j + 1 < n) {\r\n                    g[j] = Math.min(g[j], f[j + 1]);\r\n                }\r\n                g[j] += row[j];\r\n            }\r\n            f = g;\r\n        }\r\n        // return Arrays.stream(f).min().getAsInt();\r\n        int ans = 1 << 30;\r\n        for (int x : f) {\r\n            ans = Math.min(ans, x);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int minFallingPathSum(vector<vector<int>>& matrix) {\r\n        int n = matrix.size();\r\n        vector<int> f(n);\r\n        for (auto& row : matrix) {\r\n            auto g = f;\r\n            for (int j = 0; j < n; ++j) {\r\n                if (j) {\r\n                    g[j] = min(g[j], f[j - 1]);\r\n                }\r\n                if (j + 1 < n) {\r\n                    g[j] = min(g[j], f[j + 1]);\r\n                }\r\n                g[j] += row[j];\r\n            }\r\n            f = move(g);\r\n        }\r\n        return *min_element(f.begin(), f.end());\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0931.Minimum%20Falling%20Path%20Sum/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0931.Minimum%20Falling%20Path%20Sum/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0931.Minimum%20Falling%20Path%20Sum/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0931.Minimum%20Falling%20Path%20Sum/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0931.Minimum%20Falling%20Path%20Sum/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：下降路径最小和。\n输入：matrix（integer[][]）。\n训练提示：**思考**\r \r 下降路径每步只能走到下一行相邻三列， $n\\le 100$。枚举全部路径不可行。到达 $(i,j)$ 的最小和只依赖上一行 $j-1,j,j+1$。逐行递推，并用一维数组滚动，空间降为 $O(n)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划（滚动数组）\r\n\r\n\r\n\r\n思考\r\n\r\n下降路径每步只能走到下一行相邻三列， $n\\le 100$。枚举全部路径不可行。到达 $(i,j)$ 的最小和只依赖上一行 $j-1,j,j+1$。逐行递推，并用一维数组滚动，空间降为 $O(n)$。\r\n\r\n\r\n\r\n定义 $f[i][j]$ 表示从第一行下降到第 $i$ 行第 $j$ 列的最小路径和：\r\n\r\n$$\r\nf[i][j] = \\textit{matrix}[i][j] + \\min \\left\\{ \\begin{aligned} & f[i - 1][j - 1], & j > 0 \\\\ & f[i - 1][j], & 0 \\leq j < n \\\\ & f[i - 1][j + 1], & j + 1 < n \\end{aligned} \\right.\r\n$$\r\n\r\n答案为 $\\min_{0 \\leq j < n} f[n - 1][j]$。\r\n\r\n$f[i][j]$ 只依赖上一行，因此只用两个长度为 $n$ 的一维数组 $f$、 $g$ 滚动即可。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n)$。其中 $n$ 是矩阵的边长。",
+  "memory": "下降路径最小和 → 动态规划（滚动数组）。\n**思考**\r\n\r\n下降路径每步只能走到下一行相邻三列， $n\\le 100$。枚举全部路径不可行。到达 $(i,j)$ 的最小和只依赖上一行 $j-1,j,j+1$。逐行递推，并用一维数组滚动，空间降为 $O(n)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

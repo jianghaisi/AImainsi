@@ -1,0 +1,54 @@
+{
+  "number": "面试题 16.05",
+  "adapter": {
+    "name": "trailingZeroes",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 16.05"
+  },
+  "tests": [
+    {
+      "input": [
+        3
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        5
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def trailingZeroes(self, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @return {number}\n */\nvar trailingZeroes = function(n) {\n    \n};",
+    "java": "class Solution {\n    public int trailingZeroes(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int trailingZeroes(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def trailingZeroes(self, n: int) -> int:\r\n        ans = 0\r\n        while n:\r\n            n //= 5\r\n            ans += n\r\n        return ans\r\n",
+    "javascript": "function trailingZeroes(n) {\n    let ans = 0;\n    while (n) {\n        n = Math.floor(n / 5);\n        ans += n;\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int trailingZeroes(int n) {\r\n        int ans = 0;\r\n        while (n > 0) {\r\n            n /= 5;\r\n            ans += n;\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int trailingZeroes(int n) {\r\n        int ans = 0;\r\n        while (n) {\r\n            n /= 5;\r\n            ans += n;\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.05.Factorial%20Zeros/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.05.Factorial%20Zeros/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.05.Factorial%20Zeros/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.05.Factorial%20Zeros/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.05.Factorial%20Zeros/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：阶乘尾数。\n输入：n（integer）。\n训练提示：**思考**\r \r $n!$ 末尾零来自因子 $10=2\\times 5$，而 $2$ 远比 $5$ 多，故零的个数等于 $[1,n]$ 中 $5$ 的个数（含 $25$、 $125$ 等更高次）。\r \r 直接算阶乘再数零在 $n$ 稍大时溢出。\r \r 反复 $n//=5$ 并累加，分别计入 $5$、 $5^2$、 $5^3\\ldots$ 的贡献，时间 $O(\\log n)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：数学\r\n\r\n\r\n\r\n思考\r\n\r\n$n!$ 末尾零来自因子 $10=2\\times 5$，而 $2$ 远比 $5$ 多，故零的个数等于 $[1,n]$ 中 $5$ 的个数（含 $25$、 $125$ 等更高次）。\r\n\r\n直接算阶乘再数零在 $n$ 稍大时溢出。\r\n\r\n反复 $n//=5$ 并累加，分别计入 $5$、 $5^2$、 $5^3\\ldots$ 的贡献，时间 $O(\\log n)$。\r\n\r\n\r\n\r\n题目实际上是求 $[1,n]$ 中有多少个 $5$ 的因数。\r\n\r\n我们以 $130$ 为例来分析：\r\n\r\n1. 第 $1$ 次除以 $5$，得到 $26$，表示存在 $26$ 个包含因数 $5$ 的数；\r\n1. 第 $2$ 次除以 $5$，得到 $5$，表示存在 $5$ 个包含因数 $5^2$ 的数；\r\n1. 第 $3$ 次除以 $5$，得到 $1$，表示存在 $1$ 个包含因数 $5^3$ 的数；\r\n1. 累加得到从 $[1,n]$ 中所有 $5$ 的因数的个数。\r\n\r\n时间复杂度 $O(\\log n)$，空间复杂度 $O(1)$。",
+  "memory": "阶乘尾数 → 数学。\n**思考**\r\n\r\n$n!$ 末尾零来自因子 $10=2\\times 5$，而 $2$ 远比 $5$ 多，故零的个数等于 $[1,n]$ 中 $5$ 的个数（含 $25$、 $125$ 等更高次）。\r\n\r\n直接算阶乘再数零在 $n$ 稍大时溢出。\r\n\r\n反复 $n//=5$ 并累加，分别计入 $5$、 $5^2$、 $5^3\\ldots$ 的贡献，时间 $O(\\log n)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,101 @@
+{
+  "number": "LCR 061",
+  "adapter": {
+    "name": "kSmallestPairs",
+    "params": [
+      {
+        "name": "nums1",
+        "type": "integer[]"
+      },
+      {
+        "name": "nums2",
+        "type": "integer[]"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[][]"
+    },
+    "number": "LCR 061"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          7,
+          11
+        ],
+        [
+          2,
+          4,
+          6
+        ],
+        3
+      ],
+      "expected": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          6
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          1,
+          2
+        ],
+        [
+          1,
+          2,
+          3
+        ],
+        2
+      ],
+      "expected": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def kSmallestPairs(\r\n        self, nums1: List[int], nums2: List[int], k: int\r\n    ) -> List[List[int]]:\r\n        hp = []\r\n        for x in nums1[:k]:\r\n            for y in nums2[:k]:\r\n                heappush(hp, (-(x + y), [x, y]))\r\n                if len(hp) > k:\r\n                    heappop(hp)\r\n        return [p for _, p in hp]\r\n",
+    "java": "class Solution {\r\n    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {\r\n        Queue<List<Integer>> pq = new PriorityQueue<>(\r\n            (p1, p2) -> Long.compare((long) p2.get(0) + p2.get(1), (long) p1.get(0) + p1.get(1)));\r\n        for (int i = 0; i < nums1.length && i < k; i++) {\r\n            for (int j = 0; j < nums2.length && j < k; j++) {\r\n                pq.offer(List.of(nums1[i], nums2[j]));\r\n                if (pq.size() > k) {\r\n                    pq.poll();\r\n                }\r\n            }\r\n        }\r\n        return new ArrayList<>(pq);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {\r\n        using pii = pair<int, int>;\r\n        auto cmp = [](pii p1, pii p2) { return p1.first + p1.second < p2.first + p2.second; };\r\n        priority_queue<pii, vector<pii>, decltype(cmp)> pq(cmp);\r\n        for (int i = 0; i < nums1.size() && i < k; ++i) {\r\n            for (int j = 0; j < nums2.size() && j < k; ++j) {\r\n                pq.push({nums1[i], nums2[j]});\r\n                if (pq.size() > k) pq.pop();\r\n            }\r\n        }\r\n        vector<vector<int>> ans;\r\n        while (!pq.empty()) {\r\n            pii p = pq.top();\r\n            pq.pop();\r\n            ans.push_back({p.first, p.second});\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20061.%20%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84%20k%20%E4%B8%AA%E6%95%B0%E5%AF%B9/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20061.%20%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84%20k%20%E4%B8%AA%E6%95%B0%E5%AF%B9/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20061.%20%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84%20k%20%E4%B8%AA%E6%95%B0%E5%AF%B9/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20061.%20%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84%20k%20%E4%B8%AA%E6%95%B0%E5%AF%B9/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：查找和最小的 K 对数字。\n输入：nums1（integer[]）、nums2（integer[]）、k（integer）。\n训练提示：**思考**\r \r 两有序数组中取和最小的 $k$ 对数。枚举全部数对再排序，在 $k$ 与长度较大时浪费。\r \r 只需前 $k$ 小，因此各自至多取前 $k$ 个元素。用大小为 $k$ 的大根堆按数对之和淘汰较大者，最后堆中即为答案。两个元素都可能是 $\\pm 10^9$，单对之和仍在 $32$ 位内，但两个和相减会超过 $2^{31}$，堆序要按和的大小比较。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n两有序数组中取和最小的 $k$ 对数。枚举全部数对再排序，在 $k$ 与长度较大时浪费。\r\n\r\n只需前 $k$ 小，因此各自至多取前 $k$ 个元素。用大小为 $k$ 的大根堆按数对之和淘汰较大者，最后堆中即为答案。两个元素都可能是 $\\pm 10^9$，单对之和仍在 $32$ 位内，但两个和相减会超过 $2^{31}$，堆序要按和的大小比较。",
+  "memory": "查找和最小的 K 对数字 → 方法一。\n**思考**\r\n\r\n两有序数组中取和最小的 $k$ 对数。枚举全部数对再排序，在 $k$ 与长度较大时浪费。\r\n\r\n只需前 $k$ 小，因此各自至多取前 $k$ 个元素。用大小为 $k$ 的大根堆按数对之和淘汰较大者，最后堆中即为答案。两个元素都可能是 $\\pm 10^9$，单对之和仍在 $32$ 位内，但两个和相减会超过 $2^{31}$，堆序要按和的大小比较。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

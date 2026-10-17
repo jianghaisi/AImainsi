@@ -1,0 +1,63 @@
+{
+  "number": "LCR 138",
+  "adapter": {
+    "name": "validNumber",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "LCR 138"
+  },
+  "tests": [
+    {
+      "input": [
+        "0"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "e"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "."
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "    .1  "
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def validNumber(self, s: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public boolean validNumber(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool validNumber(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def validNumber(self, s: str) -> bool:\r\n        i, j = 0, len(s) - 1\r\n        while i < j and s[i] == \" \":\r\n            i += 1\r\n        while i <= j and s[j] == \" \":\r\n            j -= 1\r\n        if i > j:\r\n            return False\r\n        digit = dot = e = False\r\n        while i <= j:\r\n            if s[i] in \"+-\":\r\n                if i and s[i - 1] not in \" eE\":\r\n                    return False\r\n            elif s[i].isdigit():\r\n                digit = True\r\n            elif s[i] == \".\":\r\n                if dot or e:\r\n                    return False\r\n                dot = True\r\n            elif s[i] in \"eE\":\r\n                if not digit or e:\r\n                    return False\r\n                e, digit = True, False\r\n            else:\r\n                return False\r\n            i += 1\r\n        return digit\r\n",
+    "java": "class Solution {\r\n    public boolean validNumber(String s) {\r\n        int i = 0, j = s.length() - 1;\r\n        while (i < j && s.charAt(i) == ' ') {\r\n            ++i;\r\n        }\r\n        while (i <= j && s.charAt(j) == ' ') {\r\n            --j;\r\n        }\r\n        if (i > j) {\r\n            return false;\r\n        }\r\n        boolean digit = false;\r\n        boolean dot = false;\r\n        boolean e = false;\r\n        for (; i <= j; ++i) {\r\n            if (s.charAt(i) == '+' || s.charAt(i) == '-') {\r\n                if (i > 0 && s.charAt(i - 1) != ' ' && s.charAt(i - 1) != 'e'\r\n                    && s.charAt(i - 1) != 'E') {\r\n                    return false;\r\n                }\r\n            } else if (Character.isDigit(s.charAt(i))) {\r\n                digit = true;\r\n            } else if (s.charAt(i) == '.') {\r\n                if (dot || e) {\r\n                    return false;\r\n                }\r\n                dot = true;\r\n            } else if (s.charAt(i) == 'e' || s.charAt(i) == 'E') {\r\n                if (!digit || e) {\r\n                    return false;\r\n                }\r\n                e = true;\r\n                digit = false;\r\n            } else {\r\n                return false;\r\n            }\r\n        }\r\n        return digit;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool validNumber(string s) {\r\n        int i = 0, j = s.size() - 1;\r\n        while (i < j && s[i] == ' ') {\r\n            ++i;\r\n        }\r\n        while (i <= j && s[j] == ' ') {\r\n            --j;\r\n        }\r\n        if (i > j) {\r\n            return false;\r\n        }\r\n        bool digit = false, dot = false, e = false;\r\n        for (; i <= j; ++i) {\r\n            if (s[i] == '+' || s[i] == '-') {\r\n                if (i && s[i - 1] != ' ' && s[i - 1] != 'e' && s[i - 1] != 'E') {\r\n                    return false;\r\n                }\r\n            } else if (isdigit(s[i])) {\r\n                digit = true;\r\n            } else if (s[i] == '.') {\r\n                if (dot || e) {\r\n                    return false;\r\n                }\r\n                dot = true;\r\n            } else if (s[i] == 'e' || s[i] == 'E') {\r\n                if (!digit || e) {\r\n                    return false;\r\n                }\r\n                e = true;\r\n                digit = false;\r\n            } else {\r\n                return false;\r\n            }\r\n        }\r\n        return digit;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9820.%20%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9820.%20%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9820.%20%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9820.%20%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：有效数字。\n输入：s（string）。\n训练提示：**思考**\r \r 合法数值由符号、整数、小数点和指数段拼成，规则互相制约，正则或自动机均可，但分类扫描更直观。\r \r 先去首尾空格，再用 `digit`、`dot`、`e` 记录已出现成分。符号只能在开头或 `e` 之后，小数点不能重复且不能在指数段，`e` 前后都必须有数字。扫完后看是否出现过数字。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：分类讨论\r\n\r\n\r\n\r\n思考\r\n\r\n合法数值由符号、整数、小数点和指数段拼成，规则互相制约，正则或自动机均可，但分类扫描更直观。\r\n\r\n先去首尾空格，再用 `digit`、`dot`、`e` 记录已出现成分。符号只能在开头或 `e` 之后，小数点不能重复且不能在指数段，`e` 前后都必须有数字。扫完后看是否出现过数字。\r\n\r\n\r\n\r\n我们先去除字符串 $s$ 首尾的空格，此时 $i$ 和 $j$ 分别指向字符串 $s$ 的第一个非空格字符和最后一个非空格字符。\r\n\r\n然后我们维护以下几个变量，其中：\r\n\r\n- `digit`：表示是否出现过数字\r\n- `dot`：表示是否出现过点\r\n- `e`：表示是否出现过 `e` 或者 `E`\r\n\r\n遍历 $s[i,..j]$ 范围内的每个字符，根据字符的类型进行分类讨论：\r\n\r\n- 如果当前字符是 `+` 或者 `-`，那么该字符必须是第一个有效字符（即空格后的第一个非空字符），或者该字符的前一个字符必须是 `e` 或者 `E`，否则返回 `false`。\r\n- 如果当前字符是数字，那么我们将 `digit` 置为 `true`。\r\n- 如果当前字符是 `.`，那么该字符之前不能出现过 `.` 或者 `e`/`E`，否则返回 `false`，否则我们将 `dot` 置为 `true`。\r\n- 如果当前字符是 `e` 或者 `E`，那么该字符之前不能出现过 `e`/`E`，并且必须出现过数字，否则返回 `false`，否则我们将 `e` 置为 `true`，并且将 `digit` 置为 `false`，表示 `e` 之后必须出现数字。\r\n- 如果当前字符是其它字符，那么返回 `false`。\r\n\r\n遍历结束后，我们返回 `digit`，即是否出现过数字。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(1)$。其中 $n$ 为字符串 $s$ 的长度。",
+  "memory": "有效数字 → 分类讨论。\n**思考**\r\n\r\n合法数值由符号、整数、小数点和指数段拼成，规则互相制约，正则或自动机均可，但分类扫描更直观。\r\n\r\n先去首尾空格，再用 `digit`、`dot`、`e` 记录已出现成分。符号只能在开头或 `e` 之后，小数点不能重复且不能在指数段，`e` 前后都必须有数字。扫完后看是否出现过数字。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

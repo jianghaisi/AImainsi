@@ -1,0 +1,90 @@
+{
+  "number": "95",
+  "adapter": {
+    "name": "generateTrees",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "list<TreeNode>"
+    },
+    "number": "95"
+  },
+  "tests": [
+    {
+      "input": [
+        3
+      ],
+      "expected": [
+        [
+          1,
+          null,
+          2,
+          null,
+          3
+        ],
+        [
+          1,
+          null,
+          3,
+          2
+        ],
+        [
+          2,
+          1,
+          3
+        ],
+        [
+          3,
+          1,
+          null,
+          null,
+          2
+        ],
+        [
+          3,
+          2,
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "input": [
+        1
+      ],
+      "expected": [
+        [
+          1
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def generateTrees(self, n: int) -> List[Optional[TreeNode]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {number} n\n * @return {TreeNode[]}\n */\nvar generateTrees = function(n) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public List<TreeNode> generateTrees(int n) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<TreeNode*> generateTrees(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, val=0, left=None, right=None):\r\n#         self.val = val\r\n#         self.left = left\r\n#         self.right = right\r\nclass Solution:\r\n    def generateTrees(self, n: int) -> List[Optional[TreeNode]]:\r\n        def dfs(i: int, j: int) -> List[Optional[TreeNode]]:\r\n            if i > j:\r\n                return [None]\r\n            ans = []\r\n            for v in range(i, j + 1):\r\n                left = dfs(i, v - 1)\r\n                right = dfs(v + 1, j)\r\n                for l in left:\r\n                    for r in right:\r\n                        ans.append(TreeNode(v, l, r))\r\n            return ans\r\n\r\n        return dfs(1, n)\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction generateTrees(n) {\n    const dfs = (i, j) => {\n        if (i > j) {\n            return [null];\n        }\n        const ans = [];\n        for (let v = i; v <= j; ++v) {\n            const left = dfs(i, v - 1);\n            const right = dfs(v + 1, j);\n            for (const l of left) {\n                for (const r of right) {\n                    ans.push(new TreeNode(v, l, r));\n                }\n            }\n        }\n        return ans;\n    };\n    return dfs(1, n);\n}\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode() {}\r\n *     TreeNode(int val) { this.val = val; }\r\n *     TreeNode(int val, TreeNode left, TreeNode right) {\r\n *         this.val = val;\r\n *         this.left = left;\r\n *         this.right = right;\r\n *     }\r\n * }\r\n */\r\nclass Solution {\r\n    public List<TreeNode> generateTrees(int n) {\r\n        return dfs(1, n);\r\n    }\r\n\r\n    private List<TreeNode> dfs(int i, int j) {\r\n        List<TreeNode> ans = new ArrayList<>();\r\n        if (i > j) {\r\n            ans.add(null);\r\n            return ans;\r\n        }\r\n        for (int v = i; v <= j; ++v) {\r\n            var left = dfs(i, v - 1);\r\n            var right = dfs(v + 1, j);\r\n            for (var l : left) {\r\n                for (var r : right) {\r\n                    ans.add(new TreeNode(v, l, r));\r\n                }\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    vector<TreeNode*> generateTrees(int n) {\r\n        function<vector<TreeNode*>(int, int)> dfs = [&](int i, int j) {\r\n            if (i > j) {\r\n                return vector<TreeNode*>{nullptr};\r\n            }\r\n            vector<TreeNode*> ans;\r\n            for (int v = i; v <= j; ++v) {\r\n                auto left = dfs(i, v - 1);\r\n                auto right = dfs(v + 1, j);\r\n                for (auto l : left) {\r\n                    for (auto r : right) {\r\n                        ans.push_back(new TreeNode(v, l, r));\r\n                    }\r\n                }\r\n            }\r\n            return ans;\r\n        };\r\n        return dfs(1, n);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0095.Unique%20Binary%20Search%20Trees%20II/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0095.Unique%20Binary%20Search%20Trees%20II/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0095.Unique%20Binary%20Search%20Trees%20II/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0095.Unique%20Binary%20Search%20Trees%20II/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0095.Unique%20Binary%20Search%20Trees%20II/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：不同的二叉搜索树 II。\n输入：n（integer）。\n训练提示：**思考**\r \r 要枚举 $1..n$ 能构成的全部二叉搜索树。一旦选定根 $v$，左子树只能用 $[1, v-1]$，右子树只能用 $[v+1, n]$，左右彼此独立。因此可以按区间切分：枚举根，递归生成左右所有形态，再做笛卡尔积；空区间对应一棵空树。\r \r $n \\le 8$，卡特兰数不大，直接搜索即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS\r\n\r\n\r\n\r\n思考\r\n\r\n要枚举 $1..n$ 能构成的全部二叉搜索树。一旦选定根 $v$，左子树只能用 $[1, v-1]$，右子树只能用 $[v+1, n]$，左右彼此独立。因此可以按区间切分：枚举根，递归生成左右所有形态，再做笛卡尔积；空区间对应一棵空树。\r\n\r\n$n \\le 8$，卡特兰数不大，直接搜索即可。\r\n\r\n\r\n\r\n我们设计一个函数 $dfs(i, j)$，返回由 $[i, j]$ 组成的所有可行的二叉搜索树，那么答案就是 $dfs(1, n)$。\r\n\r\n函数 $dfs(i, j)$ 的执行步骤如下：\r\n\r\n1. 如果 $i > j$，那么说明此时没有数字可以构成二叉搜索树，返回由一个空节点组成的列表。\r\n2. 如果 $i \\leq j$，那么我们枚举 $[i, j]$ 中的数字 $v$ 作为根节点，那么根节点 $v$ 的左子树由 $[i, v - 1]$ 组成，右子树由 $[v + 1, j]$ 组成，最后将左右子树的所有组合笛卡尔积，即 $left \\times right$，加上根节点 $v$，得到以 $v$ 为根节点的所有二叉搜索树。\r\n\r\n时间复杂度 $O(n \\times G(n))$，空间复杂度 $O(n \\times G(n))$。其中 $G(n)$ 是卡特兰数。",
+  "memory": "不同的二叉搜索树 II → DFS。\n**思考**\r\n\r\n要枚举 $1..n$ 能构成的全部二叉搜索树。一旦选定根 $v$，左子树只能用 $[1, v-1]$，右子树只能用 $[v+1, n]$，左右彼此独立。因此可以按区间切分：枚举根，递归生成左右所有形态，再做笛卡尔积；空区间对应一棵空树。\r\n\r\n$n \\le 8$，卡特兰数不大，直接搜索即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

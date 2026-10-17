@@ -1,0 +1,84 @@
+{
+  "number": "328",
+  "adapter": {
+    "name": "oddEvenList",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode",
+        "dealloc": false
+      }
+    ],
+    "return": {
+      "type": "ListNode",
+      "dealloc": true
+    },
+    "number": "328"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": [
+        1,
+        3,
+        5,
+        2,
+        4
+      ]
+    },
+    {
+      "input": [
+        [
+          2,
+          1,
+          3,
+          5,
+          6,
+          4,
+          7
+        ]
+      ],
+      "expected": [
+        2,
+        3,
+        6,
+        7,
+        1,
+        5,
+        4
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @return {ListNode}\n */\nvar oddEvenList = function(head) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode oddEvenList(ListNode head) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* oddEvenList(ListNode* head) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, val=0, next=None):\r\n#         self.val = val\r\n#         self.next = next\r\nclass Solution:\r\n    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:\r\n        if head is None:\r\n            return None\r\n        a = head\r\n        b = c = head.next\r\n        while b and b.next:\r\n            a.next = b.next\r\n            a = a.next\r\n            b.next = a.next\r\n            b = b.next\r\n        a.next = c\r\n        return head\r\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction oddEvenList(head) {\n    if (!head) {\n        return null;\n    }\n    let [a, b, c] = [head, head.next, head.next];\n    while (b && b.next) {\n        a.next = b.next;\n        a = a.next;\n        b.next = a.next;\n        b = b.next;\n    }\n    a.next = c;\n    return head;\n}\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode() {}\r\n *     ListNode(int val) { this.val = val; }\r\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\r\n * }\r\n */\r\nclass Solution {\r\n    public ListNode oddEvenList(ListNode head) {\r\n        if (head == null) {\r\n            return null;\r\n        }\r\n        ListNode a = head;\r\n        ListNode b = head.next, c = b;\r\n        while (b != null && b.next != null) {\r\n            a.next = b.next;\r\n            a = a.next;\r\n            b.next = a.next;\r\n            b = b.next;\r\n        }\r\n        a.next = c;\r\n        return head;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode() : val(0), next(nullptr) {}\r\n *     ListNode(int x) : val(x), next(nullptr) {}\r\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    ListNode* oddEvenList(ListNode* head) {\r\n        if (!head) {\r\n            return nullptr;\r\n        }\r\n        ListNode* a = head;\r\n        ListNode *b = head->next, *c = b;\r\n        while (b && b->next) {\r\n            a->next = b->next;\r\n            a = a->next;\r\n            b->next = a->next;\r\n            b = b->next;\r\n        }\r\n        a->next = c;\r\n        return head;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0328.Odd%20Even%20Linked%20List/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0328.Odd%20Even%20Linked%20List/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0328.Odd%20Even%20Linked%20List/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0328.Odd%20Even%20Linked%20List/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0328.Odd%20Even%20Linked%20List/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：奇偶链表。\n输入：head（ListNode）。\n训练提示：**思考**\r \r 按原相对顺序把奇下标结点接到偶下标结点之前。额外数组重串即可，但题目希望 $O(1)$ 空间。\r \r 用 $a$、 $b$ 分别钉住奇、偶链尾， $c$ 记下偶链头。反复把 $b$ 的后继接到 $a$ 后、再把新的后继接到 $b$ 后，直到偶链耗尽。最后 $a.next=c$ 接回偶链。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：一次遍历\r\n\r\n\r\n\r\n思考\r\n\r\n按原相对顺序把奇下标结点接到偶下标结点之前。额外数组重串即可，但题目希望 $O(1)$ 空间。\r\n\r\n用 $a$、 $b$ 分别钉住奇、偶链尾， $c$ 记下偶链头。反复把 $b$ 的后继接到 $a$ 后、再把新的后继接到 $b$ 后，直到偶链耗尽。最后 $a.next=c$ 接回偶链。\r\n\r\n\r\n\r\n我们可以用两个指针 $a$ 和 $b$ 分别表示奇数节点和偶数节点的尾节点。初始时，指针 $a$ 指向链表的头节点 $head$，指针 $b$ 指向链表的第二个节点 $head.next$。另外，我们用一个指针 $c$ 指向偶数节点的头节点 $head.next$，即指针 $b$ 的初始位置。\r\n\r\n遍历链表，我们将指针 $a$ 指向 $b$ 的下一个节点，即 $a.next = b.next$，然后将指针 $a$ 向后移动一位，即 $a = a.next$；将指针 $b$ 指向 $a$ 的下一个节点，即 $b.next = a.next$，然后将指针 $b$ 向后移动一位，即 $b = b.next$。继续遍历，直到 $b$ 到达链表的末尾。\r\n\r\n最后，我们将奇数节点的尾节点 $a$ 指向偶数节点的头节点 $c$，即 $a.next = c$，然后返回链表的头节点 $head$ 即可。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 是链表的长度，需要遍历链表一次。空间复杂度 $O(1)$。只需要维护有限的指针。",
+  "memory": "奇偶链表 → 一次遍历。\n**思考**\r\n\r\n按原相对顺序把奇下标结点接到偶下标结点之前。额外数组重串即可，但题目希望 $O(1)$ 空间。\r\n\r\n用 $a$、 $b$ 分别钉住奇、偶链尾， $c$ 记下偶链头。反复把 $b$ 的后继接到 $a$ 后、再把新的后继接到 $b$ 后，直到偶链耗尽。最后 $a.next=c$ 接回偶链。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

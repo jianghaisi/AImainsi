@@ -1,0 +1,51 @@
+{
+  "number": "面试题 05.02",
+  "adapter": {
+    "name": "printBin",
+    "params": [
+      {
+        "name": "num",
+        "type": "double"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "面试题 05.02"
+  },
+  "tests": [
+    {
+      "input": [
+        0.625
+      ],
+      "expected": "0.101"
+    },
+    {
+      "input": [
+        0.1
+      ],
+      "expected": "ERROR"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def printBin(self, num: float) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public String printBin(double num) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string printBin(double num) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def printBin(self, num: float) -> str:\r\n        ans = '0.'\r\n        while len(ans) < 32 and num:\r\n            num *= 2\r\n            x = int(num)\r\n            ans += str(x)\r\n            num -= x\r\n        return 'ERROR' if num else ans\r\n",
+    "java": "class Solution {\r\n    public String printBin(double num) {\r\n        StringBuilder ans = new StringBuilder(\"0.\");\r\n        while (ans.length() < 32 && num != 0) {\r\n            num *= 2;\r\n            int x = (int) num;\r\n            ans.append(x);\r\n            num -= x;\r\n        }\r\n        return num != 0 ? \"ERROR\" : ans.toString();\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    string printBin(double num) {\r\n        string ans = \"0.\";\r\n        while (ans.size() < 32 && num != 0) {\r\n            num *= 2;\r\n            int x = (int) num;\r\n            ans.push_back('0' + x);\r\n            num -= x;\r\n        }\r\n        return num != 0 ? \"ERROR\" : ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.02.Binary%20Number%20to%20String/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.02.Binary%20Number%20to%20String/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.02.Binary%20Number%20to%20String/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.02.Binary%20Number%20to%20String/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：二进制数转字符串。\n输入：num（double）。\n训练提示：**思考**\r \r 把 $(0,1)$ 上的小数写成二进制。十进制下有限小数在二进制中可能循环，题目要求超过 $32$ 位则报错。\r \r 小数乘 $2$ 取整即下一位，余下小数继续乘。长度到达 $32$ 仍未到 $0$，说明无法用 $32$ 位表示。\r \r 从 `0.` 起循环：`num *= 2`，追加整数部分并减去它。循环结束时若 $num$ 仍非零，返回 `ERROR`。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：十进制小数转二进制小数\r\n\r\n\r\n\r\n思考\r\n\r\n把 $(0,1)$ 上的小数写成二进制。十进制下有限小数在二进制中可能循环，题目要求超过 $32$ 位则报错。\r\n\r\n小数乘 $2$ 取整即下一位，余下小数继续乘。长度到达 $32$ 仍未到 $0$，说明无法用 $32$ 位表示。\r\n\r\n从 `0.` 起循环：`num *= 2`，追加整数部分并减去它。循环结束时若 $num$ 仍非零，返回 `ERROR`。\r\n\r\n\r\n\r\n十进制小数转二进制小数的方法是：小数部分乘以 $2$，取整数部分作为二进制小数的下一位，小数部分作为下一次乘法的被乘数，直到小数部分为 $0$ 或者二进制小数的长度超过 $32$ 位。\r\n\r\n我们不妨举个例子，比如说我们要将 $0.8125$ 转换为二进制小数，过程如下：\r\n\r\n$$\r\n\\begin{aligned}\r\n0.8125 \\times 2 &= 1.625 \\quad \\textit{取整数部分} \\quad 1 \\\\\r\n0.625 \\times 2 &= 1.25 \\quad \\textit{取整数部分} \\quad 1 \\\\\r\n0.25 \\times 2 &= 0.5 \\quad \\textit{取整数部分} \\quad 0 \\\\\r\n0.5 \\times 2 &= 1 \\quad \\textit{取整数部分} \\quad 1 \\\\\r\n\\end{aligned}\r\n$$\r\n\r\n所以十进制小数 $0.8125$ 的二进制小数表示为 $0.1101_{(2)}$。\r\n\r\n对于本题，由于实数介于 $0$ 和 $1$ 之间，所以其整数部分一定是 $0$，我们只需要将小数部分，按照上述方法转换为二进制小数即可。当小数部分为 $0$ 或者二进制小数的长度不小于 $32$ 位时，停止转换。\r\n\r\n最后，如果小数部分不为 $0$，说明该实数无法用 $32$ 位以内的二进制表示，返回字符串 `\"ERROR\"`，否则返回转换后的二进制小数。\r\n\r\n时间复杂度 $O(C)$，空间复杂度 $O(C)$。其中 $C$ 为二进制小数的长度，最大为 $32$。",
+  "memory": "二进制数转字符串 → 十进制小数转二进制小数。\n**思考**\r\n\r\n把 $(0,1)$ 上的小数写成二进制。十进制下有限小数在二进制中可能循环，题目要求超过 $32$ 位则报错。\r\n\r\n小数乘 $2$ 取整即下一位，余下小数继续乘。长度到达 $32$ 仍未到 $0$，说明无法用 $32$ 位表示。\r\n\r\n从 `0.` 起循环：`num *= 2`，追加整数部分并减去它。循环结束时若 $num$ 仍非零，返回 `ERROR`。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -467,7 +467,7 @@ export async function localApi<T>(path: string, body: unknown, method: string): 
       const r = z
         .object({
           questionId: text,
-          language: z.enum(['python', 'javascript', 'java', 'cpp']),
+          language: z.enum(['python', 'javascript', 'java', 'cpp', 'sql']),
           code: z.string().max(50000),
           passed: z.number().int().min(0),
           total: z.number().int().positive(),

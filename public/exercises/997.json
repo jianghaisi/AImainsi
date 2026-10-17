@@ -1,0 +1,94 @@
+{
+  "number": "997",
+  "adapter": {
+    "name": "findJudge",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      },
+      {
+        "name": "trust",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "997"
+  },
+  "tests": [
+    {
+      "input": [
+        2,
+        [
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        3,
+        [
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        3,
+        [
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      ],
+      "expected": -1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findJudge(self, n: int, trust: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @param {number[][]} trust\n * @return {number}\n */\nvar findJudge = function(n, trust) {\n    \n};",
+    "java": "class Solution {\n    public int findJudge(int n, int[][] trust) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findJudge(int n, vector<vector<int>>& trust) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findJudge(self, n: int, trust: List[List[int]]) -> int:\r\n        cnt1 = [0] * (n + 1)\r\n        cnt2 = [0] * (n + 1)\r\n        for a, b in trust:\r\n            cnt1[a] += 1\r\n            cnt2[b] += 1\r\n        for i in range(1, n + 1):\r\n            if cnt1[i] == 0 and cnt2[i] == n - 1:\r\n                return i\r\n        return -1\r\n",
+    "javascript": "function findJudge(n, trust) {\n    const cnt1 = new Array(n + 1).fill(0);\n    const cnt2 = new Array(n + 1).fill(0);\n    for (const [a, b] of trust) {\n        ++cnt1[a];\n        ++cnt2[b];\n    }\n    for (let i = 1; i <= n; ++i) {\n        if (cnt1[i] === 0 && cnt2[i] === n - 1) {\n            return i;\n        }\n    }\n    return -1;\n}\n",
+    "java": "class Solution {\r\n    public int findJudge(int n, int[][] trust) {\r\n        int[] cnt1 = new int[n + 1];\r\n        int[] cnt2 = new int[n + 1];\r\n        for (var t : trust) {\r\n            int a = t[0], b = t[1];\r\n            ++cnt1[a];\r\n            ++cnt2[b];\r\n        }\r\n        for (int i = 1; i <= n; ++i) {\r\n            if (cnt1[i] == 0 && cnt2[i] == n - 1) {\r\n                return i;\r\n            }\r\n        }\r\n        return -1;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int findJudge(int n, vector<vector<int>>& trust) {\r\n        vector<int> cnt1(n + 1);\r\n        vector<int> cnt2(n + 1);\r\n        for (auto& t : trust) {\r\n            int a = t[0], b = t[1];\r\n            ++cnt1[a];\r\n            ++cnt2[b];\r\n        }\r\n        for (int i = 1; i <= n; ++i) {\r\n            if (cnt1[i] == 0 && cnt2[i] == n - 1) {\r\n                return i;\r\n            }\r\n        }\r\n        return -1;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0997.Find%20the%20Town%20Judge/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0997.Find%20the%20Town%20Judge/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0997.Find%20the%20Town%20Judge/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0997.Find%20the%20Town%20Judge/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0997.Find%20the%20Town%20Judge/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：找到小镇的法官。\n输入：n（integer）、trust（integer[][]）。\n训练提示：**思考**\r \r 法官不信任任何人且被其余 $n-1$ 人信任。建图找入度 $n-1$、出度 $0$ 的点即可。两次数组分别统计信任与被信任次数，一次扫描 $trust$ 后检查每个编号。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：计数\r\n\r\n\r\n\r\n思考\r\n\r\n法官不信任任何人且被其余 $n-1$ 人信任。建图找入度 $n-1$、出度 $0$ 的点即可。两次数组分别统计信任与被信任次数，一次扫描 $trust$ 后检查每个编号。\r\n\r\n\r\n\r\n我们创建两个长度为 $n + 1$ 的数组 $cnt1$ 和 $cnt2$，分别表示每个人信任的人数和被信任的人数。\r\n\r\n接下来，我们遍历数组 $trust$，对于每一项 $[a_i, b_i]$，我们将 $cnt1[a_i]$ 和 $cnt2[b_i]$ 分别加 $1$。\r\n\r\n最后，我们在 $[1,..n]$ 范围内枚举每个人 $i$，如果 $cnt1[i] = 0$ 且 $cnt2[i] = n - 1$，则说明 $i$ 是小镇法官，返回 $i$ 即可。否则遍历结束后，返回 $-1$。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为数组 $trust$ 的长度。",
+  "memory": "找到小镇的法官 → 计数。\n**思考**\r\n\r\n法官不信任任何人且被其余 $n-1$ 人信任。建图找入度 $n-1$、出度 $0$ 的点即可。两次数组分别统计信任与被信任次数，一次扫描 $trust$ 后检查每个编号。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

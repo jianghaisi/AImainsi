@@ -1,0 +1,54 @@
+{
+  "number": "647",
+  "adapter": {
+    "name": "countSubstrings",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "647"
+  },
+  "tests": [
+    {
+      "input": [
+        "abc"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "aaa"
+      ],
+      "expected": 6
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def countSubstrings(self, s: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @return {number}\n */\nvar countSubstrings = function(s) {\n    \n};",
+    "java": "class Solution {\n    public int countSubstrings(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int countSubstrings(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def countSubstrings(self, s: str) -> int:\r\n        ans, n = 0, len(s)\r\n        for k in range(n * 2 - 1):\r\n            i, j = k // 2, (k + 1) // 2\r\n            while ~i and j < n and s[i] == s[j]:\r\n                ans += 1\r\n                i, j = i - 1, j + 1\r\n        return ans\r\n",
+    "javascript": "function countSubstrings(s) {\n    let t = '^#';\n    for (const c of s) {\n        t += c + '#';\n    }\n    t += '$';\n    const n = t.length;\n    const p = new Array(n).fill(0);\n    let pos = 0, maxRight = 0;\n    let ans = 0;\n    for (let i = 1; i < n - 1; i++) {\n        if (maxRight > i) {\n            p[i] = Math.min(maxRight - i, p[2 * pos - i]);\n        }\n        else {\n            p[i] = 1;\n        }\n        while (t[i - p[i]] === t[i + p[i]]) {\n            p[i]++;\n        }\n        if (i + p[i] > maxRight) {\n            maxRight = i + p[i];\n            pos = i;\n        }\n        ans += Math.floor(p[i] / 2);\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int countSubstrings(String s) {\r\n        int ans = 0;\r\n        int n = s.length();\r\n        for (int k = 0; k < n * 2 - 1; ++k) {\r\n            int i = k / 2, j = (k + 1) / 2;\r\n            while (i >= 0 && j < n && s.charAt(i) == s.charAt(j)) {\r\n                ++ans;\r\n                --i;\r\n                ++j;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int countSubstrings(string s) {\r\n        int ans = 0;\r\n        int n = s.size();\r\n        for (int k = 0; k < n * 2 - 1; ++k) {\r\n            int i = k / 2, j = (k + 1) / 2;\r\n            while (~i && j < n && s[i] == s[j]) {\r\n                ++ans;\r\n                --i;\r\n                ++j;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0647.Palindromic%20Substrings/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0647.Palindromic%20Substrings/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0647.Palindromic%20Substrings/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0647.Palindromic%20Substrings/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0647.Palindromic%20Substrings/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：回文子串。\n输入：s（string）。\n训练提示：**思考**\r \r 统计回文子串个数。DP 填 $n^2$ 个区间位也能做，但只需计数、不必存表。\r \r 枚举 $2n-1$ 个中心（奇偶长度），向两侧扩展直到失配，每成功一步计一个回文。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：从中心向两侧扩展回文串\r\n\r\n\r\n\r\n思考\r\n\r\n统计回文子串个数。DP 填 $n^2$ 个区间位也能做，但只需计数、不必存表。\r\n\r\n枚举 $2n-1$ 个中心（奇偶长度），向两侧扩展直到失配，每成功一步计一个回文。\r\n\r\n\r\n\r\n我们可以枚举回文串的中心位置，然后向两侧扩展，统计回文串的数量。对于长度为 $n$ 的字符串，回文串的中心位置共有 $2n-1$ 个（包括奇数长度和偶数长度的回文串）。对于每个中心位置，我们向两侧扩展，直到不满足回文串的条件为止，统计回文串的数量。\r\n\r\n时间复杂度 $O(n^2)$，其中 $n$ 是字符串 $s$ 的长度。空间复杂度 $O(1)$。",
+  "memory": "回文子串 → 从中心向两侧扩展回文串。\n**思考**\r\n\r\n统计回文子串个数。DP 填 $n^2$ 个区间位也能做，但只需计数、不必存表。\r\n\r\n枚举 $2n-1$ 个中心（奇偶长度），向两侧扩展直到失配，每成功一步计一个回文。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

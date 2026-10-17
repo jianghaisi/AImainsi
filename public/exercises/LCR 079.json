@@ -1,0 +1,93 @@
+{
+  "number": "LCR 079",
+  "adapter": {
+    "name": "subsets",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer[][]"
+    },
+    "number": "LCR 079"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        [],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          0
+        ]
+      ],
+      "expected": [
+        [],
+        [
+          0
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def subsets(self, nums: List[int]) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number[][]}\n */\nvar subsets = function(nums) {\n\n};",
+    "java": "class Solution {\n    public List<List<Integer>> subsets(int[] nums) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> subsets(vector<int>& nums) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def subsets(self, nums: List[int]) -> List[List[int]]:\r\n        res = []\r\n\r\n        def dfs(i, n, t):\r\n            res.append(t.copy())\r\n            if i == n:\r\n                return\r\n            for j in range(i, n):\r\n                t.append(nums[j])\r\n                dfs(j + 1, n, t)\r\n                t.pop()\r\n\r\n        dfs(0, len(nums), [])\r\n        return res\r\n",
+    "javascript": "function subsets(nums) {\n    const n = nums.length;\n    const ans = [];\n    const dfs = (i, t) => {\n        ans.push([...t]);\n        while (i < n) {\n            t.push(nums[i++]);\n            dfs(i, t);\n            t.pop();\n        }\n    };\n    dfs(0, []);\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public List<List<Integer>> subsets(int[] nums) {\r\n        List<List<Integer>> res = new ArrayList<>();\r\n        dfs(0, nums, new ArrayList<>(), res);\r\n        return res;\r\n    }\r\n\r\n    private void dfs(int i, int[] nums, List<Integer> t, List<List<Integer>> res) {\r\n        res.add(new ArrayList<>(t));\r\n        if (i == nums.length) {\r\n            return;\r\n        }\r\n        for (int j = i; j < nums.length; ++j) {\r\n            t.add(nums[j]);\r\n            dfs(j + 1, nums, t, res);\r\n            t.remove(t.size() - 1);\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<int>> subsets(vector<int>& nums) {\r\n        vector<vector<int>> res;\r\n        vector<int> t;\r\n        dfs(0, nums, t, res);\r\n        return res;\r\n    }\r\n\r\n    void dfs(int i, vector<int>& nums, vector<int> t, vector<vector<int>>& res) {\r\n        res.push_back(t);\r\n        if (i == nums.size()) return;\r\n        for (int j = i; j < nums.size(); ++j) {\r\n            t.push_back(nums[j]);\r\n            dfs(j + 1, nums, t, res);\r\n            t.pop_back();\r\n        }\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20079.%20%E6%89%80%E6%9C%89%E5%AD%90%E9%9B%86/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20079.%20%E6%89%80%E6%9C%89%E5%AD%90%E9%9B%86/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20079.%20%E6%89%80%E6%9C%89%E5%AD%90%E9%9B%86/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20079.%20%E6%89%80%E6%9C%89%E5%AD%90%E9%9B%86/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20079.%20%E6%89%80%E6%9C%89%E5%AD%90%E9%9B%86/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：子集。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 枚举全部子集。每个元素可选可不选，共 $2^n$ 种， $n\\le 10$ 可以全部列出。\r \r 深度优先时先把当前路径记为一种子集，再从 $i$ 起依次选后续元素并递归。回溯弹出，保证每种组合只生成一次。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n枚举全部子集。每个元素可选可不选，共 $2^n$ 种， $n\\le 10$ 可以全部列出。\r\n\r\n深度优先时先把当前路径记为一种子集，再从 $i$ 起依次选后续元素并递归。回溯弹出，保证每种组合只生成一次。",
+  "memory": "子集 → 方法一。\n**思考**\r\n\r\n枚举全部子集。每个元素可选可不选，共 $2^n$ 种， $n\\le 10$ 可以全部列出。\r\n\r\n深度优先时先把当前路径记为一种子集，再从 $i$ 起依次选后续元素并递归。回溯弹出，保证每种组合只生成一次。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

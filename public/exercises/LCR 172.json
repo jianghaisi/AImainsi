@@ -1,0 +1,103 @@
+{
+  "number": "LCR 172",
+  "adapter": {
+    "name": "countTarget",
+    "params": [
+      {
+        "name": "scores",
+        "type": "integer[]"
+      },
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 172"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          2,
+          3,
+          4,
+          4,
+          4,
+          5,
+          6,
+          6,
+          8
+        ],
+        4
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          5,
+          7,
+          9
+        ],
+        6
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        [
+          5,
+          7,
+          7,
+          8,
+          8,
+          10
+        ],
+        8
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          5,
+          7,
+          7,
+          8,
+          8,
+          10
+        ],
+        6
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def countTarget(self, nums: List[int], target: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int countTarget(int[] scores, int target) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int countTarget(vector<int>& scores, int target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def countTarget(self, nums: List[int], target: int) -> int:\r\n        l = bisect_left(nums, target)\r\n        r = bisect_right(nums, target)\r\n        return r - l\r\n",
+    "java": "class Solution {\r\n    private int[] nums;\r\n\r\n    public int countTarget(int[] nums, int target) {\r\n        this.nums = nums;\r\n        int l = countTarget(target);\r\n        int r = countTarget(target + 1);\r\n        return r - l;\r\n    }\r\n\r\n    private int countTarget(int x) {\r\n        int l = 0, r = nums.length;\r\n        while (l < r) {\r\n            int mid = (l + r) >>> 1;\r\n            if (nums[mid] >= x) {\r\n                r = mid;\r\n            } else {\r\n                l = mid + 1;\r\n            }\r\n        }\r\n        return l;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int countTarget(vector<int>& nums, int target) {\r\n        auto l = lower_bound(nums.begin(), nums.end(), target);\r\n        auto r = upper_bound(nums.begin(), nums.end(), target);\r\n        return r - l;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9853%20-%20I.%20%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E6%95%B0%E5%AD%97%20I/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9853%20-%20I.%20%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E6%95%B0%E5%AD%97%20I/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9853%20-%20I.%20%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E6%95%B0%E5%AD%97%20I/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9853%20-%20I.%20%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E6%95%B0%E5%AD%97%20I/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：统计目标成绩的出现次数。\n输入：scores（integer[]）、target（integer）。\n训练提示：**思考**\r \r 数组有序，线性计数未利用有序。`target` 的出现区间是连续的，左端为第一个不小于它的位置，右端为第一个大于它的位置，个数即两者之差。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n数组有序，线性计数未利用有序。`target` 的出现区间是连续的，左端为第一个不小于它的位置，右端为第一个大于它的位置，个数即两者之差。\r\n\r\n\r\n\r\n由于数组 `nums` 已排好序，我们可以使用二分查找的方法找到数组中第一个大于等于 `target` 的元素的下标 $l$，以及第一个大于 `target` 的元素的下标 $r$，那么 `target` 的个数就是 $r - l$。\r\n\r\n时间复杂度 $O(\\log n)$，其中 $n$ 为数组的长度。空间复杂度 $O(1)$。",
+  "memory": "统计目标成绩的出现次数 → 二分查找。\n**思考**\r\n\r\n数组有序，线性计数未利用有序。`target` 的出现区间是连续的，左端为第一个不小于它的位置，右端为第一个大于它的位置，个数即两者之差。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

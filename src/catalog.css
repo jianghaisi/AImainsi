@@ -23,6 +23,83 @@
     flex-wrap: wrap;
   }
 }
+.company-plans {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 22px;
+}
+.company-plans > span {
+  font-size: 12px;
+  color: #65725e;
+  margin-right: 6px;
+}
+.company-plans button {
+  border: 1px solid #d8dece;
+  background: #f7f9f1;
+  padding: 10px 15px;
+  min-height: 44px;
+  color: #283727;
+  cursor: pointer;
+}
+.company-plans button[aria-pressed='true'] {
+  background: #e0eccd;
+  border-color: #798f5d;
+  box-shadow: inset 3px 0 #687d48;
+}
+.company-plans small {
+  margin-left: 7px;
+  color: #65725e;
+}
+.study-text {
+  font-size: 14px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.study-text p {
+  white-space: pre-line;
+  margin: 0 0 14px;
+}
+.study-text h3,
+.study-text h4 {
+  font-size: 15px;
+  margin: 18px 0 12px;
+}
+.study-text .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+  max-width: 100%;
+}
+.study-text code {
+  font-size: 12px;
+  background: #edf1e6;
+  padding: 2px 4px;
+}
+.study-text ul,
+.study-text ol {
+  padding-left: 22px;
+}
+.study-text pre {
+  max-width: 100%;
+  overflow: auto;
+}
+@media (max-width: 640px) {
+  .company-plans {
+    gap: 8px;
+  }
+  .company-plans > span {
+    flex-basis: 100%;
+  }
+  .company-plans button {
+    flex: 1 1 40%;
+  }
+  .study-text {
+    font-size: 14px;
+  }
+}
 .collection-card {
   text-align: left;
   border: 1px solid var(--line);

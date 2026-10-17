@@ -1,0 +1,94 @@
+{
+  "number": "面试题 17.23",
+  "adapter": {
+    "name": "findSquare",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "面试题 17.23"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        0,
+        2
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findSquare(self, matrix: List[List[int]]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} matrix\n * @return {number[]}\n */\nvar findSquare = function(matrix) {\n    \n};",
+    "java": "class Solution {\n    public int[] findSquare(int[][] matrix) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> findSquare(vector<vector<int>>& matrix) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findSquare(self, matrix: List[List[int]]) -> List[int]:\r\n        n = len(matrix)\r\n        down = [[0] * n for _ in range(n)]\r\n        right = [[0] * n for _ in range(n)]\r\n        for i in range(n - 1, -1, -1):\r\n            for j in range(n - 1, -1, -1):\r\n                if matrix[i][j] == 0:\r\n                    down[i][j] = down[i + 1][j] + 1 if i + 1 < n else 1\r\n                    right[i][j] = right[i][j + 1] + 1 if j + 1 < n else 1\r\n        for k in range(n, 0, -1):\r\n            for i in range(n - k + 1):\r\n                for j in range(n - k + 1):\r\n                    if (\r\n                        down[i][j] >= k\r\n                        and right[i][j] >= k\r\n                        and right[i + k - 1][j] >= k\r\n                        and down[i][j + k - 1] >= k\r\n                    ):\r\n                        return [i, j, k]\r\n        return []\r\n",
+    "javascript": "function findSquare(matrix) {\n    const n = matrix.length;\n    const down = Array.from({ length: n }, () => Array(n).fill(0));\n    const right = Array.from({ length: n }, () => Array(n).fill(0));\n    for (let i = n - 1; i >= 0; --i) {\n        for (let j = n - 1; j >= 0; --j) {\n            if (matrix[i][j] === 0) {\n                down[i][j] = i + 1 < n ? down[i + 1][j] + 1 : 1;\n                right[i][j] = j + 1 < n ? right[i][j + 1] + 1 : 1;\n            }\n        }\n    }\n    for (let k = n; k > 0; --k) {\n        for (let i = 0; i <= n - k; ++i) {\n            for (let j = 0; j <= n - k; ++j) {\n                if (down[i][j] >= k &&\n                    right[i][j] >= k &&\n                    right[i + k - 1][j] >= k &&\n                    down[i][j + k - 1] >= k) {\n                    return [i, j, k];\n                }\n            }\n        }\n    }\n    return [];\n}\n",
+    "java": "class Solution {\r\n    public int[] findSquare(int[][] matrix) {\r\n        int n = matrix.length;\r\n        int[][] down = new int[n][n];\r\n        int[][] right = new int[n][n];\r\n        for (int i = n - 1; i >= 0; --i) {\r\n            for (int j = n - 1; j >= 0; --j) {\r\n                if (matrix[i][j] == 0) {\r\n                    down[i][j] = i + 1 < n ? down[i + 1][j] + 1 : 1;\r\n                    right[i][j] = j + 1 < n ? right[i][j + 1] + 1 : 1;\r\n                }\r\n            }\r\n        }\r\n        for (int k = n; k > 0; --k) {\r\n            for (int i = 0; i <= n - k; ++i) {\r\n                for (int j = 0; j <= n - k; ++j) {\r\n                    if (down[i][j] >= k && right[i][j] >= k && right[i + k - 1][j] >= k\r\n                        && down[i][j + k - 1] >= k) {\r\n                        return new int[] {i, j, k};\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        return new int[0];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> findSquare(vector<vector<int>>& matrix) {\r\n        int n = matrix.size();\r\n        int down[n][n];\r\n        int right[n][n];\r\n        memset(down, 0, sizeof(down));\r\n        memset(right, 0, sizeof(right));\r\n        for (int i = n - 1; i >= 0; --i) {\r\n            for (int j = n - 1; j >= 0; --j) {\r\n                if (matrix[i][j] == 0) {\r\n                    down[i][j] = i + 1 < n ? down[i + 1][j] + 1 : 1;\r\n                    right[i][j] = j + 1 < n ? right[i][j + 1] + 1 : 1;\r\n                }\r\n            }\r\n        }\r\n        for (int k = n; k > 0; --k) {\r\n            for (int i = 0; i <= n - k; ++i) {\r\n                for (int j = 0; j <= n - k; ++j) {\r\n                    if (down[i][j] >= k && right[i][j] >= k && right[i + k - 1][j] >= k && down[i][j + k - 1] >= k) {\r\n                        return {i, j, k};\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        return {};\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.23.Max%20Black%20Square/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.23.Max%20Black%20Square/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.23.Max%20Black%20Square/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.23.Max%20Black%20Square/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.23.Max%20Black%20Square/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最大黑方阵。\n输入：matrix（integer[][]）。\n训练提示：**思考**\r \r 最大的全黑边界正方形。枚举边再扫四边是 $O(n^4)$。\r \r 若已知每格向下、向右连续 $0$ 的长度，则边长 $k$ 只需检查四个角的两段是否 $\\ge k$。\r \r 从右下预处理 $down$、 $right$；再从大到小枚举 $k$ 与左上角，第一次命中即最大，返回 $[i,j,k]$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：预处理 + 枚举\r\n\r\n\r\n\r\n思考\r\n\r\n最大的全黑边界正方形。枚举边再扫四边是 $O(n^4)$。\r\n\r\n若已知每格向下、向右连续 $0$ 的长度，则边长 $k$ 只需检查四个角的两段是否 $\\ge k$。\r\n\r\n从右下预处理 $down$、 $right$；再从大到小枚举 $k$ 与左上角，第一次命中即最大，返回 $[i,j,k]$。\r\n\r\n\r\n\r\n我们可以预处理出每个位置 $(i, j)$ 向下和向右的连续 $0$ （黑色像素）的个数，记为 $down[i][j]$ 和 $right[i][j]$。递推公式如下：\r\n\r\n$$\r\ndown[i][j] = \\begin{cases}\r\ndown[i + 1][j] + 1, & matrix[i][j] = 0 \\textit{ 且 } i + 1 < n \\\\\r\n1, & matrix[i][j] = 0 \\textit{ 且 } i + 1 = n \\\\\r\n0, & matrix[i][j] = 1\r\n\\end{cases}\r\n$$\r\n\r\n$$\r\nright[i][j] = \\begin{cases}\r\nright[i][j + 1] + 1, & matrix[i][j] = 0 \\textit{ 且 } j + 1 < n \\\\\r\n1, & matrix[i][j] = 0 \\textit{ 且 } j + 1 = n \\\\\r\n0, & matrix[i][j] = 1\r\n\\end{cases}\r\n$$\r\n\r\n需要注意的是，由于 $down[i][j]$ 依赖于 $down[i + 1][j]$，而 $right[i][j]$ 依赖于 $right[i][j + 1]$，所以，我们在预处理 $down[i][j]$ 和 $right[i][j]$ 时，是从大到小枚举 $i$ 和 $j$ 的。\r\n\r\n接下来，我们从大到小枚举正方形的边长 $k$，从小到大枚举正方形的左上角位置 $(i, j)$，如果满足 $down[i][j] \\ge k$ 且 $right[i][j] \\ge k$ 且 $right[i + k - 1][j] \\ge k$ 且 $down[i][j + k - 1] \\ge k$，说明我们找到了一个边长最大为 $k$ 且左上角位置为 $(i, j)$ 的黑方阵，直接返回 $[i, j, k]$ 即可。\r\n\r\n如果枚举完所有的正方形都没有满足条件的，那么返回空数组。\r\n\r\n<p><img alt=\"\" src=\"https://fastly.jsdelivr.net/gh/doocs/leetcode@main/lcci/17.23.Max%20Black%20Square/images/max_black_square.png\" /></p>\r\n\r\n时间复杂度 $O(n^3)$，空间复杂度 $O(n^2)$。其中 $n$ 是方阵的边长。\r\n\r\n相似题目：\r\n\r\n- [1139. 最大的以 1 为边界的正方形](https://github.com/doocs/leetcode/blob/main/solution/1100-1199/1139.Largest%201-Bordered%20Square/README.md)",
+  "memory": "最大黑方阵 → 预处理 + 枚举。\n**思考**\r\n\r\n最大的全黑边界正方形。枚举边再扫四边是 $O(n^4)$。\r\n\r\n若已知每格向下、向右连续 $0$ 的长度，则边长 $k$ 只需检查四个角的两段是否 $\\ge k$。\r\n\r\n从右下预处理 $down$、 $right$；再从大到小枚举 $k$ 与左上角，第一次命中即最大，返回 $[i,j,k]$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

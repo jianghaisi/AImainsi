@@ -1,0 +1,85 @@
+{
+  "number": "1534",
+  "adapter": {
+    "name": "countGoodTriplets",
+    "params": [
+      {
+        "name": "arr",
+        "type": "integer[]"
+      },
+      {
+        "type": "integer",
+        "name": "a"
+      },
+      {
+        "type": "integer",
+        "name": "b"
+      },
+      {
+        "type": "integer",
+        "name": "c"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1534"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          0,
+          1,
+          1,
+          9,
+          7
+        ],
+        7,
+        2,
+        3
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          1,
+          1,
+          2,
+          2,
+          3
+        ],
+        0,
+        0,
+        1
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def countGoodTriplets(self, arr: List[int], a: int, b: int, c: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} arr\n * @param {number} a\n * @param {number} b\n * @param {number} c\n * @return {number}\n */\nvar countGoodTriplets = function(arr, a, b, c) {\n    \n};",
+    "java": "class Solution {\n    public int countGoodTriplets(int[] arr, int a, int b, int c) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int countGoodTriplets(vector<int>& arr, int a, int b, int c) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def countGoodTriplets(self, arr: List[int], a: int, b: int, c: int) -> int:\r\n        ans, n = 0, len(arr)\r\n        for i in range(n):\r\n            for j in range(i + 1, n):\r\n                for k in range(j + 1, n):\r\n                    ans += (\r\n                        abs(arr[i] - arr[j]) <= a\r\n                        and abs(arr[j] - arr[k]) <= b\r\n                        and abs(arr[i] - arr[k]) <= c\r\n                    )\r\n        return ans\r\n",
+    "javascript": "function countGoodTriplets(arr, a, b, c) {\n    let n = arr.length;\n    let ans = 0;\n    for (let i = 0; i < n; ++i) {\n        for (let j = i + 1; j < n; ++j) {\n            for (let k = j + 1; k < n; ++k) {\n                if (Math.abs(arr[i] - arr[j]) <= a &&\n                    Math.abs(arr[j] - arr[k]) <= b &&\n                    Math.abs(arr[i] - arr[k]) <= c) {\n                    ++ans;\n                }\n            }\n        }\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int countGoodTriplets(int[] arr, int a, int b, int c) {\r\n        int n = arr.length;\r\n        int ans = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j = i + 1; j < n; ++j) {\r\n                for (int k = j + 1; k < n; ++k) {\r\n                    if (Math.abs(arr[i] - arr[j]) <= a && Math.abs(arr[j] - arr[k]) <= b\r\n                        && Math.abs(arr[i] - arr[k]) <= c) {\r\n                        ++ans;\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int countGoodTriplets(vector<int>& arr, int a, int b, int c) {\r\n        int n = arr.size();\r\n        int ans = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j = i + 1; j < n; ++j) {\r\n                for (int k = j + 1; k < n; ++k) {\r\n                    ans += abs(arr[i] - arr[j]) <= a && abs(arr[j] - arr[k]) <= b && abs(arr[i] - arr[k]) <= c;\r\n                }\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1534.Count%20Good%20Triplets/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1534.Count%20Good%20Triplets/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1534.Count%20Good%20Triplets/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1534.Count%20Good%20Triplets/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1534.Count%20Good%20Triplets/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：统计好三元组。\n输入：arr（integer[]）、a（integer）、b（integer）、c（integer）。\n训练提示：**思考**\r \r 统计满足三组绝对值约束的下标三元组。 $n\\le 100$，三重循环约 $10^6$ 次比较，足以通过。\r \r 按 $i<j<k$ 枚举即可直接套用三个不等式，不必预处理。约束彼此独立，没有值得再换数据结构的单调性。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：枚举\r\n\r\n\r\n\r\n思考\r\n\r\n统计满足三组绝对值约束的下标三元组。 $n\\le 100$，三重循环约 $10^6$ 次比较，足以通过。\r\n\r\n按 $i<j<k$ 枚举即可直接套用三个不等式，不必预处理。约束彼此独立，没有值得再换数据结构的单调性。\r\n\r\n\r\n\r\n我们可以枚举所有的 $i$, $j$ 和 $k$，其中 $i \\lt j \\lt k$，判断是否同时满足 $|\\textit{arr}[i] - \\textit{arr}[j]| \\le a$， $|\\textit{arr}[j] - \\textit{arr}[k]| \\le b$ 和 $|\\textit{arr}[i] - \\textit{arr}[k]| \\le c$，如果满足则将答案加一。\r\n\r\n枚举结束后，即可得到答案。\r\n\r\n时间复杂度 $O(n^3)$，其中 $n$ 为数组 $\\textit{arr}$ 的长度。空间复杂度 $O(1)$。",
+  "memory": "统计好三元组 → 枚举。\n**思考**\r\n\r\n统计满足三组绝对值约束的下标三元组。 $n\\le 100$，三重循环约 $10^6$ 次比较，足以通过。\r\n\r\n按 $i<j<k$ 枚举即可直接套用三个不等式，不必预处理。约束彼此独立，没有值得再换数据结构的单调性。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

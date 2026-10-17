@@ -1,0 +1,72 @@
+{
+  "number": "面试题 16.04",
+  "adapter": {
+    "name": "tictactoe",
+    "params": [
+      {
+        "name": "board",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "面试题 16.04"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "O X",
+          " XO",
+          "X O"
+        ]
+      ],
+      "expected": "X"
+    },
+    {
+      "input": [
+        [
+          "OOX",
+          "XXO",
+          "OXO"
+        ]
+      ],
+      "expected": "Draw"
+    },
+    {
+      "input": [
+        [
+          "OOX",
+          "XXO",
+          "OX "
+        ]
+      ],
+      "expected": "Pending"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def tictactoe(self, board: List[str]) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[]} board\n * @return {string}\n */\nvar tictactoe = function(board) {\n    \n};",
+    "java": "class Solution {\n    public String tictactoe(String[] board) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string tictactoe(vector<string>& board) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def tictactoe(self, board: List[str]) -> str:\r\n        n = len(board)\r\n        rows = [0] * n\r\n        cols = [0] * n\r\n        dg = udg = 0\r\n        has_empty_grid = False\r\n        for i, row in enumerate(board):\r\n            for j, c in enumerate(row):\r\n                v = 1 if c == 'X' else -1\r\n                if c == ' ':\r\n                    has_empty_grid = True\r\n                    v = 0\r\n                rows[i] += v\r\n                cols[j] += v\r\n                if i == j:\r\n                    dg += v\r\n                if i + j + 1 == n:\r\n                    udg += v\r\n                if (\r\n                    abs(rows[i]) == n\r\n                    or abs(cols[j]) == n\r\n                    or abs(dg) == n\r\n                    or abs(udg) == n\r\n                ):\r\n                    return c\r\n        return 'Pending' if has_empty_grid else 'Draw'\r\n",
+    "javascript": "function tictactoe(board) {\n    const n = board.length;\n    const rows = Array(n).fill(0);\n    const cols = Array(n).fill(0);\n    let [dg, udg] = [0, 0];\n    let hasEmptyGrid = false;\n    for (let i = 0; i < n; ++i) {\n        for (let j = 0; j < n; ++j) {\n            const c = board[i][j];\n            if (c === ' ') {\n                hasEmptyGrid = true;\n                continue;\n            }\n            const v = c === 'X' ? 1 : -1;\n            rows[i] += v;\n            cols[j] += v;\n            if (i === j) {\n                dg += v;\n            }\n            if (i + j === n - 1) {\n                udg += v;\n            }\n            if (Math.abs(rows[i]) === n ||\n                Math.abs(cols[j]) === n ||\n                Math.abs(dg) === n ||\n                Math.abs(udg) === n) {\n                return c;\n            }\n        }\n    }\n    return hasEmptyGrid ? 'Pending' : 'Draw';\n}\n",
+    "java": "class Solution {\r\n    public String tictactoe(String[] board) {\r\n        int n = board.length;\r\n        int[] rows = new int[n];\r\n        int[] cols = new int[n];\r\n        int dg = 0, udg = 0;\r\n        boolean hasEmptyGrid = false;\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                char c = board[i].charAt(j);\r\n                if (c == ' ') {\r\n                    hasEmptyGrid = true;\r\n                    continue;\r\n                }\r\n                int v = c == 'X' ? 1 : -1;\r\n                rows[i] += v;\r\n                cols[j] += v;\r\n                if (i == j) {\r\n                    dg += v;\r\n                }\r\n                if (i + j + 1 == n) {\r\n                    udg += v;\r\n                }\r\n                if (Math.abs(rows[i]) == n || Math.abs(cols[j]) == n || Math.abs(dg) == n\r\n                    || Math.abs(udg) == n) {\r\n                    return String.valueOf(c);\r\n                }\r\n            }\r\n        }\r\n        return hasEmptyGrid ? \"Pending\" : \"Draw\";\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    string tictactoe(vector<string>& board) {\r\n        int n = board.size();\r\n        vector<int> rows(n), cols(n);\r\n        int dg = 0, udg = 0;\r\n        bool hasEmptyGrid = false;\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                char c = board[i][j];\r\n                if (c == ' ') {\r\n                    hasEmptyGrid = true;\r\n                    continue;\r\n                }\r\n                int v = c == 'X' ? 1 : -1;\r\n                rows[i] += v;\r\n                cols[j] += v;\r\n                if (i == j) {\r\n                    dg += v;\r\n                }\r\n                if (i + j + 1 == n) {\r\n                    udg += v;\r\n                }\r\n                if (abs(rows[i]) == n || abs(cols[j]) == n || abs(dg) == n || abs(udg) == n) {\r\n                    return string(1, c);\r\n                }\r\n            }\r\n        }\r\n        return hasEmptyGrid ? \"Pending\" : \"Draw\";\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.04.Tic-Tac-Toe/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.04.Tic-Tac-Toe/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.04.Tic-Tac-Toe/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.04.Tic-Tac-Toe/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.04.Tic-Tac-Toe/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：井字游戏。\n输入：board（string[]）。\n训练提示：**思考**\r \r 判断井字棋胜负或未完/平局。枚举所有行、列、对角线再数子，正确但与「边走边判定」重复。\r \r 把 `X` 记为 $+1$、`O` 记为 $-1$，某行/列/对角线绝对值和为 $n$ 即该玩家占满。\r \r 扫描时累加 $rows$、 $cols$、 $dg$、 $udg$，一旦绝对值为 $n$ 立即返回该格字符。全程无空格则平局，否则 `Pending`。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：计数\r\n\r\n\r\n\r\n思考\r\n\r\n判断井字棋胜负或未完/平局。枚举所有行、列、对角线再数子，正确但与「边走边判定」重复。\r\n\r\n把 `X` 记为 $+1$、`O` 记为 $-1$，某行/列/对角线绝对值和为 $n$ 即该玩家占满。\r\n\r\n扫描时累加 $rows$、 $cols$、 $dg$、 $udg$，一旦绝对值为 $n$ 立即返回该格字符。全程无空格则平局，否则 `Pending`。\r\n\r\n\r\n\r\n对于每个格子，如果是 `X`，我们不妨将计数加 $1$，如果是 `O`，我们不妨将计数减 $1$。那么当某个格子所在的行、列或者对角线的计数的绝对值等于 $n$ 时，说明当前玩家在该行、列或者对角线上放置了 $n$ 个相同字符，游戏结束，返回对应的字符即可。\r\n\r\n具体地，我们用一个长度为 $n$ 的一维数组 $rows$ 和 $cols$ 分别表示每一行和每一列的计数，用 $dg$ 和 $udg$ 分别表示两个对角线的计数。当玩家放置一个字符到 $(i, j)$ 时，根据字符是 `X` 还是 `O`，更新数组 $rows$， $cols$， $dg$ 以及 $udg$ 中对应元素的值。每次更新后，我们判断对应的元素的值的绝对值是否等于 $n$，如果等于 $n$，则说明当前玩家在行、列或者对角线上放置了 $n$ 个相同字符，游戏结束，返回对应的字符即可。\r\n\r\n最后，我们遍历整个棋盘，如果棋盘中存在字符 ` `，说明游戏还未结束，返回 `Pending`，否则返回 `Draw`。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n)$。其中 $n$ 是棋盘的边长。",
+  "memory": "井字游戏 → 计数。\n**思考**\r\n\r\n判断井字棋胜负或未完/平局。枚举所有行、列、对角线再数子，正确但与「边走边判定」重复。\r\n\r\n把 `X` 记为 $+1$、`O` 记为 $-1$，某行/列/对角线绝对值和为 $n$ 即该玩家占满。\r\n\r\n扫描时累加 $rows$、 $cols$、 $dg$、 $udg$，一旦绝对值为 $n$ 立即返回该格字符。全程无空格则平局，否则 `Pending`。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

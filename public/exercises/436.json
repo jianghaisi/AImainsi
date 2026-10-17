@@ -1,0 +1,101 @@
+{
+  "number": "436",
+  "adapter": {
+    "name": "findRightInterval",
+    "params": [
+      {
+        "name": "intervals",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "436"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "expected": [
+        -1
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            3,
+            4
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "expected": [
+        -1,
+        0,
+        1
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      ],
+      "expected": [
+        -1,
+        2,
+        -1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findRightInterval(self, intervals: List[List[int]]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} intervals\n * @return {number[]}\n */\nvar findRightInterval = function(intervals) {\n    \n};",
+    "java": "class Solution {\n    public int[] findRightInterval(int[][] intervals) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> findRightInterval(vector<vector<int>>& intervals) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findRightInterval(self, intervals: List[List[int]]) -> List[int]:\r\n        n = len(intervals)\r\n        ans = [-1] * n\r\n        arr = sorted((st, i) for i, (st, _) in enumerate(intervals))\r\n        for i, (_, ed) in enumerate(intervals):\r\n            j = bisect_left(arr, (ed, -inf))\r\n            if j < n:\r\n                ans[i] = arr[j][1]\r\n        return ans\r\n",
+    "javascript": "function findRightInterval(intervals) {\n    const n = intervals.length;\n    const arr = Array.from({ length: n }, (_, i) => [intervals[i][0], i]);\n    arr.sort((a, b) => a[0] - b[0]);\n    return intervals.map(([_, ed]) => {\n        let [l, r] = [0, n];\n        while (l < r) {\n            const mid = (l + r) >> 1;\n            if (arr[mid][0] >= ed) {\n                r = mid;\n            }\n            else {\n                l = mid + 1;\n            }\n        }\n        return l < n ? arr[l][1] : -1;\n    });\n}\n",
+    "java": "class Solution {\r\n    public int[] findRightInterval(int[][] intervals) {\r\n        int n = intervals.length;\r\n        int[][] arr = new int[n][0];\r\n        for (int i = 0; i < n; ++i) {\r\n            arr[i] = new int[] {intervals[i][0], i};\r\n        }\r\n        Arrays.sort(arr, (a, b) -> a[0] - b[0]);\r\n        int[] ans = new int[n];\r\n        for (int i = 0; i < n; ++i) {\r\n            int j = search(arr, intervals[i][1]);\r\n            ans[i] = j < n ? arr[j][1] : -1;\r\n        }\r\n        return ans;\r\n    }\r\n\r\n    private int search(int[][] arr, int x) {\r\n        int l = 0, r = arr.length;\r\n        while (l < r) {\r\n            int mid = (l + r) >> 1;\r\n            if (arr[mid][0] >= x) {\r\n                r = mid;\r\n            } else {\r\n                l = mid + 1;\r\n            }\r\n        }\r\n        return l;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> findRightInterval(vector<vector<int>>& intervals) {\r\n        int n = intervals.size();\r\n        vector<pair<int, int>> arr;\r\n        for (int i = 0; i < n; ++i) {\r\n            arr.emplace_back(intervals[i][0], i);\r\n        }\r\n        sort(arr.begin(), arr.end());\r\n        vector<int> ans;\r\n        for (auto& e : intervals) {\r\n            int j = lower_bound(arr.begin(), arr.end(), make_pair(e[1], -1)) - arr.begin();\r\n            ans.push_back(j == n ? -1 : arr[j].second);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0436.Find%20Right%20Interval/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0436.Find%20Right%20Interval/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0436.Find%20Right%20Interval/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0436.Find%20Right%20Interval/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0436.Find%20Right%20Interval/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：寻找右区间。\n输入：intervals（integer[][]）。\n训练提示：**思考**\r \r 每个区间要找起点不小于其终点、且起点最小的区间。对每个终点线性扫描是 $O(n^2)$。\r \r 把 $(\\textit{start},\\textit{index})$ 按起点排序，对每个终点二分第一个 $\\textit{start}\\ge \\textit{end}$。\r \r 排序后起点单调，二分给出「最靠左的合法起点」，下标一并存入以免排序打乱对应关系。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序 + 二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n每个区间要找起点不小于其终点、且起点最小的区间。对每个终点线性扫描是 $O(n^2)$。\r\n\r\n把 $(\\textit{start},\\textit{index})$ 按起点排序，对每个终点二分第一个 $\\textit{start}\\ge \\textit{end}$。\r\n\r\n排序后起点单调，二分给出「最靠左的合法起点」，下标一并存入以免排序打乱对应关系。\r\n\r\n\r\n\r\n我们可以将区间的起点和下标存入数组 `arr` 中，并按照起点进行排序。然后遍历区间数组，对于每个区间 `[_, ed]`，我们可以使用二分查找找到第一个起点大于等于 `ed` 的区间，即为其右侧区间，如果找到了，我们就将其下标存入答案数组中，否则存入 `-1`。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(n)$。其中 $n$ 为区间的长度。",
+  "memory": "寻找右区间 → 排序 + 二分查找。\n**思考**\r\n\r\n每个区间要找起点不小于其终点、且起点最小的区间。对每个终点线性扫描是 $O(n^2)$。\r\n\r\n把 $(\\textit{start},\\textit{index})$ 按起点排序，对每个终点二分第一个 $\\textit{start}\\ge \\textit{end}$。\r\n\r\n排序后起点单调，二分给出「最靠左的合法起点」，下标一并存入以免排序打乱对应关系。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

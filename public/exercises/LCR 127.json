@@ -1,0 +1,66 @@
+{
+  "number": "LCR 127",
+  "adapter": {
+    "name": "trainWays",
+    "params": [
+      {
+        "name": "num",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 127"
+  },
+  "tests": [
+    {
+      "input": [
+        2
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        5
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        7
+      ],
+      "expected": 21
+    },
+    {
+      "input": [
+        0
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def trainWays(self, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} num\n * @return {number}\n */\nvar trainWays = function(num) {\n    \n};",
+    "java": "class Solution {\n    public int trainWays(int num) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int trainWays(int num) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def trainWays(self, n: int) -> int:\r\n        a = b = 1\r\n        for _ in range(n):\r\n            a, b = b, (a + b) % 1000000007\r\n        return a\r\n",
+    "javascript": "function trainWays(n) {\n    let a = 0;\n    let b = 1;\n    for (let i = 0; i < n; i++) {\n        [a, b] = [b, (a + b) % 1000000007];\n    }\n    return b;\n}\n",
+    "java": "class Solution {\r\n    public int trainWays(int n) {\r\n        int a = 1, b = 1;\r\n        while (n-- > 0) {\r\n            int c = (a + b) % 1000000007;\r\n            a = b;\r\n            b = c;\r\n        }\r\n        return a;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int trainWays(int n) {\r\n        int a = 1, b = 1;\r\n        while (n--) {\r\n            int c = (a + b) % 1000000007;\r\n            a = b;\r\n            b = c;\r\n        }\r\n        return a;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9810-%20II.%20%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6%E9%97%AE%E9%A2%98/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9810-%20II.%20%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6%E9%97%AE%E9%A2%98/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9810-%20II.%20%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6%E9%97%AE%E9%A2%98/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9810-%20II.%20%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6%E9%97%AE%E9%A2%98/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9810-%20II.%20%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6%E9%97%AE%E9%A2%98/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：跳跃训练。\n输入：num（integer）。\n训练提示：**思考**\r \r 上第 $n$ 级只能从 $n-1$ 或 $n-2$ 跳来，递推式与斐波那契相同，仅初值改为 $f(0)=f(1)=1$。\r \r 仍用两个变量滚动，并按题意取模，避免递归重复计算。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递推\r\n\r\n\r\n\r\n思考\r\n\r\n上第 $n$ 级只能从 $n-1$ 或 $n-2$ 跳来，递推式与斐波那契相同，仅初值改为 $f(0)=f(1)=1$。\r\n\r\n仍用两个变量滚动，并按题意取模，避免递归重复计算。\r\n\r\n\r\n\r\n青蛙想上第 $n$ 级台阶，可从第 $n-1$ 级台阶跳一级上去，也可从第 $n-2$ 级台阶跳两级上去，即 $f(n) = f(n-1) + f(n-2)$。这实际上可以转换为斐波那契数列的问题。\r\n\r\n我们定义初始项 $a=1$, $b=1$，接下来执行 $n$ 次循环，每次循环中，计算 $c=a+b$，并更新 $a=b$, $b=c$，循环 $n$ 次后，答案即为 $a$。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(1)$。其中 $n$ 为输入的整数。",
+  "memory": "跳跃训练 → 递推。\n**思考**\r\n\r\n上第 $n$ 级只能从 $n-1$ 或 $n-2$ 跳来，递推式与斐波那契相同，仅初值改为 $f(0)=f(1)=1$。\r\n\r\n仍用两个变量滚动，并按题意取模，避免递归重复计算。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

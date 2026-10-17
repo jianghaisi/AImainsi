@@ -1,0 +1,92 @@
+{
+  "number": "2300",
+  "adapter": {
+    "name": "successfulPairs",
+    "params": [
+      {
+        "name": "spells",
+        "type": "integer[]"
+      },
+      {
+        "type": "integer[]",
+        "name": "potions"
+      },
+      {
+        "type": "long",
+        "name": "success"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "2300"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          5,
+          1,
+          3
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        7
+      ],
+      "expected": [
+        4,
+        0,
+        3
+      ]
+    },
+    {
+      "input": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          8,
+          5,
+          8
+        ],
+        16
+      ],
+      "expected": [
+        2,
+        0,
+        2
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} spells\n * @param {number[]} potions\n * @param {number} success\n * @return {number[]}\n */\nvar successfulPairs = function(spells, potions, success) {\n    \n};",
+    "java": "class Solution {\n    public int[] successfulPairs(int[] spells, int[] potions, long success) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def successfulPairs(\r\n        self, spells: List[int], potions: List[int], success: int\r\n    ) -> List[int]:\r\n        potions.sort()\r\n        m = len(potions)\r\n        return [m - bisect_left(potions, success / v) for v in spells]\r\n",
+    "javascript": "function successfulPairs(spells, potions, success) {\n    potions.sort((a, b) => a - b);\n    const m = potions.length;\n    const ans = [];\n    for (const v of spells) {\n        const targetPotion = success / v;\n        const idx = _.sortedIndexBy(potions, targetPotion, p => p);\n        ans.push(m - idx);\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int[] successfulPairs(int[] spells, int[] potions, long success) {\r\n        Arrays.sort(potions);\r\n        int n = spells.length, m = potions.length;\r\n        int[] ans = new int[n];\r\n        for (int i = 0; i < n; ++i) {\r\n            int left = 0, right = m;\r\n            while (left < right) {\r\n                int mid = (left + right) >> 1;\r\n                if ((long) spells[i] * potions[mid] >= success) {\r\n                    right = mid;\r\n                } else {\r\n                    left = mid + 1;\r\n                }\r\n            }\r\n            ans[i] = m - left;\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {\r\n        ranges::sort(potions);\r\n        const int m = potions.size();\r\n        vector<int> ans;\r\n        ans.reserve(spells.size());\r\n\r\n        for (int v : spells) {\r\n            auto it = ranges::lower_bound(potions, static_cast<double>(success) / v);\r\n            ans.push_back(m - static_cast<int>(it - potions.begin()));\r\n        }\r\n        return ans;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2300-2399/2300.Successful%20Pairs%20of%20Spells%20and%20Potions/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2300-2399/2300.Successful%20Pairs%20of%20Spells%20and%20Potions/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2300-2399/2300.Successful%20Pairs%20of%20Spells%20and%20Potions/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2300-2399/2300.Successful%20Pairs%20of%20Spells%20and%20Potions/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2300-2399/2300.Successful%20Pairs%20of%20Spells%20and%20Potions/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：咒语和药水的成功对数。\n输入：spells（integer[]）、potions（integer[]）、success（long）。\n训练提示：**思考**\r \r 若对每个咒语扫描全部药水，时间复杂度为 $O(nm)$。 $n, m \\le 10^5$，无法通过。\r \r 固定咒语 $v$ 后，成功条件化为 $potions[j] \\ge \\frac{success}{v}$，只取决于药水强度的单调分界。为此先将药水升序排列，再用二分定位第一瓶满足阈值的药水，其后整段后缀均可配对。每个咒语只需一次对数查找。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序 + 二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n若对每个咒语扫描全部药水，时间复杂度为 $O(nm)$。 $n, m \\le 10^5$，无法通过。\r\n\r\n固定咒语 $v$ 后，成功条件化为 $potions[j] \\ge \\frac{success}{v}$，只取决于药水强度的单调分界。为此先将药水升序排列，再用二分定位第一瓶满足阈值的药水，其后整段后缀均可配对。每个咒语只需一次对数查找。\r\n\r\n\r\n\r\n我们可以对药水数组进行排序，然后遍历咒语数组，对于每个咒语 $v$，利用二分查找找到第一个大于等于 $\\frac{success}{v}$ 的药水，下标记为 $i$，那么药水的长度减去 $i$ 即为能跟该咒语成功组合的药水数目。\r\n\r\n时间复杂度 $O((m + n) \\times \\log m)$，空间复杂度 $O(\\log n)$。其中 $m$ 和 $n$ 分别为药水数组和咒语数组的长度。",
+  "memory": "咒语和药水的成功对数 → 排序 + 二分查找。\n**思考**\r\n\r\n若对每个咒语扫描全部药水，时间复杂度为 $O(nm)$。 $n, m \\le 10^5$，无法通过。\r\n\r\n固定咒语 $v$ 后，成功条件化为 $potions[j] \\ge \\frac{success}{v}$，只取决于药水强度的单调分界。为此先将药水升序排列，再用二分定位第一瓶满足阈值的药水，其后整段后缀均可配对。每个咒语只需一次对数查找。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

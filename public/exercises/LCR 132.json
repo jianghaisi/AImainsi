@@ -1,0 +1,57 @@
+{
+  "number": "LCR 132",
+  "adapter": {
+    "name": "cuttingBamboo",
+    "params": [
+      {
+        "name": "bamboo_len",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 132"
+  },
+  "tests": [
+    {
+      "input": [
+        12
+      ],
+      "expected": 81
+    },
+    {
+      "input": [
+        2
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        10
+      ],
+      "expected": 36
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def cuttingBamboo(self, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int cuttingBamboo(int bamboo_len) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int cuttingBamboo(int bamboo_len) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def cuttingBamboo(self, n: int) -> int:\r\n        mod = 10**9 + 7\r\n        if n < 4:\r\n            return n - 1\r\n        if n % 3 == 0:\r\n            return pow(3, n // 3, mod)\r\n        if n % 3 == 1:\r\n            return (pow(3, n // 3 - 1, mod) * 4) % mod\r\n        return pow(3, n // 3, mod) * 2 % mod\r\n",
+    "java": "class Solution {\r\n    private final int mod = (int) 1e9 + 7;\r\n\r\n    public int cuttingBamboo(int n) {\r\n        if (n < 4) {\r\n            return n - 1;\r\n        }\r\n        if (n % 3 == 0) {\r\n            return qpow(3, n / 3);\r\n        }\r\n        if (n % 3 == 1) {\r\n            return (int) (4L * qpow(3, n / 3 - 1) % mod);\r\n        }\r\n        return 2 * qpow(3, n / 3) % mod;\r\n    }\r\n\r\n    private int qpow(long a, long n) {\r\n        long ans = 1;\r\n        for (; n > 0; n >>= 1) {\r\n            if ((n & 1) == 1) {\r\n                ans = ans * a % mod;\r\n            }\r\n            a = a * a % mod;\r\n        }\r\n        return (int) ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int cuttingBamboo(int n) {\r\n        if (n < 4) {\r\n            return n - 1;\r\n        }\r\n        const int mod = 1e9 + 7;\r\n        auto qpow = [&](long long a, long long n) {\r\n            long long ans = 1;\r\n            for (; n; n >>= 1) {\r\n                if (n & 1) {\r\n                    ans = ans * a % mod;\r\n                }\r\n                a = a * a % mod;\r\n            }\r\n            return (int) ans;\r\n        };\r\n        if (n % 3 == 0) {\r\n            return qpow(3, n / 3);\r\n        }\r\n        if (n % 3 == 1) {\r\n            return qpow(3, n / 3 - 1) * 4L % mod;\r\n        }\r\n        return qpow(3, n / 3) * 2 % mod;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9814-%20II.%20%E5%89%AA%E7%BB%B3%E5%AD%90%20II/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9814-%20II.%20%E5%89%AA%E7%BB%B3%E5%AD%90%20II/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9814-%20II.%20%E5%89%AA%E7%BB%B3%E5%AD%90%20II/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9814-%20II.%20%E5%89%AA%E7%BB%B3%E5%AD%90%20II/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：砍竹子 II。\n输入：bamboo_len（integer）。\n训练提示：**思考**\r \r 切法与上一题相同，但 $n$ 更大且要取模，连乘会溢出。仍按尽可能多的 $3$ 拆分，余 $1$ 时改用 $2+2$。\r \r 用快速幂求 $3^{n/3}$，再按余数乘 $4$ 或 $2$，并对 $10^9+7$ 取模。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：数学（快速幂）\r\n\r\n\r\n\r\n思考\r\n\r\n切法与上一题相同，但 $n$ 更大且要取模，连乘会溢出。仍按尽可能多的 $3$ 拆分，余 $1$ 时改用 $2+2$。\r\n\r\n用快速幂求 $3^{n/3}$，再按余数乘 $4$ 或 $2$，并对 $10^9+7$ 取模。\r\n\r\n\r\n\r\n当 $n \\lt 4$，此时 $n$ 不能拆分成至少两个正整数的和，因此 $n - 1$ 是最大乘积。当 $n \\ge 4$ 时，我们尽可能多地拆分 $3$，当剩下的最后一段为 $4$ 时，我们将其拆分为 $2 + 2$，这样乘积最大。\r\n\r\n时间复杂度 $O(\\log n)$，空间复杂度 $O(1)$。",
+  "memory": "砍竹子 II → 数学（快速幂）。\n**思考**\r\n\r\n切法与上一题相同，但 $n$ 更大且要取模，连乘会溢出。仍按尽可能多的 $3$ 拆分，余 $1$ 时改用 $2+2$。\r\n\r\n用快速幂求 $3^{n/3}$，再按余数乘 $4$ 或 $2$，并对 $10^9+7$ 取模。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,74 @@
+{
+  "number": "面试题 16.18",
+  "adapter": {
+    "name": "patternMatching",
+    "params": [
+      {
+        "name": "pattern",
+        "type": "string"
+      },
+      {
+        "name": "value",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "面试题 16.18"
+  },
+  "tests": [
+    {
+      "input": [
+        "abba",
+        "dogcatcatdog"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abba",
+        "dogcatcatfish"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aaaa",
+        "dogcatcatdog"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "abba",
+        "dogdogdogdog"
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def patternMatching(self, pattern: str, value: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} pattern\n * @param {string} value\n * @return {boolean}\n */\nvar patternMatching = function(pattern, value) {\n    \n};",
+    "java": "class Solution {\n    public boolean patternMatching(String pattern, String value) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool patternMatching(string pattern, string value) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def patternMatching(self, pattern: str, value: str) -> bool:\r\n        if not pattern:\r\n            return value == \"\"\r\n\r\n        def check(la: int, lb: int) -> bool:\r\n            i = 0\r\n            a, b = \"\", \"\"\r\n            for c in pattern:\r\n                if c == \"a\":\r\n                    if a and value[i : i + la] != a:\r\n                        return False\r\n                    a = value[i : i + la]\r\n                    i += la\r\n                else:\r\n                    if b and value[i : i + lb] != b:\r\n                        return False\r\n                    b = value[i : i + lb]\r\n                    i += lb\r\n            return a != b\r\n\r\n        n = len(value)\r\n        cnt = Counter(pattern)\r\n        if cnt[\"a\"] == 0:\r\n            return n % cnt[\"b\"] == 0 and value[: n // cnt[\"b\"]] * cnt[\"b\"] == value\r\n        if cnt[\"b\"] == 0:\r\n            return n % cnt[\"a\"] == 0 and value[: n // cnt[\"a\"]] * cnt[\"a\"] == value\r\n\r\n        for la in range(n + 1):\r\n            if la * cnt[\"a\"] > n:\r\n                break\r\n            lb, mod = divmod(n - la * cnt[\"a\"], cnt[\"b\"])\r\n            if mod == 0 and check(la, lb):\r\n                return True\r\n        return False\r\n",
+    "javascript": "function patternMatching(pattern, value) {\n    if (pattern.length === 0) {\n        return value.length === 0;\n    }\n    const cnt = [0, 0];\n    for (const c of pattern) {\n        cnt[c === 'a' ? 0 : 1]++;\n    }\n    const n = value.length;\n    if (cnt[0] === 0) {\n        return n % cnt[1] === 0 && value.slice(0, (n / cnt[1]) | 0).repeat(cnt[1]) === value;\n    }\n    if (cnt[1] === 0) {\n        return n % cnt[0] === 0 && value.slice(0, (n / cnt[0]) | 0).repeat(cnt[0]) === value;\n    }\n    const check = (la, lb) => {\n        let i = 0;\n        let a = '';\n        let b = '';\n        for (const c of pattern) {\n            if (c === 'a') {\n                if (a && a !== value.slice(i, i + la)) {\n                    return false;\n                }\n                a = value.slice(i, (i += la));\n            }\n            else {\n                if (b && b !== value.slice(i, i + lb)) {\n                    return false;\n                }\n                b = value.slice(i, (i += lb));\n            }\n        }\n        return a !== b;\n    };\n    for (let la = 0; la <= n; ++la) {\n        if (la * cnt[0] > n) {\n            break;\n        }\n        if ((n - la * cnt[0]) % cnt[1] === 0) {\n            const lb = ((n - la * cnt[0]) / cnt[1]) | 0;\n            if (check(la, lb)) {\n                return true;\n            }\n        }\n    }\n    return false;\n}\n",
+    "java": "class Solution {\r\n    private String pattern;\r\n    private String value;\r\n\r\n    public boolean patternMatching(String pattern, String value) {\r\n        if (pattern.isEmpty()) {\r\n            return value.isEmpty();\r\n        }\r\n        this.pattern = pattern;\r\n        this.value = value;\r\n        int[] cnt = new int[2];\r\n        for (char c : pattern.toCharArray()) {\r\n            ++cnt[c - 'a'];\r\n        }\r\n        int n = value.length();\r\n        if (cnt[0] == 0) {\r\n            return n % cnt[1] == 0 && value.substring(0, n / cnt[1]).repeat(cnt[1]).equals(value);\r\n        }\r\n        if (cnt[1] == 0) {\r\n            return n % cnt[0] == 0 && value.substring(0, n / cnt[0]).repeat(cnt[0]).equals(value);\r\n        }\r\n        for (int la = 0; la <= n; ++la) {\r\n            if (la * cnt[0] > n) {\r\n                break;\r\n            }\r\n            if ((n - la * cnt[0]) % cnt[1] == 0) {\r\n                int lb = (n - la * cnt[0]) / cnt[1];\r\n                if (check(la, lb)) {\r\n                    return true;\r\n                }\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n\r\n    private boolean check(int la, int lb) {\r\n        int i = 0;\r\n        String a = null, b = null;\r\n        for (char c : pattern.toCharArray()) {\r\n            if (c == 'a') {\r\n                if (a != null && !a.equals(value.substring(i, i + la))) {\r\n                    return false;\r\n                }\r\n                a = value.substring(i, i + la);\r\n                i += la;\r\n            } else {\r\n                if (b != null && !b.equals(value.substring(i, i + lb))) {\r\n                    return false;\r\n                }\r\n                b = value.substring(i, i + lb);\r\n                i += lb;\r\n            }\r\n        }\r\n        return !a.equals(b);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool patternMatching(string pattern, string value) {\r\n        if (pattern.empty()) {\r\n            return value.empty();\r\n        }\r\n        int n = value.size();\r\n        int cnt[2]{};\r\n        for (char c : pattern) {\r\n            cnt[c - 'a']++;\r\n        }\r\n        if (cnt[0] == 0) {\r\n            return n % cnt[1] == 0 && repeat(value.substr(0, n / cnt[1]), cnt[1]) == value;\r\n        }\r\n        if (cnt[1] == 0) {\r\n            return n % cnt[0] == 0 && repeat(value.substr(0, n / cnt[0]), cnt[0]) == value;\r\n        }\r\n        auto check = [&](int la, int lb) {\r\n            int i = 0;\r\n            string a, b;\r\n            for (char c : pattern) {\r\n                if (c == 'a') {\r\n                    if (!a.empty() && a != value.substr(i, la)) {\r\n                        return false;\r\n                    }\r\n                    a = value.substr(i, la);\r\n                    i += la;\r\n                } else {\r\n                    if (!b.empty() && b != value.substr(i, lb)) {\r\n                        return false;\r\n                    }\r\n                    b = value.substr(i, lb);\r\n                    i += lb;\r\n                }\r\n            }\r\n            return a != b;\r\n        };\r\n        for (int la = 0; la <= n; ++la) {\r\n            if (la * cnt[0] > n) {\r\n                break;\r\n            }\r\n            if ((n - la * cnt[0]) % cnt[1] == 0) {\r\n                int lb = (n - la * cnt[0]) / cnt[1];\r\n                if (check(la, lb)) {\r\n                    return true;\r\n                }\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n\r\n    string repeat(string s, int n) {\r\n        string ans;\r\n        while (n--) {\r\n            ans += s;\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.18.Pattern%20Matching/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.18.Pattern%20Matching/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.18.Pattern%20Matching/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.18.Pattern%20Matching/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.18.Pattern%20Matching/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：模式匹配。\n输入：pattern（string）、value（string）。\n训练提示：**思考**\r \r `a`、`b` 各表示一个（可空）串，判断 $pattern$ 能否生成 $value$。搜索两串内容的组合空间过大。\r \r 一旦 $a$、 $b$ 的长度确定，匹配被完全决定，只需验证一致性且 $a\\ne b$。\r \r 空模式没有可整除的字母次数，只与空的 $value$ 匹配。其余情形先处理只含一种字母的模式，再枚举 $la$，由总长解出 $lb$，用 `check` 按模式切片比较。长度枚举是线性，每次校验也是线性。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：枚举\r\n\r\n\r\n\r\n思考\r\n\r\n`a`、`b` 各表示一个（可空）串，判断 $pattern$ 能否生成 $value$。搜索两串内容的组合空间过大。\r\n\r\n一旦 $a$、 $b$ 的长度确定，匹配被完全决定，只需验证一致性且 $a\\ne b$。\r\n\r\n空模式没有可整除的字母次数，只与空的 $value$ 匹配。其余情形先处理只含一种字母的模式，再枚举 $la$，由总长解出 $lb$，用 `check` 按模式切片比较。长度枚举是线性，每次校验也是线性。\r\n\r\n\r\n\r\n如果 $pattern$ 为空，模式中没有可整除的字母次数，它只与空的 $value$ 匹配。\r\n\r\n我们先统计出模式串 $pattern$ 中 `'a'` 和 `'b'` 的个数，分别为 $cnt[0]$ 和 $cnt[1]$。记字符串 $value$ 的长度为 $n$。\r\n\r\n如果 $cnt[0]=0$，说明模式串中只包含字符 `'b'`，那么我们需要判断 $n$ 是否是 $cnt[1]$ 的倍数，以及 $value$ 是否可以分割成 $cnt[1]$ 个长度为 $n/cnt[1]$ 的子串，且这些子串都相同。如果不满足，直接返回 $false$ 即可。\r\n\r\n如果 $cnt[1]=0$，说明模式串中只包含字符 `'a'`，那么我们需要判断 $n$ 是否是 $cnt[0]$ 的倍数，以及 $value$ 是否可以分割成 $cnt[0]$ 个长度为 $n/cnt[0]$ 的子串，且这些子串都相同。如果不满足，直接返回 $false$ 即可。\r\n\r\n接下来，我们记字符 `'a'` 所匹配的字符串的长度 $la$，字符 `'b'` 所匹配的字符串的长度 $lb$。那么有 $la \\times cnt[0] + lb \\times cnt[1] = n$。如果我们枚举 $la$，就可以知道 $lb$ 的值了。因此我们可以枚举 $la$，只需要判断是否存在一个整数 $lb$，满足上述等式即可。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n)$。其中 $n$ 为字符串 $value$ 的长度。",
+  "memory": "模式匹配 → 枚举。\n**思考**\r\n\r\n`a`、`b` 各表示一个（可空）串，判断 $pattern$ 能否生成 $value$。搜索两串内容的组合空间过大。\r\n\r\n一旦 $a$、 $b$ 的长度确定，匹配被完全决定，只需验证一致性且 $a\\ne b$。\r\n\r\n空模式没有可整除的字母次数，只与空的 $value$ 匹配。其余情形先处理只含一种字母的模式，再枚举 $la$，由总长解出 $lb$，用 `check` 按模式切片比较。长度枚举是线性，每次校验也是线性。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,60 @@
+{
+  "number": "1523",
+  "adapter": {
+    "name": "countOdds",
+    "params": [
+      {
+        "name": "low",
+        "type": "integer"
+      },
+      {
+        "type": "integer",
+        "name": "high"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1523"
+  },
+  "tests": [
+    {
+      "input": [
+        3,
+        7
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        8,
+        10
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def countOdds(self, low: int, high: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} low\n * @param {number} high\n * @return {number}\n */\nvar countOdds = function(low, high) {\n    \n};",
+    "java": "class Solution {\n    public int countOdds(int low, int high) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int countOdds(int low, int high) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def countOdds(self, low: int, high: int) -> int:\r\n        return ((high + 1) >> 1) - (low >> 1)\r\n",
+    "javascript": "function countOdds(low, high) {\n    return ((high + 1) >> 1) - (low >> 1);\n}\n",
+    "java": "class Solution {\r\n    public int countOdds(int low, int high) {\r\n        return ((high + 1) >> 1) - (low >> 1);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int countOdds(int low, int high) {\r\n        return (high + 1 >> 1) - (low >> 1);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1523.Count%20Odd%20Numbers%20in%20an%20Interval%20Range/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1523.Count%20Odd%20Numbers%20in%20an%20Interval%20Range/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1523.Count%20Odd%20Numbers%20in%20an%20Interval%20Range/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1523.Count%20Odd%20Numbers%20in%20an%20Interval%20Range/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1523.Count%20Odd%20Numbers%20in%20an%20Interval%20Range/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：在区间范围内统计奇数数目。\n输入：low（integer）、high（integer）。\n训练提示：**思考**\r \r 统计闭区间 $[low,high]$ 中的奇数个数。区间长度可达 $10^9$，不能逐个数判断奇偶。\r \r $[0,x]$ 中奇数的个数为 $\\lfloor (x+1)/2\\rfloor$。因此答案等于 $[0,high]$ 的奇数个数减去 $[0,low-1]$ 的奇数个数，即 $\\lfloor(high+1)/2\\rfloor-\\lfloor low/2\\rfloor$，可用移位在常数时间内求出。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：前缀和思想\r\n\r\n\r\n\r\n思考\r\n\r\n统计闭区间 $[low,high]$ 中的奇数个数。区间长度可达 $10^9$，不能逐个数判断奇偶。\r\n\r\n$[0,x]$ 中奇数的个数为 $\\lfloor (x+1)/2\\rfloor$。因此答案等于 $[0,high]$ 的奇数个数减去 $[0,low-1]$ 的奇数个数，即 $\\lfloor(high+1)/2\\rfloor-\\lfloor low/2\\rfloor$，可用移位在常数时间内求出。\r\n\r\n\r\n\r\n我们知道，在 $[0, x]$ 范围内奇数的个数为 $\\lfloor\\frac{x+1}{2}\\rfloor$。因此， $[low, high]$ 范围内奇数的个数为 $\\lfloor\\frac{high+1}{2}\\rfloor - \\lfloor\\frac{low}{2}\\rfloor$。\r\n\r\n时间复杂度 $O(1)$，空间复杂度 $O(1)$。",
+  "memory": "在区间范围内统计奇数数目 → 前缀和思想。\n**思考**\r\n\r\n统计闭区间 $[low,high]$ 中的奇数个数。区间长度可达 $10^9$，不能逐个数判断奇偶。\r\n\r\n$[0,x]$ 中奇数的个数为 $\\lfloor (x+1)/2\\rfloor$。因此答案等于 $[0,high]$ 的奇数个数减去 $[0,low-1]$ 的奇数个数，即 $\\lfloor(high+1)/2\\rfloor-\\lfloor low/2\\rfloor$，可用移位在常数时间内求出。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

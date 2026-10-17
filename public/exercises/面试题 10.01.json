@@ -1,0 +1,86 @@
+{
+  "number": "面试题 10.01",
+  "adapter": {
+    "name": "merge",
+    "params": [
+      {
+        "name": "A",
+        "type": "integer[]",
+        "implicitsizeparam": false
+      },
+      {
+        "name": "m",
+        "type": "integer"
+      },
+      {
+        "name": "B",
+        "type": "integer[]",
+        "implicitsizeparam": false
+      },
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "void"
+    },
+    "output": {
+      "paramindex": 0
+    },
+    "number": "面试题 10.01"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          0,
+          0,
+          0
+        ],
+        3,
+        [
+          2,
+          5,
+          6
+        ],
+        3
+      ],
+      "expected": [
+        1,
+        2,
+        2,
+        3,
+        5,
+        6
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def merge(self, A: List[int], m: int, B: List[int], n: int) -> None:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} A\n * @param {number} m\n * @param {number[]} B\n * @param {number} n\n * @return {void} Do not return anything, modify A in-place instead.\n */\nvar merge = function(A, m, B, n) {\n    \n};",
+    "java": "class Solution {\n    public void merge(int[] A, int m, int[] B, int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    void merge(vector<int>& A, int m, vector<int>& B, int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def merge(self, A: List[int], m: int, B: List[int], n: int) -> None:\r\n        i, j = m - 1, n - 1\r\n        for k in reversed(range(m + n)):\r\n            if j < 0 or i >= 0 and A[i] > B[j]:\r\n                A[k] = A[i]\r\n                i -= 1\r\n            else:\r\n                A[k] = B[j]\r\n                j -= 1\r\n",
+    "javascript": "/**\n Do not return anything, modify A in-place instead.\n */\nfunction merge(A, m, B, n) {\n    let [i, j] = [m - 1, n - 1];\n    for (let k = A.length - 1; ~k; --k) {\n        if (j < 0 || (i >= 0 && A[i] > B[j])) {\n            A[k] = A[i--];\n        }\n        else {\n            A[k] = B[j--];\n        }\n    }\n}\n",
+    "java": "class Solution {\r\n    public void merge(int[] A, int m, int[] B, int n) {\r\n        int i = m - 1, j = n - 1;\r\n        for (int k = A.length - 1; k >= 0; --k) {\r\n            if (j < 0 || (i >= 0 && A[i] > B[j])) {\r\n                A[k] = A[i--];\r\n            } else {\r\n                A[k] = B[j--];\r\n            }\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    void merge(vector<int>& A, int m, vector<int>& B, int n) {\r\n        int i = m - 1, j = n - 1;\r\n        for (int k = A.size() - 1; ~k; --k) {\r\n            if (j < 0 || (i >= 0 && A[i] > B[j])) {\r\n                A[k] = A[i--];\r\n            } else {\r\n                A[k] = B[j--];\r\n            }\r\n        }\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.01.Sorted%20Merge/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.01.Sorted%20Merge/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.01.Sorted%20Merge/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.01.Sorted%20Merge/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.01.Sorted%20Merge/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：合并排序的数组。\n输入：A（integer[]）、m（integer）、B（integer[]）、n（integer）。\n训练提示：**思考**\r \r 把有序的 $B$ 并入 $A$ 末尾的空位。若从前往后写入，尚未处理的 $A$ 会被覆盖。另开数组再拷回则多用 $O(m+n)$ 空间。\r \r $A$ 的尾部空位足够容纳全部结果，从后往前填入较大者就不会破坏尚未合并的前缀。\r \r 指针 $i$、 $j$ 指向两数组有效末尾， $k$ 从 $m+n-1$ 递减。当 $B$ 耗尽或 $A[i]$ 更大时写入 $A[i]$，否则写入 $B[j]$。原地完成。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双指针\r\n\r\n\r\n\r\n思考\r\n\r\n把有序的 $B$ 并入 $A$ 末尾的空位。若从前往后写入，尚未处理的 $A$ 会被覆盖。另开数组再拷回则多用 $O(m+n)$ 空间。\r\n\r\n$A$ 的尾部空位足够容纳全部结果，从后往前填入较大者就不会破坏尚未合并的前缀。\r\n\r\n指针 $i$、 $j$ 指向两数组有效末尾， $k$ 从 $m+n-1$ 递减。当 $B$ 耗尽或 $A[i]$ 更大时写入 $A[i]$，否则写入 $B[j]$。原地完成。\r\n\r\n\r\n\r\n我们用两个指针 $i$ 和 $j$ 分别指向数组 $A$ 和 $B$ 的末尾，用一个指针 $k$ 指向数组 $A$ 的末尾。然后从后往前遍历数组 $A$ 和 $B$，每次将较大的元素放到 $A[k]$，然后指针 $k$ 和较大元素所在的数组的指针向前移动一位。\r\n\r\n时间复杂度 $O(m + n)$，空间复杂度 $O(1)$。",
+  "memory": "合并排序的数组 → 双指针。\n**思考**\r\n\r\n把有序的 $B$ 并入 $A$ 末尾的空位。若从前往后写入，尚未处理的 $A$ 会被覆盖。另开数组再拷回则多用 $O(m+n)$ 空间。\r\n\r\n$A$ 的尾部空位足够容纳全部结果，从后往前填入较大者就不会破坏尚未合并的前缀。\r\n\r\n指针 $i$、 $j$ 指向两数组有效末尾， $k$ 从 $m+n-1$ 递减。当 $B$ 耗尽或 $A[i]$ 更大时写入 $A[i]$，否则写入 $B[j]$。原地完成。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

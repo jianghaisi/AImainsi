@@ -1,0 +1,60 @@
+{
+  "number": "451",
+  "adapter": {
+    "name": "frequencySort",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "451"
+  },
+  "tests": [
+    {
+      "input": [
+        "tree"
+      ],
+      "expected": "eert"
+    },
+    {
+      "input": [
+        "cccaaa"
+      ],
+      "expected": "cccaaa"
+    },
+    {
+      "input": [
+        "Aabb"
+      ],
+      "expected": "bbAa"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def frequencySort(self, s: str) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @return {string}\n */\nvar frequencySort = function(s) {\n    \n};",
+    "java": "class Solution {\n    public String frequencySort(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string frequencySort(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def frequencySort(self, s: str) -> str:\r\n        cnt = Counter(s)\r\n        return ''.join(c * v for c, v in sorted(cnt.items(), key=lambda x: -x[1]))\r\n",
+    "javascript": "function frequencySort(s) {\n    const cnt = new Map();\n    for (const c of s) {\n        cnt.set(c, (cnt.get(c) || 0) + 1);\n    }\n    const cs = Array.from(cnt.keys()).sort((a, b) => cnt.get(b) - cnt.get(a));\n    const ans = [];\n    for (const c of cs) {\n        ans.push(c.repeat(cnt.get(c)));\n    }\n    return ans.join('');\n}\n",
+    "java": "class Solution {\r\n    public String frequencySort(String s) {\r\n        Map<Character, Integer> cnt = new HashMap<>(52);\r\n        for (int i = 0; i < s.length(); ++i) {\r\n            cnt.merge(s.charAt(i), 1, Integer::sum);\r\n        }\r\n        List<Character> cs = new ArrayList<>(cnt.keySet());\r\n        cs.sort((a, b) -> cnt.get(b) - cnt.get(a));\r\n        StringBuilder ans = new StringBuilder();\r\n        for (char c : cs) {\r\n            for (int v = cnt.get(c); v > 0; --v) {\r\n                ans.append(c);\r\n            }\r\n        }\r\n        return ans.toString();\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    string frequencySort(string s) {\r\n        unordered_map<char, int> cnt;\r\n        for (char& c : s) {\r\n            ++cnt[c];\r\n        }\r\n        vector<char> cs;\r\n        for (auto& [c, _] : cnt) {\r\n            cs.push_back(c);\r\n        }\r\n        sort(cs.begin(), cs.end(), [&](char& a, char& b) {\r\n            return cnt[a] > cnt[b];\r\n        });\r\n        string ans;\r\n        for (char& c : cs) {\r\n            ans += string(cnt[c], c);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0451.Sort%20Characters%20By%20Frequency/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0451.Sort%20Characters%20By%20Frequency/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0451.Sort%20Characters%20By%20Frequency/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0451.Sort%20Characters%20By%20Frequency/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0451.Sort%20Characters%20By%20Frequency/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：根据字符出现频率排序。\n输入：s（string）。\n训练提示：**思考**\r \r 按出现次数降序重排字符，相同次数的相对次序任意。计数后若用桶按次数收集，需要次数上界；字符种类很少，直接排序键值对即可。\r \r 哈希表统计频次，按次数降序排序，再把字符重复 $v$ 次拼接。\r \r 排序对象是不同字符而不是整个串，复杂度随字符集而非 $n\\log n$ 的全串排序。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：哈希表 + 排序\r\n\r\n\r\n\r\n思考\r\n\r\n按出现次数降序重排字符，相同次数的相对次序任意。计数后若用桶按次数收集，需要次数上界；字符种类很少，直接排序键值对即可。\r\n\r\n哈希表统计频次，按次数降序排序，再把字符重复 $v$ 次拼接。\r\n\r\n排序对象是不同字符而不是整个串，复杂度随字符集而非 $n\\log n$ 的全串排序。\r\n\r\n\r\n\r\n我们用哈希表 $\\textit{cnt}$ 统计字符串 $s$ 中每个字符出现的次数，然后将 $\\textit{cnt}$ 中的键值对按照出现次数降序排序，最后按照排序后的顺序拼接字符串即可。\r\n\r\n时间复杂度 $O(n + k \\times \\log k)$，空间复杂度 $O(n + k)$，其中 $n$ 为字符串 $s$ 的长度，而 $k$ 为不同字符的个数。",
+  "memory": "根据字符出现频率排序 → 哈希表 + 排序。\n**思考**\r\n\r\n按出现次数降序重排字符，相同次数的相对次序任意。计数后若用桶按次数收集，需要次数上界；字符种类很少，直接排序键值对即可。\r\n\r\n哈希表统计频次，按次数降序排序，再把字符重复 $v$ 次拼接。\r\n\r\n排序对象是不同字符而不是整个串，复杂度随字符集而非 $n\\log n$ 的全串排序。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

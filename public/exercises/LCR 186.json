@@ -1,0 +1,90 @@
+{
+  "number": "LCR 186",
+  "adapter": {
+    "name": "checkDynasty",
+    "params": [
+      {
+        "name": "places",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "LCR 186"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          0,
+          6,
+          9,
+          0,
+          7
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          0,
+          0,
+          1,
+          2,
+          5
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def checkDynasty(self, nums: List[int]) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} places\n * @return {boolean}\n */\nvar checkDynasty = function(places) {\n    \n};",
+    "java": "class Solution {\n    public boolean checkDynasty(int[] places) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool checkDynasty(vector<int>& places) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def checkDynasty(self, nums: List[int]) -> bool:\r\n        vis = set()\r\n        mi, mx = inf, -inf\r\n        for x in nums:\r\n            if x == 0:\r\n                continue\r\n            if x in vis:\r\n                return False\r\n            vis.add(x)\r\n            mi = min(mi, x)\r\n            mx = max(mx, x)\r\n        return mx - mi <= 4\r\n",
+    "javascript": "function checkDynasty(nums) {\n    nums.sort((a, b) => a - b);\n    let j = 0;\n    for (let i = 0; i < 4; i++) {\n        if (nums[i] === 0) {\n            j++;\n        }\n        else if (nums[i] === nums[i + 1]) {\n            return false;\n        }\n    }\n    return nums[4] - nums[j] <= 4;\n}\n",
+    "java": "class Solution {\r\n    public boolean checkDynasty(int[] nums) {\r\n        boolean[] vis = new boolean[14];\r\n        int mi = 20, mx = -1;\r\n        for (int x : nums) {\r\n            if (x == 0) {\r\n                continue;\r\n            }\r\n            if (vis[x]) {\r\n                return false;\r\n            }\r\n            vis[x] = true;\r\n            mi = Math.min(mi, x);\r\n            mx = Math.max(mx, x);\r\n        }\r\n        return mx - mi <= 4;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool checkDynasty(vector<int>& nums) {\r\n        bool vis[14]{};\r\n        int mi = 20, mx = -1;\r\n        for (int& x : nums) {\r\n            if (x == 0) {\r\n                continue;\r\n            }\r\n            if (vis[x]) {\r\n                return false;\r\n            }\r\n            vis[x] = true;\r\n            mi = min(mi, x);\r\n            mx = max(mx, x);\r\n        }\r\n        return mx - mi <= 4;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9861.%20%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9861.%20%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9861.%20%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9861.%20%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9861.%20%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：文物朝代判断。\n输入：places（integer[]）。\n训练提示：**思考**\r \r 五张牌成顺的障碍是：非零重复，或去掉大小王后跨度超过 $4$。遍历时跳过 $0$，用集合查重并维护最小、最大，最后看 $mx-mi\\le 4$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：遍历\r\n\r\n\r\n\r\n思考\r\n\r\n五张牌成顺的障碍是：非零重复，或去掉大小王后跨度超过 $4$。遍历时跳过 $0$，用集合查重并维护最小、最大，最后看 $mx-mi\\le 4$。\r\n\r\n\r\n\r\n我们首先明确顺子不成立的核心条件：\r\n\r\n1. 存在非 $0$ 的重复。\r\n2. 最大值与最小值的差距超过 4（最大最小值比较不包括 $0$ 在内）。\r\n\r\n因此，我们可以用一个哈希表或数组 `vis` 记录数字是否出现过，用 `mi` 和 `mx` 记录最大值和最小值。遍历数组，忽略大小王（ $0$），求出数组的最大、最小值。若最后差值超过 $4$，则无法构成顺子。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为数组长度。",
+  "memory": "文物朝代判断 → 遍历。\n**思考**\r\n\r\n五张牌成顺的障碍是：非零重复，或去掉大小王后跨度超过 $4$。遍历时跳过 $0$，用集合查重并维护最小、最大，最后看 $mx-mi\\le 4$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

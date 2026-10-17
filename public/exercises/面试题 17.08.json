@@ -1,0 +1,64 @@
+{
+  "number": "面试题 17.08",
+  "adapter": {
+    "name": "bestSeqAtIndex",
+    "params": [
+      {
+        "name": "height",
+        "type": "integer[]"
+      },
+      {
+        "name": "weight",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 17.08"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          65,
+          70,
+          56,
+          75,
+          60,
+          68
+        ],
+        [
+          100,
+          150,
+          90,
+          190,
+          95,
+          110
+        ]
+      ],
+      "expected": 6
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def bestSeqAtIndex(self, height: List[int], weight: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int bestSeqAtIndex(int[] height, int[] weight) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int bestSeqAtIndex(vector<int>& height, vector<int>& weight) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class BinaryIndexedTree:\r\n    def __init__(self, n):\r\n        self.n = n\r\n        self.c = [0] * (n + 1)\r\n\r\n    def update(self, x, delta):\r\n        while x <= self.n:\r\n            self.c[x] = max(self.c[x], delta)\r\n            x += x & -x\r\n\r\n    def query(self, x):\r\n        s = 0\r\n        while x:\r\n            s = max(s, self.c[x])\r\n            x -= x & -x\r\n        return s\r\n\r\n\r\nclass Solution:\r\n    def bestSeqAtIndex(self, height: List[int], weight: List[int]) -> int:\r\n        arr = list(zip(height, weight))\r\n        arr.sort(key=lambda x: (x[0], -x[1]))\r\n        alls = sorted({w for _, w in arr})\r\n        m = {w: i for i, w in enumerate(alls, 1)}\r\n        tree = BinaryIndexedTree(len(m))\r\n        ans = 1\r\n        for _, w in arr:\r\n            x = m[w]\r\n            t = tree.query(x - 1) + 1\r\n            ans = max(ans, t)\r\n            tree.update(x, t)\r\n        return ans\r\n",
+    "java": "class BinaryIndexedTree {\r\n    private int n;\r\n    private int[] c;\r\n\r\n    public BinaryIndexedTree(int n) {\r\n        this.n = n;\r\n        c = new int[n + 1];\r\n    }\r\n\r\n    public void update(int x, int val) {\r\n        while (x <= n) {\r\n            this.c[x] = Math.max(this.c[x], val);\r\n            x += x & -x;\r\n        }\r\n    }\r\n\r\n    public int query(int x) {\r\n        int s = 0;\r\n        while (x > 0) {\r\n            s = Math.max(s, this.c[x]);\r\n            x -= x & -x;\r\n        }\r\n        return s;\r\n    }\r\n}\r\n\r\nclass Solution {\r\n    public int bestSeqAtIndex(int[] height, int[] weight) {\r\n        int n = height.length;\r\n        int[][] arr = new int[n][2];\r\n        for (int i = 0; i < n; ++i) {\r\n            arr[i] = new int[] {height[i], weight[i]};\r\n        }\r\n        Arrays.sort(arr, (a, b) -> a[0] == b[0] ? b[1] - a[1] : a[0] - b[0]);\r\n        Set<Integer> s = new HashSet<>();\r\n        for (int[] e : arr) {\r\n            s.add(e[1]);\r\n        }\r\n        List<Integer> alls = new ArrayList<>(s);\r\n        Collections.sort(alls);\r\n        Map<Integer, Integer> m = new HashMap<>(alls.size());\r\n        for (int i = 0; i < alls.size(); ++i) {\r\n            m.put(alls.get(i), i + 1);\r\n        }\r\n        BinaryIndexedTree tree = new BinaryIndexedTree(alls.size());\r\n        int ans = 1;\r\n        for (int[] e : arr) {\r\n            int x = m.get(e[1]);\r\n            int t = tree.query(x - 1) + 1;\r\n            ans = Math.max(ans, t);\r\n            tree.update(x, t);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class BinaryIndexedTree {\r\npublic:\r\n    BinaryIndexedTree(int _n)\r\n        : n(_n)\r\n        , c(_n + 1) {}\r\n\r\n    void update(int x, int val) {\r\n        while (x <= n) {\r\n            c[x] = max(c[x], val);\r\n            x += x & -x;\r\n        }\r\n    }\r\n\r\n    int query(int x) {\r\n        int s = 0;\r\n        while (x > 0) {\r\n            s = max(s, c[x]);\r\n            x -= x & -x;\r\n        }\r\n        return s;\r\n    }\r\n\r\nprivate:\r\n    int n;\r\n    vector<int> c;\r\n};\r\n\r\nclass Solution {\r\npublic:\r\n    int bestSeqAtIndex(vector<int>& height, vector<int>& weight) {\r\n        int n = height.size();\r\n        vector<pair<int, int>> people;\r\n        for (int i = 0; i < n; ++i) {\r\n            people.emplace_back(height[i], weight[i]);\r\n        }\r\n        sort(people.begin(), people.end(), [](const pair<int, int>& a, const pair<int, int>& b) {\r\n            if (a.first == b.first) {\r\n                return a.second > b.second;\r\n            }\r\n            return a.first < b.first;\r\n        });\r\n        vector<int> alls = weight;\r\n        sort(alls.begin(), alls.end());\r\n        alls.erase(unique(alls.begin(), alls.end()), alls.end());\r\n        BinaryIndexedTree tree(alls.size());\r\n        int ans = 1;\r\n        for (auto& [_, w] : people) {\r\n            int x = lower_bound(alls.begin(), alls.end(), w) - alls.begin() + 1;\r\n            int t = tree.query(x - 1) + 1;\r\n            ans = max(ans, t);\r\n            tree.update(x, t);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.08.Circus%20Tower/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.08.Circus%20Tower/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.08.Circus%20Tower/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.08.Circus%20Tower/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：马戏团人塔。\n输入：height（integer[]）、weight（integer[]）。\n训练提示：**思考**\r \r 人叠成塔须身高、体重都严格递增。枚举排列不可行； $O(n^2)$ 的 LIS 在 $n$ 较大时偏慢。\r \r 按身高升序、身高相同时体重降序排列后，只需在体重上求最长递增，降序避免同等身高被接上。\r \r 体重离散化后，树状数组维护「更小体重上的最大链长」。扫到 $w$ 时查询 $[1,id(w)-1]$ 再更新 $id(w)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序 + 离散化 + 树状数组\r\n\r\n\r\n\r\n思考\r\n\r\n人叠成塔须身高、体重都严格递增。枚举排列不可行； $O(n^2)$ 的 LIS 在 $n$ 较大时偏慢。\r\n\r\n按身高升序、身高相同时体重降序排列后，只需在体重上求最长递增，降序避免同等身高被接上。\r\n\r\n体重离散化后，树状数组维护「更小体重上的最大链长」。扫到 $w$ 时查询 $[1,id(w)-1]$ 再更新 $id(w)$。\r\n\r\n\r\n\r\n我们先将所有人按照身高从小到大排序，若身高相同，则按照体重从大到小排序。这样我们可以将问题转换为求体重数组的最长递增子序列的问题。\r\n\r\n最长递增子序列的问题可以使用动态规划求解，时间复杂度 $O(n^2)$。但是我们可以使用树状数组来优化求解过程，时间复杂度 $O(n \\log n)$。\r\n\r\n空间复杂度 $O(n)$。其中 $n$ 为人数。",
+  "memory": "马戏团人塔 → 排序 + 离散化 + 树状数组。\n**思考**\r\n\r\n人叠成塔须身高、体重都严格递增。枚举排列不可行； $O(n^2)$ 的 LIS 在 $n$ 较大时偏慢。\r\n\r\n按身高升序、身高相同时体重降序排列后，只需在体重上求最长递增，降序避免同等身高被接上。\r\n\r\n体重离散化后，树状数组维护「更小体重上的最大链长」。扫到 $w$ 时查询 $[1,id(w)-1]$ 再更新 $id(w)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

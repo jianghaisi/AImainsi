@@ -1,0 +1,60 @@
+{
+  "number": "LCR 131",
+  "adapter": {
+    "name": "cuttingBamboo",
+    "params": [
+      {
+        "name": "bamboo_len",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 131"
+  },
+  "tests": [
+    {
+      "input": [
+        12
+      ],
+      "expected": 81
+    },
+    {
+      "input": [
+        2
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        10
+      ],
+      "expected": 36
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def cuttingBamboo(self, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} bamboo_len\n * @return {number}\n */\nvar cuttingBamboo = function(bamboo_len) {\n    \n};",
+    "java": "class Solution {\n    public int cuttingBamboo(int bamboo_len) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int cuttingBamboo(int bamboo_len) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def cuttingBamboo(self, n: int) -> int:\r\n        f = [1] * (n + 1)\r\n        for i in range(2, n + 1):\r\n            for j in range(1, i):\r\n                f[i] = max(f[i], f[i - j] * j, (i - j) * j)\r\n        return f[n]\r\n",
+    "javascript": "function cuttingBamboo(n) {\n    const f = Array(n + 1).fill(1);\n    for (let i = 2; i <= n; ++i) {\n        for (let j = 1; j < i; ++j) {\n            f[i] = Math.max(f[i], f[i - j] * j, (i - j) * j);\n        }\n    }\n    return f[n];\n}\n",
+    "java": "class Solution {\r\n    public int cuttingBamboo(int n) {\r\n        int[] f = new int[n + 1];\r\n        f[1] = 1;\r\n        for (int i = 2; i <= n; ++i) {\r\n            for (int j = 1; j < i; ++j) {\r\n                f[i] = Math.max(Math.max(f[i], f[i - j] * j), (i - j) * j);\r\n            }\r\n        }\r\n        return f[n];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int cuttingBamboo(int n) {\r\n        vector<int> f(n + 1);\r\n        f[1] = 1;\r\n        for (int i = 2; i <= n; ++i) {\r\n            for (int j = 1; j < i; ++j) {\r\n                f[i] = max({f[i], f[i - j] * j, (i - j) * j});\r\n            }\r\n        }\r\n        return f[n];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9814-%20I.%20%E5%89%AA%E7%BB%B3%E5%AD%90/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9814-%20I.%20%E5%89%AA%E7%BB%B3%E5%AD%90/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9814-%20I.%20%E5%89%AA%E7%BB%B3%E5%AD%90/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9814-%20I.%20%E5%89%AA%E7%BB%B3%E5%AD%90/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9814-%20I.%20%E5%89%AA%E7%BB%B3%E5%AD%90/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：砍竹子 I。\n输入：bamboo_len（integer）。\n训练提示：**思考**\r \r 长度为 $n$ 的绳至少切一刀，穷举切点再对每段递归会重复计算同一长度。 $n\\le 58$，平方级填表可接受。\r \r 令 $f[i]$ 为长度 $i$ 的最大乘积，枚举最后一段 $j$，在“不再切 $i-j$”与“继续切”中取大。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n长度为 $n$ 的绳至少切一刀，穷举切点再对每段递归会重复计算同一长度。 $n\\le 58$，平方级填表可接受。\r\n\r\n令 $f[i]$ 为长度 $i$ 的最大乘积，枚举最后一段 $j$，在“不再切 $i-j$”与“继续切”中取大。\r\n\r\n\r\n\r\n我们定义 $f[i]$ 表示正整数 $i$ 拆分后能获得的最大乘积，初始时 $f[1] = 1$。答案即为 $f[n]$。\r\n\r\n考虑 $i$ 最后拆分出的数字 $j$，其中 $j \\in [1, i)$。对于 $i$ 拆分出的数字 $j$，有两种情况：\r\n\r\n1. 将 $i$ 拆分成 $i - j$ 和 $j$ 的和，不继续拆分，此时乘积为 $(i - j) \\times j$；\r\n2. 将 $i$ 拆分成 $i - j$ 和 $j$ 的和，继续拆分，此时乘积为 $f[i - j] \\times j$。\r\n\r\n因此，我们可以得到状态转移方程：\r\n\r\n$$\r\nf[i] = \\max(f[i], f[i - j] \\times j, (i - j) \\times j) \\quad (j \\in [0, i))\r\n$$\r\n\r\n最后返回 $f[n]$ 即可。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n)$。其中 $n$ 为给定的正整数。",
+  "memory": "砍竹子 I → 动态规划。\n**思考**\r\n\r\n长度为 $n$ 的绳至少切一刀，穷举切点再对每段递归会重复计算同一长度。 $n\\le 58$，平方级填表可接受。\r\n\r\n令 $f[i]$ 为长度 $i$ 的最大乘积，枚举最后一段 $j$，在“不再切 $i-j$”与“继续切”中取大。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

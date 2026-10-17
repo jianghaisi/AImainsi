@@ -1,0 +1,90 @@
+{
+  "number": "990",
+  "adapter": {
+    "name": "equationsPossible",
+    "params": [
+      {
+        "name": "equations",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "990"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "a==b",
+          "b!=a"
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        [
+          "b==a",
+          "a==b"
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          "a==b",
+          "b==c",
+          "a==c"
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          "a==b",
+          "b!=c",
+          "c==a"
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        [
+          "c==c",
+          "b==d",
+          "x!=z"
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def equationsPossible(self, equations: List[str]) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[]} equations\n * @return {boolean}\n */\nvar equationsPossible = function(equations) {\n    \n};",
+    "java": "class Solution {\n    public boolean equationsPossible(String[] equations) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool equationsPossible(vector<string>& equations) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def equationsPossible(self, equations: List[str]) -> bool:\r\n        def find(x):\r\n            if p[x] != x:\r\n                p[x] = find(p[x])\r\n            return p[x]\r\n\r\n        p = list(range(26))\r\n        for e in equations:\r\n            a, b = ord(e[0]) - ord('a'), ord(e[-1]) - ord('a')\r\n            if e[1] == '=':\r\n                p[find(a)] = find(b)\r\n        for e in equations:\r\n            a, b = ord(e[0]) - ord('a'), ord(e[-1]) - ord('a')\r\n            if e[1] == '!' and find(a) == find(b):\r\n                return False\r\n        return True\r\n",
+    "javascript": "class UnionFind {\n    parent;\n    constructor() {\n        this.parent = Array.from({ length: 26 }).map((_, i) => i);\n    }\n    find(index) {\n        if (this.parent[index] === index) {\n            return index;\n        }\n        this.parent[index] = this.find(this.parent[index]);\n        return this.parent[index];\n    }\n    union(index1, index2) {\n        this.parent[this.find(index1)] = this.find(index2);\n    }\n}\nfunction equationsPossible(equations) {\n    const uf = new UnionFind();\n    for (const [a, s, _, b] of equations) {\n        if (s === '=') {\n            const index1 = a.charCodeAt(0) - 'a'.charCodeAt(0);\n            const index2 = b.charCodeAt(0) - 'a'.charCodeAt(0);\n            uf.union(index1, index2);\n        }\n    }\n    for (const [a, s, _, b] of equations) {\n        if (s === '!') {\n            const index1 = a.charCodeAt(0) - 'a'.charCodeAt(0);\n            const index2 = b.charCodeAt(0) - 'a'.charCodeAt(0);\n            if (uf.find(index1) === uf.find(index2)) {\n                return false;\n            }\n        }\n    }\n    return true;\n}\n",
+    "java": "class Solution {\r\n    private int[] p;\r\n\r\n    public boolean equationsPossible(String[] equations) {\r\n        p = new int[26];\r\n        for (int i = 0; i < 26; ++i) {\r\n            p[i] = i;\r\n        }\r\n        for (String e : equations) {\r\n            int a = e.charAt(0) - 'a', b = e.charAt(3) - 'a';\r\n            if (e.charAt(1) == '=') {\r\n                p[find(a)] = find(b);\r\n            }\r\n        }\r\n        for (String e : equations) {\r\n            int a = e.charAt(0) - 'a', b = e.charAt(3) - 'a';\r\n            if (e.charAt(1) == '!' && find(a) == find(b)) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n\r\n    private int find(int x) {\r\n        if (p[x] != x) {\r\n            p[x] = find(p[x]);\r\n        }\r\n        return p[x];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> p;\r\n\r\n    bool equationsPossible(vector<string>& equations) {\r\n        p.resize(26);\r\n        for (int i = 0; i < 26; ++i) p[i] = i;\r\n        for (auto& e : equations) {\r\n            int a = e[0] - 'a', b = e[3] - 'a';\r\n            if (e[1] == '=') p[find(a)] = find(b);\r\n        }\r\n        for (auto& e : equations) {\r\n            int a = e[0] - 'a', b = e[3] - 'a';\r\n            if (e[1] == '!' && find(a) == find(b)) return false;\r\n        }\r\n        return true;\r\n    }\r\n\r\n    int find(int x) {\r\n        if (p[x] != x) p[x] = find(p[x]);\r\n        return p[x];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0990.Satisfiability%20of%20Equality%20Equations/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0990.Satisfiability%20of%20Equality%20Equations/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0990.Satisfiability%20of%20Equality%20Equations/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0990.Satisfiability%20of%20Equality%20Equations/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0990.Satisfiability%20of%20Equality%20Equations/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：等式方程的可满足性。\n输入：equations（string[]）。\n训练提示：**思考**\r \r 若干形如 $a==b$ / $a!=b$ 的方程，判断能否同时成立。相等具有传递性，应先全部合并。并查集处理所有 `==`，再检查每条 `!=` 的两端是否已在同一连通块；若是则矛盾。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n若干形如 $a==b$ / $a!=b$ 的方程，判断能否同时成立。相等具有传递性，应先全部合并。并查集处理所有 `==`，再检查每条 `!=` 的两端是否已在同一连通块；若是则矛盾。",
+  "memory": "等式方程的可满足性 → 方法一。\n**思考**\r\n\r\n若干形如 $a==b$ / $a!=b$ 的方程，判断能否同时成立。相等具有传递性，应先全部合并。并查集处理所有 `==`，再检查每条 `!=` 的两端是否已在同一连通块；若是则矛盾。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -11,8 +11,7 @@ for path in pathlib.Path('public/exercises').glob('*.json'):
     try:
         compile(pack['starters']['python'], str(path)+' template', 'exec')
         exec(runtime, namespace)
-        namespace['Node'] = namespace[{'138':'RandomNode','133':'GraphNode','427':'QuadNode'}.get(pack['number'], 'TreeNode')]
-        namespace['_Node'] = namespace['Node']
+        namespace['_seq_setup'](namespace,pack['adapter'])
         with contextlib.redirect_stdout(io.StringIO()):
             exec(pack['solutions']['python'], namespace)
             for case in pack['tests']:

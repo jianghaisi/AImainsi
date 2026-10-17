@@ -1,0 +1,74 @@
+{
+  "number": "LCR 130",
+  "adapter": {
+    "name": "wardrobeFinishing",
+    "params": [
+      {
+        "name": "m",
+        "type": "integer"
+      },
+      {
+        "name": "n",
+        "type": "integer"
+      },
+      {
+        "name": "cnt",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 130"
+  },
+  "tests": [
+    {
+      "input": [
+        4,
+        7,
+        5
+      ],
+      "expected": 18
+    },
+    {
+      "input": [
+        2,
+        3,
+        1
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        3,
+        1,
+        0
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def wardrobeFinishing(self, m: int, n: int, k: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} m\n * @param {number} n\n * @param {number} cnt\n * @return {number}\n */\nvar wardrobeFinishing = function(m, n, cnt) {\n    \n};",
+    "java": "class Solution {\n    public int wardrobeFinishing(int m, int n, int cnt) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int wardrobeFinishing(int m, int n, int cnt) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def wardrobeFinishing(self, m: int, n: int, k: int) -> int:\r\n        def f(x: int) -> int:\r\n            return x // 10 + x % 10\r\n\r\n        def dfs(i, j):\r\n            if i >= m or j >= n or f(i) + f(j) > k or (i, j) in vis:\r\n                return 0\r\n            vis.add((i, j))\r\n            return 1 + dfs(i + 1, j) + dfs(i, j + 1)\r\n\r\n        vis = set()\r\n        return dfs(0, 0)\r\n",
+    "javascript": "function wardrobeFinishing(m, n, k) {\n    const vis = Array(m * n).fill(false);\n    const f = (x) => {\n        return ((x / 10) | 0) + (x % 10);\n    };\n    const dfs = (i, j) => {\n        if (i >= m || j >= n || vis[i * n + j] || f(i) + f(j) > k) {\n            return 0;\n        }\n        vis[i * n + j] = true;\n        return 1 + dfs(i + 1, j) + dfs(i, j + 1);\n    };\n    return dfs(0, 0);\n}\n",
+    "java": "class Solution {\r\n    private boolean[][] vis;\r\n    private int m;\r\n    private int n;\r\n    private int k;\r\n\r\n    public int wardrobeFinishing(int m, int n, int k) {\r\n        this.m = m;\r\n        this.n = n;\r\n        this.k = k;\r\n        vis = new boolean[m][n];\r\n        return dfs(0, 0);\r\n    }\r\n\r\n    private int dfs(int i, int j) {\r\n        if (i >= m || j >= n || vis[i][j] || (i % 10 + i / 10 + j % 10 + j / 10) > k) {\r\n            return 0;\r\n        }\r\n        vis[i][j] = true;\r\n        return 1 + dfs(i + 1, j) + dfs(i, j + 1);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int wardrobeFinishing(int m, int n, int k) {\r\n        bool vis[m][n];\r\n        memset(vis, false, sizeof vis);\r\n        auto f = [](int x) {\r\n            return x / 10 + x % 10;\r\n        };\r\n        function<int(int i, int j)> dfs = [&](int i, int j) -> int {\r\n            if (i < 0 || i >= m || j < 0 || j >= n || vis[i][j] || f(i) + f(j) > k) {\r\n                return false;\r\n            }\r\n            vis[i][j] = true;\r\n            return 1 + dfs(i + 1, j) + dfs(i, j + 1);\r\n        };\r\n        return dfs(0, 0);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9813.%20%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9813.%20%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9813.%20%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9813.%20%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9813.%20%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：衣橱整理。\n输入：m（integer）、n（integer）、cnt（integer）。\n训练提示：**思考**\r \r 不能逐格检查数位和：障碍会挡住其后本可到达的格子。可达区域从 $(0,0)$ 连通，且只能向增大坐标的方向走。\r \r 从原点只向下、向右搜索，数位和超限或已访问则停。哈希表去重，返回访问个数。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS + 哈希表\r\n\r\n\r\n\r\n思考\r\n\r\n不能逐格检查数位和：障碍会挡住其后本可到达的格子。可达区域从 $(0,0)$ 连通，且只能向增大坐标的方向走。\r\n\r\n从原点只向下、向右搜索，数位和超限或已访问则停。哈希表去重，返回访问个数。\r\n\r\n\r\n\r\n由于部分单元格不可达，因此，我们不能直接枚举所有坐标点 $(i, j)$ 进行判断，而是应该从起点 $(0, 0)$ 出发，搜索所有可达的节点，记录答案。\r\n\r\n过程中，为了避免重复搜索同一个单元格，我们可以使用数组或哈希表记录所有访问过的节点。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m \\times n)$。其中 $m$ 和 $n$ 分别为方格的行数和列数。",
+  "memory": "衣橱整理 → DFS + 哈希表。\n**思考**\r\n\r\n不能逐格检查数位和：障碍会挡住其后本可到达的格子。可达区域从 $(0,0)$ 连通，且只能向增大坐标的方向走。\r\n\r\n从原点只向下、向右搜索，数位和超限或已访问则停。哈希表去重，返回访问个数。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

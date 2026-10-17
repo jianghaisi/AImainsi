@@ -1,0 +1,62 @@
+{
+  "number": "309",
+  "adapter": {
+    "name": "maxProfit",
+    "params": [
+      {
+        "name": "prices",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "309"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          0,
+          2
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          1
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def maxProfit(self, prices: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} prices\n * @return {number}\n */\nvar maxProfit = function(prices) {\n    \n};",
+    "java": "class Solution {\n    public int maxProfit(int[] prices) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int maxProfit(vector<int>& prices) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def maxProfit(self, prices: List[int]) -> int:\r\n        @cache\r\n        def dfs(i: int, j: int) -> int:\r\n            if i >= len(prices):\r\n                return 0\r\n            ans = dfs(i + 1, j)\r\n            if j:\r\n                ans = max(ans, prices[i] + dfs(i + 2, 0))\r\n            else:\r\n                ans = max(ans, -prices[i] + dfs(i + 1, 1))\r\n            return ans\r\n\r\n        return dfs(0, 0)\r\n",
+    "javascript": "function maxProfit(prices) {\n    const n = prices.length;\n    const f = Array.from({ length: n }, () => Array.from({ length: 2 }, () => -1));\n    const dfs = (i, j) => {\n        if (i >= n) {\n            return 0;\n        }\n        if (f[i][j] !== -1) {\n            return f[i][j];\n        }\n        let ans = dfs(i + 1, j);\n        if (j) {\n            ans = Math.max(ans, prices[i] + dfs(i + 2, 0));\n        }\n        else {\n            ans = Math.max(ans, -prices[i] + dfs(i + 1, 1));\n        }\n        return (f[i][j] = ans);\n    };\n    return dfs(0, 0);\n}\n",
+    "java": "class Solution {\r\n    private int[] prices;\r\n    private Integer[][] f;\r\n\r\n    public int maxProfit(int[] prices) {\r\n        this.prices = prices;\r\n        f = new Integer[prices.length][2];\r\n        return dfs(0, 0);\r\n    }\r\n\r\n    private int dfs(int i, int j) {\r\n        if (i >= prices.length) {\r\n            return 0;\r\n        }\r\n        if (f[i][j] != null) {\r\n            return f[i][j];\r\n        }\r\n        int ans = dfs(i + 1, j);\r\n        if (j > 0) {\r\n            ans = Math.max(ans, prices[i] + dfs(i + 2, 0));\r\n        } else {\r\n            ans = Math.max(ans, -prices[i] + dfs(i + 1, 1));\r\n        }\r\n        return f[i][j] = ans;\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    int maxProfit(vector<int>& prices) {\r\n        int n = prices.size();\r\n        int f[n][2];\r\n        memset(f, -1, sizeof(f));\r\n        function<int(int, int)> dfs = [&](int i, int j) {\r\n            if (i >= n) {\r\n                return 0;\r\n            }\r\n            if (f[i][j] != -1) {\r\n                return f[i][j];\r\n            }\r\n            int ans = dfs(i + 1, j);\r\n            if (j) {\r\n                ans = max(ans, prices[i] + dfs(i + 2, 0));\r\n            } else {\r\n                ans = max(ans, -prices[i] + dfs(i + 1, 1));\r\n            }\r\n            return f[i][j] = ans;\r\n        };\r\n        return dfs(0, 0);\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0309.Best%20Time%20to%20Buy%20and%20Sell%20Stock%20with%20Cooldown/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0309.Best%20Time%20to%20Buy%20and%20Sell%20Stock%20with%20Cooldown/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0309.Best%20Time%20to%20Buy%20and%20Sell%20Stock%20with%20Cooldown/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0309.Best%20Time%20to%20Buy%20and%20Sell%20Stock%20with%20Cooldown/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0309.Best%20Time%20to%20Buy%20and%20Sell%20Stock%20with%20Cooldown/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：买卖股票的最佳时机含冷冻期。\n输入：prices（integer[]）。\n训练提示：**思考**\r \r 买卖可进行多次，卖出后须冷却一天。若按「第几天、是否持有、是否处于冷却」穷举决策树，同一状态会被反复展开。\r \r 状态可压成 $(i,j)$：从第 $i$ 天起、是否持有股票。每天可跳过；持有则可卖出并跳到 $i+2$，空仓则可买入并进入持有。记忆化后每个状态只算一次，卖出多走一天即表达冷却。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：记忆化搜索\r\n\r\n\r\n\r\n思考\r\n\r\n买卖可进行多次，卖出后须冷却一天。若按「第几天、是否持有、是否处于冷却」穷举决策树，同一状态会被反复展开。\r\n\r\n状态可压成 $(i,j)$：从第 $i$ 天起、是否持有股票。每天可跳过；持有则可卖出并跳到 $i+2$，空仓则可买入并进入持有。记忆化后每个状态只算一次，卖出多走一天即表达冷却。\r\n\r\n\r\n\r\n我们设计一个函数 $dfs(i, j)$，表示从第 $i$ 天开始，状态为 $j$ 时，能够获得的最大利润。其中 $j$ 的取值为 $0, 1$，分别表示当前不持有股票和持有股票。答案即为 $dfs(0, 0)$。\r\n\r\n函数 $dfs(i, j)$ 的执行逻辑如下：\r\n\r\n如果 $i \\geq n$，表示已经没有股票可以交易了，此时返回 $0$；\r\n\r\n否则，我们可以选择不交易，此时 $dfs(i, j) = dfs(i + 1, j)$。我们也可以进行股票交易，如果此时 $j \\gt 0$，说明当前持有股票，可以卖出，此时 $dfs(i, j) = prices[i] + dfs(i + 2, 0)$；如果此时 $j = 0$，说明当前不持有股票，可以买入，此时 $dfs(i, j) = -prices[i] + dfs(i + 1, 1)$。取最大值作为函数 $dfs(i, j)$ 的返回值。\r\n\r\n答案为 $dfs(0, 0)$。\r\n\r\n为了避免重复计算，我们使用记忆化搜索的方法，用一个数组 $f$ 记录 $dfs(i, j)$ 的返回值，如果 $f[i][j]$ 不为 $-1$，说明已经计算过，直接返回 $f[i][j]$ 即可。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为数组 $prices$ 的长度。",
+  "memory": "买卖股票的最佳时机含冷冻期 → 记忆化搜索。\n**思考**\r\n\r\n买卖可进行多次，卖出后须冷却一天。若按「第几天、是否持有、是否处于冷却」穷举决策树，同一状态会被反复展开。\r\n\r\n状态可压成 $(i,j)$：从第 $i$ 天起、是否持有股票。每天可跳过；持有则可卖出并跳到 $i+2$，空仓则可买入并进入持有。记忆化后每个状态只算一次，卖出多走一天即表达冷却。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

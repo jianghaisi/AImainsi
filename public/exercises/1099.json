@@ -1,0 +1,67 @@
+{
+  "number": "1099",
+  "adapter": {
+    "name": "twoSumLessThanK",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1099"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          34,
+          23,
+          1,
+          24,
+          75,
+          33,
+          54,
+          8
+        ],
+        60
+      ],
+      "expected": 58
+    },
+    {
+      "input": [
+        [
+          10,
+          20,
+          30
+        ],
+        15
+      ],
+      "expected": -1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def twoSumLessThanK(self, nums: List[int], k: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "function twoSumLessThanK(nums, k) {\n  throw Error('请完成此方法');\n}"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def twoSumLessThanK(self, nums: List[int], k: int) -> int:\r\n        nums.sort()\r\n        ans = -1\r\n        for i, x in enumerate(nums):\r\n            j = bisect_left(nums, k - x, lo=i + 1) - 1\r\n            if i < j:\r\n                ans = max(ans, x + nums[j])\r\n        return ans\r\n",
+    "javascript": "function twoSumLessThanK(nums, k) {\n    nums.sort((a, b) => a - b);\n    let ans = -1;\n    for (let i = 0, j = nums.length - 1; i < j;) {\n        const s = nums[i] + nums[j];\n        if (s < k) {\n            ans = Math.max(ans, s);\n            ++i;\n        }\n        else {\n            --j;\n        }\n    }\n    return ans;\n}\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1099.Two%20Sum%20Less%20Than%20K/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1099.Two%20Sum%20Less%20Than%20K/Solution.ts"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1099.Two%20Sum%20Less%20Than%20K/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：小于 K 的两数之和。\n输入：nums（integer[]）、k（integer）。\n训练提示：**思考**\r \r 小于 $k$ 的最大两数之和，枚举一对是平方级。排序后对每个 $x$ 找小于 $k-x$ 的最大右端，可用二分。\r \r 对下标 $i$，在 $(i,n)$ 上 `bisect_left` 定位 $k-x$，前一个位置若仍大于 $i$ 则更新答案。\r \r 无合法对时保持 $-1$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序 + 二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n小于 $k$ 的最大两数之和，枚举一对是平方级。排序后对每个 $x$ 找小于 $k-x$ 的最大右端，可用二分。\r\n\r\n对下标 $i$，在 $(i,n)$ 上 `bisect_left` 定位 $k-x$，前一个位置若仍大于 $i$ 则更新答案。\r\n\r\n无合法对时保持 $-1$。\r\n\r\n\r\n\r\n我们可以先对数组 $nums$ 进行排序，初始化答案为 $-1$。\r\n\r\n接下来，我们枚举数组中的每个元素 $nums[i]$，并在数组中寻找满足 $nums[j] + nums[i] \\lt k$ 的最大的 $nums[j]$。这里我们可以使用二分查找来加速寻找过程。如果找到了这样的 $nums[j]$，那么我们就可以更新答案，即 $ans = \\max(ans, nums[i] + nums[j])$。\r\n\r\n枚举结束后，返回答案即可。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(\\log n)$。其中 $n$ 是数组 $nums$ 的长度。",
+  "memory": "小于 K 的两数之和 → 排序 + 二分查找。\n**思考**\r\n\r\n小于 $k$ 的最大两数之和，枚举一对是平方级。排序后对每个 $x$ 找小于 $k-x$ 的最大右端，可用二分。\r\n\r\n对下标 $i$，在 $(i,n)$ 上 `bisect_left` 定位 $k-x$，前一个位置若仍大于 $i$ 则更新答案。\r\n\r\n无合法对时保持 $-1$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

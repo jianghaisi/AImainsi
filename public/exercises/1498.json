@@ -1,0 +1,84 @@
+{
+  "number": "1498",
+  "adapter": {
+    "name": "numSubseq",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      },
+      {
+        "type": "integer",
+        "name": "target"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1498"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          5,
+          6,
+          7
+        ],
+        9
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          3,
+          3,
+          6,
+          8
+        ],
+        10
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          2,
+          3,
+          3,
+          4,
+          6,
+          7
+        ],
+        12
+      ],
+      "expected": 61
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def numSubseq(self, nums: List[int], target: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} target\n * @return {number}\n */\nvar numSubseq = function(nums, target) {\n    \n};",
+    "java": "class Solution {\n    public int numSubseq(int[] nums, int target) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int numSubseq(vector<int>& nums, int target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def numSubseq(self, nums: List[int], target: int) -> int:\r\n        mod = 10**9 + 7\r\n        nums.sort()\r\n        n = len(nums)\r\n        f = [1] + [0] * n\r\n        for i in range(1, n + 1):\r\n            f[i] = f[i - 1] * 2 % mod\r\n        ans = 0\r\n        for i, x in enumerate(nums):\r\n            if x * 2 > target:\r\n                break\r\n            j = bisect_right(nums, target - x, i + 1) - 1\r\n            ans = (ans + f[j - i]) % mod\r\n        return ans\r\n",
+    "javascript": "function numSubseq(nums, target) {\n    nums.sort((a, b) => a - b);\n    const mod = 1e9 + 7;\n    const n = nums.length;\n    const f = Array(n + 1).fill(1);\n    for (let i = 1; i <= n; ++i) {\n        f[i] = (f[i - 1] * 2) % mod;\n    }\n    let ans = 0;\n    for (let i = 0; i < n && nums[i] * 2 <= target; ++i) {\n        const j = search(nums, target - nums[i], i + 1) - 1;\n        if (j >= i) {\n            ans = (ans + f[j - i]) % mod;\n        }\n    }\n    return ans;\n}\nfunction search(nums, x, left) {\n    let right = nums.length;\n    while (left < right) {\n        const mid = (left + right) >> 1;\n        if (nums[mid] > x) {\n            right = mid;\n        }\n        else {\n            left = mid + 1;\n        }\n    }\n    return left;\n}\n",
+    "java": "class Solution {\r\n    public int numSubseq(int[] nums, int target) {\r\n        Arrays.sort(nums);\r\n        final int mod = (int) 1e9 + 7;\r\n        int n = nums.length;\r\n        int[] f = new int[n + 1];\r\n        f[0] = 1;\r\n        for (int i = 1; i <= n; ++i) {\r\n            f[i] = (f[i - 1] * 2) % mod;\r\n        }\r\n        int ans = 0;\r\n        for (int i = 0; i < n && nums[i] * 2 <= target; ++i) {\r\n            int j = search(nums, target - nums[i], i + 1) - 1;\r\n            ans = (ans + f[j - i]) % mod;\r\n        }\r\n        return ans;\r\n    }\r\n\r\n    private int search(int[] nums, int x, int left) {\r\n        int right = nums.length;\r\n        while (left < right) {\r\n            int mid = (left + right) >> 1;\r\n            if (nums[mid] > x) {\r\n                right = mid;\r\n            } else {\r\n                left = mid + 1;\r\n            }\r\n        }\r\n        return left;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int numSubseq(vector<int>& nums, int target) {\r\n        sort(nums.begin(), nums.end());\r\n        const int mod = 1e9 + 7;\r\n        int n = nums.size();\r\n        int f[n + 1];\r\n        f[0] = 1;\r\n        for (int i = 1; i <= n; ++i) {\r\n            f[i] = (f[i - 1] * 2) % mod;\r\n        }\r\n        int ans = 0;\r\n        for (int i = 0; i < n && nums[i] * 2 <= target; ++i) {\r\n            int j = upper_bound(nums.begin() + i + 1, nums.end(), target - nums[i]) - nums.begin() - 1;\r\n            ans = (ans + f[j - i]) % mod;\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1400-1499/1498.Number%20of%20Subsequences%20That%20Satisfy%20the%20Given%20Sum%20Condition/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1400-1499/1498.Number%20of%20Subsequences%20That%20Satisfy%20the%20Given%20Sum%20Condition/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1400-1499/1498.Number%20of%20Subsequences%20That%20Satisfy%20the%20Given%20Sum%20Condition/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1400-1499/1498.Number%20of%20Subsequences%20That%20Satisfy%20the%20Given%20Sum%20Condition/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1400-1499/1498.Number%20of%20Subsequences%20That%20Satisfy%20the%20Given%20Sum%20Condition/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：满足条件的子序列数目。\n输入：nums（integer[]）、target（integer）。\n训练提示：**思考**\r \r 子序列只关心最小与最大，排序不改变可组成的最值对。 $n\\le 10^5$，枚举最小值 $nums[i]$，二分最大合法 $nums[j]$，中间元素可任意选，方案为 $2^{j-i}$。\r \r 预处理二的幂以免重复计算。若 $2\\cdot nums[i]>target$，更大的最小值已不可能。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序 + 二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n子序列只关心最小与最大，排序不改变可组成的最值对。 $n\\le 10^5$，枚举最小值 $nums[i]$，二分最大合法 $nums[j]$，中间元素可任意选，方案为 $2^{j-i}$。\r\n\r\n预处理二的幂以免重复计算。若 $2\\cdot nums[i]>target$，更大的最小值已不可能。\r\n\r\n\r\n\r\n由于题目中描述的是子序列，并且涉及到最小元素与最大元素的和，因此我们可以先对数组 $\\textit{nums}$ 进行排序。\r\n\r\n然后我们枚举最小元素 $\\textit{nums}[i]$，对于每个 $\\textit{nums}[i]$，我们可以在 $\\textit{nums}[i + 1]$ 到 $\\textit{nums}[n - 1]$ 中找到最大元素 $\\textit{nums}[j]$，使得 $\\textit{nums}[i] + \\textit{nums}[j] \\leq \\textit{target}$，此时满足条件的子序列数目为 $2^{j - i}$，其中 $2^{j - i}$ 表示从 $\\textit{nums}[i + 1]$ 到 $\\textit{nums}[j]$ 的所有子序列的数目。我们将所有的子序列数目累加即可。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(n)$。其中 $n$ 为数组 $\\textit{nums}$ 的长度。",
+  "memory": "满足条件的子序列数目 → 排序 + 二分查找。\n**思考**\r\n\r\n子序列只关心最小与最大，排序不改变可组成的最值对。 $n\\le 10^5$，枚举最小值 $nums[i]$，二分最大合法 $nums[j]$，中间元素可任意选，方案为 $2^{j-i}$。\r\n\r\n预处理二的幂以免重复计算。若 $2\\cdot nums[i]>target$，更大的最小值已不可能。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,54 @@
+{
+  "number": "516",
+  "adapter": {
+    "name": "longestPalindromeSubseq",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "516"
+  },
+  "tests": [
+    {
+      "input": [
+        "bbbab"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "cbbd"
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def longestPalindromeSubseq(self, s: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @return {number}\n */\nvar longestPalindromeSubseq = function(s) {\n    \n};",
+    "java": "class Solution {\n    public int longestPalindromeSubseq(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int longestPalindromeSubseq(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def longestPalindromeSubseq(self, s: str) -> int:\r\n        n = len(s)\r\n        f = [[0] * n for _ in range(n)]\r\n        for i in range(n):\r\n            f[i][i] = 1\r\n        for i in range(n - 1, -1, -1):\r\n            for j in range(i + 1, n):\r\n                if s[i] == s[j]:\r\n                    f[i][j] = f[i + 1][j - 1] + 2\r\n                else:\r\n                    f[i][j] = max(f[i + 1][j], f[i][j - 1])\r\n        return f[0][-1]\r\n",
+    "javascript": "function longestPalindromeSubseq(s) {\n    const n = s.length;\n    const f = Array.from({ length: n }, () => Array(n).fill(0));\n    for (let i = 0; i < n; ++i) {\n        f[i][i] = 1;\n    }\n    for (let i = n - 2; ~i; --i) {\n        for (let j = i + 1; j < n; ++j) {\n            if (s[i] === s[j]) {\n                f[i][j] = f[i + 1][j - 1] + 2;\n            }\n            else {\n                f[i][j] = Math.max(f[i + 1][j], f[i][j - 1]);\n            }\n        }\n    }\n    return f[0][n - 1];\n}\n",
+    "java": "class Solution {\r\n    public int longestPalindromeSubseq(String s) {\r\n        int n = s.length();\r\n        int[][] f = new int[n][n];\r\n        for (int i = 0; i < n; ++i) {\r\n            f[i][i] = 1;\r\n        }\r\n        for (int i = n - 1; i >= 0; --i) {\r\n            for (int j = i + 1; j < n; ++j) {\r\n                if (s.charAt(i) == s.charAt(j)) {\r\n                    f[i][j] = f[i + 1][j - 1] + 2;\r\n                } else {\r\n                    f[i][j] = Math.max(f[i + 1][j], f[i][j - 1]);\r\n                }\r\n            }\r\n        }\r\n        return f[0][n - 1];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int longestPalindromeSubseq(string s) {\r\n        int n = s.size();\r\n        int f[n][n];\r\n        memset(f, 0, sizeof(f));\r\n        for (int i = 0; i < n; ++i) {\r\n            f[i][i] = 1;\r\n        }\r\n        for (int i = n - 1; ~i; --i) {\r\n            for (int j = i + 1; j < n; ++j) {\r\n                if (s[i] == s[j]) {\r\n                    f[i][j] = f[i + 1][j - 1] + 2;\r\n                } else {\r\n                    f[i][j] = max(f[i + 1][j], f[i][j - 1]);\r\n                }\r\n            }\r\n        }\r\n        return f[0][n - 1];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0516.Longest%20Palindromic%20Subsequence/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0516.Longest%20Palindromic%20Subsequence/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0516.Longest%20Palindromic%20Subsequence/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0516.Longest%20Palindromic%20Subsequence/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0516.Longest%20Palindromic%20Subsequence/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最长回文子序列。\n输入：s（string）。\n训练提示：**思考**\r \r 最长回文子序列不是子串，不能只扩中心。枚举所有子序列再判断回文，数量过多。\r \r 设 $f[i][j]$ 为 $s[i..j]$ 的最长回文子序列长度。两端相等则由内段加 $2$，否则取丢掉左端或右端的较优者。按区间长度从短到长（代码中 $i$ 从右向左、 $j$ 向右）填表，保证转移依赖已算出。 $f[0][n-1]$ 即为答案。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n最长回文子序列不是子串，不能只扩中心。枚举所有子序列再判断回文，数量过多。\r\n\r\n设 $f[i][j]$ 为 $s[i..j]$ 的最长回文子序列长度。两端相等则由内段加 $2$，否则取丢掉左端或右端的较优者。按区间长度从短到长（代码中 $i$ 从右向左、 $j$ 向右）填表，保证转移依赖已算出。 $f[0][n-1]$ 即为答案。\r\n\r\n\r\n\r\n我们定义 $f[i][j]$ 表示字符串 $s$ 的第 $i$ 个字符到第 $j$ 个字符之间的最长回文子序列的长度。初始时 $f[i][i] = 1$，其余位置的值均为 $0$。\r\n\r\n如果 $s[i] = s[j]$，那么 $f[i][j] = f[i + 1][j - 1] + 2$；否则 $f[i][j] = \\max(f[i + 1][j], f[i][j - 1])$。\r\n\r\n由于 $f[i][j]$ 的值与 $f[i + 1][j - 1]$, $f[i + 1][j]$, $f[i][j - 1]$ 有关，所以我们应该从大到小枚举 $i$，从小到大枚举 $j$。\r\n\r\n答案即为 $f[0][n - 1]$。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n^2)$。其中 $n$ 为字符串 $s$ 的长度。",
+  "memory": "最长回文子序列 → 动态规划。\n**思考**\r\n\r\n最长回文子序列不是子串，不能只扩中心。枚举所有子序列再判断回文，数量过多。\r\n\r\n设 $f[i][j]$ 为 $s[i..j]$ 的最长回文子序列长度。两端相等则由内段加 $2$，否则取丢掉左端或右端的较优者。按区间长度从短到长（代码中 $i$ 从右向左、 $j$ 向右）填表，保证转移依赖已算出。 $f[0][n-1]$ 即为答案。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

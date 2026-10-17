@@ -1,0 +1,60 @@
+{
+  "number": "面试题 01.05",
+  "adapter": {
+    "name": "oneEditAway",
+    "params": [
+      {
+        "name": "first",
+        "type": "string"
+      },
+      {
+        "name": "second",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "面试题 01.05"
+  },
+  "tests": [
+    {
+      "input": [
+        "pale",
+        "ple"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "pales",
+        "pal"
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def oneEditAway(self, first: str, second: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} first\n * @param {string} second\n * @return {boolean}\n */\nvar oneEditAway = function(first, second) {\n    \n};",
+    "java": "class Solution {\n    public boolean oneEditAway(String first, String second) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool oneEditAway(string first, string second) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def oneEditAway(self, first: str, second: str) -> bool:\r\n        m, n = len(first), len(second)\r\n        if m < n:\r\n            return self.oneEditAway(second, first)\r\n        if m - n > 1:\r\n            return False\r\n        if m == n:\r\n            return sum(a != b for a, b in zip(first, second)) < 2\r\n        i = j = cnt = 0\r\n        while i < m:\r\n            if j == n or (j < n and first[i] != second[j]):\r\n                cnt += 1\r\n            else:\r\n                j += 1\r\n            i += 1\r\n        return cnt < 2\r\n",
+    "javascript": "function oneEditAway(first, second) {\n    let m = first.length;\n    let n = second.length;\n    if (m < n) {\n        return oneEditAway(second, first);\n    }\n    if (m - n > 1) {\n        return false;\n    }\n    let cnt = 0;\n    if (m === n) {\n        for (let i = 0; i < n; ++i) {\n            if (first[i] !== second[i]) {\n                if (++cnt > 1) {\n                    return false;\n                }\n            }\n        }\n        return true;\n    }\n    for (let i = 0, j = 0; i < m; ++i) {\n        if (j === n || (j < n && first[i] !== second[j])) {\n            ++cnt;\n        }\n        else {\n            ++j;\n        }\n    }\n    return cnt < 2;\n}\n",
+    "java": "class Solution {\r\n    public boolean oneEditAway(String first, String second) {\r\n        int m = first.length(), n = second.length();\r\n        if (m < n) {\r\n            return oneEditAway(second, first);\r\n        }\r\n        if (m - n > 1) {\r\n            return false;\r\n        }\r\n        int cnt = 0;\r\n        if (m == n) {\r\n            for (int i = 0; i < n; ++i) {\r\n                if (first.charAt(i) != second.charAt(i)) {\r\n                    if (++cnt > 1) {\r\n                        return false;\r\n                    }\r\n                }\r\n            }\r\n            return true;\r\n        }\r\n        for (int i = 0, j = 0; i < m; ++i) {\r\n            if (j == n || (j < n && first.charAt(i) != second.charAt(j))) {\r\n                ++cnt;\r\n            } else {\r\n                ++j;\r\n            }\r\n        }\r\n        return cnt < 2;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool oneEditAway(std::string first, std::string second) {\r\n        int m = first.length(), n = second.length();\r\n        if (m < n) {\r\n            return oneEditAway(second, first);\r\n        }\r\n        if (m - n > 1) {\r\n            return false;\r\n        }\r\n        int cnt = 0;\r\n        if (m == n) {\r\n            for (int i = 0; i < n; ++i) {\r\n                if (first[i] != second[i]) {\r\n                    if (++cnt > 1) {\r\n                        return false;\r\n                    }\r\n                }\r\n            }\r\n            return true;\r\n        }\r\n        for (int i = 0, j = 0; i < m; ++i) {\r\n            if (j == n || (j < n && first[i] != second[j])) {\r\n                ++cnt;\r\n            } else {\r\n                ++j;\r\n            }\r\n        }\r\n        return cnt < 2;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.05.One%20Away/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.05.One%20Away/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.05.One%20Away/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.05.One%20Away/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.05.One%20Away/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：一次编辑。\n输入：first（string）、second（string）。\n训练提示：**思考**\r \r 一次编辑包含替换、插入或删除。若枚举对较短串的所有一次编辑再与另一串比较，状态数与长度成正比，实现繁琐。\r \r 长度差超过 $1$ 时不可能一次编辑达成，可直接否定。为此不妨令 $m \\ge n$：相等则只允许恰好一处替换；相差 $1$ 则较长串须恰好多一个字符。\r \r 等长时对位统计不等字符个数；不等长时用双指针在较长串上跳过至多一处失配。先交换使第一参数更长，从而只实现删除方向，避免插入与删除各写一套。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：分情况讨论 + 双指针\r\n\r\n\r\n\r\n思考\r\n\r\n一次编辑包含替换、插入或删除。若枚举对较短串的所有一次编辑再与另一串比较，状态数与长度成正比，实现繁琐。\r\n\r\n长度差超过 $1$ 时不可能一次编辑达成，可直接否定。为此不妨令 $m \\ge n$：相等则只允许恰好一处替换；相差 $1$ 则较长串须恰好多一个字符。\r\n\r\n等长时对位统计不等字符个数；不等长时用双指针在较长串上跳过至多一处失配。先交换使第一参数更长，从而只实现删除方向，避免插入与删除各写一套。\r\n\r\n\r\n\r\n我们将字符串 $\\textit{first}$ 和 $\\textit{second}$ 的长度记为 $m$ 和 $n$，不妨设 $m \\geq n$。\r\n\r\n接下来分情况讨论：\r\n\r\n- 当 $m - n \\gt 1$ 时， $\\textit{first}$ 和 $\\textit{second}$ 无法通过一次编辑得到，返回 `false`；\r\n- 当 $m = n$ 时， $\\textit{first}$ 和 $\\textit{second}$ 只有在且仅在有且仅有一个字符不同的情况下才能通过一次编辑得到；\r\n- 当 $m - n = 1$ 时， $\\textit{first}$ 和 $\\textit{second}$ 只有在且仅在 $\\textit{second}$ 是 $\\textit{first}$ 删除一个字符后得到的情况下才能通过一次编辑得到，我们可以使用双指针来实现。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 为字符串长度。空间复杂度 $O(1)$。",
+  "memory": "一次编辑 → 分情况讨论 + 双指针。\n**思考**\r\n\r\n一次编辑包含替换、插入或删除。若枚举对较短串的所有一次编辑再与另一串比较，状态数与长度成正比，实现繁琐。\r\n\r\n长度差超过 $1$ 时不可能一次编辑达成，可直接否定。为此不妨令 $m \\ge n$：相等则只允许恰好一处替换；相差 $1$ 则较长串须恰好多一个字符。\r\n\r\n等长时对位统计不等字符个数；不等长时用双指针在较长串上跳过至多一处失配。先交换使第一参数更长，从而只实现删除方向，避免插入与删除各写一套。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

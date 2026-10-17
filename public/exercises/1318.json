@@ -1,0 +1,74 @@
+{
+  "number": "1318",
+  "adapter": {
+    "name": "minFlips",
+    "params": [
+      {
+        "name": "a",
+        "type": "integer"
+      },
+      {
+        "type": "integer",
+        "name": "b"
+      },
+      {
+        "type": "integer",
+        "name": "c"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1318"
+  },
+  "tests": [
+    {
+      "input": [
+        2,
+        6,
+        5
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        4,
+        2,
+        7
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        1,
+        2,
+        3
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def minFlips(self, a: int, b: int, c: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} a\n * @param {number} b\n * @param {number} c\n * @return {number}\n */\nvar minFlips = function(a, b, c) {\n    \n};",
+    "java": "class Solution {\n    public int minFlips(int a, int b, int c) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minFlips(int a, int b, int c) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def minFlips(self, a: int, b: int, c: int) -> int:\r\n        ans = 0\r\n        for i in range(32):\r\n            x, y, z = a >> i & 1, b >> i & 1, c >> i & 1\r\n            ans += x + y if z == 0 else int(x == 0 and y == 0)\r\n        return ans\r\n",
+    "javascript": "function minFlips(a, b, c) {\n    let ans = 0;\n    for (let i = 0; i < 32; ++i) {\n        const [x, y, z] = [(a >> i) & 1, (b >> i) & 1, (c >> i) & 1];\n        ans += z === 0 ? x + y : x + y === 0 ? 1 : 0;\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int minFlips(int a, int b, int c) {\r\n        int ans = 0;\r\n        for (int i = 0; i < 32; ++i) {\r\n            int x = a >> i & 1, y = b >> i & 1, z = c >> i & 1;\r\n            ans += z == 0 ? x + y : (x == 0 && y == 0 ? 1 : 0);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int minFlips(int a, int b, int c) {\r\n        int ans = 0;\r\n        for (int i = 0; i < 32; ++i) {\r\n            int x = a >> i & 1, y = b >> i & 1, z = c >> i & 1;\r\n            ans += z == 0 ? x + y : (x == 0 && y == 0 ? 1 : 0);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1318.Minimum%20Flips%20to%20Make%20a%20OR%20b%20Equal%20to%20c/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1318.Minimum%20Flips%20to%20Make%20a%20OR%20b%20Equal%20to%20c/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1318.Minimum%20Flips%20to%20Make%20a%20OR%20b%20Equal%20to%20c/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1318.Minimum%20Flips%20to%20Make%20a%20OR%20b%20Equal%20to%20c/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1318.Minimum%20Flips%20to%20Make%20a%20OR%20b%20Equal%20to%20c/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：或运算的最小翻转次数。\n输入：a（integer）、b（integer）、c（integer）。\n训练提示：**思考**\r \r 按位或等于 $c$ 的最少翻转。位与位独立，不必枚举整数。对每一位：若 $c$ 该位为 $0$，则 $a$、 $b$ 中每一个 $1$ 都要翻掉；若为 $1$，则仅当 $a$、 $b$ 该位都为 $0$ 时需要翻一次。累加 $32$ 位即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：位运算\r\n\r\n\r\n\r\n思考\r\n\r\n按位或等于 $c$ 的最少翻转。位与位独立，不必枚举整数。对每一位：若 $c$ 该位为 $0$，则 $a$、 $b$ 中每一个 $1$ 都要翻掉；若为 $1$，则仅当 $a$、 $b$ 该位都为 $0$ 时需要翻一次。累加 $32$ 位即可。\r\n\r\n\r\n\r\n我们可以枚举 $a$, $b$, $c$ 的二进制表示的每一位，分别记为 $x$, $y$, $z$。如果 $x$ 和 $y$ 的按位或运算结果与 $z$ 不同，此时我们判断 $x$ 和 $y$ 是否都是 $1$，如果是，则需要翻转两次，否则只需要翻转一次。我们将所有需要翻转的次数累加即可。\r\n\r\n时间复杂度 $O(\\log M)$，其中 $M$ 是题目中数字的最大值。空间复杂度 $O(1)$。",
+  "memory": "或运算的最小翻转次数 → 位运算。\n**思考**\r\n\r\n按位或等于 $c$ 的最少翻转。位与位独立，不必枚举整数。对每一位：若 $c$ 该位为 $0$，则 $a$、 $b$ 中每一个 $1$ 都要翻掉；若为 $1$，则仅当 $a$、 $b$ 该位都为 $0$ 时需要翻一次。累加 $32$ 位即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

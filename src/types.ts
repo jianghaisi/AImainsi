@@ -1,4 +1,4 @@
-export type Lang = 'python' | 'javascript' | 'java' | 'cpp';
+export type Lang = 'python' | 'javascript' | 'java' | 'cpp' | 'sql';
 export interface Settings {
   name: string;
   targetCompany: string;
@@ -52,6 +52,9 @@ export interface Question {
     [key: string]: unknown;
   };
   credits?: Partial<Record<Lang, string>>;
+  guideCredit?: string;
+  guideLicense?: string;
+  companies?: string[];
   id: string;
   title: string;
   topic: string;

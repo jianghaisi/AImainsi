@@ -219,7 +219,7 @@ export default function App() {
         <footer>
           <span>SEQUENCE / 每一次训练，都有迹可循。</span>
           <span>
-            PERSONAL INTERVIEW SYSTEM <b>v0.2</b>
+            PERSONAL INTERVIEW SYSTEM <b>v0.3</b>
           </span>
         </footer>
       </div>

@@ -45,14 +45,30 @@ try {
   await page.getByRole('button', { name: '运行并提交' }).click();
   await page.getByText('通过 4 / 4 个用例').waitFor({ timeout: 45000 });
   await page.getByLabel('训练题目').selectOption('lc-lru-cache');
+  await page.getByLabel('代码编辑器').filter({ visible: true }).waitFor();
+  await page.waitForFunction(() =>
+    document.querySelector('textarea[aria-label="代码编辑器"]')?.value.includes('class LRUCache'),
+  );
   await page.getByRole('button', { name: '展开参考实现' }).click();
   await page.getByRole('button', { name: '载入参考实现' }).click();
   await page.getByRole('button', { name: '运行并提交' }).click();
   await page.getByText('通过 1 / 1 个用例').waitFor({ timeout: 45000 });
+  await page.getByLabel('训练题目').selectOption('lc-find-customer-referee');
+  await page.waitForFunction(() =>
+    document.querySelector('textarea[aria-label="代码编辑器"]')?.value.includes('find_customers'),
+  );
+  await page.getByLabel('编程语言').selectOption('sql');
+  await page.getByRole('button', { name: '展开参考实现' }).click();
+  await page.getByRole('button', { name: '载入参考实现' }).click();
+  await page.getByRole('button', { name: '运行并提交' }).click();
+  await page.getByText('通过 3 / 3 个用例').waitFor({ timeout: 30000 });
   await page.getByRole('button', { name: '情报题库 QUESTION BANK' }).click();
+  await page.getByRole('button', { name: '华为 71 题', exact: true }).click();
+  await page.getByRole('heading', { name: '华为面经题单', exact: true }).waitFor();
+  await page.locator('.toast').waitFor({ state: 'hidden', timeout: 10000 });
   await page.screenshot({ path: 'docs/question-bank-desktop.png', animations: 'disabled' });
   console.log(
-    'Electron window, Python worker, encrypted key storage and redacted export verified.',
+    'Packaged Electron, Python + SQLite workers, company catalog, encrypted secrets and redacted export verified.',
   );
 } finally {
   await app.close();

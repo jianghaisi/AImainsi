@@ -1,0 +1,78 @@
+{
+  "number": "LCR 191",
+  "adapter": {
+    "name": "statisticalResult",
+    "params": [
+      {
+        "name": "arrayA",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "LCR 191"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          4,
+          6,
+          8,
+          10
+        ]
+      ],
+      "expected": [
+        1920,
+        960,
+        640,
+        480,
+        384
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": [
+        120,
+        60,
+        40,
+        30,
+        24
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def statisticalResult(self, a: List[int]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} arrayA\n * @return {number[]}\n */\nvar statisticalResult = function(arrayA) {\n    \n};",
+    "java": "class Solution {\n    public int[] statisticalResult(int[] arrayA) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> statisticalResult(vector<int>& arrayA) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def statisticalResult(self, a: List[int]) -> List[int]:\r\n        n = len(a)\r\n        ans = [0] * n\r\n        left = right = 1\r\n        for i in range(n):\r\n            ans[i] = left\r\n            left *= a[i]\r\n        for i in range(n - 1, -1, -1):\r\n            ans[i] *= right\r\n            right *= a[i]\r\n        return ans\r\n",
+    "javascript": "function statisticalResult(a) {\n    const n = a.length;\n    const ans = Array(n);\n    for (let i = 0, left = 1; i < n; ++i) {\n        ans[i] = left;\n        left *= a[i];\n    }\n    for (let i = n - 1, right = 1; i >= 0; --i) {\n        ans[i] *= right;\n        right *= a[i];\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int[] statisticalResult(int[] a) {\r\n        int n = a.length;\r\n        int[] ans = new int[n];\r\n        for (int i = 0, left = 1; i < n; ++i) {\r\n            ans[i] = left;\r\n            left *= a[i];\r\n        }\r\n        for (int i = n - 1, right = 1; i >= 0; --i) {\r\n            ans[i] *= right;\r\n            right *= a[i];\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> statisticalResult(vector<int>& a) {\r\n        int n = a.size();\r\n        vector<int> ans(n);\r\n        for (int i = 0, left = 1; i < n; ++i) {\r\n            ans[i] = left;\r\n            left *= a[i];\r\n        }\r\n        for (int i = n - 1, right = 1; ~i; --i) {\r\n            ans[i] *= right;\r\n            right *= a[i];\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9866.%20%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9866.%20%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9866.%20%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9866.%20%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9866.%20%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：按规则计算统计结果。\n输入：arrayA（integer[]）。\n训练提示：**思考**\r \r 若直接对每个位置连乘其余元素，遇 $0$ 还须特判，且为平方级。 $ans[i]$ 等于左侧积乘右侧积，可分两次扫描。\r \r 先从左累乘写入 $ans$，再从右累乘乘回去，避开使用除法。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：两次遍历\r\n\r\n\r\n\r\n思考\r\n\r\n若直接对每个位置连乘其余元素，遇 $0$ 还须特判，且为平方级。 $ans[i]$ 等于左侧积乘右侧积，可分两次扫描。\r\n\r\n先从左累乘写入 $ans$，再从右累乘乘回去，避开使用除法。\r\n\r\n\r\n\r\n我们先创建一个长度为 $n$ 的答案数组 $ans$。\r\n\r\n接下来，我们从左到右遍历数组 $a$，过程中维护一个变量 $left$，表示当前元素左边所有元素的乘积，初始时 $left=1$。当遍历到 $a[i]$ 时，我们将 $left$ 赋值给 $ans[i]$，然后 $left$ 乘以 $a[i]$，即 $left \\leftarrow left \\times a[i]$。\r\n\r\n然后，我们从右到左遍历数组 $a$，过程中维护一个变量 $right$，表示当前元素右边所有元素的乘积，初始时 $right=1$。当遍历到 $a[i]$ 时，我们将 $ans[i]$ 乘上 $right$，然后 $right$ 乘以 $a[i]$，即 $right \\leftarrow right \\times a[i]$。\r\n\r\n最终，数组 $ans$ 即为所求的答案。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 为数组 $a$ 的长度。忽略答案数组的空间消耗，空间复杂度 $O(1)$。",
+  "memory": "按规则计算统计结果 → 两次遍历。\n**思考**\r\n\r\n若直接对每个位置连乘其余元素，遇 $0$ 还须特判，且为平方级。 $ans[i]$ 等于左侧积乘右侧积，可分两次扫描。\r\n\r\n先从左累乘写入 $ans$，再从右累乘乘回去，避开使用除法。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

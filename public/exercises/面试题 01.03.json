@@ -1,0 +1,64 @@
+{
+  "number": "面试题 01.03",
+  "adapter": {
+    "name": "replaceSpaces",
+    "params": [
+      {
+        "name": "S",
+        "type": "string"
+      },
+      {
+        "name": "length",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "面试题 01.03"
+  },
+  "tests": [
+    {
+      "input": [
+        "Mr John Smith    ",
+        13
+      ],
+      "expected": "Mr%20John%20Smith"
+    },
+    {
+      "input": [
+        "               ",
+        5
+      ],
+      "expected": "%20%20%20%20%20"
+    },
+    {
+      "input": [
+        "Mr John Smith ",
+        13
+      ],
+      "expected": "Mr%20John%20Smith"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def replaceSpaces(self, S: str, length: int) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} S\n * @param {number} length\n * @return {string}\n */\nvar replaceSpaces = function(S, length) {\n    \n};",
+    "java": "class Solution {\n    public String replaceSpaces(String S, int length) {\n        \n    }\n}"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def replaceSpaces(self, S: str, length: int) -> str:\r\n        return S[:length].replace(' ', '%20')\r\n",
+    "javascript": "function replaceSpaces(S, length) {\n    return S.slice(0, length).replace(/\\s/g, '%20');\n}\n",
+    "java": "class Solution {\n    public String replaceSpaces(String S, int length) {\n        char[] cs = S.toCharArray();\n        int j = cs.length;\n        for (int i = length - 1; i >= 0; --i) {\n            if (cs[i] == ' ') {\n                cs[--j] = '0';\n                cs[--j] = '2';\n                cs[--j] = '%';\n            } else {\n                cs[--j] = cs[i];\n            }\n        }\n        return new String(cs, j, cs.length - j);\n    }\n}\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.03.String%20to%20URL/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.03.String%20to%20URL/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.03.String%20to%20URL/Solution.java"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.03.String%20to%20URL/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：URL化。\n输入：S（string）、length（integer）。\n训练提示：**思考**\r \r 需要把前 $length$ 个字符中的空格换成 `%20`。题目给出的 $S$ 可能带有尾部填充，因此不能对整串做替换。\r \r 语言库的 `replace` 可在线性时间内完成子串替换。先截取 $S[:length]$，再将空格替换为 `%20$，即可同时处理有效前缀与填充。\r \r 该写法对齐 Python 的实现：一次切片加一次替换，时间与输出长度成正比。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：使用 `replace()` 函数\r\n\r\n\r\n\r\n思考\r\n\r\n需要把前 $length$ 个字符中的空格换成 `%20`。题目给出的 $S$ 可能带有尾部填充，因此不能对整串做替换。\r\n\r\n语言库的 `replace` 可在线性时间内完成子串替换。先截取 $S[:length]$，再将空格替换为 `%20$，即可同时处理有效前缀与填充。\r\n\r\n该写法对齐 Python 的实现：一次切片加一次替换，时间与输出长度成正比。\r\n\r\n\r\n\r\n直接利用 `replace` 将所有 ` ` 替换为 `%20`：\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为字符串长度。",
+  "memory": "URL化 → 使用 `replace()` 函数。\n**思考**\r\n\r\n需要把前 $length$ 个字符中的空格换成 `%20`。题目给出的 $S$ 可能带有尾部填充，因此不能对整串做替换。\r\n\r\n语言库的 `replace` 可在线性时间内完成子串替换。先截取 $S[:length]$，再将空格替换为 `%20$，即可同时处理有效前缀与填充。\r\n\r\n该写法对齐 Python 的实现：一次切片加一次替换，时间与输出长度成正比。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,72 @@
+{
+  "number": "LCR 167",
+  "adapter": {
+    "name": "dismantlingAction",
+    "params": [
+      {
+        "name": "arr",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 167"
+  },
+  "tests": [
+    {
+      "input": [
+        "dbascDdad"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "KKK"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "pwwkew"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "abcabcbb"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "bbbbb"
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def dismantlingAction(self, s: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} arr\n * @return {number}\n */\nvar dismantlingAction = function(arr) {\n    \n};",
+    "java": "class Solution {\n    public int dismantlingAction(String arr) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int dismantlingAction(string arr) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def dismantlingAction(self, s: str) -> int:\r\n        cnt = Counter()\r\n        ans = j = 0\r\n        for i, c in enumerate(s):\r\n            cnt[c] += 1\r\n            while cnt[c] > 1:\r\n                cnt[s[j]] -= 1\r\n                j += 1\r\n            ans = max(ans, i - j + 1)\r\n        return ans\r\n",
+    "javascript": "function dismantlingAction(s) {\n    let ans = 0;\n    const vis = new Set();\n    for (let i = 0, j = 0; i < s.length; ++i) {\n        while (vis.has(s[i])) {\n            vis.delete(s[j++]);\n        }\n        vis.add(s[i]);\n        ans = Math.max(ans, i - j + 1);\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int dismantlingAction(String s) {\r\n        int ans = 0, j = 0;\r\n        Set<Character> vis = new HashSet<>();\r\n        for (int i = 0; i < s.length(); ++i) {\r\n            while (vis.contains(s.charAt(i))) {\r\n                vis.remove(s.charAt(j++));\r\n            }\r\n            vis.add(s.charAt(i));\r\n            ans = Math.max(ans, i - j + 1);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int dismantlingAction(string s) {\r\n        int ans = 0;\r\n        unordered_set<char> vis;\r\n        for (int i = 0, j = 0; i < s.size(); ++i) {\r\n            while (vis.count(s[i])) {\r\n                vis.erase(s[j++]);\r\n            }\r\n            vis.insert(s[i]);\r\n            ans = max(ans, i - j + 1);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9848.%20%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9848.%20%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9848.%20%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9848.%20%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9848.%20%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：招式拆解 I。\n输入：arr（string）。\n训练提示：**思考**\r \r 无重复子串可用滑动窗口：右端纳入新字符，若出现次数超过 $1$ 则左端右移。用计数表维护窗口内频次，并更新最大长度。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双指针 + 哈希表\r\n\r\n\r\n\r\n思考\r\n\r\n无重复子串可用滑动窗口：右端纳入新字符，若出现次数超过 $1$ 则左端右移。用计数表维护窗口内频次，并更新最大长度。\r\n\r\n\r\n\r\n我们用双指针 $j$ 和 $i$ 分别表示子串的左右边界，其中 $j$ 是滑动窗口的左边界， $i$ 是滑动窗口的右边界，用哈希表 $vis$ 记录每个字符是否出现过。\r\n\r\n遍历字符串 $s$，如果此时 $s[i]$ 在哈希表 $vis$ 中存在，说明 $s[i]$ 重复了，我们需要将左边界 $j$ 右移，直到 $s[i]$ 不在哈希表 $vis$ 中为止，然后将 $s[i]$ 加入哈希表 $vis$ 中。此时，我们更新无重复字符子串的最大长度，即 $ans = \\max(ans, i - j + 1)$。\r\n\r\n遍历结束后，我们返回 $ans$ 即可。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(C)$。其中 $n$ 是字符串 $s$ 的长度；而 $C$ 是字符集的大小。",
+  "memory": "招式拆解 I → 双指针 + 哈希表。\n**思考**\r\n\r\n无重复子串可用滑动窗口：右端纳入新字符，若出现次数超过 $1$ 则左端右移。用计数表维护窗口内频次，并更新最大长度。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

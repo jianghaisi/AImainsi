@@ -1,0 +1,74 @@
+{
+  "number": "面试题 04.10",
+  "adapter": {
+    "name": "checkSubTree",
+    "params": [
+      {
+        "name": "t1",
+        "type": "TreeNode"
+      },
+      {
+        "name": "t2",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "面试题 04.10"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          2
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1,
+          null,
+          2,
+          4
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def checkSubTree(self, t1: TreeNode, t2: TreeNode) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} t1\n * @param {TreeNode} t2\n * @return {boolean}\n */\nvar checkSubTree = function(t1, t2) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public boolean checkSubTree(TreeNode t1, TreeNode t2) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool checkSubTree(TreeNode* t1, TreeNode* t2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.left = None\r\n#         self.right = None\r\n\r\n\r\nclass Solution:\r\n    def checkSubTree(self, t1: TreeNode, t2: TreeNode) -> bool:\r\n        def dfs(t1, t2):\r\n            if t2 is None:\r\n                return t1 is None\r\n            if t1 is None or t1.val != t2.val:\r\n                return False\r\n            return dfs(t1.left, t2.left) and dfs(t1.right, t2.right)\r\n\r\n        if t2 is None:\r\n            return True\r\n        if t1 is None:\r\n            return False\r\n        if dfs(t1, t2):\r\n            return True\r\n        return self.checkSubTree(t1.left, t2) or self.checkSubTree(t1.right, t2)\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction checkSubTree(t1, t2) {\n    const dfs = (t1, t2) => {\n        if (!t2) {\n            return !t1;\n        }\n        if (!t1 || t1.val !== t2.val) {\n            return false;\n        }\n        return dfs(t1.left, t2.left) && dfs(t1.right, t2.right);\n    };\n    if (!t2) {\n        return true;\n    }\n    if (!t1) {\n        return false;\n    }\n    if (dfs(t1, t2)) {\n        return true;\n    }\n    return checkSubTree(t1.left, t2) || checkSubTree(t1.right, t2);\n}\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public boolean checkSubTree(TreeNode t1, TreeNode t2) {\r\n        if (t2 == null) {\r\n            return true;\r\n        }\r\n        if (t1 == null) {\r\n            return false;\r\n        }\r\n        if (dfs(t1, t2)) {\r\n            return true;\r\n        }\r\n        return checkSubTree(t1.left, t2) || checkSubTree(t1.right, t2);\r\n    }\r\n\r\n    private boolean dfs(TreeNode t1, TreeNode t2) {\r\n        if (t2 == null) {\r\n            return t1 == null;\r\n        }\r\n        if (t1 == null || t1.val != t2.val) {\r\n            return false;\r\n        }\r\n        return dfs(t1.left, t2.left) && dfs(t1.right, t2.right);\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    bool checkSubTree(TreeNode* t1, TreeNode* t2) {\r\n        if (!t2) {\r\n            return true;\r\n        }\r\n        if (!t1) {\r\n            return false;\r\n        }\r\n        if (dfs(t1, t2)) {\r\n            return true;\r\n        }\r\n        return checkSubTree(t1->left, t2) || checkSubTree(t1->right, t2);\r\n    }\r\n\r\n    bool dfs(TreeNode* t1, TreeNode* t2) {\r\n        if (!t2) {\r\n            return !t1;\r\n        }\r\n        if (!t1 || t1->val != t2->val) {\r\n            return false;\r\n        }\r\n        return dfs(t1->left, t2->left) && dfs(t1->right, t2->right);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.10.Check%20SubTree/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.10.Check%20SubTree/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.10.Check%20SubTree/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.10.Check%20SubTree/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.10.Check%20SubTree/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：检查子树。\n输入：t1（TreeNode）、t2（TreeNode）。\n训练提示：**思考**\r \r 判断 $t_2$ 是否与 $t_1$ 某棵子树完全相同。序列化后做子串匹配可行，但要处理分隔与空节点编码。\r \r 对 $t_1$ 的每个节点尝试与 $t_2$ 对齐：结构与值同时相等才算匹配。\r \r 内层 $dfs$ 同步比较两棵树；外层在失败时转向 $t_1$ 的左右孩子重新对齐。 $t_2$ 为空视为真， $t_1$ 先空则假。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递归\r\n\r\n\r\n\r\n思考\r\n\r\n判断 $t_2$ 是否与 $t_1$ 某棵子树完全相同。序列化后做子串匹配可行，但要处理分隔与空节点编码。\r\n\r\n对 $t_1$ 的每个节点尝试与 $t_2$ 对齐：结构与值同时相等才算匹配。\r\n\r\n内层 $dfs$ 同步比较两棵树；外层在失败时转向 $t_1$ 的左右孩子重新对齐。 $t_2$ 为空视为真， $t_1$ 先空则假。\r\n\r\n\r\n\r\n我们首先判断 $t_2$ 是否为空，如果为空，那么 $t_2$ 一定是 $t_1$ 的子树，返回 `true`。\r\n\r\n否则，判断 $t_1$ 是否为空，如果为空，那么 $t_2$ 一定不是 $t_1$ 的子树，返回 `false`。\r\n\r\n接着，我们判断 $t_1$ 和 $t_2$ 是否相等，如果相等，那么 $t_2$ 是 $t_1$ 的子树，返回 `true`。否则，我们递归判断 $t_1$ 的左子树和 $t_2$ 是否相等，以及 $t_1$ 的右子树和 $t_2$ 是否相等，只要有一个为 `true`，那么 $t_2$ 就是 $t_1$ 的子树，返回 `true`。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n)$。其中 $n$ 为 $t_1$ 的节点数。",
+  "memory": "检查子树 → 递归。\n**思考**\r\n\r\n判断 $t_2$ 是否与 $t_1$ 某棵子树完全相同。序列化后做子串匹配可行，但要处理分隔与空节点编码。\r\n\r\n对 $t_1$ 的每个节点尝试与 $t_2$ 对齐：结构与值同时相等才算匹配。\r\n\r\n内层 $dfs$ 同步比较两棵树；外层在失败时转向 $t_1$ 的左右孩子重新对齐。 $t_2$ 为空视为真， $t_1$ 先空则假。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

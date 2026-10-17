@@ -1,0 +1,60 @@
+{
+  "number": "LCR 019",
+  "adapter": {
+    "name": "validPalindrome",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "LCR 019"
+  },
+  "tests": [
+    {
+      "input": [
+        "aba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abca"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abc"
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def validPalindrome(self, s: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @return {boolean}\n */\nvar validPalindrome = function(s) {\n\n};",
+    "java": "class Solution {\n    public boolean validPalindrome(String s) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool validPalindrome(string s) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def validPalindrome(self, s: str) -> bool:\r\n        def check(i: int, j: int) -> bool:\r\n            while i < j:\r\n                if s[i] != s[j]:\r\n                    return False\r\n                i, j = i + 1, j - 1\r\n            return True\r\n\r\n        i, j = 0, len(s) - 1\r\n        while i < j:\r\n            if s[i] != s[j]:\r\n                return check(i + 1, j) or check(i, j - 1)\r\n            i, j = i + 1, j - 1\r\n        return True\r\n",
+    "javascript": "function validPalindrome(s) {\n    const check = (i, j) => {\n        for (; i < j; ++i, --j) {\n            if (s[i] !== s[j]) {\n                return false;\n            }\n        }\n        return true;\n    };\n    for (let i = 0, j = s.length - 1; i < j; ++i, --j) {\n        if (s[i] !== s[j]) {\n            return check(i + 1, j) || check(i, j - 1);\n        }\n    }\n    return true;\n}\n",
+    "java": "class Solution {\r\n    private String s;\r\n\r\n    public boolean validPalindrome(String s) {\r\n        this.s = s;\r\n        for (int i = 0, j = s.length() - 1; i < j; ++i, --j) {\r\n            if (s.charAt(i) != s.charAt(j)) {\r\n                return check(i + 1, j) || check(i, j - 1);\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n\r\n    private boolean check(int i, int j) {\r\n        for (; i < j; ++i, --j) {\r\n            if (s.charAt(i) != s.charAt(j)) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool validPalindrome(string s) {\r\n        auto check = [&](int i, int j) {\r\n            for (; i < j; ++i, --j) {\r\n                if (s[i] != s[j]) {\r\n                    return false;\r\n                }\r\n            }\r\n            return true;\r\n        };\r\n        for (int i = 0, j = s.size() - 1; i < j; ++i, --j) {\r\n            if (s[i] != s[j]) {\r\n                return check(i + 1, j) || check(i, j - 1);\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20019.%20%E6%9C%80%E5%A4%9A%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E5%BE%97%E5%88%B0%E5%9B%9E%E6%96%87/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20019.%20%E6%9C%80%E5%A4%9A%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E5%BE%97%E5%88%B0%E5%9B%9E%E6%96%87/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20019.%20%E6%9C%80%E5%A4%9A%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E5%BE%97%E5%88%B0%E5%9B%9E%E6%96%87/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20019.%20%E6%9C%80%E5%A4%9A%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E5%BE%97%E5%88%B0%E5%9B%9E%E6%96%87/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20019.%20%E6%9C%80%E5%A4%9A%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E5%BE%97%E5%88%B0%E5%9B%9E%E6%96%87/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：验证回文串 II。\n输入：s（string）。\n训练提示：**思考**\r \r 允许删除至多一个字符后成为回文。枚举删除位置再检查，最坏 $O(n^2)$。\r \r 两端相向扫描，首次失配时只可能删左或删右之一。对剩下的两段各自做一次严格回文判定即可，总比较次数仍是线性。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双指针\r\n\r\n\r\n\r\n思考\r\n\r\n允许删除至多一个字符后成为回文。枚举删除位置再检查，最坏 $O(n^2)$。\r\n\r\n两端相向扫描，首次失配时只可能删左或删右之一。对剩下的两段各自做一次严格回文判定即可，总比较次数仍是线性。\r\n\r\n\r\n\r\n我们用两个指针 $i$ 和 $j$ 分别指向字符串 $s$ 的第一个字符和最后一个字符，然后向中间移动指针，每次判断 $s[i]$ 和 $s[j]$ 是否相等：\r\n\r\n- 如果 $s[i] = s[j]$，则指针 $i$ 向后移动一位，指针 $j$ 向前移动一位；\r\n- 否则，存在两种情况，即删除字符 $s[i]$ 或者删除字符 $s[j]$，然后判断删除之后的字符串是否是回文字符串。即判断子串 $s[i+1..j]$ 或者子串 $s[i..j-1]$ 是否是回文字符串。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 是字符串 $s$ 的长度。空间复杂度 $O(1)$。",
+  "memory": "验证回文串 II → 双指针。\n**思考**\r\n\r\n允许删除至多一个字符后成为回文。枚举删除位置再检查，最坏 $O(n^2)$。\r\n\r\n两端相向扫描，首次失配时只可能删左或删右之一。对剩下的两段各自做一次严格回文判定即可，总比较次数仍是线性。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

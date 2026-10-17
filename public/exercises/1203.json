@@ -1,0 +1,136 @@
+{
+  "number": "1203",
+  "adapter": {
+    "name": "sortItems",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      },
+      {
+        "type": "integer",
+        "name": "m"
+      },
+      {
+        "type": "integer[]",
+        "name": "group"
+      },
+      {
+        "type": "list<list<integer>>",
+        "name": "beforeItems"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "1203"
+  },
+  "tests": [
+    {
+      "input": [
+        8,
+        2,
+        [
+          -1,
+          -1,
+          1,
+          0,
+          0,
+          1,
+          0,
+          -1
+        ],
+        [
+          [],
+          [
+            6
+          ],
+          [
+            5
+          ],
+          [
+            6
+          ],
+          [
+            3,
+            6
+          ],
+          [],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        6,
+        3,
+        4,
+        1,
+        5,
+        2,
+        0,
+        7
+      ]
+    },
+    {
+      "input": [
+        8,
+        2,
+        [
+          -1,
+          -1,
+          1,
+          0,
+          0,
+          1,
+          0,
+          -1
+        ],
+        [
+          [],
+          [
+            6
+          ],
+          [
+            5
+          ],
+          [
+            6
+          ],
+          [
+            3
+          ],
+          [],
+          [
+            4
+          ],
+          []
+        ]
+      ],
+      "expected": []
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def sortItems(self, n: int, m: int, group: List[int], beforeItems: List[List[int]]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @param {number} m\n * @param {number[]} group\n * @param {number[][]} beforeItems\n * @return {number[]}\n */\nvar sortItems = function(n, m, group, beforeItems) {\n    \n};",
+    "java": "class Solution {\n    public int[] sortItems(int n, int m, int[] group, List<List<Integer>> beforeItems) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> sortItems(int n, int m, vector<int>& group, vector<vector<int>>& beforeItems) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def sortItems(\r\n        self, n: int, m: int, group: List[int], beforeItems: List[List[int]]\r\n    ) -> List[int]:\r\n        def topo_sort(degree, graph, items):\r\n            q = deque(i for _, i in enumerate(items) if degree[i] == 0)\r\n            res = []\r\n            while q:\r\n                i = q.popleft()\r\n                res.append(i)\r\n                for j in graph[i]:\r\n                    degree[j] -= 1\r\n                    if degree[j] == 0:\r\n                        q.append(j)\r\n            return res if len(res) == len(items) else []\r\n\r\n        idx = m\r\n        group_items = [[] for _ in range(n + m)]\r\n        for i, g in enumerate(group):\r\n            if g == -1:\r\n                group[i] = idx\r\n                idx += 1\r\n            group_items[group[i]].append(i)\r\n\r\n        item_degree = [0] * n\r\n        group_degree = [0] * (n + m)\r\n        item_graph = [[] for _ in range(n)]\r\n        group_graph = [[] for _ in range(n + m)]\r\n        for i, gi in enumerate(group):\r\n            for j in beforeItems[i]:\r\n                gj = group[j]\r\n                if gi == gj:\r\n                    item_degree[i] += 1\r\n                    item_graph[j].append(i)\r\n                else:\r\n                    group_degree[gi] += 1\r\n                    group_graph[gj].append(gi)\r\n\r\n        group_order = topo_sort(group_degree, group_graph, range(n + m))\r\n        if not group_order:\r\n            return []\r\n        ans = []\r\n        for gi in group_order:\r\n            items = group_items[gi]\r\n            item_order = topo_sort(item_degree, item_graph, items)\r\n            if len(items) != len(item_order):\r\n                return []\r\n            ans.extend(item_order)\r\n        return ans\r\n",
+    "javascript": "function sortItems(n, m, group, beforeItems) {\n    let idx = m;\n    const groupItems = new Array(n + m).fill(0).map(() => []);\n    const itemDegree = new Array(n).fill(0);\n    const gorupDegree = new Array(n + m).fill(0);\n    const itemGraph = new Array(n).fill(0).map(() => []);\n    const groupGraph = new Array(n + m).fill(0).map(() => []);\n    for (let i = 0; i < n; ++i) {\n        if (group[i] === -1) {\n            group[i] = idx++;\n        }\n        groupItems[group[i]].push(i);\n    }\n    for (let i = 0; i < n; ++i) {\n        for (const j of beforeItems[i]) {\n            if (group[i] === group[j]) {\n                ++itemDegree[i];\n                itemGraph[j].push(i);\n            }\n            else {\n                ++gorupDegree[group[i]];\n                groupGraph[group[j]].push(group[i]);\n            }\n        }\n    }\n    let items = new Array(n + m).fill(0).map((_, i) => i);\n    const topoSort = (graph, degree, items) => {\n        const q = [];\n        for (const i of items) {\n            if (degree[i] === 0) {\n                q.push(i);\n            }\n        }\n        const ans = [];\n        while (q.length) {\n            const i = q.pop();\n            ans.push(i);\n            for (const j of graph[i]) {\n                if (--degree[j] === 0) {\n                    q.push(j);\n                }\n            }\n        }\n        return ans.length === items.length ? ans : [];\n    };\n    const groupOrder = topoSort(groupGraph, gorupDegree, items);\n    if (groupOrder.length === 0) {\n        return [];\n    }\n    const ans = [];\n    for (const gi of groupOrder) {\n        items = groupItems[gi];\n        const itemOrder = topoSort(itemGraph, itemDegree, items);\n        if (itemOrder.length !== items.length) {\n            return [];\n        }\n        ans.push(...itemOrder);\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int[] sortItems(int n, int m, int[] group, List<List<Integer>> beforeItems) {\r\n        int idx = m;\r\n        List<Integer>[] groupItems = new List[n + m];\r\n        int[] itemDegree = new int[n];\r\n        int[] groupDegree = new int[n + m];\r\n        List<Integer>[] itemGraph = new List[n];\r\n        List<Integer>[] groupGraph = new List[n + m];\r\n        Arrays.setAll(groupItems, k -> new ArrayList<>());\r\n        Arrays.setAll(itemGraph, k -> new ArrayList<>());\r\n        Arrays.setAll(groupGraph, k -> new ArrayList<>());\r\n        for (int i = 0; i < n; ++i) {\r\n            if (group[i] == -1) {\r\n                group[i] = idx++;\r\n            }\r\n            groupItems[group[i]].add(i);\r\n        }\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j : beforeItems.get(i)) {\r\n                if (group[i] == group[j]) {\r\n                    ++itemDegree[i];\r\n                    itemGraph[j].add(i);\r\n                } else {\r\n                    ++groupDegree[group[i]];\r\n                    groupGraph[group[j]].add(group[i]);\r\n                }\r\n            }\r\n        }\r\n        List<Integer> items = new ArrayList<>();\r\n        for (int i = 0; i < n + m; ++i) {\r\n            items.add(i);\r\n        }\r\n        var groupOrder = topoSort(groupDegree, groupGraph, items);\r\n        if (groupOrder.isEmpty()) {\r\n            return new int[0];\r\n        }\r\n        List<Integer> ans = new ArrayList<>();\r\n        for (int gi : groupOrder) {\r\n            items = groupItems[gi];\r\n            var itemOrder = topoSort(itemDegree, itemGraph, items);\r\n            if (itemOrder.size() != items.size()) {\r\n                return new int[0];\r\n            }\r\n            ans.addAll(itemOrder);\r\n        }\r\n        return ans.stream().mapToInt(Integer::intValue).toArray();\r\n    }\r\n\r\n    private List<Integer> topoSort(int[] degree, List<Integer>[] graph, List<Integer> items) {\r\n        Deque<Integer> q = new ArrayDeque<>();\r\n        for (int i : items) {\r\n            if (degree[i] == 0) {\r\n                q.offer(i);\r\n            }\r\n        }\r\n        List<Integer> ans = new ArrayList<>();\r\n        while (!q.isEmpty()) {\r\n            int i = q.poll();\r\n            ans.add(i);\r\n            for (int j : graph[i]) {\r\n                if (--degree[j] == 0) {\r\n                    q.offer(j);\r\n                }\r\n            }\r\n        }\r\n        return ans.size() == items.size() ? ans : List.of();\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> sortItems(int n, int m, vector<int>& group, vector<vector<int>>& beforeItems) {\r\n        int idx = m;\r\n        vector<vector<int>> groupItems(n + m);\r\n        vector<int> itemDegree(n);\r\n        vector<int> groupDegree(n + m);\r\n        vector<vector<int>> itemGraph(n);\r\n        vector<vector<int>> groupGraph(n + m);\r\n        for (int i = 0; i < n; ++i) {\r\n            if (group[i] == -1) {\r\n                group[i] = idx++;\r\n            }\r\n            groupItems[group[i]].push_back(i);\r\n        }\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j : beforeItems[i]) {\r\n                if (group[i] == group[j]) {\r\n                    ++itemDegree[i];\r\n                    itemGraph[j].push_back(i);\r\n                } else {\r\n                    ++groupDegree[group[i]];\r\n                    groupGraph[group[j]].push_back(group[i]);\r\n                }\r\n            }\r\n        }\r\n        vector<int> items(n + m);\r\n        iota(items.begin(), items.end(), 0);\r\n        auto topoSort = [](vector<vector<int>>& graph, vector<int>& degree, vector<int>& items) -> vector<int> {\r\n            queue<int> q;\r\n            for (int& i : items) {\r\n                if (degree[i] == 0) {\r\n                    q.push(i);\r\n                }\r\n            }\r\n            vector<int> ans;\r\n            while (!q.empty()) {\r\n                int i = q.front();\r\n                q.pop();\r\n                ans.push_back(i);\r\n                for (int& j : graph[i]) {\r\n                    if (--degree[j] == 0) {\r\n                        q.push(j);\r\n                    }\r\n                }\r\n            }\r\n            return ans.size() == items.size() ? ans : vector<int>();\r\n        };\r\n        auto groupOrder = topoSort(groupGraph, groupDegree, items);\r\n        if (groupOrder.empty()) {\r\n            return vector<int>();\r\n        }\r\n        vector<int> ans;\r\n        for (int& gi : groupOrder) {\r\n            items = groupItems[gi];\r\n            auto itemOrder = topoSort(itemGraph, itemDegree, items);\r\n            if (items.size() != itemOrder.size()) {\r\n                return vector<int>();\r\n            }\r\n            ans.insert(ans.end(), itemOrder.begin(), itemOrder.end());\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1203.Sort%20Items%20by%20Groups%20Respecting%20Dependencies/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1203.Sort%20Items%20by%20Groups%20Respecting%20Dependencies/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1203.Sort%20Items%20by%20Groups%20Respecting%20Dependencies/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1203.Sort%20Items%20by%20Groups%20Respecting%20Dependencies/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1203.Sort%20Items%20by%20Groups%20Respecting%20Dependencies/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：项目管理。\n输入：n（integer）、m（integer）、group（integer[]）、beforeItems（list<list<integer>>）。\n训练提示：**思考**\r \r 仅对项目做一次拓扑排序会打散同一小组，无法保证组内项目相邻。 $n \\le 3\\times 10^4$，需要线性级的构图与排序。\r \r 约束分两层：组与组之间有先后，组内项目之间另有先后。无组项目可各成一组，使每个项目都属于某个组。组间边来自跨组依赖，组内边来自同组依赖。\r \r 为此先对组图拓扑，再按组序对组内项目拓扑。任一层出现环则无解。两层图把「组必须成块」与「项目先后」拆开，各做一次 Kahn 算法即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：拓扑排序\r\n\r\n\r\n\r\n思考\r\n\r\n仅对项目做一次拓扑排序会打散同一小组，无法保证组内项目相邻。 $n \\le 3\\times 10^4$，需要线性级的构图与排序。\r\n\r\n约束分两层：组与组之间有先后，组内项目之间另有先后。无组项目可各成一组，使每个项目都属于某个组。组间边来自跨组依赖，组内边来自同组依赖。\r\n\r\n为此先对组图拓扑，再按组序对组内项目拓扑。任一层出现环则无解。两层图把「组必须成块」与「项目先后」拆开，各做一次 Kahn 算法即可。\r\n\r\n\r\n\r\n我们先遍历数组 $group$，对于每个项目，如果其不属于任何小组，则将其新建一个小组，编号为 $m$，并将 $m$ 的值加一。这样我们就能保证所有项目都属于某个小组了。然后，我们用一个数组 $groupItems$ 记录每个小组包含的项目，数组下标为小组编号，数组值为包含的项目列表。\r\n\r\n接下来，我们需要建图。对于每个项目，我们需要建立两种图，一种是项目间的图，一种是小组间的图。我们遍历数组 $group$，对于当前项目 $i$，它所在的小组为 $group[i]$，我们遍历 $beforeItems[i]$，对于其中的每个项目 $j$，如果 $group[i] = group[j]$，说明 $i$ 和 $j$ 属于同一小组，我们在项目图中添加一条 $j \\to i$ 的边，否则说明 $i$ 和 $j$ 属于不同的小组，我们在小组间的图中添加一条 $group[j] \\to group[i]$ 的边，并且更新对应的入度数组。\r\n\r\n接下来，我们先对小组间的图进行拓扑排序，得到排序后的小组列表 $groupOrder$，如果排序后的列表长度不等于小组总数，说明无法完成排序，返回空列表。否则，我们遍历 $groupOrder$，对于其中的每个小组 $gi$，我们将该小组包含的项目列表 $groupItems[gi]$ 进行拓扑排序，得到排序后的项目列表 $itemOrder$，如果排序后的列表长度不等于该小组包含的项目总数，说明无法完成排序，返回空列表。否则，我们将 $itemOrder$ 中的项目加入答案数组中，最终返回该答案数组即可。\r\n\r\n时间复杂度 $O(n + m)$，空间复杂度 $O(n + m)$。其中 $n$ 和 $m$ 分别是项目总数和小组总数。",
+  "memory": "项目管理 → 拓扑排序。\n**思考**\r\n\r\n仅对项目做一次拓扑排序会打散同一小组，无法保证组内项目相邻。 $n \\le 3\\times 10^4$，需要线性级的构图与排序。\r\n\r\n约束分两层：组与组之间有先后，组内项目之间另有先后。无组项目可各成一组，使每个项目都属于某个组。组间边来自跨组依赖，组内边来自同组依赖。\r\n\r\n为此先对组图拓扑，再按组序对组内项目拓扑。任一层出现环则无解。两层图把「组必须成块」与「项目先后」拆开，各做一次 Kahn 算法即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

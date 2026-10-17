@@ -13,7 +13,7 @@ const packs = fs
   .filter((f) => f.endsWith('.json'))
   .map((f) => JSON.parse(fs.readFileSync('public/exercises/' + f, 'utf8')));
 test('catalog updates only accept complete metadata and discard executable fields', () => {
-  assert.equal(validateCatalog(catalogSnapshot).questions.length, 647);
+  assert.equal(validateCatalog(catalogSnapshot).questions.length, 671);
   const data = structuredClone(catalogSnapshot);
   data.questions[0].solutions = { python: 'unsafe remote code' };
   assert.equal(validateCatalog(data).questions[0].solutions, undefined);
@@ -25,10 +25,10 @@ test('catalog updates only accept complete metadata and discard executable field
 });
 test('catalog has complete deduplicated plans and preserves historical drafts/contracts', () => {
   const merged = mergeCatalog(questions);
-  assert.equal(collections.length, 12);
+  assert.equal(collections.length, 16);
   assert.equal(collections.find((c) => c.id === 'hot100').questionIds.length, 100);
   assert.equal(collections.find((c) => c.id === 'hot200').questionIds.length, 200);
-  assert.equal(new Set(collections.flatMap((c) => c.questionIds)).size, 647);
+  assert.equal(new Set(collections.flatMap((c) => c.questionIds)).size, 671);
   assert.equal(new Set(merged.map((q) => q.id)).size, merged.length);
   for (const c of collections)
     for (const id of c.questionIds) assert(merged.some((q) => q.id === id));
@@ -69,12 +69,17 @@ test('manual progress is independent from judged attempts and validates updates'
   assert.throws(() => updateProgress(q, p, { questionId: 'missing', completed: true }));
   assert.throws(() => updateProgress(q, p, { questionId: id, completed: 'yes' }));
 });
-test('all Hot 200 packs contain usable tests, four language templates and memory guides', () => {
-  assert.equal(packs.length, 200);
+test('every catalog entry has an executable pack, Python template and study guides', () => {
+  assert.equal(packs.length, 671);
+  assert(
+    mergeCatalog(questions)
+      .filter((q) => q.collections?.length)
+      .every((q) => q.kind === 'coding'),
+  );
   for (const p of packs) {
     assert(p.tests.length > 0, p.number);
     for (const t of p.tests) assert.notEqual(t.expected, undefined, p.number);
-    for (const lang of ['python', 'javascript', 'java', 'cpp'])
+    for (const lang of ['python', ...Object.keys(p.solutions)])
       assert(p.starters[lang]?.length > 10, p.number + lang);
     for (const key of ['description', 'explanation', 'memory'])
       assert(p[key].length >= 8, p.number + key);
@@ -88,7 +93,7 @@ test('every bundled JavaScript reference passes its exercise adapter', () => {
     for (const t of p.tests) assert(judge(run(t.input), t.expected, t.input, p.number), p.number);
   }
 });
-test('all 200 Python templates compile and references pass the production adapter', () => {
+test('all 671 Python templates compile and references pass the production adapter', () => {
   const result = spawnSync(process.env.PYTHON || 'python', ['scripts/check-exercises.py'], {
     encoding: 'utf8',
     timeout: 60000,

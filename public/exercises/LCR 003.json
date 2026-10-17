@@ -1,0 +1,65 @@
+{
+  "number": "LCR 003",
+  "adapter": {
+    "name": "countBits",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "LCR 003"
+  },
+  "tests": [
+    {
+      "input": [
+        2
+      ],
+      "expected": [
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "input": [
+        5
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        2,
+        1,
+        2
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def countBits(self, n: int) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @return {number[]}\n */\nvar countBits = function(n) {\n\n};",
+    "java": "class Solution {\n    public int[] countBits(int n) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> countBits(int n) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def countBits(self, n: int) -> List[int]:\r\n        f = [0] * (n + 1)\r\n        for i in range(1, n + 1):\r\n            f[i] = f[i & (i - 1)] + 1\r\n        return f\r\n",
+    "javascript": "function countBits(n) {\n    const f = Array(n + 1).fill(0);\n    for (let i = 1; i <= n; ++i) {\n        f[i] = f[i & (i - 1)] + 1;\n    }\n    return f;\n}\n",
+    "java": "class Solution {\r\n    public int[] countBits(int n) {\r\n        int[] f = new int[n + 1];\r\n        for (int i = 1; i <= n; ++i) {\r\n            f[i] = f[i & (i - 1)] + 1;\r\n        }\r\n        return f;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> countBits(int n) {\r\n        vector<int> f(n + 1);\r\n        for (int i = 1; i <= n; ++i) {\r\n            f[i] = f[i & (i - 1)] + 1;\r\n        }\r\n        return f;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20003.%20%E5%89%8D%20n%20%E4%B8%AA%E6%95%B0%E5%AD%97%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD%201%20%E7%9A%84%E4%B8%AA%E6%95%B0/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20003.%20%E5%89%8D%20n%20%E4%B8%AA%E6%95%B0%E5%AD%97%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD%201%20%E7%9A%84%E4%B8%AA%E6%95%B0/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20003.%20%E5%89%8D%20n%20%E4%B8%AA%E6%95%B0%E5%AD%97%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD%201%20%E7%9A%84%E4%B8%AA%E6%95%B0/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20003.%20%E5%89%8D%20n%20%E4%B8%AA%E6%95%B0%E5%AD%97%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD%201%20%E7%9A%84%E4%B8%AA%E6%95%B0/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20003.%20%E5%89%8D%20n%20%E4%B8%AA%E6%95%B0%E5%AD%97%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD%201%20%E7%9A%84%E4%B8%AA%E6%95%B0/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：比特位计数。\n输入：n（integer）。\n训练提示：**思考**\r \r 对每个 $i$ 单独统计二进制中 $1$ 的个数需要 $O(n\\log n)$，在 $n\\le 10^5$ 时可以通过，但相邻整数的二进制表示高度相关，不必每次从零开始。\r \r 注意到 $i\\mathbin{\\&}(i-1)$ 恰好比 $i$ 少掉最低位的 $1$，且该值严格小于 $i$。因此按升序填写 $f[i]=f[i\\mathbin{\\&}(i-1)]+1$，每个数只做一次常数时间转移。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n对每个 $i$ 单独统计二进制中 $1$ 的个数需要 $O(n\\log n)$，在 $n\\le 10^5$ 时可以通过，但相邻整数的二进制表示高度相关，不必每次从零开始。\r\n\r\n注意到 $i\\mathbin{\\&}(i-1)$ 恰好比 $i$ 少掉最低位的 $1$，且该值严格小于 $i$。因此按升序填写 $f[i]=f[i\\mathbin{\\&}(i-1)]+1$，每个数只做一次常数时间转移。\r\n\r\n\r\n\r\n我们定义 $f[i]$ 表示整数 $i$ 的二进制表示中 $1$ 的个数。那么对于一个整数 $i$，它的二进制表示中 $1$ 的个数为 $f[i \\wedge (i - 1)] + 1$，其中 $i \\wedge (i - 1)$ 是将 $i$ 的二进制表示中的最低位的 $1$ 变成 $0$ 之后的数，显然 $i \\wedge (i - 1) \\lt i$，且 $f[i \\wedge (i - 1)]$ 已经被计算出来了，因此我们可以得到状态转移方程：\r\n\r\n$$\r\nf[i] = f[i \\wedge (i - 1)] + 1\r\n$$\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 是题目给定的整数。忽略答案数组的空间消耗，空间复杂度 $O(1)$。",
+  "memory": "比特位计数 → 动态规划。\n**思考**\r\n\r\n对每个 $i$ 单独统计二进制中 $1$ 的个数需要 $O(n\\log n)$，在 $n\\le 10^5$ 时可以通过，但相邻整数的二进制表示高度相关，不必每次从零开始。\r\n\r\n注意到 $i\\mathbin{\\&}(i-1)$ 恰好比 $i$ 少掉最低位的 $1$，且该值严格小于 $i$。因此按升序填写 $f[i]=f[i\\mathbin{\\&}(i-1)]+1$，每个数只做一次常数时间转移。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

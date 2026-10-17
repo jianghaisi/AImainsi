@@ -1,0 +1,81 @@
+{
+  "number": "354",
+  "adapter": {
+    "name": "maxEnvelopes",
+    "params": [
+      {
+        "name": "envelopes",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "354"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            5,
+            4
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def maxEnvelopes(self, envelopes: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int maxEnvelopes(int[][] envelopes) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int maxEnvelopes(vector<vector<int>>& envelopes) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def maxEnvelopes(self, envelopes: List[List[int]]) -> int:\r\n        envelopes.sort(key=lambda x: (x[0], -x[1]))\r\n        d = [envelopes[0][1]]\r\n        for _, h in envelopes[1:]:\r\n            if h > d[-1]:\r\n                d.append(h)\r\n            else:\r\n                idx = bisect_left(d, h)\r\n                d[idx] = h\r\n        return len(d)\r\n",
+    "java": "class Solution {\r\n    public int maxEnvelopes(int[][] envelopes) {\r\n        Arrays.sort(envelopes, (a, b) -> { return a[0] == b[0] ? b[1] - a[1] : a[0] - b[0]; });\r\n        int n = envelopes.length;\r\n        int[] d = new int[n + 1];\r\n        d[1] = envelopes[0][1];\r\n        int size = 1;\r\n        for (int i = 1; i < n; ++i) {\r\n            int x = envelopes[i][1];\r\n            if (x > d[size]) {\r\n                d[++size] = x;\r\n            } else {\r\n                int left = 1, right = size;\r\n                while (left < right) {\r\n                    int mid = (left + right) >> 1;\r\n                    if (d[mid] >= x) {\r\n                        right = mid;\r\n                    } else {\r\n                        left = mid + 1;\r\n                    }\r\n                }\r\n                int p = d[left] >= x ? left : 1;\r\n                d[p] = x;\r\n            }\r\n        }\r\n        return size;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int maxEnvelopes(vector<vector<int>>& envelopes) {\r\n        sort(envelopes.begin(), envelopes.end(), [](const auto& e1, const auto& e2) {\r\n            return e1[0] < e2[0] || (e1[0] == e2[0] && e1[1] > e2[1]);\r\n        });\r\n        int n = envelopes.size();\r\n        vector<int> d{envelopes[0][1]};\r\n        for (int i = 1; i < n; ++i) {\r\n            int x = envelopes[i][1];\r\n            if (x > d[d.size() - 1])\r\n                d.push_back(x);\r\n            else {\r\n                int idx = lower_bound(d.begin(), d.end(), x) - d.begin();\r\n                if (idx == d.size()) idx = 0;\r\n                d[idx] = x;\r\n            }\r\n        }\r\n        return d.size();\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0354.Russian%20Doll%20Envelopes/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0354.Russian%20Doll%20Envelopes/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0354.Russian%20Doll%20Envelopes/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0354.Russian%20Doll%20Envelopes/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：俄罗斯套娃信封问题。\n输入：envelopes（integer[][]）。\n训练提示：**思考**\r \r 套娃信封须宽高都严格更大，求最多层数。二维 LIS 若 $O(n^2)$， $n$ 达 $10^5$ 不可行。宽递增后，高上的 LIS 即答案；同宽须避免套自己。\r \r 按宽升序、同宽按高降序排序，再对高做贪心 LIS：大于末尾则追加，否则二分替换。同宽的高降序保证至多选一个。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：贪心 + 二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n套娃信封须宽高都严格更大，求最多层数。二维 LIS 若 $O(n^2)$， $n$ 达 $10^5$ 不可行。宽递增后，高上的 LIS 即答案；同宽须避免套自己。\r\n\r\n按宽升序、同宽按高降序排序，再对高做贪心 LIS：大于末尾则追加，否则二分替换。同宽的高降序保证至多选一个。\r\n\r\n\r\n\r\n时间复杂度 O(nlogn)。",
+  "memory": "俄罗斯套娃信封问题 → 贪心 + 二分查找。\n**思考**\r\n\r\n套娃信封须宽高都严格更大，求最多层数。二维 LIS 若 $O(n^2)$， $n$ 达 $10^5$ 不可行。宽递增后，高上的 LIS 即答案；同宽须避免套自己。\r\n\r\n按宽升序、同宽按高降序排序，再对高做贪心 LIS：大于末尾则追加，否则二分替换。同宽的高降序保证至多选一个。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

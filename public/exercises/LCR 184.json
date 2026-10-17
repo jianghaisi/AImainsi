@@ -1,0 +1,131 @@
+{
+  "number": "LCR 184",
+  "adapter": {
+    "classname": "Checkout",
+    "maxbytesperline": 200000,
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "name": "get_max",
+        "params": [],
+        "return": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "add",
+        "params": [
+          {
+            "type": "integer",
+            "name": "value"
+          }
+        ],
+        "return": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "remove",
+        "params": [],
+        "return": {
+          "type": "integer"
+        }
+      }
+    ],
+    "systemdesign": true,
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "LCR 184"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "Checkout",
+          "add",
+          "add",
+          "get_max",
+          "remove",
+          "get_max"
+        ],
+        [
+          [],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        2,
+        1,
+        2
+      ]
+    },
+    {
+      "input": [
+        [
+          "Checkout",
+          "remove",
+          "get_max"
+        ],
+        [
+          [],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        -1,
+        -1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Checkout:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def get_max(self) -> int:\n        raise NotImplementedError('请完成此方法')\n\n    def add(self, value: int) -> None:\n        raise NotImplementedError('请完成此方法')\n\n    def remove(self) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "\nvar Checkout = function() {\n    \n};\n\n/**\n * @return {number}\n */\nCheckout.prototype.get_max = function() {\n    \n};\n\n/** \n * @param {number} value\n * @return {void}\n */\nCheckout.prototype.add = function(value) {\n    \n};\n\n/**\n * @return {number}\n */\nCheckout.prototype.remove = function() {\n    \n};\n\n/** \n * Your Checkout object will be instantiated and called as such:\n * var obj = new Checkout()\n * var param_1 = obj.get_max()\n * obj.add(value)\n * var param_3 = obj.remove()\n */",
+    "java": "class Checkout {\n\n    public Checkout() {\n        \n    }\n    \n    public int get_max() {\n        \n    }\n    \n    public void add(int value) {\n        \n    }\n    \n    public int remove() {\n        \n    }\n}\n\n/**\n * Your Checkout object will be instantiated and called as such:\n * Checkout obj = new Checkout();\n * int param_1 = obj.get_max();\n * obj.add(value);\n * int param_3 = obj.remove();\n */",
+    "cpp": "class Checkout {\npublic:\n    Checkout() {\n        \n    }\n    \n    int get_max() {\n        \n    }\n    \n    void add(int value) {\n        \n    }\n    \n    int remove() {\n        \n    }\n};\n\n/**\n * Your Checkout object will be instantiated and called as such:\n * Checkout* obj = new Checkout();\n * int param_1 = obj->get_max();\n * obj->add(value);\n * int param_3 = obj->remove();\n */"
+  },
+  "solutions": {
+    "python": "class Checkout:\r\n    def __init__(self):\r\n        self.q1 = deque()\r\n        self.q2 = deque()\r\n\r\n    def get_max(self) -> int:\r\n        return -1 if not self.q2 else self.q2[0]\r\n\r\n    def add(self, value: int) -> None:\r\n        while self.q2 and self.q2[-1] < value:\r\n            self.q2.pop()\r\n        self.q1.append(value)\r\n        self.q2.append(value)\r\n\r\n    def remove(self) -> int:\r\n        if not self.q1:\r\n            return -1\r\n        ans = self.q1.popleft()\r\n        if self.q2[0] == ans:\r\n            self.q2.popleft()\r\n        return ans\r\n\r\n\r\n# Your Checkout object will be instantiated and called as such:\r\n# obj = Checkout()\r\n# param_1 = obj.get_max()\r\n# obj.add(value)\r\n# param_3 = obj.remove()\r\n",
+    "javascript": "class Checkout {\n    queue;\n    deque;\n    constructor() {\n        this.queue = [];\n        this.deque = [];\n    }\n    get_max() {\n        return this.deque[0] ?? -1;\n    }\n    add(value) {\n        this.queue.push(value);\n        while (this.deque.length !== 0 && this.deque[this.deque.length - 1] < value) {\n            this.deque.pop();\n        }\n        this.deque.push(value);\n    }\n    remove() {\n        const res = this.queue.shift();\n        if (res === this.deque[0]) {\n            this.deque.shift();\n        }\n        return res ?? -1;\n    }\n}\n/**\n * Your Checkout object will be instantiated and called as such:\n * var obj = new Checkout()\n * var param_1 = obj.get_max()\n * obj.add(value)\n * var param_3 = obj.remove()\n */\n",
+    "java": "class Checkout {\r\n    private Deque<Integer> q1 = new ArrayDeque<>();\r\n    private Deque<Integer> q2 = new ArrayDeque<>();\r\n\r\n    public Checkout() {\r\n    }\r\n\r\n    public int get_max() {\r\n        return q2.isEmpty() ? -1 : q2.peek();\r\n    }\r\n\r\n    public void add(int value) {\r\n        while (!q2.isEmpty() && q2.peekLast() < value) {\r\n            q2.pollLast();\r\n        }\r\n        q1.offer(value);\r\n        q2.offer(value);\r\n    }\r\n\r\n    public int remove() {\r\n        if (q1.isEmpty()) {\r\n            return -1;\r\n        }\r\n        int ans = q1.poll();\r\n        if (q2.peek() == ans) {\r\n            q2.poll();\r\n        }\r\n        return ans;\r\n    }\r\n}\r\n\r\n/**\r\n * Your Checkout object will be instantiated and called as such:\r\n * Checkout obj = new Checkout();\r\n * int param_1 = obj.get_max();\r\n * obj.add(value);\r\n * int param_3 = obj.remove();\r\n */",
+    "cpp": "class Checkout {\r\npublic:\r\n    Checkout() {\r\n    }\r\n\r\n    int get_max() {\r\n        return q2.empty() ? -1 : q2.front();\r\n    }\r\n\r\n    void add(int value) {\r\n        while (!q2.empty() && q2.back() < value) {\r\n            q2.pop_back();\r\n        }\r\n        q1.push(value);\r\n        q2.add(value);\r\n    }\r\n\r\n    int remove() {\r\n        if (q1.empty()) {\r\n            return -1;\r\n        }\r\n        int ans = q1.front();\r\n        q1.pop();\r\n        if (q2.front() == ans) {\r\n            q2.remove();\r\n        }\r\n        return ans;\r\n    }\r\n\r\nprivate:\r\n    queue<int> q1;\r\n    deque<int> q2;\r\n};\r\n\r\n/**\r\n * Your Checkout object will be instantiated and called as such:\r\n * Checkout* obj = new Checkout();\r\n * int param_1 = obj->get_max();\r\n * obj->add(value);\r\n * int param_3 = obj->remove();\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9859%20-%20II.%20%E9%98%9F%E5%88%97%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9859%20-%20II.%20%E9%98%9F%E5%88%97%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9859%20-%20II.%20%E9%98%9F%E5%88%97%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9859%20-%20II.%20%E9%98%9F%E5%88%97%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9859%20-%20II.%20%E9%98%9F%E5%88%97%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：设计自助结算系统。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 普通队列取最大需扫描。与滑动窗口类似，另维护单调递减队列：入队时弹出队尾较小值，出队时若队头等于出队元素则同步弹出。\r \r `max_value` 读单调队列队头，空则返回 $-1$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双队列\r\n\r\n\r\n\r\n思考\r\n\r\n普通队列取最大需扫描。与滑动窗口类似，另维护单调递减队列：入队时弹出队尾较小值，出队时若队头等于出队元素则同步弹出。\r\n\r\n`max_value` 读单调队列队头，空则返回 $-1$。\r\n\r\n\r\n\r\n我们维护两个队列 $q_1$ 和 $q_2$，其中 $q_1$ 用于存储所有元素，而 $q_2$ 用于存储当前队列中的最大值。\r\n\r\n当获取队列中的最大值时，如果队列 $q_2$ 不为空，则队列中的最大值即为 $q_2$ 的队首元素；否则队列为空，返回 $-1$。\r\n\r\n当向队列中添加元素时，我们需要将 $q_2$ 弹出所有队尾元素小于当前元素的元素，然后将当前元素添加到 $q_2$ 的队尾，最后将当前元素添加到 $q_1$ 的队尾。\r\n\r\n当从队列中弹出元素时，如果 $q_1$ 为空，则返回 $-1$；否则，如果 $q_1$ 的队首元素等于 $q_2$ 的队首元素，则将 $q_2$ 的队首元素弹出，然后将 $q_1$ 的队首元素弹出；否则，只将 $q_1$ 的队首元素弹出。\r\n\r\n以上操作的时间复杂度均为 $O(1)$，空间复杂度为 $O(n)$。其中 $n$ 为队列中的元素个数。",
+  "memory": "设计自助结算系统 → 双队列。\n**思考**\r\n\r\n普通队列取最大需扫描。与滑动窗口类似，另维护单调递减队列：入队时弹出队尾较小值，出队时若队头等于出队元素则同步弹出。\r\n\r\n`max_value` 读单调队列队头，空则返回 $-1$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

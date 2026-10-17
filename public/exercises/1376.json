@@ -1,0 +1,90 @@
+{
+  "number": "1376",
+  "adapter": {
+    "name": "numOfMinutes",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      },
+      {
+        "type": "integer",
+        "name": "headID"
+      },
+      {
+        "type": "integer[]",
+        "name": "manager"
+      },
+      {
+        "type": "integer[]",
+        "name": "informTime"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1376"
+  },
+  "tests": [
+    {
+      "input": [
+        1,
+        0,
+        [
+          -1
+        ],
+        [
+          0
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        6,
+        2,
+        [
+          2,
+          2,
+          -1,
+          2,
+          2,
+          2
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @param {number} headID\n * @param {number[]} manager\n * @param {number[]} informTime\n * @return {number}\n */\nvar numOfMinutes = function(n, headID, manager, informTime) {\n    \n};",
+    "java": "class Solution {\n    public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def numOfMinutes(\r\n        self, n: int, headID: int, manager: List[int], informTime: List[int]\r\n    ) -> int:\r\n        def dfs(i: int) -> int:\r\n            ans = 0\r\n            for j in g[i]:\r\n                ans = max(ans, dfs(j) + informTime[i])\r\n            return ans\r\n\r\n        g = defaultdict(list)\r\n        for i, x in enumerate(manager):\r\n            g[x].append(i)\r\n        return dfs(headID)\r\n",
+    "javascript": "function numOfMinutes(n, headID, manager, informTime) {\n    const g = new Array(n).fill(0).map(() => []);\n    for (let i = 0; i < n; ++i) {\n        if (manager[i] !== -1) {\n            g[manager[i]].push(i);\n        }\n    }\n    const dfs = (i) => {\n        let ans = 0;\n        for (const j of g[i]) {\n            ans = Math.max(ans, dfs(j) + informTime[i]);\n        }\n        return ans;\n    };\n    return dfs(headID);\n}\n",
+    "java": "class Solution {\r\n    private List<Integer>[] g;\r\n    private int[] informTime;\r\n\r\n    public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {\r\n        g = new List[n];\r\n        Arrays.setAll(g, k -> new ArrayList<>());\r\n        this.informTime = informTime;\r\n        for (int i = 0; i < n; ++i) {\r\n            if (manager[i] >= 0) {\r\n                g[manager[i]].add(i);\r\n            }\r\n        }\r\n        return dfs(headID);\r\n    }\r\n\r\n    private int dfs(int i) {\r\n        int ans = 0;\r\n        for (int j : g[i]) {\r\n            ans = Math.max(ans, dfs(j) + informTime[i]);\r\n        }\r\n        return ans;\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {\r\n        vector<vector<int>> g(n);\r\n        for (int i = 0; i < n; ++i) {\r\n            if (manager[i] >= 0) {\r\n                g[manager[i]].push_back(i);\r\n            }\r\n        }\r\n        function<int(int)> dfs = [&](int i) -> int {\r\n            int ans = 0;\r\n            for (int j : g[i]) {\r\n                ans = max(ans, dfs(j) + informTime[i]);\r\n            }\r\n            return ans;\r\n        };\r\n        return dfs(headID);\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1376.Time%20Needed%20to%20Inform%20All%20Employees/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1376.Time%20Needed%20to%20Inform%20All%20Employees/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1376.Time%20Needed%20to%20Inform%20All%20Employees/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1376.Time%20Needed%20to%20Inform%20All%20Employees/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1376.Time%20Needed%20to%20Inform%20All%20Employees/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：通知所有员工所需的时间。\n输入：n（integer）、headID（integer）、manager（integer[]）、informTime（integer[]）。\n训练提示：**思考**\r \r 树形汇报关系下，从负责人把消息传到全员的时间，边权为该员工的通知耗时。 $n \\le 10^5$，不能对每个叶子单独累加路径。建出下属邻接表后， $dfs(i)$ 为 $i$ 通知完其整棵下属树的时间，等于 $\\textit{informTime}[i]$ 加上各直接下属 $dfs(j)$ 的最大者。答案为 $dfs(\\textit{headID})$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS\r\n\r\n\r\n\r\n思考\r\n\r\n树形汇报关系下，从负责人把消息传到全员的时间，边权为该员工的通知耗时。 $n \\le 10^5$，不能对每个叶子单独累加路径。建出下属邻接表后， $dfs(i)$ 为 $i$ 通知完其整棵下属树的时间，等于 $\\textit{informTime}[i]$ 加上各直接下属 $dfs(j)$ 的最大者。答案为 $dfs(\\textit{headID})$。\r\n\r\n\r\n\r\n我们先根据 $manager$ 数组构建邻接表 $g$，其中 $g[i]$ 表示员工 $i$ 的所有直接下属。\r\n\r\n接下来，我们设计一个函数 $dfs(i)$，表示从员工 $i$ 开始，将消息通知给他的所有下属（包括直接下属、间接下属）所需要的时间，那么答案就是 $dfs(headID)$。\r\n\r\n在函数 $dfs(i)$ 中，我们需要遍历 $i$ 的所有直接下属 $j$，对于每个下属，员工 $i$ 需要将消息通知给他，这需要花费 $informTime[i]$ 的时间，而他的所有下属需要将消息通知给他们的下属，这需要花费 $dfs(j)$ 的时间，取 $informTime[i] + dfs(j)$ 的最大值作为函数 $dfs(i)$ 的返回值即可。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为员工数量。",
+  "memory": "通知所有员工所需的时间 → DFS。\n**思考**\r\n\r\n树形汇报关系下，从负责人把消息传到全员的时间，边权为该员工的通知耗时。 $n \\le 10^5$，不能对每个叶子单独累加路径。建出下属邻接表后， $dfs(i)$ 为 $i$ 通知完其整棵下属树的时间，等于 $\\textit{informTime}[i]$ 加上各直接下属 $dfs(j)$ 的最大者。答案为 $dfs(\\textit{headID})$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

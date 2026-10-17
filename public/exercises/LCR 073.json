@@ -1,0 +1,81 @@
+{
+  "number": "LCR 073",
+  "adapter": {
+    "name": "minEatingSpeed",
+    "params": [
+      {
+        "name": "piles",
+        "type": "integer[]"
+      },
+      {
+        "name": "h",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 073"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          6,
+          7,
+          11
+        ],
+        8
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          30,
+          11,
+          23,
+          4,
+          20
+        ],
+        5
+      ],
+      "expected": 30
+    },
+    {
+      "input": [
+        [
+          30,
+          11,
+          23,
+          4,
+          20
+        ],
+        6
+      ],
+      "expected": 23
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def minEatingSpeed(self, piles: List[int], h: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int minEatingSpeed(int[] piles, int h) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minEatingSpeed(vector<int>& piles, int h) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def minEatingSpeed(self, piles: List[int], h: int) -> int:\r\n        left, right = 1, max(piles)\r\n        while left < right:\r\n            mid = (left + right) >> 1\r\n            s = sum((pile + mid - 1) // mid for pile in piles)\r\n            if s <= h:\r\n                right = mid\r\n            else:\r\n                left = mid + 1\r\n        return left\r\n",
+    "java": "class Solution {\r\n    public int minEatingSpeed(int[] piles, int h) {\r\n        int mx = 0;\r\n        for (int pile : piles) {\r\n            mx = Math.max(mx, pile);\r\n        }\r\n        int left = 1, right = mx;\r\n        while (left < right) {\r\n            int mid = (left + right) >>> 1;\r\n            int s = 0;\r\n            for (int pile : piles) {\r\n                s += (pile + mid - 1) / mid;\r\n            }\r\n            if (s <= h) {\r\n                right = mid;\r\n            } else {\r\n                left = mid + 1;\r\n            }\r\n        }\r\n        return left;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int minEatingSpeed(vector<int>& piles, int h) {\r\n        int left = 1, right = *max_element(piles.begin(), piles.end());\r\n        while (left < right) {\r\n            int mid = left + right >> 1;\r\n            int s = 0;\r\n            for (int pile : piles) s += (pile + mid - 1) / mid;\r\n            if (s <= h)\r\n                right = mid;\r\n            else\r\n                left = mid + 1;\r\n        }\r\n        return left;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20073.%20%E7%8B%92%E7%8B%92%E5%90%83%E9%A6%99%E8%95%89/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20073.%20%E7%8B%92%E7%8B%92%E5%90%83%E9%A6%99%E8%95%89/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20073.%20%E7%8B%92%E7%8B%92%E5%90%83%E9%A6%99%E8%95%89/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20073.%20%E7%8B%92%E7%8B%92%E5%90%83%E9%A6%99%E8%95%89/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：爱吃香蕉的狒狒。\n输入：piles（integer[]）、h（integer）。\n训练提示：**思考**\r \r 求最小吃速使 $h$ 小时内吃完。速度越大耗时越少，具有单调性。线性枚举速度在 $\\max(piles)$ 较大时过慢。\r \r 对速度 $mid$ 计算总小时数：不超过 $h$ 则还可以更慢，否则必须更快。二分下界即为最小可行速度。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n求最小吃速使 $h$ 小时内吃完。速度越大耗时越少，具有单调性。线性枚举速度在 $\\max(piles)$ 较大时过慢。\r\n\r\n对速度 $mid$ 计算总小时数：不超过 $h$ 则还可以更慢，否则必须更快。二分下界即为最小可行速度。",
+  "memory": "爱吃香蕉的狒狒 → 方法一。\n**思考**\r\n\r\n求最小吃速使 $h$ 小时内吃完。速度越大耗时越少，具有单调性。线性枚举速度在 $\\max(piles)$ 较大时过慢。\r\n\r\n对速度 $mid$ 计算总小时数：不超过 $h$ 则还可以更慢，否则必须更快。二分下界即为最小可行速度。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

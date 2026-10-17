@@ -1,0 +1,189 @@
+{
+  "number": "面试题 03.06",
+  "adapter": {
+    "classname": "AnimalShelf",
+    "maxbytesperline": 200000,
+    "systemdesign": true,
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "name": "enqueue",
+        "params": [
+          {
+            "name": "animal",
+            "type": "integer[]"
+          }
+        ],
+        "return": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "dequeueAny",
+        "params": [],
+        "return": {
+          "type": "integer[]"
+        }
+      },
+      {
+        "name": "dequeueDog",
+        "params": [],
+        "return": {
+          "type": "integer[]"
+        }
+      },
+      {
+        "name": "dequeueCat",
+        "params": [],
+        "return": {
+          "type": "integer[]"
+        }
+      }
+    ],
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "面试题 03.06"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "AnimalShelf",
+          "enqueue",
+          "enqueue",
+          "dequeueCat",
+          "dequeueDog",
+          "dequeueAny"
+        ],
+        [
+          [],
+          [
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              0
+            ]
+          ],
+          [],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        [
+          0,
+          0
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "AnimalShelf",
+          "enqueue",
+          "enqueue",
+          "enqueue",
+          "dequeueDog",
+          "dequeueCat",
+          "dequeueAny"
+        ],
+        [
+          [],
+          [
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              0
+            ]
+          ],
+          [
+            [
+              2,
+              1
+            ]
+          ],
+          [],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class AnimalShelf:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def enqueue(self, animal: List[int]) -> None:\n        raise NotImplementedError('请完成此方法')\n\n    def dequeueAny(self) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n\n    def dequeueDog(self) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n\n    def dequeueCat(self) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "\nvar AnimalShelf = function() {\n    \n};\n\n/** \n * @param {number[]} animal\n * @return {void}\n */\nAnimalShelf.prototype.enqueue = function(animal) {\n    \n};\n\n/**\n * @return {number[]}\n */\nAnimalShelf.prototype.dequeueAny = function() {\n    \n};\n\n/**\n * @return {number[]}\n */\nAnimalShelf.prototype.dequeueDog = function() {\n    \n};\n\n/**\n * @return {number[]}\n */\nAnimalShelf.prototype.dequeueCat = function() {\n    \n};\n\n/** \n * Your AnimalShelf object will be instantiated and called as such:\n * var obj = new AnimalShelf()\n * obj.enqueue(animal)\n * var param_2 = obj.dequeueAny()\n * var param_3 = obj.dequeueDog()\n * var param_4 = obj.dequeueCat()\n */",
+    "java": "class AnimalShelf {\n\n    public AnimalShelf() {\n        \n    }\n    \n    public void enqueue(int[] animal) {\n        \n    }\n    \n    public int[] dequeueAny() {\n        \n    }\n    \n    public int[] dequeueDog() {\n        \n    }\n    \n    public int[] dequeueCat() {\n        \n    }\n}\n\n/**\n * Your AnimalShelf object will be instantiated and called as such:\n * AnimalShelf obj = new AnimalShelf();\n * obj.enqueue(animal);\n * int[] param_2 = obj.dequeueAny();\n * int[] param_3 = obj.dequeueDog();\n * int[] param_4 = obj.dequeueCat();\n */",
+    "cpp": "class AnimalShelf {\npublic:\n    AnimalShelf() {\n        \n    }\n    \n    void enqueue(vector<int> animal) {\n        \n    }\n    \n    vector<int> dequeueAny() {\n        \n    }\n    \n    vector<int> dequeueDog() {\n        \n    }\n    \n    vector<int> dequeueCat() {\n        \n    }\n};\n\n/**\n * Your AnimalShelf object will be instantiated and called as such:\n * AnimalShelf* obj = new AnimalShelf();\n * obj->enqueue(animal);\n * vector<int> param_2 = obj->dequeueAny();\n * vector<int> param_3 = obj->dequeueDog();\n * vector<int> param_4 = obj->dequeueCat();\n */"
+  },
+  "solutions": {
+    "python": "class AnimalShelf:\r\n\r\n    def __init__(self):\r\n        self.q = [deque(), deque()]\r\n\r\n    def enqueue(self, animal: List[int]) -> None:\r\n        i, j = animal\r\n        self.q[j].append(i)\r\n\r\n    def dequeueAny(self) -> List[int]:\r\n        if not self.q[0] or (self.q[1] and self.q[1][0] < self.q[0][0]):\r\n            return self.dequeueDog()\r\n        return self.dequeueCat()\r\n\r\n    def dequeueDog(self) -> List[int]:\r\n        return [-1, -1] if not self.q[1] else [self.q[1].popleft(), 1]\r\n\r\n    def dequeueCat(self) -> List[int]:\r\n        return [-1, -1] if not self.q[0] else [self.q[0].popleft(), 0]\r\n\r\n\r\n# Your AnimalShelf object will be instantiated and called as such:\r\n# obj = AnimalShelf()\r\n# obj.enqueue(animal)\r\n# param_2 = obj.dequeueAny()\r\n# param_3 = obj.dequeueDog()\r\n# param_4 = obj.dequeueCat()\r\n",
+    "javascript": "class AnimalShelf {\n    q = [[], []];\n    constructor() { }\n    enqueue(animal) {\n        const [i, j] = animal;\n        this.q[j].push(i);\n    }\n    dequeueAny() {\n        if (this.q[0].length === 0 || (this.q[1].length > 0 && this.q[0][0] > this.q[1][0])) {\n            return this.dequeueDog();\n        }\n        return this.dequeueCat();\n    }\n    dequeueDog() {\n        if (this.q[1].length === 0) {\n            return [-1, -1];\n        }\n        return [this.q[1].shift(), 1];\n    }\n    dequeueCat() {\n        if (this.q[0].length === 0) {\n            return [-1, -1];\n        }\n        return [this.q[0].shift(), 0];\n    }\n}\n/**\n * Your AnimalShelf object will be instantiated and called as such:\n * var obj = new AnimalShelf()\n * obj.enqueue(animal)\n * var param_2 = obj.dequeueAny()\n * var param_3 = obj.dequeueDog()\n * var param_4 = obj.dequeueCat()\n */\n",
+    "java": "class AnimalShelf {\r\n    private Deque<Integer>[] q = new Deque[2];\r\n\r\n    public AnimalShelf() {\r\n        Arrays.setAll(q, k -> new ArrayDeque<>());\r\n    }\r\n\r\n    public void enqueue(int[] animal) {\r\n        q[animal[1]].offer(animal[0]);\r\n    }\r\n\r\n    public int[] dequeueAny() {\r\n        if (q[0].isEmpty() || (!q[1].isEmpty() && q[1].peek() < q[0].peek())) {\r\n            return dequeueDog();\r\n        }\r\n        return dequeueCat();\r\n    }\r\n\r\n    public int[] dequeueDog() {\r\n        return q[1].isEmpty() ? new int[] {-1, -1} : new int[] {q[1].poll(), 1};\r\n    }\r\n\r\n    public int[] dequeueCat() {\r\n        return q[0].isEmpty() ? new int[] {-1, -1} : new int[] {q[0].poll(), 0};\r\n    }\r\n}\r\n\r\n/**\r\n * Your AnimalShelf object will be instantiated and called as such:\r\n * AnimalShelf obj = new AnimalShelf();\r\n * obj.enqueue(animal);\r\n * int[] param_2 = obj.dequeueAny();\r\n * int[] param_3 = obj.dequeueDog();\r\n * int[] param_4 = obj.dequeueCat();\r\n */",
+    "cpp": "class AnimalShelf {\r\npublic:\r\n    AnimalShelf() {\r\n    }\r\n\r\n    void enqueue(vector<int> animal) {\r\n        q[animal[1]].push(animal[0]);\r\n    }\r\n\r\n    vector<int> dequeueAny() {\r\n        if (q[0].empty() || (!q[1].empty() && q[1].front() < q[0].front())) {\r\n            return dequeueDog();\r\n        }\r\n        return dequeueCat();\r\n    }\r\n\r\n    vector<int> dequeueDog() {\r\n        if (q[1].empty()) {\r\n            return {-1, -1};\r\n        }\r\n        int dog = q[1].front();\r\n        q[1].pop();\r\n        return {dog, 1};\r\n    }\r\n\r\n    vector<int> dequeueCat() {\r\n        if (q[0].empty()) {\r\n            return {-1, -1};\r\n        }\r\n        int cat = q[0].front();\r\n        q[0].pop();\r\n        return {cat, 0};\r\n    }\r\n\r\nprivate:\r\n    queue<int> q[2];\r\n};\r\n\r\n/**\r\n * Your AnimalShelf object will be instantiated and called as such:\r\n * AnimalShelf* obj = new AnimalShelf();\r\n * obj->enqueue(animal);\r\n * vector<int> param_2 = obj->dequeueAny();\r\n * vector<int> param_3 = obj->dequeueDog();\r\n * vector<int> param_4 = obj->dequeueCat();\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.06.Animal%20Shelter/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.06.Animal%20Shelter/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.06.Animal%20Shelter/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.06.Animal%20Shelter/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/03.06.Animal%20Shelter/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：动物收容所。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 收容所要按到达次序领养，并允许只要猫、只要狗或最早的一只。单一队列无法在 $O(1)$ 内跳过另一种动物。\r \r 猫与狗的相对次序各自独立，可用两个队列；编号 $i$ 随时间递增，比较队首编号即可得到全局最早。\r \r $q[0]$、 $q[1]$ 分别存猫、狗编号。`dequeueAny` 比较两队首，空队则选另一类。各操作均为摊还 $O(1)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：数组嵌套队列\r\n\r\n\r\n\r\n思考\r\n\r\n收容所要按到达次序领养，并允许只要猫、只要狗或最早的一只。单一队列无法在 $O(1)$ 内跳过另一种动物。\r\n\r\n猫与狗的相对次序各自独立，可用两个队列；编号 $i$ 随时间递增，比较队首编号即可得到全局最早。\r\n\r\n$q[0]$、 $q[1]$ 分别存猫、狗编号。`dequeueAny` 比较两队首，空队则选另一类。各操作均为摊还 $O(1)$。\r\n\r\n\r\n\r\n我们定义一个长度为 $2$ 的数组 $q$，用于存放猫和狗的队列。\r\n\r\n在 `enqueue` 操作中，假设动物编号为 $i$，动物种类为 $j$，我们将 $i$ 入队到 $q[j]$ 中。\r\n\r\n在 `dequeueAny` 操作中，我们判断 $q[0]$ 是否为空，或者 $q[1]$ 不为空且 $q[1][0] < q[0][0]$，如果是，则调用 `dequeueDog`，否则调用 `dequeueCat`。\r\n\r\n在 `dequeueDog` 操作中，如果 $q[1]$ 为空，则返回 $[-1, -1]$，否则返回 $[q[1].pop(), 1]$。\r\n\r\n在 `dequeueCat` 操作中，如果 $q[0]$ 为空，则返回 $[-1, -1]$，否则返回 $[q[0].pop(), 0]$。\r\n\r\n以上操作的时间复杂度均为 $O(1)$，空间复杂度为 $O(n)$，其中 $n$ 为动物收容所中动物的数量。",
+  "memory": "动物收容所 → 数组嵌套队列。\n**思考**\r\n\r\n收容所要按到达次序领养，并允许只要猫、只要狗或最早的一只。单一队列无法在 $O(1)$ 内跳过另一种动物。\r\n\r\n猫与狗的相对次序各自独立，可用两个队列；编号 $i$ 随时间递增，比较队首编号即可得到全局最早。\r\n\r\n$q[0]$、 $q[1]$ 分别存猫、狗编号。`dequeueAny` 比较两队首，空队则选另一类。各操作均为摊还 $O(1)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

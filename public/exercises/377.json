@@ -1,0 +1,66 @@
+{
+  "number": "377",
+  "adapter": {
+    "name": "combinationSum4",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      },
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "377"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ],
+        4
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        [
+          9
+        ],
+        3
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def combinationSum4(self, nums: List[int], target: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} target\n * @return {number}\n */\nvar combinationSum4 = function(nums, target) {\n    \n};",
+    "java": "class Solution {\n    public int combinationSum4(int[] nums, int target) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int combinationSum4(vector<int>& nums, int target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def combinationSum4(self, nums: List[int], target: int) -> int:\r\n        f = [1] + [0] * target\r\n        for i in range(1, target + 1):\r\n            for x in nums:\r\n                if i >= x:\r\n                    f[i] += f[i - x]\r\n        return f[target]\r\n",
+    "javascript": "function combinationSum4(nums, target) {\n    const f = Array(target + 1).fill(0);\n    f[0] = 1;\n    for (let i = 1; i <= target; ++i) {\n        for (const x of nums) {\n            if (i >= x) {\n                f[i] += f[i - x];\n            }\n        }\n    }\n    return f[target];\n}\n",
+    "java": "class Solution {\r\n    public int combinationSum4(int[] nums, int target) {\r\n        int[] f = new int[target + 1];\r\n        f[0] = 1;\r\n        for (int i = 1; i <= target; ++i) {\r\n            for (int x : nums) {\r\n                if (i >= x) {\r\n                    f[i] += f[i - x];\r\n                }\r\n            }\r\n        }\r\n        return f[target];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int combinationSum4(vector<int>& nums, int target) {\r\n        int f[target + 1];\r\n        memset(f, 0, sizeof(f));\r\n        f[0] = 1;\r\n        for (int i = 1; i <= target; ++i) {\r\n            for (int x : nums) {\r\n                if (i >= x && f[i - x] < INT_MAX - f[i]) {\r\n                    f[i] += f[i - x];\r\n                }\r\n            }\r\n        }\r\n        return f[target];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0377.Combination%20Sum%20IV/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0377.Combination%20Sum%20IV/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0377.Combination%20Sum%20IV/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0377.Combination%20Sum%20IV/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0377.Combination%20Sum%20IV/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：组合总和 Ⅳ。\n输入：nums（integer[]）、target（integer）。\n训练提示：**思考**\r \r 排列（顺序不同算不同）凑出 $target$ 的方案数。若按组合背包外层物品，会漏掉不同顺序。须先枚举和、再枚举末项。\r \r $f[i]$ 为和为 $i$ 的排列数， $f[0]=1$。对每个 $i$ 枚举 $x$，若 $i\\ge x$ 则加上 $f[i-x]$。与 322 同形，目标从最少枚数改为计数。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n排列（顺序不同算不同）凑出 $target$ 的方案数。若按组合背包外层物品，会漏掉不同顺序。须先枚举和、再枚举末项。\r\n\r\n$f[i]$ 为和为 $i$ 的排列数， $f[0]=1$。对每个 $i$ 枚举 $x$，若 $i\\ge x$ 则加上 $f[i-x]$。与 322 同形，目标从最少枚数改为计数。\r\n\r\n\r\n\r\n我们定义 $f[i]$ 表示总和为 $i$ 的元素组合的个数，初始时 $f[0] = 1$，其余 $f[i] = 0$。最终答案即为 $f[target]$。\r\n\r\n对于 $f[i]$，我们可以枚举数组中的每个元素 $x$，如果 $i \\ge x$，则 $f[i] = f[i] + f[i - x]$。\r\n\r\n最后返回 $f[target]$ 即可。\r\n\r\n时间复杂度 $O(n \\times target)$，空间复杂度 $O(target)$。其中 $n$ 为数组的长度。",
+  "memory": "组合总和 Ⅳ → 动态规划。\n**思考**\r\n\r\n排列（顺序不同算不同）凑出 $target$ 的方案数。若按组合背包外层物品，会漏掉不同顺序。须先枚举和、再枚举末项。\r\n\r\n$f[i]$ 为和为 $i$ 的排列数， $f[0]=1$。对每个 $i$ 枚举 $x$，若 $i\\ge x$ 则加上 $f[i-x]$。与 322 同形，目标从最少枚数改为计数。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

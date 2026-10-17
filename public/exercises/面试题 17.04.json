@@ -1,0 +1,65 @@
+{
+  "number": "面试题 17.04",
+  "adapter": {
+    "name": "missingNumber",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 17.04"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          0,
+          1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          9,
+          6,
+          4,
+          2,
+          3,
+          5,
+          7,
+          0,
+          1
+        ]
+      ],
+      "expected": 8
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def missingNumber(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int missingNumber(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int missingNumber(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def missingNumber(self, nums: List[int]) -> int:\r\n        nums.sort()\r\n        for i, x in enumerate(nums):\r\n            if i != x:\r\n                return i\r\n        return len(nums)\r\n",
+    "java": "class Solution {\r\n    public int missingNumber(int[] nums) {\r\n        Arrays.sort(nums);\r\n        int n = nums.length;\r\n        for (int i = 0; i < n; ++i) {\r\n            if (i != nums[i]) {\r\n                return i;\r\n            }\r\n        }\r\n        return n;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int missingNumber(vector<int>& nums) {\r\n        sort(nums.begin(), nums.end());\r\n        int n = nums.size();\r\n        for (int i = 0; i < n; ++i) {\r\n            if (i != nums[i]) {\r\n                return i;\r\n            }\r\n        }\r\n        return n;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.04.Missing%20Number/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.04.Missing%20Number/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.04.Missing%20Number/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.04.Missing%20Number/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：消失的数字。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r $0\\ldots n$ 缺一个数。开布尔数组标记再扫空洞，正确但多用 $O(n)$ 空间。\r \r 排序后下标应等于值，第一处失配即缺失；若都吻合则缺 $n$。\r \r 先 `sort` 再枚举，实现最短。时间 $O(n\\log n)$，适合先给出可工作的解。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序\r\n\r\n\r\n\r\n思考\r\n\r\n$0\\ldots n$ 缺一个数。开布尔数组标记再扫空洞，正确但多用 $O(n)$ 空间。\r\n\r\n排序后下标应等于值，第一处失配即缺失；若都吻合则缺 $n$。\r\n\r\n先 `sort` 再枚举，实现最短。时间 $O(n\\log n)$，适合先给出可工作的解。\r\n\r\n\r\n\r\n我们可以先对数组 $nums$ 进行排序，然后遍历排序后的数组，判断当前元素是否等于其下标，若不等，则返回下标即可。\r\n\r\n否则遍历结束后，返回数组长度即可。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(\\log n)$。其中 $n$ 为数组 $nums$ 的长度。",
+  "memory": "消失的数字 → 排序。\n**思考**\r\n\r\n$0\\ldots n$ 缺一个数。开布尔数组标记再扫空洞，正确但多用 $O(n)$ 空间。\r\n\r\n排序后下标应等于值，第一处失配即缺失；若都吻合则缺 $n$。\r\n\r\n先 `sort` 再枚举，实现最短。时间 $O(n\\log n)$，适合先给出可工作的解。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

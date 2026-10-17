@@ -1,0 +1,54 @@
+{
+  "number": "2413",
+  "adapter": {
+    "name": "smallestEvenMultiple",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "2413"
+  },
+  "tests": [
+    {
+      "input": [
+        5
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        6
+      ],
+      "expected": 6
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def smallestEvenMultiple(self, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @return {number}\n */\nvar smallestEvenMultiple = function(n) {\n    \n};",
+    "java": "class Solution {\n    public int smallestEvenMultiple(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int smallestEvenMultiple(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def smallestEvenMultiple(self, n: int) -> int:\r\n        return n if n % 2 == 0 else n * 2\r\n",
+    "javascript": "function smallestEvenMultiple(n) {\n    return n % 2 === 0 ? n : n * 2;\n}\n",
+    "java": "class Solution {\r\n    public int smallestEvenMultiple(int n) {\r\n        return n % 2 == 0 ? n : n * 2;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int smallestEvenMultiple(int n) {\r\n        return n % 2 == 0 ? n : n * 2;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2413.Smallest%20Even%20Multiple/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2413.Smallest%20Even%20Multiple/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2413.Smallest%20Even%20Multiple/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2413.Smallest%20Even%20Multiple/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2413.Smallest%20Even%20Multiple/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最小偶倍数。\n输入：n（integer）。\n训练提示：**思考**\r \r $n \\le 150$，求 $2$ 与 $n$ 的最小公倍数。若 $n$ 为偶数，则自身已是 $2$ 的倍数；否则乘 $2$。常数时间即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：数学\r\n\r\n\r\n\r\n思考\r\n\r\n$n \\le 150$，求 $2$ 与 $n$ 的最小公倍数。若 $n$ 为偶数，则自身已是 $2$ 的倍数；否则乘 $2$。常数时间即可。\r\n\r\n\r\n\r\n如果 $n$ 为偶数，那么 $2$ 和 $n$ 的最小公倍数就是 $n$ 本身。否则， $2$ 和 $n$ 的最小公倍数就是 $n \\times 2$。\r\n\r\n时间复杂度 $O(1)$。",
+  "memory": "最小偶倍数 → 数学。\n**思考**\r\n\r\n$n \\le 150$，求 $2$ 与 $n$ 的最小公倍数。若 $n$ 为偶数，则自身已是 $2$ 的倍数；否则乘 $2$。常数时间即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

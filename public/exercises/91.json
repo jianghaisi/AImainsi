@@ -1,0 +1,60 @@
+{
+  "number": "91",
+  "adapter": {
+    "name": "numDecodings",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "91"
+  },
+  "tests": [
+    {
+      "input": [
+        "12"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "226"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "06"
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def numDecodings(self, s: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @return {number}\n */\nvar numDecodings = function(s) {\n    \n};",
+    "java": "class Solution {\n    public int numDecodings(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int numDecodings(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def numDecodings(self, s: str) -> int:\r\n        n = len(s)\r\n        f = [1] + [0] * n\r\n        for i, c in enumerate(s, 1):\r\n            if c != \"0\":\r\n                f[i] = f[i - 1]\r\n            if i > 1 and s[i - 2] != \"0\" and int(s[i - 2 : i]) <= 26:\r\n                f[i] += f[i - 2]\r\n        return f[n]\r\n",
+    "javascript": "function numDecodings(s) {\n    const n = s.length;\n    const f = new Array(n + 1).fill(0);\n    f[0] = 1;\n    for (let i = 1; i <= n; ++i) {\n        if (s[i - 1] !== '0') {\n            f[i] = f[i - 1];\n        }\n        if (i > 1 && (s[i - 2] === '1' || (s[i - 2] === '2' && s[i - 1] <= '6'))) {\n            f[i] += f[i - 2];\n        }\n    }\n    return f[n];\n}\n",
+    "java": "class Solution {\r\n    public int numDecodings(String s) {\r\n        int n = s.length();\r\n        int[] f = new int[n + 1];\r\n        f[0] = 1;\r\n        for (int i = 1; i <= n; ++i) {\r\n            if (s.charAt(i - 1) != '0') {\r\n                f[i] = f[i - 1];\r\n            }\r\n            if (i > 1 && s.charAt(i - 2) != '0' && Integer.valueOf(s.substring(i - 2, i)) <= 26) {\r\n                f[i] += f[i - 2];\r\n            }\r\n        }\r\n        return f[n];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int numDecodings(string s) {\r\n        int n = s.size();\r\n        int f[n + 1];\r\n        memset(f, 0, sizeof(f));\r\n        f[0] = 1;\r\n        for (int i = 1; i <= n; ++i) {\r\n            if (s[i - 1] != '0') {\r\n                f[i] = f[i - 1];\r\n            }\r\n            if (i > 1 && (s[i - 2] == '1' || s[i - 2] == '2' && s[i - 1] <= '6')) {\r\n                f[i] += f[i - 2];\r\n            }\r\n        }\r\n        return f[n];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0091.Decode%20Ways/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0091.Decode%20Ways/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0091.Decode%20Ways/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0091.Decode%20Ways/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0091.Decode%20Ways/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：解码方法。\n输入：s（string）。\n训练提示：**思考**\r \r 递归走到第 $i$ 位时，可以单独解码 $s[i]$（非 $0$），或与前一位拼成 $10$– $26$。 $n \\le 100$，若不记忆化，同一前缀会被反复计算，搜索规模过大。\r \r 「前 $i$ 个字符有多少种解法」只取决于更短前缀，且合法划分只有一位或两位两种。结构与爬楼梯相同，约束换成数字编码是否合法。\r \r 令 $f[i]$ 为前 $i$ 个字符的方案数。空串一种； $0$ 不能单独成码， $10$– $26$ 才能两位成码。按位递推即可，不必枚举所有划分。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n递归走到第 $i$ 位时，可以单独解码 $s[i]$（非 $0$），或与前一位拼成 $10$– $26$。 $n \\le 100$，若不记忆化，同一前缀会被反复计算，搜索规模过大。\r\n\r\n「前 $i$ 个字符有多少种解法」只取决于更短前缀，且合法划分只有一位或两位两种。结构与爬楼梯相同，约束换成数字编码是否合法。\r\n\r\n令 $f[i]$ 为前 $i$ 个字符的方案数。空串一种； $0$ 不能单独成码， $10$– $26$ 才能两位成码。按位递推即可，不必枚举所有划分。\r\n\r\n\r\n\r\n我们定义 $f[i]$ 表示字符串的前 $i$ 个字符的解码方法数，初始时 $f[0]=1$，其余 $f[i]=0$。\r\n\r\n考虑 $f[i]$ 如何进行状态转移。\r\n\r\n- 如果第 $i$ 个字符（即 $s[i-1]$）单独形成编码，那么它对应一种解码方式，即 $f[i]=f[i-1]$。前提是 $s[i-1] \\neq 0$。\r\n- 如果第 $i-1$ 个字符和第 $i$ 个字符组成的字符串在 $[1,26]$ 范围内，那么它们可以作为一个整体，对应一种解码方式，即 $f[i] = f[i] + f[i-2]$。前提是 $s[i-2] \\neq 0$，且 $s[i-2]s[i-1]$ 在 $[1,26]$ 范围内。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 是字符串的长度。",
+  "memory": "解码方法 → 动态规划。\n**思考**\r\n\r\n递归走到第 $i$ 位时，可以单独解码 $s[i]$（非 $0$），或与前一位拼成 $10$– $26$。 $n \\le 100$，若不记忆化，同一前缀会被反复计算，搜索规模过大。\r\n\r\n「前 $i$ 个字符有多少种解法」只取决于更短前缀，且合法划分只有一位或两位两种。结构与爬楼梯相同，约束换成数字编码是否合法。\r\n\r\n令 $f[i]$ 为前 $i$ 个字符的方案数。空串一种； $0$ 不能单独成码， $10$– $26$ 才能两位成码。按位递推即可，不必枚举所有划分。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,81 @@
+{
+  "number": "面试题 05.08",
+  "adapter": {
+    "name": "drawLine",
+    "params": [
+      {
+        "name": "length",
+        "type": "integer"
+      },
+      {
+        "name": "w",
+        "type": "integer"
+      },
+      {
+        "name": "x1",
+        "type": "integer"
+      },
+      {
+        "name": "x2",
+        "type": "integer"
+      },
+      {
+        "name": "y",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "面试题 05.08"
+  },
+  "tests": [
+    {
+      "input": [
+        1,
+        32,
+        30,
+        31,
+        0
+      ],
+      "expected": [
+        3
+      ]
+    },
+    {
+      "input": [
+        3,
+        96,
+        0,
+        95,
+        0
+      ],
+      "expected": [
+        -1,
+        -1,
+        -1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def drawLine(self, length: int, w: int, x1: int, x2: int, y: int) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int[] drawLine(int length, int w, int x1, int x2, int y) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> drawLine(int length, int w, int x1, int x2, int y) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def drawLine(self, length: int, w: int, x1: int, x2: int, y: int) -> List[int]:\r\n        ans = [0] * length\r\n        i = (y * w + x1) // 32\r\n        j = (y * w + x2) // 32\r\n        for k in range(i, j + 1):\r\n            ans[k] = -1\r\n        ans[i] = (ans[i] & 0xFFFFFFFF) >> (x1 % 32) if x1 % 32 else -1\r\n        ans[j] &= -0x80000000 >> (x2 % 32)\r\n        return ans\r\n",
+    "java": "class Solution {\r\n    public int[] drawLine(int length, int w, int x1, int x2, int y) {\r\n        int[] ans = new int[length];\r\n        int i = (y * w + x1) / 32;\r\n        int j = (y * w + x2) / 32;\r\n        for (int k = i; k <= j; ++k) {\r\n            ans[k] = -1;\r\n        }\r\n        ans[i] = ans[i] >>> (x1 % 32);\r\n        ans[j] &= 0x80000000 >> (x2 % 32);\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> drawLine(int length, int w, int x1, int x2, int y) {\r\n        vector<int> ans(length);\r\n        int i = (y * w + x1) / 32;\r\n        int j = (y * w + x2) / 32;\r\n        for (int k = i; k <= j; ++k) {\r\n            ans[k] = -1;\r\n        }\r\n        ans[i] = ans[i] & unsigned(-1) >> (x1 % 32);\r\n        ans[j] = ans[j] & unsigned(-1) << (31 - x2 % 32);\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.08.Draw%20Line/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.08.Draw%20Line/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.08.Draw%20Line/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.08.Draw%20Line/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：绘制直线。\n输入：length（integer）、w（integer）、x1（integer）、x2（integer）、y（integer）。\n训练提示：**思考**\r \r 在位图第 $y$ 行把 $[x_1,x_2]$ 涂成 $1$，存储是按 $32$ 位打包的整数数组。逐像素置位正确但与字边界交互繁琐。\r \r 整段覆盖的字可一次写成全 $1$（即 $-1$），只需修补首尾两个不完全字。\r \r 由 $y\\cdot w+x$ 算出首尾字下标 $i$、 $j$，先把 $[i,j]$ 置 $-1$，再按 $x_1\\bmod 32$、 $x_2\\bmod 32$ 清掉首字高位与尾字低位以外的位。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：位运算\r\n\r\n\r\n\r\n思考\r\n\r\n在位图第 $y$ 行把 $[x_1,x_2]$ 涂成 $1$，存储是按 $32$ 位打包的整数数组。逐像素置位正确但与字边界交互繁琐。\r\n\r\n整段覆盖的字可一次写成全 $1$（即 $-1$），只需修补首尾两个不完全字。\r\n\r\n由 $y\\cdot w+x$ 算出首尾字下标 $i$、 $j$，先把 $[i,j]$ 置 $-1$，再按 $x_1\\bmod 32$、 $x_2\\bmod 32$ 清掉首字高位与尾字低位以外的位。\r\n\r\n\r\n\r\n我们先算出 $x_1$ 和 $x_2$ 在结果数组中的位置，记为 $i$ 和 $j$。然后将 $i$ 到 $j$ 之间的元素置为 $-1$。\r\n\r\n如果 $x_1 \\bmod 32 \\neq 0$，我们需要将 $i$ 位置的元素的前 $x_1 \\bmod 32$ 位置为 $0$。\r\n\r\n如果 $x_2 \\bmod 32 \\neq 31$，我们需要将 $j$ 位置的元素的后 $31 - x_2 \\bmod 32$ 位置为 $0$。\r\n\r\n时间复杂度 $O(1)$，空间复杂度 $O(1)$。",
+  "memory": "绘制直线 → 位运算。\n**思考**\r\n\r\n在位图第 $y$ 行把 $[x_1,x_2]$ 涂成 $1$，存储是按 $32$ 位打包的整数数组。逐像素置位正确但与字边界交互繁琐。\r\n\r\n整段覆盖的字可一次写成全 $1$（即 $-1$），只需修补首尾两个不完全字。\r\n\r\n由 $y\\cdot w+x$ 算出首尾字下标 $i$、 $j$，先把 $[i,j]$ 置 $-1$，再按 $x_1\\bmod 32$、 $x_2\\bmod 32$ 清掉首字高位与尾字低位以外的位。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

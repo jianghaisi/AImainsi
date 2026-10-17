@@ -1,0 +1,57 @@
+{
+  "number": "面试题 16.08",
+  "adapter": {
+    "name": "numberToWords",
+    "params": [
+      {
+        "name": "num",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "面试题 16.08"
+  },
+  "tests": [
+    {
+      "input": [
+        123
+      ],
+      "expected": "One Hundred Twenty Three"
+    },
+    {
+      "input": [
+        12345
+      ],
+      "expected": "Twelve Thousand Three Hundred Forty Five"
+    },
+    {
+      "input": [
+        1234567
+      ],
+      "expected": "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
+    },
+    {
+      "input": [
+        1234567891
+      ],
+      "expected": "One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def numberToWords(self, num):\n        raise NotImplementedError('请完成此方法')\n"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def numberToWords(self,num):\n        small=\"Zero One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve Thirteen Fourteen Fifteen Sixteen Seventeen Eighteen Nineteen\".split()\n        tens=\"Zero Ten Twenty Thirty Forty Fifty Sixty Seventy Eighty Ninety\".split()\n        def part(n):\n            if n==0:return []\n            if n<20:return [small[n]]\n            if n<100:return [tens[n//10]]+part(n%10)\n            return [small[n//100],\"Hundred\"]+part(n%100)\n        if num==0:return \"Zero\"\n        result=[]\n        for unit,label in [(10**9,\"Billion\"),(10**6,\"Million\"),(1000,\"Thousand\"),(1,\"\")]:\n            n,num=divmod(num,unit)\n            if n:result.extend(part(n));result.extend([label] if label else [])\n        return \" \".join(result)\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.08.English%20Int/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：整数的英语表示。\n输入：num（integer）。\n训练提示：递归 / 数学 / 字符串\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "按十亿、百万、千、个位依次拆成三个数字一组。组内处理百位、二十以下特殊词、整十词和个位；数值为零的组跳过，最后用单个空格连接。整体零单独返回 Zero。",
+  "memory": "三位一组，组内百十个，组外 Billion/Million/Thousand。用 1001 检查中间空组，用 20 检查末尾空格，用 0 检查特殊返回。"
+}

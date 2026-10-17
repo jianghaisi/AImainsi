@@ -1,0 +1,66 @@
+{
+  "number": "860",
+  "adapter": {
+    "name": "lemonadeChange",
+    "params": [
+      {
+        "name": "bills",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "860"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          5,
+          5,
+          5,
+          10,
+          20
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          5,
+          5,
+          10,
+          10,
+          20
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def lemonadeChange(self, bills: List[int]) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} bills\n * @return {boolean}\n */\nvar lemonadeChange = function(bills) {\n    \n};",
+    "java": "class Solution {\n    public boolean lemonadeChange(int[] bills) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool lemonadeChange(vector<int>& bills) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def lemonadeChange(self, bills: List[int]) -> bool:\r\n        five = ten = 0\r\n        for v in bills:\r\n            if v == 5:\r\n                five += 1\r\n            elif v == 10:\r\n                ten += 1\r\n                five -= 1\r\n            else:\r\n                if ten:\r\n                    ten -= 1\r\n                    five -= 1\r\n                else:\r\n                    five -= 3\r\n            if five < 0:\r\n                return False\r\n        return True\r\n",
+    "javascript": "function lemonadeChange(bills) {\n    let [five, ten] = [0, 0];\n    for (const x of bills) {\n        switch (x) {\n            case 5:\n                five++;\n                break;\n            case 10:\n                five--;\n                ten++;\n                break;\n            case 20:\n                if (ten) {\n                    ten--;\n                    five--;\n                }\n                else {\n                    five -= 3;\n                }\n                break;\n        }\n        if (five < 0) {\n            return false;\n        }\n    }\n    return true;\n}\n",
+    "java": "class Solution {\r\n    public boolean lemonadeChange(int[] bills) {\r\n        int five = 0, ten = 0;\r\n        for (int v : bills) {\r\n            switch (v) {\r\n                case 5 -> ++five;\r\n                case 10 -> {\r\n                    ++ten;\r\n                    --five;\r\n                }\r\n                case 20 -> {\r\n                    if (ten > 0) {\r\n                        --ten;\r\n                        --five;\r\n                    } else {\r\n                        five -= 3;\r\n                    }\r\n                }\r\n            }\r\n            if (five < 0) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool lemonadeChange(vector<int>& bills) {\r\n        int five = 0, ten = 0;\r\n        for (int v : bills) {\r\n            if (v == 5) {\r\n                ++five;\r\n            } else if (v == 10) {\r\n                ++ten;\r\n                --five;\r\n            } else {\r\n                if (ten) {\r\n                    --ten;\r\n                    --five;\r\n                } else {\r\n                    five -= 3;\r\n                }\r\n            }\r\n            if (five < 0) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0860.Lemonade%20Change/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0860.Lemonade%20Change/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0860.Lemonade%20Change/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0860.Lemonade%20Change/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0860.Lemonade%20Change/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：柠檬水找零。\n输入：bills（integer[]）。\n训练提示：**思考**\r \r 只有 $5$、 $10$、 $20$，找零必须用手头已有的钞票。 $n\\le 10^5$，应贪心：收 $20$ 时优先配一张 $10$ 加一张 $5$，否则三张 $5$。\r \r 维护 $5$ 与 $10$ 的张数，任一步 $5$ 变为负数即失败。无需保存整段交易历史。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：贪心 + 模拟\r\n\r\n\r\n\r\n思考\r\n\r\n只有 $5$、 $10$、 $20$，找零必须用手头已有的钞票。 $n\\le 10^5$，应贪心：收 $20$ 时优先配一张 $10$ 加一张 $5$，否则三张 $5$。\r\n\r\n维护 $5$ 与 $10$ 的张数，任一步 $5$ 变为负数即失败。无需保存整段交易历史。\r\n\r\n\r\n\r\n我们从前往后遍历账单数组 $bills$，对于当前遍历到的账单：\r\n\r\n- 如果是 $5$ 美元，那么直接收下即可；\r\n- 如果是 $10$ 美元，那么需要找零 $5$ 美元；\r\n- 如果是 $20$ 美元，那么需要找零 $15$ 美元，此时有两种找零方式：找零 $1$ 张 $10$ 美元 + $1$ 张 $5$ 美元；找零 $3$ 张 $5$ 美元。我们优先用第一种找零方式，如果没有足够的 $10$ 美元，那么用第二种方式；\r\n- 如果发现 $5$ 美元的数量不够，直接返回 `false`。\r\n\r\n遍历结束，说明我们没有遇到无法找零的情况，返回 `true` 即可。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(1)$。其中 $n$ 为账单数组 $bills$ 的长度。",
+  "memory": "柠檬水找零 → 贪心 + 模拟。\n**思考**\r\n\r\n只有 $5$、 $10$、 $20$，找零必须用手头已有的钞票。 $n\\le 10^5$，应贪心：收 $20$ 时优先配一张 $10$ 加一张 $5$，否则三张 $5$。\r\n\r\n维护 $5$ 与 $10$ 的张数，任一步 $5$ 变为负数即失败。无需保存整段交易历史。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,96 @@
+{
+  "number": "LCR 038",
+  "adapter": {
+    "name": "dailyTemperatures",
+    "params": [
+      {
+        "name": "temperatures",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "LCR 038"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          73,
+          74,
+          75,
+          71,
+          69,
+          72,
+          76,
+          73
+        ]
+      ],
+      "expected": [
+        1,
+        1,
+        4,
+        2,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "input": [
+        [
+          30,
+          40,
+          50,
+          60
+        ]
+      ],
+      "expected": [
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "input": [
+        [
+          30,
+          60,
+          90
+        ]
+      ],
+      "expected": [
+        1,
+        1,
+        0
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} temperatures\n * @return {number[]}\n */\nvar dailyTemperatures = function(temperatures) {\n\n};",
+    "java": "class Solution {\n    public int[] dailyTemperatures(int[] temperatures) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> dailyTemperatures(vector<int>& temperatures) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:\r\n        ans = [0] * len(temperatures)\r\n        stk = []\r\n        for i, t in enumerate(temperatures):\r\n            while stk and temperatures[stk[-1]] < t:\r\n                j = stk.pop()\r\n                ans[j] = i - j\r\n            stk.append(i)\r\n        return ans\r\n",
+    "javascript": "function dailyTemperatures(temperatures) {\n    const n = temperatures.length;\n    const res = new Array(n);\n    const stack = [];\n    for (let i = n - 1; i >= 0; i--) {\n        while (stack.length !== 0 && temperatures[stack[stack.length - 1]] <= temperatures[i]) {\n            stack.pop();\n        }\n        res[i] = stack.length === 0 ? 0 : stack[stack.length - 1] - i;\n        stack.push(i);\n    }\n    return res;\n}\n",
+    "java": "class Solution {\r\n    public int[] dailyTemperatures(int[] temperatures) {\r\n        int n = temperatures.length;\r\n        int[] ans = new int[n];\r\n        Deque<Integer> stk = new ArrayDeque<>();\r\n        for (int i = 0; i < n; ++i) {\r\n            while (!stk.isEmpty() && temperatures[stk.peek()] < temperatures[i]) {\r\n                int j = stk.pop();\r\n                ans[j] = i - j;\r\n            }\r\n            stk.push(i);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> dailyTemperatures(vector<int>& temperatures) {\r\n        int n = temperatures.size();\r\n        vector<int> ans(n);\r\n        stack<int> stk;\r\n        for (int i = 0; i < n; ++i) {\r\n            while (!stk.empty() && temperatures[stk.top()] < temperatures[i]) {\r\n                ans[stk.top()] = i - stk.top();\r\n                stk.pop();\r\n            }\r\n            stk.push(i);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20038.%20%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20038.%20%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20038.%20%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20038.%20%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20038.%20%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：每日温度。\n输入：temperatures（integer[]）。\n训练提示：**思考**\r \r 对每个位置找右侧下一个更高温度的距离。若对每个 $i$ 向右扫描，最坏平方。\r \r 单调递减栈保存尚无答案的下标。当前温度更高时，栈顶的「下一个更高」就是当前位置，弹出并填写间距。每个下标进出一次。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：单调栈\r\n\r\n\r\n\r\n思考\r\n\r\n对每个位置找右侧下一个更高温度的距离。若对每个 $i$ 向右扫描，最坏平方。\r\n\r\n单调递减栈保存尚无答案的下标。当前温度更高时，栈顶的「下一个更高」就是当前位置，弹出并填写间距。每个下标进出一次。\r\n\r\n\r\n\r\n单调栈常见模型：找出每个数左/右边离它最近的且比它大/小的数。模板：\r\n\r\n```python\r\nstk = []\r\nfor i in range(n):\r\n    while stk and check(stk[-1], i):\r\n        stk.pop()\r\n    stk.append(i)\r\n```",
+  "memory": "每日温度 → 单调栈。\n**思考**\r\n\r\n对每个位置找右侧下一个更高温度的距离。若对每个 $i$ 向右扫描，最坏平方。\r\n\r\n单调递减栈保存尚无答案的下标。当前温度更高时，栈顶的「下一个更高」就是当前位置，弹出并填写间距。每个下标进出一次。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

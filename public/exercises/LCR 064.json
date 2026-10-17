@@ -1,0 +1,116 @@
+{
+  "number": "LCR 064",
+  "adapter": {
+    "classname": "MagicDictionary",
+    "maxbytesperline": 200000,
+    "systemdesign": true,
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "name": "buildDict",
+        "params": [
+          {
+            "name": "dictionary",
+            "type": "string[]"
+          }
+        ],
+        "return": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "search",
+        "params": [
+          {
+            "name": "searchWord",
+            "type": "string"
+          }
+        ],
+        "return": {
+          "type": "boolean"
+        }
+      }
+    ],
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "LCR 064"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "MagicDictionary",
+          "buildDict",
+          "search",
+          "search",
+          "search",
+          "search"
+        ],
+        [
+          [],
+          [
+            [
+              "hello",
+              "leetcode"
+            ]
+          ],
+          [
+            "hello"
+          ],
+          [
+            "hhllo"
+          ],
+          [
+            "hell"
+          ],
+          [
+            "leetcoded"
+          ]
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        false,
+        true,
+        false,
+        false
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class MagicDictionary:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def buildDict(self, dictionary: List[str]) -> None:\n        raise NotImplementedError('请完成此方法')\n\n    def search(self, searchWord: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class MagicDictionary {\n\n    /** Initialize your data structure here. */\n    public MagicDictionary() {\n\n    }\n    \n    public void buildDict(String[] dictionary) {\n\n    }\n    \n    public boolean search(String searchWord) {\n\n    }\n}\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * MagicDictionary obj = new MagicDictionary();\n * obj.buildDict(dictionary);\n * boolean param_2 = obj.search(searchWord);\n */",
+    "cpp": "class MagicDictionary {\npublic:\n    /** Initialize your data structure here. */\n    MagicDictionary() {\n\n    }\n    \n    void buildDict(vector<string> dictionary) {\n\n    }\n    \n    bool search(string searchWord) {\n\n    }\n};\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * MagicDictionary* obj = new MagicDictionary();\n * obj->buildDict(dictionary);\n * bool param_2 = obj->search(searchWord);\n */"
+  },
+  "solutions": {
+    "python": "class MagicDictionary:\r\n    def __init__(self):\r\n        \"\"\"\r\n        Initialize your data structure here.\r\n        \"\"\"\r\n\r\n    def _patterns(self, word):\r\n        return [word[:i] + '*' + word[i + 1 :] for i in range(len(word))]\r\n\r\n    def buildDict(self, dictionary: List[str]) -> None:\r\n        self.words = set(dictionary)\r\n        self.counter = Counter(p for word in dictionary for p in self._patterns(word))\r\n\r\n    def search(self, searchWord: str) -> bool:\r\n        for p in self._patterns(searchWord):\r\n            if self.counter[p] > 1 or (\r\n                self.counter[p] == 1 and searchWord not in self.words\r\n            ):\r\n                return True\r\n        return False\r\n\r\n\r\n# Your MagicDictionary object will be instantiated and called as such:\r\n# obj = MagicDictionary()\r\n# obj.buildDict(dictionary)\r\n# param_2 = obj.search(searchWord)\r\n",
+    "java": "class MagicDictionary {\r\n    private Set<String> words;\r\n    private Map<String, Integer> counter;\r\n\r\n    /** Initialize your data structure here. */\r\n    public MagicDictionary() {\r\n        words = new HashSet<>();\r\n        counter = new HashMap<>();\r\n    }\r\n\r\n    public void buildDict(String[] dictionary) {\r\n        for (String word : dictionary) {\r\n            words.add(word);\r\n            for (String p : patterns(word)) {\r\n                counter.put(p, counter.getOrDefault(p, 0) + 1);\r\n            }\r\n        }\r\n    }\r\n\r\n    public boolean search(String searchWord) {\r\n        for (String p : patterns(searchWord)) {\r\n            int cnt = counter.getOrDefault(p, 0);\r\n            if (cnt > 1 || (cnt == 1 && !words.contains(searchWord))) {\r\n                return true;\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n\r\n    private List<String> patterns(String word) {\r\n        List<String> res = new ArrayList<>();\r\n        char[] chars = word.toCharArray();\r\n        for (int i = 0; i < chars.length; ++i) {\r\n            char c = chars[i];\r\n            chars[i] = '*';\r\n            res.add(new String(chars));\r\n            chars[i] = c;\r\n        }\r\n        return res;\r\n    }\r\n}\r\n\r\n/**\r\n * Your MagicDictionary object will be instantiated and called as such:\r\n * MagicDictionary obj = new MagicDictionary();\r\n * obj.buildDict(dictionary);\r\n * boolean param_2 = obj.search(searchWord);\r\n */",
+    "cpp": "class MagicDictionary {\r\npublic:\r\n    /** Initialize your data structure here. */\r\n    MagicDictionary() {\r\n    }\r\n\r\n    void buildDict(vector<string> dictionary) {\r\n        for (string word : dictionary) {\r\n            words.insert(word);\r\n            for (string p : patterns(word)) ++counter[p];\r\n        }\r\n    }\r\n\r\n    bool search(string searchWord) {\r\n        for (string p : patterns(searchWord)) {\r\n            if (counter[p] > 1 || (counter[p] == 1 && !words.count(searchWord))) return true;\r\n        }\r\n        return false;\r\n    }\r\n\r\nprivate:\r\n    unordered_set<string> words;\r\n    unordered_map<string, int> counter;\r\n\r\n    vector<string> patterns(string word) {\r\n        vector<string> res;\r\n        for (int i = 0; i < word.size(); ++i) {\r\n            char c = word[i];\r\n            word[i] = '*';\r\n            res.push_back(word);\r\n            word[i] = c;\r\n        }\r\n        return res;\r\n    }\r\n};\r\n\r\n/**\r\n * Your MagicDictionary object will be instantiated and called as such:\r\n * MagicDictionary* obj = new MagicDictionary();\r\n * obj->buildDict(dictionary);\r\n * bool param_2 = obj->search(searchWord);\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20064.%20%E7%A5%9E%E5%A5%87%E7%9A%84%E5%AD%97%E5%85%B8/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20064.%20%E7%A5%9E%E5%A5%87%E7%9A%84%E5%AD%97%E5%85%B8/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20064.%20%E7%A5%9E%E5%A5%87%E7%9A%84%E5%AD%97%E5%85%B8/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20064.%20%E7%A5%9E%E5%A5%87%E7%9A%84%E5%AD%97%E5%85%B8/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：实现一个魔法字典。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 判断能否通过改恰好一个字母变成词典中的单词。每次对词典线性扫描，查询次数多时重复比较。\r \r 把每个词在每一位换成通配符，统计这些模式的出现次数。查询时枚举同样的模式：若某模式出现超过一次，或出现一次但原词不在词典中，则存在恰好一位不同的词。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n判断能否通过改恰好一个字母变成词典中的单词。每次对词典线性扫描，查询次数多时重复比较。\r\n\r\n把每个词在每一位换成通配符，统计这些模式的出现次数。查询时枚举同样的模式：若某模式出现超过一次，或出现一次但原词不在词典中，则存在恰好一位不同的词。",
+  "memory": "实现一个魔法字典 → 方法一。\n**思考**\r\n\r\n判断能否通过改恰好一个字母变成词典中的单词。每次对词典线性扫描，查询次数多时重复比较。\r\n\r\n把每个词在每一位换成通配符，统计这些模式的出现次数。查询时枚举同样的模式：若某模式出现超过一次，或出现一次但原词不在词典中，则存在恰好一位不同的词。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,54 @@
+{
+  "number": "367",
+  "adapter": {
+    "name": "isPerfectSquare",
+    "params": [
+      {
+        "name": "num",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "367"
+  },
+  "tests": [
+    {
+      "input": [
+        16
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        14
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def isPerfectSquare(self, num: int) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} num\n * @return {boolean}\n */\nvar isPerfectSquare = function(num) {\n    \n};",
+    "java": "class Solution {\n    public boolean isPerfectSquare(int num) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isPerfectSquare(int num) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def isPerfectSquare(self, num: int) -> bool:\r\n        l = bisect_left(range(1, num + 1), num, key=lambda x: x * x) + 1\r\n        return l * l == num\r\n",
+    "javascript": "function isPerfectSquare(num) {\n    let [l, r] = [1, num];\n    while (l < r) {\n        const mid = (l + r) >> 1;\n        if (mid >= num / mid) {\n            r = mid;\n        }\n        else {\n            l = mid + 1;\n        }\n    }\n    return l * l === num;\n}\n",
+    "java": "class Solution {\r\n    public boolean isPerfectSquare(int num) {\r\n        int l = 1, r = num;\r\n        while (l < r) {\r\n            int mid = (l + r) >>> 1;\r\n            if (1L * mid * mid >= num) {\r\n                r = mid;\r\n            } else {\r\n                l = mid + 1;\r\n            }\r\n        }\r\n        return l * l == num;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool isPerfectSquare(int num) {\r\n        int l = 1, r = num;\r\n        while (l < r) {\r\n            int mid = l + (r - l) / 2;\r\n            if (1LL * mid * mid >= num) {\r\n                r = mid;\r\n            } else {\r\n                l = mid + 1;\r\n            }\r\n        }\r\n        return 1LL * l * l == num;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0367.Valid%20Perfect%20Square/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0367.Valid%20Perfect%20Square/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0367.Valid%20Perfect%20Square/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0367.Valid%20Perfect%20Square/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0367.Valid%20Perfect%20Square/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：有效的完全平方数。\n输入：num（integer）。\n训练提示：**思考**\r \r 判断 $num$ 是否完全平方。从 $1$ 扫到 $\\sqrt{num}$ 为 $O(\\sqrt n)$。在值域上对 $x^2$ 二分即可。\r \r 在 $[1,num]$ 中找最小的 $x$ 使 $x^2\\ge num$，再检查是否相等。代码用 `bisect_left` 配 $x\\mapsto x^2$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n判断 $num$ 是否完全平方。从 $1$ 扫到 $\\sqrt{num}$ 为 $O(\\sqrt n)$。在值域上对 $x^2$ 二分即可。\r\n\r\n在 $[1,num]$ 中找最小的 $x$ 使 $x^2\\ge num$，再检查是否相等。代码用 `bisect_left` 配 $x\\mapsto x^2$。\r\n\r\n\r\n\r\n我们可以使用二分查找来解决这个问题。定义二分查找的左边界 $l = 1$，右边界 $r = num$，然后在 $[l, r]$ 的范围内查找满足 $x^2 \\geq num$ 的最小整数 $x$。最后，如果 $x^2 = num$，则说明 $num$ 是一个完全平方数。\r\n\r\n时间复杂度 $O(\\log n)$，其中 $n$ 是给定的数字。空间复杂度 $O(1)$。",
+  "memory": "有效的完全平方数 → 二分查找。\n**思考**\r\n\r\n判断 $num$ 是否完全平方。从 $1$ 扫到 $\\sqrt{num}$ 为 $O(\\sqrt n)$。在值域上对 $x^2$ 二分即可。\r\n\r\n在 $[1,num]$ 中找最小的 $x$ 使 $x^2\\ge num$，再检查是否相等。代码用 `bisect_left` 配 $x\\mapsto x^2$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

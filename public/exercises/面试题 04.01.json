@@ -1,0 +1,130 @@
+{
+  "number": "面试题 04.01",
+  "adapter": {
+    "name": "findWhetherExistsPath",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      },
+      {
+        "name": "graph",
+        "type": "integer[][]"
+      },
+      {
+        "name": "start",
+        "type": "integer"
+      },
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "面试题 04.01"
+  },
+  "tests": [
+    {
+      "input": [
+        3,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        0,
+        2
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        5,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        0,
+        4
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findWhetherExistsPath(self, n: int, graph: List[List[int]], start: int, target: int) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @param {number[][]} graph\n * @param {number} start\n * @param {number} target\n * @return {boolean}\n */\nvar findWhetherExistsPath = function(n, graph, start, target) {\n    \n};",
+    "java": "class Solution {\n    public boolean findWhetherExistsPath(int n, int[][] graph, int start, int target) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool findWhetherExistsPath(int n, vector<vector<int>>& graph, int start, int target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findWhetherExistsPath(\r\n        self, n: int, graph: List[List[int]], start: int, target: int\r\n    ) -> bool:\r\n        def dfs(i: int):\r\n            if i == target:\r\n                return True\r\n            if i in vis:\r\n                return False\r\n            vis.add(i)\r\n            return any(dfs(j) for j in g[i])\r\n\r\n        g = [[] for _ in range(n)]\r\n        for a, b in graph:\r\n            g[a].append(b)\r\n        vis = set()\r\n        return dfs(start)\r\n",
+    "javascript": "function findWhetherExistsPath(n, graph, start, target) {\n    const g = Array.from({ length: n }, () => []);\n    const vis = Array.from({ length: n }, () => false);\n    for (const [a, b] of graph) {\n        g[a].push(b);\n    }\n    const dfs = (i) => {\n        if (i === target) {\n            return true;\n        }\n        if (vis[i]) {\n            return false;\n        }\n        vis[i] = true;\n        return g[i].some(dfs);\n    };\n    return dfs(start);\n}\n",
+    "java": "class Solution {\r\n    private List<Integer>[] g;\r\n    private boolean[] vis;\r\n    private int target;\r\n\r\n    public boolean findWhetherExistsPath(int n, int[][] graph, int start, int target) {\r\n        vis = new boolean[n];\r\n        g = new List[n];\r\n        this.target = target;\r\n        Arrays.setAll(g, k -> new ArrayList<>());\r\n        for (int[] e : graph) {\r\n            g[e[0]].add(e[1]);\r\n        }\r\n        return dfs(start);\r\n    }\r\n\r\n    private boolean dfs(int i) {\r\n        if (i == target) {\r\n            return true;\r\n        }\r\n        if (vis[i]) {\r\n            return false;\r\n        }\r\n        vis[i] = true;\r\n        for (int j : g[i]) {\r\n            if (dfs(j)) {\r\n                return true;\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool findWhetherExistsPath(int n, vector<vector<int>>& graph, int start, int target) {\r\n        vector<int> g[n];\r\n        vector<bool> vis(n);\r\n        for (auto& e : graph) {\r\n            g[e[0]].push_back(e[1]);\r\n        }\r\n        auto dfs = [&](this auto&& dfs, int i) -> bool {\r\n            if (i == target) {\r\n                return true;\r\n            }\r\n            if (vis[i]) {\r\n                return false;\r\n            }\r\n            vis[i] = true;\r\n            for (int j : g[i]) {\r\n                if (dfs(j)) {\r\n                    return true;\r\n                }\r\n            }\r\n            return false;\r\n        };\r\n        return dfs(start);\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.01.Route%20Between%20Nodes/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.01.Route%20Between%20Nodes/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.01.Route%20Between%20Nodes/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.01.Route%20Between%20Nodes/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.01.Route%20Between%20Nodes/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：节点间通路。\n输入：n（integer）、graph（integer[][]）、start（integer）、target（integer）。\n训练提示：**思考**\r \r 有向图上判断 $start$ 能否走到 $target$。枚举所有简单路径在稠密图上不可行，节点数通常允许一次 $O(n+m)$ 遍历。\r \r 连通性只关心能否到达，与路径长短无关，深度优先搜索即可：沿出边递归，并用 $vis$ 避免重复进入而绕圈。\r \r 先建邻接表 $g$，再从 $start$ 调用 $dfs$：命中 $target$ 返回真，已访问返回假，否则标记后对邻居做 `any`。标记必须在展开邻居之前，否则环上会无限递归。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS\r\n\r\n\r\n\r\n思考\r\n\r\n有向图上判断 $start$ 能否走到 $target$。枚举所有简单路径在稠密图上不可行，节点数通常允许一次 $O(n+m)$ 遍历。\r\n\r\n连通性只关心能否到达，与路径长短无关，深度优先搜索即可：沿出边递归，并用 $vis$ 避免重复进入而绕圈。\r\n\r\n先建邻接表 $g$，再从 $start$ 调用 $dfs$：命中 $target$ 返回真，已访问返回假，否则标记后对邻居做 `any`。标记必须在展开邻居之前，否则环上会无限递归。\r\n\r\n\r\n\r\n我们先根据给定的图构建一个邻接表 $g$，其中 $g[i]$ 表示节点 $i$ 的所有邻居节点，用一个哈希表或数组 $vis$ 记录访问过的节点，然后从节点 $start$ 开始深度优先搜索，如果搜索到节点 $target$，则返回 `true`，否则返回 `false`。\r\n\r\n深度优先搜索的过程如下：\r\n\r\n1. 如果当前节点 $i$ 等于目标节点 $target$，返回 `true`；\r\n2. 如果当前节点 $i$ 已经访问过，返回 `false`；\r\n3. 否则，将当前节点 $i$ 标记为已访问，然后遍历节点 $i$ 的所有邻居节点 $j$，递归地搜索节点 $j$。\r\n\r\n时间复杂度 $O(n + m)$，空间复杂度 $O(n + m)$。其中 $n$ 和 $m$ 分别是节点数量和边数量。",
+  "memory": "节点间通路 → DFS。\n**思考**\r\n\r\n有向图上判断 $start$ 能否走到 $target$。枚举所有简单路径在稠密图上不可行，节点数通常允许一次 $O(n+m)$ 遍历。\r\n\r\n连通性只关心能否到达，与路径长短无关，深度优先搜索即可：沿出边递归，并用 $vis$ 避免重复进入而绕圈。\r\n\r\n先建邻接表 $g$，再从 $start$ 调用 $dfs$：命中 $target$ 返回真，已访问返回假，否则标记后对邻居做 `any`。标记必须在展开邻居之前，否则环上会无限递归。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

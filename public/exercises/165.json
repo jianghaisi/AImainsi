@@ -1,0 +1,67 @@
+{
+  "number": "165",
+  "adapter": {
+    "name": "compareVersion",
+    "params": [
+      {
+        "name": "version1",
+        "type": "string"
+      },
+      {
+        "name": "version2",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "165"
+  },
+  "tests": [
+    {
+      "input": [
+        "1.2",
+        "1.10"
+      ],
+      "expected": -1
+    },
+    {
+      "input": [
+        "1.01",
+        "1.001"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "1.0",
+        "1.0.0.0"
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def compareVersion(self, version1: str, version2: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} version1\n * @param {string} version2\n * @return {number}\n */\nvar compareVersion = function(version1, version2) {\n    \n};",
+    "java": "class Solution {\n    public int compareVersion(String version1, String version2) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int compareVersion(string version1, string version2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def compareVersion(self, version1: str, version2: str) -> int:\r\n        m, n = len(version1), len(version2)\r\n        i = j = 0\r\n        while i < m or j < n:\r\n            a = b = 0\r\n            while i < m and version1[i] != '.':\r\n                a = a * 10 + int(version1[i])\r\n                i += 1\r\n            while j < n and version2[j] != '.':\r\n                b = b * 10 + int(version2[j])\r\n                j += 1\r\n            if a != b:\r\n                return -1 if a < b else 1\r\n            i, j = i + 1, j + 1\r\n        return 0\r\n",
+    "javascript": "function compareVersion(version1, version2) {\n    const [m, n] = [version1.length, version2.length];\n    let [i, j] = [0, 0];\n    while (i < m || j < n) {\n        let [a, b] = [0, 0];\n        while (i < m && version1[i] !== '.') {\n            a = a * 10 + +version1[i];\n            i++;\n        }\n        while (j < n && version2[j] !== '.') {\n            b = b * 10 + +version2[j];\n            j++;\n        }\n        if (a !== b) {\n            return a < b ? -1 : 1;\n        }\n        i++;\n        j++;\n    }\n    return 0;\n}\n",
+    "java": "class Solution {\r\n    public int compareVersion(String version1, String version2) {\r\n        int m = version1.length(), n = version2.length();\r\n        for (int i = 0, j = 0; i < m || j < n; ++i, ++j) {\r\n            int a = 0, b = 0;\r\n            while (i < m && version1.charAt(i) != '.') {\r\n                a = a * 10 + (version1.charAt(i++) - '0');\r\n            }\r\n            while (j < n && version2.charAt(j) != '.') {\r\n                b = b * 10 + (version2.charAt(j++) - '0');\r\n            }\r\n            if (a != b) {\r\n                return a < b ? -1 : 1;\r\n            }\r\n        }\r\n        return 0;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int compareVersion(string version1, string version2) {\r\n        int m = version1.size(), n = version2.size();\r\n        for (int i = 0, j = 0; i < m || j < n; ++i, ++j) {\r\n            int a = 0, b = 0;\r\n            while (i < m && version1[i] != '.') {\r\n                a = a * 10 + (version1[i++] - '0');\r\n            }\r\n            while (j < n && version2[j] != '.') {\r\n                b = b * 10 + (version2[j++] - '0');\r\n            }\r\n            if (a != b) {\r\n                return a < b ? -1 : 1;\r\n            }\r\n        }\r\n        return 0;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0165.Compare%20Version%20Numbers/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0165.Compare%20Version%20Numbers/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0165.Compare%20Version%20Numbers/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0165.Compare%20Version%20Numbers/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0165.Compare%20Version%20Numbers/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：比较版本号。\n输入：version1（string）、version2（string）。\n训练提示：**思考**\r \r 按修订号逐段比较，缺省段视为 $0$，前导零不影响数值。拆成整数数组再比较要额外空间。长度不超过 $500$，双指针同步扫，遇到点就结算当前段，较短的一侧用 $0$ 补齐，直到分出大小或两端结束。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双指针\r\n\r\n\r\n\r\n思考\r\n\r\n按修订号逐段比较，缺省段视为 $0$，前导零不影响数值。拆成整数数组再比较要额外空间。长度不超过 $500$，双指针同步扫，遇到点就结算当前段，较短的一侧用 $0$ 补齐，直到分出大小或两端结束。\r\n\r\n\r\n\r\n同时遍历两个字符串，用两个指针 $i$ 和 $j$ 分别指向两个字符串的当前位置，初始时 $i = j = 0$。\r\n\r\n每次取出两个字符串中对应的修订号，记为 $a$ 和 $b$，比较 $a$ 和 $b$ 的大小，如果 $a \\lt b$，则返回 $-1$；如果 $a \\gt b$，则返回 $1$；如果 $a = b$，则继续比较下一对修订号。\r\n\r\n时间复杂度 $O(\\max(m, n))$，空间复杂度 $O(1)$。其中 $m$ 和 $n$ 分别是两个字符串的长度。",
+  "memory": "比较版本号 → 双指针。\n**思考**\r\n\r\n按修订号逐段比较，缺省段视为 $0$，前导零不影响数值。拆成整数数组再比较要额外空间。长度不超过 $500$，双指针同步扫，遇到点就结算当前段，较短的一侧用 $0$ 补齐，直到分出大小或两端结束。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

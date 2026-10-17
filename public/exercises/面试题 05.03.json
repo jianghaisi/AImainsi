@@ -1,0 +1,66 @@
+{
+  "number": "面试题 05.03",
+  "adapter": {
+    "name": "reverseBits",
+    "params": [
+      {
+        "name": "num",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 05.03"
+  },
+  "tests": [
+    {
+      "input": [
+        1775
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        7
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        0
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        -1
+      ],
+      "expected": 32
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def reverseBits(self, num: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} num\n * @return {number}\n */\nvar reverseBits = function(num) {\n    \n};",
+    "java": "class Solution {\n    public int reverseBits(int num) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int reverseBits(int num) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def reverseBits(self, num: int) -> int:\r\n        ans = cnt = j = 0\r\n        for i in range(32):\r\n            cnt += num >> i & 1 ^ 1\r\n            while cnt > 1:\r\n                cnt -= num >> j & 1 ^ 1\r\n                j += 1\r\n            ans = max(ans, i - j + 1)\r\n        return ans\r\n",
+    "javascript": "function reverseBits(num) {\n    let ans = 0;\n    let cnt = 0;\n    for (let i = 0, j = 0; i < 32; ++i) {\n        cnt += ((num >> i) & 1) ^ 1;\n        for (; cnt > 1; ++j) {\n            cnt -= ((num >> j) & 1) ^ 1;\n        }\n        ans = Math.max(ans, i - j + 1);\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int reverseBits(int num) {\r\n        int ans = 0, cnt = 0;\r\n        for (int i = 0, j = 0; i < 32; ++i) {\r\n            cnt += num >> i & 1 ^ 1;\r\n            while (cnt > 1) {\r\n                cnt -= num >> j & 1 ^ 1;\r\n                ++j;\r\n            }\r\n            ans = Math.max(ans, i - j + 1);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int reverseBits(int num) {\r\n        int ans = 0, cnt = 0;\r\n        for (int i = 0, j = 0; i < 32; ++i) {\r\n            cnt += num >> i & 1 ^ 1;\r\n            while (cnt > 1) {\r\n                cnt -= num >> j & 1 ^ 1;\r\n                ++j;\r\n            }\r\n            ans = max(ans, i - j + 1);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.03.Reverse%20Bits/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.03.Reverse%20Bits/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.03.Reverse%20Bits/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.03.Reverse%20Bits/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/05.03.Reverse%20Bits/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：翻转数位。\n输入：num（integer）。\n训练提示：**思考**\r \r 允许把一个 $0$ 翻成 $1$ 后，求最长连续 $1$。枚举翻转位置再向两侧扩展，约 $32^2$ 次，可通过，但重复扫描多。\r \r 所求即「窗口内至多一个 $0$」的最长区间，可用滑动窗口在一次扫描中维护。\r \r 右端 $i$ 扫过 $32$ 位，用 $cnt$ 记窗口内 $0$ 的个数；超过 $1$ 则右移 $j$ 并回退计数。`num>>i & 1 ^ 1` 恰在该位为 $0$ 时加一。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双指针\r\n\r\n\r\n\r\n思考\r\n\r\n允许把一个 $0$ 翻成 $1$ 后，求最长连续 $1$。枚举翻转位置再向两侧扩展，约 $32^2$ 次，可通过，但重复扫描多。\r\n\r\n所求即「窗口内至多一个 $0$」的最长区间，可用滑动窗口在一次扫描中维护。\r\n\r\n右端 $i$ 扫过 $32$ 位，用 $cnt$ 记窗口内 $0$ 的个数；超过 $1$ 则右移 $j$ 并回退计数。`num>>i & 1 ^ 1` 恰在该位为 $0$ 时加一。\r\n\r\n\r\n\r\n我们可以使用双指针 $i$ 和 $j$ 维护一个滑动窗口，其中 $i$ 为右指针， $j$ 为左指针。每次右指针 $i$ 向右移动一位，如果此时窗口内的 $0$ 的个数超过 $1$ 个，则左指针 $j$ 向右移动一位，直到窗口内的 $0$ 的个数不超过 $1$ 个为止。然后计算此时窗口的长度，与当前最大长度进行比较，取较大值作为当前最大长度。\r\n\r\n最后返回最大长度即可。\r\n\r\n时间复杂度 $O(\\log M)$，空间复杂度 $O(1)$。其中 $M$ 为 $32$ 位整数的最大值。",
+  "memory": "翻转数位 → 双指针。\n**思考**\r\n\r\n允许把一个 $0$ 翻成 $1$ 后，求最长连续 $1$。枚举翻转位置再向两侧扩展，约 $32^2$ 次，可通过，但重复扫描多。\r\n\r\n所求即「窗口内至多一个 $0$」的最长区间，可用滑动窗口在一次扫描中维护。\r\n\r\n右端 $i$ 扫过 $32$ 位，用 $cnt$ 记窗口内 $0$ 的个数；超过 $1$ 则右移 $j$ 并回退计数。`num>>i & 1 ^ 1` 恰在该位为 $0$ 时加一。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

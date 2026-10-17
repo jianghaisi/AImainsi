@@ -1,0 +1,102 @@
+{
+  "number": "2336",
+  "adapter": {
+    "classname": "SmallestInfiniteSet",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "params": [],
+        "name": "popSmallest",
+        "return": {
+          "type": "integer"
+        }
+      },
+      {
+        "params": [
+          {
+            "type": "integer",
+            "name": "num"
+          }
+        ],
+        "name": "addBack",
+        "return": {
+          "type": "void"
+        }
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "systemdesign": true,
+    "number": "2336"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "SmallestInfiniteSet",
+          "addBack",
+          "popSmallest",
+          "popSmallest",
+          "popSmallest",
+          "addBack",
+          "popSmallest",
+          "popSmallest",
+          "popSmallest"
+        ],
+        [
+          [],
+          [
+            2
+          ],
+          [],
+          [],
+          [],
+          [
+            1
+          ],
+          [],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        1,
+        2,
+        3,
+        null,
+        1,
+        4,
+        5
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class SmallestInfiniteSet:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def popSmallest(self):\n        raise NotImplementedError('请完成此方法')\n\n    def addBack(self, num):\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "\nvar SmallestInfiniteSet = function() {\n    \n};\n\n/**\n * @return {number}\n */\nSmallestInfiniteSet.prototype.popSmallest = function() {\n    \n};\n\n/** \n * @param {number} num\n * @return {void}\n */\nSmallestInfiniteSet.prototype.addBack = function(num) {\n    \n};\n\n/** \n * Your SmallestInfiniteSet object will be instantiated and called as such:\n * var obj = new SmallestInfiniteSet()\n * var param_1 = obj.popSmallest()\n * obj.addBack(num)\n */",
+    "java": "class SmallestInfiniteSet {\n\n    public SmallestInfiniteSet() {\n        \n    }\n    \n    public int popSmallest() {\n        \n    }\n    \n    public void addBack(int num) {\n        \n    }\n}\n\n/**\n * Your SmallestInfiniteSet object will be instantiated and called as such:\n * SmallestInfiniteSet obj = new SmallestInfiniteSet();\n * int param_1 = obj.popSmallest();\n * obj.addBack(num);\n */",
+    "cpp": "class SmallestInfiniteSet {\npublic:\n    SmallestInfiniteSet() {\n        \n    }\n    \n    int popSmallest() {\n        \n    }\n    \n    void addBack(int num) {\n        \n    }\n};\n\n/**\n * Your SmallestInfiniteSet object will be instantiated and called as such:\n * SmallestInfiniteSet* obj = new SmallestInfiniteSet();\n * int param_1 = obj->popSmallest();\n * obj->addBack(num);\n */"
+  },
+  "solutions": {
+    "python": "class SmallestInfiniteSet:\n    def __init__(self): self.next_value=1; self.heap=[]; self.added=set()\n    def popSmallest(self):\n        if self.heap:\n            value=heappop(self.heap);self.added.remove(value);return value\n        value=self.next_value;self.next_value+=1;return value\n    def addBack(self,num):\n        if num<self.next_value and num not in self.added:self.added.add(num);heappush(self.heap,num)\n",
+    "javascript": "class SmallestInfiniteSet {\n    pq = new MinPriorityQueue();\n    s = new Set();\n    constructor() {\n        for (let i = 1; i <= 1000; i++) {\n            this.pq.enqueue(i);\n            this.s.add(i);\n        }\n    }\n    popSmallest() {\n        const x = this.pq.dequeue();\n        this.s.delete(x);\n        return x;\n    }\n    addBack(num) {\n        if (!this.s.has(num)) {\n            this.pq.enqueue(num);\n            this.s.add(num);\n        }\n    }\n}\n/**\n * Your SmallestInfiniteSet object will be instantiated and called as such:\n * var obj = new SmallestInfiniteSet()\n * var param_1 = obj.popSmallest()\n * obj.addBack(num)\n */\n",
+    "java": "class SmallestInfiniteSet {\r\n    private TreeSet<Integer> s = new TreeSet<>();\r\n\r\n    public SmallestInfiniteSet() {\r\n        for (int i = 1; i <= 1000; ++i) {\r\n            s.add(i);\r\n        }\r\n    }\r\n\r\n    public int popSmallest() {\r\n        return s.pollFirst();\r\n    }\r\n\r\n    public void addBack(int num) {\r\n        s.add(num);\r\n    }\r\n}\r\n\r\n/**\r\n * Your SmallestInfiniteSet object will be instantiated and called as such:\r\n * SmallestInfiniteSet obj = new SmallestInfiniteSet();\r\n * int param_1 = obj.popSmallest();\r\n * obj.addBack(num);\r\n */",
+    "cpp": "class SmallestInfiniteSet {\r\npublic:\r\n    SmallestInfiniteSet() {\r\n        for (int i = 1; i <= 1000; ++i) {\r\n            s.insert(i);\r\n        }\r\n    }\r\n\r\n    int popSmallest() {\r\n        int x = *s.begin();\r\n        s.erase(s.begin());\r\n        return x;\r\n    }\r\n\r\n    void addBack(int num) {\r\n        s.insert(num);\r\n    }\r\n\r\nprivate:\r\n    set<int> s;\r\n};\r\n\r\n/**\r\n * Your SmallestInfiniteSet object will be instantiated and called as such:\r\n * SmallestInfiniteSet* obj = new SmallestInfiniteSet();\r\n * int param_1 = obj->popSmallest();\r\n * obj->addBack(num);\r\n */"
+  },
+  "credits": {
+    "python": "序列原创适配",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2300-2399/2336.Smallest%20Number%20in%20Infinite%20Set/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2300-2399/2336.Smallest%20Number%20in%20Infinite%20Set/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2300-2399/2336.Smallest%20Number%20in%20Infinite%20Set/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2300-2399/2336.Smallest%20Number%20in%20Infinite%20Set/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：无限集中的最小数字。\n输入：操作名称与参数序列。\n训练提示：**思考**\r \r 集合初值为全体正整数，但操作次数与数值均不超过 $1000$，实际只会触及 $[1,1000]$。\r \r 用有序集合存放当前仍在的数。弹出即删最小元，加回即插入；有序性保证每次 $O(\\log n)$ 取得最小值。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：有序集合 + 模拟\r\n\r\n\r\n\r\n思考\r\n\r\n集合初值为全体正整数，但操作次数与数值均不超过 $1000$，实际只会触及 $[1,1000]$。\r\n\r\n用有序集合存放当前仍在的数。弹出即删最小元，加回即插入；有序性保证每次 $O(\\log n)$ 取得最小值。\r\n\r\n\r\n\r\n我们注意到，题目中集合的元素范围是 $[1, 1000]$，并且我们需要支持的操作有：\r\n\r\n- `popSmallest`：弹出集合中的最小元素\r\n- `addBack`：向集合中添加元素\r\n\r\n因此，我们可以使用有序集合来模拟，不妨记有序集合为 $s$，集合中的元素为 $s_1, s_2, \\cdots, s_n$，其中 $n$ 为有序集合中的元素个数。本题中 $n \\le 1000$。\r\n\r\n我们在初始化时，将 $[1, 1000]$ 中的所有元素加入有序集合中。时间复杂度 $O(n \\times \\log n)$。\r\n\r\n在 `popSmallest` 操作中，我们只需要弹出有序集合中的第一个元素即可。单次操作时间复杂度 $O(\\log n)$。\r\n\r\n在 `addBack` 操作中，我们只需要将元素加入有序集合中即可。单次操作时间复杂度 $O(\\log n)$。\r\n\r\n空间复杂度 $O(n)$。",
+  "memory": "无限集中的最小数字 → 有序集合 + 模拟。\n**思考**\r\n\r\n集合初值为全体正整数，但操作次数与数值均不超过 $1000$，实际只会触及 $[1,1000]$。\r\n\r\n用有序集合存放当前仍在的数。弹出即删最小元，加回即插入；有序性保证每次 $O(\\log n)$ 取得最小值。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,73 @@
+{
+  "number": "LCR 140",
+  "adapter": {
+    "name": "trainingPlan",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      },
+      {
+        "name": "cnt",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "ListNode"
+    },
+    "number": "LCR 140"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          4,
+          7,
+          8
+        ],
+        1
+      ],
+      "expected": [
+        8
+      ]
+    },
+    {
+      "input": [
+        [
+          2,
+          4,
+          7,
+          8
+        ],
+        3
+      ],
+      "expected": [
+        4,
+        7,
+        8
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def trainingPlan(self, head: ListNode, k: int) -> ListNode:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode trainingPlan(ListNode head, int cnt) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* trainingPlan(ListNode* head, int cnt) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.next = None\r\n\r\n\r\nclass Solution:\r\n    def trainingPlan(self, head: ListNode, k: int) -> ListNode:\r\n        slow = fast = head\r\n        for _ in range(k):\r\n            fast = fast.next\r\n        while fast:\r\n            slow, fast = slow.next, fast.next\r\n        return slow\r\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public ListNode trainingPlan(ListNode head, int k) {\r\n        ListNode slow = head, fast = head;\r\n        while (k-- > 0) {\r\n            fast = fast.next;\r\n        }\r\n        while (fast != null) {\r\n            slow = slow.next;\r\n            fast = fast.next;\r\n        }\r\n        return slow;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode(int x) : val(x), next(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    ListNode* trainingPlan(ListNode* head, int k) {\r\n        ListNode *slow = head, *fast = head;\r\n        while (k--) {\r\n            fast = fast->next;\r\n        }\r\n        while (fast) {\r\n            slow = slow->next;\r\n            fast = fast->next;\r\n        }\r\n        return slow;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9822.%20%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9822.%20%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9822.%20%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9822.%20%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：训练计划 II。\n输入：head（ListNode）、cnt（integer）。\n训练提示：**思考**\r \r 先数长度再走 $n-k$ 步需要两遍。若快指针先走 $k$ 步，再与慢指针同步，快指针到末尾时慢指针恰在倒数第 $k$ 个。\r \r 一遍扫描、常数空间即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：快慢指针\r\n\r\n\r\n\r\n思考\r\n\r\n先数长度再走 $n-k$ 步需要两遍。若快指针先走 $k$ 步，再与慢指针同步，快指针到末尾时慢指针恰在倒数第 $k$ 个。\r\n\r\n一遍扫描、常数空间即可。\r\n\r\n\r\n\r\n我们可以定义快慢指针 `fast` 和 `slow`，初始时均指向 `head`。\r\n\r\n然后快指针 `fast` 先向前走 $k$ 步，然后快慢指针同时向前走，直到快指针走到链表尾部，此时慢指针指向的节点就是倒数第 $k$ 个节点。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(1)$。其中 $n$ 为链表长度。",
+  "memory": "训练计划 II → 快慢指针。\n**思考**\r\n\r\n先数长度再走 $n-k$ 步需要两遍。若快指针先走 $k$ 步，再与慢指针同步，快指针到末尾时慢指针恰在倒数第 $k$ 个。\r\n\r\n一遍扫描、常数空间即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

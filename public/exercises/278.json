@@ -1,0 +1,61 @@
+{
+  "number": "278",
+  "adapter": {
+    "name": "firstBadVersion",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      },
+      {
+        "name": "bad",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "manual": true,
+    "number": "278"
+  },
+  "tests": [
+    {
+      "input": [
+        5,
+        4
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        1,
+        1
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def firstBadVersion(self, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for isBadVersion()\n * \n * @param {integer} version number\n * @return {boolean} whether the version is bad\n * isBadVersion = function(version) {\n *     ...\n * };\n */\n\n/**\n * @param {function} isBadVersion()\n * @return {function}\n */\nvar solution = function(isBadVersion) {\n    /**\n     * @param {integer} n Total versions\n     * @return {integer} The first bad version\n     */\n    return function(n) {\n        \n    };\n};",
+    "java": "/* The isBadVersion API is defined in the parent class VersionControl.\n      boolean isBadVersion(int version); */\n\npublic class Solution extends VersionControl {\n    public int firstBadVersion(int n) {\n        \n    }\n}",
+    "cpp": "// The API isBadVersion is defined for you.\n// bool isBadVersion(int version);\n\nclass Solution {\npublic:\n    int firstBadVersion(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# The isBadVersion API is already defined for you.\r\n# def isBadVersion(version: int) -> bool:\r\n\r\n\r\nclass Solution:\r\n    def firstBadVersion(self, n: int) -> int:\r\n        l, r = 1, n\r\n        while l < r:\r\n            mid = (l + r) >> 1\r\n            if isBadVersion(mid):\r\n                r = mid\r\n            else:\r\n                l = mid + 1\r\n        return l\r\n",
+    "javascript": "/**\n * The knows API is defined in the parent class Relation.\n * isBadVersion(version: number): boolean {\n *     ...\n * };\n */\nvar firstBadVersion = function (isBadVersion) {\n    return function (n) {\n        let [l, r] = [1, n];\n        while (l < r) {\n            const mid = (l + r) >>> 1;\n            if (isBadVersion(mid)) {\n                r = mid;\n            }\n            else {\n                l = mid + 1;\n            }\n        }\n        return l;\n    };\n};\n",
+    "java": "/* The isBadVersion API is defined in the parent class VersionControl.\r\n      boolean isBadVersion(int version); */\r\n\r\npublic class Solution extends VersionControl {\r\n    public int firstBadVersion(int n) {\r\n        int l = 1, r = n;\r\n        while (l < r) {\r\n            int mid = (l + r) >>> 1;\r\n            if (isBadVersion(mid)) {\r\n                r = mid;\r\n            } else {\r\n                l = mid + 1;\r\n            }\r\n        }\r\n        return l;\r\n    }\r\n}\r\n",
+    "cpp": "// The API isBadVersion is defined for you.\r\n// bool isBadVersion(int version);\r\n\r\nclass Solution {\r\npublic:\r\n    int firstBadVersion(int n) {\r\n        int l = 1, r = n;\r\n        while (l < r) {\r\n            int mid = l + (r - l) / 2;\r\n            if (isBadVersion(mid)) {\r\n                r = mid;\r\n            } else {\r\n                l = mid + 1;\r\n            }\r\n        }\r\n        return l;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0278.First%20Bad%20Version/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0278.First%20Bad%20Version/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0278.First%20Bad%20Version/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0278.First%20Bad%20Version/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0278.First%20Bad%20Version/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：第一个错误的版本。\n输入：n（integer）、bad（integer）。\n训练提示：**思考**\r \r 版本一旦变坏则之后全坏，具有单调性。对 $isBadVersion(\\textit{mid})$ 为真则答案在左侧含 $\\textit{mid}$，否则在右侧。\r \r 二分收缩到 $l=r$ 即为第一个坏版本。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n版本一旦变坏则之后全坏，具有单调性。对 $isBadVersion(\\textit{mid})$ 为真则答案在左侧含 $\\textit{mid}$，否则在右侧。\r\n\r\n二分收缩到 $l=r$ 即为第一个坏版本。\r\n\r\n\r\n\r\n我们定义二分查找的左边界 $l = 1$，右边界 $r = n$。\r\n\r\n当 $l < r$ 时，我们计算中间位置 $\\textit{mid} = \\left\\lfloor \\frac{l + r}{2} \\right\\rfloor$，然后调用 `isBadVersion(mid)` 接口，如果返回 $\\textit{true}$，则说明第一个错误的版本在 $[l, \\textit{mid}]$ 之间，我们令 $r = \\textit{mid}$；否则第一个错误的版本在 $[\\textit{mid} + 1, r]$ 之间，我们令 $l = \\textit{mid} + 1$。\r\n\r\n最终返回 $l$ 即可。\r\n\r\n时间复杂度 $O(\\log n)$，空间复杂度 $O(1)$。",
+  "memory": "第一个错误的版本 → 二分查找。\n**思考**\r\n\r\n版本一旦变坏则之后全坏，具有单调性。对 $isBadVersion(\\textit{mid})$ 为真则答案在左侧含 $\\textit{mid}$，否则在右侧。\r\n\r\n二分收缩到 $l=r$ 即为第一个坏版本。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

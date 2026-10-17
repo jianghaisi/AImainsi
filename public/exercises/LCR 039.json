@@ -1,0 +1,64 @@
+{
+  "number": "LCR 039",
+  "adapter": {
+    "name": "largestRectangleArea",
+    "params": [
+      {
+        "name": "heights",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 039"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          1,
+          5,
+          6,
+          2,
+          3
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        [
+          2,
+          4
+        ]
+      ],
+      "expected": 4
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def largestRectangleArea(self, heights: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} heights\n * @return {number}\n */\nvar largestRectangleArea = function(heights) {\n\n};",
+    "java": "class Solution {\n    public int largestRectangleArea(int[] heights) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int largestRectangleArea(vector<int>& heights) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def largestRectangleArea(self, heights: List[int]) -> int:\r\n        n = len(heights)\r\n        left = [-1] * n\r\n        right = [n] * n\r\n        stk = []\r\n        for i, x in enumerate(heights):\r\n            while stk and heights[stk[-1]] >= x:\r\n                stk.pop()\r\n            if stk:\r\n                left[i] = stk[-1]\r\n            stk.append(i)\r\n        stk = []\r\n        for i in range(n - 1, -1, -1):\r\n            while stk and heights[stk[-1]] >= heights[i]:\r\n                stk.pop()\r\n            if stk:\r\n                right[i] = stk[-1]\r\n            stk.append(i)\r\n        return max(x * (r - l - 1) for x, l, r in zip(heights, left, right))\r\n",
+    "javascript": "function largestRectangleArea(heights) {\n    const n = heights.length;\n    const left = new Array(n).fill(-1);\n    const right = new Array(n).fill(n);\n    const stk = [];\n    for (let i = 0; i < n; ++i) {\n        while (stk.length && heights[stk[stk.length - 1]] >= heights[i]) {\n            stk.pop();\n        }\n        if (stk.length) {\n            left[i] = stk[stk.length - 1];\n        }\n        stk.push(i);\n    }\n    stk.length = 0;\n    for (let i = n - 1; i >= 0; --i) {\n        while (stk.length && heights[stk[stk.length - 1]] >= heights[i]) {\n            stk.pop();\n        }\n        if (stk.length) {\n            right[i] = stk[stk.length - 1];\n        }\n        stk.push(i);\n    }\n    let ans = 0;\n    for (let i = 0; i < n; ++i) {\n        ans = Math.max(ans, (right[i] - left[i] - 1) * heights[i]);\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int largestRectangleArea(int[] heights) {\r\n        int n = heights.length;\r\n        int[] left = new int[n];\r\n        int[] right = new int[n];\r\n        for (int i = 0; i < n; ++i) {\r\n            left[i] = -1;\r\n            right[i] = n;\r\n        }\r\n        Deque<Integer> stk = new ArrayDeque<>();\r\n        for (int i = 0; i < n; ++i) {\r\n            while (!stk.isEmpty() && heights[stk.peek()] >= heights[i]) {\r\n                stk.pop();\r\n            }\r\n            if (!stk.isEmpty()) {\r\n                left[i] = stk.peek();\r\n            }\r\n            stk.push(i);\r\n        }\r\n        stk.clear();\r\n        for (int i = n - 1; i >= 0; --i) {\r\n            while (!stk.isEmpty() && heights[stk.peek()] >= heights[i]) {\r\n                stk.pop();\r\n            }\r\n            if (!stk.isEmpty()) {\r\n                right[i] = stk.peek();\r\n            }\r\n            stk.push(i);\r\n        }\r\n        int ans = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            ans = Math.max(ans, (right[i] - left[i] - 1) * heights[i]);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int largestRectangleArea(vector<int>& heights) {\r\n        int n = heights.size();\r\n        vector<int> left(n, -1), right(n, n);\r\n        stack<int> stk;\r\n        for (int i = 0; i < n; ++i) {\r\n            while (!stk.empty() && heights[stk.top()] >= heights[i]) {\r\n                stk.pop();\r\n            }\r\n            if (!stk.empty()) {\r\n                left[i] = stk.top();\r\n            }\r\n            stk.push(i);\r\n        }\r\n        stk = stack<int>();\r\n        for (int i = n - 1; ~i; --i) {\r\n            while (!stk.empty() && heights[stk.top()] >= heights[i]) {\r\n                stk.pop();\r\n            }\r\n            if (!stk.empty()) {\r\n                right[i] = stk.top();\r\n            }\r\n            stk.push(i);\r\n        }\r\n        int ans = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            ans = max(ans, (right[i] - left[i] - 1) * heights[i]);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20039.%20%E7%9B%B4%E6%96%B9%E5%9B%BE%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20039.%20%E7%9B%B4%E6%96%B9%E5%9B%BE%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20039.%20%E7%9B%B4%E6%96%B9%E5%9B%BE%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20039.%20%E7%9B%B4%E6%96%B9%E5%9B%BE%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20039.%20%E7%9B%B4%E6%96%B9%E5%9B%BE%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：柱状图中最大的矩形。\n输入：heights（integer[]）。\n训练提示：**思考**\r \r 以每根柱为高的最大矩形，取决于左右两侧首个更矮柱的位置。若对每根柱向两侧扫描，最坏平方。\r \r 单调递增栈分别预处理左、右两侧严格更矮的下标，则宽为 $right-left-1$。两侧边界分别用 $-1$ 与 $n$ 哨兵，避免空栈判断。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：单调栈\r\n\r\n\r\n\r\n思考\r\n\r\n以每根柱为高的最大矩形，取决于左右两侧首个更矮柱的位置。若对每根柱向两侧扫描，最坏平方。\r\n\r\n单调递增栈分别预处理左、右两侧严格更矮的下标，则宽为 $right-left-1$。两侧边界分别用 $-1$ 与 $n$ 哨兵，避免空栈判断。\r\n\r\n\r\n\r\n单调栈常见模型：找出每个数左/右边离它最近的且比它大/小的数。模板：\r\n\r\n```python\r\nstk = []\r\nfor i in range(n):\r\n    while stk and check(stk[-1], i):\r\n        stk.pop()\r\n    stk.append(i)\r\n```\r\n\r\n枚举每根柱子的高度 $h$ 作为矩形的高度，向左右两边找第一个高度小于 $h$ 的下标 $left_i$, $right_i$。那么此时矩形面积为 $h \\times (right_i-left_i-1)$，求最大值即可。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为柱子个数。",
+  "memory": "柱状图中最大的矩形 → 单调栈。\n**思考**\r\n\r\n以每根柱为高的最大矩形，取决于左右两侧首个更矮柱的位置。若对每根柱向两侧扫描，最坏平方。\r\n\r\n单调递增栈分别预处理左、右两侧严格更矮的下标，则宽为 $right-left-1$。两侧边界分别用 $-1$ 与 $n$ 哨兵，避免空栈判断。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

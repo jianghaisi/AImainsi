@@ -1,7 +1,7 @@
 {
   "name": "aimainsi-terminal",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "scripts": {
     "dev": "node server/index.mjs",
@@ -27,11 +27,16 @@
     "cheerio": "^1.1.2",
     "express": "^5.1.0",
     "jszip": "^3.10.2",
+    "katex": "0.16.47",
     "lucide-react": "^0.468.0",
     "pdfjs-dist": "^6.4.299",
     "pyodide": "^0.28.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-markdown": "^10.1.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
+    "sql.js": "^1.15.0",
     "zod": "^4.1.0"
   },
   "devDependencies": {

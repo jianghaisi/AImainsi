@@ -1,0 +1,65 @@
+{
+  "number": "面试题 16.16",
+  "adapter": {
+    "name": "subSort",
+    "params": [
+      {
+        "name": "array",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "面试题 16.16"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          4,
+          7,
+          10,
+          11,
+          7,
+          12,
+          6,
+          7,
+          16,
+          18,
+          19
+        ]
+      ],
+      "expected": [
+        3,
+        9
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def subSort(self, array: List[int]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} array\n * @return {number[]}\n */\nvar subSort = function(array) {\n    \n};",
+    "java": "class Solution {\n    public int[] subSort(int[] array) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> subSort(vector<int>& array) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def subSort(self, array: List[int]) -> List[int]:\r\n        n = len(array)\r\n        mi, mx = inf, -inf\r\n        left = right = -1\r\n        for i, x in enumerate(array):\r\n            if x < mx:\r\n                right = i\r\n            else:\r\n                mx = x\r\n        for i in range(n - 1, -1, -1):\r\n            if array[i] > mi:\r\n                left = i\r\n            else:\r\n                mi = array[i]\r\n        return [left, right]\r\n",
+    "javascript": "function subSort(array) {\n    const n = array.length;\n    let [mi, mx] = [Infinity, -Infinity];\n    let [left, right] = [-1, -1];\n    for (let i = 0; i < n; ++i) {\n        if (array[i] < mx) {\n            right = i;\n        }\n        else {\n            mx = array[i];\n        }\n    }\n    for (let i = n - 1; ~i; --i) {\n        if (array[i] > mi) {\n            left = i;\n        }\n        else {\n            mi = array[i];\n        }\n    }\n    return [left, right];\n}\n",
+    "java": "class Solution {\r\n    public int[] subSort(int[] array) {\r\n        int n = array.length;\r\n        int mi = Integer.MAX_VALUE, mx = Integer.MIN_VALUE;\r\n        int left = -1, right = -1;\r\n        for (int i = 0; i < n; ++i) {\r\n            if (array[i] < mx) {\r\n                right = i;\r\n            } else {\r\n                mx = array[i];\r\n            }\r\n        }\r\n        for (int i = n - 1; i >= 0; --i) {\r\n            if (array[i] > mi) {\r\n                left = i;\r\n            } else {\r\n                mi = array[i];\r\n            }\r\n        }\r\n        return new int[] {left, right};\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> subSort(vector<int>& array) {\r\n        int n = array.size();\r\n        int mi = INT_MAX, mx = INT_MIN;\r\n        int left = -1, right = -1;\r\n        for (int i = 0; i < n; ++i) {\r\n            if (array[i] < mx) {\r\n                right = i;\r\n            } else {\r\n                mx = array[i];\r\n            }\r\n        }\r\n        for (int i = n - 1; ~i; --i) {\r\n            if (array[i] > mi) {\r\n                left = i;\r\n            } else {\r\n                mi = array[i];\r\n            }\r\n        }\r\n        return {left, right};\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.16.Sub%20Sort/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.16.Sub%20Sort/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.16.Sub%20Sort/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.16.Sub%20Sort/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.16.Sub%20Sort/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：部分排序。\n输入：array（integer[]）。\n训练提示：**思考**\r \r 找最短待排序区间，使整段排序后数组有序。对拷贝排序再比两端差异，正确但要 $O(n)$ 额外空间与一次排序。\r \r 右端是「比左侧最大值更小」的最右位置，左端是「比右侧最小值更大」的最左位置。\r \r 从左扫维护 $mx$ 更新 $right$，从右扫维护 $mi$ 更新 $left$。两遍线性， $O(1)$ 额外空间。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：两次遍历\r\n\r\n\r\n\r\n思考\r\n\r\n找最短待排序区间，使整段排序后数组有序。对拷贝排序再比两端差异，正确但要 $O(n)$ 额外空间与一次排序。\r\n\r\n右端是「比左侧最大值更小」的最右位置，左端是「比右侧最小值更大」的最左位置。\r\n\r\n从左扫维护 $mx$ 更新 $right$，从右扫维护 $mi$ 更新 $left$。两遍线性， $O(1)$ 额外空间。\r\n\r\n\r\n\r\n我们先从左到右遍历数组 $array$，用 $mx$ 记录遍历过的最大值，如果当前值 $x$ 小于 $mx$，则说明 $x$ 需要被排序，我们将 $x$ 的下标 $i$ 记录为 $right$；否则更新 $mx$。\r\n\r\n同理，我们再从右到左遍历数组 $array$，用 $mi$ 记录遍历过的最小值，如果当前值 $x$ 大于 $mi$，则说明 $x$ 需要被排序，我们将 $x$ 的下标 $i$ 记录为 $left$；否则更新 $mi$。\r\n\r\n最后返回 $[left, right]$ 即可。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 为数组长度。空间复杂度 $O(1)$。",
+  "memory": "部分排序 → 两次遍历。\n**思考**\r\n\r\n找最短待排序区间，使整段排序后数组有序。对拷贝排序再比两端差异，正确但要 $O(n)$ 额外空间与一次排序。\r\n\r\n右端是「比左侧最大值更小」的最右位置，左端是「比右侧最小值更大」的最左位置。\r\n\r\n从左扫维护 $mx$ 更新 $right$，从右扫维护 $mi$ 更新 $left$。两遍线性， $O(1)$ 额外空间。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

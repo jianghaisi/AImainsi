@@ -1,0 +1,89 @@
+{
+  "number": "LCR 142",
+  "adapter": {
+    "name": "trainningPlan",
+    "params": [
+      {
+        "name": "l1",
+        "type": "ListNode",
+        "dealloc": false
+      },
+      {
+        "name": "l2",
+        "type": "ListNode",
+        "dealloc": false
+      }
+    ],
+    "return": {
+      "type": "ListNode",
+      "dealloc": true
+    },
+    "number": "LCR 142"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          1,
+          3,
+          4
+        ]
+      ],
+      "expected": [
+        1,
+        1,
+        2,
+        3,
+        4,
+        4
+      ]
+    },
+    {
+      "input": [
+        [],
+        []
+      ],
+      "expected": []
+    },
+    {
+      "input": [
+        [],
+        [
+          0
+        ]
+      ],
+      "expected": [
+        0
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def trainningPlan(self, l1: ListNode, l2: ListNode) -> ListNode:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} l1\n * @param {ListNode} l2\n * @return {ListNode}\n */\nvar trainningPlan = function(l1, l2) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode trainningPlan(ListNode l1, ListNode l2) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* trainningPlan(ListNode* l1, ListNode* l2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.next = None\r\n\r\n\r\nclass Solution:\r\n    def trainningPlan(self, l1: ListNode, l2: ListNode) -> ListNode:\r\n        dummy = cur = ListNode(0)\r\n        while l1 and l2:\r\n            if l1.val <= l2.val:\r\n                cur.next = l1\r\n                l1 = l1.next\r\n            else:\r\n                cur.next = l2\r\n                l2 = l2.next\r\n            cur = cur.next\r\n        cur.next = l1 or l2\r\n        return dummy.next\r\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction trainningPlan(l1, l2) {\n    const dummy = new ListNode(0);\n    let cur = dummy;\n    while (l1 && l2) {\n        if (l1.val <= l2.val) {\n            cur.next = l1;\n            l1 = l1.next;\n        }\n        else {\n            cur.next = l2;\n            l2 = l2.next;\n        }\n        cur = cur.next;\n    }\n    cur.next = l1 || l2;\n    return dummy.next;\n}\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public ListNode trainningPlan(ListNode l1, ListNode l2) {\r\n        ListNode dummy = new ListNode(0);\r\n        ListNode cur = dummy;\r\n        while (l1 != null && l2 != null) {\r\n            if (l1.val <= l2.val) {\r\n                cur.next = l1;\r\n                l1 = l1.next;\r\n            } else {\r\n                cur.next = l2;\r\n                l2 = l2.next;\r\n            }\r\n            cur = cur.next;\r\n        }\r\n        cur.next = l1 == null ? l2 : l1;\r\n        return dummy.next;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode(int x) : val(x), next(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    ListNode* trainningPlan(ListNode* l1, ListNode* l2) {\r\n        ListNode* dummy = new ListNode(0);\r\n        ListNode* cur = dummy;\r\n        while (l1 && l2) {\r\n            if (l1->val <= l2->val) {\r\n                cur->next = l1;\r\n                l1 = l1->next;\r\n            } else {\r\n                cur->next = l2;\r\n                l2 = l2->next;\r\n            }\r\n            cur = cur->next;\r\n        }\r\n        cur->next = l1 ? l1 : l2;\r\n        return dummy->next;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9825.%20%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9825.%20%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9825.%20%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9825.%20%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9825.%20%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：训练计划 IV。\n输入：l1（ListNode）、l2（ListNode）。\n训练提示：**思考**\r \r 两链表各自有序，合并后仍须有序。每次取较小头结点接到结果后即可，无需再排序。\r \r 用哑结点统一拼接，谁小接谁，剩余整段挂到末尾。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：迭代\r\n\r\n\r\n\r\n思考\r\n\r\n两链表各自有序，合并后仍须有序。每次取较小头结点接到结果后即可，无需再排序。\r\n\r\n用哑结点统一拼接，谁小接谁，剩余整段挂到末尾。\r\n\r\n\r\n\r\n我们先创建一个虚拟头结点 `dummy`，然后创建一个指针 `cur` 指向 `dummy`。\r\n\r\n接下来，循环比较 `l1` 和 `l2` 的值，将较小的值接在 `cur` 后面，然后将指针向后移动一位。循环结束，将 `cur` 指向 `l1` 或者 `l2` 中剩余的部分。\r\n\r\n最后返回 `dummy.next` 即可。\r\n\r\n时间复杂度 $O(m + n)$，空间复杂度 $O(1)$。其中 $m$ 和 $n$ 分别为两个链表的长度。",
+  "memory": "训练计划 IV → 迭代。\n**思考**\r\n\r\n两链表各自有序，合并后仍须有序。每次取较小头结点接到结果后即可，无需再排序。\r\n\r\n用哑结点统一拼接，谁小接谁，剩余整段挂到末尾。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

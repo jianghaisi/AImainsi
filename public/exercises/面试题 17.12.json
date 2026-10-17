@@ -1,0 +1,68 @@
+{
+  "number": "面试题 17.12",
+  "adapter": {
+    "name": "convertBiNode",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "TreeNode"
+    },
+    "number": "面试题 17.12"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          4,
+          2,
+          5,
+          1,
+          3,
+          null,
+          6,
+          0
+        ]
+      ],
+      "expected": [
+        0,
+        null,
+        1,
+        null,
+        2,
+        null,
+        3,
+        null,
+        4,
+        null,
+        5,
+        null,
+        6
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def convertBiNode(self, root: TreeNode) -> TreeNode:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public TreeNode convertBiNode(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* convertBiNode(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.left = None\r\n#         self.right = None\r\n\r\n\r\nclass Solution:\r\n    def convertBiNode(self, root: TreeNode) -> TreeNode:\r\n        def dfs(root):\r\n            if root is None:\r\n                return\r\n            nonlocal prev\r\n            dfs(root.left)\r\n            prev.right = root\r\n            root.left = None\r\n            prev = root\r\n            dfs(root.right)\r\n\r\n        dummy = TreeNode(val=0, right=root)\r\n        prev = dummy\r\n        dfs(root)\r\n        return dummy.right\r\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    private TreeNode prev;\r\n\r\n    public TreeNode convertBiNode(TreeNode root) {\r\n        TreeNode dummy = new TreeNode(0, null, root);\r\n        prev = dummy;\r\n        dfs(root);\r\n        return dummy.right;\r\n    }\r\n\r\n    private void dfs(TreeNode root) {\r\n        if (root == null) {\r\n            return;\r\n        }\r\n        dfs(root.left);\r\n        prev.right = root;\r\n        root.left = null;\r\n        prev = root;\r\n        dfs(root.right);\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    TreeNode* prev;\r\n\r\n    TreeNode* convertBiNode(TreeNode* root) {\r\n        TreeNode* dummy = new TreeNode(0, nullptr, root);\r\n        prev = dummy;\r\n        dfs(root);\r\n        return dummy->right;\r\n    }\r\n\r\n    void dfs(TreeNode* root) {\r\n        if (!root) return;\r\n        dfs(root->left);\r\n        prev->right = root;\r\n        root->left = nullptr;\r\n        prev = root;\r\n        dfs(root->right);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.12.BiNode/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.12.BiNode/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.12.BiNode/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.12.BiNode/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：BiNode。\n输入：root（TreeNode）。\n训练提示：**思考**\r \r BST 转成只含右孩子的递增链表。先中序放入数组再穿线，额外 $O(n)$ 空间。\r \r 中序访问顺序即链表顺序，访问时把 $prev.right$ 指过来并清空左孩子。\r \r 哑节点接在链头， $prev$ 跟随已连好的尾。递归左右，原地改指针，最后返回 `dummy.right`。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：中序遍历\r\n\r\n\r\n\r\n思考\r\n\r\nBST 转成只含右孩子的递增链表。先中序放入数组再穿线，额外 $O(n)$ 空间。\r\n\r\n中序访问顺序即链表顺序，访问时把 $prev.right$ 指过来并清空左孩子。\r\n\r\n哑节点接在链头， $prev$ 跟随已连好的尾。递归左右，原地改指针，最后返回 `dummy.right`。\r\n\r\n\r\n\r\n中序遍历过程中改变指针指向。\r\n\r\n时间复杂度 $O(n)$。\r\n\r\n同 [897. 递增顺序查找树](https://github.com/doocs/leetcode/blob/main/solution/0800-0899/0897.Increasing%20Order%20Search%20Tree/README.md)。",
+  "memory": "BiNode → 中序遍历。\n**思考**\r\n\r\nBST 转成只含右孩子的递增链表。先中序放入数组再穿线，额外 $O(n)$ 空间。\r\n\r\n中序访问顺序即链表顺序，访问时把 $prev.right$ 指过来并清空左孩子。\r\n\r\n哑节点接在链头， $prev$ 跟随已连好的尾。递归左右，原地改指针，最后返回 `dummy.right`。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

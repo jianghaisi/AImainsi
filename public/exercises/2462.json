@@ -1,0 +1,81 @@
+{
+  "number": "2462",
+  "adapter": {
+    "name": "totalCost",
+    "params": [
+      {
+        "name": "costs",
+        "type": "integer[]"
+      },
+      {
+        "type": "integer",
+        "name": "k"
+      },
+      {
+        "type": "integer",
+        "name": "candidates"
+      }
+    ],
+    "return": {
+      "type": "long"
+    },
+    "number": "2462"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          17,
+          12,
+          10,
+          2,
+          7,
+          2,
+          11,
+          20,
+          8
+        ],
+        3,
+        4
+      ],
+      "expected": 11
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          4,
+          1
+        ],
+        3,
+        3
+      ],
+      "expected": 4
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} costs\n * @param {number} k\n * @param {number} candidates\n * @return {number}\n */\nvar totalCost = function(costs, k, candidates) {\n    \n};",
+    "java": "class Solution {\n    public long totalCost(int[] costs, int k, int candidates) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    long long totalCost(vector<int>& costs, int k, int candidates) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:\r\n        n = len(costs)\r\n        if candidates * 2 >= n:\r\n            return sum(sorted(costs)[:k])\r\n        pq = []\r\n        for i, c in enumerate(costs[:candidates]):\r\n            heappush(pq, (c, i))\r\n        for i in range(n - candidates, n):\r\n            heappush(pq, (costs[i], i))\r\n        heapify(pq)\r\n        l, r = candidates, n - candidates - 1\r\n        ans = 0\r\n        for _ in range(k):\r\n            c, i = heappop(pq)\r\n            ans += c\r\n            if l > r:\r\n                continue\r\n            if i < l:\r\n                heappush(pq, (costs[l], l))\r\n                l += 1\r\n            else:\r\n                heappush(pq, (costs[r], r))\r\n                r -= 1\r\n        return ans\r\n",
+    "javascript": "function totalCost(costs, k, candidates) {\n    const n = costs.length;\n    if (candidates * 2 >= n) {\n        costs.sort((a, b) => a - b);\n        return costs.slice(0, k).reduce((acc, x) => acc + x, 0);\n    }\n    const pq = new PriorityQueue((a, b) => (a[0] === b[0] ? a[1] - b[1] : a[0] - b[0]));\n    for (let i = 0; i < candidates; ++i) {\n        pq.enqueue([costs[i], i]);\n        pq.enqueue([costs[n - i - 1], n - i - 1]);\n    }\n    let [l, r] = [candidates, n - candidates - 1];\n    let ans = 0;\n    while (k--) {\n        const [cost, i] = pq.dequeue();\n        ans += cost;\n        if (l > r) {\n            continue;\n        }\n        if (i < l) {\n            pq.enqueue([costs[l], l++]);\n        }\n        else {\n            pq.enqueue([costs[r], r--]);\n        }\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public long totalCost(int[] costs, int k, int candidates) {\r\n        int n = costs.length;\r\n        long ans = 0;\r\n        if (candidates * 2 >= n) {\r\n            Arrays.sort(costs);\r\n            for (int i = 0; i < k; ++i) {\r\n                ans += costs[i];\r\n            }\r\n            return ans;\r\n        }\r\n        PriorityQueue<int[]> pq\r\n            = new PriorityQueue<>((a, b) -> a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]);\r\n        for (int i = 0; i < candidates; ++i) {\r\n            pq.offer(new int[] {costs[i], i});\r\n            pq.offer(new int[] {costs[n - i - 1], n - i - 1});\r\n        }\r\n        int l = candidates, r = n - candidates - 1;\r\n        while (k-- > 0) {\r\n            var p = pq.poll();\r\n            ans += p[0];\r\n            if (l > r) {\r\n                continue;\r\n            }\r\n            if (p[1] < l) {\r\n                pq.offer(new int[] {costs[l], l++});\r\n            } else {\r\n                pq.offer(new int[] {costs[r], r--});\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    long long totalCost(vector<int>& costs, int k, int candidates) {\r\n        int n = costs.size();\r\n        if (candidates * 2 > n) {\r\n            sort(costs.begin(), costs.end());\r\n            return accumulate(costs.begin(), costs.begin() + k, 0LL);\r\n        }\r\n        using pii = pair<int, int>;\r\n        priority_queue<pii, vector<pii>, greater<pii>> pq;\r\n        for (int i = 0; i < candidates; ++i) {\r\n            pq.emplace(costs[i], i);\r\n            pq.emplace(costs[n - i - 1], n - i - 1);\r\n        }\r\n        long long ans = 0;\r\n        int l = candidates, r = n - candidates - 1;\r\n        while (k--) {\r\n            auto [cost, i] = pq.top();\r\n            pq.pop();\r\n            ans += cost;\r\n            if (l > r) {\r\n                continue;\r\n            }\r\n            if (i < l) {\r\n                pq.emplace(costs[l], l++);\r\n            } else {\r\n                pq.emplace(costs[r], r--);\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2462.Total%20Cost%20to%20Hire%20K%20Workers/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2462.Total%20Cost%20to%20Hire%20K%20Workers/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2462.Total%20Cost%20to%20Hire%20K%20Workers/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2462.Total%20Cost%20to%20Hire%20K%20Workers/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2462.Total%20Cost%20to%20Hire%20K%20Workers/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：雇佣 K 位工人的总代价。\n输入：costs（integer[]）、k（integer）、candidates（integer）。\n训练提示：**思考**\r \r 每次从两端各 $\\textit{candidates}$ 人中选最便宜者，共 $k$ 次， $n \\le 10^5$。若两端覆盖整段，直接取全局最小的 $k$ 个。\r \r 否则用堆同时放入左右候选（带下标以免跨界）。弹出一人后，从该侧尚未入堆的下一人补入。左右指针相遇则不再补充。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：优先队列（小根堆）\r\n\r\n\r\n\r\n思考\r\n\r\n每次从两端各 $\\textit{candidates}$ 人中选最便宜者，共 $k$ 次， $n \\le 10^5$。若两端覆盖整段，直接取全局最小的 $k$ 个。\r\n\r\n否则用堆同时放入左右候选（带下标以免跨界）。弹出一人后，从该侧尚未入堆的下一人补入。左右指针相遇则不再补充。\r\n\r\n\r\n\r\n我们首先判断 $candidates \\times 2$ 是否大于等于 $n$，如果是，我们直接返回前 $k$ 个最小的工人的代价之和。\r\n\r\n否则，我们使用一个小根堆 $pq$ 来维护前 $candidates$ 个工人和后 $candidates$ 个工人的代价。\r\n\r\n我们首先将前 $candidates$ 个工人的代价以及对应的下标加入小根堆 $pq$ 中，然后将后 $candidates$ 个工人的代价以及对应的下标加入小根堆 $pq$ 中。用两个指针 $l$ 和 $r$ 分别指向前后待选工人的下标，初始时 $l = candidates$, $r = n - candidates - 1$。\r\n\r\n然后我们进行 $k$ 次循环，每次从小根堆 $pq$ 中取出代价最小的工人，将其代价加入答案，如果 $l > r$，说明前后待选工人已经全部被选完，直接跳过。否则，如果当前工人的下标小于 $l$，说明是前面的工人，我们将第 $l$ 个工人的代价以及下标加入小根堆 $pq$ 中，然后 $l$ 加一；否则，我们将第 $r$ 个工人的代价以及下标加入小根堆 $pq$ 中，然后 $r$ 减一。\r\n\r\n循环结束后，返回答案即可。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(n)$。其中 $n$ 是数组 $costs$ 的长度。",
+  "memory": "雇佣 K 位工人的总代价 → 优先队列（小根堆）。\n**思考**\r\n\r\n每次从两端各 $\\textit{candidates}$ 人中选最便宜者，共 $k$ 次， $n \\le 10^5$。若两端覆盖整段，直接取全局最小的 $k$ 个。\r\n\r\n否则用堆同时放入左右候选（带下标以免跨界）。弹出一人后，从该侧尚未入堆的下一人补入。左右指针相遇则不再补充。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

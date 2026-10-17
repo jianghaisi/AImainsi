@@ -1,0 +1,82 @@
+{
+  "number": "面试题 02.04",
+  "adapter": {
+    "name": "partition",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode",
+        "dealloc": false
+      },
+      {
+        "name": "x",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "ListNode",
+      "dealloc": true
+    },
+    "number": "面试题 02.04"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          4,
+          3,
+          2,
+          5,
+          2
+        ],
+        3
+      ],
+      "expected": [
+        1,
+        2,
+        2,
+        4,
+        3,
+        5
+      ]
+    },
+    {
+      "input": [
+        [
+          2,
+          1
+        ],
+        2
+      ],
+      "expected": [
+        1,
+        2
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def partition(self, head: ListNode, x: int) -> ListNode:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @param {number} x\n * @return {ListNode}\n */\nvar partition = function(head, x) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode partition(ListNode head, int x) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* partition(ListNode* head, int x) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.next = None\r\n\r\n\r\nclass Solution:\r\n    def partition(self, head: ListNode, x: int) -> ListNode:\r\n        left, right = ListNode(0), ListNode(0)\r\n        p1, p2 = left, right\r\n        while head:\r\n            if head.val < x:\r\n                p1.next = head\r\n                p1 = p1.next\r\n            else:\r\n                p2.next = head\r\n                p2 = p2.next\r\n            head = head.next\r\n        p1.next = right.next\r\n        p2.next = None\r\n        return left.next\r\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction partition(head, x) {\n    const [left, right] = [new ListNode(), new ListNode()];\n    let [p1, p2] = [left, right];\n    for (; head; head = head.next) {\n        if (head.val < x) {\n            p1.next = head;\n            p1 = p1.next;\n        }\n        else {\n            p2.next = head;\n            p2 = p2.next;\n        }\n    }\n    p1.next = right.next;\n    p2.next = null;\n    return left.next;\n}\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public ListNode partition(ListNode head, int x) {\r\n        ListNode left = new ListNode(0);\r\n        ListNode right = new ListNode(0);\r\n        ListNode p1 = left;\r\n        ListNode p2 = right;\r\n        for (; head != null; head = head.next) {\r\n            if (head.val < x) {\r\n                p1.next = head;\r\n                p1 = p1.next;\r\n            } else {\r\n                p2.next = head;\r\n                p2 = p2.next;\r\n            }\r\n        }\r\n        p1.next = right.next;\r\n        p2.next = null;\r\n        return left.next;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode(int x) : val(x), next(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    ListNode* partition(ListNode* head, int x) {\r\n        ListNode* left = new ListNode(0);\r\n        ListNode* right = new ListNode(0);\r\n        ListNode* p1 = left;\r\n        ListNode* p2 = right;\r\n        for (; head; head = head->next) {\r\n            if (head->val < x) {\r\n                p1->next = head;\r\n                p1 = p1->next;\r\n            } else {\r\n                p2->next = head;\r\n                p2 = p2->next;\r\n            }\r\n        }\r\n        p1->next = right->next;\r\n        p2->next = nullptr;\r\n        return left->next;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.04.Partition%20List/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.04.Partition%20List/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.04.Partition%20List/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.04.Partition%20List/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.04.Partition%20List/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：分割链表。\n输入：head（ListNode）、x（integer）。\n训练提示：**思考**\r \r 要把小于 $x$ 的节点稳定地排在其余节点之前。若先收集再重建，需要额外节点或数组；就地交换值则难以保持相对次序。\r \r 相对次序只要求「小的一段」与「不小于的一段」各自保持原先后，因此可拆成两条链再拼接。\r \r 用 $left$、 $right$ 两条带虚拟头的链分别尾插，遍历结束后令 $p1.next = right.next$ 并断开 $p2.next$，返回 $left.next$。节点只改指针，空间 $O(1)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：拼接链表\r\n\r\n\r\n\r\n思考\r\n\r\n要把小于 $x$ 的节点稳定地排在其余节点之前。若先收集再重建，需要额外节点或数组；就地交换值则难以保持相对次序。\r\n\r\n相对次序只要求「小的一段」与「不小于的一段」各自保持原先后，因此可拆成两条链再拼接。\r\n\r\n用 $left$、 $right$ 两条带虚拟头的链分别尾插，遍历结束后令 $p1.next = right.next$ 并断开 $p2.next$，返回 $left.next$。节点只改指针，空间 $O(1)$。\r\n\r\n\r\n\r\n我们创建两个链表 $left$ 和 $right$，分别用于存储小于 $x$ 的节点和大于等于 $x$ 的节点。\r\n\r\n然后我们用两个指针 $p1$ 和 $p2$ 分别指向 $left$ 和 $right$ 的最后一个节点，初始时 $p1$ 和 $p2$ 都指向一个虚拟头节点。\r\n\r\n接下来我们遍历链表 $head$，如果当前节点的值小于 $x$，我们就将当前节点添加到 $left$ 链表的末尾，即 $p1.next = head$，然后令 $p1 = p1.next$；否则我们就将当前节点添加到 $right$ 链表的末尾，即 $p2.next = head$，然后令 $p2 = p2.next$。\r\n\r\n遍历结束后，我们将 $left$ 链表的尾节点指向 $right$ 链表的第一个有效节点，即 $p1.next = right.next$，然后将 $right$ 链表的尾节点指向空节点，即 $p2.next = null$。\r\n\r\n最后我们返回 $left$ 链表的第一个有效节点。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 是链表的长度。空间复杂度 $O(1)$。",
+  "memory": "分割链表 → 拼接链表。\n**思考**\r\n\r\n要把小于 $x$ 的节点稳定地排在其余节点之前。若先收集再重建，需要额外节点或数组；就地交换值则难以保持相对次序。\r\n\r\n相对次序只要求「小的一段」与「不小于的一段」各自保持原先后，因此可拆成两条链再拼接。\r\n\r\n用 $left$、 $right$ 两条带虚拟头的链分别尾插，遍历结束后令 $p1.next = right.next$ 并断开 $p2.next$，返回 $left.next$。节点只改指针，空间 $O(1)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

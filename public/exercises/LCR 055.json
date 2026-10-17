@@ -1,0 +1,123 @@
+{
+  "number": "LCR 055",
+  "adapter": {
+    "classname": "BSTIterator",
+    "maxbytesperline": 200000,
+    "systemdesign": true,
+    "constructor": {
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "next",
+        "params": [],
+        "return": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "hasNext",
+        "params": [],
+        "return": {
+          "type": "boolean"
+        }
+      }
+    ],
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "LCR 055"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "BSTIterator",
+          "next",
+          "next",
+          "hasNext",
+          "next",
+          "hasNext",
+          "next",
+          "hasNext",
+          "next",
+          "hasNext"
+        ],
+        [
+          [
+            [
+              7,
+              3,
+              15,
+              null,
+              null,
+              9,
+              20
+            ]
+          ],
+          [],
+          [],
+          [],
+          [],
+          [],
+          [],
+          [],
+          [],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        3,
+        7,
+        true,
+        9,
+        true,
+        15,
+        true,
+        20,
+        false
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class BSTIterator:\n\n    def __init__(self, root: TreeNode):\n        raise NotImplementedError('请完成此方法')\n\n    def next(self) -> int:\n        raise NotImplementedError('请完成此方法')\n\n    def hasNext(self) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n */\nvar BSTIterator = function(root) {\n\n};\n\n/**\n * @return {number}\n */\nBSTIterator.prototype.next = function() {\n\n};\n\n/**\n * @return {boolean}\n */\nBSTIterator.prototype.hasNext = function() {\n\n};\n\n/**\n * Your BSTIterator object will be instantiated and called as such:\n * var obj = new BSTIterator(root)\n * var param_1 = obj.next()\n * var param_2 = obj.hasNext()\n */",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass BSTIterator {\n\n    public BSTIterator(TreeNode root) {\n\n    }\n    \n    public int next() {\n\n    }\n    \n    public boolean hasNext() {\n\n    }\n}\n\n/**\n * Your BSTIterator object will be instantiated and called as such:\n * BSTIterator obj = new BSTIterator(root);\n * int param_1 = obj.next();\n * boolean param_2 = obj.hasNext();\n */",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass BSTIterator {\npublic:\n    BSTIterator(TreeNode* root) {\n\n    }\n    \n    int next() {\n\n    }\n    \n    bool hasNext() {\n\n    }\n};\n\n/**\n * Your BSTIterator object will be instantiated and called as such:\n * BSTIterator* obj = new BSTIterator(root);\n * int param_1 = obj->next();\n * bool param_2 = obj->hasNext();\n */"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, val=0, left=None, right=None):\r\n#         self.val = val\r\n#         self.left = left\r\n#         self.right = right\r\nclass BSTIterator:\r\n    def __init__(self, root: TreeNode):\r\n        def inorder(root):\r\n            if root:\r\n                inorder(root.left)\r\n                self.vals.append(root.val)\r\n                inorder(root.right)\r\n\r\n        self.cur = 0\r\n        self.vals = []\r\n        inorder(root)\r\n\r\n    def next(self) -> int:\r\n        res = self.vals[self.cur]\r\n        self.cur += 1\r\n        return res\r\n\r\n    def hasNext(self) -> bool:\r\n        return self.cur < len(self.vals)\r\n\r\n\r\n# Your BSTIterator object will be instantiated and called as such:\r\n# obj = BSTIterator(root)\r\n# param_1 = obj.next()\r\n# param_2 = obj.hasNext()\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nclass BSTIterator {\n    stack;\n    constructor(root) {\n        this.stack = [];\n        const dfs = ({ val, left, right }) => {\n            right && dfs(right);\n            this.stack.push(val);\n            left && dfs(left);\n        };\n        dfs(root);\n    }\n    next() {\n        return this.stack.pop();\n    }\n    hasNext() {\n        return this.stack.length !== 0;\n    }\n}\n/**\n * Your BSTIterator object will be instantiated and called as such:\n * var obj = new BSTIterator(root)\n * var param_1 = obj.next()\n * var param_2 = obj.hasNext()\n */\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode() {}\r\n *     TreeNode(int val) { this.val = val; }\r\n *     TreeNode(int val, TreeNode left, TreeNode right) {\r\n *         this.val = val;\r\n *         this.left = left;\r\n *         this.right = right;\r\n *     }\r\n * }\r\n */\r\nclass BSTIterator {\r\n    private int cur = 0;\r\n    private List<Integer> vals = new ArrayList<>();\r\n\r\n    public BSTIterator(TreeNode root) {\r\n        inorder(root);\r\n    }\r\n\r\n    public int next() {\r\n        return vals.get(cur++);\r\n    }\r\n\r\n    public boolean hasNext() {\r\n        return cur < vals.size();\r\n    }\r\n\r\n    private void inorder(TreeNode root) {\r\n        if (root != null) {\r\n            inorder(root.left);\r\n            vals.add(root.val);\r\n            inorder(root.right);\r\n        }\r\n    }\r\n}\r\n\r\n/**\r\n * Your BSTIterator object will be instantiated and called as such:\r\n * BSTIterator obj = new BSTIterator(root);\r\n * int param_1 = obj.next();\r\n * boolean param_2 = obj.hasNext();\r\n */",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\r\n * };\r\n */\r\nclass BSTIterator {\r\npublic:\r\n    vector<int> vals;\r\n    int cur;\r\n    BSTIterator(TreeNode* root) {\r\n        cur = 0;\r\n        inorder(root);\r\n    }\r\n\r\n    int next() {\r\n        return vals[cur++];\r\n    }\r\n\r\n    bool hasNext() {\r\n        return cur < vals.size();\r\n    }\r\n\r\n    void inorder(TreeNode* root) {\r\n        if (root) {\r\n            inorder(root->left);\r\n            vals.push_back(root->val);\r\n            inorder(root->right);\r\n        }\r\n    }\r\n};\r\n\r\n/**\r\n * Your BSTIterator object will be instantiated and called as such:\r\n * BSTIterator* obj = new BSTIterator(root);\r\n * int param_1 = obj->next();\r\n * bool param_2 = obj->hasNext();\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20055.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BF%AD%E4%BB%A3%E5%99%A8/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20055.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BF%AD%E4%BB%A3%E5%99%A8/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20055.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BF%AD%E4%BB%A3%E5%99%A8/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20055.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BF%AD%E4%BB%A3%E5%99%A8/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20055.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BF%AD%E4%BB%A3%E5%99%A8/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：二叉搜索树迭代器。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 迭代器要按中序依次给出结点。初始化时完整遍历并保存全部值，空间与结点数成正比。\r \r 先把中序序列装入数组， $\\textit{next}$ 与 $\\textit{hasNext}$ 退化为下标移动。实现简单，满足功能正确。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递归\r\n\r\n\r\n\r\n思考\r\n\r\n迭代器要按中序依次给出结点。初始化时完整遍历并保存全部值，空间与结点数成正比。\r\n\r\n先把中序序列装入数组， $\\textit{next}$ 与 $\\textit{hasNext}$ 退化为下标移动。实现简单，满足功能正确。\r\n\r\n\r\n\r\n初始化数据时，递归中序遍历，将二叉搜索树每个结点的值保存在列表 `vals` 中。用 `cur` 指针记录外部即将遍历的位置，初始化为 0。\r\n\r\n调用 `next()` 时，返回 `vals[cur]`，同时 `cur` 指针自增。调用 `hasNext()` 时，判断 `cur` 指针是否已经达到 `len(vals)` 个数，若是，说明已经遍历结束，返回 false，否则返回 true。",
+  "memory": "二叉搜索树迭代器 → 递归。\n**思考**\r\n\r\n迭代器要按中序依次给出结点。初始化时完整遍历并保存全部值，空间与结点数成正比。\r\n\r\n先把中序序列装入数组， $\\textit{next}$ 与 $\\textit{hasNext}$ 退化为下标移动。实现简单，满足功能正确。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,72 @@
+{
+  "number": "2466",
+  "adapter": {
+    "name": "countGoodStrings",
+    "params": [
+      {
+        "name": "low",
+        "type": "integer"
+      },
+      {
+        "type": "integer",
+        "name": "high"
+      },
+      {
+        "type": "integer",
+        "name": "zero"
+      },
+      {
+        "type": "integer",
+        "name": "one"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "2466"
+  },
+  "tests": [
+    {
+      "input": [
+        3,
+        3,
+        1,
+        1
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        2,
+        3,
+        1,
+        2
+      ],
+      "expected": 5
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def countGoodStrings(self, low: int, high: int, zero: int, one: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} low\n * @param {number} high\n * @param {number} zero\n * @param {number} one\n * @return {number}\n */\nvar countGoodStrings = function(low, high, zero, one) {\n    \n};",
+    "java": "class Solution {\n    public int countGoodStrings(int low, int high, int zero, int one) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int countGoodStrings(int low, int high, int zero, int one) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def countGoodStrings(self, low: int, high: int, zero: int, one: int) -> int:\r\n        @cache\r\n        def dfs(i):\r\n            if i > high:\r\n                return 0\r\n            ans = 0\r\n            if low <= i <= high:\r\n                ans += 1\r\n            ans += dfs(i + zero) + dfs(i + one)\r\n            return ans % mod\r\n\r\n        mod = 10**9 + 7\r\n        return dfs(0)\r\n",
+    "javascript": "function countGoodStrings(low, high, zero, one) {\n    const mod = 10 ** 9 + 7;\n    const f = new Array(high + 1).fill(0);\n    f[0] = 1;\n    for (let i = 1; i <= high; i++) {\n        if (i >= zero)\n            f[i] += f[i - zero];\n        if (i >= one)\n            f[i] += f[i - one];\n        f[i] %= mod;\n    }\n    const ans = f.slice(low, high + 1).reduce((acc, cur) => acc + cur, 0);\n    return ans % mod;\n}\n",
+    "java": "class Solution {\r\n    private static final int MOD = (int) 1e9 + 7;\r\n    private int[] f;\r\n    private int lo;\r\n    private int hi;\r\n    private int zero;\r\n    private int one;\r\n\r\n    public int countGoodStrings(int low, int high, int zero, int one) {\r\n        f = new int[high + 1];\r\n        Arrays.fill(f, -1);\r\n        lo = low;\r\n        hi = high;\r\n        this.zero = zero;\r\n        this.one = one;\r\n        return dfs(0);\r\n    }\r\n\r\n    private int dfs(int i) {\r\n        if (i > hi) {\r\n            return 0;\r\n        }\r\n        if (f[i] != -1) {\r\n            return f[i];\r\n        }\r\n        long ans = 0;\r\n        if (i >= lo && i <= hi) {\r\n            ++ans;\r\n        }\r\n        ans += dfs(i + zero) + dfs(i + one);\r\n        ans %= MOD;\r\n        f[i] = (int) ans;\r\n        return f[i];\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    const int mod = 1e9 + 7;\r\n\r\n    int countGoodStrings(int low, int high, int zero, int one) {\r\n        vector<int> f(high + 1, -1);\r\n        function<int(int)> dfs = [&](int i) -> int {\r\n            if (i > high) return 0;\r\n            if (f[i] != -1) return f[i];\r\n            long ans = i >= low && i <= high;\r\n            ans += dfs(i + zero) + dfs(i + one);\r\n            ans %= mod;\r\n            f[i] = ans;\r\n            return ans;\r\n        };\r\n        return dfs(0);\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2466.Count%20Ways%20To%20Build%20Good%20Strings/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2466.Count%20Ways%20To%20Build%20Good%20Strings/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2466.Count%20Ways%20To%20Build%20Good%20Strings/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2466.Count%20Ways%20To%20Build%20Good%20Strings/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2466.Count%20Ways%20To%20Build%20Good%20Strings/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：统计构造好字符串的方案数。\n输入：low（integer）、high（integer）、zero（integer）、one（integer）。\n训练提示：**思考**\r \r 每次追加 $zero$ 个 $0$ 或 $one$ 个 $1$，长度落在 $[low,high]$ 即好串。 $high \\le 10^5$，令 $dfs(i)$ 为已拼出长度 $i$ 时的方案：若 $i$ 已在区间内先计 $1$，再分支 $i+zero$ 与 $i+one$。越界为 $0$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：记忆化搜索\r\n\r\n\r\n\r\n思考\r\n\r\n每次追加 $zero$ 个 $0$ 或 $one$ 个 $1$，长度落在 $[low,high]$ 即好串。 $high \\le 10^5$，令 $dfs(i)$ 为已拼出长度 $i$ 时的方案：若 $i$ 已在区间内先计 $1$，再分支 $i+zero$ 与 $i+one$。越界为 $0$。\r\n\r\n\r\n\r\n我们设计一个函数 $dfs(i)$ 表示从第 $i$ 位开始构造的好字符串的个数，答案即为 $dfs(0)$。\r\n\r\n函数 $dfs(i)$ 的计算过程如下：\r\n\r\n- 如果 $i \\gt high$，返回 $0$；\r\n- 如果 $ low \\leq i \\leq high$，答案累加 $1$，然后 $i$ 之后既可以添加 `zero` 个 $0$，也可以添加 `one` 个 $1$，因此答案累加上 $dfs(i + zero) + dfs(i + one)$。\r\n\r\n过程中，我们需要对答案取模，并且可以使用记忆化搜索减少重复计算。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n = high$。",
+  "memory": "统计构造好字符串的方案数 → 记忆化搜索。\n**思考**\r\n\r\n每次追加 $zero$ 个 $0$ 或 $one$ 个 $1$，长度落在 $[low,high]$ 即好串。 $high \\le 10^5$，令 $dfs(i)$ 为已拼出长度 $i$ 时的方案：若 $i$ 已在区间内先计 $1$，再分支 $i+zero$ 与 $i+one$。越界为 $0$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

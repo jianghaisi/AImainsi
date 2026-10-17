@@ -1,0 +1,69 @@
+{
+  "number": "746",
+  "adapter": {
+    "name": "minCostClimbingStairs",
+    "params": [
+      {
+        "name": "cost",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "746"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          10,
+          15,
+          20
+        ]
+      ],
+      "expected": 15
+    },
+    {
+      "input": [
+        [
+          1,
+          100,
+          1,
+          1,
+          1,
+          100,
+          1,
+          1,
+          100,
+          1
+        ]
+      ],
+      "expected": 6
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def minCostClimbingStairs(self, cost: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} cost\n * @return {number}\n */\nvar minCostClimbingStairs = function(cost) {\n    \n};",
+    "java": "class Solution {\n    public int minCostClimbingStairs(int[] cost) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minCostClimbingStairs(vector<int>& cost) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def minCostClimbingStairs(self, cost: List[int]) -> int:\r\n        @cache\r\n        def dfs(i: int) -> int:\r\n            if i >= len(cost):\r\n                return 0\r\n            return cost[i] + min(dfs(i + 1), dfs(i + 2))\r\n\r\n        return min(dfs(0), dfs(1))\r\n",
+    "javascript": "function minCostClimbingStairs(cost) {\n    const n = cost.length;\n    const f = Array(n).fill(-1);\n    const dfs = (i) => {\n        if (i >= n) {\n            return 0;\n        }\n        if (f[i] < 0) {\n            f[i] = cost[i] + Math.min(dfs(i + 1), dfs(i + 2));\n        }\n        return f[i];\n    };\n    return Math.min(dfs(0), dfs(1));\n}\n",
+    "java": "class Solution {\r\n    private Integer[] f;\r\n    private int[] cost;\r\n\r\n    public int minCostClimbingStairs(int[] cost) {\r\n        this.cost = cost;\r\n        f = new Integer[cost.length];\r\n        return Math.min(dfs(0), dfs(1));\r\n    }\r\n\r\n    private int dfs(int i) {\r\n        if (i >= cost.length) {\r\n            return 0;\r\n        }\r\n        if (f[i] == null) {\r\n            f[i] = cost[i] + Math.min(dfs(i + 1), dfs(i + 2));\r\n        }\r\n        return f[i];\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    int minCostClimbingStairs(vector<int>& cost) {\r\n        int n = cost.size();\r\n        int f[n];\r\n        memset(f, -1, sizeof(f));\r\n        auto dfs = [&](this auto&& dfs, int i) -> int {\r\n            if (i >= n) {\r\n                return 0;\r\n            }\r\n            if (f[i] < 0) {\r\n                f[i] = cost[i] + min(dfs(i + 1), dfs(i + 2));\r\n            }\r\n            return f[i];\r\n        };\r\n        return min(dfs(0), dfs(1));\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0746.Min%20Cost%20Climbing%20Stairs/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0746.Min%20Cost%20Climbing%20Stairs/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0746.Min%20Cost%20Climbing%20Stairs/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0746.Min%20Cost%20Climbing%20Stairs/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0746.Min%20Cost%20Climbing%20Stairs/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：使用最小花费爬楼梯。\n输入：cost（integer[]）。\n训练提示：**思考**\r \r 可从下标 $0$ 或 $1$ 出发，每步跨一或两级并支付当前阶费用。 $n\\le 1000$，朴素递归会重复计算同一台阶。\r \r 从 $i$ 出发的最小花费只依赖 $i+1$ 与 $i+2$，越过顶端代价为 $0$。记忆化后每个下标算一次。\r \r 答案为 $\\min(dfs(0), dfs(1))$。时间与空间 $O(n)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：记忆化搜索\r\n\r\n\r\n\r\n思考\r\n\r\n可从下标 $0$ 或 $1$ 出发，每步跨一或两级并支付当前阶费用。 $n\\le 1000$，朴素递归会重复计算同一台阶。\r\n\r\n从 $i$ 出发的最小花费只依赖 $i+1$ 与 $i+2$，越过顶端代价为 $0$。记忆化后每个下标算一次。\r\n\r\n答案为 $\\min(dfs(0), dfs(1))$。时间与空间 $O(n)$。\r\n\r\n\r\n\r\n我们设计一个函数 $\\textit{dfs}(i)$，表示从第 $i$ 个阶梯开始爬楼梯所需要的最小花费。那么答案为 $\\min(\\textit{dfs}(0), \\textit{dfs}(1))$。\r\n\r\n函数 $\\textit{dfs}(i)$ 的执行过程如下：\r\n\r\n- 如果 $i \\ge \\textit{len(cost)}$，表示当前位置已经超过了楼梯顶部，不需要再爬楼梯，返回 $0$；\r\n- 否则，我们可以选择爬 $1$ 级楼梯，花费为 $\\textit{cost}[i]$，然后递归调用 $\\textit{dfs}(i + 1)$；也可以选择爬 $2$ 级楼梯，花费为 $\\textit{cost}[i]$，然后递归调用 $\\textit{dfs}(i + 2)$；\r\n- 返回两种方案中的最小花费。\r\n\r\n为了避免重复计算，我们使用记忆化搜索的方法，将已经计算过的结果保存在数组或哈希表中。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 是数组 $\\textit{cost}$ 的长度。",
+  "memory": "使用最小花费爬楼梯 → 记忆化搜索。\n**思考**\r\n\r\n可从下标 $0$ 或 $1$ 出发，每步跨一或两级并支付当前阶费用。 $n\\le 1000$，朴素递归会重复计算同一台阶。\r\n\r\n从 $i$ 出发的最小花费只依赖 $i+1$ 与 $i+2$，越过顶端代价为 $0$。记忆化后每个下标算一次。\r\n\r\n答案为 $\\min(dfs(0), dfs(1))$。时间与空间 $O(n)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,54 @@
+{
+  "number": "面试题 16.01",
+  "adapter": {
+    "name": "swapNumbers",
+    "params": [
+      {
+        "name": "numbers",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "面试题 16.01"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": [
+        2,
+        1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def swapNumbers(self, numbers: List[int]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} numbers\n * @return {number[]}\n */\nvar swapNumbers = function(numbers) {\n    \n};",
+    "java": "class Solution {\n    public int[] swapNumbers(int[] numbers) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> swapNumbers(vector<int>& numbers) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def swapNumbers(self, numbers: List[int]) -> List[int]:\r\n        numbers[0] ^= numbers[1]\r\n        numbers[1] ^= numbers[0]\r\n        numbers[0] ^= numbers[1]\r\n        return numbers\r\n",
+    "javascript": "function swapNumbers(numbers) {\n    numbers[0] ^= numbers[1];\n    numbers[1] ^= numbers[0];\n    numbers[0] ^= numbers[1];\n    return numbers;\n}\n",
+    "java": "class Solution {\r\n    public int[] swapNumbers(int[] numbers) {\r\n        numbers[0] ^= numbers[1];\r\n        numbers[1] ^= numbers[0];\r\n        numbers[0] ^= numbers[1];\r\n        return numbers;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> swapNumbers(vector<int>& numbers) {\r\n        numbers[0] ^= numbers[1];\r\n        numbers[1] ^= numbers[0];\r\n        numbers[0] ^= numbers[1];\r\n        return numbers;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.01.Swap%20Numbers/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.01.Swap%20Numbers/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.01.Swap%20Numbers/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.01.Swap%20Numbers/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.01.Swap%20Numbers/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：交换数字。\n输入：numbers（integer[]）。\n训练提示：**思考**\r \r 交换两数通常需要临时变量，题目要求不用额外存储。加减法 $a=a+b$、 $b=a-b$、 $a=a-b$ 可行，但有溢出风险。\r \r 异或满足 $a\\oplus b\\oplus b=a$，三次异或即可互换且不引入进位。\r \r 依次执行 $a\\oplus=b$、 $b\\oplus=a$、 $a\\oplus=b$，对应代码对 `numbers[0]` 与 `numbers[1]` 的三次赋值。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：位运算\r\n\r\n\r\n\r\n思考\r\n\r\n交换两数通常需要临时变量，题目要求不用额外存储。加减法 $a=a+b$、 $b=a-b$、 $a=a-b$ 可行，但有溢出风险。\r\n\r\n异或满足 $a\\oplus b\\oplus b=a$，三次异或即可互换且不引入进位。\r\n\r\n依次执行 $a\\oplus=b$、 $b\\oplus=a$、 $a\\oplus=b$，对应代码对 `numbers[0]` 与 `numbers[1]` 的三次赋值。\r\n\r\n\r\n\r\n我们可以使用异或运算 $\\oplus$ 来实现两个数的交换。\r\n\r\n异或运算有以下三个性质。\r\n\r\n- 任何数和 $0$ 做异或运算，结果仍然是原来的数，即 $a \\oplus 0=a$。\r\n- 任何数和其自身做异或运算，结果是 $0$，即 $a \\oplus a=0$。\r\n- 异或运算满足交换律和结合律，即 $a \\oplus b \\oplus a=b \\oplus a \\oplus a=b \\oplus (a \\oplus a)=b \\oplus 0=b$。\r\n\r\n因此，我们可以对 $numbers$ 中的两个数 $a$ 和 $b$ 进行如下操作：\r\n\r\n- $a=a \\oplus b$，此时 $a$ 中存储了两个数的异或结果；\r\n- $b=a \\oplus b$，此时 $b$ 中存储了原来 $a$ 的值；\r\n- $a=a \\oplus b$，此时 $a$ 中存储了原来 $b$ 的值；\r\n\r\n这样，我们就可以实现在不使用临时变量的情况下对两个数进行交换。\r\n\r\n时间复杂度 $O(1)$，空间复杂度 $O(1)$。",
+  "memory": "交换数字 → 位运算。\n**思考**\r\n\r\n交换两数通常需要临时变量，题目要求不用额外存储。加减法 $a=a+b$、 $b=a-b$、 $a=a-b$ 可行，但有溢出风险。\r\n\r\n异或满足 $a\\oplus b\\oplus b=a$，三次异或即可互换且不引入进位。\r\n\r\n依次执行 $a\\oplus=b$、 $b\\oplus=a$、 $a\\oplus=b$，对应代码对 `numbers[0]` 与 `numbers[1]` 的三次赋值。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

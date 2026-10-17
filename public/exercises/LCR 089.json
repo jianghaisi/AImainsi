@@ -1,0 +1,65 @@
+{
+  "number": "LCR 089",
+  "adapter": {
+    "name": "rob",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 089"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          2,
+          7,
+          9,
+          3,
+          1
+        ]
+      ],
+      "expected": 12
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def rob(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar rob = function(nums) {\n\n};",
+    "java": "class Solution {\n    public int rob(int[] nums) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int rob(vector<int>& nums) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def rob(self, nums: List[int]) -> int:\r\n        n = len(nums)\r\n        f = [0] * (n + 1)\r\n        f[1] = nums[0]\r\n        for i in range(2, n + 1):\r\n            f[i] = max(f[i - 1], f[i - 2] + nums[i - 1])\r\n        return f[n]\r\n",
+    "javascript": "function rob(nums) {\n    const n = nums.length;\n    const f = Array(n + 1).fill(0);\n    f[1] = nums[0];\n    for (let i = 2; i <= n; ++i) {\n        f[i] = Math.max(f[i - 1], f[i - 2] + nums[i - 1]);\n    }\n    return f[n];\n}\n",
+    "java": "class Solution {\r\n    public int rob(int[] nums) {\r\n        int n = nums.length;\r\n        int[] f = new int[n + 1];\r\n        f[1] = nums[0];\r\n        for (int i = 2; i <= n; ++i) {\r\n            f[i] = Math.max(f[i - 1], f[i - 2] + nums[i - 1]);\r\n        }\r\n        return f[n];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int rob(vector<int>& nums) {\r\n        int n = nums.size();\r\n        int f[n + 1];\r\n        memset(f, 0, sizeof(f));\r\n        f[1] = nums[0];\r\n        for (int i = 2; i <= n; ++i) {\r\n            f[i] = max(f[i - 1], f[i - 2] + nums[i - 1]);\r\n        }\r\n        return f[n];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20089.%20%E6%88%BF%E5%B1%8B%E5%81%B7%E7%9B%97/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20089.%20%E6%88%BF%E5%B1%8B%E5%81%B7%E7%9B%97/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20089.%20%E6%88%BF%E5%B1%8B%E5%81%B7%E7%9B%97/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20089.%20%E6%88%BF%E5%B1%8B%E5%81%B7%E7%9B%97/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20089.%20%E6%88%BF%E5%B1%8B%E5%81%B7%E7%9B%97/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：打家劫舍。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 相邻房屋不能同时偷。枚举子集需考虑相邻约束，房屋数虽不大，但最优子结构更适合递推。\r \r 前 $i$ 间的最优要么不偷第 $i$ 间（等于前 $i-1$ 间），要么偷第 $i$ 间（加上前 $i-2$ 间）。按该转移填表。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n相邻房屋不能同时偷。枚举子集需考虑相邻约束，房屋数虽不大，但最优子结构更适合递推。\r\n\r\n前 $i$ 间的最优要么不偷第 $i$ 间（等于前 $i-1$ 间），要么偷第 $i$ 间（加上前 $i-2$ 间）。按该转移填表。\r\n\r\n\r\n\r\n我们定义 $f[i]$ 表示前 $i$ 间房屋能偷窃到的最高总金额，初始时 $f[0]=0$, $f[1]=nums[0]$。\r\n\r\n考虑 $i \\gt 1$ 的情况，第 $i$ 间房屋有两个选项：\r\n\r\n- 不偷窃第 $i$ 间房屋，偷窃总金额为 $f[i-1]$；\r\n- 偷窃第 $i$ 间房屋，偷窃总金额为 $f[i-2]+nums[i-1]$；\r\n\r\n因此，我们可以得到状态转移方程：\r\n\r\n$$\r\nf[i]=\r\n\\begin{cases}\r\n0, & i=0 \\\\\r\nnums[0], & i=1 \\\\\r\n\\max(f[i-1],f[i-2]+nums[i-1]), & i \\gt 1\r\n\\end{cases}\r\n$$\r\n\r\n最终的答案即为 $f[n]$，其中 $n$ 是数组的长度。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 是数组长度。",
+  "memory": "打家劫舍 → 动态规划。\n**思考**\r\n\r\n相邻房屋不能同时偷。枚举子集需考虑相邻约束，房屋数虽不大，但最优子结构更适合递推。\r\n\r\n前 $i$ 间的最优要么不偷第 $i$ 间（等于前 $i-1$ 间），要么偷第 $i$ 间（加上前 $i-2$ 间）。按该转移填表。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,100 @@
+{
+  "number": "450",
+  "adapter": {
+    "name": "deleteNode",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode",
+        "dealloc": false
+      },
+      {
+        "name": "key",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "TreeNode"
+    },
+    "number": "450"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          5,
+          3,
+          6,
+          2,
+          4,
+          null,
+          7
+        ],
+        3
+      ],
+      "expected": [
+        5,
+        4,
+        6,
+        2,
+        null,
+        null,
+        7
+      ]
+    },
+    {
+      "input": [
+        [
+          5,
+          3,
+          6,
+          2,
+          4,
+          null,
+          7
+        ],
+        0
+      ],
+      "expected": [
+        5,
+        3,
+        6,
+        2,
+        4,
+        null,
+        7
+      ]
+    },
+    {
+      "input": [
+        [],
+        0
+      ],
+      "expected": []
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @param {number} key\n * @return {TreeNode}\n */\nvar deleteNode = function(root, key) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public TreeNode deleteNode(TreeNode root, int key) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* deleteNode(TreeNode* root, int key) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, val=0, left=None, right=None):\r\n#         self.val = val\r\n#         self.left = left\r\n#         self.right = right\r\nclass Solution:\r\n    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:\r\n        if root is None:\r\n            return None\r\n        if root.val > key:\r\n            root.left = self.deleteNode(root.left, key)\r\n            return root\r\n        if root.val < key:\r\n            root.right = self.deleteNode(root.right, key)\r\n            return root\r\n        if root.left is None:\r\n            return root.right\r\n        if root.right is None:\r\n            return root.left\r\n        node = root.right\r\n        while node.left:\r\n            node = node.left\r\n        node.left = root.left\r\n        root = root.right\r\n        return root\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction deleteNode(root, key) {\n    if (root == null) {\n        return root;\n    }\n    const { val, left, right } = root;\n    if (val > key) {\n        root.left = deleteNode(left, key);\n    }\n    else if (val < key) {\n        root.right = deleteNode(right, key);\n    }\n    else {\n        if (left == null && right == null) {\n            root = null;\n        }\n        else if (left == null || right == null) {\n            root = left || right;\n        }\n        else {\n            if (right.left == null) {\n                right.left = left;\n                root = right;\n            }\n            else {\n                let minPreNode = right;\n                while (minPreNode.left.left != null) {\n                    minPreNode = minPreNode.left;\n                }\n                const minVal = minPreNode.left.val;\n                root.val = minVal;\n                minPreNode.left = deleteNode(minPreNode.left, minVal);\n            }\n        }\n    }\n    return root;\n}\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode() {}\r\n *     TreeNode(int val) { this.val = val; }\r\n *     TreeNode(int val, TreeNode left, TreeNode right) {\r\n *         this.val = val;\r\n *         this.left = left;\r\n *         this.right = right;\r\n *     }\r\n * }\r\n */\r\nclass Solution {\r\n    public TreeNode deleteNode(TreeNode root, int key) {\r\n        if (root == null) {\r\n            return null;\r\n        }\r\n        if (root.val > key) {\r\n            root.left = deleteNode(root.left, key);\r\n            return root;\r\n        }\r\n        if (root.val < key) {\r\n            root.right = deleteNode(root.right, key);\r\n            return root;\r\n        }\r\n        if (root.left == null) {\r\n            return root.right;\r\n        }\r\n        if (root.right == null) {\r\n            return root.left;\r\n        }\r\n        TreeNode node = root.right;\r\n        while (node.left != null) {\r\n            node = node.left;\r\n        }\r\n        node.left = root.left;\r\n        root = root.right;\r\n        return root;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    TreeNode* deleteNode(TreeNode* root, int key) {\r\n        if (!root) return root;\r\n        if (root->val > key) {\r\n            root->left = deleteNode(root->left, key);\r\n            return root;\r\n        }\r\n        if (root->val < key) {\r\n            root->right = deleteNode(root->right, key);\r\n            return root;\r\n        }\r\n        if (!root->left) return root->right;\r\n        if (!root->right) return root->left;\r\n        TreeNode* node = root->right;\r\n        while (node->left) node = node->left;\r\n        node->left = root->left;\r\n        root = root->right;\r\n        return root;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0450.Delete%20Node%20in%20a%20BST/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0450.Delete%20Node%20in%20a%20BST/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0450.Delete%20Node%20in%20a%20BST/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0450.Delete%20Node%20in%20a%20BST/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0450.Delete%20Node%20in%20a%20BST/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：删除二叉搜索树中的节点。\n输入：root（TreeNode）、key（integer）。\n训练提示：**思考**\r \r BST 删除要保持中序有序。找到目标后，若只有一侧孩子则提升该孩子；两侧都在时，需选一个后继或前驱顶替。\r \r 按大小关系递归进入左或右。命中后：无左返右、无右返左；否则把整棵左子树挂到右子树最左结点的左侧，再返回右子树。\r \r 右子树的最左结点是中序后继，其左孩子为空，挂上原左子树后中序仍然有序，且只需一次下行。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递归\r\n\r\n\r\n\r\n思考\r\n\r\nBST 删除要保持中序有序。找到目标后，若只有一侧孩子则提升该孩子；两侧都在时，需选一个后继或前驱顶替。\r\n\r\n按大小关系递归进入左或右。命中后：无左返右、无右返左；否则把整棵左子树挂到右子树最左结点的左侧，再返回右子树。\r\n\r\n右子树的最左结点是中序后继，其左孩子为空，挂上原左子树后中序仍然有序，且只需一次下行。\r\n\r\n\r\n\r\n二叉搜索树有以下性质：\r\n\r\n1. 若任意节点的左子树不空，则左子树上所有节点的值均小于它的根节点的值；\r\n1. 若任意节点的右子树不空，则右子树上所有节点的值均大于它的根节点的值；\r\n1. 任意节点的左、右子树也分别为二叉搜索树。\r\n\r\n我们可以递归判断当前节点 $root$ 与 $key$ 的大小关系：\r\n\r\n1. 若 $root.val>key$，则递归左子树；\r\n1. 若 $root.val<key$，则递归右子树；\r\n1. 若 $root.val=key$，则进一步判断：\r\n    1. 若 $root$ 没有左子树，则 $root.right$ 顶替 $root$ 的位置；\r\n    1. 若 $root$ 没有右子树，则 $root.left$ 顶替 $root$ 的位置；\r\n    1. 若 $root$ 同时存在左右子树，则将左子树转移至右子树的最左节点的左子树上，然后 $root.right$ 顶替 $root$ 的位置。\r\n\r\n时间复杂度 $O(H)$，其中 $H$ 是树的高度。",
+  "memory": "删除二叉搜索树中的节点 → 递归。\n**思考**\r\n\r\nBST 删除要保持中序有序。找到目标后，若只有一侧孩子则提升该孩子；两侧都在时，需选一个后继或前驱顶替。\r\n\r\n按大小关系递归进入左或右。命中后：无左返右、无右返左；否则把整棵左子树挂到右子树最左结点的左侧，再返回右子树。\r\n\r\n右子树的最左结点是中序后继，其左孩子为空，挂上原左子树后中序仍然有序，且只需一次下行。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

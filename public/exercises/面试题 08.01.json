@@ -1,0 +1,51 @@
+{
+  "number": "面试题 08.01",
+  "adapter": {
+    "name": "waysToStep",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 08.01"
+  },
+  "tests": [
+    {
+      "input": [
+        3
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        5
+      ],
+      "expected": 13
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def waysToStep(self, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int waysToStep(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int waysToStep(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def waysToStep(self, n: int) -> int:\r\n        a, b, c = 1, 2, 4\r\n        mod = 10**9 + 7\r\n        for _ in range(n - 1):\r\n            a, b, c = b, c, (a + b + c) % mod\r\n        return a\r\n",
+    "java": "class Solution {\r\n    public int waysToStep(int n) {\r\n        final int mod = (int) 1e9 + 7;\r\n        int a = 1, b = 2, c = 4;\r\n        for (int i = 1; i < n; ++i) {\r\n            int t = a;\r\n            a = b;\r\n            b = c;\r\n            c = (((a + b) % mod) + t) % mod;\r\n        }\r\n        return a;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int waysToStep(int n) {\r\n        const int mod = 1e9 + 7;\r\n        int a = 1, b = 2, c = 4;\r\n        for (int i = 1; i < n; ++i) {\r\n            int t = a;\r\n            a = b;\r\n            b = c;\r\n            c = (((a + b) % mod) + t) % mod;\r\n        }\r\n        return a;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.01.Three%20Steps%20Problem/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.01.Three%20Steps%20Problem/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.01.Three%20Steps%20Problem/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.01.Three%20Steps%20Problem/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：三步问题。\n输入：n（integer）。\n训练提示：**思考**\r \r 每次可上 $1$、 $2$ 或 $3$ 阶，求到达 $n$ 的方案数。递归按三路展开而不记忆，重复子问题极多。\r \r 到达 $i$ 的方案只依赖 $i-1$、 $i-2$、 $i-3$，线性递推即可，并按题意取模。\r \r 滚动三个变量 $a,b,c$ 表示连续三项，循环 $n-1$ 次后 $a$ 即为 $f(n)$。空间 $O(1)$，与「只保留三项」一致。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递推\r\n\r\n\r\n\r\n思考\r\n\r\n每次可上 $1$、 $2$ 或 $3$ 阶，求到达 $n$ 的方案数。递归按三路展开而不记忆，重复子问题极多。\r\n\r\n到达 $i$ 的方案只依赖 $i-1$、 $i-2$、 $i-3$，线性递推即可，并按题意取模。\r\n\r\n滚动三个变量 $a,b,c$ 表示连续三项，循环 $n-1$ 次后 $a$ 即为 $f(n)$。空间 $O(1)$，与「只保留三项」一致。\r\n\r\n\r\n\r\n我们定义 $f[i]$ 表示上第 $i$ 阶台阶的方法数，初始时 $f[1]=1$, $f[2]=2$, $f[3]=4$。答案为 $f[n]$。\r\n\r\n递推公式为 $f[i] = f[i-1] + f[i-2] + f[i-3]$。\r\n\r\n由于 $f[i]$ 只与 $f[i-1]$, $f[i-2]$, $f[i-3]$ 有关，因此我们可以使用三个变量 $a$, $b$, $c$ 来存储 $f[i-1]$, $f[i-2]$, $f[i-3]$ 的值，使得空间复杂度降低到 $O(1)$。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 为给定的整数。空间复杂度 $O(1)$。",
+  "memory": "三步问题 → 递推。\n**思考**\r\n\r\n每次可上 $1$、 $2$ 或 $3$ 阶，求到达 $n$ 的方案数。递归按三路展开而不记忆，重复子问题极多。\r\n\r\n到达 $i$ 的方案只依赖 $i-1$、 $i-2$、 $i-3$，线性递推即可，并按题意取模。\r\n\r\n滚动三个变量 $a,b,c$ 表示连续三项，循环 $n-1$ 次后 $a$ 即为 $f(n)$。空间 $O(1)$，与「只保留三项」一致。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

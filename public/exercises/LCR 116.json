@@ -1,0 +1,83 @@
+{
+  "number": "LCR 116",
+  "adapter": {
+    "name": "findCircleNum",
+    "params": [
+      {
+        "name": "isConnected",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 116"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findCircleNum(self, isConnected: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int findCircleNum(int[][] isConnected) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findCircleNum(vector<vector<int>>& isConnected) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findCircleNum(self, isConnected: List[List[int]]) -> int:\r\n        def dfs(i):\r\n            vis[i] = True\r\n            for j in range(n):\r\n                if not vis[j] and isConnected[i][j]:\r\n                    dfs(j)\r\n\r\n        n = len(isConnected)\r\n        vis = [False] * n\r\n        ans = 0\r\n        for i in range(n):\r\n            if not vis[i]:\r\n                dfs(i)\r\n                ans += 1\r\n        return ans\r\n",
+    "java": "class Solution {\r\n    private int[][] isConnected;\r\n    private boolean[] vis;\r\n    private int n;\r\n\r\n    public int findCircleNum(int[][] isConnected) {\r\n        n = isConnected.length;\r\n        vis = new boolean[n];\r\n        this.isConnected = isConnected;\r\n        int ans = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            if (!vis[i]) {\r\n                dfs(i);\r\n                ++ans;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n\r\n    private void dfs(int i) {\r\n        vis[i] = true;\r\n        for (int j = 0; j < n; ++j) {\r\n            if (!vis[j] && isConnected[i][j] == 1) {\r\n                dfs(j);\r\n            }\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<int>> isConnected;\r\n    vector<bool> vis;\r\n    int n;\r\n\r\n    int findCircleNum(vector<vector<int>>& isConnected) {\r\n        n = isConnected.size();\r\n        vis.resize(n);\r\n        this->isConnected = isConnected;\r\n        int ans = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            if (!vis[i]) {\r\n                dfs(i);\r\n                ++ans;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n\r\n    void dfs(int i) {\r\n        vis[i] = true;\r\n        for (int j = 0; j < n; ++j)\r\n            if (!vis[j] && isConnected[i][j])\r\n                dfs(j);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20116.%20%E6%9C%8B%E5%8F%8B%E5%9C%88/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20116.%20%E6%9C%8B%E5%8F%8B%E5%9C%88/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20116.%20%E6%9C%8B%E5%8F%8B%E5%9C%88/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20116.%20%E6%9C%8B%E5%8F%8B%E5%9C%88/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：省份数量。\n输入：isConnected（integer[][]）。\n训练提示：**思考**\r \r 朋友关系是无向连通。省份数即连通分量数。\r \r 从每个未访问的人出发 DFS，沿对称矩阵走遍同一分量，出发次数即为答案。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：深度优先搜索\r\n\r\n\r\n\r\n思考\r\n\r\n朋友关系是无向连通。省份数即连通分量数。\r\n\r\n从每个未访问的人出发 DFS，沿对称矩阵走遍同一分量，出发次数即为答案。\r\n\r\n\r\n\r\n判断城市之间是否属于同一个连通分量，最后连通分量的总数即为结果。",
+  "memory": "省份数量 → 深度优先搜索。\n**思考**\r\n\r\n朋友关系是无向连通。省份数即连通分量数。\r\n\r\n从每个未访问的人出发 DFS，沿对称矩阵走遍同一分量，出发次数即为答案。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

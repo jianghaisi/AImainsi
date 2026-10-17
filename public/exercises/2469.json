@@ -1,0 +1,60 @@
+{
+  "number": "2469",
+  "adapter": {
+    "name": "convertTemperature",
+    "params": [
+      {
+        "name": "celsius",
+        "type": "double"
+      }
+    ],
+    "return": {
+      "type": "double[]"
+    },
+    "number": "2469"
+  },
+  "tests": [
+    {
+      "input": [
+        36.5
+      ],
+      "expected": [
+        309.65,
+        97.7
+      ]
+    },
+    {
+      "input": [
+        122.11
+      ],
+      "expected": [
+        395.26,
+        251.798
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def convertTemperature(self, celsius: float) -> List[float]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} celsius\n * @return {number[]}\n */\nvar convertTemperature = function(celsius) {\n    \n};",
+    "java": "class Solution {\n    public double[] convertTemperature(double celsius) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<double> convertTemperature(double celsius) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def convertTemperature(self, celsius: float) -> List[float]:\r\n        return [celsius + 273.15, celsius * 1.8 + 32]\r\n",
+    "javascript": "function convertTemperature(celsius) {\n    return [celsius + 273.15, celsius * 1.8 + 32];\n}\n",
+    "java": "class Solution {\r\n    public double[] convertTemperature(double celsius) {\r\n        return new double[] {celsius + 273.15, celsius * 1.8 + 32};\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<double> convertTemperature(double celsius) {\r\n        return {celsius + 273.15, celsius * 1.8 + 32};\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2469.Convert%20the%20Temperature/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2469.Convert%20the%20Temperature/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2469.Convert%20the%20Temperature/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2469.Convert%20the%20Temperature/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2400-2499/2469.Convert%20the%20Temperature/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：温度转换。\n输入：celsius（double）。\n训练提示：**思考**\r \r 开氏与华氏都是摄氏的仿射变换，按公式各算一次即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：模拟\r\n\r\n\r\n\r\n思考\r\n\r\n开氏与华氏都是摄氏的仿射变换，按公式各算一次即可。\r\n\r\n\r\n\r\n直接根据题意模拟即可。\r\n\r\n时间复杂度 $O(1)$，空间复杂度 $O(1)$。",
+  "memory": "温度转换 → 模拟。\n**思考**\r\n\r\n开氏与华氏都是摄氏的仿射变换，按公式各算一次即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,60 @@
+{
+  "number": "LCR 014",
+  "adapter": {
+    "name": "checkInclusion",
+    "params": [
+      {
+        "name": "s1",
+        "type": "string"
+      },
+      {
+        "name": "s2",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "LCR 014"
+  },
+  "tests": [
+    {
+      "input": [
+        "ab",
+        "eidbaooo"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "eidboaoo"
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def checkInclusion(self, s1: str, s2: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s1\n * @param {string} s2\n * @return {boolean}\n */\nvar checkInclusion = function(s1, s2) {\n\n};",
+    "java": "class Solution {\n    public boolean checkInclusion(String s1, String s2) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool checkInclusion(string s1, string s2) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def checkInclusion(self, s1: str, s2: str) -> bool:\r\n        m, n = len(s1), len(s2)\r\n        if m > n:\r\n            return False\r\n        cnt1 = Counter(s1)\r\n        cnt2 = Counter(s2[:m])\r\n        if cnt1 == cnt2:\r\n            return True\r\n        for i in range(m, n):\r\n            cnt2[s2[i]] += 1\r\n            cnt2[s2[i - m]] -= 1\r\n            if cnt1 == cnt2:\r\n                return True\r\n        return False\r\n",
+    "javascript": "function checkInclusion(s1, s2) {\n    const m = s1.length;\n    const n = s2.length;\n    if (m > n) {\n        return false;\n    }\n    const cnt1 = new Array(26).fill(0);\n    const cnt2 = new Array(26).fill(0);\n    for (let i = 0; i < m; ++i) {\n        ++cnt1[s1[i].charCodeAt(0) - 'a'.charCodeAt(0)];\n        ++cnt2[s2[i].charCodeAt(0) - 'a'.charCodeAt(0)];\n    }\n    if (cnt1.toString() === cnt2.toString()) {\n        return true;\n    }\n    for (let i = m; i < n; ++i) {\n        ++cnt2[s2[i].charCodeAt(0) - 'a'.charCodeAt(0)];\n        --cnt2[s2[i - m].charCodeAt(0) - 'a'.charCodeAt(0)];\n        if (cnt1.toString() === cnt2.toString()) {\n            return true;\n        }\n    }\n    return false;\n}\n",
+    "java": "class Solution {\r\n    public boolean checkInclusion(String s1, String s2) {\r\n        int m = s1.length();\r\n        int n = s2.length();\r\n        if (m > n) {\r\n            return false;\r\n        }\r\n        int[] cnt1 = new int[26];\r\n        int[] cnt2 = new int[26];\r\n        for (int i = 0; i < m; ++i) {\r\n            ++cnt1[s1.charAt(i) - 'a'];\r\n            ++cnt2[s2.charAt(i) - 'a'];\r\n        }\r\n        if (Arrays.equals(cnt1, cnt2)) {\r\n            return true;\r\n        }\r\n        for (int i = m; i < n; ++i) {\r\n            ++cnt2[s2.charAt(i) - 'a'];\r\n            --cnt2[s2.charAt(i - m) - 'a'];\r\n            if (Arrays.equals(cnt1, cnt2)) {\r\n                return true;\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool checkInclusion(string s1, string s2) {\r\n        int m = s1.size(), n = s2.size();\r\n        if (m > n) {\r\n            return false;\r\n        }\r\n        vector<int> cnt1(26), cnt2(26);\r\n        for (int i = 0; i < m; ++i) {\r\n            ++cnt1[s1[i] - 'a'];\r\n            ++cnt2[s2[i] - 'a'];\r\n        }\r\n        if (cnt1 == cnt2) {\r\n            return true;\r\n        }\r\n        for (int i = m; i < n; ++i) {\r\n            ++cnt2[s2[i] - 'a'];\r\n            --cnt2[s2[i - m] - 'a'];\r\n            if (cnt1 == cnt2) {\r\n                return true;\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20014.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20014.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20014.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20014.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20014.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：字符串的排列。\n输入：s1（string）、s2（string）。\n训练提示：**思考**\r \r 判断 $s2$ 是否包含 $s1$ 的某个排列。枚举所有长度为 $|s1|$ 的窗口再排序比较，在长度 $10^4$ 时偏慢，且排序没有利用窗口只滑动一格的事实。\r \r 变位词只关心字符频次。先统计 $s1$ 与 $s2$ 首个等长窗口的计数，窗口右移时加入新字符、去掉滑出字符，计数相等即成功。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：滑动窗口\r\n\r\n\r\n\r\n思考\r\n\r\n判断 $s2$ 是否包含 $s1$ 的某个排列。枚举所有长度为 $|s1|$ 的窗口再排序比较，在长度 $10^4$ 时偏慢，且排序没有利用窗口只滑动一格的事实。\r\n\r\n变位词只关心字符频次。先统计 $s1$ 与 $s2$ 首个等长窗口的计数，窗口右移时加入新字符、去掉滑出字符，计数相等即成功。\r\n\r\n\r\n\r\n不妨记字符串 $s1$ 的长度为 $m$，字符串 $s2$ 的长度为 $n$。\r\n\r\n我们观察发现，题目实际上等价于判断字符串 $s2$ 中是否存在窗口大小为 $m$，且窗口内的字符及其个数与字符串 $s1$ 相同的子串。\r\n\r\n因此，我们先用哈希表或数组 $cnt1$ 统计字符串 $s1$ 中每个字符出现的次数，然后遍历字符串 $s2$，维护一个窗口大小为 $m$ 的滑动窗口，用哈希表或数组 $cnt2$ 统计窗口内每个字符出现的次数，当 $cnt1 = cnt2$ 时，说明窗口内的字符及其个数与字符串 $s1$ 相同，返回 `true` 即可。\r\n\r\n否则，遍历结束后，返回 `false`。\r\n\r\n时间复杂度 $O(m + n \\times |\\Sigma|)$，空间复杂度 $O(|\\Sigma|)$。其中 $m$ 和 $n$ 分别为字符串 $s1$ 和 $s2$ 的长度；而 $|\\Sigma|$ 为字符集的大小，本题中 $|\\Sigma|=26$。",
+  "memory": "字符串的排列 → 滑动窗口。\n**思考**\r\n\r\n判断 $s2$ 是否包含 $s1$ 的某个排列。枚举所有长度为 $|s1|$ 的窗口再排序比较，在长度 $10^4$ 时偏慢，且排序没有利用窗口只滑动一格的事实。\r\n\r\n变位词只关心字符频次。先统计 $s1$ 与 $s2$ 首个等长窗口的计数，窗口右移时加入新字符、去掉滑出字符，计数相等即成功。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

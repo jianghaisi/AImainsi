@@ -1,0 +1,45 @@
+{
+  "number": "LCR 168",
+  "adapter": {
+    "name": "nthUglyNumber",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 168"
+  },
+  "tests": [
+    {
+      "input": [
+        10
+      ],
+      "expected": 12
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def nthUglyNumber(self, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int nthUglyNumber(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int nthUglyNumber(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def nthUglyNumber(self, n: int) -> int:\r\n        h = [1]\r\n        vis = {1}\r\n        ans = 1\r\n        for _ in range(n):\r\n            ans = heappop(h)\r\n            for v in [2, 3, 5]:\r\n                nxt = ans * v\r\n                if nxt not in vis:\r\n                    vis.add(nxt)\r\n                    heappush(h, nxt)\r\n        return ans\r\n",
+    "java": "class Solution {\r\n    public int nthUglyNumber(int n) {\r\n        Set<Long> vis = new HashSet<>();\r\n        PriorityQueue<Long> q = new PriorityQueue<>();\r\n        int[] f = new int[] {2, 3, 5};\r\n        q.offer(1L);\r\n        vis.add(1L);\r\n        long ans = 0;\r\n        while (n-- > 0) {\r\n            ans = q.poll();\r\n            for (int v : f) {\r\n                long next = ans * v;\r\n                if (vis.add(next)) {\r\n                    q.offer(next);\r\n                }\r\n            }\r\n        }\r\n        return (int) ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int nthUglyNumber(int n) {\r\n        priority_queue<long, vector<long>, greater<long>> q;\r\n        q.push(1l);\r\n        unordered_set<long> vis{{1l}};\r\n        long ans = 1;\r\n        vector<int> f = {2, 3, 5};\r\n        while (n--) {\r\n            ans = q.top();\r\n            q.pop();\r\n            for (int& v : f) {\r\n                long nxt = ans * v;\r\n                if (!vis.count(nxt)) {\r\n                    vis.insert(nxt);\r\n                    q.push(nxt);\r\n                }\r\n            }\r\n        }\r\n        return (int) ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9849.%20%E4%B8%91%E6%95%B0/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9849.%20%E4%B8%91%E6%95%B0/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9849.%20%E4%B8%91%E6%95%B0/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9849.%20%E4%B8%91%E6%95%B0/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：丑数。\n输入：n（integer）。\n训练提示：**思考**\r \r 丑数由 $2,3,5$ 相乘得到，从小到大枚举可用最小堆弹出当前最小，再乘三个因子。哈希表去重，第 $n$ 次弹出即为答案。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：优先队列（最小堆）\r\n\r\n\r\n\r\n思考\r\n\r\n丑数由 $2,3,5$ 相乘得到，从小到大枚举可用最小堆弹出当前最小，再乘三个因子。哈希表去重，第 $n$ 次弹出即为答案。\r\n\r\n\r\n\r\n初始时，将第一个丑数 $1$ 加入堆。每次取出堆顶元素 $x$，由于 $2x$, $3x$, $5x$ 也是丑数，因此将它们加入堆中。为了避免重复元素，可以用哈希表 $vis$ 去重。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(n)$。",
+  "memory": "丑数 → 优先队列（最小堆）。\n**思考**\r\n\r\n丑数由 $2,3,5$ 相乘得到，从小到大枚举可用最小堆弹出当前最小，再乘三个因子。哈希表去重，第 $n$ 次弹出即为答案。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

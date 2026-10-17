@@ -1,0 +1,91 @@
+{
+  "number": "LCR 193",
+  "adapter": {
+    "name": "lowestCommonAncestor",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      },
+      {
+        "name": "p",
+        "type": "integer"
+      },
+      {
+        "name": "q",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "TreeNode"
+    },
+    "manual": true,
+    "number": "LCR 193"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          6,
+          2,
+          8,
+          0,
+          4,
+          7,
+          9,
+          null,
+          null,
+          3,
+          5
+        ],
+        2,
+        8
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          6,
+          2,
+          8,
+          0,
+          4,
+          7,
+          9,
+          null,
+          null,
+          3,
+          5
+        ],
+        2,
+        4
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val) {\n *     this.val = val;\n *     this.left = this.right = null;\n * }\n */\n/**\n * @param {TreeNode} root\n * @param {TreeNode} p\n * @param {TreeNode} q\n * @return {TreeNode}\n */\nvar lowestCommonAncestor = function(root, p, q) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.left = None\r\n#         self.right = None\r\n\r\n\r\nclass Solution:\r\n    def lowestCommonAncestor(\r\n        self, root: TreeNode, p: TreeNode, q: TreeNode\r\n    ) -> TreeNode:\r\n        while 1:\r\n            if root.val < p.val and root.val < q.val:\r\n                root = root.right\r\n            elif root.val > p.val and root.val > q.val:\r\n                root = root.left\r\n            else:\r\n                return root\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction lowestCommonAncestor(root, p, q) {\n    if (root == null) {\n        return root;\n    }\n    if (root.val > p.val && root.val > q.val) {\n        return lowestCommonAncestor(root.left, p, q);\n    }\n    if (root.val < p.val && root.val < q.val) {\n        return lowestCommonAncestor(root.right, p, q);\n    }\n    return root;\n}\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\r\n        while (true) {\r\n            if (root.val < p.val && root.val < q.val) {\r\n                root = root.right;\r\n            } else if (root.val > p.val && root.val > q.val) {\r\n                root = root.left;\r\n            } else {\r\n                return root;\r\n            }\r\n        }\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {\r\n        if (root->val < p->val && root->val < q->val) {\r\n            return lowestCommonAncestor(root->right, p, q);\r\n        }\r\n        if (root->val > p->val && root->val > q->val) {\r\n            return lowestCommonAncestor(root->left, p, q);\r\n        }\r\n        return root;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9868%20-%20I.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9868%20-%20I.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9868%20-%20I.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9868%20-%20I.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9868%20-%20I.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：二叉搜索树的最近公共祖先。\n输入：root（TreeNode）、p（integer）、q（integer）。\n训练提示：**思考**\r \r BST 上 $p,q$ 的祖先必在通向二者的路径分叉处。若当前结点小于二者，则 LCA 在右子树；大于二者则在左子树；否则当前结点即分叉点。迭代下移即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：一次遍历\r\n\r\n\r\n\r\n思考\r\n\r\nBST 上 $p,q$ 的祖先必在通向二者的路径分叉处。若当前结点小于二者，则 LCA 在右子树；大于二者则在左子树；否则当前结点即分叉点。迭代下移即可。\r\n\r\n\r\n\r\n从上到下遍历二叉树，找到第一个值位于 $[p.val,.. q.val]$ 之间的结点即可。既可以用迭代实现，也可以用递归实现。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 是二叉树的结点数。空间复杂度方面，迭代实现的空间复杂度为 $O(1)$，递归实现的空间复杂度为 $O(n)$。",
+  "memory": "二叉搜索树的最近公共祖先 → 一次遍历。\n**思考**\r\n\r\nBST 上 $p,q$ 的祖先必在通向二者的路径分叉处。若当前结点小于二者，则 LCA 在右子树；大于二者则在左子树；否则当前结点即分叉点。迭代下移即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

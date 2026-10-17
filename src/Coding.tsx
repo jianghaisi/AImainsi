@@ -4,6 +4,13 @@ import type { Shared } from './App';
 import type { Lang, Result, Question } from './types';
 import { api, languages } from './api';
 import { Button, Busy, Field, PageTitle, Tag, External } from './ui';
+import { StudyText } from './StudyText';
+const preview = (value: unknown) => {
+  const text = JSON.stringify(value);
+  return text && text.length > 1200
+    ? text.slice(0, 1200) + '…（长数据已折叠，运行使用完整输入）'
+    : text;
+};
 export function Coding({
   state,
   selectedId,
@@ -43,7 +50,7 @@ export function Coding({
     setNote(state.questionProgress[questionId]?.note || '');
     localStorage.setItem('last-practice', questionId);
     if (base.exercisePack)
-      fetch(`/exercises/${base.exercisePack}.json`)
+      fetch(`/exercises/${encodeURIComponent(base.exercisePack)}.json`)
         .then((r) => {
           if (!r.ok) throw Error('题目资源加载失败，请重试');
           return r.json();
@@ -59,6 +66,10 @@ export function Coding({
     };
   }, [questionId, reloadAttempt]);
   useEffect(() => {
+    if (!loading && q.starters && !q.starters[language]) {
+      setLanguage('python');
+      return;
+    }
     const saved = localStorage.getItem(`draft:${questionId}:${language}`);
     setCode(saved ?? q.starters?.[language] ?? '');
     setResults([]);
@@ -200,15 +211,23 @@ export function Coding({
             disabled={busy}
             onChange={(e) => setLanguage(e.target.value as Lang)}
           >
-            {Object.entries(languages).map(([key, name]) => (
-              <option key={key} value={key}>
-                {name}
-              </option>
-            ))}
+            {Object.entries(languages)
+              .filter(
+                ([key]) =>
+                  (key !== 'sql' || q.adapter?.database) &&
+                  (!q.starters || q.starters[key as Lang]),
+              )
+              .map(([key, name]) => (
+                <option key={key} value={key}>
+                  {name}
+                </option>
+              ))}
           </select>
         </Field>
         <Tag>
-          {language === 'python' || language === 'javascript' ? '浏览器隔离运行' : '自定义判题服务'}
+          {language === 'python' || language === 'javascript' || language === 'sql'
+            ? '设备本地运行 · 可离线'
+            : '自定义判题服务'}
         </Tag>
       </div>
       <div className="coding-layout">
@@ -235,7 +254,13 @@ export function Coding({
             <h2>{q.title}</h2>
             {tab === 'problem' && (
               <>
-                <p className="preserve">{q.description}</p>
+                <StudyText text={q.description} />
+                {q.companies?.length ? (
+                  <p className="hint">
+                    面经题单收录：{q.companies.join(' / ')}
+                    。来源为公开面经与备考清单，不代表企业官方出题范围。
+                  </p>
+                ) : null}
                 <h4>函数约定</h4>
                 <code className="inline-code">
                   {q.adapter?.systemdesign
@@ -252,17 +277,17 @@ export function Coding({
                   <div className="example" key={i}>
                     <b>示例 {i + 1}</b>
                     <p>
-                      输入 <code>{JSON.stringify(t.input)}</code>
+                      输入 <code>{preview(t.input)}</code>
                     </p>
                     <p>
-                      输出 <code>{JSON.stringify(t.expected)}</code>
+                      预期 <code>{preview(t.expected)}</code>
                     </p>
                   </div>
                 ))}
                 <p className="hint">
                   {q.source} ·{' '}
                   {q.exercisePack
-                    ? '原创题意摘要与记忆卡；示例训练不等同于原站完整判题。'
+                    ? '训练摘要、题解与记忆卡；示例训练不等同于原站完整判题。'
                     : '题意、题解与测试为本项目编写。'}
                 </p>
                 <External url={q.sourceUrl}>完整题意与约束</External>
@@ -271,7 +296,14 @@ export function Coding({
             {tab === 'solution' && (
               <>
                 <h4>推导过程</h4>
-                <p>{q.explanation}</p>
+                <StudyText text={q.explanation} />
+                {q.guideCredit && (
+                  <p className="hint">
+                    题解与提示改编自{' '}
+                    <External url={q.guideCredit}>Doocs · {q.guideLicense}</External>
+                    ；已适配本页接口和训练用例。
+                  </p>
+                )}
                 <Button onClick={() => setSolutionOpen(!solutionOpen)}>
                   <BookOpen size={15} />
                   {solutionOpen ? '收起参考实现' : '展开参考实现'}
@@ -290,12 +322,17 @@ export function Coding({
                         参考代码：
                         {(q.credits[language] || q.credits.python)?.startsWith('https:') ? (
                           <External url={q.credits[language] || q.credits.python || ''}>
-                            NeetCode · MIT 许可（查看原文件）
+                            {(q.credits[language] || q.credits.python || '').includes('/doocs/')
+                              ? 'Doocs · CC BY-SA 4.0'
+                              : 'NeetCode · MIT'}
+                            （查看原文件）
                           </External>
                         ) : (
                           '序列原创适配'
                         )}
-                        。Java / C++ 实现需在自配服务中验证。
+                        {language === 'java' || language === 'cpp'
+                          ? '。需在自配判题服务中验证。'
+                          : '。'}
                       </p>
                     )}
                     <Button
@@ -319,7 +356,7 @@ export function Coding({
                 <Lightbulb size={28} />
                 <span className="eyebrow">REMEMBER THE REASON</span>
                 <h3>记住原理，而非代码形状</h3>
-                <p>{q.memory}</p>
+                <StudyText text={q.memory} />
                 <Field label="我的思路与易错点">
                   <textarea
                     rows={4}
@@ -395,9 +432,11 @@ export function Coding({
                 ? 'py'
                 : language === 'javascript'
                   ? 'js'
-                  : language === 'java'
-                    ? 'java'
-                    : 'cpp'}
+                  : language === 'sql'
+                    ? 'sql'
+                    : language === 'java'
+                      ? 'java'
+                      : 'cpp'}
             </span>
             <button
               className="text-link"
@@ -493,9 +532,9 @@ export function Coding({
                     </span>
                     <span>{r.passed ? '通过' : '未通过'}</span>
                   </summary>
-                  <p>输入：{JSON.stringify(q.tests?.[i]?.input)}</p>
-                  <p>预期：{JSON.stringify(q.tests?.[i]?.expected)}</p>
-                  <p>实际：{r.error || JSON.stringify(r.actual)}</p>
+                  <p>输入：{preview(q.tests?.[i]?.input)}</p>
+                  <p>预期：{preview(q.tests?.[i]?.expected)}</p>
+                  <p>实际：{r.error || preview(r.actual)}</p>
                 </details>
               ))}
             </div>

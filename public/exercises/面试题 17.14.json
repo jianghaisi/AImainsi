@@ -1,0 +1,64 @@
+{
+  "number": "面试题 17.14",
+  "adapter": {
+    "name": "smallestK",
+    "params": [
+      {
+        "name": "arr",
+        "type": "integer[]"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "面试题 17.14"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          3,
+          5,
+          7,
+          2,
+          4,
+          6,
+          8
+        ],
+        4
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def smallestK(self, arr: List[int], k: int) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int[] smallestK(int[] arr, int k) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> smallestK(vector<int>& arr, int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def smallestK(self, arr: List[int], k: int) -> List[int]:\r\n        return sorted(arr)[:k]\r\n",
+    "java": "class Solution {\r\n    public int[] smallestK(int[] arr, int k) {\r\n        Arrays.sort(arr);\r\n        int[] ans = new int[k];\r\n        for (int i = 0; i < k; ++i) {\r\n            ans[i] = arr[i];\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> smallestK(vector<int>& arr, int k) {\r\n        sort(arr.begin(), arr.end());\r\n        vector<int> ans(k);\r\n        for (int i = 0; i < k; ++i) {\r\n            ans[i] = arr[i];\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.14.Smallest%20K/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.14.Smallest%20K/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.14.Smallest%20K/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.14.Smallest%20K/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最小K个数。\n输入：arr（integer[]）、k（integer）。\n训练提示：**思考**\r \r 找最小的 $k$ 个数，不必有序。一次排序取前缀最直接，在 $n$ 与 $k$ 接近时已是最优量级。\r \r Python 中 `sorted(arr)[:k]` 一行完成，常数好、实现短。\r \r 这与题面「返回任意次序」相符，不额外维护堆。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序\r\n\r\n\r\n\r\n思考\r\n\r\n找最小的 $k$ 个数，不必有序。一次排序取前缀最直接，在 $n$ 与 $k$ 接近时已是最优量级。\r\n\r\nPython 中 `sorted(arr)[:k]` 一行完成，常数好、实现短。\r\n\r\n这与题面「返回任意次序」相符，不额外维护堆。\r\n\r\n\r\n\r\n直接排序，取前 k 个数即可。\r\n\r\n时间复杂度 $O(n\\log n)$。其中 $n$ 为数组长度。",
+  "memory": "最小K个数 → 排序。\n**思考**\r\n\r\n找最小的 $k$ 个数，不必有序。一次排序取前缀最直接，在 $n$ 与 $k$ 接近时已是最优量级。\r\n\r\nPython 中 `sorted(arr)[:k]` 一行完成，常数好、实现短。\r\n\r\n这与题面「返回任意次序」相符，不额外维护堆。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

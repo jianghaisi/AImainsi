@@ -1,0 +1,74 @@
+{
+  "number": "LCR 100",
+  "adapter": {
+    "name": "minimumTotal",
+    "params": [
+      {
+        "name": "triangle",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 100"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            6,
+            5,
+            7
+          ],
+          [
+            4,
+            1,
+            8,
+            3
+          ]
+        ]
+      ],
+      "expected": 11
+    },
+    {
+      "input": [
+        [
+          [
+            -10
+          ]
+        ]
+      ],
+      "expected": -10
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def minimumTotal(self, triangle: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int minimumTotal(List<List<Integer>> triangle) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minimumTotal(vector<vector<int>>& triangle) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def minimumTotal(self, triangle: List[List[int]]) -> int:\r\n        n = len(triangle)\r\n        dp = [[0] * (n + 1) for _ in range(n + 1)]\r\n        for i in range(n - 1, -1, -1):\r\n            for j in range(i + 1):\r\n                dp[i][j] = min(dp[i + 1][j], dp[i + 1][j + 1]) + triangle[i][j]\r\n        return dp[0][0]\r\n",
+    "java": "class Solution {\r\n\r\n    public int minimumTotal(List<List<Integer>> triangle) {\r\n        int n = triangle.size();\r\n        int[] dp = new int[n + 1];\r\n        for (int i = n - 1; i >= 0; --i) {\r\n            for (int j = 0; j <= i; ++j) {\r\n                dp[j] = Math.min(dp[j], dp[j + 1]) + triangle.get(i).get(j);\r\n            }\r\n        }\r\n        return dp[0];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int minimumTotal(vector<vector<int>>& triangle) {\r\n        int n = triangle.size();\r\n        vector<int> dp(n + 1);\r\n        for (int i = n - 1; i >= 0; --i)\r\n            for (int j = 0; j <= i; ++j)\r\n                dp[j] = min(dp[j], dp[j + 1]) + triangle[i][j];\r\n        return dp[0];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20100.%20%E4%B8%89%E8%A7%92%E5%BD%A2%E4%B8%AD%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E4%B9%8B%E5%92%8C/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20100.%20%E4%B8%89%E8%A7%92%E5%BD%A2%E4%B8%AD%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E4%B9%8B%E5%92%8C/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20100.%20%E4%B8%89%E8%A7%92%E5%BD%A2%E4%B8%AD%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E4%B9%8B%E5%92%8C/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20100.%20%E4%B8%89%E8%A7%92%E5%BD%A2%E4%B8%AD%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E4%B9%8B%E5%92%8C/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：三角形最小路径和。\n输入：triangle（integer[][]）。\n训练提示：**思考**\r \r 每步只能走到下一行相邻位置。自上而下时下一行的边界需要额外判断。\r \r 自底向上： $dp[i][j]$ 等于下一行左右两格的较小者加上自身，顶点自然成为答案，无需处理越界。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n每步只能走到下一行相邻位置。自上而下时下一行的边界需要额外判断。\r\n\r\n自底向上： $dp[i][j]$ 等于下一行左右两格的较小者加上自身，顶点自然成为答案，无需处理越界。\r\n\r\n\r\n\r\n从三角形底部向上推。 $dp[i][j]$ 表示从底部走到位置 $(i,j)$ 的最小路径和： $dp[i][j]=\\min(dp[i+1][j], dp[i+1][j+1]) + \\textit{triangle}[i][j]$。答案为 $dp[0][0]$。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n^2)$。其中 $n$ 是三角形的行数。",
+  "memory": "三角形最小路径和 → 动态规划。\n**思考**\r\n\r\n每步只能走到下一行相邻位置。自上而下时下一行的边界需要额外判断。\r\n\r\n自底向上： $dp[i][j]$ 等于下一行左右两格的较小者加上自身，顶点自然成为答案，无需处理越界。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

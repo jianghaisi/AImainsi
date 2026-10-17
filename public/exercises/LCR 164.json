@@ -1,0 +1,86 @@
+{
+  "number": "LCR 164",
+  "adapter": {
+    "name": "crackPassword",
+    "params": [
+      {
+        "name": "password",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "LCR 164"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          15,
+          8,
+          7
+        ]
+      ],
+      "expected": "1578"
+    },
+    {
+      "input": [
+        [
+          0,
+          3,
+          30,
+          34,
+          5,
+          9
+        ]
+      ],
+      "expected": "03033459"
+    },
+    {
+      "input": [
+        [
+          10,
+          2
+        ]
+      ],
+      "expected": "102"
+    },
+    {
+      "input": [
+        [
+          3,
+          30,
+          34,
+          5,
+          9
+        ]
+      ],
+      "expected": "3033459"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def crackPassword(self, nums: List[int]) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} password\n * @return {string}\n */\nvar crackPassword = function(password) {\n    \n};",
+    "java": "class Solution {\n    public String crackPassword(int[] password) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string crackPassword(vector<int>& password) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def crackPassword(self, nums: List[int]) -> str:\r\n        def cmp(a, b):\r\n            x, y = a + b, b + a\r\n            return -1 if x < y else 1\r\n\r\n        ans = [str(x) for x in nums]\r\n        ans.sort(key=cmp_to_key(cmp))\r\n        return \"\".join(ans)\r\n",
+    "javascript": "function crackPassword(nums) {\n    return nums.sort((a, b) => Number(`${a}${b}`) - Number(`${b}${a}`)).join('');\n}\n",
+    "java": "class Solution {\r\n    public String crackPassword(int[] nums) {\r\n        return Arrays.stream(nums)\r\n            .mapToObj(String::valueOf)\r\n            .sorted((a, b) -> (a + b).compareTo(b + a))\r\n            .collect(Collectors.joining());\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    string crackPassword(vector<int>& nums) {\r\n        vector<string> arr;\r\n        for (int& x : nums) {\r\n            arr.emplace_back(to_string(x));\r\n        }\r\n        sort(arr.begin(), arr.end(), [](const auto& a, const auto& b) {\r\n            return a + b < b + a;\r\n        });\r\n        string ans;\r\n        for (auto& x : arr) {\r\n            ans += x;\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9845.%20%E6%8A%8A%E6%95%B0%E7%BB%84%E6%8E%92%E6%88%90%E6%9C%80%E5%B0%8F%E7%9A%84%E6%95%B0/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9845.%20%E6%8A%8A%E6%95%B0%E7%BB%84%E6%8E%92%E6%88%90%E6%9C%80%E5%B0%8F%E7%9A%84%E6%95%B0/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9845.%20%E6%8A%8A%E6%95%B0%E7%BB%84%E6%8E%92%E6%88%90%E6%9C%80%E5%B0%8F%E7%9A%84%E6%95%B0/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9845.%20%E6%8A%8A%E6%95%B0%E7%BB%84%E6%8E%92%E6%88%90%E6%9C%80%E5%B0%8F%E7%9A%84%E6%95%B0/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9845.%20%E6%8A%8A%E6%95%B0%E7%BB%84%E6%8E%92%E6%88%90%E6%9C%80%E5%B0%8F%E7%9A%84%E6%95%B0/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：破解闯关密码。\n输入：password（integer[]）。\n训练提示：**思考**\r \r 拼接顺序影响字典序，数值大小不能直接当排序键。若 $a+b<b+a$，则 $a$ 应排在 $b$ 前。\r \r 转成字符串后按该比较函数排序再拼接。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：自定义排序\r\n\r\n\r\n\r\n思考\r\n\r\n拼接顺序影响字典序，数值大小不能直接当排序键。若 $a+b<b+a$，则 $a$ 应排在 $b$ 前。\r\n\r\n转成字符串后按该比较函数排序再拼接。\r\n\r\n\r\n\r\n我们将数组中的数字转换为字符串，然后按照字符串拼接的大小进行排序。具体地，比较两个字符串 $a$ 和 $b$，如果 $a + b \\lt b + a$，则 $a$ 小于 $b$，否则 $a$ 大于 $b$。\r\n\r\n时间复杂度 $O(n \\times \\log n + n \\times m)$，空间复杂度 $O(n \\times m)$。其中 $n $ 和 $m$ 分别为数组的长度和字符串的平均长度。",
+  "memory": "破解闯关密码 → 自定义排序。\n**思考**\r\n\r\n拼接顺序影响字典序，数值大小不能直接当排序键。若 $a+b<b+a$，则 $a$ 应排在 $b$ 前。\r\n\r\n转成字符串后按该比较函数排序再拼接。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

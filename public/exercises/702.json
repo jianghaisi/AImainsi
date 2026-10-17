@@ -1,0 +1,86 @@
+{
+  "number": "702",
+  "adapter": {
+    "name": "search",
+    "params": [
+      {
+        "name": "secret",
+        "type": "integer[]"
+      },
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "languages": [
+      "cpp",
+      "java",
+      "python",
+      "c",
+      "javascript",
+      "golang",
+      "python3",
+      "kotlin",
+      "csharp",
+      "scala",
+      "ruby",
+      "php",
+      "swift",
+      "typescript"
+    ],
+    "manual": true,
+    "typescriptCustomType": "class ArrayReader {\n    reader: number[];\n    constructor(array: number[]) {\n        this.reader = array;\n    };\n\n\tget(index: number): number {\n        if (index >= 0 && index < this.reader.length) {\n            return this.reader[index];\n        }\n        return 2147483647;\n    };\n};",
+    "number": "702"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          -1,
+          0,
+          3,
+          5,
+          9,
+          12
+        ],
+        9
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          -1,
+          0,
+          3,
+          5,
+          9,
+          12
+        ],
+        2
+      ],
+      "expected": -1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def search(self, reader: 'ArrayReader', target: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "function search(secret, target) {\n  throw Error('请完成此方法');\n}"
+  },
+  "solutions": {
+    "python": "# \"\"\"\r\n# This is ArrayReader's API interface.\r\n# You should not implement it, or speculate about its implementation\r\n# \"\"\"\r\n# class ArrayReader:\r\n#    def get(self, index: int) -> int:\r\n\r\n\r\nclass Solution:\r\n    def search(self, reader: \"ArrayReader\", target: int) -> int:\r\n        r = 1\r\n        while reader.get(r) < target:\r\n            r <<= 1\r\n        l = r >> 1\r\n        while l < r:\r\n            mid = (l + r) >> 1\r\n            if reader.get(mid) >= target:\r\n                r = mid\r\n            else:\r\n                l = mid + 1\r\n        return l if reader.get(l) == target else -1\r\n",
+    "javascript": "/**\n * class ArrayReader {\n *\t\t// This is the ArrayReader's API interface.\n *\t\t// You should not implement it, or speculate about its implementation\n *\t\tget(index: number): number {};\n *  };\n */\nfunction search(reader, target) {\n    let r = 1;\n    while (reader.get(r) < target) {\n        r <<= 1;\n    }\n    let l = r >> 1;\n    while (l < r) {\n        const mid = (l + r) >> 1;\n        if (reader.get(mid) >= target) {\n            r = mid;\n        }\n        else {\n            l = mid + 1;\n        }\n    }\n    return reader.get(l) === target ? l : -1;\n}\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0702.Search%20in%20a%20Sorted%20Array%20of%20Unknown%20Size/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0702.Search%20in%20a%20Sorted%20Array%20of%20Unknown%20Size/Solution.ts"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0702.Search%20in%20a%20Sorted%20Array%20of%20Unknown%20Size/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：搜索长度未知的有序数组。\n输入：secret（integer[]）、target（integer）。\n训练提示：**思考**\r \r 数组有序但长度未知，只能通过接口按下落标取值，越界返回哨兵。线性从下标 $0$ 扫到目标，调用次数与目标位置成正比，在长度为 $10^4$ 时偏慢，也未利用有序性。\r \r 长度未知时无法直接对全区间二分。若先把右端点按倍增扩大，直到取值不小于目标，则目标必落在刚刚跨过的那一段，长度与目标位置同阶。\r \r 为此先令 $r=1$ 并不断左移一位，再在 $[r/2, r]$ 上做二分。查找区间长度为 $O(M)$，总调用次数 $O(\\log M)$，其中 $M$ 为目标下标。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n数组有序但长度未知，只能通过接口按下落标取值，越界返回哨兵。线性从下标 $0$ 扫到目标，调用次数与目标位置成正比，在长度为 $10^4$ 时偏慢，也未利用有序性。\r\n\r\n长度未知时无法直接对全区间二分。若先把右端点按倍增扩大，直到取值不小于目标，则目标必落在刚刚跨过的那一段，长度与目标位置同阶。\r\n\r\n为此先令 $r=1$ 并不断左移一位，再在 $[r/2, r]$ 上做二分。查找区间长度为 $O(M)$，总调用次数 $O(\\log M)$，其中 $M$ 为目标下标。\r\n\r\n\r\n\r\n我们先定义一个指针 $r = 1$，每一次判断 $r$ 处的值是否小于目标值，如果小于目标值，我们将 $r$ 乘以 $2$，即左移一位，直到 $r$ 处的值大于等于目标值。此时，我们可以确定目标值在 $[r / 2, r]$ 的区间内。\r\n\r\n接下来，我们定义一个指针 $l = r / 2$，然后我们可以使用二分查找的方法在 $[l, r]$ 的区间内查找目标值的位置。\r\n\r\n时间复杂度 $O(\\log M)$，其中 $M$ 为目标值的位置。空间复杂度 $O(1)$。",
+  "memory": "搜索长度未知的有序数组 → 二分查找。\n**思考**\r\n\r\n数组有序但长度未知，只能通过接口按下落标取值，越界返回哨兵。线性从下标 $0$ 扫到目标，调用次数与目标位置成正比，在长度为 $10^4$ 时偏慢，也未利用有序性。\r\n\r\n长度未知时无法直接对全区间二分。若先把右端点按倍增扩大，直到取值不小于目标，则目标必落在刚刚跨过的那一段，长度与目标位置同阶。\r\n\r\n为此先令 $r=1$ 并不断左移一位，再在 $[r/2, r]$ 上做二分。查找区间长度为 $O(M)$，总调用次数 $O(\\log M)$，其中 $M$ 为目标下标。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

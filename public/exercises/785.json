@@ -1,0 +1,90 @@
+{
+  "number": "785",
+  "adapter": {
+    "name": "isBipartite",
+    "params": [
+      {
+        "name": "graph",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "785"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            3
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            3
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def isBipartite(self, graph: List[List[int]]) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} graph\n * @return {boolean}\n */\nvar isBipartite = function(graph) {\n    \n};",
+    "java": "class Solution {\n    public boolean isBipartite(int[][] graph) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isBipartite(vector<vector<int>>& graph) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def isBipartite(self, graph: List[List[int]]) -> bool:\r\n        def dfs(a: int, c: int) -> bool:\r\n            color[a] = c\r\n            for b in graph[a]:\r\n                if color[b] == c or (color[b] == 0 and not dfs(b, -c)):\r\n                    return False\r\n            return True\r\n\r\n        n = len(graph)\r\n        color = [0] * n\r\n        for i in range(n):\r\n            if color[i] == 0 and not dfs(i, 1):\r\n                return False\r\n        return True\r\n",
+    "javascript": "function isBipartite(graph) {\n    const n = graph.length;\n    const color = Array(n).fill(0);\n    const dfs = (a, c) => {\n        color[a] = c;\n        for (const b of graph[a]) {\n            if (color[b] === c || (color[b] === 0 && !dfs(b, -c))) {\n                return false;\n            }\n        }\n        return true;\n    };\n    for (let i = 0; i < n; i++) {\n        if (color[i] === 0 && !dfs(i, 1)) {\n            return false;\n        }\n    }\n    return true;\n}\n",
+    "java": "class Solution {\r\n    private int[] color;\r\n    private int[][] g;\r\n\r\n    public boolean isBipartite(int[][] graph) {\r\n        int n = graph.length;\r\n        color = new int[n];\r\n        g = graph;\r\n        for (int i = 0; i < n; ++i) {\r\n            if (color[i] == 0 && !dfs(i, 1)) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n\r\n    private boolean dfs(int a, int c) {\r\n        color[a] = c;\r\n        for (int b : g[a]) {\r\n            if (color[b] == c || (color[b] == 0 && !dfs(b, -c))) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    bool isBipartite(vector<vector<int>>& graph) {\r\n        int n = graph.size();\r\n        vector<int> color(n);\r\n        auto dfs = [&](this auto&& dfs, int a, int c) -> bool {\r\n            color[a] = c;\r\n            for (int b : graph[a]) {\r\n                if (color[b] == c || (color[b] == 0 && !dfs(b, -c))) {\r\n                    return false;\r\n                }\r\n            }\r\n            return true;\r\n        };\r\n        for (int i = 0; i < n; ++i) {\r\n            if (color[i] == 0 && !dfs(i, 1)) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0785.Is%20Graph%20Bipartite/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0785.Is%20Graph%20Bipartite/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0785.Is%20Graph%20Bipartite/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0785.Is%20Graph%20Bipartite/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0785.Is%20Graph%20Bipartite/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：判断二分图。\n输入：graph（integer[][]）。\n训练提示：**思考**\r \r 判断无向图是否二分。 $n\\le 100$，从每个未染色点用两种颜色 DFS，邻点必须异色；若已染色且同色则失败。\r \r 图可能不连通，要对每个连通块都染一遍。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：染色法判定二分图\r\n\r\n\r\n\r\n思考\r\n\r\n判断无向图是否二分。 $n\\le 100$，从每个未染色点用两种颜色 DFS，邻点必须异色；若已染色且同色则失败。\r\n\r\n图可能不连通，要对每个连通块都染一遍。\r\n\r\n\r\n\r\n遍历所有节点进行染色，比如初始为白色，DFS 对节点相邻的点染上另外一种颜色。如果要染色某节点时，要染的目标颜色和该节点的已经染过的颜色不同，则说明不能构成二分图。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为节点数。",
+  "memory": "判断二分图 → 染色法判定二分图。\n**思考**\r\n\r\n判断无向图是否二分。 $n\\le 100$，从每个未染色点用两种颜色 DFS，邻点必须异色；若已染色且同色则失败。\r\n\r\n图可能不连通，要对每个连通块都染一遍。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

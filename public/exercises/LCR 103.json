@@ -1,0 +1,90 @@
+{
+  "number": "LCR 103",
+  "adapter": {
+    "name": "coinChange",
+    "params": [
+      {
+        "name": "coins",
+        "type": "integer[]"
+      },
+      {
+        "name": "amount",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 103"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          5
+        ],
+        11
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          2
+        ],
+        3
+      ],
+      "expected": -1
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        0
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        2
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def coinChange(self, coins: List[int], amount: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int coinChange(int[] coins, int amount) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int coinChange(vector<int>& coins, int amount) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def coinChange(self, coins: List[int], amount: int) -> int:\r\n        dp = [amount + 1] * (amount + 1)\r\n        dp[0] = 0\r\n        for coin in coins:\r\n            for j in range(coin, amount + 1):\r\n                dp[j] = min(dp[j], dp[j - coin] + 1)\r\n        return -1 if dp[-1] > amount else dp[-1]\r\n",
+    "java": "class Solution {\r\n\r\n    public int coinChange(int[] coins, int amount) {\r\n        int[] dp = new int[amount + 1];\r\n        Arrays.fill(dp, amount + 1);\r\n        dp[0] = 0;\r\n        for (int coin : coins) {\r\n            for (int j = coin; j <= amount; j++) {\r\n                dp[j] = Math.min(dp[j], dp[j - coin] + 1);\r\n            }\r\n        }\r\n        return dp[amount] > amount ? -1 : dp[amount];\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    int coinChange(vector<int>& coins, int amount) {\r\n        vector<int> dp(amount + 1, amount + 1);\r\n        dp[0] = 0;\r\n        for (auto& coin : coins)\r\n            for (int j = coin; j <= amount; ++j)\r\n                dp[j] = min(dp[j], dp[j - coin] + 1);\r\n        return dp[amount] > amount ? -1 : dp[amount];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20103.%20%E6%9C%80%E5%B0%91%E7%9A%84%E7%A1%AC%E5%B8%81%E6%95%B0%E7%9B%AE/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20103.%20%E6%9C%80%E5%B0%91%E7%9A%84%E7%A1%AC%E5%B8%81%E6%95%B0%E7%9B%AE/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20103.%20%E6%9C%80%E5%B0%91%E7%9A%84%E7%A1%AC%E5%B8%81%E6%95%B0%E7%9B%AE/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20103.%20%E6%9C%80%E5%B0%91%E7%9A%84%E7%A1%AC%E5%B8%81%E6%95%B0%E7%9B%AE/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：零钱兑换。\n输入：coins（integer[]）、amount（integer）。\n训练提示：**思考**\r \r 用最少枚硬币凑出金额，每种数量不限。若按金额递归枚举硬币，重叠子问题很多。\r \r 完全背包：令 $dp[j]$ 为凑出 $j$ 的最少枚数，内层对金额正向枚举，使同一种硬币可以被多次转移。无法凑出则保持哨兵。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划（完全背包）\r\n\r\n\r\n\r\n思考\r\n\r\n用最少枚硬币凑出金额，每种数量不限。若按金额递归枚举硬币，重叠子问题很多。\r\n\r\n完全背包：令 $dp[j]$ 为凑出 $j$ 的最少枚数，内层对金额正向枚举，使同一种硬币可以被多次转移。无法凑出则保持哨兵。\r\n\r\n\r\n\r\n定义 $dp[j]$ 表示凑出金额 $j$ 所需的最少硬币数。每种硬币可以使用无限次，因此内层对金额正向枚举。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(n)$。其中 $m$ 和 $n$ 分别是硬币种数和总金额。",
+  "memory": "零钱兑换 → 动态规划（完全背包）。\n**思考**\r\n\r\n用最少枚硬币凑出金额，每种数量不限。若按金额递归枚举硬币，重叠子问题很多。\r\n\r\n完全背包：令 $dp[j]$ 为凑出 $j$ 的最少枚数，内层对金额正向枚举，使同一种硬币可以被多次转移。无法凑出则保持哨兵。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

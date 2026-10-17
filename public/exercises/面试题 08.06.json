@@ -1,0 +1,82 @@
+{
+  "number": "面试题 08.06",
+  "adapter": {
+    "name": "hanota",
+    "params": [
+      {
+        "name": "A",
+        "type": "list<integer>"
+      },
+      {
+        "name": "B",
+        "type": "list<integer>"
+      },
+      {
+        "name": "C",
+        "type": "list<integer>"
+      }
+    ],
+    "return": {
+      "type": "void"
+    },
+    "output": {
+      "paramindex": 2
+    },
+    "manual": true,
+    "number": "面试题 08.06"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          1,
+          0
+        ],
+        [],
+        []
+      ],
+      "expected": [
+        2,
+        1,
+        0
+      ]
+    },
+    {
+      "input": [
+        [
+          0
+        ],
+        [],
+        []
+      ],
+      "expected": [
+        0
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def hanota(self, A: List[int], B: List[int], C: List[int]) -> None:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} A\n * @param {number[]} B\n * @param {number[]} C\n * @return {void} Do not return anything, modify C in-place instead.\n */\nvar hanota = function(A, B, C) {\n    \n};",
+    "java": "class Solution {\n    public void hanota(List<Integer> A, List<Integer> B, List<Integer> C) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    void hanota(vector<int>& A, vector<int>& B, vector<int>& C) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def hanota(self, A: List[int], B: List[int], C: List[int]) -> None:\r\n        def dfs(n, a, b, c):\r\n            if n == 1:\r\n                c.append(a.pop())\r\n                return\r\n            dfs(n - 1, a, c, b)\r\n            c.append(a.pop())\r\n            dfs(n - 1, b, a, c)\r\n\r\n        dfs(len(A), A, B, C)\r\n",
+    "javascript": "/**\n Do not return anything, modify C in-place instead.\n */\nfunction hanota(A, B, C) {\n    const dfs = (n, a, b, c) => {\n        if (n === 1) {\n            c.push(a.pop());\n            return;\n        }\n        dfs(n - 1, a, c, b);\n        c.push(a.pop());\n        dfs(n - 1, b, a, c);\n    };\n    dfs(A.length, A, B, C);\n}\n",
+    "java": "class Solution {\r\n    public void hanota(List<Integer> A, List<Integer> B, List<Integer> C) {\r\n        dfs(A.size(), A, B, C);\r\n    }\r\n\r\n    private void dfs(int n, List<Integer> a, List<Integer> b, List<Integer> c) {\r\n        if (n == 1) {\r\n            c.add(a.remove(a.size() - 1));\r\n            return;\r\n        }\r\n        dfs(n - 1, a, c, b);\r\n        c.add(a.remove(a.size() - 1));\r\n        dfs(n - 1, b, a, c);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    void hanota(vector<int>& A, vector<int>& B, vector<int>& C) {\r\n        auto dfs = [&](this auto&& dfs, int n, vector<int>& a, vector<int>& b, vector<int>& c) {\r\n            if (n == 1) {\r\n                c.push_back(a.back());\r\n                a.pop_back();\r\n                return;\r\n            }\r\n            dfs(n - 1, a, c, b);\r\n            c.push_back(a.back());\r\n            a.pop_back();\r\n            dfs(n - 1, b, a, c);\r\n        };\r\n        dfs(A.size(), A, B, C);\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.06.Hanota/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.06.Hanota/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.06.Hanota/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.06.Hanota/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.06.Hanota/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：汉诺塔问题。\n输入：A（list<integer>）、B（list<integer>）、C（list<integer>）。\n训练提示：**思考**\r \r 三柱汉诺塔：一次只动一个盘，大盘不能压小盘。直接模拟每一步合法移动需要搜索，状态数为 $3^n$。\r \r 最优策略唯一：先把 $n-1$ 个移到辅助柱，再把最大盘移到目标，最后把 $n-1$ 个移到目标。\r \r $dfs(n,a,b,c)$ 按该次序递归； $n=1$ 时一次 `pop`/`append`。总步数 $2^n-1$，与经典结论一致。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递归\r\n\r\n\r\n\r\n思考\r\n\r\n三柱汉诺塔：一次只动一个盘，大盘不能压小盘。直接模拟每一步合法移动需要搜索，状态数为 $3^n$。\r\n\r\n最优策略唯一：先把 $n-1$ 个移到辅助柱，再把最大盘移到目标，最后把 $n-1$ 个移到目标。\r\n\r\n$dfs(n,a,b,c)$ 按该次序递归； $n=1$ 时一次 `pop`/`append`。总步数 $2^n-1$，与经典结论一致。\r\n\r\n\r\n\r\n我们设计一个函数 $dfs(n, a, b, c)$，表示将 $n$ 个盘子从 $a$ 移动到 $c$，其中 $b$ 为辅助柱子。\r\n\r\n我们先将 $n - 1$ 个盘子从 $a$ 移动到 $b$，然后将第 $n$ 个盘子从 $a$ 移动到 $c$，最后将 $n - 1$ 个盘子从 $b$ 移动到 $c$。\r\n\r\n时间复杂度 $O(2^n)$，空间复杂度 $O(n)$。其中 $n$ 是盘子的数目。",
+  "memory": "汉诺塔问题 → 递归。\n**思考**\r\n\r\n三柱汉诺塔：一次只动一个盘，大盘不能压小盘。直接模拟每一步合法移动需要搜索，状态数为 $3^n$。\r\n\r\n最优策略唯一：先把 $n-1$ 个移到辅助柱，再把最大盘移到目标，最后把 $n-1$ 个移到目标。\r\n\r\n$dfs(n,a,b,c)$ 按该次序递归； $n=1$ 时一次 `pop`/`append`。总步数 $2^n-1$，与经典结论一致。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

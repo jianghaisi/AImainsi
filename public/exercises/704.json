@@ -1,0 +1,74 @@
+{
+  "number": "704",
+  "adapter": {
+    "name": "search",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      },
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "704"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          -1,
+          0,
+          3,
+          5,
+          9,
+          12
+        ],
+        9
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          -1,
+          0,
+          3,
+          5,
+          9,
+          12
+        ],
+        2
+      ],
+      "expected": -1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def search(self, nums: List[int], target: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @param {number} target\n * @return {number}\n */\nvar search = function(nums, target) {\n    \n};",
+    "java": "class Solution {\n    public int search(int[] nums, int target) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int search(vector<int>& nums, int target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def search(self, nums: List[int], target: int) -> int:\r\n        l, r = 0, len(nums) - 1\r\n        while l < r:\r\n            mid = (l + r) >> 1\r\n            if nums[mid] >= target:\r\n                r = mid\r\n            else:\r\n                l = mid + 1\r\n        return l if nums[l] == target else -1\r\n",
+    "javascript": "function search(nums, target) {\n    let [l, r] = [0, nums.length - 1];\n    while (l < r) {\n        const mid = (l + r) >> 1;\n        if (nums[mid] >= target) {\n            r = mid;\n        }\n        else {\n            l = mid + 1;\n        }\n    }\n    return nums[l] === target ? l : -1;\n}\n",
+    "java": "class Solution {\r\n    public int search(int[] nums, int target) {\r\n        int l = 0, r = nums.length - 1;\r\n        while (l < r) {\r\n            int mid = (l + r) >> 1;\r\n            if (nums[mid] >= target) {\r\n                r = mid;\r\n            } else {\r\n                l = mid + 1;\r\n            }\r\n        }\r\n        return nums[l] == target ? l : -1;\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    int search(vector<int>& nums, int target) {\r\n        int l = 0, r = nums.size() - 1;\r\n        while (l < r) {\r\n            int mid = (l + r) >> 1;\r\n            if (nums[mid] >= target) {\r\n                r = mid;\r\n            } else {\r\n                l = mid + 1;\r\n            }\r\n        }\r\n        return nums[l] == target ? l : -1;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0704.Binary%20Search/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0704.Binary%20Search/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0704.Binary%20Search/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0704.Binary%20Search/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0704.Binary%20Search/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：二分查找。\n输入：nums（integer[]）、target（integer）。\n训练提示：**思考**\r \r 在升序且无重复的数组中查找 $\\textit{target}$。 $n \\le 10^4$，线性扫描可以通过，但有序数组上每次比较都能丢掉一半候选。\r \r 取中点后，若 $\\textit{nums}[\\textit{mid}] \\ge \\textit{target}$，答案不会在右侧，将右端收拢到 $\\textit{mid}$；否则答案只可能在 $\\textit{mid}$ 右侧，左端移到 $\\textit{mid}+1$。\r \r 循环至 $l=r$ 时落在第一个不小于目标的位置，再与目标比较即可区分命中与缺失。时间 $O(\\log n)$，额外空间 $O(1)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n在升序且无重复的数组中查找 $\\textit{target}$。 $n \\le 10^4$，线性扫描可以通过，但有序数组上每次比较都能丢掉一半候选。\r\n\r\n取中点后，若 $\\textit{nums}[\\textit{mid}] \\ge \\textit{target}$，答案不会在右侧，将右端收拢到 $\\textit{mid}$；否则答案只可能在 $\\textit{mid}$ 右侧，左端移到 $\\textit{mid}+1$。\r\n\r\n循环至 $l=r$ 时落在第一个不小于目标的位置，再与目标比较即可区分命中与缺失。时间 $O(\\log n)$，额外空间 $O(1)$。\r\n\r\n\r\n\r\n我们定义二分查找的左边界 $l=0$，右边界 $r=n-1$。\r\n\r\n每一次循环，我们计算中间位置 $\\textit{mid}=(l+r)/2$，然后比较 $\\textit{nums}[\\textit{mid}]$ 和 $\\textit{target}$ 的大小。\r\n\r\n- 如果 $\\textit{nums}[\\textit{mid}] \\geq \\textit{target}$，说明 $\\textit{target}$ 在左半部分，我们将右边界 $r$ 移动到 $\\textit{mid}$；\r\n- 否则，说明 $\\textit{target}$ 在右半部分，我们将左边界 $l$ 移动到 $\\textit{mid}+1$。\r\n\r\n循环结束的条件是 $l<r$，此时 $\\textit{nums}[l]$ 就是我们要找的目标值，如果 $\\textit{nums}[l]=\\textit{target}$，返回 $l$，否则返回 $-1$。\r\n\r\n时间复杂度 $O(\\log n)$，其中 $n$ 是数组 $\\textit{nums}$ 的长度。空间复杂度 $O(1)$。",
+  "memory": "二分查找 → 二分查找。\n**思考**\r\n\r\n在升序且无重复的数组中查找 $\\textit{target}$。 $n \\le 10^4$，线性扫描可以通过，但有序数组上每次比较都能丢掉一半候选。\r\n\r\n取中点后，若 $\\textit{nums}[\\textit{mid}] \\ge \\textit{target}$，答案不会在右侧，将右端收拢到 $\\textit{mid}$；否则答案只可能在 $\\textit{mid}$ 右侧，左端移到 $\\textit{mid}+1$。\r\n\r\n循环至 $l=r$ 时落在第一个不小于目标的位置，再与目标比较即可区分命中与缺失。时间 $O(\\log n)$，额外空间 $O(1)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

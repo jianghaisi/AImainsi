@@ -1,0 +1,178 @@
+{
+  "number": "LCR 111",
+  "adapter": {
+    "name": "calcEquation",
+    "params": [
+      {
+        "name": "equations",
+        "type": "string[][]"
+      },
+      {
+        "name": "values",
+        "type": "double[]"
+      },
+      {
+        "name": "queries",
+        "type": "string[][]"
+      }
+    ],
+    "return": {
+      "type": "double[]"
+    },
+    "number": "LCR 111"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "c"
+          ]
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          [
+            "a",
+            "c"
+          ],
+          [
+            "b",
+            "a"
+          ],
+          [
+            "a",
+            "e"
+          ],
+          [
+            "a",
+            "a"
+          ],
+          [
+            "x",
+            "x"
+          ]
+        ]
+      ],
+      "expected": [
+        6,
+        0.5,
+        -1,
+        1,
+        -1
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "c"
+          ],
+          [
+            "bc",
+            "cd"
+          ]
+        ],
+        [
+          1.5,
+          2.5,
+          5
+        ],
+        [
+          [
+            "a",
+            "c"
+          ],
+          [
+            "c",
+            "b"
+          ],
+          [
+            "bc",
+            "cd"
+          ],
+          [
+            "cd",
+            "bc"
+          ]
+        ]
+      ],
+      "expected": [
+        3.75,
+        0.4,
+        5,
+        0.2
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            "a",
+            "b"
+          ]
+        ],
+        [
+          0.5
+        ],
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "a"
+          ],
+          [
+            "a",
+            "c"
+          ],
+          [
+            "x",
+            "y"
+          ]
+        ]
+      ],
+      "expected": [
+        0.5,
+        2,
+        -1,
+        -1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def calcEquation(\r\n        self, equations: List[List[str]], values: List[float], queries: List[List[str]]\r\n    ) -> List[float]:\r\n        n = len(equations)\r\n        p = list(range(n << 1))\r\n        w = [1.0] * (n << 1)\r\n\r\n        def find(x):\r\n            if p[x] != x:\r\n                origin = p[x]\r\n                p[x] = find(p[x])\r\n                w[x] *= w[origin]\r\n            return p[x]\r\n\r\n        mp = {}\r\n        idx = 0\r\n        for i, e in enumerate(equations):\r\n            a, b = e[0], e[1]\r\n            if a not in mp:\r\n                mp[a] = idx\r\n                idx += 1\r\n            if b not in mp:\r\n                mp[b] = idx\r\n                idx += 1\r\n            pa, pb = find(mp[a]), find(mp[b])\r\n            if pa == pb:\r\n                continue\r\n            p[pa] = pb\r\n            w[pa] = w[mp[b]] * values[i] / w[mp[a]]\r\n\r\n        res = []\r\n        for q in queries:\r\n            c, d = q[0], q[1]\r\n            if c not in mp or d not in mp:\r\n                res.append(-1.0)\r\n            else:\r\n                pa, pb = find(mp[c]), find(mp[d])\r\n                res.append(w[mp[c]] / w[mp[d]] if pa == pb else -1.0)\r\n        return res\r\n",
+    "java": "class Solution {\r\n    private int[] p;\r\n    private double[] w;\r\n\r\n    public double[] calcEquation(\r\n        List<List<String>> equations, double[] values, List<List<String>> queries) {\r\n        int n = equations.size();\r\n        p = new int[n << 1];\r\n        w = new double[n << 1];\r\n        for (int i = 0; i < p.length; ++i) {\r\n            p[i] = i;\r\n            w[i] = 1.0;\r\n        }\r\n        Map<String, Integer> mp = new HashMap<>(n << 1);\r\n        int idx = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            List<String> e = equations.get(i);\r\n            String a = e.get(0), b = e.get(1);\r\n            if (!mp.containsKey(a)) {\r\n                mp.put(a, idx++);\r\n            }\r\n            if (!mp.containsKey(b)) {\r\n                mp.put(b, idx++);\r\n            }\r\n            int pa = find(mp.get(a)), pb = find(mp.get(b));\r\n            if (pa == pb) {\r\n                continue;\r\n            }\r\n            p[pa] = pb;\r\n            w[pa] = w[mp.get(b)] * values[i] / w[mp.get(a)];\r\n        }\r\n        int m = queries.size();\r\n        double[] res = new double[m];\r\n        for (int i = 0; i < m; ++i) {\r\n            String c = queries.get(i).get(0), d = queries.get(i).get(1);\r\n            Integer id1 = mp.get(c), id2 = mp.get(d);\r\n            if (id1 == null || id2 == null) {\r\n                res[i] = -1.0;\r\n            } else {\r\n                int pa = find(id1), pb = find(id2);\r\n                res[i] = pa == pb ? w[id1] / w[id2] : -1.0;\r\n            }\r\n        }\r\n        return res;\r\n    }\r\n\r\n    private int find(int x) {\r\n        if (p[x] != x) {\r\n            int origin = p[x];\r\n            p[x] = find(p[x]);\r\n            w[x] *= w[origin];\r\n        }\r\n        return p[x];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> p;\r\n    vector<double> w;\r\n\r\n    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {\r\n        int n = equations.size();\r\n        for (int i = 0; i < (n << 1); ++i) {\r\n            p.push_back(i);\r\n            w.push_back(1.0);\r\n        }\r\n        unordered_map<string, int> mp;\r\n        int idx = 0;\r\n        for (int i = 0; i < n; ++i) {\r\n            auto e = equations[i];\r\n            string a = e[0], b = e[1];\r\n            if (mp.find(a) == mp.end()) mp[a] = idx++;\r\n            if (mp.find(b) == mp.end()) mp[b] = idx++;\r\n            int pa = find(mp[a]), pb = find(mp[b]);\r\n            if (pa == pb) continue;\r\n            p[pa] = pb;\r\n            w[pa] = w[mp[b]] * values[i] / w[mp[a]];\r\n        }\r\n        int m = queries.size();\r\n        vector<double> res;\r\n        for (int i = 0; i < m; ++i) {\r\n            string c = queries[i][0], d = queries[i][1];\r\n            if (mp.find(c) == mp.end() || mp.find(d) == mp.end())\r\n                res.push_back(-1.0);\r\n            else {\r\n                int pa = find(mp[c]), pb = find(mp[d]);\r\n                res.push_back(pa == pb ? w[mp[c]] / w[mp[d]] : -1.0);\r\n            }\r\n        }\r\n        return res;\r\n    }\r\n\r\n    int find(int x) {\r\n        if (p[x] != x) {\r\n            int origin = p[x];\r\n            p[x] = find(p[x]);\r\n            w[x] *= w[origin];\r\n        }\r\n        return p[x];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20111.%20%E8%AE%A1%E7%AE%97%E9%99%A4%E6%B3%95/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20111.%20%E8%AE%A1%E7%AE%97%E9%99%A4%E6%B3%95/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20111.%20%E8%AE%A1%E7%AE%97%E9%99%A4%E6%B3%95/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20111.%20%E8%AE%A1%E7%AE%97%E9%99%A4%E6%B3%95/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：除法求值。\n输入：equations（string[][]）、values（double[]）、queries（string[][]）。\n训练提示：**思考**\r \r 等式给出变量比值，查询另一些比值。把变量看作图上的点、比值看作有向边权，每次查询再搜索，会重复走同一连通块。\r \r 带权并查集把比值路径压缩到根： $\\textit{find}$ 时累乘到根的权。合并 $a/b=v$ 时按两端到根的权算出根之间的比值。查询时若不同根则无解，否则两权相除。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n等式给出变量比值，查询另一些比值。把变量看作图上的点、比值看作有向边权，每次查询再搜索，会重复走同一连通块。\r\n\r\n带权并查集把比值路径压缩到根： $\\textit{find}$ 时累乘到根的权。合并 $a/b=v$ 时按两端到根的权算出根之间的比值。查询时若不同根则无解，否则两权相除。",
+  "memory": "除法求值 → 方法一。\n**思考**\r\n\r\n等式给出变量比值，查询另一些比值。把变量看作图上的点、比值看作有向边权，每次查询再搜索，会重复走同一连通块。\r\n\r\n带权并查集把比值路径压缩到根： $\\textit{find}$ 时累乘到根的权。合并 $a/b=v$ 时按两端到根的权算出根之间的比值。查询时若不同根则无解，否则两权相除。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

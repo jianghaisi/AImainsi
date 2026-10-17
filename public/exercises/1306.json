@@ -1,0 +1,89 @@
+{
+  "number": "1306",
+  "adapter": {
+    "name": "canReach",
+    "params": [
+      {
+        "name": "arr",
+        "type": "integer[]"
+      },
+      {
+        "type": "integer",
+        "name": "start"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "1306"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          4,
+          2,
+          3,
+          0,
+          3,
+          1,
+          2
+        ],
+        5
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          4,
+          2,
+          3,
+          0,
+          3,
+          1,
+          2
+        ],
+        0
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          3,
+          0,
+          2,
+          1,
+          2
+        ],
+        2
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def canReach(self, arr: List[int], start: int) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} arr\n * @param {number} start\n * @return {boolean}\n */\nvar canReach = function(arr, start) {\n    \n};",
+    "java": "class Solution {\n    public boolean canReach(int[] arr, int start) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool canReach(vector<int>& arr, int start) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def canReach(self, arr: List[int], start: int) -> bool:\r\n        q = deque([start])\r\n        while q:\r\n            i = q.popleft()\r\n            if arr[i] == 0:\r\n                return True\r\n            x = arr[i]\r\n            arr[i] = -1\r\n            for j in (i + x, i - x):\r\n                if 0 <= j < len(arr) and arr[j] >= 0:\r\n                    q.append(j)\r\n        return False\r\n",
+    "javascript": "function canReach(arr, start) {\n    const q = [start];\n    for (const i of q) {\n        if (arr[i] === 0) {\n            return true;\n        }\n        if (arr[i] === -1 || arr[i] === undefined) {\n            continue;\n        }\n        q.push(i + arr[i], i - arr[i]);\n        arr[i] = -1;\n    }\n    return false;\n}\n",
+    "java": "class Solution {\r\n    public boolean canReach(int[] arr, int start) {\r\n        Deque<Integer> q = new ArrayDeque<>();\r\n        q.offer(start);\r\n        while (!q.isEmpty()) {\r\n            int i = q.poll();\r\n            if (arr[i] == 0) {\r\n                return true;\r\n            }\r\n            int x = arr[i];\r\n            arr[i] = -1;\r\n            for (int j : List.of(i + x, i - x)) {\r\n                if (j >= 0 && j < arr.length && arr[j] >= 0) {\r\n                    q.offer(j);\r\n                }\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool canReach(vector<int>& arr, int start) {\r\n        queue<int> q{{start}};\r\n        while (!q.empty()) {\r\n            int i = q.front();\r\n            q.pop();\r\n            if (arr[i] == 0) {\r\n                return true;\r\n            }\r\n            int x = arr[i];\r\n            arr[i] = -1;\r\n            for (int j : {i + x, i - x}) {\r\n                if (j >= 0 && j < arr.size() && ~arr[j]) {\r\n                    q.push(j);\r\n                }\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1306.Jump%20Game%20III/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1306.Jump%20Game%20III/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1306.Jump%20Game%20III/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1306.Jump%20Game%20III/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1300-1399/1306.Jump%20Game%20III/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：跳跃游戏 III。\n输入：arr（integer[]）、start（integer）。\n训练提示：**思考**\r \r 从 $\\textit{start}$ 每次跳到 $i \\pm \\textit{arr}[i]$，询问能否到达值为 $0$ 的下标。 $n \\le 5 \\times 10^4$，若对同一位置反复搜索，会在环上空转。每个下标最多进入一次队列即可判定可达性。\r \r 将问题看作有向图上的可达：出队时若值为 $0$ 则成功；否则把该格标为已访问（写入 $-1$），再把合法且未访问的两步入队。访问标记兼作剪枝，保证 $O(n)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：BFS\r\n\r\n\r\n\r\n思考\r\n\r\n从 $\\textit{start}$ 每次跳到 $i \\pm \\textit{arr}[i]$，询问能否到达值为 $0$ 的下标。 $n \\le 5 \\times 10^4$，若对同一位置反复搜索，会在环上空转。每个下标最多进入一次队列即可判定可达性。\r\n\r\n将问题看作有向图上的可达：出队时若值为 $0$ 则成功；否则把该格标为已访问（写入 $-1$），再把合法且未访问的两步入队。访问标记兼作剪枝，保证 $O(n)$。\r\n\r\n\r\n\r\n我们可以使用 BFS 来判断是否能够到达值为 $0$ 的下标。\r\n\r\n定义一个队列 $q$，用于存储当前能够到达的下标。初始时，将 $start$ 下标入队。\r\n\r\n当队列不为空时，取出队首下标 $i$，如果 $arr[i] = 0$，则返回 `true`。否则，我们将下标 $i$ 标记为已访问，如果 $i + arr[i]$ 和 $i - arr[i]$ 在数组范围内且未被访问过，则将其入队，继续搜索。\r\n\r\n最后，如果队列为空，说明无法到达值为 $0$ 的下标，返回 `false`。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为数组长度。",
+  "memory": "跳跃游戏 III → BFS。\n**思考**\r\n\r\n从 $\\textit{start}$ 每次跳到 $i \\pm \\textit{arr}[i]$，询问能否到达值为 $0$ 的下标。 $n \\le 5 \\times 10^4$，若对同一位置反复搜索，会在环上空转。每个下标最多进入一次队列即可判定可达性。\r\n\r\n将问题看作有向图上的可达：出队时若值为 $0$ 则成功；否则把该格标为已访问（写入 $-1$），再把合法且未访问的两步入队。访问标记兼作剪枝，保证 $O(n)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

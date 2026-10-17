@@ -1,0 +1,64 @@
+{
+  "number": "275",
+  "adapter": {
+    "name": "hIndex",
+    "params": [
+      {
+        "name": "citations",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "275"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          0,
+          1,
+          3,
+          5,
+          6
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          100
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def hIndex(self, citations: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} citations\n * @return {number}\n */\nvar hIndex = function(citations) {\n    \n};",
+    "java": "class Solution {\n    public int hIndex(int[] citations) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int hIndex(vector<int>& citations) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def hIndex(self, citations: List[int]) -> int:\r\n        n = len(citations)\r\n        left, right = 0, n\r\n        while left < right:\r\n            mid = (left + right + 1) >> 1\r\n            if citations[n - mid] >= mid:\r\n                left = mid\r\n            else:\r\n                right = mid - 1\r\n        return left\r\n",
+    "javascript": "function hIndex(citations) {\n    const n = citations.length;\n    let left = 0, right = n;\n    while (left < right) {\n        const mid = (left + right + 1) >> 1;\n        if (citations[n - mid] >= mid) {\n            left = mid;\n        }\n        else {\n            right = mid - 1;\n        }\n    }\n    return left;\n}\n",
+    "java": "class Solution {\r\n    public int hIndex(int[] citations) {\r\n        int n = citations.length;\r\n        int left = 0, right = n;\r\n        while (left < right) {\r\n            int mid = (left + right) >>> 1;\r\n            if (citations[mid] >= n - mid) {\r\n                right = mid;\r\n            } else {\r\n                left = mid + 1;\r\n            }\r\n        }\r\n        return n - left;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int hIndex(vector<int>& citations) {\r\n        int n = citations.size();\r\n        int left = 0, right = n;\r\n        while (left < right) {\r\n            int mid = (left + right + 1) >> 1;\r\n            if (citations[n - mid] >= mid)\r\n                left = mid;\r\n            else\r\n                right = mid - 1;\r\n        }\r\n        return left;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0275.H-Index%20II/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0275.H-Index%20II/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0275.H-Index%20II/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0275.H-Index%20II/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0200-0299/0275.H-Index%20II/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：H 指数 II。\n输入：citations（integer[]）。\n训练提示：**思考**\r \r 数组已升序，上一题的排序可以省去。 $citations[n-h]\\ge h$ 当且仅当 $h$ 可行，对 $h$ 二分即可在对数时间内得到最大 $h$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n数组已升序，上一题的排序可以省去。 $citations[n-h]\\ge h$ 当且仅当 $h$ 可行，对 $h$ 二分即可在对数时间内得到最大 $h$。\r\n\r\n\r\n\r\n我们注意到，如果有至少 $x$ 篇论文的引用次数大于等于 $x$，那么对于任意 $y \\lt x$，其引用次数也一定大于等于 $y$。这存在着单调性。\r\n\r\n因此，我们二分枚举 $h$，获取满足条件的最大 $h$。由于要满足 $h$ 篇论文至少被引用 $h$ 次，因此 $citations[n - mid] \\ge mid$。\r\n\r\n时间复杂度 $O(\\log n)$，其中 $n$ 是数组 $citations$ 的长度。空间复杂度 $O(1)$。",
+  "memory": "H 指数 II → 二分查找。\n**思考**\r\n\r\n数组已升序，上一题的排序可以省去。 $citations[n-h]\\ge h$ 当且仅当 $h$ 可行，对 $h$ 二分即可在对数时间内得到最大 $h$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,102 @@
+{
+  "number": "LCR 153",
+  "adapter": {
+    "name": "pathTarget",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      },
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "list<list<integer>>",
+      "dealloc": true
+    },
+    "number": "LCR 153"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          5,
+          4,
+          8,
+          11,
+          null,
+          13,
+          4,
+          7,
+          2,
+          null,
+          null,
+          5,
+          1
+        ],
+        22
+      ],
+      "expected": [
+        [
+          5,
+          4,
+          11,
+          2
+        ],
+        [
+          5,
+          8,
+          4,
+          5
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ],
+        5
+      ],
+      "expected": []
+    },
+    {
+      "input": [
+        [
+          1,
+          2
+        ],
+        0
+      ],
+      "expected": []
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def pathTarget(self, root: TreeNode, target: int) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @param {number} target\n * @return {number[][]}\n */\nvar pathTarget = function(root, target) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public List<List<Integer>> pathTarget(TreeNode root, int target) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<vector<int>> pathTarget(TreeNode* root, int target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, val=0, left=None, right=None):\r\n#         self.val = val\r\n#         self.left = left\r\n#         self.right = right\r\nclass Solution:\r\n    def pathTarget(self, root: TreeNode, target: int) -> List[List[int]]:\r\n        def dfs(root, s):\r\n            if root is None:\r\n                return\r\n            t.append(root.val)\r\n            s -= root.val\r\n            if root.left is None and root.right is None and s == 0:\r\n                ans.append(t[:])\r\n            dfs(root.left, s)\r\n            dfs(root.right, s)\r\n            t.pop()\r\n\r\n        ans = []\r\n        t = []\r\n        dfs(root, target)\r\n        return ans\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction pathTarget(root, target) {\n    const ans = [];\n    const t = [];\n    const dfs = (root, s) => {\n        if (!root) {\n            return;\n        }\n        const { val, left, right } = root;\n        t.push(val);\n        s -= val;\n        if (!left && !right && s === 0) {\n            ans.push([...t]);\n        }\n        dfs(left, s);\n        dfs(right, s);\n        t.pop();\n    };\n    dfs(root, target);\n    return ans;\n}\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode() {}\r\n *     TreeNode(int val) { this.val = val; }\r\n *     TreeNode(int val, TreeNode left, TreeNode right) {\r\n *         this.val = val;\r\n *         this.left = left;\r\n *         this.right = right;\r\n *     }\r\n * }\r\n */\r\nclass Solution {\r\n    private List<Integer> t = new ArrayList<>();\r\n    private List<List<Integer>> ans = new ArrayList<>();\r\n\r\n    public List<List<Integer>> pathTarget(TreeNode root, int target) {\r\n        dfs(root, target);\r\n        return ans;\r\n    }\r\n\r\n    private void dfs(TreeNode root, int s) {\r\n        if (root == null) {\r\n            return;\r\n        }\r\n        t.add(root.val);\r\n        s -= root.val;\r\n        if (root.left == null && root.right == null && s == 0) {\r\n            ans.add(new ArrayList<>(t));\r\n        }\r\n        dfs(root.left, s);\r\n        dfs(root.right, s);\r\n        t.remove(t.size() - 1);\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    vector<vector<int>> pathTarget(TreeNode* root, int target) {\r\n        vector<vector<int>> ans;\r\n        vector<int> t;\r\n        function<void(TreeNode * root, int s)> dfs = [&](TreeNode* root, int s) {\r\n            if (!root) {\r\n                return;\r\n            }\r\n            t.push_back(root->val);\r\n            s -= root->val;\r\n            if (!root->left && !root->right && !s) {\r\n                ans.push_back(t);\r\n            }\r\n            dfs(root->left, s);\r\n            dfs(root->right, s);\r\n            t.pop_back();\r\n        };\r\n        dfs(root, target);\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9834.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%92%8C%E4%B8%BA%E6%9F%90%E4%B8%80%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9834.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%92%8C%E4%B8%BA%E6%9F%90%E4%B8%80%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9834.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%92%8C%E4%B8%BA%E6%9F%90%E4%B8%80%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9834.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%92%8C%E4%B8%BA%E6%9F%90%E4%B8%80%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9834.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%92%8C%E4%B8%BA%E6%9F%90%E4%B8%80%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：二叉树中和为目标值的路径。\n输入：root（TreeNode）、target（integer）。\n训练提示：**思考**\r \r 路径须从根到叶且和为给定值。DFS 向下累加（或递减剩余），到达叶子且剩余为零则拷贝当前路径。回溯时弹出结点，保证路径只含根到当前点。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递归\r\n\r\n\r\n\r\n思考\r\n\r\n路径须从根到叶且和为给定值。DFS 向下累加（或递减剩余），到达叶子且剩余为零则拷贝当前路径。回溯时弹出结点，保证路径只含根到当前点。\r\n\r\n\r\n\r\n从根节点开始，递归遍历每个节点，每次递归时，将当前节点值加入到路径中，然后判断当前节点是否为叶子节点，如果是叶子节点并且路径和等于目标值，则将该路径加入到结果中。如果当前节点不是叶子节点，则递归遍历其左右子节点。递归遍历时，需要将当前节点从路径中移除，以确保返回父节点时路径刚好是从根节点到父节点。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n)$。其中 $n$ 是二叉树的节点数。",
+  "memory": "二叉树中和为目标值的路径 → 递归。\n**思考**\r\n\r\n路径须从根到叶且和为给定值。DFS 向下累加（或递减剩余），到达叶子且剩余为零则拷贝当前路径。回溯时弹出结点，保证路径只含根到当前点。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

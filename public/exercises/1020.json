@@ -1,0 +1,104 @@
+{
+  "number": "1020",
+  "adapter": {
+    "name": "numEnclaves",
+    "params": [
+      {
+        "name": "grid",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1020"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def numEnclaves(self, grid: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} grid\n * @return {number}\n */\nvar numEnclaves = function(grid) {\n    \n};",
+    "java": "class Solution {\n    public int numEnclaves(int[][] grid) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int numEnclaves(vector<vector<int>>& grid) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def numEnclaves(self, grid: List[List[int]]) -> int:\r\n        def dfs(i: int, j: int):\r\n            grid[i][j] = 0\r\n            for a, b in pairwise(dirs):\r\n                x, y = i + a, j + b\r\n                if 0 <= x < m and 0 <= y < n and grid[x][y]:\r\n                    dfs(x, y)\r\n\r\n        m, n = len(grid), len(grid[0])\r\n        dirs = (-1, 0, 1, 0, -1)\r\n        for j in range(n):\r\n            for i in (0, m - 1):\r\n                if grid[i][j]:\r\n                    dfs(i, j)\r\n        for i in range(m):\r\n            for j in (0, n - 1):\r\n                if grid[i][j]:\r\n                    dfs(i, j)\r\n        return sum(sum(row) for row in grid)\r\n",
+    "javascript": "function numEnclaves(grid) {\n    const [m, n] = [grid.length, grid[0].length];\n    const dirs = [-1, 0, 1, 0, -1];\n    const dfs = (i, j) => {\n        grid[i][j] = 0;\n        for (let k = 0; k < 4; ++k) {\n            const x = i + dirs[k];\n            const y = j + dirs[k + 1];\n            if (x >= 0 && x < m && y >= 0 && y < n && grid[x][y] === 1) {\n                dfs(x, y);\n            }\n        }\n    };\n    for (let j = 0; j < n; ++j) {\n        for (let i of [0, m - 1]) {\n            if (grid[i][j] === 1) {\n                dfs(i, j);\n            }\n        }\n    }\n    for (let i = 0; i < m; ++i) {\n        for (let j of [0, n - 1]) {\n            if (grid[i][j] === 1) {\n                dfs(i, j);\n            }\n        }\n    }\n    return grid.flat().reduce((acc, cur) => acc + cur, 0);\n}\n",
+    "java": "class Solution {\r\n    private int[][] grid;\r\n\r\n    public int numEnclaves(int[][] grid) {\r\n        this.grid = grid;\r\n        int m = grid.length, n = grid[0].length;\r\n        for (int j = 0; j < n; j++) {\r\n            for (int i : List.of(0, m - 1)) {\r\n                if (grid[i][j] == 1) {\r\n                    dfs(i, j);\r\n                }\r\n            }\r\n        }\r\n        for (int i = 0; i < m; i++) {\r\n            for (int j : List.of(0, n - 1)) {\r\n                if (grid[i][j] == 1) {\r\n                    dfs(i, j);\r\n                }\r\n            }\r\n        }\r\n        int ans = 0;\r\n        for (var row : grid) {\r\n            for (int x : row) {\r\n                ans += x;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n\r\n    private void dfs(int i, int j) {\r\n        grid[i][j] = 0;\r\n        final int[] dirs = {-1, 0, 1, 0, -1};\r\n        for (int k = 0; k < 4; k++) {\r\n            int x = i + dirs[k], y = j + dirs[k + 1];\r\n            if (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length && grid[x][y] == 1) {\r\n                dfs(x, y);\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    int numEnclaves(vector<vector<int>>& grid) {\r\n        int m = grid.size(), n = grid[0].size();\r\n        const int dirs[5] = {-1, 0, 1, 0, -1};\r\n        function<void(int, int)> dfs = [&](int i, int j) {\r\n            grid[i][j] = 0;\r\n            for (int k = 0; k < 4; ++k) {\r\n                int x = i + dirs[k], y = j + dirs[k + 1];\r\n                if (x >= 0 && x < m && y >= 0 && y < n && grid[x][y] == 1) {\r\n                    dfs(x, y);\r\n                }\r\n            }\r\n        };\r\n        for (int j = 0; j < n; ++j) {\r\n            for (int i : {0, m - 1}) {\r\n                if (grid[i][j] == 1) {\r\n                    dfs(i, j);\r\n                }\r\n            }\r\n        }\r\n        for (int i = 0; i < m; ++i) {\r\n            for (int j : {0, n - 1}) {\r\n                if (grid[i][j] == 1) {\r\n                    dfs(i, j);\r\n                }\r\n            }\r\n        }\r\n        int ans = 0;\r\n        for (const auto& row : grid) {\r\n            ans += accumulate(row.begin(), row.end(), 0);\r\n        }\r\n        return ans;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1020.Number%20of%20Enclaves/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1020.Number%20of%20Enclaves/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1020.Number%20of%20Enclaves/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1020.Number%20of%20Enclaves/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1020.Number%20of%20Enclaves/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：飞地的数量。\n输入：grid（integer[][]）。\n训练提示：**思考**\r \r 对每一块陆地判断是否能走到边界，最坏要对整张图反复搜索， $m,n\\le 500$ 时常数不佳。飞地是无法走到边界的陆地，其补集恰为「与边界连通的陆地」。\r \r 从四条边界上的 $1$ 出发淹没所有能走到的陆地，剩下的 $1$ 便无法离岛。\r \r 深度优先搜索即可完成淹没，最后统计网格中剩余 $1$ 的个数。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS\r\n\r\n\r\n\r\n思考\r\n\r\n对每一块陆地判断是否能走到边界，最坏要对整张图反复搜索， $m,n\\le 500$ 时常数不佳。飞地是无法走到边界的陆地，其补集恰为「与边界连通的陆地」。\r\n\r\n从四条边界上的 $1$ 出发淹没所有能走到的陆地，剩下的 $1$ 便无法离岛。\r\n\r\n深度优先搜索即可完成淹没，最后统计网格中剩余 $1$ 的个数。\r\n\r\n\r\n\r\n我们可以从边界上的陆地开始进行深度优先搜索，将所有与边界相连的陆地都标记为 $0$。最后，统计剩余的 $1$ 的个数，即为答案。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m \\times n)$。其中 $m$ 和 $n$ 分别为矩阵的行数和列数。",
+  "memory": "飞地的数量 → DFS。\n**思考**\r\n\r\n对每一块陆地判断是否能走到边界，最坏要对整张图反复搜索， $m,n\\le 500$ 时常数不佳。飞地是无法走到边界的陆地，其补集恰为「与边界连通的陆地」。\r\n\r\n从四条边界上的 $1$ 出发淹没所有能走到的陆地，剩下的 $1$ 便无法离岛。\r\n\r\n深度优先搜索即可完成淹没，最后统计网格中剩余 $1$ 的个数。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

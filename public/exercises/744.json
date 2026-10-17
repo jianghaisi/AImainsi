@@ -1,0 +1,80 @@
+{
+  "number": "744",
+  "adapter": {
+    "name": "nextGreatestLetter",
+    "params": [
+      {
+        "name": "letters",
+        "type": "character[]"
+      },
+      {
+        "name": "target",
+        "type": "character"
+      }
+    ],
+    "return": {
+      "type": "character"
+    },
+    "number": "744"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "c",
+          "f",
+          "j"
+        ],
+        "a"
+      ],
+      "expected": "c"
+    },
+    {
+      "input": [
+        [
+          "c",
+          "f",
+          "j"
+        ],
+        "c"
+      ],
+      "expected": "f"
+    },
+    {
+      "input": [
+        [
+          "x",
+          "x",
+          "y",
+          "y"
+        ],
+        "z"
+      ],
+      "expected": "x"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def nextGreatestLetter(self, letters: List[str], target: str) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {character[]} letters\n * @param {character} target\n * @return {character}\n */\nvar nextGreatestLetter = function(letters, target) {\n    \n};",
+    "java": "class Solution {\n    public char nextGreatestLetter(char[] letters, char target) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    char nextGreatestLetter(vector<char>& letters, char target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def nextGreatestLetter(self, letters: List[str], target: str) -> str:\r\n        i = bisect_right(letters, ord(target), key=lambda c: ord(c))\r\n        return letters[i % len(letters)]\r\n",
+    "javascript": "function nextGreatestLetter(letters, target) {\n    const idx = _.sortedIndex(letters, target + '\\0');\n    return letters[idx % letters.length];\n}\n",
+    "java": "class Solution {\r\n    public char nextGreatestLetter(char[] letters, char target) {\r\n        int i = Arrays.binarySearch(letters, (char) (target + 1));\r\n        i = i < 0 ? -i - 1 : i;\r\n        return letters[i % letters.length];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    char nextGreatestLetter(vector<char>& letters, char target) {\r\n        int i = upper_bound(letters.begin(), letters.end(), target) - letters.begin();\r\n        return letters[i % letters.size()];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0744.Find%20Smallest%20Letter%20Greater%20Than%20Target/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0744.Find%20Smallest%20Letter%20Greater%20Than%20Target/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0744.Find%20Smallest%20Letter%20Greater%20Than%20Target/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0744.Find%20Smallest%20Letter%20Greater%20Than%20Target/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0744.Find%20Smallest%20Letter%20Greater%20Than%20Target/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：寻找比目标字母大的最小字母。\n输入：letters（character[]）、target（character）。\n训练提示：**思考**\r \r 在非递减的字母数组中找严格大于 $\\textit{target}$ 的最小字符，并环形回到开头。 $n\\le 10^4$，有序故可二分。\r \r 这是上界查找：第一个大于目标的位置。若该位置等于 $n$，则应取 $letters[0]$，对下标取模即可。\r \r 对码值做 $\\textit{bisect\\_right}$，返回 $letters[i\\bmod n]$。时间 $O(\\log n)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n在非递减的字母数组中找严格大于 $\\textit{target}$ 的最小字符，并环形回到开头。 $n\\le 10^4$，有序故可二分。\r\n\r\n这是上界查找：第一个大于目标的位置。若该位置等于 $n$，则应取 $letters[0]$，对下标取模即可。\r\n\r\n对码值做 $\\textit{bisect\\_right}$，返回 $letters[i\\bmod n]$。时间 $O(\\log n)$。\r\n\r\n\r\n\r\n由于 $\\textit{letters}$ 是按照非递减顺序排序的，所以我们可以使用二分查找来找到大于 $\\textit{target}$ 的最小字符。\r\n\r\n我们定义二分查找的左边界 $l = 0$，右边界 $r = n$。对于每一次二分查找，我们计算中间位置 $mid = (l + r) / 2$，如果 $letters[mid] > \\textit{target}$，则说明我们需要在左半部分继续查找，即 $r = mid$；否则我们需要在右半部分继续查找，即 $l = mid + 1$。\r\n\r\n最后我们返回 $letters[l \\bmod n]$ 即可。\r\n\r\n时间复杂度 $O(\\log n)$，其中 $n$ 是 $\\textit{letters}$ 的长度。空间复杂度 $O(1)$。",
+  "memory": "寻找比目标字母大的最小字母 → 二分查找。\n**思考**\r\n\r\n在非递减的字母数组中找严格大于 $\\textit{target}$ 的最小字符，并环形回到开头。 $n\\le 10^4$，有序故可二分。\r\n\r\n这是上界查找：第一个大于目标的位置。若该位置等于 $n$，则应取 $letters[0]$，对下标取模即可。\r\n\r\n对码值做 $\\textit{bisect\\_right}$，返回 $letters[i\\bmod n]$。时间 $O(\\log n)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

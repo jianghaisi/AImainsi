@@ -1,0 +1,62 @@
+{
+  "number": "740",
+  "adapter": {
+    "name": "deleteAndEarn",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "740"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          4,
+          2
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          2,
+          2,
+          3,
+          3,
+          3,
+          4
+        ]
+      ],
+      "expected": 9
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def deleteAndEarn(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int deleteAndEarn(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int deleteAndEarn(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def deleteAndEarn(self, nums: List[int]) -> int:\r\n        mx = -inf\r\n        for num in nums:\r\n            mx = max(mx, num)\r\n        total = [0] * (mx + 1)\r\n        for num in nums:\r\n            total[num] += num\r\n        first = total[0]\r\n        second = max(total[0], total[1])\r\n        for i in range(2, mx + 1):\r\n            cur = max(first + total[i], second)\r\n            first = second\r\n            second = cur\r\n        return second\r\n",
+    "java": "class Solution {\r\n    public int deleteAndEarn(int[] nums) {\r\n        if (nums.length == 0) {\r\n            return 0;\r\n        }\r\n\r\n        int[] sums = new int[10010];\r\n        int[] select = new int[10010];\r\n        int[] nonSelect = new int[10010];\r\n\r\n        int maxV = 0;\r\n        for (int x : nums) {\r\n            sums[x] += x;\r\n            maxV = Math.max(maxV, x);\r\n        }\r\n\r\n        for (int i = 1; i <= maxV; i++) {\r\n            select[i] = nonSelect[i - 1] + sums[i];\r\n            nonSelect[i] = Math.max(select[i - 1], nonSelect[i - 1]);\r\n        }\r\n        return Math.max(select[maxV], nonSelect[maxV]);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int deleteAndEarn(vector<int>& nums) {\r\n        vector<int> vals(10010);\r\n        for (int& num : nums) {\r\n            vals[num] += num;\r\n        }\r\n        return rob(vals);\r\n    }\r\n\r\n    int rob(vector<int>& nums) {\r\n        int a = 0, b = nums[0];\r\n        for (int i = 1; i < nums.size(); ++i) {\r\n            int c = max(nums[i] + a, b);\r\n            a = b;\r\n            b = c;\r\n        }\r\n        return b;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0740.Delete%20and%20Earn/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0740.Delete%20and%20Earn/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0740.Delete%20and%20Earn/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0700-0799/0740.Delete%20and%20Earn/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：删除并获得点数。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 删除一个值 $x$ 会同时删掉所有 $x-1$ 与 $x+1$，并得到所有 $x$ 的总和。 $n\\le 2\\times 10^4$、值域 $\\le 10^4$，按每次选择枚举会重复子问题。\r \r 同一数值要么全拿要么全不拿，相邻数值互斥，这与打家劫舍相同：把每个值的得分预加到 $total[x]$，再在值域上做「偷或不偷」。\r \r 滚动两个变量表示处理到 $i-2$、 $i-1$ 的最优， $i$ 取 $first+total[i]$ 与 $second$ 的较大者。时间与值域成正比。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n删除一个值 $x$ 会同时删掉所有 $x-1$ 与 $x+1$，并得到所有 $x$ 的总和。 $n\\le 2\\times 10^4$、值域 $\\le 10^4$，按每次选择枚举会重复子问题。\r\n\r\n同一数值要么全拿要么全不拿，相邻数值互斥，这与打家劫舍相同：把每个值的得分预加到 $total[x]$，再在值域上做「偷或不偷」。\r\n\r\n滚动两个变量表示处理到 $i-2$、 $i-1$ 的最优， $i$ 取 $first+total[i]$ 与 $second$ 的较大者。时间与值域成正比。",
+  "memory": "删除并获得点数 → 方法一。\n**思考**\r\n\r\n删除一个值 $x$ 会同时删掉所有 $x-1$ 与 $x+1$，并得到所有 $x$ 的总和。 $n\\le 2\\times 10^4$、值域 $\\le 10^4$，按每次选择枚举会重复子问题。\r\n\r\n同一数值要么全拿要么全不拿，相邻数值互斥，这与打家劫舍相同：把每个值的得分预加到 $total[x]$，再在值域上做「偷或不偷」。\r\n\r\n滚动两个变量表示处理到 $i-2$、 $i-1$ 的最优， $i$ 取 $first+total[i]$ 与 $second$ 的较大者。时间与值域成正比。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

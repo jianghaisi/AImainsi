@@ -1,0 +1,70 @@
+{
+  "number": "LCR 114",
+  "adapter": {
+    "name": "alienOrder",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "LCR 114"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "wrt",
+          "wrf",
+          "er",
+          "ett",
+          "rftt"
+        ]
+      ],
+      "expected": "wertf"
+    },
+    {
+      "input": [
+        [
+          "z",
+          "x"
+        ]
+      ],
+      "expected": "zx"
+    },
+    {
+      "input": [
+        [
+          "z",
+          "x",
+          "z"
+        ]
+      ],
+      "expected": ""
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def alienOrder(self, words: List[str]) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public String alienOrder(String[] words) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string alienOrder(vector<string>& words) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def alienOrder(self, words: List[str]) -> str:\r\n        g = [[False] * 26 for _ in range(26)]\r\n        s = [False] * 26\r\n        cnt = 0\r\n        n = len(words)\r\n        for i in range(n - 1):\r\n            for c in words[i]:\r\n                if cnt == 26:\r\n                    break\r\n                o = ord(c) - ord('a')\r\n                if not s[o]:\r\n                    cnt += 1\r\n                    s[o] = True\r\n            m = len(words[i])\r\n            for j in range(m):\r\n                if j >= len(words[i + 1]):\r\n                    return ''\r\n                c1, c2 = words[i][j], words[i + 1][j]\r\n                if c1 == c2:\r\n                    continue\r\n                o1, o2 = ord(c1) - ord('a'), ord(c2) - ord('a')\r\n                if g[o2][o1]:\r\n                    return ''\r\n                g[o1][o2] = True\r\n                break\r\n        for c in words[n - 1]:\r\n            if cnt == 26:\r\n                break\r\n            o = ord(c) - ord('a')\r\n            if not s[o]:\r\n                cnt += 1\r\n                s[o] = True\r\n\r\n        indegree = [0] * 26\r\n        for i in range(26):\r\n            for j in range(26):\r\n                if i != j and s[i] and s[j] and g[i][j]:\r\n                    indegree[j] += 1\r\n        q = deque()\r\n        ans = []\r\n        for i in range(26):\r\n            if s[i] and indegree[i] == 0:\r\n                q.append(i)\r\n        while q:\r\n            t = q.popleft()\r\n            ans.append(chr(t + ord('a')))\r\n            for i in range(26):\r\n                if s[i] and i != t and g[t][i]:\r\n                    indegree[i] -= 1\r\n                    if indegree[i] == 0:\r\n                        q.append(i)\r\n        return '' if len(ans) < cnt else ''.join(ans)\r\n",
+    "java": "class Solution {\r\n\r\n    public String alienOrder(String[] words) {\r\n        boolean[][] g = new boolean[26][26];\r\n        boolean[] s = new boolean[26];\r\n        int cnt = 0;\r\n        int n = words.length;\r\n        for (int i = 0; i < n - 1; ++i) {\r\n            for (char c : words[i].toCharArray()) {\r\n                if (cnt == 26) {\r\n                    break;\r\n                }\r\n                c -= 'a';\r\n                if (!s[c]) {\r\n                    ++cnt;\r\n                    s[c] = true;\r\n                }\r\n            }\r\n            int m = words[i].length();\r\n            for (int j = 0; j < m; ++j) {\r\n                if (j >= words[i + 1].length()) {\r\n                    return \"\";\r\n                }\r\n                char c1 = words[i].charAt(j), c2 = words[i + 1].charAt(j);\r\n                if (c1 == c2) {\r\n                    continue;\r\n                }\r\n                if (g[c2 - 'a'][c1 - 'a']) {\r\n                    return \"\";\r\n                }\r\n                g[c1 - 'a'][c2 - 'a'] = true;\r\n                break;\r\n            }\r\n        }\r\n        for (char c : words[n - 1].toCharArray()) {\r\n            if (cnt == 26) {\r\n                break;\r\n            }\r\n            c -= 'a';\r\n            if (!s[c]) {\r\n                ++cnt;\r\n                s[c] = true;\r\n            }\r\n        }\r\n\r\n        int[] indegree = new int[26];\r\n        for (int i = 0; i < 26; ++i) {\r\n            for (int j = 0; j < 26; ++j) {\r\n                if (i != j && s[i] && s[j] && g[i][j]) {\r\n                    ++indegree[j];\r\n                }\r\n            }\r\n        }\r\n        Deque<Integer> q = new LinkedList<>();\r\n        for (int i = 0; i < 26; ++i) {\r\n            if (s[i] && indegree[i] == 0) {\r\n                q.offerLast(i);\r\n            }\r\n        }\r\n        StringBuilder ans = new StringBuilder();\r\n        while (!q.isEmpty()) {\r\n            int t = q.pollFirst();\r\n            ans.append((char) (t + 'a'));\r\n            for (int i = 0; i < 26; ++i) {\r\n                if (i != t && s[i] && g[t][i]) {\r\n                    if (--indegree[i] == 0) {\r\n                        q.offerLast(i);\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        return ans.length() < cnt ? \"\" : ans.toString();\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    string alienOrder(vector<string>& words) {\r\n        vector<vector<bool>> g(26, vector<bool>(26));\r\n        vector<bool> s(26);\r\n        int cnt = 0;\r\n        int n = words.size();\r\n        for (int i = 0; i < n - 1; ++i) {\r\n            for (char c : words[i]) {\r\n                if (cnt == 26) break;\r\n                c -= 'a';\r\n                if (!s[c]) {\r\n                    ++cnt;\r\n                    s[c] = true;\r\n                }\r\n            }\r\n            int m = words[i].size();\r\n            for (int j = 0; j < m; ++j) {\r\n                if (j >= words[i + 1].size()) return \"\";\r\n                char c1 = words[i][j], c2 = words[i + 1][j];\r\n                if (c1 == c2) continue;\r\n                if (g[c2 - 'a'][c1 - 'a']) return \"\";\r\n                g[c1 - 'a'][c2 - 'a'] = true;\r\n                break;\r\n            }\r\n        }\r\n        for (char c : words[n - 1]) {\r\n            if (cnt == 26) break;\r\n            c -= 'a';\r\n            if (!s[c]) {\r\n                ++cnt;\r\n                s[c] = true;\r\n            }\r\n        }\r\n        vector<int> indegree(26);\r\n        for (int i = 0; i < 26; ++i)\r\n            for (int j = 0; j < 26; ++j)\r\n                if (i != j && s[i] && s[j] && g[i][j])\r\n                    ++indegree[j];\r\n        queue<int> q;\r\n        for (int i = 0; i < 26; ++i)\r\n            if (s[i] && indegree[i] == 0)\r\n                q.push(i);\r\n        string ans = \"\";\r\n        while (!q.empty()) {\r\n            int t = q.front();\r\n            ans += (t + 'a');\r\n            q.pop();\r\n            for (int i = 0; i < 26; ++i)\r\n                if (i != t && s[i] && g[t][i])\r\n                    if (--indegree[i] == 0)\r\n                        q.push(i);\r\n        }\r\n        return ans.size() < cnt ? \"\" : ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20114.%20%E5%A4%96%E6%98%9F%E6%96%87%E5%AD%97%E5%85%B8/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20114.%20%E5%A4%96%E6%98%9F%E6%96%87%E5%AD%97%E5%85%B8/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20114.%20%E5%A4%96%E6%98%9F%E6%96%87%E5%AD%97%E5%85%B8/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20114.%20%E5%A4%96%E6%98%9F%E6%96%87%E5%AD%97%E5%85%B8/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：火星词典。\n输入：words（string[]）。\n训练提示：**思考**\r \r 由有序单词列表反推字母序。相邻单词的第一处不同给出一条先后边；后词为前词前缀则非法。\r \r 建图后做拓扑排序。出现反向边、前缀冲突或排序后点数不足（有环）都返回空串。入度为 $0$ 的字母按 BFS 依次输出。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：拓扑排序 + BFS\r\n\r\n\r\n\r\n思考\r\n\r\n由有序单词列表反推字母序。相邻单词的第一处不同给出一条先后边；后词为前词前缀则非法。\r\n\r\n建图后做拓扑排序。出现反向边、前缀冲突或排序后点数不足（有环）都返回空串。入度为 $0$ 的字母按 BFS 依次输出。\r\n\r\n\r\n\r\n用数组 $g$ 记录在火星字典中的字母先后关系， $g[i][j] = true$ 表示字母 $i + 'a'$ 在字母 $j + 'a'$ 的前面；用数组 $s$ 记录当前字典出现过的字母， $cnt$ 表示出现过的字母数。\r\n\r\n一个很简单的想法是遍历每一个单词，比较该单词和其后的所有单词，把所有的先后关系更新进数组 $g$，这样遍历时间复杂度为 $O(n^3)$；但是我们发现其实比较相邻的两个单词就可以了，比如 $a < b < c$ 则比较 $a < b$ 和 $b < c$， $a$ 和 $c$ 的关系便确定了。因此算法可以优化成比较相邻两个单词，时间复杂度为 $O(n^2)$。\r\n\r\n出现矛盾的情况：\r\n\r\n- $g[i][j]$ = $g[j][i]$ = $true$；\r\n- 后一个单词是前一个单词的前缀；\r\n- 在拓扑排序后 $ans$ 的长度小于统计到的字母个数。\r\n\r\n拓扑排序：\r\n\r\n- 统计所有出现的字母入度；\r\n- 将所有入度为 $0$ 的字母加入队列；\r\n- 当队列不空，出队并更新其他字母的入度，入度为 $0$ 则入队，同时出队时将当前字母加入 $ans$ 的结尾；\r\n- 得到的便是字母的拓扑序，也就是火星字典的字母顺序。",
+  "memory": "火星词典 → 拓扑排序 + BFS。\n**思考**\r\n\r\n由有序单词列表反推字母序。相邻单词的第一处不同给出一条先后边；后词为前词前缀则非法。\r\n\r\n建图后做拓扑排序。出现反向边、前缀冲突或排序后点数不足（有环）都返回空串。入度为 $0$ 的字母按 BFS 依次输出。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

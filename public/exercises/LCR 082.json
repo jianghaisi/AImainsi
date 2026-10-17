@@ -1,0 +1,99 @@
+{
+  "number": "LCR 082",
+  "adapter": {
+    "name": "combinationSum2",
+    "params": [
+      {
+        "name": "candidates",
+        "type": "integer[]"
+      },
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[][]"
+    },
+    "number": "LCR 082"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          10,
+          1,
+          2,
+          7,
+          6,
+          1,
+          5
+        ],
+        8
+      ],
+      "expected": [
+        [
+          1,
+          1,
+          6
+        ],
+        [
+          1,
+          2,
+          5
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          6
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          2,
+          5,
+          2,
+          1,
+          2
+        ],
+        5
+      ],
+      "expected": [
+        [
+          1,
+          2,
+          2
+        ],
+        [
+          5
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public List<List<Integer>> combinationSum2(int[] candidates, int target) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:\r\n        def dfs(u, s, t):\r\n            if s > target:\r\n                return\r\n            if s == target:\r\n                ans.append(t[:])\r\n                return\r\n            for i in range(u, len(candidates)):\r\n                if i > u and candidates[i] == candidates[i - 1]:\r\n                    continue\r\n                t.append(candidates[i])\r\n                dfs(i + 1, s + candidates[i], t)\r\n                t.pop()\r\n\r\n        ans = []\r\n        candidates.sort()\r\n        dfs(0, 0, [])\r\n        return ans\r\n",
+    "java": "class Solution {\r\n    private List<List<Integer>> ans;\r\n    private int[] candidates;\r\n    private int target;\r\n\r\n    public List<List<Integer>> combinationSum2(int[] candidates, int target) {\r\n        ans = new ArrayList<>();\r\n        Arrays.sort(candidates);\r\n        this.target = target;\r\n        this.candidates = candidates;\r\n        dfs(0, 0, new ArrayList<>());\r\n        return ans;\r\n    }\r\n\r\n    private void dfs(int u, int s, List<Integer> t) {\r\n        if (s > target) {\r\n            return;\r\n        }\r\n        if (s == target) {\r\n            ans.add(new ArrayList<>(t));\r\n            return;\r\n        }\r\n        for (int i = u; i < candidates.length; ++i) {\r\n            if (i > u && candidates[i] == candidates[i - 1]) {\r\n                continue;\r\n            }\r\n            t.add(candidates[i]);\r\n            dfs(i + 1, s + candidates[i], t);\r\n            t.remove(t.size() - 1);\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> candidates;\r\n    vector<vector<int>> ans;\r\n    vector<int> t;\r\n    int target;\r\n\r\n    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {\r\n        sort(candidates.begin(), candidates.end());\r\n        this->candidates = candidates;\r\n        this->target = target;\r\n        vector<int> t;\r\n        dfs(0, 0, t);\r\n        return ans;\r\n    }\r\n\r\n    void dfs(int u, int s, vector<int>& t) {\r\n        if (s > target) return;\r\n        if (s == target) {\r\n            ans.push_back(t);\r\n            return;\r\n        }\r\n        for (int i = u; i < candidates.size(); ++i) {\r\n            if (i > u && candidates[i] == candidates[i - 1]) continue;\r\n            t.push_back(candidates[i]);\r\n            dfs(i + 1, s + candidates[i], t);\r\n            t.pop_back();\r\n        }\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20082.%20%E5%90%AB%E6%9C%89%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%E9%9B%86%E5%90%88%E7%9A%84%E7%BB%84%E5%90%88/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20082.%20%E5%90%AB%E6%9C%89%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%E9%9B%86%E5%90%88%E7%9A%84%E7%BB%84%E5%90%88/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20082.%20%E5%90%AB%E6%9C%89%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%E9%9B%86%E5%90%88%E7%9A%84%E7%BB%84%E5%90%88/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20082.%20%E5%90%AB%E6%9C%89%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%E9%9B%86%E5%90%88%E7%9A%84%E7%BB%84%E5%90%88/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：组合总和 II。\n输入：candidates（integer[]）、target（integer）。\n训练提示：**思考**\r \r 每个数至多用一次，且结果不能含重复组合。若不排序，相同值会出现在不同分支里。\r \r 先排序，再在同一层跳过与前一个相同且未使用的值，使相等元素只以一种相对次序进入路径。递归传入 $i+1$，保证每个下标只用一次。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n每个数至多用一次，且结果不能含重复组合。若不排序，相同值会出现在不同分支里。\r\n\r\n先排序，再在同一层跳过与前一个相同且未使用的值，使相等元素只以一种相对次序进入路径。递归传入 $i+1$，保证每个下标只用一次。",
+  "memory": "组合总和 II → 方法一。\n**思考**\r\n\r\n每个数至多用一次，且结果不能含重复组合。若不排序，相同值会出现在不同分支里。\r\n\r\n先排序，再在同一层跳过与前一个相同且未使用的值，使相等元素只以一种相对次序进入路径。递归传入 $i+1$，保证每个下标只用一次。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

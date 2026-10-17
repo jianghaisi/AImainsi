@@ -1,0 +1,186 @@
+{
+  "number": "695",
+  "adapter": {
+    "name": "maxAreaOfIsland",
+    "params": [
+      {
+        "name": "grid",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "695"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} grid\n * @return {number}\n */\nvar maxAreaOfIsland = function(grid) {\n    \n};",
+    "java": "class Solution {\n    public int maxAreaOfIsland(int[][] grid) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int maxAreaOfIsland(vector<vector<int>>& grid) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:\r\n        def dfs(i: int, j: int) -> int:\r\n            if grid[i][j] == 0:\r\n                return 0\r\n            ans = 1\r\n            grid[i][j] = 0\r\n            dirs = (-1, 0, 1, 0, -1)\r\n            for a, b in pairwise(dirs):\r\n                x, y = i + a, j + b\r\n                if 0 <= x < m and 0 <= y < n:\r\n                    ans += dfs(x, y)\r\n            return ans\r\n\r\n        m, n = len(grid), len(grid[0])\r\n        return max(dfs(i, j) for i in range(m) for j in range(n))\r\n",
+    "javascript": "function maxAreaOfIsland(grid) {\n    const m = grid.length;\n    const n = grid[0].length;\n    const dirs = [-1, 0, 1, 0, -1];\n    const dfs = (i, j) => {\n        if (grid[i][j] === 0) {\n            return 0;\n        }\n        let ans = 1;\n        grid[i][j] = 0;\n        for (let k = 0; k < 4; ++k) {\n            const [x, y] = [i + dirs[k], j + dirs[k + 1]];\n            if (x >= 0 && x < m && y >= 0 && y < n) {\n                ans += dfs(x, y);\n            }\n        }\n        return ans;\n    };\n    let ans = 0;\n    for (let i = 0; i < m; ++i) {\n        for (let j = 0; j < n; ++j) {\n            ans = Math.max(ans, dfs(i, j));\n        }\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    private int m;\r\n    private int n;\r\n    private int[][] grid;\r\n\r\n    public int maxAreaOfIsland(int[][] grid) {\r\n        m = grid.length;\r\n        n = grid[0].length;\r\n        this.grid = grid;\r\n        int ans = 0;\r\n        for (int i = 0; i < m; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                ans = Math.max(ans, dfs(i, j));\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n\r\n    private int dfs(int i, int j) {\r\n        if (grid[i][j] == 0) {\r\n            return 0;\r\n        }\r\n        int ans = 1;\r\n        grid[i][j] = 0;\r\n        int[] dirs = {-1, 0, 1, 0, -1};\r\n        for (int k = 0; k < 4; ++k) {\r\n            int x = i + dirs[k], y = j + dirs[k + 1];\r\n            if (x >= 0 && x < m && y >= 0 && y < n) {\r\n                ans += dfs(x, y);\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int maxAreaOfIsland(vector<vector<int>>& grid) {\r\n        int m = grid.size(), n = grid[0].size();\r\n        int dirs[5] = {-1, 0, 1, 0, -1};\r\n        int ans = 0;\r\n        function<int(int, int)> dfs = [&](int i, int j) {\r\n            if (grid[i][j] == 0) {\r\n                return 0;\r\n            }\r\n            int ans = 1;\r\n            grid[i][j] = 0;\r\n            for (int k = 0; k < 4; ++k) {\r\n                int x = i + dirs[k], y = j + dirs[k + 1];\r\n                if (x >= 0 && x < m && y >= 0 && y < n) {\r\n                    ans += dfs(x, y);\r\n                }\r\n            }\r\n            return ans;\r\n        };\r\n        for (int i = 0; i < m; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                ans = max(ans, dfs(i, j));\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0695.Max%20Area%20of%20Island/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0695.Max%20Area%20of%20Island/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0695.Max%20Area%20of%20Island/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0695.Max%20Area%20of%20Island/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0695.Max%20Area%20of%20Island/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：岛屿的最大面积。\n输入：grid（integer[][]）。\n训练提示：**思考**\r \r 岛屿面积是四连通陆地格数，求最大。每个格子至多访问一次。\r \r 遇到陆地就 DFS，把格子改成 $0$ 并累加四向递归结果。对所有起点取最大。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS\r\n\r\n\r\n\r\n思考\r\n\r\n岛屿面积是四连通陆地格数，求最大。每个格子至多访问一次。\r\n\r\n遇到陆地就 DFS，把格子改成 $0$ 并累加四向递归结果。对所有起点取最大。\r\n\r\n\r\n\r\n我们可以遍历每一个格子 $(i, j)$，从每个格子开始进行深度优先搜索，如果搜索到的格子是陆地，就将当前格子标记为已访问，并且继续搜索上、下、左、右四个方向的格子。搜索结束后，计算标记的陆地的数量，即为岛屿的面积。我们找出最大的岛屿面积即为答案。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m \\times n)$。其中 $m$ 和 $n$ 分别是二维数组的行数和列数。",
+  "memory": "岛屿的最大面积 → DFS。\n**思考**\r\n\r\n岛屿面积是四连通陆地格数，求最大。每个格子至多访问一次。\r\n\r\n遇到陆地就 DFS，把格子改成 $0$ 并累加四向递归结果。对所有起点取最大。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

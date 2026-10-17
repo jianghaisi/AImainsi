@@ -1,0 +1,60 @@
+{
+  "number": "LCR 002",
+  "adapter": {
+    "name": "addBinary",
+    "params": [
+      {
+        "name": "a",
+        "type": "string"
+      },
+      {
+        "name": "b",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "LCR 002"
+  },
+  "tests": [
+    {
+      "input": [
+        "11",
+        "10"
+      ],
+      "expected": "101"
+    },
+    {
+      "input": [
+        "1010",
+        "1011"
+      ],
+      "expected": "10101"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def addBinary(self, a: str, b: str) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} a\n * @param {string} b\n * @return {string}\n */\nvar addBinary = function(a, b) {\n\n};",
+    "java": "class Solution {\n    public String addBinary(String a, String b) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    string addBinary(string a, string b) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def addBinary(self, a: str, b: str) -> str:\r\n        ans = []\r\n        i, j, carry = len(a) - 1, len(b) - 1, 0\r\n        while i >= 0 or j >= 0 or carry:\r\n            carry += (0 if i < 0 else int(a[i])) + (0 if j < 0 else int(b[j]))\r\n            carry, v = divmod(carry, 2)\r\n            ans.append(str(v))\r\n            i, j = i - 1, j - 1\r\n        return \"\".join(ans[::-1])\r\n",
+    "javascript": "function addBinary(a, b) {\n    let i = a.length - 1;\n    let j = b.length - 1;\n    let ans = [];\n    for (let carry = 0; i >= 0 || j >= 0 || carry; --i, --j) {\n        carry += (i >= 0 ? a[i] : '0').charCodeAt(0) - '0'.charCodeAt(0);\n        carry += (j >= 0 ? b[j] : '0').charCodeAt(0) - '0'.charCodeAt(0);\n        ans.push(carry % 2);\n        carry >>= 1;\n    }\n    return ans.reverse().join('');\n}\n",
+    "java": "class Solution {\r\n    public String addBinary(String a, String b) {\r\n        var sb = new StringBuilder();\r\n        int i = a.length() - 1, j = b.length() - 1;\r\n        for (int carry = 0; i >= 0 || j >= 0 || carry > 0; --i, --j) {\r\n            carry += (i >= 0 ? a.charAt(i) - '0' : 0) + (j >= 0 ? b.charAt(j) - '0' : 0);\r\n            sb.append(carry % 2);\r\n            carry /= 2;\r\n        }\r\n        return sb.reverse().toString();\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    string addBinary(string a, string b) {\r\n        string ans;\r\n        int i = a.size() - 1, j = b.size() - 1;\r\n        for (int carry = 0; i >= 0 || j >= 0 || carry; --i, --j) {\r\n            carry += (i >= 0 ? a[i] - '0' : 0) + (j >= 0 ? b[j] - '0' : 0);\r\n            ans.push_back((carry % 2) + '0');\r\n            carry /= 2;\r\n        }\r\n        reverse(ans.begin(), ans.end());\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20002.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20002.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20002.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20002.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20002.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：二进制求和。\n输入：a（string）、b（string）。\n训练提示：**思考**\r \r 二进制串长度可达 $10^4$，不能转换成普通整数再相加。\r \r 两串长度可能不同，最高位仍可能再产生进位，这与十进制竖式相同。为此从低位对齐向高位累加，用 $\\textit{carry}$ 记录进位；两个指针自末尾同步前移，缺位视为 $0$，循环条件同时包含 $\\textit{carry}$，使最后多出的进位也会写入答案。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：模拟\r\n\r\n\r\n\r\n思考\r\n\r\n二进制串长度可达 $10^4$，不能转换成普通整数再相加。\r\n\r\n两串长度可能不同，最高位仍可能再产生进位，这与十进制竖式相同。为此从低位对齐向高位累加，用 $\\textit{carry}$ 记录进位；两个指针自末尾同步前移，缺位视为 $0$，循环条件同时包含 $\\textit{carry}$，使最后多出的进位也会写入答案。\r\n\r\n\r\n\r\n我们用一个变量 $carry$ 记录当前的进位，用两个指针 $i$ 和 $j$ 分别指向 $a$ 和 $b$ 的末尾，从末尾到开头逐位相加即可。\r\n\r\n时间复杂度 $O(\\max(m, n))$，其中 $m$ 和 $n$ 分别为字符串 $a$ 和 $b$ 的长度。空间复杂度 $O(1)$。",
+  "memory": "二进制求和 → 模拟。\n**思考**\r\n\r\n二进制串长度可达 $10^4$，不能转换成普通整数再相加。\r\n\r\n两串长度可能不同，最高位仍可能再产生进位，这与十进制竖式相同。为此从低位对齐向高位累加，用 $\\textit{carry}$ 记录进位；两个指针自末尾同步前移，缺位视为 $0$，循环条件同时包含 $\\textit{carry}$，使最后多出的进位也会写入答案。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

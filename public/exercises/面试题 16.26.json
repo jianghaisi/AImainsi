@@ -1,0 +1,60 @@
+{
+  "number": "面试题 16.26",
+  "adapter": {
+    "name": "calculate",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 16.26"
+  },
+  "tests": [
+    {
+      "input": [
+        "3+2*2"
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        " 3/2 "
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        " 3+5 / 2 "
+      ],
+      "expected": 5
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def calculate(self, s: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @return {number}\n */\nvar calculate = function(s) {\n    \n};",
+    "java": "class Solution {\n    public int calculate(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int calculate(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def calculate(self, s: str) -> int:\r\n        n = len(s)\r\n        x = 0\r\n        sign = \"+\"\r\n        stk = []\r\n        for i, c in enumerate(s):\r\n            if c.isdigit():\r\n                x = x * 10 + ord(c) - ord(\"0\")\r\n            if i == n - 1 or c in \"+-*/\":\r\n                match sign:\r\n                    case \"+\":\r\n                        stk.append(x)\r\n                    case \"-\":\r\n                        stk.append(-x)\r\n                    case \"*\":\r\n                        stk.append(stk.pop() * x)\r\n                    case \"/\":\r\n                        stk.append(int(stk.pop() / x))\r\n                x = 0\r\n                sign = c\r\n        return sum(stk)\r\n",
+    "javascript": "function calculate(s) {\n    const n = s.length;\n    let x = 0;\n    let sign = '+';\n    const stk = [];\n    for (let i = 0; i < n; ++i) {\n        if (!isNaN(Number(s[i])) && s[i] !== ' ') {\n            x = x * 10 + s[i].charCodeAt(0) - '0'.charCodeAt(0);\n        }\n        if (i === n - 1 || (isNaN(Number(s[i])) && s[i] !== ' ')) {\n            switch (sign) {\n                case '+':\n                    stk.push(x);\n                    break;\n                case '-':\n                    stk.push(-x);\n                    break;\n                case '*':\n                    stk.push(stk.pop() * x);\n                    break;\n                default:\n                    stk.push((stk.pop() / x) | 0);\n            }\n            x = 0;\n            sign = s[i];\n        }\n    }\n    return stk.reduce((x, y) => x + y);\n}\n",
+    "java": "class Solution {\r\n    public int calculate(String s) {\r\n        int n = s.length();\r\n        int x = 0;\r\n        char sign = '+';\r\n        Deque<Integer> stk = new ArrayDeque<>();\r\n        for (int i = 0; i < n; ++i) {\r\n            char c = s.charAt(i);\r\n            if (Character.isDigit(c)) {\r\n                x = x * 10 + (c - '0');\r\n            }\r\n            if (i == n - 1 || !Character.isDigit(c) && c != ' ') {\r\n                switch (sign) {\r\n                    case '+' -> stk.push(x);\r\n                    case '-' -> stk.push(-x);\r\n                    case '*' -> stk.push(stk.pop() * x);\r\n                    case '/' -> stk.push(stk.pop() / x);\r\n                }\r\n                x = 0;\r\n                sign = c;\r\n            }\r\n        }\r\n        int ans = 0;\r\n        while (!stk.isEmpty()) {\r\n            ans += stk.pop();\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int calculate(string s) {\r\n        int n = s.size();\r\n        int x = 0;\r\n        char sign = '+';\r\n        stack<int> stk;\r\n        for (int i = 0; i < n; ++i) {\r\n            char c = s[i];\r\n            if (isdigit(c)) {\r\n                x = x * 10 + (c - '0');\r\n            }\r\n            if (i == n - 1 || !isdigit(c) && c != ' ') {\r\n                if (sign == '+') {\r\n                    stk.push(x);\r\n                } else if (sign == '-') {\r\n                    stk.push(-x);\r\n                } else if (sign == '*') {\r\n                    int y = stk.top();\r\n                    stk.pop();\r\n                    stk.push(y * x);\r\n                } else if (sign == '/') {\r\n                    int y = stk.top();\r\n                    stk.pop();\r\n                    stk.push(y / x);\r\n                }\r\n                x = 0;\r\n                sign = c;\r\n            }\r\n        }\r\n        int ans = 0;\r\n        while (!stk.empty()) {\r\n            ans += stk.top();\r\n            stk.pop();\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.26.Calculator/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.26.Calculator/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.26.Calculator/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.26.Calculator/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.26.Calculator/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：计算器。\n输入：s（string）。\n训练提示：**思考**\r \r 四则运算无括号，乘除优先于加减。递归分治或转后缀再求值都可以，实现偏长。\r \r 把表达式看成若干被加减连接的项，而项内部已先做完乘除。\r \r 栈存放各项：遇 `+`/`-` 把带符号的数入栈；遇 `*`/`/` 与栈顶立刻结算。最后对栈求和。数字用 $x=x*10+d$ 累加，以处理多位数。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：栈\r\n\r\n\r\n\r\n思考\r\n\r\n四则运算无括号，乘除优先于加减。递归分治或转后缀再求值都可以，实现偏长。\r\n\r\n把表达式看成若干被加减连接的项，而项内部已先做完乘除。\r\n\r\n栈存放各项：遇 `+`/`-` 把带符号的数入栈；遇 `*`/`/` 与栈顶立刻结算。最后对栈求和。数字用 $x=x*10+d$ 累加，以处理多位数。\r\n\r\n\r\n\r\n我们可以用一个栈来保存数字，每次遇到运算符时，就将数字压入栈中。对于加减法，由于其优先级最低，我们可以直接将数字压入栈中；对于乘除法，由于其优先级较高，我们需要将栈顶元素取出，与当前数字进行乘除运算，再将结果压入栈中。\r\n\r\n最后，将栈中所有元素求和即为答案。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为字符串长度。",
+  "memory": "计算器 → 栈。\n**思考**\r\n\r\n四则运算无括号，乘除优先于加减。递归分治或转后缀再求值都可以，实现偏长。\r\n\r\n把表达式看成若干被加减连接的项，而项内部已先做完乘除。\r\n\r\n栈存放各项：遇 `+`/`-` 把带符号的数入栈；遇 `*`/`/` 与栈顶立刻结算。最后对栈求和。数字用 $x=x*10+d$ 累加，以处理多位数。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

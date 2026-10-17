@@ -1,0 +1,74 @@
+{
+  "number": "LCR 098",
+  "adapter": {
+    "name": "uniquePaths",
+    "params": [
+      {
+        "name": "m",
+        "type": "integer"
+      },
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 098"
+  },
+  "tests": [
+    {
+      "input": [
+        3,
+        7
+      ],
+      "expected": 28
+    },
+    {
+      "input": [
+        3,
+        2
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        7,
+        3
+      ],
+      "expected": 28
+    },
+    {
+      "input": [
+        3,
+        3
+      ],
+      "expected": 6
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def uniquePaths(self, m: int, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} m\n * @param {number} n\n * @return {number}\n */\nvar uniquePaths = function(m, n) {\n\n};",
+    "java": "class Solution {\n    public int uniquePaths(int m, int n) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int uniquePaths(int m, int n) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def uniquePaths(self, m: int, n: int) -> int:\r\n        f = [[0] * n for _ in range(m)]\r\n        f[0][0] = 1\r\n        for i in range(m):\r\n            for j in range(n):\r\n                if i:\r\n                    f[i][j] += f[i - 1][j]\r\n                if j:\r\n                    f[i][j] += f[i][j - 1]\r\n        return f[-1][-1]\r\n",
+    "javascript": "function uniquePaths(m, n) {\n    const f = Array(m)\n        .fill(0)\n        .map(() => Array(n).fill(0));\n    f[0][0] = 1;\n    for (let i = 0; i < m; ++i) {\n        for (let j = 0; j < n; ++j) {\n            if (i > 0) {\n                f[i][j] += f[i - 1][j];\n            }\n            if (j > 0) {\n                f[i][j] += f[i][j - 1];\n            }\n        }\n    }\n    return f[m - 1][n - 1];\n}\n",
+    "java": "class Solution {\r\n    public int uniquePaths(int m, int n) {\r\n        var f = new int[m][n];\r\n        f[0][0] = 1;\r\n        for (int i = 0; i < m; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                if (i > 0) {\r\n                    f[i][j] += f[i - 1][j];\r\n                }\r\n                if (j > 0) {\r\n                    f[i][j] += f[i][j - 1];\r\n                }\r\n            }\r\n        }\r\n        return f[m - 1][n - 1];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int uniquePaths(int m, int n) {\r\n        vector<vector<int>> f(m, vector<int>(n));\r\n        f[0][0] = 1;\r\n        for (int i = 0; i < m; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                if (i) {\r\n                    f[i][j] += f[i - 1][j];\r\n                }\r\n                if (j) {\r\n                    f[i][j] += f[i][j - 1];\r\n                }\r\n            }\r\n        }\r\n        return f[m - 1][n - 1];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20098.%20%E8%B7%AF%E5%BE%84%E7%9A%84%E6%95%B0%E7%9B%AE/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20098.%20%E8%B7%AF%E5%BE%84%E7%9A%84%E6%95%B0%E7%9B%AE/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20098.%20%E8%B7%AF%E5%BE%84%E7%9A%84%E6%95%B0%E7%9B%AE/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20098.%20%E8%B7%AF%E5%BE%84%E7%9A%84%E6%95%B0%E7%9B%AE/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20098.%20%E8%B7%AF%E5%BE%84%E7%9A%84%E6%95%B0%E7%9B%AE/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：不同路径。\n输入：m（integer）、n（integer）。\n训练提示：**思考**\r \r 从左上只能向右或向下走到右下。路径条数等于来自上方与左方的条数之和。\r \r $f[i][j]$ 由 $f[i-1][j]$ 与 $f[i][j-1]$ 相加得到，起点为 $1$。按行扫描即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n从左上只能向右或向下走到右下。路径条数等于来自上方与左方的条数之和。\r\n\r\n$f[i][j]$ 由 $f[i-1][j]$ 与 $f[i][j-1]$ 相加得到，起点为 $1$。按行扫描即可。\r\n\r\n\r\n\r\n我们定义 $f[i][j]$ 表示从左上角走到 $(i, j)$ 的路径数量，初始时 $f[0][0] = 1$，答案为 $f[m - 1][n - 1]$。\r\n\r\n考虑 $f[i][j]$：\r\n\r\n- 如果 $i \\gt 0$，那么 $f[i][j]$ 可以从 $f[i - 1][j]$ 走一步到达，因此 $f[i][j] = f[i][j] + f[i - 1][j]$；\r\n- 如果 $j \\gt 0$，那么 $f[i][j]$ 可以从 $f[i][j - 1]$ 走一步到达，因此 $f[i][j] = f[i][j] + f[i][j - 1]$。\r\n\r\n因此，我们有如下的状态转移方程：\r\n\r\n$$\r\nf[i][j] = \\begin{cases}\r\n1 & i = 0, j = 0 \\\\\r\nf[i - 1][j] + f[i][j - 1] & \\textit{otherwise}\r\n\\end{cases}\r\n$$\r\n\r\n最终的答案即为 $f[m - 1][n - 1]$。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m \\times n)$。其中 $m$ 和 $n$ 分别是网格的行数和列数。",
+  "memory": "不同路径 → 动态规划。\n**思考**\r\n\r\n从左上只能向右或向下走到右下。路径条数等于来自上方与左方的条数之和。\r\n\r\n$f[i][j]$ 由 $f[i-1][j]$ 与 $f[i][j-1]$ 相加得到，起点为 $1$。按行扫描即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

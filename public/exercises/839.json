@@ -1,0 +1,62 @@
+{
+  "number": "839",
+  "adapter": {
+    "name": "numSimilarGroups",
+    "params": [
+      {
+        "name": "strs",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "839"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "tars",
+          "rats",
+          "arts",
+          "star"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          "omv",
+          "ovm"
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def numSimilarGroups(self, strs: List[str]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[]} strs\n * @return {number}\n */\nvar numSimilarGroups = function(strs) {\n    \n};",
+    "java": "class Solution {\n    public int numSimilarGroups(String[] strs) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int numSimilarGroups(vector<string>& strs) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class UnionFind:\r\n    def __init__(self, n):\r\n        self.p = list(range(n))\r\n        self.size = [1] * n\r\n\r\n    def find(self, x):\r\n        if self.p[x] != x:\r\n            self.p[x] = self.find(self.p[x])\r\n        return self.p[x]\r\n\r\n    def union(self, a, b):\r\n        pa, pb = self.find(a), self.find(b)\r\n        if pa == pb:\r\n            return False\r\n        if self.size[pa] > self.size[pb]:\r\n            self.p[pb] = pa\r\n            self.size[pa] += self.size[pb]\r\n        else:\r\n            self.p[pa] = pb\r\n            self.size[pb] += self.size[pa]\r\n        return True\r\n\r\n\r\nclass Solution:\r\n    def numSimilarGroups(self, strs: List[str]) -> int:\r\n        n, m = len(strs), len(strs[0])\r\n        uf = UnionFind(n)\r\n        for i, s in enumerate(strs):\r\n            for j, t in enumerate(strs[:i]):\r\n                if sum(s[k] != t[k] for k in range(m)) <= 2 and uf.union(i, j):\r\n                    n -= 1\r\n        return n\r\n",
+    "javascript": "class UnionFind {\n    p;\n    size;\n    constructor(n) {\n        this.p = Array.from({ length: n }, (_, i) => i);\n        this.size = Array(n).fill(1);\n    }\n    union(a, b) {\n        const pa = this.find(a);\n        const pb = this.find(b);\n        if (pa === pb) {\n            return false;\n        }\n        if (this.size[pa] > this.size[pb]) {\n            this.p[pb] = pa;\n            this.size[pa] += this.size[pb];\n        }\n        else {\n            this.p[pa] = pb;\n            this.size[pb] += this.size[pa];\n        }\n        return true;\n    }\n    find(x) {\n        if (this.p[x] !== x) {\n            this.p[x] = this.find(this.p[x]);\n        }\n        return this.p[x];\n    }\n}\nfunction numSimilarGroups(strs) {\n    const n = strs.length;\n    const m = strs[0].length;\n    const uf = new UnionFind(n);\n    let cnt = n;\n    for (let i = 0; i < n; ++i) {\n        for (let j = 0; j < i; ++j) {\n            let diff = 0;\n            for (let k = 0; k < m; ++k) {\n                if (strs[i][k] !== strs[j][k]) {\n                    diff++;\n                }\n            }\n            if (diff <= 2 && uf.union(i, j)) {\n                cnt--;\n            }\n        }\n    }\n    return cnt;\n}\n",
+    "java": "class UnionFind {\r\n    private final int[] p;\r\n    private final int[] size;\r\n\r\n    public UnionFind(int n) {\r\n        p = new int[n];\r\n        size = new int[n];\r\n        for (int i = 0; i < n; ++i) {\r\n            p[i] = i;\r\n            size[i] = 1;\r\n        }\r\n    }\r\n\r\n    public int find(int x) {\r\n        if (p[x] != x) {\r\n            p[x] = find(p[x]);\r\n        }\r\n        return p[x];\r\n    }\r\n\r\n    public boolean union(int a, int b) {\r\n        int pa = find(a), pb = find(b);\r\n        if (pa == pb) {\r\n            return false;\r\n        }\r\n        if (size[pa] > size[pb]) {\r\n            p[pb] = pa;\r\n            size[pa] += size[pb];\r\n        } else {\r\n            p[pa] = pb;\r\n            size[pb] += size[pa];\r\n        }\r\n        return true;\r\n    }\r\n}\r\n\r\nclass Solution {\r\n    public int numSimilarGroups(String[] strs) {\r\n        int n = strs.length, m = strs[0].length();\r\n        UnionFind uf = new UnionFind(n);\r\n        int cnt = n;\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j = 0; j < i; ++j) {\r\n                int diff = 0;\r\n                for (int k = 0; k < m; ++k) {\r\n                    if (strs[i].charAt(k) != strs[j].charAt(k)) {\r\n                        ++diff;\r\n                    }\r\n                }\r\n                if (diff <= 2 && uf.union(i, j)) {\r\n                    --cnt;\r\n                }\r\n            }\r\n        }\r\n        return cnt;\r\n    }\r\n}\r\n",
+    "cpp": "class UnionFind {\r\npublic:\r\n    UnionFind(int n) {\r\n        p = vector<int>(n);\r\n        size = vector<int>(n, 1);\r\n        iota(p.begin(), p.end(), 0);\r\n    }\r\n\r\n    bool unite(int a, int b) {\r\n        int pa = find(a), pb = find(b);\r\n        if (pa == pb) {\r\n            return false;\r\n        }\r\n        if (size[pa] > size[pb]) {\r\n            p[pb] = pa;\r\n            size[pa] += size[pb];\r\n        } else {\r\n            p[pa] = pb;\r\n            size[pb] += size[pa];\r\n        }\r\n        return true;\r\n    }\r\n\r\n    int find(int x) {\r\n        if (p[x] != x) {\r\n            p[x] = find(p[x]);\r\n        }\r\n        return p[x];\r\n    }\r\n\r\nprivate:\r\n    vector<int> p, size;\r\n};\r\n\r\nclass Solution {\r\npublic:\r\n    int numSimilarGroups(vector<string>& strs) {\r\n        int n = strs.size(), m = strs[0].size();\r\n        int cnt = n;\r\n        UnionFind uf(n);\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int j = 0; j < i; ++j) {\r\n                int diff = 0;\r\n                for (int k = 0; k < m; ++k) {\r\n                    diff += strs[i][k] != strs[j][k];\r\n                }\r\n                if (diff <= 2 && uf.unite(i, j)) {\r\n                    --cnt;\r\n                }\r\n            }\r\n        }\r\n        return cnt;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0839.Similar%20String%20Groups/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0839.Similar%20String%20Groups/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0839.Similar%20String%20Groups/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0839.Similar%20String%20Groups/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0839.Similar%20String%20Groups/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：相似字符串组。\n输入：strs（string[]）。\n训练提示：**思考**\r \r 相似（至多两个位置不同）具有传递性，组数即连通块个数。 $n\\le 300$，两两比较并查集合并即可。\r \r 题目保证互为异位词，故只需数不同位置：不超过 $2$ 则连边。每次成功合并使块数减一，最后剩下的块数即答案。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：并查集\r\n\r\n\r\n\r\n思考\r\n\r\n相似（至多两个位置不同）具有传递性，组数即连通块个数。 $n\\le 300$，两两比较并查集合并即可。\r\n\r\n题目保证互为异位词，故只需数不同位置：不超过 $2$ 则连边。每次成功合并使块数减一，最后剩下的块数即答案。\r\n\r\n\r\n\r\n我们可以枚举字符串列表中的任意两个字符串 $s$ 和 $t$，由于 $s$ 和 $t$ 是字母异位词，因此如果 $s$ 和 $t$ 的对应位置字符不同的数量不超过 $2$，那么 $s$ 和 $t$ 是相似的，我们就可以使用并查集将 $s$ 和 $t$ 合并，如果合并成功，那么相似字符串组的数量减少 $1$。\r\n\r\n最终相似字符串组的数量就是并查集中连通分量的数量。\r\n\r\n时间复杂度 $O(n^2 \\times (m + \\alpha(n)))$，空间复杂度 $O(n)$。其中 $n$ 和 $m$ 分别是字符串列表的长度和字符串的长度，而 $\\alpha(n)$ 是 Ackermann 函数的反函数，可以看成是一个很小的常数。",
+  "memory": "相似字符串组 → 并查集。\n**思考**\r\n\r\n相似（至多两个位置不同）具有传递性，组数即连通块个数。 $n\\le 300$，两两比较并查集合并即可。\r\n\r\n题目保证互为异位词，故只需数不同位置：不超过 $2$ 则连边。每次成功合并使块数减一，最后剩下的块数即答案。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

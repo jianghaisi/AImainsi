@@ -2,20 +2,21 @@
 
 本地优先的 AI 面试训练工具。Windows 桌面端与 Android APK 共用题库和练习逻辑，模型 API 由用户自行配置。
 
-[下载安装包](https://github.com/jianghaisi/AImainsi/releases/tag/v0.2.0-preview) · [源码仓库](https://github.com/jianghaisi/AImainsi) · [问题反馈](https://github.com/jianghaisi/AImainsi/issues)
+[下载安装包](https://github.com/jianghaisi/AImainsi/releases/tag/v0.3.0-preview) · [源码仓库](https://github.com/jianghaisi/AImainsi) · [问题反馈](https://github.com/jianghaisi/AImainsi/issues)
 
 ![Windows 界面](docs/desktop-app.png)
 
 ![题单与共享进度](docs/question-bank-desktop.png)
 
-## 当前版本：0.2.0 预览
+## 当前版本：0.3.0 预览
 
 - 简历文本、PDF、DOCX 导入；根据简历、目标岗位、公司风格进行面试与追问。
 - 自定义公司画像、提示词、轮数、时长、学习时间、主题色；中文或英文面试。
-- Python、JavaScript、Java、C++ 题目模板与题解。Python / JavaScript 在设备的 Web Worker 中运行测试，Python 运行时随应用打包，无需安装 Python。
+- Python、JavaScript、Java、C++ 题目模板与题解，语言覆盖随题目显示。Python / JavaScript 在设备的 Web Worker 中运行测试；两道 SQL 题支持内置 SQLite。所有本地运行时随应用打包。
 - 手撕计时、草稿、逐例结果、原理记忆卡、间隔复习、薄弱点与学习计划。
-- 12 套常用题单、去重后 647 道题：Hot 100、Hot 200 扩展版、经典 150、LeetCode 75、原剑指 Offer、面试金典、动态规划、二分与图论等。Hot 200 是项目编排，非官方排名。
-- Hot 200 全部可做本地训练，含原创思路与记忆卡、Python 参考实现；146 道还有已验证的 JavaScript 参考实现。加上原有独立训练，共 203 道可运行题。其他题目提供原题索引和学习记录。测试是示例训练，不等同于原站完整判题。
+- 16 套题单、去重后 671 道题全部提供本地训练、题解和记忆提示：Hot 100、Hot 200 扩展版、经典 150、LeetCode 75、原剑指 Offer、面试金典、动态规划、二分与图论等。Hot 200 是项目编排，非官方排名。
+- 新增华为 71 题、字节 52 题、腾讯 50 题、美团 34 题，按公开面经与备考清单归类，展示来源；同题跨公司共享收藏和练习进度。
+- 全部 671 道都有经过运行校验的 Python 参考实现，487 道还有 JavaScript 参考实现。加上原有独立训练，共 673 道可运行题。测试用于学习反馈，不等同于原站完整判题。
 - 题单共享进度、收藏、个人笔记、未完成筛选、分页、继续上次练习；手动完成与测试通过分别显示。题单可检查更新，保留旧草稿与训练记录。[完整覆盖与维护说明](docs/question-bank.md)。
 - 面经 JSON 导入、去重与审核；Spider_XHS 可选采集桥接脚本。
 - Chat Completions 兼容模型 API、自定义判题 API、连接测试、无密钥档案导出。
@@ -27,12 +28,12 @@
 
 构建产物放在 `release/`：
 
-- Windows x64：解压 `Sequence-0.2.0-Windows-x64.zip` 到独立目录，运行其中的 `Sequence.exe`。需保留同目录的资源和 DLL，不能只复制 EXE。
-- Android 8.0+：安装 `Sequence-0.2.0-Android-preview.apk`。这是使用调试证书签名的开发预览包，未上架应用商店，后续正式签名版本可能需要先卸载预览版。卸载前导出档案。
+- Windows x64：解压 `Sequence-0.3.0-Windows-x64.zip` 到独立目录，运行其中的 `Sequence.exe`。需保留同目录的资源和 DLL，不能只复制 EXE。
+- Android 8.0+：安装 `Sequence-0.3.0-Android-preview.apk`。这是使用调试证书签名的开发预览包，未上架应用商店，后续正式签名版本可能需要先卸载预览版。卸载前导出档案。
 
 首次启动进入「系统设置」，填写自己的 API 基础地址、模型名和密钥，保存后测试连接。例如兼容服务的基础地址可填写 `https://your-provider.example/v1`，应用调用其 `/chat/completions`。这里的示例不是可用服务。无须填写项目维护者的密钥，也无内置付费 API。
 
-手机与桌面都能离线执行 Python 标准库、JavaScript 的内置题目；Java / C++ 的真实编译执行需要自配判题服务。模型评分、题库更新需要网络。界面当前为中文，面试问答可选择中文或英文。
+手机与桌面都能离线执行 Python 标准库、JavaScript 和 SQL 的内置题目；Java / C++ 的真实编译执行需要自配判题服务。模型评分、题库更新需要网络。界面当前为中文，面试问答可选择中文或英文。
 
 ## 源码运行
 

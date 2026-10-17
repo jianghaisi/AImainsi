@@ -1,0 +1,87 @@
+{
+  "number": "1218",
+  "adapter": {
+    "name": "longestSubsequence",
+    "params": [
+      {
+        "name": "arr",
+        "type": "integer[]"
+      },
+      {
+        "type": "integer",
+        "name": "difference"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1218"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        1
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          1,
+          3,
+          5,
+          7
+        ],
+        1
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          1,
+          5,
+          7,
+          8,
+          5,
+          3,
+          4,
+          2,
+          1
+        ],
+        -2
+      ],
+      "expected": 4
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def longestSubsequence(self, arr: List[int], difference: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} arr\n * @param {number} difference\n * @return {number}\n */\nvar longestSubsequence = function(arr, difference) {\n    \n};",
+    "java": "class Solution {\n    public int longestSubsequence(int[] arr, int difference) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int longestSubsequence(vector<int>& arr, int difference) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def longestSubsequence(self, arr: List[int], difference: int) -> int:\r\n        f = defaultdict(int)\r\n        for x in arr:\r\n            f[x] = f[x - difference] + 1\r\n        return max(f.values())\r\n",
+    "javascript": "function longestSubsequence(arr, difference) {\n    const f = new Map();\n    for (const x of arr) {\n        f.set(x, (f.get(x - difference) ?? 0) + 1);\n    }\n    return Math.max(...f.values());\n}\n",
+    "java": "class Solution {\r\n    public int longestSubsequence(int[] arr, int difference) {\r\n        Map<Integer, Integer> f = new HashMap<>();\r\n        int ans = 0;\r\n        for (int x : arr) {\r\n            f.put(x, f.getOrDefault(x - difference, 0) + 1);\r\n            ans = Math.max(ans, f.get(x));\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int longestSubsequence(vector<int>& arr, int difference) {\r\n        unordered_map<int, int> f;\r\n        int ans = 0;\r\n        for (int x : arr) {\r\n            f[x] = f[x - difference] + 1;\r\n            ans = max(ans, f[x]);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1218.Longest%20Arithmetic%20Subsequence%20of%20Given%20Difference/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1218.Longest%20Arithmetic%20Subsequence%20of%20Given%20Difference/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1218.Longest%20Arithmetic%20Subsequence%20of%20Given%20Difference/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1218.Longest%20Arithmetic%20Subsequence%20of%20Given%20Difference/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1218.Longest%20Arithmetic%20Subsequence%20of%20Given%20Difference/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最长定差子序列。\n输入：arr（integer[]）、difference（integer）。\n训练提示：**思考**\r \r 子序列需保持原相对顺序且公差固定为 $difference$。 $n \\le 10^5$，枚举子集不可行。以 $x$ 结尾的最长长度只依赖以 $x-difference$ 结尾的长度，且该前驱若存在必已在此前出现。\r \r 从左到右扫描，令 $f[x]=f[x-difference]+1$。哈希表按值索引前驱，一遍得到所有结尾处的最长长度，取最大即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n子序列需保持原相对顺序且公差固定为 $difference$。 $n \\le 10^5$，枚举子集不可行。以 $x$ 结尾的最长长度只依赖以 $x-difference$ 结尾的长度，且该前驱若存在必已在此前出现。\r\n\r\n从左到右扫描，令 $f[x]=f[x-difference]+1$。哈希表按值索引前驱，一遍得到所有结尾处的最长长度，取最大即可。\r\n\r\n\r\n\r\n我们可以使用哈希表 $f$ 来存储以 $x$ 结尾的最长等差子序列的长度。\r\n\r\n遍历数组 $\\textit{arr}$，对于每个元素 $x$，我们更新 $f[x]$ 为 $f[x - \\textit{difference}] + 1$。\r\n\r\n遍历结束后，我们返回 $f$ 中的最大值作为答案返回即可。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为数组 $\\textit{arr}$ 的长度。",
+  "memory": "最长定差子序列 → 动态规划。\n**思考**\r\n\r\n子序列需保持原相对顺序且公差固定为 $difference$。 $n \\le 10^5$，枚举子集不可行。以 $x$ 结尾的最长长度只依赖以 $x-difference$ 结尾的长度，且该前驱若存在必已在此前出现。\r\n\r\n从左到右扫描，令 $f[x]=f[x-difference]+1$。哈希表按值索引前驱，一遍得到所有结尾处的最长长度，取最大即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

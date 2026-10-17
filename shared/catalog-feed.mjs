@@ -20,7 +20,14 @@ const schema = z.object({
         name: text,
         description: z.string().max(1000),
         questionIds: z.array(id).min(1).max(5000),
-        sourceUrl: z.union([source, z.literal('')]),
+        sourceUrl: z.union([
+          source,
+          z.literal(''),
+          z
+            .string()
+            .url()
+            .refine((s) => s.startsWith('https://onefly.top/zero2Leetcode/05_interview/coding/')),
+        ]),
         sourceName: text,
         updatedAt: z.string(),
         kind: z.enum(['official', 'curated']),
@@ -42,6 +49,7 @@ const schema = z.object({
         sourceUrl: source,
         paidOnly: z.boolean(),
         collections: z.array(id).max(100),
+        companies: z.array(text).max(30).optional(),
       }),
     )
     .min(1)

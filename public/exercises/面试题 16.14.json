@@ -1,0 +1,65 @@
+{
+  "number": "面试题 16.14",
+  "adapter": {
+    "name": "bestLine",
+    "params": [
+      {
+        "name": "points",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "面试题 16.14"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        0,
+        2
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def bestLine(self, points: List[List[int]]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int[] bestLine(int[][] points) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> bestLine(vector<vector<int>>& points) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def bestLine(self, points: List[List[int]]) -> List[int]:\r\n        n = len(points)\r\n        mx = 0\r\n        x, y = 0, 1\r\n        for i in range(n):\r\n            x1, y1 = points[i]\r\n            for j in range(i + 1, n):\r\n                x2, y2 = points[j]\r\n                if x1 == x2 and y1 == y2:\r\n                    continue\r\n                cnt = 0\r\n                a = b = -1\r\n                for k in range(n):\r\n                    x3, y3 = points[k]\r\n                    c1 = (y2 - y1) * (x3 - x1)\r\n                    c2 = (y3 - y1) * (x2 - x1)\r\n                    if c1 == c2:\r\n                        cnt += 1\r\n                        if a < 0:\r\n                            a = k\r\n                        elif b < 0:\r\n                            b = k\r\n                if cnt > mx or (cnt == mx and (a, b) < (x, y)):\r\n                    mx = cnt\r\n                    x, y = a, b\r\n        return [x, y]\r\n",
+    "java": "class Solution {\r\n    public int[] bestLine(int[][] points) {\r\n        int n = points.length;\r\n        int mx = 0;\r\n        int[] ans = {0, 1};\r\n        for (int i = 0; i < n; ++i) {\r\n            int x1 = points[i][0], y1 = points[i][1];\r\n            for (int j = i + 1; j < n; ++j) {\r\n                int x2 = points[j][0], y2 = points[j][1];\r\n                if (x1 == x2 && y1 == y2) {\r\n                    continue;\r\n                }\r\n                int cnt = 0;\r\n                int a = -1, b = -1;\r\n                for (int k = 0; k < n; ++k) {\r\n                    int x3 = points[k][0], y3 = points[k][1];\r\n                    long c1 = (long) (y2 - y1) * (x3 - x1);\r\n                    long c2 = (long) (y3 - y1) * (x2 - x1);\r\n                    if (c1 == c2) {\r\n                        ++cnt;\r\n                        if (a < 0) {\r\n                            a = k;\r\n                        } else if (b < 0) {\r\n                            b = k;\r\n                        }\r\n                    }\r\n                }\r\n                if (cnt > mx || (cnt == mx && (a < ans[0] || (a == ans[0] && b < ans[1])))) {\r\n                    mx = cnt;\r\n                    ans[0] = a;\r\n                    ans[1] = b;\r\n                }\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> bestLine(vector<vector<int>>& points) {\r\n        int n = points.size();\r\n        int mx = 0;\r\n        vector<int> ans = {0, 1};\r\n        for (int i = 0; i < n; ++i) {\r\n            int x1 = points[i][0], y1 = points[i][1];\r\n            for (int j = i + 1; j < n; ++j) {\r\n                int x2 = points[j][0], y2 = points[j][1];\r\n                if (x1 == x2 && y1 == y2) {\r\n                    continue;\r\n                }\r\n                int cnt = 0;\r\n                int a = -1, b = -1;\r\n                for (int k = 0; k < n; ++k) {\r\n                    int x3 = points[k][0], y3 = points[k][1];\r\n                    long c1 = (long) (y2 - y1) * (x3 - x1);\r\n                    long c2 = (long) (y3 - y1) * (x2 - x1);\r\n                    if (c1 == c2) {\r\n                        ++cnt;\r\n                        if (a < 0) {\r\n                            a = k;\r\n                        } else if (b < 0) {\r\n                            b = k;\r\n                        }\r\n                    }\r\n                }\r\n                if (cnt > mx || (cnt == mx && (a < ans[0] || (a == ans[0] && b < ans[1])))) {\r\n                    mx = cnt;\r\n                    ans[0] = a;\r\n                    ans[1] = b;\r\n                }\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.14.Best%20Line/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.14.Best%20Line/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.14.Best%20Line/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.14.Best%20Line/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最佳直线。\n输入：points（integer[][]）。\n训练提示：**思考**\r \r 两点重合时，叉积两侧都是 $0$，后面的每个点都会被算成共线。\r \r 这样得到的点数大于真实直线，返回的下标对也就不再是点数最多的直线上最小的两个编号。\r \r 直线要由两个位置不同的点确定，重合点落在通过该位置的每一条直线上，应当计入点集。\r \r 因此我们跳过重合的点对，用叉积扫描全部下标，只保留最先命中的两个作为候选。所有点都重合时，没有位置不同的点对，答案是 $[0, 1]$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：暴力枚举\r\n\r\n\r\n\r\n思考\r\n\r\n两点重合时，叉积两侧都是 $0$，后面的每个点都会被算成共线。\r\n\r\n这样得到的点数大于真实直线，返回的下标对也就不再是点数最多的直线上最小的两个编号。\r\n\r\n直线要由两个位置不同的点确定，重合点落在通过该位置的每一条直线上，应当计入点集。\r\n\r\n因此我们跳过重合的点对，用叉积扫描全部下标，只保留最先命中的两个作为候选。所有点都重合时，没有位置不同的点对，答案是 $[0, 1]$。\r\n\r\n\r\n\r\n我们可以枚举两个位置不同的点 $(x_1, y_1)$ 与 $(x_2, y_2)$ 来确定一条直线。对每个下标 $k$，用叉积 $(y_2-y_1)(x_3-x_1)=(y_3-y_1)(x_2-x_1)$ 判断点 $k$ 是否在这条直线上。重合点与任一端点坐标相同，叉积为 $0$，会自然计入。记下这条直线上的点数，以及其中最小的两个下标。点数严格更大，或点数相同且下标对更小时更新答案。若所有点坐标都相同，不存在位置不同的点对，答案为 $[0, 1]$。\r\n\r\n时间复杂度 $O(n^3)$，空间复杂度 $O(1)$。其中 $n$ 是数组 `points` 的长度。",
+  "memory": "最佳直线 → 暴力枚举。\n**思考**\r\n\r\n两点重合时，叉积两侧都是 $0$，后面的每个点都会被算成共线。\r\n\r\n这样得到的点数大于真实直线，返回的下标对也就不再是点数最多的直线上最小的两个编号。\r\n\r\n直线要由两个位置不同的点确定，重合点落在通过该位置的每一条直线上，应当计入点集。\r\n\r\n因此我们跳过重合的点对，用叉积扫描全部下标，只保留最先命中的两个作为候选。所有点都重合时，没有位置不同的点对，答案是 $[0, 1]$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

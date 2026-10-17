@@ -1,0 +1,51 @@
+{
+  "number": "LCR 072",
+  "adapter": {
+    "name": "mySqrt",
+    "params": [
+      {
+        "name": "x",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 072"
+  },
+  "tests": [
+    {
+      "input": [
+        4
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        8
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def mySqrt(self, x: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int mySqrt(int x) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int mySqrt(int x) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def mySqrt(self, x: int) -> int:\r\n        left, right = 0, x\r\n        while left < right:\r\n            mid = (left + right + 1) >> 1\r\n            # mid*mid <= x\r\n            if mid <= x // mid:\r\n                left = mid\r\n            else:\r\n                right = mid - 1\r\n        return left\r\n",
+    "java": "class Solution {\r\n    public int mySqrt(int x) {\r\n        int left = 0, right = x;\r\n        while (left < right) {\r\n            int mid = (left + right + 1) >>> 1;\r\n            if (mid <= x / mid) {\r\n                // mid*mid <= x\r\n                left = mid;\r\n            } else {\r\n                right = mid - 1;\r\n            }\r\n        }\r\n        return left;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int mySqrt(int x) {\r\n        long long left = 0, right = x;\r\n        while (left < right) {\r\n            long long mid = left + ((right - left + 1) >> 1);\r\n            if (mid <= x / mid)\r\n                left = mid;\r\n            else\r\n                right = mid - 1;\r\n        }\r\n        return (int) left;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20072.%20%E6%B1%82%E5%B9%B3%E6%96%B9%E6%A0%B9/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20072.%20%E6%B1%82%E5%B9%B3%E6%96%B9%E6%A0%B9/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20072.%20%E6%B1%82%E5%B9%B3%E6%96%B9%E6%A0%B9/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20072.%20%E6%B1%82%E5%B9%B3%E6%96%B9%E6%A0%B9/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：x 的平方根。\n输入：x（integer）。\n训练提示：**思考**\r \r 求 $\\lfloor\\sqrt{x}\\rfloor$。从 $1$ 累加到答案是 $O(\\sqrt{x})$。\r \r 所求是满足 $mid\\le x/mid$ 的最大整数。二分时用除法代替乘法，避免溢出；取上中位数以便在左闭右闭区间上收缩到该最大值。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n求 $\\lfloor\\sqrt{x}\\rfloor$。从 $1$ 累加到答案是 $O(\\sqrt{x})$。\r\n\r\n所求是满足 $mid\\le x/mid$ 的最大整数。二分时用除法代替乘法，避免溢出；取上中位数以便在左闭右闭区间上收缩到该最大值。",
+  "memory": "x 的平方根 → 方法一。\n**思考**\r\n\r\n求 $\\lfloor\\sqrt{x}\\rfloor$。从 $1$ 累加到答案是 $O(\\sqrt{x})$。\r\n\r\n所求是满足 $mid\\le x/mid$ 的最大整数。二分时用除法代替乘法，避免溢出；取上中位数以便在左闭右闭区间上收缩到该最大值。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

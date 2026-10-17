@@ -1,0 +1,57 @@
+{
+  "number": "LCR 065",
+  "adapter": {
+    "name": "minimumLengthEncoding",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 065"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "time",
+          "me",
+          "bell"
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        [
+          "t"
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def minimumLengthEncoding(self, words: List[str]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int minimumLengthEncoding(String[] words) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minimumLengthEncoding(vector<string>& words) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Trie:\r\n    def __init__(self) -> None:\r\n        self.children = [None] * 26\r\n\r\n\r\nclass Solution:\r\n    def minimumLengthEncoding(self, words: List[str]) -> int:\r\n        root = Trie()\r\n        for w in words:\r\n            cur = root\r\n            for c in w[::-1]:\r\n                idx = ord(c) - ord(\"a\")\r\n                if cur.children[idx] == None:\r\n                    cur.children[idx] = Trie()\r\n                cur = cur.children[idx]\r\n        return self.dfs(root, 1)\r\n\r\n    def dfs(self, cur: Trie, l: int) -> int:\r\n        isLeaf, ans = True, 0\r\n        for i in range(26):\r\n            if cur.children[i] != None:\r\n                isLeaf = False\r\n                ans += self.dfs(cur.children[i], l + 1)\r\n        if isLeaf:\r\n            ans += l\r\n        return ans\r\n",
+    "java": "class Trie {\r\n    Trie[] children = new Trie[26];\r\n}\r\n\r\nclass Solution {\r\n    public int minimumLengthEncoding(String[] words) {\r\n        Trie root = new Trie();\r\n        for (String w : words) {\r\n            Trie cur = root;\r\n            for (int i = w.length() - 1; i >= 0; i--) {\r\n                int idx = w.charAt(i) - 'a';\r\n                if (cur.children[idx] == null) {\r\n                    cur.children[idx] = new Trie();\r\n                }\r\n                cur = cur.children[idx];\r\n            }\r\n        }\r\n        return dfs(root, 1);\r\n    }\r\n\r\n    private int dfs(Trie cur, int l) {\r\n        boolean isLeaf = true;\r\n        int ans = 0;\r\n        for (int i = 0; i < 26; i++) {\r\n            if (cur.children[i] != null) {\r\n                isLeaf = false;\r\n                ans += dfs(cur.children[i], l + 1);\r\n            }\r\n        }\r\n        if (isLeaf) {\r\n            ans += l;\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "struct Trie {\r\n    Trie* children[26] = {nullptr};\r\n};\r\n\r\nclass Solution {\r\npublic:\r\n    int minimumLengthEncoding(vector<string>& words) {\r\n        auto root = new Trie();\r\n        for (auto& w : words) {\r\n            auto cur = root;\r\n            for (int i = w.size() - 1; i >= 0; --i) {\r\n                if (cur->children[w[i] - 'a'] == nullptr) {\r\n                    cur->children[w[i] - 'a'] = new Trie();\r\n                }\r\n                cur = cur->children[w[i] - 'a'];\r\n            }\r\n        }\r\n        return dfs(root, 1);\r\n    }\r\n\r\nprivate:\r\n    int dfs(Trie* cur, int l) {\r\n        bool isLeaf = true;\r\n        int ans = 0;\r\n        for (int i = 0; i < 26; ++i) {\r\n            if (cur->children[i] != nullptr) {\r\n                isLeaf = false;\r\n                ans += dfs(cur->children[i], l + 1);\r\n            }\r\n        }\r\n        if (isLeaf) {\r\n            ans += l;\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20065.%20%E6%9C%80%E7%9F%AD%E7%9A%84%E5%8D%95%E8%AF%8D%E7%BC%96%E7%A0%81/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20065.%20%E6%9C%80%E7%9F%AD%E7%9A%84%E5%8D%95%E8%AF%8D%E7%BC%96%E7%A0%81/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20065.%20%E6%9C%80%E7%9F%AD%E7%9A%84%E5%8D%95%E8%AF%8D%E7%BC%96%E7%A0%81/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20065.%20%E6%9C%80%E7%9F%AD%E7%9A%84%E5%8D%95%E8%AF%8D%E7%BC%96%E7%A0%81/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：单词的压缩编码。\n输入：words（string[]）。\n训练提示：**思考**\r \r 编码串由单词加 $\\#$ 拼接，若一词是另一词的后缀则可省略。两两检查后缀是平方级的。\r \r 把单词反转后插入前缀树，公共后缀变成公共前缀。树上每个叶子对应一段必须写入的编码，其深度（含 $\\#$）之和即最短长度。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：前缀树\r\n\r\n\r\n\r\n思考\r\n\r\n编码串由单词加 $\\#$ 拼接，若一词是另一词的后缀则可省略。两两检查后缀是平方级的。\r\n\r\n把单词反转后插入前缀树，公共后缀变成公共前缀。树上每个叶子对应一段必须写入的编码，其深度（含 $\\#$）之和即最短长度。\r\n\r\n\r\n\r\n题目大意：充分利用重叠的后缀，使有效编码尽可能短。\r\n\r\n判断当前单词是否是其他单词的后缀，若是，就不用写入助记字符串中，否则需要写入并且加上一个 # 后缀。",
+  "memory": "单词的压缩编码 → 前缀树。\n**思考**\r\n\r\n编码串由单词加 $\\#$ 拼接，若一词是另一词的后缀则可省略。两两检查后缀是平方级的。\r\n\r\n把单词反转后插入前缀树，公共后缀变成公共前缀。树上每个叶子对应一段必须写入的编码，其深度（含 $\\#$）之和即最短长度。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

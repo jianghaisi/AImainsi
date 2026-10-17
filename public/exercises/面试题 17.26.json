@@ -1,0 +1,80 @@
+{
+  "number": "面试题 17.26",
+  "adapter": {
+    "name": "computeSimilarities",
+    "params": [
+      {
+        "name": "docs",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "list<string>",
+      "dealloc": true
+    },
+    "number": "面试题 17.26"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            14,
+            15,
+            100,
+            9,
+            3
+          ],
+          [
+            32,
+            1,
+            9,
+            3,
+            5
+          ],
+          [
+            15,
+            29,
+            2,
+            6,
+            8,
+            7
+          ],
+          [
+            7,
+            10
+          ]
+        ]
+      ],
+      "expected": [
+        "0,1: 0.2500",
+        "0,2: 0.1000",
+        "2,3: 0.1429"
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def computeSimilarities(self, docs: List[List[int]]) -> List[str]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} docs\n * @return {string[]}\n */\nvar computeSimilarities = function(docs) {\n    \n};",
+    "java": "class Solution {\n    public List<String> computeSimilarities(int[][] docs) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<string> computeSimilarities(vector<vector<int>>& docs) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def computeSimilarities(self, docs: List[List[int]]) -> List[str]:\r\n        eps = 1e-9\r\n        d = defaultdict(list)\r\n        for i, v in enumerate(docs):\r\n            for x in v:\r\n                d[x].append(i)\r\n        cnt = Counter()\r\n        for ids in d.values():\r\n            n = len(ids)\r\n            for i in range(n):\r\n                for j in range(i + 1, n):\r\n                    cnt[(ids[i], ids[j])] += 1\r\n        ans = []\r\n        for (i, j), v in cnt.items():\r\n            tot = len(docs[i]) + len(docs[j]) - v\r\n            x = v / tot + eps\r\n            ans.append(f'{i},{j}: {x:.4f}')\r\n        return ans\r\n",
+    "javascript": "function computeSimilarities(docs) {\n    const n = docs.length;\n    const d = new Map();\n    for (let i = 0; i < n; ++i) {\n        for (const x of docs[i]) {\n            if (!d.has(x)) {\n                d.set(x, []);\n            }\n            d.get(x).push(i);\n        }\n    }\n    const cnt = new Map();\n    for (const ids of d.values()) {\n        const m = ids.length;\n        for (let i = 0; i < m; ++i) {\n            for (let j = i + 1; j < m; ++j) {\n                const key = ids[i] * n + ids[j];\n                cnt.set(key, (cnt.get(key) ?? 0) + 1);\n            }\n        }\n    }\n    const ans = [];\n    for (const [key, v] of cnt) {\n        const i = Math.floor(key / n);\n        const j = key % n;\n        const tot = docs[i].length + docs[j].length - v;\n        const x = v / tot + 1e-9;\n        ans.push(`${i},${j}: ${x.toFixed(4)}`);\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public List<String> computeSimilarities(int[][] docs) {\r\n        int n = docs.length;\r\n        Map<Integer, List<Integer>> d = new HashMap<>();\r\n        for (int i = 0; i < n; ++i) {\r\n            for (int x : docs[i]) {\r\n                d.computeIfAbsent(x, k -> new ArrayList<>()).add(i);\r\n            }\r\n        }\r\n        Map<Long, Integer> cnt = new HashMap<>();\r\n        for (List<Integer> ids : d.values()) {\r\n            int m = ids.size();\r\n            for (int i = 0; i < m; ++i) {\r\n                for (int j = i + 1; j < m; ++j) {\r\n                    long key = 1L * ids.get(i) * n + ids.get(j);\r\n                    cnt.merge(key, 1, Integer::sum);\r\n                }\r\n            }\r\n        }\r\n        List<String> ans = new ArrayList<>();\r\n        for (var e : cnt.entrySet()) {\r\n            long key = e.getKey();\r\n            int v = e.getValue();\r\n            int i = (int) (key / n), j = (int) (key % n);\r\n            int tot = docs[i].length + docs[j].length - v;\r\n            double x = (double) v / tot + 1e-9;\r\n            ans.add(String.format(\"%d,%d: %.4f\", i, j, x));\r\n        }\r\n        return ans;\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<string> computeSimilarities(vector<vector<int>>& docs) {\r\n        using pii = pair<int, int>;\r\n        double eps = 1e-9;\r\n        unordered_map<int, vector<int>> d;\r\n        for (int i = 0; i < docs.size(); ++i) {\r\n            for (int v : docs[i]) {\r\n                d[v].push_back(i);\r\n            }\r\n        }\r\n        map<pii, int> cnt;\r\n        for (auto& [_, ids] : d) {\r\n            int n = ids.size();\r\n            for (int i = 0; i < n; ++i) {\r\n                for (int j = i + 1; j < n; ++j) {\r\n                    cnt[{ids[i], ids[j]}]++;\r\n                }\r\n            }\r\n        }\r\n        vector<string> ans;\r\n        for (auto& [k, v] : cnt) {\r\n            auto [i, j] = k;\r\n            int tot = docs[i].size() + docs[j].size() - v;\r\n            double x = (double) v / tot + eps;\r\n            char t[20];\r\n            sprintf(t, \"%d,%d: %0.4lf\", i, j, x);\r\n            ans.push_back(t);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.26.Sparse%20Similarity/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.26.Sparse%20Similarity/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.26.Sparse%20Similarity/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.26.Sparse%20Similarity/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.26.Sparse%20Similarity/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：稀疏相似度。\n输入：docs（integer[][]）。\n训练提示：**思考**\r \r 最直接的做法是枚举每一对文档，分别建成集合再求交集和并集。文档个数与单篇长度都达到 $500$，任意两篇的相似度又都接近 $0$，大量空交集仍要被构造和扫描。\r \r 真正需要计算的文档对不超过 $1000$。时间应当只花在至少共现过一个单词的文档上。\r \r 某个单词出现在一组文档中，这组文档两两的交集就至少包含它。沿每个单词把共现次数累加，得到交集大小；文档长度已知，并集等于两篇长度之和减去交集，单词本身不必再次遍历。\r \r 因此按单词收集文档编号。收集时文档编号从小到大写入，倒排列表有序，枚举出来的编号对已经满足较小者在前。哈希表只保存交集非空的文档对，后面直接用这个键计算相似度。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：哈希表\r\n\r\n\r\n\r\n思考\r\n\r\n最直接的做法是枚举每一对文档，分别建成集合再求交集和并集。文档个数与单篇长度都达到 $500$，任意两篇的相似度又都接近 $0$，大量空交集仍要被构造和扫描。\r\n\r\n真正需要计算的文档对不超过 $1000$。时间应当只花在至少共现过一个单词的文档上。\r\n\r\n某个单词出现在一组文档中，这组文档两两的交集就至少包含它。沿每个单词把共现次数累加，得到交集大小；文档长度已知，并集等于两篇长度之和减去交集，单词本身不必再次遍历。\r\n\r\n因此按单词收集文档编号。收集时文档编号从小到大写入，倒排列表有序，枚举出来的编号对已经满足较小者在前。哈希表只保存交集非空的文档对，后面直接用这个键计算相似度。\r\n\r\n\r\n\r\n我们用哈希表 $d$ 记录每个单词出现过的文档编号。文档按编号从小到大扫描，且每个文档内的整数互不相同，因此 $d[x]$ 中的编号严格递增。\r\n\r\n两个文档的相似度大于 $0$，等价于它们至少共有一个单词。对 $d$ 中的每个文档列表，枚举其中的编号对，并在哈希表 $cnt$ 里累加。键是文档编号对 $(i, j)$（ $i < j$），值是这两个文档的交集大小。并集大小等于 $|docs[i]| + |docs[j]| - |\\cap|$。空文档不会进入任何列表，计算时被自然跳过。\r\n\r\n遍历 $cnt$ 时，相似度取交集与并集之比。浮点除法的结果可能略小于真值，先加上 $10^{-9}$，再格式化为小数点后四位。倒排列表已经按编号递增，输出里较小的编号就是键的第一项。\r\n\r\n时间复杂度 $O(m \\times n^2)$，空间复杂度 $O(S)$。其中 $n$ 为文档个数， $m$ 为单个文档的最大长度， $S$ 为所有文档的长度之和。题目保证相似度大于 $0$ 的文档对不超过 $1000$，内层循环的次数等于这些文档对的交集大小之和，因此实际耗时低于上述上界。",
+  "memory": "稀疏相似度 → 哈希表。\n**思考**\r\n\r\n最直接的做法是枚举每一对文档，分别建成集合再求交集和并集。文档个数与单篇长度都达到 $500$，任意两篇的相似度又都接近 $0$，大量空交集仍要被构造和扫描。\r\n\r\n真正需要计算的文档对不超过 $1000$。时间应当只花在至少共现过一个单词的文档上。\r\n\r\n某个单词出现在一组文档中，这组文档两两的交集就至少包含它。沿每个单词把共现次数累加，得到交集大小；文档长度已知，并集等于两篇长度之和减去交集，单词本身不必再次遍历。\r\n\r\n因此按单词收集文档编号。收集时文档编号从小到大写入，倒排列表有序，枚举出来的编号对已经满足较小者在前。哈希表只保存交集非空的文档对，后面直接用这个键计算相似度。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,115 @@
+{
+  "number": "LCR 107",
+  "adapter": {
+    "name": "updateMatrix",
+    "params": [
+      {
+        "name": "mat",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer[][]"
+    },
+    "number": "LCR 107"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int[][] updateMatrix(int[][] mat) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:\r\n        m, n = len(mat), len(mat[0])\r\n        ans = [[-1] * n for _ in range(m)]\r\n        q = deque()\r\n        for i, row in enumerate(mat):\r\n            for j, v in enumerate(row):\r\n                if v == 0:\r\n                    ans[i][j] = 0\r\n                    q.append((i, j))\r\n        dirs = [(0, 1), (0, -1), (1, 0), (-1, 0)]\r\n        while q:\r\n            i, j = q.popleft()\r\n            for a, b in dirs:\r\n                x, y = i + a, j + b\r\n                if 0 <= x < m and 0 <= y < n and ans[x][y] == -1:\r\n                    ans[x][y] = ans[i][j] + 1\r\n                    q.append((x, y))\r\n        return ans\r\n",
+    "java": "class Solution {\r\n\r\n    public int[][] updateMatrix(int[][] mat) {\r\n        int m = mat.length, n = mat[0].length;\r\n        int[][] ans = new int[m][n];\r\n        for (int i = 0; i < m; ++i) {\r\n            Arrays.fill(ans[i], -1);\r\n        }\r\n        Deque<int[]> q = new LinkedList<>();\r\n        for (int i = 0; i < m; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                if (mat[i][j] == 0) {\r\n                    ans[i][j] = 0;\r\n                    q.offer(new int[] {i, j});\r\n                }\r\n            }\r\n        }\r\n        int[] dirs = new int[] {-1, 0, 1, 0, -1};\r\n        while (!q.isEmpty()) {\r\n            int[] t = q.poll();\r\n            for (int i = 0; i < 4; ++i) {\r\n                int x = t[0] + dirs[i];\r\n                int y = t[1] + dirs[i + 1];\r\n                if (x >= 0 && x < m && y >= 0 && y < n && ans[x][y] == -1) {\r\n                    ans[x][y] = ans[t[0]][t[1]] + 1;\r\n                    q.offer(new int[] {x, y});\r\n                }\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {\r\n        int m = mat.size(), n = mat[0].size();\r\n        vector<vector<int>> ans(m, vector<int>(n, -1));\r\n        queue<pair<int, int>> q;\r\n        for (int i = 0; i < m; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                if (mat[i][j] == 0) {\r\n                    ans[i][j] = 0;\r\n                    q.emplace(i, j);\r\n                }\r\n            }\r\n        }\r\n        vector<int> dirs = {-1, 0, 1, 0, -1};\r\n        while (!q.empty()) {\r\n            auto p = q.front();\r\n            q.pop();\r\n            for (int i = 0; i < 4; ++i) {\r\n                int x = p.first + dirs[i];\r\n                int y = p.second + dirs[i + 1];\r\n                if (x >= 0 && x < m && y >= 0 && y < n && ans[x][y] == -1) {\r\n                    ans[x][y] = ans[p.first][p.second] + 1;\r\n                    q.emplace(x, y);\r\n                }\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20107.%20%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%9D%E7%A6%BB/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20107.%20%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%9D%E7%A6%BB/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20107.%20%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%9D%E7%A6%BB/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20107.%20%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%9D%E7%A6%BB/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：01 矩阵。\n输入：mat（integer[][]）。\n训练提示：**思考**\r \r 每个 $1$ 到最近 $0$ 的距离。对每个 $1$ 单独 BFS，最坏是立方级的。\r \r 所有 $0$ 同时作为源点入队，多源 BFS 的层次即到最近 $0$ 的距离。未访问的 $1$ 首次被到达时即为最短，之后不再入队。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：多源 BFS\r\n\r\n\r\n\r\n思考\r\n\r\n每个 $1$ 到最近 $0$ 的距离。对每个 $1$ 单独 BFS，最坏是立方级的。\r\n\r\n所有 $0$ 同时作为源点入队，多源 BFS 的层次即到最近 $0$ 的距离。未访问的 $1$ 首次被到达时即为最短，之后不再入队。\r\n\r\n\r\n\r\n初始化结果矩阵 ans，所有 0 的距离为 0，所以 1 的距离为 -1。初始化队列 q 存储 BFS 需要检查的位置，并将所有 0 的位置入队。\r\n\r\n循环弹出队列 q 的元素 `p(i, j)`，检查邻居四个点。对于邻居 `(x, y)`，如果 `ans[x][y] = -1`，则更新 `ans[x][y] = ans[i][j] + 1`。同时将 `(x, y)` 入队。",
+  "memory": "01 矩阵 → 多源 BFS。\n**思考**\r\n\r\n每个 $1$ 到最近 $0$ 的距离。对每个 $1$ 单独 BFS，最坏是立方级的。\r\n\r\n所有 $0$ 同时作为源点入队，多源 BFS 的层次即到最近 $0$ 的距离。未访问的 $1$ 首次被到达时即为最短，之后不再入队。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

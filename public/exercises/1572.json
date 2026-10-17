@@ -1,0 +1,105 @@
+{
+  "number": "1572",
+  "adapter": {
+    "name": "diagonalSum",
+    "params": [
+      {
+        "name": "mat",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1572"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ]
+      ],
+      "expected": 25
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        [
+          [
+            5
+          ]
+        ]
+      ],
+      "expected": 5
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def diagonalSum(self, mat: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} mat\n * @return {number}\n */\nvar diagonalSum = function(mat) {\n    \n};",
+    "java": "class Solution {\n    public int diagonalSum(int[][] mat) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int diagonalSum(vector<vector<int>>& mat) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def diagonalSum(self, mat: List[List[int]]) -> int:\r\n        ans = 0\r\n        n = len(mat)\r\n        for i, row in enumerate(mat):\r\n            j = n - i - 1\r\n            ans += row[i] + (0 if j == i else row[j])\r\n        return ans\r\n",
+    "javascript": "function diagonalSum(mat) {\n    let ans = 0;\n    const n = mat.length;\n    for (let i = 0; i < n; ++i) {\n        const j = n - i - 1;\n        ans += mat[i][i] + (i === j ? 0 : mat[i][j]);\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int diagonalSum(int[][] mat) {\r\n        int ans = 0;\r\n        int n = mat.length;\r\n        for (int i = 0; i < n; ++i) {\r\n            int j = n - i - 1;\r\n            ans += mat[i][i] + (i == j ? 0 : mat[i][j]);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int diagonalSum(vector<vector<int>>& mat) {\r\n        int ans = 0;\r\n        int n = mat.size();\r\n        for (int i = 0; i < n; ++i) {\r\n            int j = n - i - 1;\r\n            ans += mat[i][i] + (i == j ? 0 : mat[i][j]);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1572.Matrix%20Diagonal%20Sum/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1572.Matrix%20Diagonal%20Sum/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1572.Matrix%20Diagonal%20Sum/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1572.Matrix%20Diagonal%20Sum/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1572.Matrix%20Diagonal%20Sum/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：矩阵对角线元素的和。\n输入：mat（integer[][]）。\n训练提示：**思考**\r \r 求方阵主副对角线之和，中心在奇数阶时会被加两次。 $n$ 不大，按行各取两个对角元即可，注意中心只加一次。\r \r 第 $i$ 行主对角为 $row[i]$，副对角为 $row[n-i-1]$。当 $j=i$ 时只累加一个；否则两个都加。一遍行扫描完成。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：逐行遍历\r\n\r\n\r\n\r\n思考\r\n\r\n求方阵主副对角线之和，中心在奇数阶时会被加两次。 $n$ 不大，按行各取两个对角元即可，注意中心只加一次。\r\n\r\n第 $i$ 行主对角为 $row[i]$，副对角为 $row[n-i-1]$。当 $j=i$ 时只累加一个；否则两个都加。一遍行扫描完成。\r\n\r\n\r\n\r\n我们可以遍历矩阵的每一行 $\\textit{row}[i]$，对于每一行，我们可以计算出两个对角线上的元素，即 $\\textit{row}[i][i]$ 和 $\\textit{row}[i][n - i - 1]$，其中 $n$ 是矩阵的行数。如果 $i = n - i - 1$，则说明当前行的对角线上只有一个元素，否则有两个元素。我们将其加到答案中即可。\r\n遍历完所有行后，即可得到答案。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 是矩阵的行数。空间复杂度 $O(1)$。",
+  "memory": "矩阵对角线元素的和 → 逐行遍历。\n**思考**\r\n\r\n求方阵主副对角线之和，中心在奇数阶时会被加两次。 $n$ 不大，按行各取两个对角元即可，注意中心只加一次。\r\n\r\n第 $i$ 行主对角为 $row[i]$，副对角为 $row[n-i-1]$。当 $j=i$ 时只累加一个；否则两个都加。一遍行扫描完成。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

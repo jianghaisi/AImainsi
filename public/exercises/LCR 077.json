@@ -1,0 +1,82 @@
+{
+  "number": "LCR 077",
+  "adapter": {
+    "name": "sortList",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      }
+    ],
+    "return": {
+      "type": "ListNode"
+    },
+    "number": "LCR 077"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          4,
+          2,
+          1,
+          3
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "input": [
+        [
+          -1,
+          5,
+          3,
+          4,
+          0
+        ]
+      ],
+      "expected": [
+        -1,
+        0,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "input": [
+        []
+      ],
+      "expected": []
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def sortList(self, head: ListNode) -> ListNode:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @return {ListNode}\n */\nvar sortList = function(head) {\n\n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode sortList(ListNode head) {\n\n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* sortList(ListNode* head) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, val=0, next=None):\r\n#         self.val = val\r\n#         self.next = next\r\nclass Solution:\r\n    def sortList(self, head: ListNode) -> ListNode:\r\n        if head is None or head.next is None:\r\n            return head\r\n        slow, fast = head, head.next\r\n        while fast and fast.next:\r\n            slow, fast = slow.next, fast.next.next\r\n        t = slow.next\r\n        slow.next = None\r\n        l1, l2 = self.sortList(head), self.sortList(t)\r\n        dummy = ListNode()\r\n        cur = dummy\r\n        while l1 and l2:\r\n            if l1.val <= l2.val:\r\n                cur.next = l1\r\n                l1 = l1.next\r\n            else:\r\n                cur.next = l2\r\n                l2 = l2.next\r\n            cur = cur.next\r\n        cur.next = l1 or l2\r\n        return dummy.next\r\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction sortList(head) {\n    if (head == null || head.next == null)\n        return head;\n    // 快慢指针定位中点\n    let slow = head, fast = head.next;\n    while (fast != null && fast.next != null) {\n        slow = slow.next;\n        fast = fast.next.next;\n    }\n    // 归并排序\n    let mid = slow.next;\n    slow.next = null;\n    let l1 = sortList(head);\n    let l2 = sortList(mid);\n    let dummy = new ListNode();\n    let cur = dummy;\n    while (l1 != null && l2 != null) {\n        if (l1.val <= l2.val) {\n            cur.next = l1;\n            l1 = l1.next;\n        }\n        else {\n            cur.next = l2;\n            l2 = l2.next;\n        }\n        cur = cur.next;\n    }\n    cur.next = l1 == null ? l2 : l1;\n    return dummy.next;\n}\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode() {}\r\n *     ListNode(int val) { this.val = val; }\r\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\r\n * }\r\n */\r\nclass Solution {\r\n    public ListNode sortList(ListNode head) {\r\n        if (head == null || head.next == null) {\r\n            return head;\r\n        }\r\n        ListNode slow = head, fast = head.next;\r\n        while (fast != null && fast.next != null) {\r\n            slow = slow.next;\r\n            fast = fast.next.next;\r\n        }\r\n        ListNode t = slow.next;\r\n        slow.next = null;\r\n        ListNode l1 = sortList(head);\r\n        ListNode l2 = sortList(t);\r\n        ListNode dummy = new ListNode();\r\n        ListNode cur = dummy;\r\n        while (l1 != null && l2 != null) {\r\n            if (l1.val <= l2.val) {\r\n                cur.next = l1;\r\n                l1 = l1.next;\r\n            } else {\r\n                cur.next = l2;\r\n                l2 = l2.next;\r\n            }\r\n            cur = cur.next;\r\n        }\r\n        cur.next = l1 == null ? l2 : l1;\r\n        return dummy.next;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode() : val(0), next(nullptr) {}\r\n *     ListNode(int x) : val(x), next(nullptr) {}\r\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    ListNode* sortList(ListNode* head) {\r\n        if (!head || !head->next) return head;\r\n        auto* slow = head;\r\n        auto* fast = head->next;\r\n        while (fast && fast->next) {\r\n            slow = slow->next;\r\n            fast = fast->next->next;\r\n        }\r\n        auto* t = slow->next;\r\n        slow->next = nullptr;\r\n        auto* l1 = sortList(head);\r\n        auto* l2 = sortList(t);\r\n        auto* dummy = new ListNode();\r\n        auto* cur = dummy;\r\n        while (l1 && l2) {\r\n            if (l1->val <= l2->val) {\r\n                cur->next = l1;\r\n                l1 = l1->next;\r\n            } else {\r\n                cur->next = l2;\r\n                l2 = l2->next;\r\n            }\r\n            cur = cur->next;\r\n        }\r\n        cur->next = l1 ? l1 : l2;\r\n        return dummy->next;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20077.%20%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20077.%20%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20077.%20%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20077.%20%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20077.%20%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：排序链表。\n输入：head（ListNode）。\n训练提示：**思考**\r \r 对单链表排序。随机访问代价高，不适于普通快排或堆排。\r \r 归并排序只需顺序访问：快慢指针断开中点，递归排序两半再合并。自顶向下，时间 $O(n\\log n)$，空间为递归深度。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n对单链表排序。随机访问代价高，不适于普通快排或堆排。\r\n\r\n归并排序只需顺序访问：快慢指针断开中点，递归排序两半再合并。自顶向下，时间 $O(n\\log n)$，空间为递归深度。",
+  "memory": "排序链表 → 方法一。\n**思考**\r\n\r\n对单链表排序。随机访问代价高，不适于普通快排或堆排。\r\n\r\n归并排序只需顺序访问：快慢指针断开中点，递归排序两半再合并。自顶向下，时间 $O(n\\log n)$，空间为递归深度。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,75 @@
+{
+  "number": "面试题 04.09",
+  "adapter": {
+    "name": "BSTSequences",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "list<list<integer>>",
+      "dealloc": true
+    },
+    "number": "面试题 04.09"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          1,
+          3
+        ]
+      ],
+      "expected": [
+        [
+          2,
+          1,
+          3
+        ],
+        [
+          2,
+          3,
+          1
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          4,
+          1,
+          null,
+          null,
+          3,
+          2
+        ]
+      ],
+      "expected": [
+        [
+          4,
+          1,
+          3,
+          2
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def BSTSequences(self, root):\n        raise NotImplementedError('请完成此方法')\n"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def BSTSequences(self, root):\n        if not root:return [[]]\n        result=[]\n        def visit(frontier,path):\n            if not frontier:result.append(path);return\n            for i,node in enumerate(frontier):\n                rest=frontier[:i]+frontier[i+1:]\n                if node.left:rest.append(node.left)\n                if node.right:rest.append(node.right)\n                visit(rest,path+[node.val])\n        visit([root],[]);return result\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.09.BST%20Sequences/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：二叉搜索树序列。\n输入：root（TreeNode）。\n训练提示：**思考**\r \r 若枚举节点值的全排列再模拟插入，则需验证每一种排列是否得到同一棵树，排列数为 $n!$，在节点稍多时不可行。根必须最先插入，因此合法序列都以根开头；左右子树的插入序列彼此独立，只需保持各自内部的相对次序。为此先递归求出左右子树的全部合法序列，再以根为前缀做交织：每一步从某一侧尚未用完的序列取下一个值。空树对应空序列。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "插入序列中，父节点必须先于子节点出现。维护当前可选节点集合：选一个节点后，把它的孩子加入候选，回溯枚举下一位；候选为空时保存一条序列。空树对应一个空序列。",
+  "memory": "先父后子，左右子树可以交错。画出根为 2、孩子为 1 和 3 的树：合法顺序只有 2,1,3 与 2,3,1。候选集合代表“父节点已经写过”。"
+}

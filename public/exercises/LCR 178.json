@@ -1,0 +1,89 @@
+{
+  "number": "LCR 178",
+  "adapter": {
+    "name": "trainingPlan",
+    "params": [
+      {
+        "name": "actions",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 178"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          5,
+          7,
+          5,
+          5
+        ]
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        [
+          12,
+          1,
+          6,
+          12,
+          6,
+          12,
+          6
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          3,
+          4,
+          3,
+          3
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          9,
+          1,
+          7,
+          9,
+          7,
+          9,
+          7
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def trainingPlan(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int trainingPlan(int[] actions) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int trainingPlan(vector<int>& actions) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def trainingPlan(self, nums: List[int]) -> int:\r\n        cnt = [0] * 32\r\n        for x in nums:\r\n            for i in range(32):\r\n                cnt[i] += x & 1\r\n                x >>= 1\r\n        return sum(1 << i for i in range(32) if cnt[i] % 3)\r\n",
+    "java": "class Solution {\r\n    public int trainingPlan(int[] nums) {\r\n        int[] cnt = new int[32];\r\n        for (int x : nums) {\r\n            for (int i = 0; i < 32; ++i) {\r\n                cnt[i] += x & 1;\r\n                x >>= 1;\r\n            }\r\n        }\r\n        int ans = 0;\r\n        for (int i = 0; i < 32; ++i) {\r\n            if (cnt[i] % 3 == 1) {\r\n                ans |= 1 << i;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int trainingPlan(vector<int>& nums) {\r\n        int cnt[32]{};\r\n        for (int& x : nums) {\r\n            for (int i = 0; i < 32; ++i) {\r\n                cnt[i] += x & 1;\r\n                x >>= 1;\r\n            }\r\n        }\r\n        int ans = 0;\r\n        for (int i = 0; i < 32; ++i) {\r\n            if (cnt[i] % 3) {\r\n                ans |= 1 << i;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9856%20-%20II.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E6%95%B0%E5%AD%97%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0%20II/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9856%20-%20II.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E6%95%B0%E5%AD%97%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0%20II/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9856%20-%20II.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E6%95%B0%E5%AD%97%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0%20II/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9856%20-%20II.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E6%95%B0%E5%AD%97%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0%20II/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：训练计划 VI。\n输入：actions（integer[]）。\n训练提示：**思考**\r \r 其余数出现三次，异或无法直接消掉。按位统计 $1$ 的次数，模 $3$ 的余数即那个只出现一次的数在该位的值，再拼回整数。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：位运算\r\n\r\n\r\n\r\n思考\r\n\r\n其余数出现三次，异或无法直接消掉。按位统计 $1$ 的次数，模 $3$ 的余数即那个只出现一次的数在该位的值，再拼回整数。\r\n\r\n\r\n\r\n我们用一个长度为 32 的数组 $cnt$ 来统计所有数字的每一位中 $1$ 的出现次数。如果某一位的 $1$ 的出现次数能被 $3$ 整除，那么那个只出现一次的数字二进制表示中对应的那一位也是 $0$；否则，那个只出现一次的数字二进制表示中对应的那一位是 $1$。\r\n\r\n时间复杂度 $O(n \\times C)$，空间复杂度 $O(C)$。其中 $n$ 是数组的长度；而 $C$ 是整数的位数，本题中 $C=32$。",
+  "memory": "训练计划 VI → 位运算。\n**思考**\r\n\r\n其余数出现三次，异或无法直接消掉。按位统计 $1$ 的次数，模 $3$ 的余数即那个只出现一次的数在该位的值，再拼回整数。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

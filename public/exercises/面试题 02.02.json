@@ -1,0 +1,69 @@
+{
+  "number": "面试题 02.02",
+  "adapter": {
+    "name": "kthToLast",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode",
+        "dealloc": false
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 02.02"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        2
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          7
+        ],
+        1
+      ],
+      "expected": 7
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def kthToLast(self, head: ListNode, k: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @param {number} k\n * @return {number}\n */\nvar kthToLast = function(head, k) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public int kthToLast(ListNode head, int k) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    int kthToLast(ListNode* head, int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.next = None\r\n\r\n\r\nclass Solution:\r\n    def kthToLast(self, head: ListNode, k: int) -> int:\r\n        slow = fast = head\r\n        for _ in range(k):\r\n            fast = fast.next\r\n        while fast:\r\n            slow = slow.next\r\n            fast = fast.next\r\n        return slow.val\r\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction kthToLast(head, k) {\n    let [slow, fast] = [head, head];\n    while (k--) {\n        fast = fast.next;\n    }\n    while (fast !== null) {\n        slow = slow.next;\n        fast = fast.next;\n    }\n    return slow.val;\n}\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public int kthToLast(ListNode head, int k) {\r\n        ListNode slow = head, fast = head;\r\n        while (k-- > 0) {\r\n            fast = fast.next;\r\n        }\r\n        while (fast != null) {\r\n            slow = slow.next;\r\n            fast = fast.next;\r\n        }\r\n        return slow.val;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode(int x) : val(x), next(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    int kthToLast(ListNode* head, int k) {\r\n        ListNode* fast = head;\r\n        ListNode* slow = head;\r\n        while (k--) {\r\n            fast = fast->next;\r\n        }\r\n        while (fast) {\r\n            slow = slow->next;\r\n            fast = fast->next;\r\n        }\r\n        return slow->val;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.02.Kth%20Node%20From%20End%20of%20List/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.02.Kth%20Node%20From%20End%20of%20List/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.02.Kth%20Node%20From%20End%20of%20List/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.02.Kth%20Node%20From%20End%20of%20List/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.02.Kth%20Node%20From%20End%20of%20List/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：返回倒数第 k 个节点。\n输入：head（ListNode）、k（integer）。\n训练提示：**思考**\r \r 倒数第 $k$ 个节点等价于正数第 $n-k+1$ 个。先走一遍求 $n$ 再走第二遍，正确且 $n$ 通常不大；题目希望一次遍历。\r \r 若快指针比慢指针提前 $k$ 步，则快指针抵达末尾时，慢指针恰好停在倒数第 $k$ 个。\r \r 两指针同起于头节点，`fast` 先走 $k$ 步，再同步前进直至 `fast` 为空，返回 `slow.val`。全程 $O(1)$ 额外空间。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：快慢指针\r\n\r\n\r\n\r\n思考\r\n\r\n倒数第 $k$ 个节点等价于正数第 $n-k+1$ 个。先走一遍求 $n$ 再走第二遍，正确且 $n$ 通常不大；题目希望一次遍历。\r\n\r\n若快指针比慢指针提前 $k$ 步，则快指针抵达末尾时，慢指针恰好停在倒数第 $k$ 个。\r\n\r\n两指针同起于头节点，`fast` 先走 $k$ 步，再同步前进直至 `fast` 为空，返回 `slow.val`。全程 $O(1)$ 额外空间。\r\n\r\n\r\n\r\n我们定义两个指针 `slow` 和 `fast`，初始时都指向链表头节点 `head`。然后 `fast` 指针先向前移动 $k$ 步，然后 `slow` 和 `fast` 指针同时向前移动，直到 `fast` 指针指向链表末尾。此时 `slow` 指针指向的节点就是倒数第 $k$ 个节点。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 是链表的长度。空间复杂度 $O(1)$。",
+  "memory": "返回倒数第 k 个节点 → 快慢指针。\n**思考**\r\n\r\n倒数第 $k$ 个节点等价于正数第 $n-k+1$ 个。先走一遍求 $n$ 再走第二遍，正确且 $n$ 通常不大；题目希望一次遍历。\r\n\r\n若快指针比慢指针提前 $k$ 步，则快指针抵达末尾时，慢指针恰好停在倒数第 $k$ 个。\r\n\r\n两指针同起于头节点，`fast` 先走 $k$ 步，再同步前进直至 `fast` 为空，返回 `slow.val`。全程 $O(1)$ 额外空间。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,99 @@
+{
+  "number": "面试题 04.08",
+  "adapter": {
+    "name": "lowestCommonAncestor",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      },
+      {
+        "name": "p",
+        "type": "TreeNode"
+      },
+      {
+        "name": "q",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "TreeNode"
+    },
+    "languages": [
+      "cpp",
+      "java",
+      "python",
+      "c",
+      "csharp",
+      "javascript",
+      "ruby",
+      "golang",
+      "python3"
+    ],
+    "manual": true,
+    "number": "面试题 04.08"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          5,
+          1,
+          6,
+          2,
+          0,
+          8,
+          null,
+          null,
+          7,
+          4
+        ],
+        5,
+        1
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          3,
+          5,
+          1,
+          6,
+          2,
+          0,
+          8,
+          null,
+          null,
+          7,
+          4
+        ],
+        5,
+        4
+      ],
+      "expected": 5
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n\n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.left = None\r\n#         self.right = None\r\n\r\n\r\nclass Solution:\r\n    def lowestCommonAncestor(\r\n        self, root: TreeNode, p: TreeNode, q: TreeNode\r\n    ) -> TreeNode:\r\n        if root is None or root in [p, q]:\r\n            return root\r\n        left = self.lowestCommonAncestor(root.left, p, q)\r\n        right = self.lowestCommonAncestor(root.right, p, q)\r\n        return root if left and right else left or right\r\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\r\n        if (root == null || root == p || root == q) {\r\n            return root;\r\n        }\r\n        TreeNode left = lowestCommonAncestor(root.left, p, q);\r\n        TreeNode right = lowestCommonAncestor(root.right, p, q);\r\n        return left == null ? right : (right == null ? left : root);\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {\r\n        if (!root || root == p || root == q) {\r\n            return root;\r\n        }\r\n        TreeNode* left = lowestCommonAncestor(root->left, p, q);\r\n        TreeNode* right = lowestCommonAncestor(root->right, p, q);\r\n        return left && right ? root : (left ? left : right);\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.08.First%20Common%20Ancestor/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.08.First%20Common%20Ancestor/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.08.First%20Common%20Ancestor/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/04.08.First%20Common%20Ancestor/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：首个共同祖先。\n输入：root（TreeNode）、p（TreeNode）、q（TreeNode）。\n训练提示：**思考**\r \r 最近公共祖先是同时覆盖 $p$、 $q$ 的最深节点。先找根到两点的路径再比前缀，需要额外存储。\r \r 若 $p$、 $q$ 分处左右子树，当前根即为答案；若都在同一侧，答案在那一侧更深处。\r \r 递归：空或命中 $p$/$q$ 则返回该节点；左右都非空则返回根，否则返回非空一侧。每个节点访问一次。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递归\r\n\r\n\r\n\r\n思考\r\n\r\n最近公共祖先是同时覆盖 $p$、 $q$ 的最深节点。先找根到两点的路径再比前缀，需要额外存储。\r\n\r\n若 $p$、 $q$ 分处左右子树，当前根即为答案；若都在同一侧，答案在那一侧更深处。\r\n\r\n递归：空或命中 $p$/$q$ 则返回该节点；左右都非空则返回根，否则返回非空一侧。每个节点访问一次。\r\n\r\n\r\n\r\n我们首先判断根节点是否为空，或者根节点是否等于 $\\textit{p}$ 或 $\\textit{q}$，如果是的话，直接返回根节点。\r\n\r\n然后递归地对左右子树进行查找，分别得到 $\\textit{left}$ 和 $\\textit{right}$。如果 $\\textit{left}$ 和 $\\textit{right}$ 都不为空，说明 $\\textit{p}$ 和 $\\textit{q}$ 分别在左右子树中，那么根节点就是最近公共祖先。否则，如果 $\\textit{left}$ 和 $\\textit{right}$ 中有一个为空，说明 $\\textit{p}$ 和 $\\textit{q}$ 都在非空的子树中，那么非空的子树的根节点就是最近公共祖先。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 是二叉树中节点的数目。",
+  "memory": "首个共同祖先 → 递归。\n**思考**\r\n\r\n最近公共祖先是同时覆盖 $p$、 $q$ 的最深节点。先找根到两点的路径再比前缀，需要额外存储。\r\n\r\n若 $p$、 $q$ 分处左右子树，当前根即为答案；若都在同一侧，答案在那一侧更深处。\r\n\r\n递归：空或命中 $p$/$q$ 则返回该节点；左右都非空则返回根，否则返回非空一侧。每个节点访问一次。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

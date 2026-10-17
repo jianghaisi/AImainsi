@@ -1,0 +1,82 @@
+{
+  "number": "1857",
+  "adapter": {
+    "name": "largestPathValue",
+    "params": [
+      {
+        "name": "colors",
+        "type": "string"
+      },
+      {
+        "type": "integer[][]",
+        "name": "edges"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1857"
+  },
+  "tests": [
+    {
+      "input": [
+        "abaca",
+        [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "a",
+        [
+          [
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": -1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def largestPathValue(self, colors: str, edges: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} colors\n * @param {number[][]} edges\n * @return {number}\n */\nvar largestPathValue = function(colors, edges) {\n    \n};",
+    "java": "class Solution {\n    public int largestPathValue(String colors, int[][] edges) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int largestPathValue(string colors, vector<vector<int>>& edges) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def largestPathValue(self, colors: str, edges: List[List[int]]) -> int:\r\n        n = len(colors)\r\n        indeg = [0] * n\r\n        g = defaultdict(list)\r\n        for a, b in edges:\r\n            g[a].append(b)\r\n            indeg[b] += 1\r\n        q = deque()\r\n        dp = [[0] * 26 for _ in range(n)]\r\n        for i, v in enumerate(indeg):\r\n            if v == 0:\r\n                q.append(i)\r\n                c = ord(colors[i]) - ord('a')\r\n                dp[i][c] += 1\r\n        cnt = 0\r\n        ans = 1\r\n        while q:\r\n            i = q.popleft()\r\n            cnt += 1\r\n            for j in g[i]:\r\n                indeg[j] -= 1\r\n                if indeg[j] == 0:\r\n                    q.append(j)\r\n                c = ord(colors[j]) - ord('a')\r\n                for k in range(26):\r\n                    dp[j][k] = max(dp[j][k], dp[i][k] + (c == k))\r\n                    ans = max(ans, dp[j][k])\r\n        return -1 if cnt < n else ans\r\n",
+    "javascript": "function largestPathValue(colors, edges) {\n    const n = colors.length;\n    const indeg = Array(n).fill(0);\n    const g = new Map();\n    for (const [a, b] of edges) {\n        if (!g.has(a))\n            g.set(a, []);\n        g.get(a).push(b);\n        indeg[b]++;\n    }\n    const q = [];\n    const dp = Array.from({ length: n }, () => Array(26).fill(0));\n    for (let i = 0; i < n; i++) {\n        if (indeg[i] === 0) {\n            q.push(i);\n            const c = colors.charCodeAt(i) - 97;\n            dp[i][c]++;\n        }\n    }\n    let cnt = 0;\n    let ans = 1;\n    while (q.length) {\n        const i = q.pop();\n        cnt++;\n        if (g.has(i)) {\n            for (const j of g.get(i)) {\n                indeg[j]--;\n                if (indeg[j] === 0)\n                    q.push(j);\n                const c = colors.charCodeAt(j) - 97;\n                for (let k = 0; k < 26; k++) {\n                    dp[j][k] = Math.max(dp[j][k], dp[i][k] + (c === k ? 1 : 0));\n                    ans = Math.max(ans, dp[j][k]);\n                }\n            }\n        }\n    }\n    return cnt < n ? -1 : ans;\n}\n",
+    "java": "class Solution {\r\n    public int largestPathValue(String colors, int[][] edges) {\r\n        int n = colors.length();\r\n        List<Integer>[] g = new List[n];\r\n        Arrays.setAll(g, k -> new ArrayList<>());\r\n        int[] indeg = new int[n];\r\n        for (int[] e : edges) {\r\n            int a = e[0], b = e[1];\r\n            g[a].add(b);\r\n            ++indeg[b];\r\n        }\r\n        Deque<Integer> q = new ArrayDeque<>();\r\n        int[][] dp = new int[n][26];\r\n        for (int i = 0; i < n; ++i) {\r\n            if (indeg[i] == 0) {\r\n                q.offer(i);\r\n                int c = colors.charAt(i) - 'a';\r\n                ++dp[i][c];\r\n            }\r\n        }\r\n        int cnt = 0;\r\n        int ans = 1;\r\n        while (!q.isEmpty()) {\r\n            int i = q.pollFirst();\r\n            ++cnt;\r\n            for (int j : g[i]) {\r\n                if (--indeg[j] == 0) {\r\n                    q.offer(j);\r\n                }\r\n                int c = colors.charAt(j) - 'a';\r\n                for (int k = 0; k < 26; ++k) {\r\n                    dp[j][k] = Math.max(dp[j][k], dp[i][k] + (c == k ? 1 : 0));\r\n                    ans = Math.max(ans, dp[j][k]);\r\n                }\r\n            }\r\n        }\r\n        return cnt == n ? ans : -1;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int largestPathValue(string colors, vector<vector<int>>& edges) {\r\n        int n = colors.size();\r\n        vector<vector<int>> g(n);\r\n        vector<int> indeg(n);\r\n        for (auto& e : edges) {\r\n            int a = e[0], b = e[1];\r\n            g[a].push_back(b);\r\n            ++indeg[b];\r\n        }\r\n        queue<int> q;\r\n        vector<vector<int>> dp(n, vector<int>(26));\r\n        for (int i = 0; i < n; ++i) {\r\n            if (indeg[i] == 0) {\r\n                q.push(i);\r\n                int c = colors[i] - 'a';\r\n                dp[i][c]++;\r\n            }\r\n        }\r\n        int cnt = 0;\r\n        int ans = 1;\r\n        while (!q.empty()) {\r\n            int i = q.front();\r\n            q.pop();\r\n            ++cnt;\r\n            for (int j : g[i]) {\r\n                if (--indeg[j] == 0) q.push(j);\r\n                int c = colors[j] - 'a';\r\n                for (int k = 0; k < 26; ++k) {\r\n                    dp[j][k] = max(dp[j][k], dp[i][k] + (c == k));\r\n                    ans = max(ans, dp[j][k]);\r\n                }\r\n            }\r\n        }\r\n        return cnt == n ? ans : -1;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1800-1899/1857.Largest%20Color%20Value%20in%20a%20Directed%20Graph/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1800-1899/1857.Largest%20Color%20Value%20in%20a%20Directed%20Graph/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1800-1899/1857.Largest%20Color%20Value%20in%20a%20Directed%20Graph/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1800-1899/1857.Largest%20Color%20Value%20in%20a%20Directed%20Graph/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1800-1899/1857.Largest%20Color%20Value%20in%20a%20Directed%20Graph/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：有向图中最大颜色值。\n输入：colors（string）、edges（integer[][]）。\n训练提示：**思考**\r \r 有向图路径上某种颜色出现次数的最大值，若存在环则无解。路径条数指数级， $n,m\\le 10^5$，不能枚举路径。\r \r 拓扑序保证每个点在其前驱之后处理。 $dp[i][c]$ 表示到达 $i$ 时颜色 $c$ 的最大次数，沿出边把 $26$ 维取 $\\max$ 并加上终点自身颜色。若出队点数不足 $n$ 则有环。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：拓扑排序 + 动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n有向图路径上某种颜色出现次数的最大值，若存在环则无解。路径条数指数级， $n,m\\le 10^5$，不能枚举路径。\r\n\r\n拓扑序保证每个点在其前驱之后处理。 $dp[i][c]$ 表示到达 $i$ 时颜色 $c$ 的最大次数，沿出边把 $26$ 维取 $\\max$ 并加上终点自身颜色。若出队点数不足 $n$ 则有环。\r\n\r\n\r\n\r\n求出每个点的入度，进行拓扑排序。\r\n\r\n定义一个二维数组 $dp$，其中 $dp[i][j]$ 表示从起点到 $i$ 点，颜色为 $j$ 的节点数目。\r\n\r\n从 $i$ 点出发，遍历所有出边 $i \\to j$，更新 $dp[j][k] = \\max(dp[j][k], dp[i][k] + (c == k))$，其中 $c$ 是 $j$ 点的颜色。\r\n\r\n答案为数组 $dp$ 中的最大值。\r\n\r\n如果图中有环，则无法遍历完所有点，返回 $-1$。\r\n\r\n时间复杂度 $O((n + m) \\times |\\Sigma|)$，空间复杂度 $O(m + n \\times |\\Sigma)$。其中 $|\\Sigma|$ 是字母表大小，这里为 $26$，而且 $n$ 和 $m$ 分别是节点数和边数。",
+  "memory": "有向图中最大颜色值 → 拓扑排序 + 动态规划。\n**思考**\r\n\r\n有向图路径上某种颜色出现次数的最大值，若存在环则无解。路径条数指数级， $n,m\\le 10^5$，不能枚举路径。\r\n\r\n拓扑序保证每个点在其前驱之后处理。 $dp[i][c]$ 表示到达 $i$ 时颜色 $c$ 的最大次数，沿出边把 $26$ 维取 $\\max$ 并加上终点自身颜色。若出队点数不足 $n$ 则有环。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

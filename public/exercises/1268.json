@@ -1,0 +1,155 @@
+{
+  "number": "1268",
+  "adapter": {
+    "name": "suggestedProducts",
+    "params": [
+      {
+        "name": "products",
+        "type": "string[]"
+      },
+      {
+        "type": "string",
+        "name": "searchWord"
+      }
+    ],
+    "return": {
+      "type": "list<list<string>>"
+    },
+    "number": "1268"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "mobile",
+          "mouse",
+          "moneypot",
+          "monitor",
+          "mousepad"
+        ],
+        "mouse"
+      ],
+      "expected": [
+        [
+          "mobile",
+          "moneypot",
+          "monitor"
+        ],
+        [
+          "mobile",
+          "moneypot",
+          "monitor"
+        ],
+        [
+          "mouse",
+          "mousepad"
+        ],
+        [
+          "mouse",
+          "mousepad"
+        ],
+        [
+          "mouse",
+          "mousepad"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "havana"
+        ],
+        "havana"
+      ],
+      "expected": [
+        [
+          "havana"
+        ],
+        [
+          "havana"
+        ],
+        [
+          "havana"
+        ],
+        [
+          "havana"
+        ],
+        [
+          "havana"
+        ],
+        [
+          "havana"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "bags",
+          "baggage",
+          "banner",
+          "box",
+          "cloths"
+        ],
+        "bags"
+      ],
+      "expected": [
+        [
+          "baggage",
+          "bags",
+          "banner"
+        ],
+        [
+          "baggage",
+          "bags",
+          "banner"
+        ],
+        [
+          "baggage",
+          "bags"
+        ],
+        [
+          "bags"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "havana"
+        ],
+        "tatiana"
+      ],
+      "expected": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public List<List<String>> suggestedProducts(String[] products, String searchWord) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Trie:\r\n    def __init__(self):\r\n        self.children: List[Union[Trie, None]] = [None] * 26\r\n        self.v: List[int] = []\r\n\r\n    def insert(self, w, i):\r\n        node = self\r\n        for c in w:\r\n            idx = ord(c) - ord('a')\r\n            if node.children[idx] is None:\r\n                node.children[idx] = Trie()\r\n            node = node.children[idx]\r\n            if len(node.v) < 3:\r\n                node.v.append(i)\r\n\r\n    def search(self, w):\r\n        node = self\r\n        ans = [[] for _ in range(len(w))]\r\n        for i, c in enumerate(w):\r\n            idx = ord(c) - ord('a')\r\n            if node.children[idx] is None:\r\n                break\r\n            node = node.children[idx]\r\n            ans[i] = node.v\r\n        return ans\r\n\r\n\r\nclass Solution:\r\n    def suggestedProducts(\r\n        self, products: List[str], searchWord: str\r\n    ) -> List[List[str]]:\r\n        products.sort()\r\n        trie = Trie()\r\n        for i, w in enumerate(products):\r\n            trie.insert(w, i)\r\n        return [[products[i] for i in v] for v in trie.search(searchWord)]\r\n",
+    "java": "class Trie {\r\n    Trie[] children = new Trie[26];\r\n    List<Integer> v = new ArrayList<>();\r\n\r\n    public void insert(String w, int i) {\r\n        Trie node = this;\r\n        for (int j = 0; j < w.length(); ++j) {\r\n            int idx = w.charAt(j) - 'a';\r\n            if (node.children[idx] == null) {\r\n                node.children[idx] = new Trie();\r\n            }\r\n            node = node.children[idx];\r\n            if (node.v.size() < 3) {\r\n                node.v.add(i);\r\n            }\r\n        }\r\n    }\r\n\r\n    public List<Integer>[] search(String w) {\r\n        Trie node = this;\r\n        int n = w.length();\r\n        List<Integer>[] ans = new List[n];\r\n        Arrays.setAll(ans, k -> new ArrayList<>());\r\n        for (int i = 0; i < n; ++i) {\r\n            int idx = w.charAt(i) - 'a';\r\n            if (node.children[idx] == null) {\r\n                break;\r\n            }\r\n            node = node.children[idx];\r\n            ans[i] = node.v;\r\n        }\r\n        return ans;\r\n    }\r\n}\r\n\r\nclass Solution {\r\n    public List<List<String>> suggestedProducts(String[] products, String searchWord) {\r\n        Arrays.sort(products);\r\n        Trie trie = new Trie();\r\n        for (int i = 0; i < products.length; ++i) {\r\n            trie.insert(products[i], i);\r\n        }\r\n        List<List<String>> ans = new ArrayList<>();\r\n        for (var v : trie.search(searchWord)) {\r\n            List<String> t = new ArrayList<>();\r\n            for (int i : v) {\r\n                t.add(products[i]);\r\n            }\r\n            ans.add(t);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Trie {\r\npublic:\r\n    void insert(string& w, int i) {\r\n        Trie* node = this;\r\n        for (int j = 0; j < w.size(); ++j) {\r\n            int idx = w[j] - 'a';\r\n            if (!node->children[idx]) {\r\n                node->children[idx] = new Trie();\r\n            }\r\n            node = node->children[idx];\r\n            if (node->v.size() < 3) {\r\n                node->v.push_back(i);\r\n            }\r\n        }\r\n    }\r\n\r\n    vector<vector<int>> search(string& w) {\r\n        Trie* node = this;\r\n        int n = w.size();\r\n        vector<vector<int>> ans(n);\r\n        for (int i = 0; i < w.size(); ++i) {\r\n            int idx = w[i] - 'a';\r\n            if (!node->children[idx]) {\r\n                break;\r\n            }\r\n            node = node->children[idx];\r\n            ans[i] = move(node->v);\r\n        }\r\n        return ans;\r\n    }\r\n\r\nprivate:\r\n    vector<Trie*> children = vector<Trie*>(26);\r\n    vector<int> v;\r\n};\r\n\r\nclass Solution {\r\npublic:\r\n    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {\r\n        sort(products.begin(), products.end());\r\n        Trie* trie = new Trie();\r\n        for (int i = 0; i < products.size(); ++i) {\r\n            trie->insert(products[i], i);\r\n        }\r\n        vector<vector<string>> ans;\r\n        for (auto& v : trie->search(searchWord)) {\r\n            vector<string> t;\r\n            for (int i : v) {\r\n                t.push_back(products[i]);\r\n            }\r\n            ans.push_back(move(t));\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1268.Search%20Suggestions%20System/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1268.Search%20Suggestions%20System/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1268.Search%20Suggestions%20System/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1268.Search%20Suggestions%20System/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：搜索推荐系统。\n输入：products（string[]）、searchWord（string）。\n训练提示：**思考**\r \r 每多输入一个字母，要给出当前前缀下字典序最小的三个商品。商品数 $1000$，可先排序再插入前缀树，使每个节点按插入顺序最多留下三个下标，它们即该前缀的前三名。\r \r 沿 $searchWord$ 走树，把途经节点上的下标表映射回商品名。排序保证插入顺序即字典序，前缀树保证按前缀定位。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序 + 前缀树\r\n\r\n\r\n\r\n思考\r\n\r\n每多输入一个字母，要给出当前前缀下字典序最小的三个商品。商品数 $1000$，可先排序再插入前缀树，使每个节点按插入顺序最多留下三个下标，它们即该前缀的前三名。\r\n\r\n沿 $searchWord$ 走树，把途经节点上的下标表映射回商品名。排序保证插入顺序即字典序，前缀树保证按前缀定位。\r\n\r\n\r\n\r\n题目要求在输入 `searchWord` 的每一个字母后，推荐 `products` 数组中前缀与 `searchWord` 相同的最多三个产品。如果前缀相同的可推荐产品超过三个，按字典序返回最小的三个。\r\n\r\n找前缀相同的产品，可以使用前缀树；而要返回字典序最小的三个产品，我们可以先对 `products` 数组进行排序，然后将排序后的数组下标存入前缀树中。\r\n\r\n前缀树的每个节点维护以下信息：\r\n\r\n- `children`：这是一个长度为 $26$ 的数组，用于存储当前节点的子节点，`children[i]` 表示当前节点的子节点中字符为 `i + 'a'` 的节点。\r\n- `v`：这是一个数组，用于存储当前节点的子节点中的字符在 `products` 数组中的下标，最多存储三个下标。\r\n\r\n搜索时，我们从前缀树的根节点开始，找到每一个前缀对应的下标数组，将其存入结果数组中。最后只需要将每个下标数组中的下标对应到 `products` 数组中即可。\r\n\r\n时间复杂度 $O(L \\times \\log n + m)$，空间复杂度 $O(L)$。其中 $L$ 是 `products` 数组所有字符串的长度之和，而 $n$ 和 $m$ 分别是 `products` 数组的长度和 `searchWord` 的长度。",
+  "memory": "搜索推荐系统 → 排序 + 前缀树。\n**思考**\r\n\r\n每多输入一个字母，要给出当前前缀下字典序最小的三个商品。商品数 $1000$，可先排序再插入前缀树，使每个节点按插入顺序最多留下三个下标，它们即该前缀的前三名。\r\n\r\n沿 $searchWord$ 走树，把途经节点上的下标表映射回商品名。排序保证插入顺序即字典序，前缀树保证按前缀定位。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

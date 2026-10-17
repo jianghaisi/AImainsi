@@ -1,0 +1,73 @@
+{
+  "number": "LCR 053",
+  "adapter": {
+    "name": "inorderSuccessor",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      },
+      {
+        "name": "p",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "TreeNode"
+    },
+    "number": "LCR 053"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          1,
+          3
+        ],
+        1
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          5,
+          3,
+          6,
+          2,
+          4,
+          null,
+          null,
+          1
+        ],
+        6
+      ],
+      "expected": null
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val) {\n *     this.val = val;\n *     this.left = this.right = null;\n * }\n */\n/**\n * @param {TreeNode} root\n * @param {TreeNode} p\n * @return {TreeNode}\n */\nvar inorderSuccessor = function(root, p) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.left = None\r\n#         self.right = None\r\n\r\n\r\nclass Solution:\r\n    def inorderSuccessor(self, root: \"TreeNode\", p: \"TreeNode\") -> \"TreeNode\":\r\n        ans = None\r\n        while root:\r\n            if root.val > p.val:\r\n                ans = root\r\n                root = root.left\r\n            else:\r\n                root = root.right\r\n        return ans\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction inorderSuccessor(root, p) {\n    let ans = null;\n    while (root) {\n        if (root.val > p.val) {\n            ans = root;\n            root = root.left;\n        }\n        else {\n            root = root.right;\n        }\n    }\n    return ans;\n}\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {\r\n        TreeNode ans = null;\r\n        while (root != null) {\r\n            if (root.val > p.val) {\r\n                ans = root;\r\n                root = root.left;\r\n            } else {\r\n                root = root.right;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {\r\n        TreeNode* ans = nullptr;\r\n        while (root) {\r\n            if (root->val > p->val) {\r\n                ans = root;\r\n                root = root->left;\r\n            } else {\r\n                root = root->right;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20053.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%B8%AD%E5%BA%8F%E5%90%8E%E7%BB%A7/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20053.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%B8%AD%E5%BA%8F%E5%90%8E%E7%BB%A7/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20053.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%B8%AD%E5%BA%8F%E5%90%8E%E7%BB%A7/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20053.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%B8%AD%E5%BA%8F%E5%90%8E%E7%BB%A7/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20053.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%B8%AD%E5%BA%8F%E5%90%8E%E7%BB%A7/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：二叉搜索树中的中序后继。\n输入：root（TreeNode）、p（integer）。\n训练提示：**思考**\r \r 中序后继是中序序列中的下一个。完整中序遍历再查找需要线性时间与空间。\r \r 二叉搜索树中，后继是所有大于 $p$ 的结点里最小的那个。当前值大于 $p$ 时记录并走左，否则走右，沿一条根到叶的路径即可，空间为常数。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分搜索\r\n\r\n\r\n\r\n思考\r\n\r\n中序后继是中序序列中的下一个。完整中序遍历再查找需要线性时间与空间。\r\n\r\n二叉搜索树中，后继是所有大于 $p$ 的结点里最小的那个。当前值大于 $p$ 时记录并走左，否则走右，沿一条根到叶的路径即可，空间为常数。\r\n\r\n\r\n\r\n二叉搜索树的中序遍历是一个升序序列，因此可以使用二分搜索的方法。\r\n\r\n二叉搜索树节点 $p$ 的中序后继节点满足：\r\n\r\n1. 中序后继的节点值大于 $p$ 的节点值\r\n2. 中序后继是所有大于 $p$ 的节点中值最小的节点\r\n\r\n因此，对于当前节点 $root$，如果 $root.val \\gt p.val$，则 $root$ 可能是 $p$ 的中序后继节点，将 $root$ 记为 $ans$，然后搜索左子树，即 $root = root.left$；如果 $root.val \\leq p.val$，则 $root$ 不能是 $p$ 的中序后继节点，搜索右子树，即 $root = root.right$。\r\n\r\n时间复杂度 $O(h)$，其中 $h$ 为二叉搜索树的高度。空间复杂度 $O(1)$。",
+  "memory": "二叉搜索树中的中序后继 → 二分搜索。\n**思考**\r\n\r\n中序后继是中序序列中的下一个。完整中序遍历再查找需要线性时间与空间。\r\n\r\n二叉搜索树中，后继是所有大于 $p$ 的结点里最小的那个。当前值大于 $p$ 时记录并走左，否则走右，沿一条根到叶的路径即可，空间为常数。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

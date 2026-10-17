@@ -1,0 +1,95 @@
+{
+  "number": "LCR 086",
+  "adapter": {
+    "name": "partition",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string[][]"
+    },
+    "number": "LCR 086"
+  },
+  "tests": [
+    {
+      "input": [
+        "google"
+      ],
+      "expected": [
+        [
+          "g",
+          "o",
+          "o",
+          "g",
+          "l",
+          "e"
+        ],
+        [
+          "g",
+          "oo",
+          "g",
+          "l",
+          "e"
+        ],
+        [
+          "goog",
+          "l",
+          "e"
+        ]
+      ]
+    },
+    {
+      "input": [
+        "aab"
+      ],
+      "expected": [
+        [
+          "a",
+          "a",
+          "b"
+        ],
+        [
+          "aa",
+          "b"
+        ]
+      ]
+    },
+    {
+      "input": [
+        "a"
+      ],
+      "expected": [
+        [
+          "a"
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def partition(self, s: str) -> List[List[str]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @return {string[][]}\n */\nvar partition = function(s) {\n\n};",
+    "java": "class Solution {\n    public String[][] partition(String s) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<string>> partition(string s) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def partition(self, s: str) -> List[List[str]]:\r\n        def dfs(i: int):\r\n            if i == n:\r\n                ans.append(t[:])\r\n                return\r\n            for j in range(i, n):\r\n                if f[i][j]:\r\n                    t.append(s[i : j + 1])\r\n                    dfs(j + 1)\r\n                    t.pop()\r\n\r\n        n = len(s)\r\n        f = [[True] * n for _ in range(n)]\r\n        for i in range(n - 1, -1, -1):\r\n            for j in range(i + 1, n):\r\n                f[i][j] = s[i] == s[j] and f[i + 1][j - 1]\r\n        ans = []\r\n        t = []\r\n        dfs(0)\r\n        return ans\r\n",
+    "javascript": "function partition(s) {\n    const n = s.length;\n    const f = new Array(n).fill(0).map(() => new Array(n).fill(true));\n    for (let i = n - 1; i >= 0; --i) {\n        for (let j = i + 1; j < n; ++j) {\n            f[i][j] = s[i] === s[j] && f[i + 1][j - 1];\n        }\n    }\n    const ans = [];\n    const t = [];\n    const dfs = (i) => {\n        if (i === n) {\n            ans.push(t.slice());\n            return;\n        }\n        for (let j = i; j < n; ++j) {\n            if (f[i][j]) {\n                t.push(s.slice(i, j + 1));\n                dfs(j + 1);\n                t.pop();\n            }\n        }\n    };\n    dfs(0);\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    private int n;\r\n    private String s;\r\n    private boolean[][] f;\r\n    private List<String> t = new ArrayList<>();\r\n    private List<List<String>> ans = new ArrayList<>();\r\n\r\n    public List<List<String>> partition(String s) {\r\n        n = s.length();\r\n        f = new boolean[n][n];\r\n        for (int i = 0; i < n; ++i) {\r\n            Arrays.fill(f[i], true);\r\n        }\r\n        for (int i = n - 1; i >= 0; --i) {\r\n            for (int j = i + 1; j < n; ++j) {\r\n                f[i][j] = s.charAt(i) == s.charAt(j) && f[i + 1][j - 1];\r\n            }\r\n        }\r\n        this.s = s;\r\n        dfs(0);\r\n        return ans;\r\n    }\r\n\r\n    private void dfs(int i) {\r\n        if (i == s.length()) {\r\n            ans.add(new ArrayList<>(t));\r\n            return;\r\n        }\r\n        for (int j = i; j < n; ++j) {\r\n            if (f[i][j]) {\r\n                t.add(s.substring(i, j + 1));\r\n                dfs(j + 1);\r\n                t.remove(t.size() - 1);\r\n            }\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<string>> partition(string s) {\r\n        int n = s.size();\r\n        bool f[n][n];\r\n        memset(f, true, sizeof(f));\r\n        for (int i = n - 1; i >= 0; --i) {\r\n            for (int j = i + 1; j < n; ++j) {\r\n                f[i][j] = s[i] == s[j] && f[i + 1][j - 1];\r\n            }\r\n        }\r\n        vector<vector<string>> ans;\r\n        vector<string> t;\r\n        function<void(int)> dfs = [&](int i) {\r\n            if (i == n) {\r\n                ans.push_back(t);\r\n                return;\r\n            }\r\n            for (int j = i; j < n; ++j) {\r\n                if (f[i][j]) {\r\n                    t.push_back(s.substr(i, j - i + 1));\r\n                    dfs(j + 1);\r\n                    t.pop_back();\r\n                }\r\n            }\r\n        };\r\n        dfs(0);\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20086.%20%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20086.%20%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20086.%20%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20086.%20%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20086.%20%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：分割回文串。\n输入：s（string）。\n训练提示：**思考**\r \r 列出把字符串切成回文子串的全部方案。每次切分都现场判断回文，会在相同子串上重复扫描。\r \r 先用区间 DP 预处理 $f[i][j]$，再从左到右枚举切点，只在 $f[i][j]$ 为真时进入下一层。回溯收集路径，到达末尾即一种分割。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：预处理 + DFS(回溯)\r\n\r\n\r\n\r\n思考\r\n\r\n列出把字符串切成回文子串的全部方案。每次切分都现场判断回文，会在相同子串上重复扫描。\r\n\r\n先用区间 DP 预处理 $f[i][j]$，再从左到右枚举切点，只在 $f[i][j]$ 为真时进入下一层。回溯收集路径，到达末尾即一种分割。\r\n\r\n\r\n\r\n我们可以使用动态规划，预处理出字符串中的任意子串是否为回文串，即 $f[i][j]$ 表示子串 $s[i..j]$ 是否为回文串。\r\n\r\n接下来，我们设计一个函数 $dfs(i)$，表示从字符串的第 $i$ 个字符开始，分割成若干回文串，当前分割方案为 $t$。\r\n\r\n如果 $i=|s|$，说明已经分割完成，我们将 $t$ 放入答案数组中，然后返回。\r\n\r\n否则，我们可以从 $i$ 开始，从小到大依次枚举结束位置 $j$，如果 $s[i..j]$ 是回文串，那么就把 $s[i..j]$ 加入到 $t$ 中，然后继续递归 $dfs(j+1)$，回溯的时候要弹出 $s[i..j]$。\r\n\r\n时间复杂度 $O(n \\times 2^n)$，空间复杂度 $O(n^2)$。其中 $n$ 是字符串的长度。",
+  "memory": "分割回文串 → 预处理 + DFS(回溯)。\n**思考**\r\n\r\n列出把字符串切成回文子串的全部方案。每次切分都现场判断回文，会在相同子串上重复扫描。\r\n\r\n先用区间 DP 预处理 $f[i][j]$，再从左到右枚举切点，只在 $f[i][j]$ 为真时进入下一层。回溯收集路径，到达末尾即一种分割。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

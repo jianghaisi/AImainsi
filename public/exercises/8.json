@@ -1,0 +1,69 @@
+{
+  "number": "8",
+  "adapter": {
+    "name": "myAtoi",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "8"
+  },
+  "tests": [
+    {
+      "input": [
+        "42"
+      ],
+      "expected": 42
+    },
+    {
+      "input": [
+        " -042"
+      ],
+      "expected": -42
+    },
+    {
+      "input": [
+        "1337c0d3"
+      ],
+      "expected": 1337
+    },
+    {
+      "input": [
+        "0-1"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "words and 987"
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def myAtoi(self, s: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int myAtoi(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int myAtoi(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def myAtoi(self, s: str) -> int:\r\n        if not s:\r\n            return 0\r\n        n = len(s)\r\n        if n == 0:\r\n            return 0\r\n        i = 0\r\n        while s[i] == ' ':\r\n            i += 1\r\n            # 仅包含空格\r\n            if i == n:\r\n                return 0\r\n        sign = -1 if s[i] == '-' else 1\r\n        if s[i] in ['-', '+']:\r\n            i += 1\r\n        res, flag = 0, (2**31 - 1) // 10\r\n        while i < n:\r\n            # 非数字，跳出循环体\r\n            if not s[i].isdigit():\r\n                break\r\n            c = int(s[i])\r\n            # 溢出判断\r\n            if res > flag or (res == flag and c > 7):\r\n                return 2**31 - 1 if sign > 0 else -(2**31)\r\n            res = res * 10 + c\r\n            i += 1\r\n        return sign * res\r\n",
+    "java": "class Solution {\r\n    public int myAtoi(String s) {\r\n        if (s == null) return 0;\r\n        int n = s.length();\r\n        if (n == 0) return 0;\r\n        int i = 0;\r\n        while (s.charAt(i) == ' ') {\r\n            // 仅包含空格\r\n            if (++i == n) return 0;\r\n        }\r\n        int sign = 1;\r\n        if (s.charAt(i) == '-') sign = -1;\r\n        if (s.charAt(i) == '-' || s.charAt(i) == '+') ++i;\r\n        int res = 0, flag = Integer.MAX_VALUE / 10;\r\n        for (; i < n; ++i) {\r\n            // 非数字，跳出循环体\r\n            if (s.charAt(i) < '0' || s.charAt(i) > '9') break;\r\n            // 溢出判断\r\n            if (res > flag || (res == flag && s.charAt(i) > '7'))\r\n                return sign > 0 ? Integer.MAX_VALUE : Integer.MIN_VALUE;\r\n            res = res * 10 + (s.charAt(i) - '0');\r\n        }\r\n        return sign * res;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int myAtoi(string s) {\r\n        int i = 0, n = s.size();\r\n        while (i < n && s[i] == ' ')\r\n            ++i;\r\n\r\n        int sign = 1;\r\n        if (i < n && (s[i] == '-' || s[i] == '+')) {\r\n            sign = s[i] == '-' ? -1 : 1;\r\n            ++i;\r\n        }\r\n\r\n        int res = 0;\r\n        while (i < n && isdigit(s[i])) {\r\n            int digit = s[i] - '0';\r\n            if (res > INT_MAX / 10 || (res == INT_MAX / 10 && digit > INT_MAX % 10)) {\r\n                return sign == 1 ? INT_MAX : INT_MIN;\r\n            }\r\n            res = res * 10 + digit;\r\n            ++i;\r\n        }\r\n        return res * sign;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0008.String%20to%20Integer%20(atoi)/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0008.String%20to%20Integer%20(atoi)/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0008.String%20to%20Integer%20(atoi)/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0000-0099/0008.String%20to%20Integer%20(atoi)/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：字符串转换整数 (atoi)。\n输入：s（string）。\n训练提示：**思考**\r \r 转换规则只需从左到右扫描一遍，时间复杂度为 $O(n)$， $n \\le 200$ 可以接受。顺序不可颠倒：符号出现在数字之前，数字必须连续，一旦遇到非数字就应停止；最后还要把结果限制在 $32$ 位整数范围内。\r \r 若不允许使用 $64$ 位整数，则不能先算出完整结果再截断。我们累加绝对值，每次乘 $10$ 之前与 $\\lfloor (2^{31}-1)/10 \\rfloor$ 比较，一旦越界则按符号分别返回 $2^{31}-1$ 或 $-2^{31}$。正负情形共用同一上界，最后再乘以 $\\textit{sign}$；空串或全空格没有数字，返回 $0$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：遍历字符串\r\n\r\n\r\n\r\n思考\r\n\r\n转换规则只需从左到右扫描一遍，时间复杂度为 $O(n)$， $n \\le 200$ 可以接受。顺序不可颠倒：符号出现在数字之前，数字必须连续，一旦遇到非数字就应停止；最后还要把结果限制在 $32$ 位整数范围内。\r\n\r\n若不允许使用 $64$ 位整数，则不能先算出完整结果再截断。我们累加绝对值，每次乘 $10$ 之前与 $\\lfloor (2^{31}-1)/10 \\rfloor$ 比较，一旦越界则按符号分别返回 $2^{31}-1$ 或 $-2^{31}$。正负情形共用同一上界，最后再乘以 $\\textit{sign}$；空串或全空格没有数字，返回 $0$。\r\n\r\n\r\n\r\n我们首先判断字符串是否为空，如果是，直接返回 $0$。\r\n\r\n否则，我们需要遍历字符串，跳过前导空格，判断第一个非空格字符是否为正负号。\r\n\r\n接着遍历后面的字符，如果是数字，我们判断添加该数字是否会导致整数溢出，如果会，我们根据正负号返回结果。否则我们将数字添加到结果中。继续遍历后面的字符，直到遇到非数字字符或者遍历结束。\r\n\r\n遍历结束后，我们根据正负号返回结果。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 为字符串的长度。我们只需要依次处理所有字符。空间复杂度 $O(1)$。\r\n\r\n同[面试题 67. 把字符串转换成整数](https://github.com/doocs/leetcode/blob/main/lcof/面试题67.%20把字符串转换成整数/README.md)。",
+  "memory": "字符串转换整数 (atoi) → 遍历字符串。\n**思考**\r\n\r\n转换规则只需从左到右扫描一遍，时间复杂度为 $O(n)$， $n \\le 200$ 可以接受。顺序不可颠倒：符号出现在数字之前，数字必须连续，一旦遇到非数字就应停止；最后还要把结果限制在 $32$ 位整数范围内。\r\n\r\n若不允许使用 $64$ 位整数，则不能先算出完整结果再截断。我们累加绝对值，每次乘 $10$ 之前与 $\\lfloor (2^{31}-1)/10 \\rfloor$ 比较，一旦越界则按符号分别返回 $2^{31}-1$ 或 $-2^{31}$。正负情形共用同一上界，最后再乘以 $\\textit{sign}$；空串或全空格没有数字，返回 $0$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,79 @@
+{
+  "number": "143",
+  "adapter": {
+    "name": "reorderList",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      }
+    ],
+    "return": {
+      "type": "void"
+    },
+    "output": {
+      "paramindex": 0
+    },
+    "number": "143"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": [
+        1,
+        4,
+        2,
+        3
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": [
+        1,
+        5,
+        2,
+        4,
+        3
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def reorderList(self, head: Optional[ListNode]) -> None:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @return {void} Do not return anything, modify head in-place instead.\n */\nvar reorderList = function(head) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public void reorderList(ListNode head) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    void reorderList(ListNode* head) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, val=0, next=None):\r\n#         self.val = val\r\n#         self.next = next\r\nclass Solution:\r\n    def reorderList(self, head: Optional[ListNode]) -> None:\r\n        fast = slow = head\r\n        while fast.next and fast.next.next:\r\n            slow = slow.next\r\n            fast = fast.next.next\r\n\r\n        cur = slow.next\r\n        slow.next = None\r\n\r\n        pre = None\r\n        while cur:\r\n            t = cur.next\r\n            cur.next = pre\r\n            pre, cur = cur, t\r\n        cur = head\r\n\r\n        while pre:\r\n            t = pre.next\r\n            pre.next = cur.next\r\n            cur.next = pre\r\n            cur, pre = pre.next, t\r\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\n/**\n Do not return anything, modify head in-place instead.\n */\nfunction reorderList(head) {\n    let slow = head;\n    let fast = head;\n    while (fast && fast.next) {\n        slow = slow.next;\n        fast = fast.next.next;\n    }\n    let next = slow.next;\n    slow.next = null;\n    while (next) {\n        [next.next, slow, next] = [slow, next, next.next];\n    }\n    let left = head;\n    let right = slow;\n    while (right.next) {\n        const next = left.next;\n        left.next = right;\n        right = right.next;\n        left.next.next = next;\n        left = left.next.next;\n    }\n}\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode() {}\r\n *     ListNode(int val) { this.val = val; }\r\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\r\n * }\r\n */\r\nclass Solution {\r\n    public void reorderList(ListNode head) {\r\n        ListNode fast = head, slow = head;\r\n        while (fast.next != null && fast.next.next != null) {\r\n            slow = slow.next;\r\n            fast = fast.next.next;\r\n        }\r\n\r\n        ListNode cur = slow.next;\r\n        slow.next = null;\r\n\r\n        ListNode pre = null;\r\n        while (cur != null) {\r\n            ListNode t = cur.next;\r\n            cur.next = pre;\r\n            pre = cur;\r\n            cur = t;\r\n        }\r\n        cur = head;\r\n\r\n        while (pre != null) {\r\n            ListNode t = pre.next;\r\n            pre.next = cur.next;\r\n            cur.next = pre;\r\n            cur = pre.next;\r\n            pre = t;\r\n        }\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode() : val(0), next(nullptr) {}\r\n *     ListNode(int x) : val(x), next(nullptr) {}\r\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    void reorderList(ListNode* head) {\r\n        ListNode* fast = head;\r\n        ListNode* slow = head;\r\n        while (fast->next && fast->next->next) {\r\n            slow = slow->next;\r\n            fast = fast->next->next;\r\n        }\r\n\r\n        ListNode* cur = slow->next;\r\n        slow->next = nullptr;\r\n\r\n        ListNode* pre = nullptr;\r\n        while (cur) {\r\n            ListNode* t = cur->next;\r\n            cur->next = pre;\r\n            pre = cur;\r\n            cur = t;\r\n        }\r\n        cur = head;\r\n\r\n        while (pre) {\r\n            ListNode* t = pre->next;\r\n            pre->next = cur->next;\r\n            cur->next = pre;\r\n            cur = pre->next;\r\n            pre = t;\r\n        }\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0143.Reorder%20List/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0143.Reorder%20List/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0143.Reorder%20List/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0143.Reorder%20List/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0100-0199/0143.Reorder%20List/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：重排链表。\n输入：head（ListNode）。\n训练提示：**思考**\r \r 要把链表重排成 $L_0\\to L_n\\to L_1\\to L_{n-1}\\cdots$。放进数组按下标重接是 $O(n)$ 空间。 $n\\le 5\\times 10^4$。\r \r 后半段需要倒序穿插到前半段：快慢指针找到中点并断开，反转后半，再与前半交替合并。三次线性扫描，原地完成。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：快慢指针 + 反转链表 + 合并链表\r\n\r\n\r\n\r\n思考\r\n\r\n要把链表重排成 $L_0\\to L_n\\to L_1\\to L_{n-1}\\cdots$。放进数组按下标重接是 $O(n)$ 空间。 $n\\le 5\\times 10^4$。\r\n\r\n后半段需要倒序穿插到前半段：快慢指针找到中点并断开，反转后半，再与前半交替合并。三次线性扫描，原地完成。\r\n\r\n\r\n\r\n我们先用快慢指针找到链表的中点，然后将链表的后半部分反转，最后将左右两个链表合并。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 是链表的长度。空间复杂度 $O(1)$。",
+  "memory": "重排链表 → 快慢指针 + 反转链表 + 合并链表。\n**思考**\r\n\r\n要把链表重排成 $L_0\\to L_n\\to L_1\\to L_{n-1}\\cdots$。放进数组按下标重接是 $O(n)$ 空间。 $n\\le 5\\times 10^4$。\r\n\r\n后半段需要倒序穿插到前半段：快慢指针找到中点并断开，反转后半，再与前半交替合并。三次线性扫描，原地完成。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

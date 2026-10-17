@@ -1,0 +1,76 @@
+{
+  "number": "面试题 16.06",
+  "adapter": {
+    "name": "smallestDifference",
+    "params": [
+      {
+        "name": "a",
+        "type": "integer[]"
+      },
+      {
+        "name": "b",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 16.06"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          3,
+          15,
+          11,
+          2
+        ],
+        [
+          23,
+          127,
+          235,
+          19,
+          8
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          -2147483648
+        ],
+        [
+          2147483647
+        ]
+      ],
+      "expected": 4294967295
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def smallestDifference(self, a: List[int], b: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} a\n * @param {number[]} b\n * @return {number}\n */\nvar smallestDifference = function(a, b) {\n    \n};",
+    "java": "class Solution {\n    public int smallestDifference(int[] a, int[] b) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int smallestDifference(vector<int>& a, vector<int>& b) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def smallestDifference(self, a: List[int], b: List[int]) -> int:\r\n        b.sort()\r\n        ans = inf\r\n        n = len(b)\r\n        for x in a:\r\n            j = bisect_left(b, x)\r\n            if j < n:\r\n                ans = min(ans, b[j] - x)\r\n            if j:\r\n                ans = min(ans, x - b[j - 1])\r\n        return ans\r\n",
+    "javascript": "function smallestDifference(a, b) {\n    b.sort((a, b) => a - b);\n    let ans = Infinity;\n    const search = (nums, x) => {\n        let [l, r] = [0, nums.length];\n        while (l < r) {\n            const mid = (l + r) >> 1;\n            if (nums[mid] >= x) {\n                r = mid;\n            }\n            else {\n                l = mid + 1;\n            }\n        }\n        return l;\n    };\n    for (const x of a) {\n        const j = search(b, x);\n        if (j < b.length) {\n            ans = Math.min(ans, b[j] - x);\n        }\n        if (j > 0) {\n            ans = Math.min(ans, x - b[j - 1]);\n        }\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int smallestDifference(int[] a, int[] b) {\r\n        Arrays.sort(b);\r\n        long ans = Long.MAX_VALUE;\r\n        for (int x : a) {\r\n            int j = search(b, x);\r\n            if (j < b.length) {\r\n                ans = Math.min(ans, (long) b[j] - x);\r\n            }\r\n            if (j > 0) {\r\n                ans = Math.min(ans, (long) x - b[j - 1]);\r\n            }\r\n        }\r\n        return (int) ans;\r\n    }\r\n\r\n    private int search(int[] nums, int x) {\r\n        int l = 0, r = nums.length;\r\n        while (l < r) {\r\n            int mid = (l + r) >> 1;\r\n            if (nums[mid] >= x) {\r\n                r = mid;\r\n            } else {\r\n                l = mid + 1;\r\n            }\r\n        }\r\n        return l;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int smallestDifference(vector<int>& a, vector<int>& b) {\r\n        sort(b.begin(), b.end());\r\n        long long ans = LONG_LONG_MAX;\r\n        for (int x : a) {\r\n            auto it = lower_bound(b.begin(), b.end(), x);\r\n            if (it != b.end()) {\r\n                ans = min(ans, (long long) *it - x);\r\n            }\r\n            if (it != b.begin()) {\r\n                ans = min(ans, x - (long long) *prev(it));\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.06.Smallest%20Difference/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.06.Smallest%20Difference/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.06.Smallest%20Difference/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.06.Smallest%20Difference/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.06.Smallest%20Difference/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最小差。\n输入：a（integer[]）、b（integer[]）。\n训练提示：**思考**\r \r 两数组中各取一数，使差的绝对值最小。枚举全部数对是 $O(nm)$。\r \r 固定 $a$ 中的 $x$ 后，只需 $b$ 里最接近 $x$ 的值，有序数组上即一次二分。\r \r 先排序 $b$，对每个 $x$ 用 `bisect_left` 看插入点及其左侧，更新最小差。总时间由排序与 $n$ 次对数查找主导。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序 + 二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n两数组中各取一数，使差的绝对值最小。枚举全部数对是 $O(nm)$。\r\n\r\n固定 $a$ 中的 $x$ 后，只需 $b$ 里最接近 $x$ 的值，有序数组上即一次二分。\r\n\r\n先排序 $b$，对每个 $x$ 用 `bisect_left` 看插入点及其左侧，更新最小差。总时间由排序与 $n$ 次对数查找主导。\r\n\r\n\r\n\r\n我们可以对数组 $b$ 进行排序，并对数组 $a$ 中的每个元素 $x$ 在数组 $b$ 中进行二分查找，找到最接近 $x$ 的元素 $y$，那么 $x$ 和 $y$ 的差的绝对值就是 $x$ 和 $b$ 中最接近 $x$ 的元素的差的绝对值。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(\\log n)$。其中 $n$ 是数组 $b$ 的长度。",
+  "memory": "最小差 → 排序 + 二分查找。\n**思考**\r\n\r\n两数组中各取一数，使差的绝对值最小。枚举全部数对是 $O(nm)$。\r\n\r\n固定 $a$ 中的 $x$ 后，只需 $b$ 里最接近 $x$ 的值，有序数组上即一次二分。\r\n\r\n先排序 $b$，对每个 $x$ 用 `bisect_left` 看插入点及其左侧，更新最小差。总时间由排序与 $n$ 次对数查找主导。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,158 @@
+{
+  "number": "LCR 013",
+  "adapter": {
+    "classname": "NumMatrix",
+    "maxbytesperline": 200000,
+    "systemdesign": true,
+    "constructor": {
+      "params": [
+        {
+          "name": "matrix",
+          "type": "integer[][]"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "sumRegion",
+        "params": [
+          {
+            "name": "row1",
+            "type": "integer"
+          },
+          {
+            "name": "col1",
+            "type": "integer"
+          },
+          {
+            "name": "row2",
+            "type": "integer"
+          },
+          {
+            "name": "col2",
+            "type": "integer"
+          }
+        ],
+        "return": {
+          "type": "integer"
+        }
+      }
+    ],
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "LCR 013"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "NumMatrix",
+          "sumRegion",
+          "sumRegion",
+          "sumRegion"
+        ],
+        [
+          [
+            [
+              [
+                3,
+                0,
+                1,
+                4,
+                2
+              ],
+              [
+                5,
+                6,
+                3,
+                2,
+                1
+              ],
+              [
+                1,
+                2,
+                0,
+                1,
+                5
+              ],
+              [
+                4,
+                1,
+                0,
+                1,
+                7
+              ],
+              [
+                1,
+                0,
+                3,
+                0,
+                5
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            1,
+            2,
+            2
+          ],
+          [
+            1,
+            2,
+            2,
+            4
+          ]
+        ]
+      ],
+      "expected": [
+        null,
+        8,
+        11,
+        12
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class NumMatrix:\n\n    def __init__(self, matrix: List[List[int]]):\n        raise NotImplementedError('请完成此方法')\n\n    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} matrix\n */\nvar NumMatrix = function(matrix) {\n    \n};\n\n/** \n * @param {number} row1 \n * @param {number} col1 \n * @param {number} row2 \n * @param {number} col2\n * @return {number}\n */\nNumMatrix.prototype.sumRegion = function(row1, col1, row2, col2) {\n    \n};\n\n/** \n * Your NumMatrix object will be instantiated and called as such:\n * var obj = new NumMatrix(matrix)\n * var param_1 = obj.sumRegion(row1,col1,row2,col2)\n */",
+    "java": "class NumMatrix {\n\n    public NumMatrix(int[][] matrix) {\n        \n    }\n    \n    public int sumRegion(int row1, int col1, int row2, int col2) {\n        \n    }\n}\n\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * NumMatrix obj = new NumMatrix(matrix);\n * int param_1 = obj.sumRegion(row1,col1,row2,col2);\n */",
+    "cpp": "class NumMatrix {\npublic:\n    NumMatrix(vector<vector<int>>& matrix) {\n        \n    }\n    \n    int sumRegion(int row1, int col1, int row2, int col2) {\n        \n    }\n};\n\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * NumMatrix* obj = new NumMatrix(matrix);\n * int param_1 = obj->sumRegion(row1,col1,row2,col2);\n */"
+  },
+  "solutions": {
+    "python": "class NumMatrix:\r\n    def __init__(self, matrix: List[List[int]]):\r\n        self.s = [[0] * (len(matrix[0]) + 1) for _ in range(len(matrix) + 1)]\r\n        for i, row in enumerate(matrix, 1):\r\n            for j, x in enumerate(row, 1):\r\n                self.s[i][j] = (\r\n                    self.s[i - 1][j] + self.s[i][j - 1] - self.s[i - 1][j - 1] + x\r\n                )\r\n\r\n    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:\r\n        return (\r\n            self.s[row2 + 1][col2 + 1]\r\n            - self.s[row2 + 1][col1]\r\n            - self.s[row1][col2 + 1]\r\n            + self.s[row1][col1]\r\n        )\r\n\r\n\r\n# Your NumMatrix object will be instantiated and called as such:\r\n# obj = NumMatrix(matrix)\r\n# param_1 = obj.sumRegion(row1,col1,row2,col2)\r\n",
+    "javascript": "class NumMatrix {\n    s;\n    constructor(matrix) {\n        const m = matrix.length;\n        const n = matrix[0].length;\n        this.s = new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0));\n        for (let i = 1; i <= m; i++) {\n            for (let j = 1; j <= n; j++) {\n                this.s[i][j] =\n                    this.s[i - 1][j] +\n                        this.s[i][j - 1] -\n                        this.s[i - 1][j - 1] +\n                        matrix[i - 1][j - 1];\n            }\n        }\n    }\n    sumRegion(row1, col1, row2, col2) {\n        return (this.s[row2 + 1][col2 + 1] -\n            this.s[row2 + 1][col1] -\n            this.s[row1][col2 + 1] +\n            this.s[row1][col1]);\n    }\n}\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * var obj = new NumMatrix(matrix)\n * var param_1 = obj.sumRegion(row1,col1,row2,col2)\n */\n",
+    "java": "class NumMatrix {\r\n    private int[][] s;\r\n\r\n    public NumMatrix(int[][] matrix) {\r\n        int m = matrix.length;\r\n        int n = matrix[0].length;\r\n        s = new int[m + 1][n + 1];\r\n        for (int i = 1; i <= m; ++i) {\r\n            for (int j = 1; j <= n; ++j) {\r\n                s[i][j] = s[i - 1][j] + s[i][j - 1] - s[i - 1][j - 1] + matrix[i - 1][j - 1];\r\n            }\r\n        }\r\n    }\r\n\r\n    public int sumRegion(int row1, int col1, int row2, int col2) {\r\n        return s[row2 + 1][col2 + 1] - s[row2 + 1][col1] - s[row1][col2 + 1] + s[row1][col1];\r\n    }\r\n}\r\n\r\n/**\r\n * Your NumMatrix object will be instantiated and called as such:\r\n * NumMatrix obj = new NumMatrix(matrix);\r\n * int param_1 = obj.sumRegion(row1,col1,row2,col2);\r\n */",
+    "cpp": "class NumMatrix {\r\npublic:\r\n    NumMatrix(vector<vector<int>>& matrix) {\r\n        int m = matrix.size();\r\n        int n = matrix[0].size();\r\n        s.resize(m + 1, vector<int>(n + 1, 0));\r\n        for (int i = 1; i <= m; ++i) {\r\n            for (int j = 1; j <= n; ++j) {\r\n                s[i][j] = s[i - 1][j] + s[i][j - 1] - s[i - 1][j - 1] + matrix[i - 1][j - 1];\r\n            }\r\n        }\r\n    }\r\n\r\n    int sumRegion(int row1, int col1, int row2, int col2) {\r\n        return s[row2 + 1][col2 + 1] - s[row2 + 1][col1] - s[row1][col2 + 1] + s[row1][col1];\r\n    }\r\n\r\nprivate:\r\n    vector<vector<int>> s;\r\n};\r\n\r\n/**\r\n * Your NumMatrix object will be instantiated and called as such:\r\n * NumMatrix* obj = new NumMatrix(matrix);\r\n * int param_1 = obj->sumRegion(row1,col1,row2,col2);\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20013.%20%E4%BA%8C%E7%BB%B4%E5%AD%90%E7%9F%A9%E9%98%B5%E7%9A%84%E5%92%8C/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20013.%20%E4%BA%8C%E7%BB%B4%E5%AD%90%E7%9F%A9%E9%98%B5%E7%9A%84%E5%92%8C/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20013.%20%E4%BA%8C%E7%BB%B4%E5%AD%90%E7%9F%A9%E9%98%B5%E7%9A%84%E5%92%8C/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20013.%20%E4%BA%8C%E7%BB%B4%E5%AD%90%E7%9F%A9%E9%98%B5%E7%9A%84%E5%92%8C/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20013.%20%E4%BA%8C%E7%BB%B4%E5%AD%90%E7%9F%A9%E9%98%B5%E7%9A%84%E5%92%8C/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：二维区域和检索 - 矩阵不可变。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 需要多次查询子矩阵和。若每次现场累加，单次代价与矩形面积成正比，查询次数多时无法承受。\r \r 二维前缀和把矩形和化为四个角上前缀的容斥： $s[r_2+1][c_2+1]-s[r_2+1][c_1]-s[r_1][c_2+1]+s[r_1][c_1]$。初始化时按行、列递推填表，之后每次查询为常数时间。下标整体加一，是为了让边界上的减项自然变成 $0$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二维前缀和\r\n\r\n\r\n\r\n思考\r\n\r\n需要多次查询子矩阵和。若每次现场累加，单次代价与矩形面积成正比，查询次数多时无法承受。\r\n\r\n二维前缀和把矩形和化为四个角上前缀的容斥： $s[r_2+1][c_2+1]-s[r_2+1][c_1]-s[r_1][c_2+1]+s[r_1][c_1]$。初始化时按行、列递推填表，之后每次查询为常数时间。下标整体加一，是为了让边界上的减项自然变成 $0$。\r\n\r\n\r\n\r\n我们可以用一个二维数组 $s$ 来保存矩阵 $matrix$ 的前缀和，其中 $s[i+1][j+1]$ 表示矩阵 $matrix$ 中以 $(0,0)$ 为左上角， $(i,j)$ 为右下角的子矩阵中所有元素的和。\r\n\r\n那么：\r\n\r\n$$\r\n\\begin{aligned}\r\ns[i+1][j+1] &= s[i][j+1] + s[i+1][j] - s[i][j] + matrix[i][j]\r\n\\end{aligned}\r\n$$\r\n\r\n我们可以用前缀和数组 $s$ 来快速计算矩阵 $matrix$ 中任意子矩阵的元素和，计算公式如下：\r\n\r\n$$\r\n\\begin{aligned}\r\n&\\textit{sumRegion}(row_1,col_1,row_2,col_2) \\\\\r\n&= s[row_2+1][col_2+1] - s[row_2+1][col_1] - s[row_1][col_2+1] + s[row_1][col_1]\r\n\\end{aligned}\r\n$$\r\n\r\n时间复杂度：\r\n\r\n- 初始化的时间复杂度为 $O(m \\times n)$，其中 $m$ 和 $n$ 分别是矩阵 $matrix$ 的行数和列数。\r\n- 每次计算子矩阵的元素和的时间复杂度为 $O(1)$。\r\n\r\n空间复杂度 $O(m \\times n)$，其中 $m$ 和 $n$ 分别是矩阵 $matrix$ 的行数和列数。我们需要创建一个二维数组 $s$ 来保存矩阵 $matrix$ 的前缀和。",
+  "memory": "二维区域和检索 - 矩阵不可变 → 二维前缀和。\n**思考**\r\n\r\n需要多次查询子矩阵和。若每次现场累加，单次代价与矩形面积成正比，查询次数多时无法承受。\r\n\r\n二维前缀和把矩形和化为四个角上前缀的容斥： $s[r_2+1][c_2+1]-s[r_2+1][c_1]-s[r_1][c_2+1]+s[r_1][c_1]$。初始化时按行、列递推填表，之后每次查询为常数时间。下标整体加一，是为了让边界上的减项自然变成 $0$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,54 @@
+{
+  "number": "面试题 08.11",
+  "adapter": {
+    "name": "waysToChange",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 08.11"
+  },
+  "tests": [
+    {
+      "input": [
+        5
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        10
+      ],
+      "expected": 4
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def waysToChange(self, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @return {number}\n */\nvar waysToChange = function(n) {\n    \n};",
+    "java": "class Solution {\n    public int waysToChange(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int waysToChange(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def waysToChange(self, n: int) -> int:\r\n        mod = 10**9 + 7\r\n        coins = [25, 10, 5, 1]\r\n        f = [[0] * (n + 1) for _ in range(5)]\r\n        f[0][0] = 1\r\n        for i, c in enumerate(coins, 1):\r\n            for j in range(n + 1):\r\n                f[i][j] = f[i - 1][j]\r\n                if j >= c:\r\n                    f[i][j] = (f[i][j] + f[i][j - c]) % mod\r\n        return f[-1][n]\r\n",
+    "javascript": "function waysToChange(n) {\n    const mod = 10 ** 9 + 7;\n    const coins = [25, 10, 5, 1];\n    const f = Array.from({ length: 5 }, () => Array(n + 1).fill(0));\n    f[0][0] = 1;\n    for (let i = 1; i <= 4; ++i) {\n        for (let j = 0; j <= n; ++j) {\n            f[i][j] = f[i - 1][j];\n            if (j >= coins[i - 1]) {\n                f[i][j] = (f[i][j] + f[i][j - coins[i - 1]]) % mod;\n            }\n        }\n    }\n    return f[4][n];\n}\n",
+    "java": "class Solution {\r\n    public int waysToChange(int n) {\r\n        final int mod = (int) 1e9 + 7;\r\n        int[] coins = {25, 10, 5, 1};\r\n        int[][] f = new int[5][n + 1];\r\n        f[0][0] = 1;\r\n        for (int i = 1; i <= 4; ++i) {\r\n            for (int j = 0; j <= n; ++j) {\r\n                f[i][j] = f[i - 1][j];\r\n                if (j >= coins[i - 1]) {\r\n                    f[i][j] = (f[i][j] + f[i][j - coins[i - 1]]) % mod;\r\n                }\r\n            }\r\n        }\r\n        return f[4][n];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int waysToChange(int n) {\r\n        const int mod = 1e9 + 7;\r\n        vector<int> coins = {25, 10, 5, 1};\r\n        int f[5][n + 1];\r\n        memset(f, 0, sizeof(f));\r\n        f[0][0] = 1;\r\n        for (int i = 1; i <= 4; ++i) {\r\n            for (int j = 0; j <= n; ++j) {\r\n                f[i][j] = f[i - 1][j];\r\n                if (j >= coins[i - 1]) {\r\n                    f[i][j] = (f[i][j] + f[i][j - coins[i - 1]]) % mod;\r\n                }\r\n            }\r\n        }\r\n        return f[4][n];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.11.Coin/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.11.Coin/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.11.Coin/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.11.Coin/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.11.Coin/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：硬币。\n输入：n（integer）。\n训练提示：**思考**\r \r 用 $25,10,5,1$ 凑 $n$，顺序不记。按硬币个数三重循环可行，但与完全背包同一结构。\r \r 令 $f[i][j]$ 为前 $i$ 种币凑 $j$ 的方案数。完全背包转移 $f[i][j]=f[i-1][j]+f[i][j-c_i]$（当 $j\\ge c_i$）。\r \r 硬币种类极少，二维表 $5\\times(n+1)$ 即可； $f[0][0]=1$ 作为空凑法。对 $10^9+7$ 取模。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n用 $25,10,5,1$ 凑 $n$，顺序不记。按硬币个数三重循环可行，但与完全背包同一结构。\r\n\r\n令 $f[i][j]$ 为前 $i$ 种币凑 $j$ 的方案数。完全背包转移 $f[i][j]=f[i-1][j]+f[i][j-c_i]$（当 $j\\ge c_i$）。\r\n\r\n硬币种类极少，二维表 $5\\times(n+1)$ 即可； $f[0][0]=1$ 作为空凑法。对 $10^9+7$ 取模。\r\n\r\n\r\n\r\n我们定义 $f[i][j]$ 表示只使用前 $i$ 种硬币的情况下，凑成总金额为 $j$ 的方案数。初始时 $f[0][0]=1$，其余元素都为 $0$。答案为 $f[4][n]$。\r\n\r\n考虑 $f[i][j]$，我们可以枚举使用的第 $i$ 种硬币的个数 $k$，其中 $0 \\leq k \\leq j / c_i$，那么 $f[i][j]$ 就等于所有 $f[i−1][j−k \\times c_i]$ 之和。由于硬币的数量是无限的，因此 $k$ 可以从 $0$ 开始取。即状态转移方程如下：\r\n\r\n$$\r\nf[i][j] = f[i - 1][j] + f[i - 1][j - c_i] + \\cdots + f[i - 1][j - k \\times c_i]\r\n$$\r\n\r\n不妨令 $j = j - c_i$，那么上面的状态转移方程可以写成：\r\n\r\n$$\r\nf[i][j - c_i] = f[i - 1][j - c_i] + f[i - 1][j - 2 \\times c_i] + \\cdots + f[i - 1][j - k \\times c_i]\r\n$$\r\n\r\n将二式代入一式，得到：\r\n\r\n$$\r\nf[i][j]=\r\n\\begin{cases}\r\nf[i - 1][j] + f[i][j - c_i], & j \\geq c_i \\\\\r\nf[i - 1][j], & j < c_i\r\n\\end{cases}\r\n$$\r\n\r\n最后的答案即为 $f[4][n]$。\r\n\r\n时间复杂度 $O(C \\times n)$，空间复杂度 $O(C \\times n)$，其中 $C$ 为硬币的种类数。",
+  "memory": "硬币 → 动态规划。\n**思考**\r\n\r\n用 $25,10,5,1$ 凑 $n$，顺序不记。按硬币个数三重循环可行，但与完全背包同一结构。\r\n\r\n令 $f[i][j]$ 为前 $i$ 种币凑 $j$ 的方案数。完全背包转移 $f[i][j]=f[i-1][j]+f[i][j-c_i]$（当 $j\\ge c_i$）。\r\n\r\n硬币种类极少，二维表 $5\\times(n+1)$ 即可； $f[0][0]=1$ 作为空凑法。对 $10^9+7$ 取模。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

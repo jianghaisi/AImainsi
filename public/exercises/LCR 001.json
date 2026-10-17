@@ -1,0 +1,74 @@
+{
+  "number": "LCR 001",
+  "adapter": {
+    "name": "divide",
+    "params": [
+      {
+        "name": "a",
+        "type": "integer"
+      },
+      {
+        "name": "b",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 001"
+  },
+  "tests": [
+    {
+      "input": [
+        15,
+        2
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        7,
+        -3
+      ],
+      "expected": -2
+    },
+    {
+      "input": [
+        0,
+        1
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        1,
+        1
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def divide(self, a: int, b: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} a\n * @param {number} b\n * @return {number}\n */\nvar divide = function(a, b) {\n\n};",
+    "java": "class Solution {\n    public int divide(int a, int b) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int divide(int a, int b) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def divide(self, a: int, b: int) -> int:\r\n        if b == 1:\r\n            return a\r\n        if a == -(2**31) and b == -1:\r\n            return 2**31 - 1\r\n        sign = (a > 0 and b > 0) or (a < 0 and b < 0)\r\n        a = -a if a > 0 else a\r\n        b = -b if b > 0 else b\r\n        ans = 0\r\n        while a <= b:\r\n            x = b\r\n            cnt = 1\r\n            while x >= (-(2**30)) and a <= (x << 1):\r\n                x <<= 1\r\n                cnt <<= 1\r\n            a -= x\r\n            ans += cnt\r\n        return ans if sign else -ans\r\n",
+    "javascript": "function divide(a, b) {\n    if (b === 1) {\n        return a;\n    }\n    if (a === -(2 ** 31) && b === -1) {\n        return 2 ** 31 - 1;\n    }\n    const sign = (a > 0 && b > 0) || (a < 0 && b < 0);\n    a = a > 0 ? -a : a;\n    b = b > 0 ? -b : b;\n    let ans = 0;\n    while (a <= b) {\n        let x = b;\n        let cnt = 1;\n        while (x >= -(2 ** 30) && a <= x << 1) {\n            x <<= 1;\n            cnt <<= 1;\n        }\n        ans += cnt;\n        a -= x;\n    }\n    return sign ? ans : -ans;\n}\n",
+    "java": "class Solution {\r\n    public int divide(int a, int b) {\r\n        if (b == 1) {\r\n            return a;\r\n        }\r\n        if (a == Integer.MIN_VALUE && b == -1) {\r\n            return Integer.MAX_VALUE;\r\n        }\r\n        boolean sign = (a > 0 && b > 0) || (a < 0 && b < 0);\r\n        a = a > 0 ? -a : a;\r\n        b = b > 0 ? -b : b;\r\n        int ans = 0;\r\n        while (a <= b) {\r\n            int x = b;\r\n            int cnt = 1;\r\n            while (x >= (Integer.MIN_VALUE >> 1) && a <= (x << 1)) {\r\n                x <<= 1;\r\n                cnt <<= 1;\r\n            }\r\n            ans += cnt;\r\n            a -= x;\r\n        }\r\n        return sign ? ans : -ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int divide(int a, int b) {\r\n        if (b == 1) {\r\n            return a;\r\n        }\r\n        if (a == INT_MIN && b == -1) {\r\n            return INT_MAX;\r\n        }\r\n        bool sign = (a > 0 && b > 0) || (a < 0 && b < 0);\r\n        a = a > 0 ? -a : a;\r\n        b = b > 0 ? -b : b;\r\n        int ans = 0;\r\n        while (a <= b) {\r\n            int x = b;\r\n            int cnt = 1;\r\n            while (x >= (INT_MIN >> 1) && a <= (x << 1)) {\r\n                x <<= 1;\r\n                cnt <<= 1;\r\n            }\r\n            ans += cnt;\r\n            a -= x;\r\n        }\r\n        return sign ? ans : -ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20001.%20%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20001.%20%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20001.%20%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20001.%20%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20001.%20%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：两数相除。\n输入：a（integer）、b（integer）。\n训练提示：**思考**\r \r 除法可以看成反复减法，但若每次只从被除数中减去 $1$ 倍除数、商加 $1$，当 $|a|$ 接近 $2^{31}$ 时循环次数过大，无法通过。题目同时禁止乘法、除法与取余运算。\r \r 在剩余量仍够的前提下将除数不断左移加倍，即可一次扣掉 $2^k$ 倍，商按二进制累加。这与快速幂的思想一致。左移时还需防止溢出：若再翻倍会超出 $32$ 位范围，则停止倍增。\r \r 注意到环境只能存储 $32$ 位有符号整数，将负数取相反数可能溢出（例如 $a=-2^{31}$）。因此符号单独记录，运算全程在负数上进行；并特判 $b=1$，以及 $a=-2^{31}$ 且 $b=-1$ 时返回 $2^{31}-1$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：模拟 + 快速幂\r\n\r\n\r\n\r\n思考\r\n\r\n除法可以看成反复减法，但若每次只从被除数中减去 $1$ 倍除数、商加 $1$，当 $|a|$ 接近 $2^{31}$ 时循环次数过大，无法通过。题目同时禁止乘法、除法与取余运算。\r\n\r\n在剩余量仍够的前提下将除数不断左移加倍，即可一次扣掉 $2^k$ 倍，商按二进制累加。这与快速幂的思想一致。左移时还需防止溢出：若再翻倍会超出 $32$ 位范围，则停止倍增。\r\n\r\n注意到环境只能存储 $32$ 位有符号整数，将负数取相反数可能溢出（例如 $a=-2^{31}$）。因此符号单独记录，运算全程在负数上进行；并特判 $b=1$，以及 $a=-2^{31}$ 且 $b=-1$ 时返回 $2^{31}-1$。\r\n\r\n\r\n\r\n除法本质上就是减法，题目要求我们计算出两个数相除之后的取整结果，其实就是计算被除数是多少个除数加上一个小于除数的数构成的。但是一次循环只能做一次减法，效率太低会导致超时，可借助快速幂的思想进行优化。\r\n\r\n需要注意的是，由于题目明确要求最大只能使用 32 位有符号整数，所以需要将除数和被除数同时转换为负数进行计算。因为转换正数可能会导致溢出，如当被除数为 `INT32_MIN` 时，转换为正数时会大于 `INT32_MAX`。\r\n\r\n假设被除数为 $a$，除数为 $b$，则时间复杂度为 $O(\\log a \\times \\log b)$，空间复杂度 $O(1)$。",
+  "memory": "两数相除 → 模拟 + 快速幂。\n**思考**\r\n\r\n除法可以看成反复减法，但若每次只从被除数中减去 $1$ 倍除数、商加 $1$，当 $|a|$ 接近 $2^{31}$ 时循环次数过大，无法通过。题目同时禁止乘法、除法与取余运算。\r\n\r\n在剩余量仍够的前提下将除数不断左移加倍，即可一次扣掉 $2^k$ 倍，商按二进制累加。这与快速幂的思想一致。左移时还需防止溢出：若再翻倍会超出 $32$ 位范围，则停止倍增。\r\n\r\n注意到环境只能存储 $32$ 位有符号整数，将负数取相反数可能溢出（例如 $a=-2^{31}$）。因此符号单独记录，运算全程在负数上进行；并特判 $b=1$，以及 $a=-2^{31}$ 且 $b=-1$ 时返回 $2^{31}-1$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

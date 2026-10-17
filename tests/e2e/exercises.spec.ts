@@ -1,9 +1,7 @@
 import { test, expect } from '@playwright/test';
 import fs from 'node:fs';
 import { judge } from '../../public/judge.mjs';
-test('all Hot 200 Python solutions execute in the packaged browser WASM runtime', async ({
-  page,
-}) => {
+test('all 671 Python solutions execute in the packaged browser WASM runtime', async ({ page }) => {
   await page.goto('/');
   const packs = fs
     .readdirSync('public/exercises')
@@ -18,8 +16,7 @@ def solve(packs):
         namespace = {}
         try:
             exec(_runtime_source, namespace)
-            namespace['Node'] = namespace[{'138':'RandomNode','133':'GraphNode','427':'QuadNode'}.get(pack['number'], 'TreeNode')]
-            namespace['_Node'] = namespace['Node']
+            namespace['_seq_setup'](namespace,pack['adapter'])
             exec(pack['solutions']['python'], namespace)
             rows.append([namespace['_seq_run'](namespace, pack['adapter'], t['input']) for t in pack['tests']])
         except Exception as e:

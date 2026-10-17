@@ -1,0 +1,108 @@
+{
+  "number": "面试题 17.20",
+  "adapter": {
+    "classname": "MedianFinder",
+    "maxbytesperline": 410000,
+    "constructor": {
+      "params": [],
+      "comment": "initialize your data structure here."
+    },
+    "methods": [
+      {
+        "name": "addNum",
+        "params": [
+          {
+            "type": "integer",
+            "name": "num"
+          }
+        ],
+        "return": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "findMedian",
+        "params": [],
+        "return": {
+          "type": "double"
+        }
+      }
+    ],
+    "systemdesign": true,
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "面试题 17.20"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "MedianFinder",
+          "addNum",
+          "addNum",
+          "findMedian",
+          "addNum",
+          "findMedian"
+        ],
+        [
+          [],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [],
+          [
+            3
+          ],
+          []
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        1.5,
+        null,
+        2
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class MedianFinder:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def addNum(self, num: int) -> None:\n        raise NotImplementedError('请完成此方法')\n\n    def findMedian(self) -> float:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * initialize your data structure here.\n */\nvar MedianFinder = function() {\n    \n};\n\n/** \n * @param {number} num\n * @return {void}\n */\nMedianFinder.prototype.addNum = function(num) {\n    \n};\n\n/**\n * @return {number}\n */\nMedianFinder.prototype.findMedian = function() {\n    \n};\n\n/** \n * Your MedianFinder object will be instantiated and called as such:\n * var obj = new MedianFinder()\n * obj.addNum(num)\n * var param_2 = obj.findMedian()\n */",
+    "java": "class MedianFinder {\n\n    /** initialize your data structure here. */\n    public MedianFinder() {\n        \n    }\n    \n    public void addNum(int num) {\n        \n    }\n    \n    public double findMedian() {\n        \n    }\n}\n\n/**\n * Your MedianFinder object will be instantiated and called as such:\n * MedianFinder obj = new MedianFinder();\n * obj.addNum(num);\n * double param_2 = obj.findMedian();\n */",
+    "cpp": "class MedianFinder {\npublic:\n    /** initialize your data structure here. */\n    MedianFinder() {\n        \n    }\n    \n    void addNum(int num) {\n        \n    }\n    \n    double findMedian() {\n        \n    }\n};\n\n/**\n * Your MedianFinder object will be instantiated and called as such:\n * MedianFinder* obj = new MedianFinder();\n * obj->addNum(num);\n * double param_2 = obj->findMedian();\n */"
+  },
+  "solutions": {
+    "python": "class MedianFinder:\r\n\r\n    def __init__(self):\r\n        self.minq = []\r\n        self.maxq = []\r\n\r\n    def addNum(self, num: int) -> None:\r\n        heappush(self.minq, -heappushpop(self.maxq, -num))\r\n        if len(self.minq) - len(self.maxq) > 1:\r\n            heappush(self.maxq, -heappop(self.minq))\r\n\r\n    def findMedian(self) -> float:\r\n        if len(self.minq) == len(self.maxq):\r\n            return (self.minq[0] - self.maxq[0]) / 2\r\n        return self.minq[0]\r\n\r\n\r\n# Your MedianFinder object will be instantiated and called as such:\r\n# obj = MedianFinder()\r\n# obj.addNum(num)\r\n# param_2 = obj.findMedian()\r\n",
+    "javascript": "class MedianFinder {\n    #minQ = new MinPriorityQueue();\n    #maxQ = new MaxPriorityQueue();\n    addNum(num) {\n        const [minQ, maxQ] = [this.#minQ, this.#maxQ];\n        maxQ.enqueue(num);\n        minQ.enqueue(maxQ.dequeue());\n        if (minQ.size() - maxQ.size() > 1) {\n            maxQ.enqueue(minQ.dequeue());\n        }\n    }\n    findMedian() {\n        const [minQ, maxQ] = [this.#minQ, this.#maxQ];\n        if (minQ.size() === maxQ.size()) {\n            return (minQ.front() + maxQ.front()) / 2;\n        }\n        return minQ.front();\n    }\n}\n/**\n * Your MedianFinder object will be instantiated and called as such:\n * var obj = new MedianFinder()\n * obj.addNum(num)\n * var param_2 = obj.findMedian()\n */\n",
+    "java": "class MedianFinder {\r\n    private PriorityQueue<Integer> minQ = new PriorityQueue<>();\r\n    private PriorityQueue<Integer> maxQ = new PriorityQueue<>(Collections.reverseOrder());\r\n\r\n    public MedianFinder() {\r\n    }\r\n\r\n    public void addNum(int num) {\r\n        maxQ.offer(num);\r\n        minQ.offer(maxQ.poll());\r\n        if (minQ.size() - maxQ.size() > 1) {\r\n            maxQ.offer(minQ.poll());\r\n        }\r\n    }\r\n\r\n    public double findMedian() {\r\n        return minQ.size() == maxQ.size() ? (minQ.peek() + maxQ.peek()) / 2.0 : minQ.peek();\r\n    }\r\n}\r\n\r\n/**\r\n * Your MedianFinder object will be instantiated and called as such:\r\n * MedianFinder obj = new MedianFinder();\r\n * obj.addNum(num);\r\n * double param_2 = obj.findMedian();\r\n */\r\n",
+    "cpp": "class MedianFinder {\r\npublic:\r\n    MedianFinder() {\r\n    }\r\n\r\n    void addNum(int num) {\r\n        maxQ.push(num);\r\n        minQ.push(maxQ.top());\r\n        maxQ.pop();\r\n\r\n        if (minQ.size() > maxQ.size() + 1) {\r\n            maxQ.push(minQ.top());\r\n            minQ.pop();\r\n        }\r\n    }\r\n\r\n    double findMedian() {\r\n        return minQ.size() == maxQ.size() ? (minQ.top() + maxQ.top()) / 2.0 : minQ.top();\r\n    }\r\n\r\nprivate:\r\n    priority_queue<int> maxQ;\r\n    priority_queue<int, vector<int>, greater<int>> minQ;\r\n};\r\n\r\n/**\r\n * Your MedianFinder object will be instantiated and called as such:\r\n * MedianFinder* obj = new MedianFinder();\r\n * obj->addNum(num);\r\n * double param_2 = obj->findMedian();\r\n */\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.20.Continuous%20Median/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.20.Continuous%20Median/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.20.Continuous%20Median/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.20.Continuous%20Median/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/17.20.Continuous%20Median/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：连续中值。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 数据流中取中位数。每次排序是 $O(n\\log n)$；平衡 BST 可做但实现重。\r \r 中位数只依赖「较小一半的最大」与「较大一半的最小」，两个堆即可。\r \r 大根堆 $maxq$ 存较小半（用负数模拟），小根堆 $minq$ 存较大半。插入先进入大根堆再弹出到小根堆，并在长度差超过 $1$ 时回调。偶数取两顶平均。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：大小根堆（优先队列）\r\n\r\n\r\n\r\n思考\r\n\r\n数据流中取中位数。每次排序是 $O(n\\log n)$；平衡 BST 可做但实现重。\r\n\r\n中位数只依赖「较小一半的最大」与「较大一半的最小」，两个堆即可。\r\n\r\n大根堆 $maxq$ 存较小半（用负数模拟），小根堆 $minq$ 存较大半。插入先进入大根堆再弹出到小根堆，并在长度差超过 $1$ 时回调。偶数取两顶平均。\r\n\r\n\r\n\r\n我们可以使用两个堆来维护所有的元素，一个小根堆 $\\textit{minQ}$ 和一个大根堆 $\\textit{maxQ}$，其中小根堆 $\\textit{minQ}$ 存储较大的一半，大根堆 $\\textit{maxQ}$ 存储较小的一半。\r\n\r\n调用 `addNum` 方法时，我们首先将元素加入到大根堆 $\\textit{maxQ}$，然后将 $\\textit{maxQ}$ 的堆顶元素弹出并加入到小根堆 $\\textit{minQ}$。如果此时 $\\textit{minQ}$ 的大小与 $\\textit{maxQ}$ 的大小差值大于 $1$，我们就将 $\\textit{minQ}$ 的堆顶元素弹出并加入到 $\\textit{maxQ}$。时间复杂度为 $O(\\log n)$。\r\n\r\n调用 `findMedian` 方法时，如果 $\\textit{minQ}$ 的大小等于 $\\textit{maxQ}$ 的大小，说明元素的总数为偶数，我们就可以返回 $\\textit{minQ}$ 的堆顶元素与 $\\textit{maxQ}$ 的堆顶元素的平均值；否则，我们返回 $\\textit{minQ}$ 的堆顶元素。时间复杂度为 $O(1)$。\r\n\r\n空间复杂度为 $O(n)$。其中 $n$ 为元素的个数。",
+  "memory": "连续中值 → 大小根堆（优先队列）。\n**思考**\r\n\r\n数据流中取中位数。每次排序是 $O(n\\log n)$；平衡 BST 可做但实现重。\r\n\r\n中位数只依赖「较小一半的最大」与「较大一半的最小」，两个堆即可。\r\n\r\n大根堆 $maxq$ 存较小半（用负数模拟），小根堆 $minq$ 存较大半。插入先进入大根堆再弹出到小根堆，并在长度差超过 $1$ 时回调。偶数取两顶平均。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

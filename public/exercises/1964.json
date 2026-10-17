@@ -1,0 +1,92 @@
+{
+  "number": "1964",
+  "adapter": {
+    "name": "longestObstacleCourseAtEachPosition",
+    "params": [
+      {
+        "name": "obstacles",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "1964"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          2
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        3
+      ]
+    },
+    {
+      "input": [
+        [
+          2,
+          2,
+          1
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "input": [
+        [
+          3,
+          1,
+          5,
+          6,
+          4,
+          2
+        ]
+      ],
+      "expected": [
+        1,
+        1,
+        2,
+        3,
+        2,
+        2
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def longestObstacleCourseAtEachPosition(self, obstacles: List[int]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} obstacles\n * @return {number[]}\n */\nvar longestObstacleCourseAtEachPosition = function(obstacles) {\n    \n};",
+    "java": "class Solution {\n    public int[] longestObstacleCourseAtEachPosition(int[] obstacles) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> longestObstacleCourseAtEachPosition(vector<int>& obstacles) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class BinaryIndexedTree:\r\n    __slots__ = [\"n\", \"c\"]\r\n\r\n    def __init__(self, n: int):\r\n        self.n = n\r\n        self.c = [0] * (n + 1)\r\n\r\n    def update(self, x: int, v: int):\r\n        while x <= self.n:\r\n            self.c[x] = max(self.c[x], v)\r\n            x += x & -x\r\n\r\n    def query(self, x: int) -> int:\r\n        s = 0\r\n        while x:\r\n            s = max(s, self.c[x])\r\n            x -= x & -x\r\n        return s\r\n\r\n\r\nclass Solution:\r\n    def longestObstacleCourseAtEachPosition(self, obstacles: List[int]) -> List[int]:\r\n        nums = sorted(set(obstacles))\r\n        n = len(nums)\r\n        tree = BinaryIndexedTree(n)\r\n        ans = []\r\n        for x in obstacles:\r\n            i = bisect_left(nums, x) + 1\r\n            ans.append(tree.query(i) + 1)\r\n            tree.update(i, ans[-1])\r\n        return ans\r\n",
+    "javascript": "class BinaryIndexedTree {\n    n;\n    c;\n    constructor(n) {\n        this.n = n;\n        this.c = Array(n + 1).fill(0);\n    }\n    update(x, v) {\n        while (x <= this.n) {\n            this.c[x] = Math.max(this.c[x], v);\n            x += x & -x;\n        }\n    }\n    query(x) {\n        let s = 0;\n        while (x > 0) {\n            s = Math.max(s, this.c[x]);\n            x -= x & -x;\n        }\n        return s;\n    }\n}\nfunction longestObstacleCourseAtEachPosition(obstacles) {\n    const nums = [...obstacles];\n    nums.sort((a, b) => a - b);\n    const n = nums.length;\n    const ans = [];\n    const tree = new BinaryIndexedTree(n);\n    const search = (x) => {\n        let [l, r] = [0, n];\n        while (l < r) {\n            const mid = (l + r) >> 1;\n            if (nums[mid] >= x) {\n                r = mid;\n            }\n            else {\n                l = mid + 1;\n            }\n        }\n        return l;\n    };\n    for (let k = 0; k < n; ++k) {\n        const i = search(obstacles[k]) + 1;\n        ans[k] = tree.query(i) + 1;\n        tree.update(i, ans[k]);\n    }\n    return ans;\n}\n",
+    "java": "class BinaryIndexedTree {\r\n    private int n;\r\n    private int[] c;\r\n\r\n    public BinaryIndexedTree(int n) {\r\n        this.n = n;\r\n        c = new int[n + 1];\r\n    }\r\n\r\n    public void update(int x, int v) {\r\n        while (x <= n) {\r\n            c[x] = Math.max(c[x], v);\r\n            x += x & -x;\r\n        }\r\n    }\r\n\r\n    public int query(int x) {\r\n        int s = 0;\r\n        while (x > 0) {\r\n            s = Math.max(s, c[x]);\r\n            x -= x & -x;\r\n        }\r\n        return s;\r\n    }\r\n}\r\n\r\nclass Solution {\r\n    public int[] longestObstacleCourseAtEachPosition(int[] obstacles) {\r\n        int[] nums = obstacles.clone();\r\n        Arrays.sort(nums);\r\n        int n = nums.length;\r\n        int[] ans = new int[n];\r\n        BinaryIndexedTree tree = new BinaryIndexedTree(n);\r\n        for (int k = 0; k < n; ++k) {\r\n            int x = obstacles[k];\r\n            int i = Arrays.binarySearch(nums, x) + 1;\r\n            ans[k] = tree.query(i) + 1;\r\n            tree.update(i, ans[k]);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class BinaryIndexedTree {\r\nprivate:\r\n    int n;\r\n    vector<int> c;\r\n\r\npublic:\r\n    BinaryIndexedTree(int n) {\r\n        this->n = n;\r\n        c = vector<int>(n + 1);\r\n    }\r\n\r\n    void update(int x, int v) {\r\n        while (x <= n) {\r\n            c[x] = max(c[x], v);\r\n            x += x & -x;\r\n        }\r\n    }\r\n\r\n    int query(int x) {\r\n        int s = 0;\r\n        while (x > 0) {\r\n            s = max(s, c[x]);\r\n            x -= x & -x;\r\n        }\r\n        return s;\r\n    }\r\n};\r\n\r\nclass Solution {\r\npublic:\r\n    vector<int> longestObstacleCourseAtEachPosition(vector<int>& obstacles) {\r\n        vector<int> nums = obstacles;\r\n        sort(nums.begin(), nums.end());\r\n        int n = nums.size();\r\n        vector<int> ans(n);\r\n        BinaryIndexedTree tree(n);\r\n        for (int k = 0; k < n; ++k) {\r\n            int x = obstacles[k];\r\n            auto it = lower_bound(nums.begin(), nums.end(), x);\r\n            int i = distance(nums.begin(), it) + 1;\r\n            ans[k] = tree.query(i) + 1;\r\n            tree.update(i, ans[k]);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1900-1999/1964.Find%20the%20Longest%20Valid%20Obstacle%20Course%20at%20Each%20Position/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1900-1999/1964.Find%20the%20Longest%20Valid%20Obstacle%20Course%20at%20Each%20Position/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1900-1999/1964.Find%20the%20Longest%20Valid%20Obstacle%20Course%20at%20Each%20Position/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1900-1999/1964.Find%20the%20Longest%20Valid%20Obstacle%20Course%20at%20Each%20Position/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1900-1999/1964.Find%20the%20Longest%20Valid%20Obstacle%20Course%20at%20Each%20Position/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：找出到每个位置为止最长的有效障碍赛跑路线。\n输入：obstacles（integer[]）。\n训练提示：**思考**\r \r 每位障碍要接在左侧不更高的最长上升序列之后。朴素对左侧枚举为 $O(n^2)$， $n\\le 10^5$ 不可行。\r \r 值域离散化后，树状数组维护「高度 $\\le h$ 的最长长度」。查询 $h$ 的前缀最大再加一，并回写该高度。\r \r 每位 $O(\\log n)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：树状数组\r\n\r\n\r\n\r\n思考\r\n\r\n每位障碍要接在左侧不更高的最长上升序列之后。朴素对左侧枚举为 $O(n^2)$， $n\\le 10^5$ 不可行。\r\n\r\n值域离散化后，树状数组维护「高度 $\\le h$ 的最长长度」。查询 $h$ 的前缀最大再加一，并回写该高度。\r\n\r\n每位 $O(\\log n)$。\r\n\r\n\r\n\r\n我们可以用树状数组维护一个最长递增子序列的长度数组。\r\n\r\n然后对于每个障碍，我们在树状数组中查询小于等于当前障碍的最长递增子序列的长度，假设为 $l$，那么当前障碍的最长递增子序列的长度为 $l+1$，我们将 $l+1$ 添加到答案数组中，并将 $l+1$ 更新到树状数组。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(n)$。其中 $n$ 为障碍的数量。",
+  "memory": "找出到每个位置为止最长的有效障碍赛跑路线 → 树状数组。\n**思考**\r\n\r\n每位障碍要接在左侧不更高的最长上升序列之后。朴素对左侧枚举为 $O(n^2)$， $n\\le 10^5$ 不可行。\r\n\r\n值域离散化后，树状数组维护「高度 $\\le h$ 的最长长度」。查询 $h$ 的前缀最大再加一，并回写该高度。\r\n\r\n每位 $O(\\log n)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

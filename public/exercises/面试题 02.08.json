@@ -1,0 +1,88 @@
+{
+  "number": "面试题 02.08",
+  "adapter": {
+    "name": "detectCycle",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      },
+      {
+        "name": "pos",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "ListNode"
+    },
+    "languages": [
+      "cpp",
+      "java",
+      "python",
+      "c",
+      "csharp",
+      "javascript",
+      "golang",
+      "python3"
+    ],
+    "manual": true,
+    "number": "面试题 02.08"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          2,
+          0,
+          -4
+        ],
+        1
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          1,
+          2
+        ],
+        0
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        [
+          1
+        ],
+        -1
+      ],
+      "expected": -1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val) {\n *     this.val = val;\n *     this.next = null;\n * }\n */\n\n/**\n * @param {ListNode} head\n * @return {ListNode}\n */\nvar detectCycle = function(head) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode(int x) {\n *         val = x;\n *         next = null;\n *     }\n * }\n */\npublic class Solution {\n    public ListNode detectCycle(ListNode head) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode(int x) : val(x), next(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode *detectCycle(ListNode *head) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.next = None\r\n\r\n\r\nclass Solution:\r\n    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:\r\n        fast = slow = head\r\n        while fast and fast.next:\r\n            slow = slow.next\r\n            fast = fast.next.next\r\n            if slow == fast:\r\n                ans = head\r\n                while ans != slow:\r\n                    ans = ans.next\r\n                    slow = slow.next\r\n                return ans\r\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction detectCycle(head) {\n    let [slow, fast] = [head, head];\n    while (fast && fast.next) {\n        slow = slow.next;\n        fast = fast.next.next;\n        if (slow === fast) {\n            let ans = head;\n            while (ans !== slow) {\n                ans = ans.next;\n                slow = slow.next;\n            }\n            return ans;\n        }\n    }\n    return null;\n}\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode(int x) {\r\n *         val = x;\r\n *         next = null;\r\n *     }\r\n * }\r\n */\r\npublic class Solution {\r\n    public ListNode detectCycle(ListNode head) {\r\n        ListNode fast = head, slow = head;\r\n        while (fast != null && fast.next != null) {\r\n            slow = slow.next;\r\n            fast = fast.next.next;\r\n            if (slow == fast) {\r\n                ListNode ans = head;\r\n                while (ans != slow) {\r\n                    ans = ans.next;\r\n                    slow = slow.next;\r\n                }\r\n                return ans;\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode(int x) : val(x), next(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    ListNode* detectCycle(ListNode* head) {\r\n        ListNode* fast = head;\r\n        ListNode* slow = head;\r\n        while (fast && fast->next) {\r\n            slow = slow->next;\r\n            fast = fast->next->next;\r\n            if (slow == fast) {\r\n                ListNode* ans = head;\r\n                while (ans != slow) {\r\n                    ans = ans->next;\r\n                    slow = slow->next;\r\n                }\r\n                return ans;\r\n            }\r\n        }\r\n        return nullptr;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.08.Linked%20List%20Cycle/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.08.Linked%20List%20Cycle/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.08.Linked%20List%20Cycle/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.08.Linked%20List%20Cycle/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.08.Linked%20List%20Cycle/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：环路检测。\n输入：head（ListNode）、pos（integer）。\n训练提示：**思考**\r \r 求环入口。哈希表记录已访节点，首次重复即入口，空间 $O(n)$。\r \r 快慢指针若相遇则必在环上；再由头与相遇点同步各走一步，相遇处即入口。其正确性来自 $x = (k-1)(y+z)+z$。\r \r 先让 `fast` 步长为 $2$、`slow` 步长为 $1$ 直至相遇（或 `fast` 为空则无环），再将 $ans$ 从头出发与 `slow` 同速前进。不使用额外表。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：快慢指针\r\n\r\n\r\n\r\n思考\r\n\r\n求环入口。哈希表记录已访节点，首次重复即入口，空间 $O(n)$。\r\n\r\n快慢指针若相遇则必在环上；再由头与相遇点同步各走一步，相遇处即入口。其正确性来自 $x = (k-1)(y+z)+z$。\r\n\r\n先让 `fast` 步长为 $2$、`slow` 步长为 $1$ 直至相遇（或 `fast` 为空则无环），再将 $ans$ 从头出发与 `slow` 同速前进。不使用额外表。\r\n\r\n\r\n\r\n我们先利用快慢指针判断链表是否有环，如果有环的话，快慢指针一定会相遇，且相遇的节点一定在环中。\r\n\r\n如果没有环，快指针会先到达链表尾部，直接返回 `null` 即可。\r\n\r\n如果有环，我们再定义一个答案指针 $ans$ 指向链表头部，然后让 $ans$ 和慢指针一起向前走，每次走一步，直到 $ans$ 和慢指针相遇，相遇的节点即为环的入口节点。\r\n\r\n为什么这样能找到环的入口节点呢？\r\n\r\n我们不妨假设链表头节点到环入口的距离为 $x$，环入口到相遇节点的距离为 $y$，相遇节点到环入口的距离为 $z$，那么慢指针走过的距离为 $x + y$，快指针走过的距离为 $x + y + k \\times (y + z)$，其中 $k$ 是快指针在环中绕了 $k$ 圈。\r\n\r\n<p><img src=\"https://fastly.jsdelivr.net/gh/doocs/leetcode@main/lcci/02.08.Linked%20List%20Cycle/images/linked-list-cycle-ii.png\" /></p>\r\n\r\n由于快指针速度是慢指针的 $2$ 倍，因此有 $2 \\times (x + y) = x + y + k \\times (y + z)$，可以推出 $x + y = k \\times (y + z)$，即 $x = (k - 1) \\times (y + z) + z$。\r\n\r\n也即是说，如果我们定义一个答案指针 $ans$ 指向链表头部，然后 $ans$ 和慢指针一起向前走，那么它们一定会在环入口相遇。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 是链表中节点的数目。空间复杂度 $O(1)$。",
+  "memory": "环路检测 → 快慢指针。\n**思考**\r\n\r\n求环入口。哈希表记录已访节点，首次重复即入口，空间 $O(n)$。\r\n\r\n快慢指针若相遇则必在环上；再由头与相遇点同步各走一步，相遇处即入口。其正确性来自 $x = (k-1)(y+z)+z$。\r\n\r\n先让 `fast` 步长为 $2$、`slow` 步长为 $1$ 直至相遇（或 `fast` 为空则无环），再将 $ans$ 从头出发与 `slow` 同速前进。不使用额外表。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

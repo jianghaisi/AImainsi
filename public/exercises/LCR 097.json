@@ -1,0 +1,60 @@
+{
+  "number": "LCR 097",
+  "adapter": {
+    "name": "numDistinct",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "t",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 097"
+  },
+  "tests": [
+    {
+      "input": [
+        "rabbbit",
+        "rabbit"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "babgbag",
+        "bag"
+      ],
+      "expected": 5
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def numDistinct(self, s: str, t: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @param {string} t\n * @return {number}\n */\nvar numDistinct = function(s, t) {\n\n};",
+    "java": "class Solution {\n    public int numDistinct(String s, String t) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int numDistinct(string s, string t) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def numDistinct(self, s: str, t: str) -> int:\r\n        m, n = len(s), len(t)\r\n        f = [[0] * (n + 1) for _ in range(m + 1)]\r\n        for i in range(m + 1):\r\n            f[i][0] = 1\r\n        for i, a in enumerate(s, 1):\r\n            for j, b in enumerate(t, 1):\r\n                f[i][j] = f[i - 1][j]\r\n                if a == b:\r\n                    f[i][j] += f[i - 1][j - 1]\r\n        return f[m][n]\r\n",
+    "javascript": "function numDistinct(s, t) {\n    const m = s.length;\n    const n = t.length;\n    const f = new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0));\n    for (let i = 0; i <= m; ++i) {\n        f[i][0] = 1;\n    }\n    for (let i = 1; i <= m; ++i) {\n        for (let j = 1; j <= n; ++j) {\n            f[i][j] = f[i - 1][j];\n            if (s[i - 1] === t[j - 1]) {\n                f[i][j] += f[i - 1][j - 1];\n            }\n        }\n    }\n    return f[m][n];\n}\n",
+    "java": "class Solution {\r\n    public int numDistinct(String s, String t) {\r\n        int m = s.length(), n = t.length();\r\n        int[][] f = new int[m + 1][n + 1];\r\n        for (int i = 0; i < m + 1; ++i) {\r\n            f[i][0] = 1;\r\n        }\r\n        for (int i = 1; i < m + 1; ++i) {\r\n            for (int j = 1; j < n + 1; ++j) {\r\n                f[i][j] = f[i - 1][j];\r\n                if (s.charAt(i - 1) == t.charAt(j - 1)) {\r\n                    f[i][j] += f[i - 1][j - 1];\r\n                }\r\n            }\r\n        }\r\n        return f[m][n];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int numDistinct(string s, string t) {\r\n        int m = s.size(), n = t.size();\r\n        unsigned long long f[m + 1][n + 1];\r\n        memset(f, 0, sizeof(f));\r\n        for (int i = 0; i < m + 1; ++i) {\r\n            f[i][0] = 1;\r\n        }\r\n        for (int i = 1; i < m + 1; ++i) {\r\n            for (int j = 1; j < n + 1; ++j) {\r\n                f[i][j] = f[i - 1][j];\r\n                if (s[i - 1] == t[j - 1]) {\r\n                    f[i][j] += f[i - 1][j - 1];\r\n                }\r\n            }\r\n        }\r\n        return f[m][n];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20097.%20%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E6%95%B0%E7%9B%AE/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20097.%20%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E6%95%B0%E7%9B%AE/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20097.%20%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E6%95%B0%E7%9B%AE/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20097.%20%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E6%95%B0%E7%9B%AE/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20097.%20%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E6%95%B0%E7%9B%AE/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：不同的子序列。\n输入：s（string）、t（string）。\n训练提示：**思考**\r \r 统计 $s$ 中等于 $t$ 的子序列个数。按位置递归选或不选，无记忆时重复状态过多。\r \r $f[i][j]$ 表示 $s$ 前 $i$ 个字符构成 $t$ 前 $j$ 个字符的方案数。末字符不同则只能继承 $f[i-1][j]$；相同则再加上 $f[i-1][j-1]$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n统计 $s$ 中等于 $t$ 的子序列个数。按位置递归选或不选，无记忆时重复状态过多。\r\n\r\n$f[i][j]$ 表示 $s$ 前 $i$ 个字符构成 $t$ 前 $j$ 个字符的方案数。末字符不同则只能继承 $f[i-1][j]$；相同则再加上 $f[i-1][j-1]$。\r\n\r\n\r\n\r\n我们定义 $f[i][j]$ 表示字符串 $s$ 的前 $i$ 个字符中，子序列构成字符串 $t$ 的前 $j$ 个字符的方案数。初始时 $f[i][0]=1$，其中 $i \\in [0,m]$。\r\n\r\n当 $i \\gt 0$ 时，考虑 $f[i][j]$ 的计算：\r\n\r\n- 当 $s[i-1] \\ne t[j-1]$ 时，不能选取 $s[i-1]$，因此 $f[i][j]=f[i-1][j]$；\r\n- 否则，可以选取 $s[i-1]$，此时 $f[i][j]=f[i-1][j-1]$。\r\n\r\n因此我们有如下的状态转移方程：\r\n\r\n$$\r\nf[i][j]=\\left\\{\r\n\\begin{aligned}\r\n&f[i-1][j], &s[i-1] \\ne t[j-1] \\\\\r\n&f[i-1][j-1]+f[i-1][j], &s[i-1]=t[j-1]\r\n\\end{aligned}\r\n\\right.\r\n$$\r\n\r\n最终的答案即为 $f[m][n]$，其中 $m$ 和 $n$ 分别是字符串 $s$ 和 $t$ 的长度。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m \\times n)$。",
+  "memory": "不同的子序列 → 动态规划。\n**思考**\r\n\r\n统计 $s$ 中等于 $t$ 的子序列个数。按位置递归选或不选，无记忆时重复状态过多。\r\n\r\n$f[i][j]$ 表示 $s$ 前 $i$ 个字符构成 $t$ 前 $j$ 个字符的方案数。末字符不同则只能继承 $f[i-1][j]$；相同则再加上 $f[i-1][j-1]$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

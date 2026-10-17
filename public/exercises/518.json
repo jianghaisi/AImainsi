@@ -1,0 +1,75 @@
+{
+  "number": "518",
+  "adapter": {
+    "name": "change",
+    "params": [
+      {
+        "name": "amount",
+        "type": "integer"
+      },
+      {
+        "name": "coins",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "518"
+  },
+  "tests": [
+    {
+      "input": [
+        5,
+        [
+          1,
+          2,
+          5
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        3,
+        [
+          2
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        10,
+        [
+          10
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def change(self, amount: int, coins: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} amount\n * @param {number[]} coins\n * @return {number}\n */\nvar change = function(amount, coins) {\n    \n};",
+    "java": "class Solution {\n    public int change(int amount, int[] coins) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int change(int amount, vector<int>& coins) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def change(self, amount: int, coins: List[int]) -> int:\r\n        m, n = len(coins), amount\r\n        f = [[0] * (n + 1) for _ in range(m + 1)]\r\n        f[0][0] = 1\r\n        for i, x in enumerate(coins, 1):\r\n            for j in range(n + 1):\r\n                f[i][j] = f[i - 1][j]\r\n                if j >= x:\r\n                    f[i][j] += f[i][j - x]\r\n        return f[m][n]\r\n",
+    "javascript": "function change(amount, coins) {\n    const [m, n] = [coins.length, amount];\n    const f = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));\n    f[0][0] = 1;\n    for (let i = 1; i <= m; ++i) {\n        for (let j = 0; j <= n; ++j) {\n            f[i][j] = f[i - 1][j];\n            if (j >= coins[i - 1]) {\n                f[i][j] += f[i][j - coins[i - 1]];\n            }\n        }\n    }\n    return f[m][n];\n}\n",
+    "java": "class Solution {\r\n    public int change(int amount, int[] coins) {\r\n        int m = coins.length, n = amount;\r\n        int[][] f = new int[m + 1][n + 1];\r\n        f[0][0] = 1;\r\n        for (int i = 1; i <= m; ++i) {\r\n            for (int j = 0; j <= n; ++j) {\r\n                f[i][j] = f[i - 1][j];\r\n                if (j >= coins[i - 1]) {\r\n                    f[i][j] += f[i][j - coins[i - 1]];\r\n                }\r\n            }\r\n        }\r\n        return f[m][n];\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int change(int amount, vector<int>& coins) {\r\n        int m = coins.size(), n = amount;\r\n        unsigned f[m + 1][n + 1];\r\n        memset(f, 0, sizeof(f));\r\n        f[0][0] = 1;\r\n        for (int i = 1; i <= m; ++i) {\r\n            for (int j = 0; j <= n; ++j) {\r\n                f[i][j] = f[i - 1][j];\r\n                if (j >= coins[i - 1]) {\r\n                    f[i][j] += f[i][j - coins[i - 1]];\r\n                }\r\n            }\r\n        }\r\n        return f[m][n];\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0518.Coin%20Change%20II/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0518.Coin%20Change%20II/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0518.Coin%20Change%20II/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0518.Coin%20Change%20II/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0518.Coin%20Change%20II/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：零钱兑换 II。\n输入：amount（integer）、coins（integer[]）。\n训练提示：**思考**\r \r 求凑成 `amount` 的组合数，顺序不同视为同一种。若按排列计数会把同一组合算多次。\r \r 这是完全背包的方案数：外层枚举硬币、内层枚举金额，使每种硬币只按一种顺序加入。 $f[i][j]$ 表示用前 $i$ 种硬币凑 $j$ 的方案数，不选第 $i$ 种继承 $f[i-1][j]$，选则加上 $f[i][j-x]$。 $f[0][0]=1$ 作为空组合。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划(完全背包)\r\n\r\n\r\n\r\n思考\r\n\r\n求凑成 `amount` 的组合数，顺序不同视为同一种。若按排列计数会把同一组合算多次。\r\n\r\n这是完全背包的方案数：外层枚举硬币、内层枚举金额，使每种硬币只按一种顺序加入。 $f[i][j]$ 表示用前 $i$ 种硬币凑 $j$ 的方案数，不选第 $i$ 种继承 $f[i-1][j]$，选则加上 $f[i][j-x]$。 $f[0][0]=1$ 作为空组合。\r\n\r\n\r\n\r\n我们定义 $f[i][j]$ 表示使用前 $i$ 种硬币，凑出金额 $j$ 的硬币组合数。初始时 $f[0][0] = 1$，其余位置的值均为 $0$。\r\n\r\n我们可以枚举使用的最后一枚硬币的数量 $k$，那么有式子一：\r\n\r\n$$\r\nf[i][j] = f[i - 1][j] + f[i - 1][j - x] + f[i - 1][j - 2 \\times x] + \\cdots + f[i - 1][j - k \\times x]\r\n$$\r\n\r\n其中 $x$ 表示第 $i$ 种硬币的面值。\r\n\r\n不妨令 $j = j - x$，那么有式子二：\r\n\r\n$$\r\nf[i][j - x] = f[i - 1][j - x] + f[i - 1][j - 2 \\times x] + \\cdots + f[i - 1][j - k \\times x]\r\n$$\r\n\r\n将式子二代入式子一，得到：\r\n\r\n$$\r\nf[i][j] = f[i - 1][j] + f[i][j - x]\r\n$$\r\n\r\n最终的答案为 $f[m][n]$，其中 $m$ 和 $n$ 分别表示硬币的种类数和总金额。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m \\times n)$。其中 $m$ 和 $n$ 分别为硬币的种类数和总金额。",
+  "memory": "零钱兑换 II → 动态规划(完全背包)。\n**思考**\r\n\r\n求凑成 `amount` 的组合数，顺序不同视为同一种。若按排列计数会把同一组合算多次。\r\n\r\n这是完全背包的方案数：外层枚举硬币、内层枚举金额，使每种硬币只按一种顺序加入。 $f[i][j]$ 表示用前 $i$ 种硬币凑 $j$ 的方案数，不选第 $i$ 种继承 $f[i-1][j]$，选则加上 $f[i][j-x]$。 $f[0][0]=1$ 作为空组合。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

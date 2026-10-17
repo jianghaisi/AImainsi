@@ -1,0 +1,192 @@
+{
+  "number": "LCR 146",
+  "adapter": {
+    "name": "spiralArray",
+    "params": [
+      {
+        "name": "array",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "LCR 146"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            8,
+            9,
+            4
+          ],
+          [
+            7,
+            6,
+            5
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          [
+            12,
+            13,
+            14,
+            5
+          ],
+          [
+            11,
+            16,
+            15,
+            6
+          ],
+          [
+            10,
+            9,
+            8,
+            7
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        6,
+        9,
+        8,
+        7,
+        4,
+        5
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          [
+            5,
+            6,
+            7,
+            8
+          ],
+          [
+            9,
+            10,
+            11,
+            12
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        12,
+        11,
+        10,
+        9,
+        5,
+        6,
+        7
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def spiralArray(self, matrix: List[List[int]]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} array\n * @return {number[]}\n */\nvar spiralArray = function(array) {\n    \n};",
+    "java": "class Solution {\n    public int[] spiralArray(int[][] array) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> spiralArray(vector<vector<int>>& array) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def spiralArray(self, matrix: List[List[int]]) -> List[int]:\r\n        if not matrix or not matrix[0]:\r\n            return []\r\n        dirs = (0, 1, 0, -1, 0)\r\n        m, n = len(matrix), len(matrix[0])\r\n        vis = [[False] * n for _ in range(m)]\r\n        ans = []\r\n        i = j = k = 0\r\n        for _ in range(m * n):\r\n            ans.append(matrix[i][j])\r\n            vis[i][j] = True\r\n            x, y = i + dirs[k], j + dirs[k + 1]\r\n            if x < 0 or y < 0 or x >= m or y >= n or vis[x][y]:\r\n                k = (k + 1) % 4\r\n                x, y = i + dirs[k], j + dirs[k + 1]\r\n            i, j = x, y\r\n        return ans\r\n",
+    "javascript": "var spiralArray = (matrix) => {\n    let ans = [];\n    if (matrix.length === 0)\n        return ans;\n    let top = 0, left = 0, bottom = matrix.length - 1, right = matrix[0].length - 1;\n    while (true) {\n        for (let i = left; i <= right; i++)\n            ans.push(matrix[top][i]);\n        top++;\n        if (top > bottom)\n            break;\n        for (let i = top; i <= bottom; i++)\n            ans.push(matrix[i][right]);\n        right--;\n        if (right < left)\n            break;\n        for (let i = right; i >= left; i--)\n            ans.push(matrix[bottom][i]);\n        bottom--;\n        if (bottom < top)\n            break;\n        for (let i = bottom; i >= top; i--)\n            ans.push(matrix[i][left]);\n        left++;\n        if (left > right)\n            break;\n    }\n    return ans;\n};\n",
+    "java": "class Solution {\r\n    public int[] spiralArray(int[][] matrix) {\r\n        if (matrix.length == 0 || matrix[0].length == 0) {\r\n            return new int[] {};\r\n        }\r\n        int m = matrix.length, n = matrix[0].length;\r\n        boolean[][] vis = new boolean[m][n];\r\n        int[] ans = new int[m * n];\r\n        int i = 0, j = 0, k = 0;\r\n        int[] dirs = {0, 1, 0, -1, 0};\r\n        for (int h = 0; h < m * n; ++h) {\r\n            ans[h] = matrix[i][j];\r\n            vis[i][j] = true;\r\n            int x = i + dirs[k], y = j + dirs[k + 1];\r\n            if (x < 0 || y < 0 || x >= m || y >= n || vis[x][y]) {\r\n                k = (k + 1) % 4;\r\n                x = i + dirs[k];\r\n                y = j + dirs[k + 1];\r\n            }\r\n            i = x;\r\n            j = y;\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> spiralArray(vector<vector<int>>& matrix) {\r\n        if (matrix.size() == 0 || matrix[0].size() == 0) {\r\n            return {};\r\n        }\r\n        int m = matrix.size(), n = matrix[0].size();\r\n        bool vis[m][n];\r\n        memset(vis, false, sizeof vis);\r\n        int i = 0, j = 0, k = 0;\r\n        int dirs[5] = {0, 1, 0, -1, 0};\r\n        vector<int> ans(m * n);\r\n        for (int h = 0; h < m * n; ++h) {\r\n            ans[h] = matrix[i][j];\r\n            vis[i][j] = true;\r\n            int x = i + dirs[k], y = j + dirs[k + 1];\r\n            if (x < 0 || y < 0 || x >= m || y >= n || vis[x][y]) {\r\n                k = (k + 1) % 4;\r\n                x = i + dirs[k];\r\n                y = j + dirs[k + 1];\r\n            }\r\n            i = x;\r\n            j = y;\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9829.%20%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9829.%20%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9829.%20%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9829.%20%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9829.%20%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：螺旋遍历二维数组。\n输入：array（integer[][]）。\n训练提示：**思考**\r \r 走螺旋时方向按右下左上循环，撞到边界或已访问格则转向。用访问标记记录走过的格，按 $m\\times n$ 步依次输出。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：模拟\r\n\r\n\r\n\r\n思考\r\n\r\n走螺旋时方向按右下左上循环，撞到边界或已访问格则转向。用访问标记记录走过的格，按 $m\\times n$ 步依次输出。\r\n\r\n\r\n\r\n我们用 $i$ 和 $j$ 分别表示当前访问到的元素的行和列，用 $k$ 表示当前的方向，用数组或哈希表 $vis$ 记录每个元素是否被访问过。每次我们访问到一个元素后，将其标记为已访问，然后按照当前的方向前进一步，如果前进一步后发现越界或者已经访问过，则改变方向继续前进，直到遍历完整个矩阵。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m \\times n)$。其中 $m$ 和 $n$ 分别是矩阵的行数和列数。",
+  "memory": "螺旋遍历二维数组 → 模拟。\n**思考**\r\n\r\n走螺旋时方向按右下左上循环，撞到边界或已访问格则转向。用访问标记记录走过的格，按 $m\\times n$ 步依次输出。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

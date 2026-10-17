@@ -1,0 +1,48 @@
+{
+  "number": "面试题 01.04",
+  "adapter": {
+    "name": "canPermutePalindrome",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "面试题 01.04"
+  },
+  "tests": [
+    {
+      "input": [
+        "tactcoa"
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def canPermutePalindrome(self, s: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @return {boolean}\n */\nvar canPermutePalindrome = function(s) {\n    \n};",
+    "java": "class Solution {\n    public boolean canPermutePalindrome(String s) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool canPermutePalindrome(string s) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def canPermutePalindrome(self, s: str) -> bool:\r\n        cnt = Counter(s)\r\n        return sum(v & 1 for v in cnt.values()) < 2\r\n",
+    "javascript": "function canPermutePalindrome(s) {\n    const cnt = {};\n    for (const c of s) {\n        cnt[c] = (cnt[c] || 0) + 1;\n    }\n    return Object.values(cnt).filter(v => v % 2 === 1).length < 2;\n}\n",
+    "java": "class Solution {\r\n    public boolean canPermutePalindrome(String s) {\r\n        Map<Character, Integer> cnt = new HashMap<>();\r\n        for (int i = 0; i < s.length(); ++i) {\r\n            cnt.merge(s.charAt(i), 1, Integer::sum);\r\n        }\r\n        int sum = 0;\r\n        for (int v : cnt.values()) {\r\n            sum += v & 1;\r\n        }\r\n        return sum < 2;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool canPermutePalindrome(string s) {\r\n        unordered_map<char, int> cnt;\r\n        for (auto& c : s) {\r\n            ++cnt[c];\r\n        }\r\n        int sum = 0;\r\n        for (auto& [_, v] : cnt) {\r\n            sum += v & 1;\r\n        }\r\n        return sum < 2;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.04.Palindrome%20Permutation/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.04.Palindrome%20Permutation/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.04.Palindrome%20Permutation/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.04.Palindrome%20Permutation/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.04.Palindrome%20Permutation/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：回文排列。\n输入：s（string）。\n训练提示：**思考**\r \r 回文排列要求重排后左右对称，不必真的构造排列。枚举全排列再检验回文，在 $n$ 稍大时不可行。\r \r 回文中至多一个字符出现奇数次，其余必须为偶数次。因此只需统计频次并清点奇数计数的个数。\r \r 哈希表（或 `Counter`）一次扫描得到全部频次，再判断奇数个数是否小于 $2$，与代码中的 `sum(v & 1 ...) < 2` 一致。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：哈希表\r\n\r\n\r\n\r\n思考\r\n\r\n回文排列要求重排后左右对称，不必真的构造排列。枚举全排列再检验回文，在 $n$ 稍大时不可行。\r\n\r\n回文中至多一个字符出现奇数次，其余必须为偶数次。因此只需统计频次并清点奇数计数的个数。\r\n\r\n哈希表（或 `Counter`）一次扫描得到全部频次，再判断奇数个数是否小于 $2$，与代码中的 `sum(v & 1 ...) < 2` 一致。\r\n\r\n\r\n\r\n我们用哈希表 $cnt$ 存储每个字符出现的次数。若次数为奇数的字符超过 $1$ 个，则不是回文排列。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为字符串长度。",
+  "memory": "回文排列 → 哈希表。\n**思考**\r\n\r\n回文排列要求重排后左右对称，不必真的构造排列。枚举全排列再检验回文，在 $n$ 稍大时不可行。\r\n\r\n回文中至多一个字符出现奇数次，其余必须为偶数次。因此只需统计频次并清点奇数计数的个数。\r\n\r\n哈希表（或 `Counter`）一次扫描得到全部频次，再判断奇数个数是否小于 $2$，与代码中的 `sum(v & 1 ...) < 2` 一致。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

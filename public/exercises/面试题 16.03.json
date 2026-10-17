@@ -1,0 +1,114 @@
+{
+  "number": "面试题 16.03",
+  "adapter": {
+    "name": "intersection",
+    "params": [
+      {
+        "name": "start1",
+        "type": "integer[]"
+      },
+      {
+        "name": "end1",
+        "type": "integer[]"
+      },
+      {
+        "name": "start2",
+        "type": "integer[]"
+      },
+      {
+        "name": "end2",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "double[]"
+    },
+    "number": "面试题 16.03"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          -1
+        ]
+      ],
+      "expected": [
+        0.5,
+        0
+      ]
+    },
+    {
+      "input": [
+        [
+          0,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "expected": [
+        1,
+        0
+      ]
+    },
+    {
+      "input": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "expected": []
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def intersection(self, start1, end1, start2, end2):\n        raise NotImplementedError('请完成此方法')\n"
+  },
+  "solutions": {
+    "python": "class Solution:\n    def intersection(self, start1, end1, start2, end2):\n        def cross(a,b):return a[0]*b[1]-a[1]*b[0]\n        def sub(a,b):return [a[0]-b[0],a[1]-b[1]]\n        a,b,c,d=start1,end1,start2,end2;r,s=sub(b,a),sub(d,c);den=cross(r,s);ca=sub(c,a)\n        if den:\n            t,u=cross(ca,s)/den,cross(ca,r)/den\n            return [a[0]+t*r[0],a[1]+t*r[1]] if 0<=t<=1 and 0<=u<=1 else []\n        def on(p,x,y):return cross(sub(p,x),sub(y,x))==0 and all(min(x[i],y[i])<=p[i]<=max(x[i],y[i]) for i in (0,1))\n        points=[p for p in (a,b,c,d) if on(p,a,b) and on(p,c,d)]\n        return min(points) if points else []\n"
+  },
+  "credits": {
+    "python": "序列原创适配"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.03.Intersection/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：交点。\n输入：start1（integer[]）、end1（integer[]）、start2（integer[]）、end2（integer[]）。\n训练提示：几何 / 数学\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "将两线段写为 a+t·r 与 c+u·s。叉积求出参数 t、u，只有两者均在 [0,1] 才在线段内。平行时检查端点是否同时位于两线段；重合区间返回横坐标最小、再纵坐标最小的端点。",
+  "memory": "先分非平行与平行。直线相交不等于线段相交，必须检查 t 和 u 的范围；平行还要区分共线、重叠与分离。"
+}

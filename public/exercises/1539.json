@@ -1,0 +1,68 @@
+{
+  "number": "1539",
+  "adapter": {
+    "name": "findKthPositive",
+    "params": [
+      {
+        "name": "arr",
+        "type": "integer[]"
+      },
+      {
+        "type": "integer",
+        "name": "k"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1539"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          2,
+          3,
+          4,
+          7,
+          11
+        ],
+        5
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        2
+      ],
+      "expected": 6
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findKthPositive(self, arr: List[int], k: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int findKthPositive(int[] arr, int k) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findKthPositive(vector<int>& arr, int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findKthPositive(self, arr: List[int], k: int) -> int:\r\n        if arr[0] > k:\r\n            return k\r\n        left, right = 0, len(arr)\r\n        while left < right:\r\n            mid = (left + right) >> 1\r\n            if arr[mid] - mid - 1 >= k:\r\n                right = mid\r\n            else:\r\n                left = mid + 1\r\n        return arr[left - 1] + k - (arr[left - 1] - (left - 1) - 1)\r\n",
+    "java": "class Solution {\r\n    public int findKthPositive(int[] arr, int k) {\r\n        if (arr[0] > k) {\r\n            return k;\r\n        }\r\n        int left = 0, right = arr.length;\r\n        while (left < right) {\r\n            int mid = (left + right) >> 1;\r\n            if (arr[mid] - mid - 1 >= k) {\r\n                right = mid;\r\n            } else {\r\n                left = mid + 1;\r\n            }\r\n        }\r\n        return arr[left - 1] + k - (arr[left - 1] - (left - 1) - 1);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int findKthPositive(vector<int>& arr, int k) {\r\n        if (arr[0] > k) return k;\r\n        int left = 0, right = arr.size();\r\n        while (left < right) {\r\n            int mid = (left + right) >> 1;\r\n            if (arr[mid] - mid - 1 >= k)\r\n                right = mid;\r\n            else\r\n                left = mid + 1;\r\n        }\r\n        return arr[left - 1] + k - (arr[left - 1] - (left - 1) - 1);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1539.Kth%20Missing%20Positive%20Number/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1539.Kth%20Missing%20Positive%20Number/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1539.Kth%20Missing%20Positive%20Number/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1539.Kth%20Missing%20Positive%20Number/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：第 k 个缺失的正整数。\n输入：arr（integer[]）、k（integer）。\n训练提示：**思考**\r \r 有序正数组中求第 $k$ 个缺失正整数。线性扫描在 $n$ 与 $k$ 同阶时可行，但缺失个数 $arr[i]-i-1$ 随 $i$ 单调，适合二分。\r \r 若 $arr[0]>k$，答案就是 $k$。否则二分第一个「缺失数 $\\ge k$」的位置 $left$，其左侧 $arr[left-1]$ 处已缺失 $arr[left-1]-(left-1)-1$ 个，再向后补 $k$ 与该值的差即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n有序正数组中求第 $k$ 个缺失正整数。线性扫描在 $n$ 与 $k$ 同阶时可行，但缺失个数 $arr[i]-i-1$ 随 $i$ 单调，适合二分。\r\n\r\n若 $arr[0]>k$，答案就是 $k$。否则二分第一个「缺失数 $\\ge k$」的位置 $left$，其左侧 $arr[left-1]$ 处已缺失 $arr[left-1]-(left-1)-1$ 个，再向后补 $k$ 与该值的差即可。",
+  "memory": "第 k 个缺失的正整数 → 二分查找。\n**思考**\r\n\r\n有序正数组中求第 $k$ 个缺失正整数。线性扫描在 $n$ 与 $k$ 同阶时可行，但缺失个数 $arr[i]-i-1$ 随 $i$ 单调，适合二分。\r\n\r\n若 $arr[0]>k$，答案就是 $k$。否则二分第一个「缺失数 $\\ge k$」的位置 $left$，其左侧 $arr[left-1]$ 处已缺失 $arr[left-1]-(left-1)-1$ 个，再向后补 $k$ 与该值的差即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

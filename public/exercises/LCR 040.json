@@ -1,0 +1,80 @@
+{
+  "number": "LCR 040",
+  "adapter": {
+    "name": "maximalRectangle",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 040"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "10100",
+          "10111",
+          "11111",
+          "10010"
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        []
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        [
+          "0"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        [
+          "1"
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          "00"
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def maximalRectangle(self, matrix: List[List[str]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int maximalRectangle(String[] matrix) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int maximalRectangle(vector<string>& matrix) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def maximalRectangle(self, matrix: List[List[str]]) -> int:\r\n        if not matrix:\r\n            return 0\r\n        heights = [0] * len(matrix[0])\r\n        ans = 0\r\n        for row in matrix:\r\n            for j, v in enumerate(row):\r\n                if v == \"1\":\r\n                    heights[j] += 1\r\n                else:\r\n                    heights[j] = 0\r\n            ans = max(ans, self.largestRectangleArea(heights))\r\n        return ans\r\n\r\n    def largestRectangleArea(self, heights: List[int]) -> int:\r\n        n = len(heights)\r\n        stk = []\r\n        left = [-1] * n\r\n        right = [n] * n\r\n        for i, h in enumerate(heights):\r\n            while stk and heights[stk[-1]] >= h:\r\n                stk.pop()\r\n            if stk:\r\n                left[i] = stk[-1]\r\n            stk.append(i)\r\n        stk = []\r\n        for i in range(n - 1, -1, -1):\r\n            h = heights[i]\r\n            while stk and heights[stk[-1]] >= h:\r\n                stk.pop()\r\n            if stk:\r\n                right[i] = stk[-1]\r\n            stk.append(i)\r\n        return max(h * (right[i] - left[i] - 1) for i, h in enumerate(heights))\r\n",
+    "java": "class Solution {\r\n    public int maximalRectangle(String[] matrix) {\r\n        if (matrix == null || matrix.length == 0) {\r\n            return 0;\r\n        }\r\n        int n = matrix[0].length();\r\n        int[] heights = new int[n];\r\n        int ans = 0;\r\n        for (var row : matrix) {\r\n            for (int j = 0; j < n; ++j) {\r\n                if (row.charAt(j) == '1') {\r\n                    heights[j] += 1;\r\n                } else {\r\n                    heights[j] = 0;\r\n                }\r\n            }\r\n            ans = Math.max(ans, largestRectangleArea(heights));\r\n        }\r\n        return ans;\r\n    }\r\n\r\n    private int largestRectangleArea(int[] heights) {\r\n        int res = 0, n = heights.length;\r\n        Deque<Integer> stk = new ArrayDeque<>();\r\n        int[] left = new int[n];\r\n        int[] right = new int[n];\r\n        Arrays.fill(right, n);\r\n        for (int i = 0; i < n; ++i) {\r\n            while (!stk.isEmpty() && heights[stk.peek()] >= heights[i]) {\r\n                right[stk.pop()] = i;\r\n            }\r\n            left[i] = stk.isEmpty() ? -1 : stk.peek();\r\n            stk.push(i);\r\n        }\r\n        for (int i = 0; i < n; ++i) {\r\n            res = Math.max(res, heights[i] * (right[i] - left[i] - 1));\r\n        }\r\n        return res;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int h[210];\r\n    int l[210], r[210];\r\n    int maximalRectangle(vector<string>& matrix) {\r\n        int n = matrix.size();\r\n        if (n == 0) return 0;\r\n        int m = matrix[0].size();\r\n        int ans = 0;\r\n        stack<int> st;\r\n        for (int i = 0; i < n; i++) {\r\n            for (int j = 0; j < m; j++) {\r\n                h[j] = (matrix[i][j] == '1' ? h[j] + 1 : 0);\r\n                while (st.size() && h[j] <= h[st.top()]) {\r\n                    ans = max(ans, (j - l[st.top()] - 1) * h[st.top()]);\r\n                    st.pop();\r\n                }\r\n                if (st.size())\r\n                    l[j] = st.top();\r\n                else\r\n                    l[j] = -1;\r\n                st.push(j);\r\n            }\r\n            while (st.size()) {\r\n                ans = max(ans, (m - 1 - l[st.top()]) * h[st.top()]);\r\n                st.pop();\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20040.%20%E7%9F%A9%E9%98%B5%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20040.%20%E7%9F%A9%E9%98%B5%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20040.%20%E7%9F%A9%E9%98%B5%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20040.%20%E7%9F%A9%E9%98%B5%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最大矩形。\n输入：matrix（string[]）。\n训练提示：**思考**\r \r 矩阵中全 $1$ 矩形的底边可以落在任意一行。若枚举上下边界再检查每列是否全 $1$，是立方级的。\r \r 把每一行当作柱状图底边：连续的 $1$ 累加高度，遇到 $0$ 则高度清零。对每行用直方图最大矩形求解，答案取全局最大。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：单调栈\r\n\r\n\r\n\r\n思考\r\n\r\n矩阵中全 $1$ 矩形的底边可以落在任意一行。若枚举上下边界再检查每列是否全 $1$，是立方级的。\r\n\r\n把每一行当作柱状图底边：连续的 $1$ 累加高度，遇到 $0$ 则高度清零。对每行用直方图最大矩形求解，答案取全局最大。\r\n\r\n\r\n\r\n把每一行视为柱状图的底部，对每一行求柱状图的最大面积即可。\r\n\r\n时间复杂度 $O(mn)$，其中 $m$ 表示 $matrix$ 的行数， $n$ 表示 $matrix$ 的列数。",
+  "memory": "最大矩形 → 单调栈。\n**思考**\r\n\r\n矩阵中全 $1$ 矩形的底边可以落在任意一行。若枚举上下边界再检查每列是否全 $1$，是立方级的。\r\n\r\n把每一行当作柱状图底边：连续的 $1$ 累加高度，遇到 $0$ 则高度清零。对每行用直方图最大矩形求解，答案取全局最大。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

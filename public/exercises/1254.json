@@ -1,0 +1,197 @@
+{
+  "number": "1254",
+  "adapter": {
+    "name": "closedIsland",
+    "params": [
+      {
+        "name": "grid",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1254"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def closedIsland(self, grid: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} grid\n * @return {number}\n */\nvar closedIsland = function(grid) {\n    \n};",
+    "java": "class Solution {\n    public int closedIsland(int[][] grid) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int closedIsland(vector<vector<int>>& grid) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def closedIsland(self, grid: List[List[int]]) -> int:\r\n        def dfs(i: int, j: int) -> int:\r\n            res = int(0 < i < m - 1 and 0 < j < n - 1)\r\n            grid[i][j] = 1\r\n            for a, b in pairwise(dirs):\r\n                x, y = i + a, j + b\r\n                if 0 <= x < m and 0 <= y < n and grid[x][y] == 0:\r\n                    res &= dfs(x, y)\r\n            return res\r\n\r\n        m, n = len(grid), len(grid[0])\r\n        dirs = (-1, 0, 1, 0, -1)\r\n        return sum(grid[i][j] == 0 and dfs(i, j) for i in range(m) for j in range(n))\r\n",
+    "javascript": "function closedIsland(grid) {\n    const m = grid.length;\n    const n = grid[0].length;\n    const dirs = [-1, 0, 1, 0, -1];\n    const dfs = (i, j) => {\n        let res = i > 0 && j > 0 && i < m - 1 && j < n - 1 ? 1 : 0;\n        grid[i][j] = 1;\n        for (let k = 0; k < 4; ++k) {\n            const [x, y] = [i + dirs[k], j + dirs[k + 1]];\n            if (x >= 0 && y >= 0 && x < m && y < n && grid[x][y] === 0) {\n                res &= dfs(x, y);\n            }\n        }\n        return res;\n    };\n    let ans = 0;\n    for (let i = 0; i < m; ++i) {\n        for (let j = 0; j < n; j++) {\n            if (grid[i][j] === 0) {\n                ans += dfs(i, j);\n            }\n        }\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    private int m;\r\n    private int n;\r\n    private int[][] grid;\r\n\r\n    public int closedIsland(int[][] grid) {\r\n        m = grid.length;\r\n        n = grid[0].length;\r\n        this.grid = grid;\r\n        int ans = 0;\r\n        for (int i = 0; i < m; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                if (grid[i][j] == 0) {\r\n                    ans += dfs(i, j);\r\n                }\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n\r\n    private int dfs(int i, int j) {\r\n        int res = i > 0 && i < m - 1 && j > 0 && j < n - 1 ? 1 : 0;\r\n        grid[i][j] = 1;\r\n        int[] dirs = {-1, 0, 1, 0, -1};\r\n        for (int k = 0; k < 4; ++k) {\r\n            int x = i + dirs[k], y = j + dirs[k + 1];\r\n            if (x >= 0 && x < m && y >= 0 && y < n && grid[x][y] == 0) {\r\n                res &= dfs(x, y);\r\n            }\r\n        }\r\n        return res;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int closedIsland(vector<vector<int>>& grid) {\r\n        int m = grid.size(), n = grid[0].size();\r\n        int ans = 0;\r\n        int dirs[5] = {-1, 0, 1, 0, -1};\r\n        function<int(int, int)> dfs = [&](int i, int j) -> int {\r\n            int res = i > 0 && i < m - 1 && j > 0 && j < n - 1 ? 1 : 0;\r\n            grid[i][j] = 1;\r\n            for (int k = 0; k < 4; ++k) {\r\n                int x = i + dirs[k], y = j + dirs[k + 1];\r\n                if (x >= 0 && x < m && y >= 0 && y < n && grid[x][y] == 0) {\r\n                    res &= dfs(x, y);\r\n                }\r\n            }\r\n            return res;\r\n        };\r\n        for (int i = 0; i < m; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                ans += grid[i][j] == 0 && dfs(i, j);\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1254.Number%20of%20Closed%20Islands/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1254.Number%20of%20Closed%20Islands/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1254.Number%20of%20Closed%20Islands/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1254.Number%20of%20Closed%20Islands/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1200-1299/1254.Number%20of%20Closed%20Islands/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：统计封闭岛屿的数目。\n输入：grid（integer[][]）。\n训练提示：**思考**\r \r 封闭岛是不碰边界的陆地连通块。 $m,n \\le 100$，洪水填充即可。从每块未访陆地 DFS，途中把格子改成水以免重复；若整块都在内部则计数加一。\r \r 返回值用与运算汇合「当前格不在边界」与所有邻居的结果。现场修改兼作访问标记。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS\r\n\r\n\r\n\r\n思考\r\n\r\n封闭岛是不碰边界的陆地连通块。 $m,n \\le 100$，洪水填充即可。从每块未访陆地 DFS，途中把格子改成水以免重复；若整块都在内部则计数加一。\r\n\r\n返回值用与运算汇合「当前格不在边界」与所有邻居的结果。现场修改兼作访问标记。\r\n\r\n\r\n\r\n遍历矩阵，对于每个陆地，我们进行深度优先搜索，找到与其相连的所有陆地，然后判断是否存在边界上的陆地，如果存在，则不是封闭岛屿，否则是封闭岛屿，答案加一。\r\n\r\n最后返回答案即可。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m \\times n)$。其中 $m$ 和 $n$ 分别是矩阵的行数和列数。",
+  "memory": "统计封闭岛屿的数目 → DFS。\n**思考**\r\n\r\n封闭岛是不碰边界的陆地连通块。 $m,n \\le 100$，洪水填充即可。从每块未访陆地 DFS，途中把格子改成水以免重复；若整块都在内部则计数加一。\r\n\r\n返回值用与运算汇合「当前格不在边界」与所有邻居的结果。现场修改兼作访问标记。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

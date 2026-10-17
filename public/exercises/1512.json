@@ -1,0 +1,76 @@
+{
+  "number": "1512",
+  "adapter": {
+    "name": "numIdenticalPairs",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1512"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          1,
+          1,
+          3
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def numIdenticalPairs(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar numIdenticalPairs = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int numIdenticalPairs(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int numIdenticalPairs(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def numIdenticalPairs(self, nums: List[int]) -> int:\r\n        ans = 0\r\n        cnt = Counter()\r\n        for x in nums:\r\n            ans += cnt[x]\r\n            cnt[x] += 1\r\n        return ans\r\n",
+    "javascript": "function numIdenticalPairs(nums) {\n    const cnt = Array(101).fill(0);\n    let ans = 0;\n    for (const x of nums) {\n        ans += cnt[x]++;\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int numIdenticalPairs(int[] nums) {\r\n        int ans = 0;\r\n        int[] cnt = new int[101];\r\n        for (int x : nums) {\r\n            ans += cnt[x]++;\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int numIdenticalPairs(vector<int>& nums) {\r\n        int ans = 0;\r\n        int cnt[101]{};\r\n        for (int& x : nums) {\r\n            ans += cnt[x]++;\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1512.Number%20of%20Good%20Pairs/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1512.Number%20of%20Good%20Pairs/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1512.Number%20of%20Good%20Pairs/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1512.Number%20of%20Good%20Pairs/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1500-1599/1512.Number%20of%20Good%20Pairs/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：好数对的数目。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 统计满足 $i<j$ 且 $nums[i]=nums[j]$ 的下标对。双重循环在 $n\\le 100$ 时可通过，但每次都回头扫描相同值。\r \r 对当前 $x$ 而言，它能与此前出现的每一个 $x$ 各组成一对。用计数器记录已扫过的频次，遇到 $x$ 时先把已有次数加入答案再自增，一次遍历即可。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：计数\r\n\r\n\r\n\r\n思考\r\n\r\n统计满足 $i<j$ 且 $nums[i]=nums[j]$ 的下标对。双重循环在 $n\\le 100$ 时可通过，但每次都回头扫描相同值。\r\n\r\n对当前 $x$ 而言，它能与此前出现的每一个 $x$ 各组成一对。用计数器记录已扫过的频次，遇到 $x$ 时先把已有次数加入答案再自增，一次遍历即可。\r\n\r\n\r\n\r\n遍历数组，对于每个元素 $x$，计算 $x$ 之前有多少个元素与其相等，即为 $x$ 与之前元素组成的好数对的数目。遍历完数组后，即可得到答案。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(C)$。其中 $n$ 为数组长度，而 $C$ 为数组中元素的取值范围。本题中 $C = 101$。",
+  "memory": "好数对的数目 → 计数。\n**思考**\r\n\r\n统计满足 $i<j$ 且 $nums[i]=nums[j]$ 的下标对。双重循环在 $n\\le 100$ 时可通过，但每次都回头扫描相同值。\r\n\r\n对当前 $x$ 而言，它能与此前出现的每一个 $x$ 各组成一对。用计数器记录已扫过的频次，遇到 $x$ 时先把已有次数加入答案再自增，一次遍历即可。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

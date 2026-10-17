@@ -1,0 +1,69 @@
+{
+  "number": "面试题 10.02",
+  "adapter": {
+    "name": "groupAnagrams",
+    "params": [
+      {
+        "name": "strs",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "list<list<string>>",
+      "dealloc": true
+    },
+    "number": "面试题 10.02"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "eat",
+          "tea",
+          "tan",
+          "ate",
+          "nat",
+          "bat"
+        ]
+      ],
+      "expected": [
+        [
+          "ate",
+          "eat",
+          "tea"
+        ],
+        [
+          "nat",
+          "tan"
+        ],
+        [
+          "bat"
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[]} strs\n * @return {string[][]}\n */\nvar groupAnagrams = function(strs) {\n    \n};",
+    "java": "class Solution {\n    public List<List<String>> groupAnagrams(String[] strs) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:\r\n        d = defaultdict(list)\r\n        for s in strs:\r\n            k = ''.join(sorted(s))\r\n            d[k].append(s)\r\n        return list(d.values())\r\n",
+    "javascript": "function groupAnagrams(strs) {\n    const d = new Map();\n    for (const s of strs) {\n        const k = s.split('').sort().join('');\n        if (!d.has(k)) {\n            d.set(k, []);\n        }\n        d.get(k).push(s);\n    }\n    return Array.from(d.values());\n}\n",
+    "java": "class Solution {\r\n    public List<List<String>> groupAnagrams(String[] strs) {\r\n        Map<String, List<String>> d = new HashMap<>();\r\n        for (String s : strs) {\r\n            char[] t = s.toCharArray();\r\n            Arrays.sort(t);\r\n            String k = String.valueOf(t);\r\n            d.computeIfAbsent(k, key -> new ArrayList<>()).add(s);\r\n        }\r\n        return new ArrayList<>(d.values());\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\r\n        unordered_map<string, vector<string>> d;\r\n        for (auto& s : strs) {\r\n            string k = s;\r\n            sort(k.begin(), k.end());\r\n            d[k].emplace_back(s);\r\n        }\r\n        vector<vector<string>> ans;\r\n        for (auto& [_, v] : d) ans.emplace_back(v);\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.02.Group%20Anagrams/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.02.Group%20Anagrams/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.02.Group%20Anagrams/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.02.Group%20Anagrams/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.02.Group%20Anagrams/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：变位词组。\n输入：strs（string[]）。\n训练提示：**思考**\r \r 字母异位词排序后得到同一键。两两比较是否互为异位需要 $O(n^2 k)$，在词数较多时偏慢。\r \r 把排序后的串当作哈希键，同一键下的原串自然成组。\r \r 对每个 $s$ 计算 $k=''.join(sorted(s))$ 并追加到 $d[k]$，最后输出 $d$ 的值列表。每词 $O(k\\log k)$ 的排序换一次哈希。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：哈希表\r\n\r\n\r\n\r\n思考\r\n\r\n字母异位词排序后得到同一键。两两比较是否互为异位需要 $O(n^2 k)$，在词数较多时偏慢。\r\n\r\n把排序后的串当作哈希键，同一键下的原串自然成组。\r\n\r\n对每个 $s$ 计算 $k=''.join(sorted(s))$ 并追加到 $d[k]$，最后输出 $d$ 的值列表。每词 $O(k\\log k)$ 的排序换一次哈希。\r\n\r\n\r\n\r\n1. 遍历字符串，对每个字符串按照字符字典序排序，得到一个新的字符串。\r\n2. 以新字符串为 `key`，`[str]` 为 `value`，存入哈希表当中（`HashMap<String, List<String>>`）。\r\n3. 后续遍历得到相同 `key` 时，将其加入到对应的 `value` 当中即可。\r\n\r\n以 `strs = [\"eat\", \"tea\", \"tan\", \"ate\", \"nat\", \"bat\"]` 为例，遍历结束时，哈希表的状况：\r\n\r\n| key     | value                   |\r\n| ------- | ----------------------- |\r\n| `\"aet\"` | `[\"eat\", \"tea\", \"ate\"]` |\r\n| `\"ant\"` | `[\"tan\", \"nat\"] `       |\r\n| `\"abt\"` | `[\"bat\"] `              |\r\n\r\n最后返回哈希表的 `value` 列表即可。\r\n\r\n时间复杂度 $O(n\\times k\\times \\log k)$。其中 $n$ 和 $k$ 分别是字符串数组的长度和字符串的最大长度。",
+  "memory": "变位词组 → 哈希表。\n**思考**\r\n\r\n字母异位词排序后得到同一键。两两比较是否互为异位需要 $O(n^2 k)$，在词数较多时偏慢。\r\n\r\n把排序后的串当作哈希键，同一键下的原串自然成组。\r\n\r\n对每个 $s$ 计算 $k=''.join(sorted(s))$ 并追加到 $d[k]$，最后输出 $d$ 的值列表。每词 $O(k\\log k)$ 的排序换一次哈希。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,64 @@
+{
+  "number": "LCR 027",
+  "adapter": {
+    "name": "isPalindrome",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "LCR 027"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def isPalindrome(self, head: ListNode) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @return {boolean}\n */\nvar isPalindrome = function(head) {\n\n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public boolean isPalindrome(ListNode head) {\n\n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    bool isPalindrome(ListNode* head) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, val=0, next=None):\r\n#         self.val = val\r\n#         self.next = next\r\nclass Solution:\r\n    def isPalindrome(self, head: ListNode) -> bool:\r\n        if head is None or head.next is None:\r\n            return True\r\n        slow, fast = head, head.next\r\n        while fast and fast.next:\r\n            slow, fast = slow.next, fast.next.next\r\n        pre, cur = None, slow.next\r\n        while cur:\r\n            t = cur.next\r\n            cur.next = pre\r\n            pre, cur = cur, t\r\n        while pre:\r\n            if pre.val != head.val:\r\n                return False\r\n            pre, head = pre.next, head.next\r\n        return True\r\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction isPalindrome(head) {\n    if (head == null || head.next == null)\n        return true;\n    // 快慢指针定位到中点\n    let slow = head, fast = head.next;\n    while (fast != null && fast.next != null) {\n        slow = slow.next;\n        fast = fast.next.next;\n    }\n    // 翻转链表\n    let cur = slow.next;\n    slow.next = null;\n    let prev = null;\n    while (cur != null) {\n        let t = cur.next;\n        cur.next = prev;\n        prev = cur;\n        cur = t;\n    }\n    // 判断回文\n    while (prev != null) {\n        if (prev.val != head.val)\n            return false;\n        prev = prev.next;\n        head = head.next;\n    }\n    return true;\n}\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode() {}\r\n *     ListNode(int val) { this.val = val; }\r\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\r\n * }\r\n */\r\nclass Solution {\r\n    public boolean isPalindrome(ListNode head) {\r\n        if (head == null || head.next == null) {\r\n            return true;\r\n        }\r\n        ListNode slow = head;\r\n        ListNode fast = head.next;\r\n        while (fast != null && fast.next != null) {\r\n            slow = slow.next;\r\n            fast = fast.next.next;\r\n        }\r\n        ListNode cur = slow.next;\r\n        slow.next = null;\r\n        ListNode pre = null;\r\n        while (cur != null) {\r\n            ListNode t = cur.next;\r\n            cur.next = pre;\r\n            pre = cur;\r\n            cur = t;\r\n        }\r\n        while (pre != null) {\r\n            if (pre.val != head.val) {\r\n                return false;\r\n            }\r\n            pre = pre.next;\r\n            head = head.next;\r\n        }\r\n        return true;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode() : val(0), next(nullptr) {}\r\n *     ListNode(int x) : val(x), next(nullptr) {}\r\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    bool isPalindrome(ListNode* head) {\r\n        if (!head || !head->next) return true;\r\n        ListNode* slow = head;\r\n        ListNode* fast = head->next;\r\n        while (fast && fast->next) {\r\n            slow = slow->next;\r\n            fast = fast->next->next;\r\n        }\r\n        ListNode* pre = nullptr;\r\n        ListNode* cur = slow->next;\r\n        while (cur) {\r\n            ListNode* t = cur->next;\r\n            cur->next = pre;\r\n            pre = cur;\r\n            cur = t;\r\n        }\r\n        while (pre) {\r\n            if (pre->val != head->val) return false;\r\n            pre = pre->next;\r\n            head = head->next;\r\n        }\r\n        return true;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20027.%20%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20027.%20%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20027.%20%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20027.%20%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20027.%20%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：回文链表。\n输入：head（ListNode）。\n训练提示：**思考**\r \r 判断链表是否回文。复制到数组再双指针比较需要线性空间。\r \r 快慢指针找到中点，反转后半再与前半逐一比较。只需改写后半指针，空间为常数。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n判断链表是否回文。复制到数组再双指针比较需要线性空间。\r\n\r\n快慢指针找到中点，反转后半再与前半逐一比较。只需改写后半指针，空间为常数。",
+  "memory": "回文链表 → 方法一。\n**思考**\r\n\r\n判断链表是否回文。复制到数组再双指针比较需要线性空间。\r\n\r\n快慢指针找到中点，反转后半再与前半逐一比较。只需改写后半指针，空间为常数。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -22,6 +22,7 @@ export function mergeCatalog(existing, snapshot = catalog) {
         number: entry.number,
         collections: entry.collections,
         slug: entry.slug,
+        companies: entry.companies || [],
       });
       continue;
     }
@@ -31,7 +32,7 @@ export function mergeCatalog(existing, snapshot = catalog) {
       kind: pack ? 'coding' : 'reference',
       status: 'published',
       company: '通用',
-      source: 'LeetCode · 公开题单索引',
+      source: 'LeetCode · 算法训练',
       createdAt: old?.createdAt || snapshot.updatedAt,
       description:
         guide?.[0] ||

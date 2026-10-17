@@ -1,0 +1,133 @@
+{
+  "number": "面试题 10.09",
+  "adapter": {
+    "name": "searchMatrix",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "integer[][]"
+      },
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "manual": true,
+    "number": "面试题 10.09"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            4,
+            7,
+            11,
+            15
+          ],
+          [
+            2,
+            5,
+            8,
+            12,
+            19
+          ],
+          [
+            3,
+            6,
+            9,
+            16,
+            22
+          ],
+          [
+            10,
+            13,
+            14,
+            17,
+            24
+          ],
+          [
+            18,
+            21,
+            23,
+            26,
+            30
+          ]
+        ],
+        5
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            4,
+            7,
+            11,
+            15
+          ],
+          [
+            2,
+            5,
+            8,
+            12,
+            19
+          ],
+          [
+            3,
+            6,
+            9,
+            16,
+            22
+          ],
+          [
+            10,
+            13,
+            14,
+            17,
+            24
+          ],
+          [
+            18,
+            21,
+            23,
+            26,
+            30
+          ]
+        ],
+        20
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} matrix\n * @param {number} target\n * @return {boolean}\n */\nvar searchMatrix = function(matrix, target) {\n\n};",
+    "java": "class Solution {\n    public boolean searchMatrix(int[][] matrix, int target) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool searchMatrix(vector<vector<int>>& matrix, int target) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:\r\n        for row in matrix:\r\n            j = bisect_left(row, target)\r\n            if j < len(matrix[0]) and row[j] == target:\r\n                return True\r\n        return False\r\n",
+    "javascript": "function searchMatrix(matrix, target) {\n    const n = matrix[0].length;\n    for (const row of matrix) {\n        let left = 0, right = n;\n        while (left < right) {\n            const mid = (left + right) >> 1;\n            if (row[mid] >= target) {\n                right = mid;\n            }\n            else {\n                left = mid + 1;\n            }\n        }\n        if (left != n && row[left] == target) {\n            return true;\n        }\n    }\n    return false;\n}\n",
+    "java": "class Solution {\r\n    public boolean searchMatrix(int[][] matrix, int target) {\r\n        for (var row : matrix) {\r\n            int j = Arrays.binarySearch(row, target);\r\n            if (j >= 0) {\r\n                return true;\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool searchMatrix(vector<vector<int>>& matrix, int target) {\r\n        for (auto& row : matrix) {\r\n            int j = lower_bound(row.begin(), row.end(), target) - row.begin();\r\n            if (j < matrix[0].size() && row[j] == target) {\r\n                return true;\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.09.Sorted%20Matrix%20Search/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.09.Sorted%20Matrix%20Search/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.09.Sorted%20Matrix%20Search/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.09.Sorted%20Matrix%20Search/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.09.Sorted%20Matrix%20Search/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：排序矩阵查找。\n输入：matrix（integer[][]）、target（integer）。\n训练提示：**思考**\r \r 每行、每列递增，查找 $target$。整表扫描是 $O(mn)$。每行有序，可对每行二分。\r \r 对第 $i$ 行做 $bisect\\_left$，若命中则返回。行与行之间不再利用列递增，复杂度 $O(m\\log n)$。\r \r 实现直接遍历行并二分，空间 $O(1)$，写起来短，适合行数不大或只需行内有序的情形。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n每行、每列递增，查找 $target$。整表扫描是 $O(mn)$。每行有序，可对每行二分。\r\n\r\n对第 $i$ 行做 $bisect\\_left$，若命中则返回。行与行之间不再利用列递增，复杂度 $O(m\\log n)$。\r\n\r\n实现直接遍历行并二分，空间 $O(1)$，写起来短，适合行数不大或只需行内有序的情形。\r\n\r\n\r\n\r\n由于每一行的所有元素升序排列，因此，对于每一行，我们可以使用二分查找找到第一个大于等于 `target` 的元素，然后判断该元素是否等于 `target`。如果等于 `target`，说明找到了目标值，直接返回 `true`。如果不等于 `target`，说明这一行的所有元素都小于 `target`，应该继续搜索下一行。\r\n\r\n如果所有行都搜索完了，都没有找到目标值，说明目标值不存在，返回 `false`。\r\n\r\n时间复杂度 $O(m \\times \\log n)$，其中 $m$ 和 $n$ 分别为矩阵的行数和列数。空间复杂度 $O(1)$。",
+  "memory": "排序矩阵查找 → 二分查找。\n**思考**\r\n\r\n每行、每列递增，查找 $target$。整表扫描是 $O(mn)$。每行有序，可对每行二分。\r\n\r\n对第 $i$ 行做 $bisect\\_left$，若命中则返回。行与行之间不再利用列递增，复杂度 $O(m\\log n)$。\r\n\r\n实现直接遍历行并二分，空间 $O(1)$，写起来短，适合行数不大或只需行内有序的情形。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

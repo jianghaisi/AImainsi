@@ -1,0 +1,60 @@
+{
+  "number": "2235",
+  "adapter": {
+    "name": "sum",
+    "params": [
+      {
+        "name": "num1",
+        "type": "integer"
+      },
+      {
+        "type": "integer",
+        "name": "num2"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "2235"
+  },
+  "tests": [
+    {
+      "input": [
+        12,
+        5
+      ],
+      "expected": 17
+    },
+    {
+      "input": [
+        -10,
+        4
+      ],
+      "expected": -6
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def sum(self, num1: int, num2: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} num1\n * @param {number} num2\n * @return {number}\n */\nvar sum = function(num1, num2) {\n    \n};",
+    "java": "class Solution {\n    public int sum(int num1, int num2) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int sum(int num1, int num2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def sum(self, num1: int, num2: int) -> int:\r\n        return num1 + num2\r\n",
+    "javascript": "function sum(num1, num2) {\n    return num1 + num2;\n}\n",
+    "java": "class Solution {\r\n    public int sum(int num1, int num2) {\r\n        return num1 + num2;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int sum(int num1, int num2) {\r\n        return num1 + num2;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2200-2299/2235.Add%20Two%20Integers/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2200-2299/2235.Add%20Two%20Integers/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2200-2299/2235.Add%20Two%20Integers/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2200-2299/2235.Add%20Two%20Integers/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/2200-2299/2235.Add%20Two%20Integers/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：两整数相加。\n输入：num1（integer）、num2（integer）。\n训练提示：**思考**\r \r 求两整数之和，取值范围只有 $[-100,100]$。直接使用语言提供的加法即可在常数时间得到结果，无需额外处理进位。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：使用加法运算符\r\n\r\n\r\n\r\n思考\r\n\r\n求两整数之和，取值范围只有 $[-100,100]$。直接使用语言提供的加法即可在常数时间得到结果，无需额外处理进位。\r\n\r\n\r\n\r\n我们可以直接使用加法运算符 `+` 来计算两个整数的和。\r\n\r\n时间复杂度 $O(1)$，空间复杂度 $O(1)$。",
+  "memory": "两整数相加 → 使用加法运算符。\n**思考**\r\n\r\n求两整数之和，取值范围只有 $[-100,100]$。直接使用语言提供的加法即可在常数时间得到结果，无需额外处理进位。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,84 @@
+{
+  "number": "875",
+  "adapter": {
+    "name": "minEatingSpeed",
+    "params": [
+      {
+        "name": "piles",
+        "type": "integer[]"
+      },
+      {
+        "name": "h",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "875"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          6,
+          7,
+          11
+        ],
+        8
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          30,
+          11,
+          23,
+          4,
+          20
+        ],
+        5
+      ],
+      "expected": 30
+    },
+    {
+      "input": [
+        [
+          30,
+          11,
+          23,
+          4,
+          20
+        ],
+        6
+      ],
+      "expected": 23
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def minEatingSpeed(self, piles: List[int], h: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} piles\n * @param {number} h\n * @return {number}\n */\nvar minEatingSpeed = function(piles, h) {\n    \n};",
+    "java": "class Solution {\n    public int minEatingSpeed(int[] piles, int h) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minEatingSpeed(vector<int>& piles, int h) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def minEatingSpeed(self, piles: List[int], h: int) -> int:\r\n        def check(k: int) -> bool:\r\n            return sum((x + k - 1) // k for x in piles) <= h\r\n\r\n        return 1 + bisect_left(range(1, max(piles) + 1), True, key=check)\r\n",
+    "javascript": "function minEatingSpeed(piles, h) {\n    let [l, r] = [1, Math.max(...piles)];\n    while (l < r) {\n        const mid = (l + r) >> 1;\n        const s = piles.map(x => Math.ceil(x / mid)).reduce((a, b) => a + b);\n        if (s <= h) {\n            r = mid;\n        }\n        else {\n            l = mid + 1;\n        }\n    }\n    return l;\n}\n",
+    "java": "class Solution {\r\n    public int minEatingSpeed(int[] piles, int h) {\r\n        int l = 1, r = (int) 1e9;\r\n        while (l < r) {\r\n            int mid = (l + r) >> 1;\r\n            int s = 0;\r\n            for (int x : piles) {\r\n                s += (x + mid - 1) / mid;\r\n            }\r\n            if (s <= h) {\r\n                r = mid;\r\n            } else {\r\n                l = mid + 1;\r\n            }\r\n        }\r\n        return l;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int minEatingSpeed(vector<int>& piles, int h) {\r\n        int l = 1, r = ranges::max(piles);\r\n        while (l < r) {\r\n            int mid = (l + r) >> 1;\r\n            int s = 0;\r\n            for (int x : piles) {\r\n                s += (x + mid - 1) / mid;\r\n            }\r\n            if (s <= h) {\r\n                r = mid;\r\n            } else {\r\n                l = mid + 1;\r\n            }\r\n        }\r\n        return l;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0875.Koko%20Eating%20Bananas/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0875.Koko%20Eating%20Bananas/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0875.Koko%20Eating%20Bananas/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0875.Koko%20Eating%20Bananas/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0800-0899/0875.Koko%20Eating%20Bananas/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：爱吃香蕉的珂珂。\n输入：piles（integer[]）、h（integer）。\n训练提示：**思考**\r \r 速度 $k$ 越大，耗时越少，要在 $h$ 小时内吃完的最小 $k$。 $h$ 与堆大小达 $10^9$，枚举 $k$ 不可行，但「能否在 $h$ 小时吃完」对 $k$ 单调。\r \r 在 $[1,\\max piles]$ 上二分，判定函数把每堆按 $k$ 向上取整后求和。第一个使判定为真的速度即答案。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n速度 $k$ 越大，耗时越少，要在 $h$ 小时内吃完的最小 $k$。 $h$ 与堆大小达 $10^9$，枚举 $k$ 不可行，但「能否在 $h$ 小时吃完」对 $k$ 单调。\r\n\r\n在 $[1,\\max piles]$ 上二分，判定函数把每堆按 $k$ 向上取整后求和。第一个使判定为真的速度即答案。\r\n\r\n\r\n\r\n我们注意到，如果珂珂能够以 $k$ 的速度在 $h$ 小时内吃完所有香蕉，那么她也可以以 $k' > k$ 的速度在 $h$ 小时内吃完所有香蕉。这存在着单调性，因此我们可以使用二分查找，找到最小的满足条件的 $k$。\r\n\r\n我们定义二分查找的左边界 $l = 1$，右边界 $r = \\max(\\textit{piles})$。每一次二分，我们取中间值 $mid = \\frac{l + r}{2}$，然后计算以 $mid$ 的速度吃香蕉需要的时间 $s$。如果 $s \\leq h$，说明 $mid$ 的速度可以满足条件，我们将右边界 $r$ 更新为 $mid$；否则，我们将左边界 $l$ 更新为 $mid + 1$。最终，当 $l = r$ 时，我们找到了最小的满足条件的 $k$。\r\n\r\n时间复杂度 $O(n \\times \\log M)$，其中 $n$ 和 $M$ 分别是数组 $\\textit{piles}$ 的长度和最大值。空间复杂度 $O(1)$。",
+  "memory": "爱吃香蕉的珂珂 → 二分查找。\n**思考**\r\n\r\n速度 $k$ 越大，耗时越少，要在 $h$ 小时内吃完的最小 $k$。 $h$ 与堆大小达 $10^9$，枚举 $k$ 不可行，但「能否在 $h$ 小时吃完」对 $k$ 单调。\r\n\r\n在 $[1,\\max piles]$ 上二分，判定函数把每堆按 $k$ 向上取整后求和。第一个使判定为真的速度即答案。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

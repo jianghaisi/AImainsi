@@ -1,0 +1,116 @@
+{
+  "number": "LCR 155",
+  "adapter": {
+    "name": "treeToDoublyList",
+    "params": [
+      {
+        "name": "root",
+        "type": "Node"
+      }
+    ],
+    "return": {
+      "type": "Node"
+    },
+    "structures": [
+      {
+        "name": "Node",
+        "comment": "Definition for a Node.",
+        "members": [
+          {
+            "name": "val",
+            "type": "integer"
+          },
+          {
+            "name": "left",
+            "type": "Node"
+          },
+          {
+            "name": "right",
+            "type": "Node"
+          }
+        ]
+      }
+    ],
+    "languages": [
+      "cpp",
+      "java",
+      "python",
+      "csharp",
+      "javascript",
+      "python3"
+    ],
+    "manual": true,
+    "number": "LCR 155"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          4,
+          2,
+          5,
+          1,
+          3
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "input": [
+        [
+          2,
+          1,
+          3
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "input": [
+        []
+      ],
+      "expected": []
+    },
+    {
+      "input": [
+        [
+          1
+        ]
+      ],
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def treeToDoublyList(self, root: 'Node') -> 'Node':\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "/*\n// Definition for a Node.\nclass Node {\n    public int val;\n    public Node left;\n    public Node right;\n\n    public Node() {}\n\n    public Node(int _val) {\n        val = _val;\n    }\n\n    public Node(int _val,Node _left,Node _right) {\n        val = _val;\n        left = _left;\n        right = _right;\n    }\n};\n*/\nclass Solution {\n    public Node treeToDoublyList(Node root) {\n        \n    }\n}",
+    "cpp": "/*\n// Definition for a Node.\nclass Node {\npublic:\n    int val;\n    Node* left;\n    Node* right;\n\n    Node() {}\n\n    Node(int _val) {\n        val = _val;\n        left = NULL;\n        right = NULL;\n    }\n\n    Node(int _val, Node* _left, Node* _right) {\n        val = _val;\n        left = _left;\n        right = _right;\n    }\n};\n*/\nclass Solution {\npublic:\n    Node* treeToDoublyList(Node* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "\"\"\"\r\n# Definition for a Node.\r\nclass Node:\r\n    def __init__(self, val, left=None, right=None):\r\n        self.val = val\r\n        self.left = left\r\n        self.right = right\r\n\"\"\"\r\n\r\n\r\nclass Solution:\r\n    def treeToDoublyList(self, root: \"Node\") -> \"Node\":\r\n        def dfs(root):\r\n            if root is None:\r\n                return\r\n            dfs(root.left)\r\n            nonlocal head, pre\r\n            if pre:\r\n                pre.right = root\r\n            else:\r\n                head = root\r\n            root.left = pre\r\n            pre = root\r\n            dfs(root.right)\r\n\r\n        if root is None:\r\n            return None\r\n        head = pre = None\r\n        dfs(root)\r\n        head.left = pre\r\n        pre.right = head\r\n        return head\r\n",
+    "java": "/*\r\n// Definition for a Node.\r\nclass Node {\r\n    public int val;\r\n    public Node left;\r\n    public Node right;\r\n\r\n    public Node() {}\r\n\r\n    public Node(int _val) {\r\n        val = _val;\r\n    }\r\n\r\n    public Node(int _val,Node _left,Node _right) {\r\n        val = _val;\r\n        left = _left;\r\n        right = _right;\r\n    }\r\n};\r\n*/\r\nclass Solution {\r\n    private Node head;\r\n    private Node pre;\r\n\r\n    public Node treeToDoublyList(Node root) {\r\n        if (root == null) {\r\n            return null;\r\n        }\r\n        dfs(root);\r\n        head.left = pre;\r\n        pre.right = head;\r\n        return head;\r\n    }\r\n\r\n    private void dfs(Node root) {\r\n        if (root == null) {\r\n            return;\r\n        }\r\n        dfs(root.left);\r\n        if (pre != null) {\r\n            pre.right = root;\r\n        } else {\r\n            head = root;\r\n        }\r\n        root.left = pre;\r\n        pre = root;\r\n        dfs(root.right);\r\n    }\r\n}",
+    "cpp": "/*\r\n// Definition for a Node.\r\nclass Node {\r\npublic:\r\n    int val;\r\n    Node* left;\r\n    Node* right;\r\n\r\n    Node() {}\r\n\r\n    Node(int _val) {\r\n        val = _val;\r\n        left = NULL;\r\n        right = NULL;\r\n    }\r\n\r\n    Node(int _val, Node* _left, Node* _right) {\r\n        val = _val;\r\n        left = _left;\r\n        right = _right;\r\n    }\r\n};\r\n*/\r\nclass Solution {\r\npublic:\r\n    Node* treeToDoublyList(Node* root) {\r\n        if (!root) {\r\n            return nullptr;\r\n        }\r\n        Node* pre = nullptr;\r\n        Node* head = nullptr;\r\n        function<void(Node*)> dfs = [&](Node* root) {\r\n            if (!root) {\r\n                return;\r\n            }\r\n            dfs(root->left);\r\n            if (pre) {\r\n                pre->right = root;\r\n            } else {\r\n                head = root;\r\n            }\r\n            root->left = pre;\r\n            pre = root;\r\n            dfs(root->right);\r\n        };\r\n\r\n        dfs(root);\r\n        head->left = pre;\r\n        pre->right = head;\r\n        return head;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9836.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9836.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9836.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9836.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：将二叉搜索树转化为排序的双向链表。\n输入：root（Node）。\n训练提示：**思考**\r \r 须把 BST 转成有序循环双向链表，且就地改 `left`/`right`。先收集中序再串起来可行，但会多一份结点数组。\r \r 中序时把相邻结点互相挂上，记下头与前驱，遍历结束再把头尾连成环。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：中序遍历\r\n\r\n\r\n\r\n思考\r\n\r\n须把 BST 转成有序循环双向链表，且就地改 `left`/`right`。先收集中序再串起来可行，但会多一份结点数组。\r\n\r\n中序时把相邻结点互相挂上，记下头与前驱，遍历结束再把头尾连成环。\r\n\r\n\r\n\r\n二叉搜索树的中序遍历是有序序列，因此可以通过中序遍历得到有序序列，过程中构建双向链表。\r\n\r\n遍历结束，将头节点和尾节点相连，返回头节点。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为二叉搜索树的节点个数。",
+  "memory": "将二叉搜索树转化为排序的双向链表 → 中序遍历。\n**思考**\r\n\r\n须把 BST 转成有序循环双向链表，且就地改 `left`/`right`。先收集中序再串起来可行，但会多一份结点数组。\r\n\r\n中序时把相邻结点互相挂上，记下头与前驱，遍历结束再把头尾连成环。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

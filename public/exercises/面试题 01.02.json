@@ -1,0 +1,60 @@
+{
+  "number": "面试题 01.02",
+  "adapter": {
+    "name": "CheckPermutation",
+    "params": [
+      {
+        "name": "s1",
+        "type": "string"
+      },
+      {
+        "name": "s2",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "面试题 01.02"
+  },
+  "tests": [
+    {
+      "input": [
+        "abc",
+        "bca"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abc",
+        "bad"
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def CheckPermutation(self, s1: str, s2: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s1\n * @param {string} s2\n * @return {boolean}\n */\nvar CheckPermutation = function(s1, s2) {\n    \n};",
+    "java": "class Solution {\n    public boolean CheckPermutation(String s1, String s2) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool CheckPermutation(string s1, string s2) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def CheckPermutation(self, s1: str, s2: str) -> bool:\r\n        return Counter(s1) == Counter(s2)\r\n",
+    "javascript": "function CheckPermutation(s1, s2) {\n    if (s1.length !== s2.length) {\n        return false;\n    }\n    const cnt = {};\n    for (const c of s1) {\n        cnt[c] = (cnt[c] || 0) + 1;\n    }\n    for (const c of s2) {\n        if (!cnt[c]) {\n            return false;\n        }\n        cnt[c]--;\n    }\n    return true;\n}\n",
+    "java": "class Solution {\r\n    public boolean CheckPermutation(String s1, String s2) {\r\n        if (s1.length() != s2.length()) {\r\n            return false;\r\n        }\r\n        int[] cnt = new int[26];\r\n        for (char c : s1.toCharArray()) {\r\n            ++cnt[c - 'a'];\r\n        }\r\n        for (char c : s2.toCharArray()) {\r\n            if (--cnt[c - 'a'] < 0) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool CheckPermutation(string s1, string s2) {\r\n        if (s1.size() != s2.size()) {\r\n            return false;\r\n        }\r\n        int cnt[26]{};\r\n        for (char c : s1) {\r\n            ++cnt[c - 'a'];\r\n        }\r\n        for (char c : s2) {\r\n            if (--cnt[c - 'a'] < 0) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.02.Check%20Permutation/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.02.Check%20Permutation/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.02.Check%20Permutation/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.02.Check%20Permutation/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/01.02.Check%20Permutation/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：判定是否互为字符重排。\n输入：s1（string）、s2（string）。\n训练提示：**思考**\r \r 互为排列当且仅当字符多重集合相同。两串长度不等则可立即否定；长度同为 $n$ 时，若枚举 $s_1$ 的全排列再与 $s_2$ 比较，代价远高于题目规模所需。\r \r 瓶颈在于如何在线性时间内核对频次。为此先统计 $s_1$ 各字符出现次数，再扫描 $s_2$ 逐次减一：某计数变为负数，则频次不一致。\r \r 测试数据仅含小写字母，长度为 $26$ 的数组即可充当哈希表。先比较长度再计数，避免对明显不等的输入做无用统计。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：数组或哈希表\r\n\r\n\r\n\r\n思考\r\n\r\n互为排列当且仅当字符多重集合相同。两串长度不等则可立即否定；长度同为 $n$ 时，若枚举 $s_1$ 的全排列再与 $s_2$ 比较，代价远高于题目规模所需。\r\n\r\n瓶颈在于如何在线性时间内核对频次。为此先统计 $s_1$ 各字符出现次数，再扫描 $s_2$ 逐次减一：某计数变为负数，则频次不一致。\r\n\r\n测试数据仅含小写字母，长度为 $26$ 的数组即可充当哈希表。先比较长度再计数，避免对明显不等的输入做无用统计。\r\n\r\n\r\n\r\n我们先判断两个字符串的长度是否相等，若不相等则直接返回 `false`。\r\n\r\n然后用一个数组或哈希表统计字符串 $s1$ 中字符出现的次数。\r\n\r\n接着遍历另一个字符串 $s2$，每遍历到一个字符，就将该字符对应的次数减一，如果减一后的次数小于 $0$，则说明两个字符串中字符出现的次数不同，直接返回 `false`。\r\n\r\n最后遍历完字符串 $s2$，返回 `true`。\r\n\r\n注意：本题测试用例所有字符串仅包含小写字母，因此我们可以直接开一个长度为 $26$ 的数组来计数。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(C)$。其中 $n$ 为字符串的长度，而 $C$ 为字符集的大小，本题 $C=26$。",
+  "memory": "判定是否互为字符重排 → 数组或哈希表。\n**思考**\r\n\r\n互为排列当且仅当字符多重集合相同。两串长度不等则可立即否定；长度同为 $n$ 时，若枚举 $s_1$ 的全排列再与 $s_2$ 比较，代价远高于题目规模所需。\r\n\r\n瓶颈在于如何在线性时间内核对频次。为此先统计 $s_1$ 各字符出现次数，再扫描 $s_2$ 逐次减一：某计数变为负数，则频次不一致。\r\n\r\n测试数据仅含小写字母，长度为 $26$ 的数组即可充当哈希表。先比较长度再计数，避免对明显不等的输入做无用统计。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

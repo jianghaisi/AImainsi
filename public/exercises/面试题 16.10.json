@@ -1,0 +1,61 @@
+{
+  "number": "面试题 16.10",
+  "adapter": {
+    "name": "maxAliveYear",
+    "params": [
+      {
+        "name": "birth",
+        "type": "integer[]"
+      },
+      {
+        "name": "death",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "面试题 16.10"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1900,
+          1901,
+          1950
+        ],
+        [
+          1948,
+          1951,
+          2000
+        ]
+      ],
+      "expected": 1901
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def maxAliveYear(self, birth: List[int], death: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} birth\n * @param {number[]} death\n * @return {number}\n */\nvar maxAliveYear = function(birth, death) {\n    \n};",
+    "java": "class Solution {\n    public int maxAliveYear(int[] birth, int[] death) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int maxAliveYear(vector<int>& birth, vector<int>& death) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def maxAliveYear(self, birth: List[int], death: List[int]) -> int:\r\n        base = 1900\r\n        d = [0] * 102\r\n        for a, b in zip(birth, death):\r\n            d[a - base] += 1\r\n            d[b + 1 - base] -= 1\r\n        s = mx = 0\r\n        ans = 0\r\n        for i, x in enumerate(d):\r\n            s += x\r\n            if mx < s:\r\n                mx = s\r\n                ans = base + i\r\n        return ans\r\n",
+    "javascript": "function maxAliveYear(birth, death) {\n    const base = 1900;\n    const d = Array(102).fill(0);\n    for (let i = 0; i < birth.length; ++i) {\n        const [a, b] = [birth[i] - base, death[i] - base];\n        ++d[a];\n        --d[b + 1];\n    }\n    let [s, mx] = [0, 0];\n    let ans = 0;\n    for (let i = 0; i < d.length; ++i) {\n        s += d[i];\n        if (mx < s) {\n            mx = s;\n            ans = base + i;\n        }\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int maxAliveYear(int[] birth, int[] death) {\r\n        int base = 1900;\r\n        int[] d = new int[102];\r\n        for (int i = 0; i < birth.length; ++i) {\r\n            int a = birth[i] - base;\r\n            int b = death[i] - base;\r\n            ++d[a];\r\n            --d[b + 1];\r\n        }\r\n        int s = 0, mx = 0;\r\n        int ans = 0;\r\n        for (int i = 0; i < d.length; ++i) {\r\n            s += d[i];\r\n            if (mx < s) {\r\n                mx = s;\r\n                ans = base + i;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int maxAliveYear(vector<int>& birth, vector<int>& death) {\r\n        int base = 1900;\r\n        int d[102]{};\r\n        for (int i = 0; i < birth.size(); ++i) {\r\n            int a = birth[i] - base;\r\n            int b = death[i] - base;\r\n            ++d[a];\r\n            --d[b + 1];\r\n        }\r\n        int s = 0, mx = 0;\r\n        int ans = 0;\r\n        for (int i = 0; i < 102; ++i) {\r\n            s += d[i];\r\n            if (mx < s) {\r\n                mx = s;\r\n                ans = base + i;\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.10.Living%20People/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.10.Living%20People/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.10.Living%20People/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.10.Living%20People/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.10.Living%20People/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：生存人数。\n输入：birth（integer[]）、death（integer[]）。\n训练提示：**思考**\r \r 年份范围固定在 $1900$– $2000$，求存活人数最多的最早年份。对每一年扫描所有人是 $O(nC)$。\r \r 存活是区间加一，差分可在端点 $O(1)$ 修改，前缀和还原每年人数。\r \r 出生年 $+1$，死亡年的下一年 $-1$（当年仍算存活）。扫差分前缀，记录最大 $s$ 及其年份。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：差分数组\r\n\r\n\r\n\r\n思考\r\n\r\n年份范围固定在 $1900$– $2000$，求存活人数最多的最早年份。对每一年扫描所有人是 $O(nC)$。\r\n\r\n存活是区间加一，差分可在端点 $O(1)$ 修改，前缀和还原每年人数。\r\n\r\n出生年 $+1$，死亡年的下一年 $-1$（当年仍算存活）。扫差分前缀，记录最大 $s$ 及其年份。\r\n\r\n\r\n\r\n题目实际上是对一个连续的区间进行加减操作，然后求最大值。这种情况下可以使用差分数组来解决。\r\n\r\n由于题目中的年份范围是固定的，所以可以使用一个长度为 $102$ 的数组来表示 $1900$ 年到 $2000$ 年的人口变化情况。数组中的每个元素表示该年份的人口变化，正数表示出生人数，负数表示死亡人数。\r\n\r\n遍历每个人的出生年份和死亡年份，对应的年份的人口变化加一和减一。然后遍历差分数组，求出差分数组的前缀和的最大值，最大值对应的年份即为答案。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(C)$。其中 $n$ 是出生年份和死亡年份的长度，而 $C$ 是年份的范围。",
+  "memory": "生存人数 → 差分数组。\n**思考**\r\n\r\n年份范围固定在 $1900$– $2000$，求存活人数最多的最早年份。对每一年扫描所有人是 $O(nC)$。\r\n\r\n存活是区间加一，差分可在端点 $O(1)$ 修改，前缀和还原每年人数。\r\n\r\n出生年 $+1$，死亡年的下一年 $-1$（当年仍算存活）。扫差分前缀，记录最大 $s$ 及其年份。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

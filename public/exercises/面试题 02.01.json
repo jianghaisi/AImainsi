@@ -1,0 +1,74 @@
+{
+  "number": "面试题 02.01",
+  "adapter": {
+    "name": "removeDuplicateNodes",
+    "params": [
+      {
+        "name": "head",
+        "type": "ListNode"
+      }
+    ],
+    "return": {
+      "type": "ListNode"
+    },
+    "number": "面试题 02.01"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          1,
+          1,
+          1,
+          2
+        ]
+      ],
+      "expected": [
+        1,
+        2
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def removeDuplicateNodes(self, head: ListNode) -> ListNode:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} head\n * @return {ListNode}\n */\nvar removeDuplicateNodes = function(head) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode removeDuplicateNodes(ListNode head) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* removeDuplicateNodes(ListNode* head) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.next = None\r\n\r\n\r\nclass Solution:\r\n    def removeDuplicateNodes(self, head: ListNode) -> ListNode:\r\n        vis = set()\r\n        pre = ListNode(0, head)\r\n        while pre.next:\r\n            if pre.next.val in vis:\r\n                pre.next = pre.next.next\r\n            else:\r\n                vis.add(pre.next.val)\r\n                pre = pre.next\r\n        return head\r\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction removeDuplicateNodes(head) {\n    const vis = new Set();\n    let pre = new ListNode(0, head);\n    while (pre.next) {\n        if (vis.has(pre.next.val)) {\n            pre.next = pre.next.next;\n        }\n        else {\n            vis.add(pre.next.val);\n            pre = pre.next;\n        }\n    }\n    return head;\n}\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public ListNode removeDuplicateNodes(ListNode head) {\r\n        Set<Integer> vis = new HashSet<>();\r\n        ListNode pre = new ListNode(0, head);\r\n        while (pre.next != null) {\r\n            if (vis.add(pre.next.val)) {\r\n                pre = pre.next;\r\n            } else {\r\n                pre.next = pre.next.next;\r\n            }\r\n        }\r\n        return head;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode(int x) : val(x), next(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    ListNode* removeDuplicateNodes(ListNode* head) {\r\n        unordered_set<int> vis;\r\n        ListNode* pre = new ListNode(0, head);\r\n        while (pre->next) {\r\n            if (vis.count(pre->next->val)) {\r\n                pre->next = pre->next->next;\r\n            } else {\r\n                vis.insert(pre->next->val);\r\n                pre = pre->next;\r\n            }\r\n        }\r\n        return head;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.01.Remove%20Duplicate%20Node/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.01.Remove%20Duplicate%20Node/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.01.Remove%20Duplicate%20Node/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.01.Remove%20Duplicate%20Node/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/02.01.Remove%20Duplicate%20Node/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：移除重复节点。\n输入：head（ListNode）。\n训练提示：**思考**\r \r 要删除链表中值重复的节点并保持首次出现的相对次序。对每个节点向后扫描查重，时间 $O(n^2)$，在链表较短时可通过，但每次查询都是线性的。\r \r 判定「值是否已出现」是查找问题，哈希表可将查询降到期望常数时间。\r \r 用 $vis$ 记录已保留的值，虚拟头节点 $pre$ 便于删除：若 $pre.next.val$ 已在集合中则跳过该节点，否则记入集合并前进。一次遍历完成去重。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：哈希表\r\n\r\n\r\n\r\n思考\r\n\r\n要删除链表中值重复的节点并保持首次出现的相对次序。对每个节点向后扫描查重，时间 $O(n^2)$，在链表较短时可通过，但每次查询都是线性的。\r\n\r\n判定「值是否已出现」是查找问题，哈希表可将查询降到期望常数时间。\r\n\r\n用 $vis$ 记录已保留的值，虚拟头节点 $pre$ 便于删除：若 $pre.next.val$ 已在集合中则跳过该节点，否则记入集合并前进。一次遍历完成去重。\r\n\r\n\r\n\r\n我们创建一个哈希表 $vis$，用于记录已经访问过的节点的值。\r\n\r\n然后我们创建一个虚拟节点 $pre$，使得 $pre.next = head$。\r\n\r\n接下来我们遍历链表，如果当前节点的值已经在哈希表中，我们就将当前节点删除，即 $pre.next = pre.next.next$；否则，我们将当前节点的值加入哈希表中，并将 $pre$ 指向下一个节点。\r\n\r\n遍历结束后，我们返回链表的头节点。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为链表的长度。",
+  "memory": "移除重复节点 → 哈希表。\n**思考**\r\n\r\n要删除链表中值重复的节点并保持首次出现的相对次序。对每个节点向后扫描查重，时间 $O(n^2)$，在链表较短时可通过，但每次查询都是线性的。\r\n\r\n判定「值是否已出现」是查找问题，哈希表可将查询降到期望常数时间。\r\n\r\n用 $vis$ 记录已保留的值，虚拟头节点 $pre$ 便于删除：若 $pre.next.val$ 已在集合中则跳过该节点，否则记入集合并前进。一次遍历完成去重。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

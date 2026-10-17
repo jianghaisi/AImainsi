@@ -1,0 +1,72 @@
+{
+  "number": "326",
+  "adapter": {
+    "name": "isPowerOfThree",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "326"
+  },
+  "tests": [
+    {
+      "input": [
+        27
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        0
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        9
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        45
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        -1
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def isPowerOfThree(self, n: int) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @return {boolean}\n */\nvar isPowerOfThree = function(n) {\n    \n};",
+    "java": "class Solution {\n    public boolean isPowerOfThree(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isPowerOfThree(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def isPowerOfThree(self, n: int) -> bool:\r\n        while n > 2:\r\n            if n % 3:\r\n                return False\r\n            n //= 3\r\n        return n == 1\r\n",
+    "javascript": "function isPowerOfThree(n) {\n    while (n > 2) {\n        if (n % 3 !== 0) {\n            return false;\n        }\n        n = Math.floor(n / 3);\n    }\n    return n === 1;\n}\n",
+    "java": "class Solution {\r\n    public boolean isPowerOfThree(int n) {\r\n        while (n > 2) {\r\n            if (n % 3 != 0) {\r\n                return false;\r\n            }\r\n            n /= 3;\r\n        }\r\n        return n == 1;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool isPowerOfThree(int n) {\r\n        while (n > 2) {\r\n            if (n % 3) {\r\n                return false;\r\n            }\r\n            n /= 3;\r\n        }\r\n        return n == 1;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0326.Power%20of%20Three/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0326.Power%20of%20Three/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0326.Power%20of%20Three/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0326.Power%20of%20Three/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0326.Power%20of%20Three/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：3 的幂。\n输入：n（integer）。\n训练提示：**思考**\r \r 判断 $n$ 是否为 $3$ 的幂。连乘直到溢出再比较亦可，但试除更直接：在 $n>2$ 时若不能被 $3$ 整除则否，否则除以 $3$。最终只剩 $1$ 则为是。 $n\\le 1$ 的情况自然落到最后的相等判断。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：试除法\r\n\r\n\r\n\r\n思考\r\n\r\n判断 $n$ 是否为 $3$ 的幂。连乘直到溢出再比较亦可，但试除更直接：在 $n>2$ 时若不能被 $3$ 整除则否，否则除以 $3$。最终只剩 $1$ 则为是。 $n\\le 1$ 的情况自然落到最后的相等判断。\r\n\r\n\r\n\r\n如果 $n \\gt 2$，我们可以不断地将 $n$ 除以 $3$，如果不能整除，说明 $n$ 不是 $3$ 的幂，否则继续除以 $3$，直到 $n$ 小于等于 $2$。如果 $n$ 等于 $1$，说明 $n$ 是 $3$ 的幂，否则不是 $3$ 的幂。\r\n\r\n时间复杂度 $O(\\log_3n)$，空间复杂度 $O(1)$。",
+  "memory": "3 的幂 → 试除法。\n**思考**\r\n\r\n判断 $n$ 是否为 $3$ 的幂。连乘直到溢出再比较亦可，但试除更直接：在 $n>2$ 时若不能被 $3$ 整除则否，否则除以 $3$。最终只剩 $1$ 则为是。 $n\\le 1$ 的情况自然落到最后的相等判断。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

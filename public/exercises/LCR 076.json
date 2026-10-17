@@ -1,0 +1,74 @@
+{
+  "number": "LCR 076",
+  "adapter": {
+    "name": "findKthLargest",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 076"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          2,
+          1,
+          5,
+          6,
+          4
+        ],
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        [
+          3,
+          2,
+          3,
+          1,
+          2,
+          4,
+          5,
+          5,
+          6
+        ],
+        4
+      ],
+      "expected": 4
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findKthLargest(self, nums: List[int], k: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int findKthLargest(int[] nums, int k) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int findKthLargest(vector<int>& nums, int k) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findKthLargest(self, nums: List[int], k: int) -> int:\r\n        def quick_sort(left, right, k):\r\n            if left == right:\r\n                return nums[left]\r\n            i, j = left - 1, right + 1\r\n            x = nums[(left + right) >> 1]\r\n            while i < j:\r\n                while 1:\r\n                    i += 1\r\n                    if nums[i] >= x:\r\n                        break\r\n                while 1:\r\n                    j -= 1\r\n                    if nums[j] <= x:\r\n                        break\r\n                if i < j:\r\n                    nums[i], nums[j] = nums[j], nums[i]\r\n            if j < k:\r\n                return quick_sort(j + 1, right, k)\r\n            return quick_sort(left, j, k)\r\n\r\n        n = len(nums)\r\n        return quick_sort(0, n - 1, n - k)\r\n",
+    "java": "class Solution {\r\n    public int findKthLargest(int[] nums, int k) {\r\n        int n = nums.length;\r\n        return quickSort(nums, 0, n - 1, n - k);\r\n    }\r\n\r\n    private int quickSort(int[] nums, int left, int right, int k) {\r\n        if (left == right) {\r\n            return nums[left];\r\n        }\r\n        int i = left - 1, j = right + 1;\r\n        int x = nums[(left + right) >>> 1];\r\n        while (i < j) {\r\n            while (nums[++i] < x)\r\n                ;\r\n            while (nums[--j] > x)\r\n                ;\r\n            if (i < j) {\r\n                int t = nums[i];\r\n                nums[i] = nums[j];\r\n                nums[j] = t;\r\n            }\r\n        }\r\n        if (j < k) {\r\n            return quickSort(nums, j + 1, right, k);\r\n        }\r\n        return quickSort(nums, left, j, k);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int findKthLargest(vector<int>& nums, int k) {\r\n        int n = nums.size();\r\n        return quickSort(nums, 0, n - 1, n - k);\r\n    }\r\n\r\n    int quickSort(vector<int>& nums, int left, int right, int k) {\r\n        if (left == right) return nums[left];\r\n        int i = left - 1, j = right + 1;\r\n        int x = nums[left + right >> 1];\r\n        while (i < j) {\r\n            while (nums[++i] < x)\r\n                ;\r\n            while (nums[--j] > x)\r\n                ;\r\n            if (i < j) swap(nums[i], nums[j]);\r\n        }\r\n        return j < k ? quickSort(nums, j + 1, right, k) : quickSort(nums, left, j, k);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20076.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%AC%20k%20%E5%A4%A7%E7%9A%84%E6%95%B0%E5%AD%97/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20076.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%AC%20k%20%E5%A4%A7%E7%9A%84%E6%95%B0%E5%AD%97/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20076.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%AC%20k%20%E5%A4%A7%E7%9A%84%E6%95%B0%E5%AD%97/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20076.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%AC%20k%20%E5%A4%A7%E7%9A%84%E6%95%B0%E5%AD%97/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：数组中的第 K 个最大元素。\n输入：nums（integer[]）、k（integer）。\n训练提示：**思考**\r \r 求第 $k$ 大。全排序后取下标是 $O(n\\log n)$，题目进阶希望平均线性。\r \r 快速选择把数组按基准划分后，第 $k$ 大只可能落在其中一段，递归该段即可。实现里按降序划分，目标下标为 $n-k$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n求第 $k$ 大。全排序后取下标是 $O(n\\log n)$，题目进阶希望平均线性。\r\n\r\n快速选择把数组按基准划分后，第 $k$ 大只可能落在其中一段，递归该段即可。实现里按降序划分，目标下标为 $n-k$。",
+  "memory": "数组中的第 K 个最大元素 → 方法一。\n**思考**\r\n\r\n求第 $k$ 大。全排序后取下标是 $O(n\\log n)$，题目进阶希望平均线性。\r\n\r\n快速选择把数组按基准划分后，第 $k$ 大只可能落在其中一段，递归该段即可。实现里按降序划分，目标下标为 $n-k$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,60 @@
+{
+  "number": "509",
+  "adapter": {
+    "name": "fib",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "509"
+  },
+  "tests": [
+    {
+      "input": [
+        2
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        3
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        4
+      ],
+      "expected": 3
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def fib(self, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} n\n * @return {number}\n */\nvar fib = function(n) {\n    \n};",
+    "java": "class Solution {\n    public int fib(int n) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int fib(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def fib(self, n: int) -> int:\r\n        a, b = 0, 1\r\n        for _ in range(n):\r\n            a, b = b, a + b\r\n        return a\r\n",
+    "javascript": "function fib(n) {\n    let [a, b] = [0, 1];\n    while (n--) {\n        [a, b] = [b, a + b];\n    }\n    return a;\n}\n",
+    "java": "class Solution {\r\n    public int fib(int n) {\r\n        int a = 0, b = 1;\r\n        while (n-- > 0) {\r\n            int c = a + b;\r\n            a = b;\r\n            b = c;\r\n        }\r\n        return a;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int fib(int n) {\r\n        int a = 0, b = 1;\r\n        while (n--) {\r\n            int c = a + b;\r\n            a = b;\r\n            b = c;\r\n        }\r\n        return a;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0509.Fibonacci%20Number/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0509.Fibonacci%20Number/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0509.Fibonacci%20Number/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0509.Fibonacci%20Number/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0509.Fibonacci%20Number/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：斐波那契数。\n输入：n（integer）。\n训练提示：**思考**\r \r 斐波那契满足 $F_n = F_{n-1} + F_{n-2}$。直接递归会重复计算同一子问题； $n \\le 30$ 虽小，仍宜改成递推。\r \r 用两个变量滚动保存相邻两项，迭代 $n$ 次即可得到 $F_n$，时间和空间均为线性与常数。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递推\r\n\r\n\r\n\r\n思考\r\n\r\n斐波那契满足 $F_n = F_{n-1} + F_{n-2}$。直接递归会重复计算同一子问题； $n \\le 30$ 虽小，仍宜改成递推。\r\n\r\n用两个变量滚动保存相邻两项，迭代 $n$ 次即可得到 $F_n$，时间和空间均为线性与常数。\r\n\r\n\r\n\r\n我们定义两个变量 $a$ 和 $b$，初始时 $a = 0$, $b = 1$。\r\n\r\n接下来，我们进行 $n$ 次循环，每次循环中，我们将 $a$ 和 $b$ 的值分别更新为 $b$ 和 $a + b$。\r\n\r\n最后，返回 $a$ 即可。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 为题目给定的整数 $n$。空间复杂度 $O(1)$。",
+  "memory": "斐波那契数 → 递推。\n**思考**\r\n\r\n斐波那契满足 $F_n = F_{n-1} + F_{n-2}$。直接递归会重复计算同一子问题； $n \\le 30$ 虽小，仍宜改成递推。\r\n\r\n用两个变量滚动保存相邻两项，迭代 $n$ 次即可得到 $F_n$，时间和空间均为线性与常数。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

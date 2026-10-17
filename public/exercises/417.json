@@ -1,0 +1,160 @@
+{
+  "number": "417",
+  "adapter": {
+    "name": "pacificAtlantic",
+    "params": [
+      {
+        "name": "heights",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "list<list<integer>>"
+    },
+    "number": "417"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            1,
+            2,
+            2,
+            3,
+            5
+          ],
+          [
+            3,
+            2,
+            3,
+            4,
+            4
+          ],
+          [
+            2,
+            4,
+            5,
+            3,
+            1
+          ],
+          [
+            6,
+            7,
+            1,
+            4,
+            5
+          ],
+          [
+            5,
+            1,
+            1,
+            2,
+            4
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            2,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          [
+            1
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} heights\n * @return {number[][]}\n */\nvar pacificAtlantic = function(heights) {\n    \n};",
+    "java": "class Solution {\n    public List<List<Integer>> pacificAtlantic(int[][] heights) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:\r\n        def bfs(q: Deque[Tuple[int, int]], vis: List[List[bool]]) -> None:\r\n            while q:\r\n                x, y = q.popleft()\r\n                for dx, dy in pairwise(dirs):\r\n                    nx, ny = x + dx, y + dy\r\n                    if (\r\n                        0 <= nx < m\r\n                        and 0 <= ny < n\r\n                        and not vis[nx][ny]\r\n                        and heights[nx][ny] >= heights[x][y]\r\n                    ):\r\n                        vis[nx][ny] = True\r\n                        q.append((nx, ny))\r\n\r\n        m, n = len(heights), len(heights[0])\r\n        vis1 = [[False] * n for _ in range(m)]\r\n        vis2 = [[False] * n for _ in range(m)]\r\n        q1: Deque[Tuple[int, int]] = deque()\r\n        q2: Deque[Tuple[int, int]] = deque()\r\n        dirs = (-1, 0, 1, 0, -1)\r\n\r\n        for i in range(m):\r\n            q1.append((i, 0))\r\n            vis1[i][0] = True\r\n            q2.append((i, n - 1))\r\n            vis2[i][n - 1] = True\r\n\r\n        for j in range(n):\r\n            q1.append((0, j))\r\n            vis1[0][j] = True\r\n            q2.append((m - 1, j))\r\n            vis2[m - 1][j] = True\r\n\r\n        bfs(q1, vis1)\r\n        bfs(q2, vis2)\r\n\r\n        return [[i, j] for i in range(m) for j in range(n) if vis1[i][j] and vis2[i][j]]\r\n",
+    "javascript": "function pacificAtlantic(heights) {\n    const m = heights.length, n = heights[0].length;\n    const vis1 = Array.from({ length: m }, () => Array(n).fill(false));\n    const vis2 = Array.from({ length: m }, () => Array(n).fill(false));\n    const q1 = [];\n    const q2 = [];\n    const dirs = [-1, 0, 1, 0, -1];\n    for (let i = 0; i < m; ++i) {\n        q1.push([i, 0]);\n        vis1[i][0] = true;\n        q2.push([i, n - 1]);\n        vis2[i][n - 1] = true;\n    }\n    for (let j = 0; j < n; ++j) {\n        q1.push([0, j]);\n        vis1[0][j] = true;\n        q2.push([m - 1, j]);\n        vis2[m - 1][j] = true;\n    }\n    const bfs = (q, vis) => {\n        while (q.length) {\n            const [x, y] = q.shift();\n            for (let k = 0; k < 4; ++k) {\n                const nx = x + dirs[k], ny = y + dirs[k + 1];\n                if (nx >= 0 &&\n                    nx < m &&\n                    ny >= 0 &&\n                    ny < n &&\n                    !vis[nx][ny] &&\n                    heights[nx][ny] >= heights[x][y]) {\n                    vis[nx][ny] = true;\n                    q.push([nx, ny]);\n                }\n            }\n        }\n    };\n    bfs(q1, vis1);\n    bfs(q2, vis2);\n    const ans = [];\n    for (let i = 0; i < m; ++i) {\n        for (let j = 0; j < n; ++j) {\n            if (vis1[i][j] && vis2[i][j]) {\n                ans.push([i, j]);\n            }\n        }\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public List<List<Integer>> pacificAtlantic(int[][] heights) {\r\n        int m = heights.length, n = heights[0].length;\r\n        boolean[][] vis1 = new boolean[m][n];\r\n        boolean[][] vis2 = new boolean[m][n];\r\n        Deque<int[]> q1 = new ArrayDeque<>();\r\n        Deque<int[]> q2 = new ArrayDeque<>();\r\n        int[] dirs = {-1, 0, 1, 0, -1};\r\n\r\n        for (int i = 0; i < m; ++i) {\r\n            q1.offer(new int[] {i, 0});\r\n            vis1[i][0] = true;\r\n            q2.offer(new int[] {i, n - 1});\r\n            vis2[i][n - 1] = true;\r\n        }\r\n        for (int j = 0; j < n; ++j) {\r\n            q1.offer(new int[] {0, j});\r\n            vis1[0][j] = true;\r\n            q2.offer(new int[] {m - 1, j});\r\n            vis2[m - 1][j] = true;\r\n        }\r\n\r\n        BiConsumer<Deque<int[]>, boolean[][]> bfs = (q, vis) -> {\r\n            while (!q.isEmpty()) {\r\n                var cell = q.poll();\r\n                int x = cell[0], y = cell[1];\r\n                for (int k = 0; k < 4; ++k) {\r\n                    int nx = x + dirs[k], ny = y + dirs[k + 1];\r\n                    if (nx >= 0 && nx < m && ny >= 0 && ny < n && !vis[nx][ny]\r\n                        && heights[nx][ny] >= heights[x][y]) {\r\n                        vis[nx][ny] = true;\r\n                        q.offer(new int[] {nx, ny});\r\n                    }\r\n                }\r\n            }\r\n        };\r\n\r\n        bfs.accept(q1, vis1);\r\n        bfs.accept(q2, vis2);\r\n\r\n        List<List<Integer>> ans = new ArrayList<>();\r\n        for (int i = 0; i < m; ++i) {\r\n            for (int j = 0; j < n; ++j) {\r\n                if (vis1[i][j] && vis2[i][j]) {\r\n                    ans.add(List.of(i, j));\r\n                }\r\n            }\r\n        }\r\n        return ans;\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {\r\n        int m = heights.size(), n = heights[0].size();\r\n        vector<vector<bool>> vis1(m, vector<bool>(n, false)), vis2(m, vector<bool>(n, false));\r\n        queue<pair<int, int>> q1, q2;\r\n        vector<int> dirs = {-1, 0, 1, 0, -1};\r\n\r\n        for (int i = 0; i < m; ++i) {\r\n            q1.emplace(i, 0);\r\n            vis1[i][0] = true;\r\n            q2.emplace(i, n - 1);\r\n            vis2[i][n - 1] = true;\r\n        }\r\n        for (int j = 0; j < n; ++j) {\r\n            q1.emplace(0, j);\r\n            vis1[0][j] = true;\r\n            q2.emplace(m - 1, j);\r\n            vis2[m - 1][j] = true;\r\n        }\r\n\r\n        auto bfs = [&](queue<pair<int, int>>& q, vector<vector<bool>>& vis) {\r\n            while (!q.empty()) {\r\n                auto [x, y] = q.front();\r\n                q.pop();\r\n                for (int k = 0; k < 4; ++k) {\r\n                    int nx = x + dirs[k], ny = y + dirs[k + 1];\r\n                    if (nx >= 0 && nx < m && ny >= 0 && ny < n\r\n                        && !vis[nx][ny]\r\n                        && heights[nx][ny] >= heights[x][y]) {\r\n                        vis[nx][ny] = true;\r\n                        q.emplace(nx, ny);\r\n                    }\r\n                }\r\n            }\r\n        };\r\n\r\n        bfs(q1, vis1);\r\n        bfs(q2, vis2);\r\n\r\n        vector<vector<int>> ans;\r\n        for (int i = 0; i < m; ++i)\r\n            for (int j = 0; j < n; ++j)\r\n                if (vis1[i][j] && vis2[i][j])\r\n                    ans.push_back({i, j});\r\n        return ans;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0417.Pacific%20Atlantic%20Water%20Flow/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0417.Pacific%20Atlantic%20Water%20Flow/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0417.Pacific%20Atlantic%20Water%20Flow/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0417.Pacific%20Atlantic%20Water%20Flow/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0417.Pacific%20Atlantic%20Water%20Flow/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：太平洋大西洋水流问题。\n输入：heights（integer[][]）。\n训练提示：**思考**\r \r 从每个格子沿下降路径流向海洋，同一格子会被反复搜索。 $m,n\\le 200$，正向搜索重复过多。\r \r 水往低处流的逆过程，是从海洋向「高度不低于当前」的格子爬。从太平洋、大西洋的边界分别 BFS，两份访问集合的交即为答案。\r \r 逆流时邻格高度需 $\\ge$ 当前高度；从边界出发保证到达的格子一定能流回对应海洋。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：BFS\r\n\r\n\r\n\r\n思考\r\n\r\n从每个格子沿下降路径流向海洋，同一格子会被反复搜索。 $m,n\\le 200$，正向搜索重复过多。\r\n\r\n水往低处流的逆过程，是从海洋向「高度不低于当前」的格子爬。从太平洋、大西洋的边界分别 BFS，两份访问集合的交即为答案。\r\n\r\n逆流时邻格高度需 $\\ge$ 当前高度；从边界出发保证到达的格子一定能流回对应海洋。\r\n\r\n\r\n\r\n我们可以从太平洋和大西洋的边界出发，分别进行广度优先搜索（BFS），找到所有能够流向太平洋和大西洋的单元格。最后，我们取两个结果的交集，即为既能流向太平洋又能流向大西洋的单元格。\r\n\r\n具体地，我们定义一个队列 $q_1$ 来存储所有与太平洋相邻的单元格，并定义一个布尔矩阵 $vis_1$ 来记录哪些单元格能够流向太平洋。类似地，我们定义队列 $q_2$ 和布尔矩阵 $vis_2$ 来处理大西洋。初始时，我们将所有与太平洋相邻的单元格加入队列 $q_1$，并将它们在 $vis_1$ 中标记为已访问。同样地，将所有与大西洋相邻的单元格加入队列 $q_2$，并在 $vis_2$ 中标记为已访问。\r\n\r\n然后，我们分别对 $q_1$ 和 $q_2$ 进行 BFS。在每次 BFS 中，我们从队列中取出一个单元格 $(x, y)$，并检查它的四个相邻单元格 $(nx, ny)$。如果相邻单元格在矩阵范围内，且未被访问过，并且其高度不小于当前单元格的高度（即水可以流向该单元格），我们将其加入队列并标记为已访问。\r\n\r\n最后，我们遍历整个矩阵，找出同时在 $vis_1$ 和 $vis_2$ 中被标记为已访问的单元格，这些单元格即为答案。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m \\times n)$。其中 $m$ 和 $n$ 分别是矩阵的行数和列数。",
+  "memory": "太平洋大西洋水流问题 → BFS。\n**思考**\r\n\r\n从每个格子沿下降路径流向海洋，同一格子会被反复搜索。 $m,n\\le 200$，正向搜索重复过多。\r\n\r\n水往低处流的逆过程，是从海洋向「高度不低于当前」的格子爬。从太平洋、大西洋的边界分别 BFS，两份访问集合的交即为答案。\r\n\r\n逆流时邻格高度需 $\\ge$ 当前高度；从边界出发保证到达的格子一定能流回对应海洋。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

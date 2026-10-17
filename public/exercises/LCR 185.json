@@ -1,0 +1,126 @@
+{
+  "number": "LCR 185",
+  "adapter": {
+    "name": "statisticsProbability",
+    "params": [
+      {
+        "name": "num",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "double[]"
+    },
+    "number": "LCR 185"
+  },
+  "tests": [
+    {
+      "input": [
+        3
+      ],
+      "expected": [
+        0.00463,
+        0.01389,
+        0.02778,
+        0.0463,
+        0.06944,
+        0.09722,
+        0.11574,
+        0.125,
+        0.125,
+        0.11574,
+        0.09722,
+        0.06944,
+        0.0463,
+        0.02778,
+        0.01389,
+        0.00463
+      ]
+    },
+    {
+      "input": [
+        5
+      ],
+      "expected": [
+        0.00013,
+        0.00064,
+        0.00193,
+        0.0045,
+        0.009,
+        0.0162,
+        0.02636,
+        0.03922,
+        0.05401,
+        0.06944,
+        0.08372,
+        0.09452,
+        0.10031,
+        0.10031,
+        0.09452,
+        0.08372,
+        0.06944,
+        0.05401,
+        0.03922,
+        0.02636,
+        0.0162,
+        0.009,
+        0.0045,
+        0.00193,
+        0.00064,
+        0.00013
+      ]
+    },
+    {
+      "input": [
+        1
+      ],
+      "expected": [
+        0.16667,
+        0.16667,
+        0.16667,
+        0.16667,
+        0.16667,
+        0.16667
+      ]
+    },
+    {
+      "input": [
+        2
+      ],
+      "expected": [
+        0.02778,
+        0.05556,
+        0.08333,
+        0.11111,
+        0.13889,
+        0.16667,
+        0.13889,
+        0.11111,
+        0.08333,
+        0.05556,
+        0.02778
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def statisticsProbability(self, n: int) -> List[float]:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public double[] statisticsProbability(int num) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<double> statisticsProbability(int num) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def statisticsProbability(self, n: int) -> List[float]:\r\n        f = [[0] * (6 * n + 1) for _ in range(n + 1)]\r\n        for j in range(1, 7):\r\n            f[1][j] = 1\r\n        for i in range(2, n + 1):\r\n            for j in range(i, 6 * i + 1):\r\n                for k in range(1, 7):\r\n                    if j - k >= 0:\r\n                        f[i][j] += f[i - 1][j - k]\r\n        m = pow(6, n)\r\n        return [f[n][j] / m for j in range(n, 6 * n + 1)]\r\n",
+    "java": "class Solution {\r\n    public double[] statisticsProbability(int n) {\r\n        int[][] f = new int[n + 1][6 * n + 1];\r\n        for (int j = 1; j <= 6; ++j) {\r\n            f[1][j] = 1;\r\n        }\r\n        for (int i = 2; i <= n; ++i) {\r\n            for (int j = i; j <= 6 * i; ++j) {\r\n                for (int k = 1; k <= 6; ++k) {\r\n                    if (j >= k) {\r\n                        f[i][j] += f[i - 1][j - k];\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        double m = Math.pow(6, n);\r\n        double[] ans = new double[5 * n + 1];\r\n        for (int j = n; j <= 6 * n; ++j) {\r\n            ans[j - n] = f[n][j] / m;\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<double> statisticsProbability(int n) {\r\n        int f[n + 1][6 * n + 1];\r\n        memset(f, 0, sizeof f);\r\n        for (int j = 1; j <= 6; ++j) {\r\n            f[1][j] = 1;\r\n        }\r\n        for (int i = 2; i <= n; ++i) {\r\n            for (int j = i; j <= 6 * i; ++j) {\r\n                for (int k = 1; k <= 6; ++k) {\r\n                    if (j >= k) {\r\n                        f[i][j] += f[i - 1][j - k];\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        vector<double> ans;\r\n        double m = pow(6, n);\r\n        for (int j = n; j <= 6 * n; ++j) {\r\n            ans.push_back(f[n][j] / m);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9860.%20n%E4%B8%AA%E9%AA%B0%E5%AD%90%E7%9A%84%E7%82%B9%E6%95%B0/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9860.%20n%E4%B8%AA%E9%AA%B0%E5%AD%90%E7%9A%84%E7%82%B9%E6%95%B0/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9860.%20n%E4%B8%AA%E9%AA%B0%E5%AD%90%E7%9A%84%E7%82%B9%E6%95%B0/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9860.%20n%E4%B8%AA%E9%AA%B0%E5%AD%90%E7%9A%84%E7%82%B9%E6%95%B0/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：统计结果概率。\n输入：num（integer）。\n训练提示：**思考**\r \r 每个骰子 $1\\sim 6$，点数和的分布可由前 $i-1$ 个骰子的分布转移而来。 $f[i][j]$ 为 $i$ 个骰子和为 $j$ 的方案数，由 $f[i-1][j-k]$ 累加。最后除以 $6^n$ 得概率。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：动态规划\r\n\r\n\r\n\r\n思考\r\n\r\n每个骰子 $1\\sim 6$，点数和的分布可由前 $i-1$ 个骰子的分布转移而来。 $f[i][j]$ 为 $i$ 个骰子和为 $j$ 的方案数，由 $f[i-1][j-k]$ 累加。最后除以 $6^n$ 得概率。\r\n\r\n\r\n\r\n我们定义 $f[i][j]$ 表示投掷 $i$ 个骰子，点数和为 $j$ 的方案数。那么我们可以写出状态转移方程：\r\n\r\n$$\r\nf[i][j] = \\sum_{k=1}^6 f[i-1][j-k]\r\n$$\r\n\r\n其中 $k$ 表示当前骰子的点数，而 $f[i-1][j-k]$ 表示投掷 $i-1$ 个骰子，点数和为 $j-k$ 的方案数。\r\n\r\n初始条件为 $f[1][j] = 1$，表示投掷一个骰子，点数和为 $j$ 的方案数为 $1$。\r\n\r\n最终，我们要求的答案即为 $\\frac{f[n][j]}{6^n}$，其中 $n$ 为骰子个数，而 $j$ 的取值范围为 $[n, 6n]$。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(6n)$。其中 $n$ 为骰子个数。",
+  "memory": "统计结果概率 → 动态规划。\n**思考**\r\n\r\n每个骰子 $1\\sim 6$，点数和的分布可由前 $i-1$ 个骰子的分布转移而来。 $f[i][j]$ 为 $i$ 个骰子和为 $j$ 的方案数，由 $f[i-1][j-k]$ 累加。最后除以 $6^n$ 得概率。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

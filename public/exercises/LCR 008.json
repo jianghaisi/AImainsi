@@ -1,0 +1,87 @@
+{
+  "number": "LCR 008",
+  "adapter": {
+    "name": "minSubArrayLen",
+    "params": [
+      {
+        "name": "target",
+        "type": "integer"
+      },
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 008"
+  },
+  "tests": [
+    {
+      "input": [
+        7,
+        [
+          2,
+          3,
+          1,
+          2,
+          4,
+          3
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        4,
+        [
+          1,
+          4,
+          4
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        11,
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def minSubArrayLen(self, target: int, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} target\n * @param {number[]} nums\n * @return {number}\n */\nvar minSubArrayLen = function(target, nums) {\n\n};",
+    "java": "class Solution {\n    public int minSubArrayLen(int target, int[] nums) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int minSubArrayLen(int target, vector<int>& nums) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def minSubArrayLen(self, target: int, nums: List[int]) -> int:\r\n        ans = inf\r\n        s = i = 0\r\n        for j, x in enumerate(nums):\r\n            s += x\r\n            while s >= target:\r\n                ans = min(ans, j - i + 1)\r\n                s -= nums[i]\r\n                i += 1\r\n        return 0 if ans == inf else ans\r\n",
+    "javascript": "function minSubArrayLen(target, nums) {\n    const n = nums.length;\n    const inf = 1 << 30;\n    let ans = inf;\n    let s = 0;\n    for (let i = 0, j = 0; j < n; ++j) {\n        s += nums[j];\n        while (s >= target) {\n            ans = Math.min(ans, j - i + 1);\n            s -= nums[i++];\n        }\n    }\n    return ans === inf ? 0 : ans;\n}\n",
+    "java": "class Solution {\r\n    public int minSubArrayLen(int target, int[] nums) {\r\n        final int inf = 1 << 30;\r\n        int ans = inf;\r\n        int s = 0;\r\n        for (int i = 0, j = 0; j < nums.length; ++j) {\r\n            s += nums[j];\r\n            while (s >= target) {\r\n                ans = Math.min(ans, j - i + 1);\r\n                s -= nums[i++];\r\n            }\r\n        }\r\n        return ans == inf ? 0 : ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int minSubArrayLen(int target, vector<int>& nums) {\r\n        const int inf = 1 << 30;\r\n        int ans = inf;\r\n        int n = nums.size();\r\n        int s = 0;\r\n        for (int i = 0, j = 0; j < n; ++j) {\r\n            s += nums[j];\r\n            while (s >= target) {\r\n                ans = min(ans, j - i + 1);\r\n                s -= nums[i++];\r\n            }\r\n        }\r\n        return ans == inf ? 0 : ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20008.%20%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%20target%20%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20008.%20%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%20target%20%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20008.%20%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%20target%20%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20008.%20%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%20target%20%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20008.%20%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%20target%20%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：长度最小的子数组。\n输入：target（integer）、nums（integer[]）。\n训练提示：**思考**\r \r 求最短连续子数组使其和至少为 $\\textit{target}$。枚举左右端点再求和是 $O(n^2)$，在 $n\\le 10^5$ 时过慢。\r \r 元素均为正，窗口和随右端扩张而增大、随左端收缩而减小，具有单调性。右指针扫过每个位置，当和已达阈值便尽量右移左端并更新最短长度，每个下标进出窗口至多一次。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双指针\r\n\r\n\r\n\r\n思考\r\n\r\n求最短连续子数组使其和至少为 $\\textit{target}$。枚举左右端点再求和是 $O(n^2)$，在 $n\\le 10^5$ 时过慢。\r\n\r\n元素均为正，窗口和随右端扩张而增大、随左端收缩而减小，具有单调性。右指针扫过每个位置，当和已达阈值便尽量右移左端并更新最短长度，每个下标进出窗口至多一次。\r\n\r\n\r\n\r\n我们使用双指针维护一个和小于 $target$ 的连续子数组。每次右边界 $j$ 向右移动一位，如果和大于等于 $target$，则更新答案的最小值，同时左边界 $i$ 向右移动，直到和小于 $target$。\r\n\r\n最后，如果答案没有被更新过，返回 $0$，否则返回答案。\r\n\r\n时间复杂度 $O(n)$，其中 $n$ 是数组的长度。空间复杂度 $O(1)$。",
+  "memory": "长度最小的子数组 → 双指针。\n**思考**\r\n\r\n求最短连续子数组使其和至少为 $\\textit{target}$。枚举左右端点再求和是 $O(n^2)$，在 $n\\le 10^5$ 时过慢。\r\n\r\n元素均为正，窗口和随右端扩张而增大、随左端收缩而减小，具有单调性。右指针扫过每个位置，当和已达阈值便尽量右移左端并更新最短长度，每个下标进出窗口至多一次。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

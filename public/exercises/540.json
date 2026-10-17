@@ -1,0 +1,73 @@
+{
+  "number": "540",
+  "adapter": {
+    "name": "singleNonDuplicate",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "manual": false,
+    "number": "540"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          1,
+          2,
+          3,
+          3,
+          4,
+          4,
+          8,
+          8
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          3,
+          3,
+          7,
+          7,
+          10,
+          11,
+          11
+        ]
+      ],
+      "expected": 10
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def singleNonDuplicate(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar singleNonDuplicate = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int singleNonDuplicate(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int singleNonDuplicate(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def singleNonDuplicate(self, nums: List[int]) -> int:\r\n        l, r = 0, len(nums) - 1\r\n        while l < r:\r\n            mid = (l + r) >> 1\r\n            if nums[mid] != nums[mid ^ 1]:\r\n                r = mid\r\n            else:\r\n                l = mid + 1\r\n        return nums[l]\r\n",
+    "javascript": "function singleNonDuplicate(nums) {\n    let [l, r] = [0, nums.length - 1];\n    while (l < r) {\n        const mid = (l + r) >> 1;\n        if (nums[mid] !== nums[mid ^ 1]) {\n            r = mid;\n        }\n        else {\n            l = mid + 1;\n        }\n    }\n    return nums[l];\n}\n",
+    "java": "class Solution {\r\n    public int singleNonDuplicate(int[] nums) {\r\n        int l = 0, r = nums.length - 1;\r\n        while (l < r) {\r\n            int mid = (l + r) >> 1;\r\n            if (nums[mid] != nums[mid ^ 1]) {\r\n                r = mid;\r\n            } else {\r\n                l = mid + 1;\r\n            }\r\n        }\r\n        return nums[l];\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    int singleNonDuplicate(vector<int>& nums) {\r\n        int l = 0, r = nums.size() - 1;\r\n        while (l < r) {\r\n            int mid = (l + r) >> 1;\r\n            if (nums[mid] != nums[mid ^ 1]) {\r\n                r = mid;\r\n            } else {\r\n                l = mid + 1;\r\n            }\r\n        }\r\n        return nums[l];\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0540.Single%20Element%20in%20a%20Sorted%20Array/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0540.Single%20Element%20in%20a%20Sorted%20Array/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0540.Single%20Element%20in%20a%20Sorted%20Array/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0540.Single%20Element%20in%20a%20Sorted%20Array/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0500-0599/0540.Single%20Element%20in%20a%20Sorted%20Array/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：有序数组中的单一元素。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 有序数组中只有一个元素出现一次，其余成对相邻。要求 $O(\\log n)$，不能整表扫描。\r \r 成对元素占据偶数-奇数下标。若 $mid$ 与 $mid \\oplus 1$ 仍是一对，则单独元素在右半，否则在左半（含 $mid$）。二分缩小到单独元素。按位异或避免讨论 $mid$ 奇偶分支。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n有序数组中只有一个元素出现一次，其余成对相邻。要求 $O(\\log n)$，不能整表扫描。\r\n\r\n成对元素占据偶数-奇数下标。若 $mid$ 与 $mid \\oplus 1$ 仍是一对，则单独元素在右半，否则在左半（含 $mid$）。二分缩小到单独元素。按位异或避免讨论 $mid$ 奇偶分支。\r\n\r\n\r\n\r\n题目给定的数组 $\\textit{nums}$ 是有序的，且要求在 $\\textit{O}(\\log n)$ 时间找到只出现一次的元素，因此我们考虑使用二分查找解决。\r\n\r\n我们定义二分查找的左边界 $\\textit{l} = 0$，右边界 $\\textit{r} = n - 1$，其中 $n$ 是数组的长度。\r\n\r\n在每一步中，我们取中间位置 $\\textit{mid} = (l + r) / 2$，如果下标 $\\textit{mid}$ 为偶数，那么我们应该将 $\\textit{nums}[\\textit{mid}]$ 与 $\\textit{nums}[\\textit{mid} + 1]$ 进行比较；如果下标 $\\textit{mid}$ 为奇数，那么我们应该将 $\\textit{nums}[\\textit{mid}]$ 与 $\\textit{nums}[\\textit{mid} - 1]$ 进行比较。因此，我们可以统一将 $\\textit{nums}[\\textit{mid}]$ 与 $\\textit{nums}[\\textit{mid} \\oplus 1]$ 进行比较，其中 $\\oplus$ 表示异或运算。\r\n\r\n如果 $\\textit{nums}[\\textit{mid}] \\neq \\textit{nums}[\\textit{mid} \\oplus 1]$，那么答案在 $[\\textit{l}, \\textit{mid}]$ 中，我们令 $\\textit{r} = \\textit{mid}$；如果 $\\textit{nums}[\\textit{mid}] = \\textit{nums}[\\textit{mid} \\oplus 1]$，那么答案在 $[\\textit{mid} + 1, \\textit{r}]$ 中，我们令 $\\textit{l} = \\textit{mid} + 1$。继续二分查找，直到 $\\textit{l} = \\textit{r}$，此时 $\\textit{nums}[\\textit{l}]$ 即为只出现一次的元素。\r\n\r\n时间复杂度 $\\textit{O}(\\log n)$，其中 $n$ 是数组 $\\textit{nums}$ 的长度。空间复杂度 $\\textit{O}(1)$。",
+  "memory": "有序数组中的单一元素 → 二分查找。\n**思考**\r\n\r\n有序数组中只有一个元素出现一次，其余成对相邻。要求 $O(\\log n)$，不能整表扫描。\r\n\r\n成对元素占据偶数-奇数下标。若 $mid$ 与 $mid \\oplus 1$ 仍是一对，则单独元素在右半，否则在左半（含 $mid$）。二分缩小到单独元素。按位异或避免讨论 $mid$ 奇偶分支。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

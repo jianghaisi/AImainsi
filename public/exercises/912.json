@@ -1,0 +1,78 @@
+{
+  "number": "912",
+  "adapter": {
+    "name": "sortArray",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "912"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          5,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "input": [
+        [
+          5,
+          1,
+          1,
+          2,
+          0,
+          0
+        ]
+      ],
+      "expected": [
+        0,
+        0,
+        1,
+        1,
+        2,
+        5
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def sortArray(self, nums: List[int]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {number[]}\n */\nvar sortArray = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public int[] sortArray(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> sortArray(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def sortArray(self, nums: List[int]) -> List[int]:\r\n        def quick_sort(l, r):\r\n            if l >= r:\r\n                return\r\n            x = nums[randint(l, r)]\r\n            i, j, k = l - 1, r + 1, l\r\n            while k < j:\r\n                if nums[k] < x:\r\n                    nums[i + 1], nums[k] = nums[k], nums[i + 1]\r\n                    i, k = i + 1, k + 1\r\n                elif nums[k] > x:\r\n                    j -= 1\r\n                    nums[j], nums[k] = nums[k], nums[j]\r\n                else:\r\n                    k = k + 1\r\n            quick_sort(l, i)\r\n            quick_sort(j, r)\r\n\r\n        quick_sort(0, len(nums) - 1)\r\n        return nums\r\n",
+    "javascript": "function sortArray(nums) {\n    function quickSort(l, r) {\n        if (l >= r) {\n            return;\n        }\n        let i = l - 1;\n        let j = r + 1;\n        const x = nums[(l + r) >> 1];\n        while (i < j) {\n            while (nums[++i] < x)\n                ;\n            while (nums[--j] > x)\n                ;\n            if (i < j) {\n                [nums[i], nums[j]] = [nums[j], nums[i]];\n            }\n        }\n        quickSort(l, j);\n        quickSort(j + 1, r);\n    }\n    const n = nums.length;\n    quickSort(0, n - 1);\n    return nums;\n}\n",
+    "java": "class Solution {\r\n    private int[] nums;\r\n\r\n    public int[] sortArray(int[] nums) {\r\n        this.nums = nums;\r\n        quikcSort(0, nums.length - 1);\r\n        return nums;\r\n    }\r\n\r\n    private void quikcSort(int l, int r) {\r\n        if (l >= r) {\r\n            return;\r\n        }\r\n        int x = nums[(l + r) >> 1];\r\n        int i = l - 1, j = r + 1;\r\n        while (i < j) {\r\n            while (nums[++i] < x) {\r\n            }\r\n            while (nums[--j] > x) {\r\n            }\r\n            if (i < j) {\r\n                int t = nums[i];\r\n                nums[i] = nums[j];\r\n                nums[j] = t;\r\n            }\r\n        }\r\n        quikcSort(l, j);\r\n        quikcSort(j + 1, r);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> sortArray(vector<int>& nums) {\r\n        function<void(int, int)> quick_sort = [&](int l, int r) {\r\n            if (l >= r) {\r\n                return;\r\n            }\r\n            int i = l - 1, j = r + 1;\r\n            int x = nums[(l + r) >> 1];\r\n            while (i < j) {\r\n                while (nums[++i] < x) {\r\n                }\r\n                while (nums[--j] > x) {\r\n                }\r\n                if (i < j) {\r\n                    swap(nums[i], nums[j]);\r\n                }\r\n            }\r\n            quick_sort(l, j);\r\n            quick_sort(j + 1, r);\r\n        };\r\n        quick_sort(0, nums.size() - 1);\r\n        return nums;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0912.Sort%20an%20Array/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0912.Sort%20an%20Array/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0912.Sort%20an%20Array/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0912.Sort%20an%20Array/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0900-0999/0912.Sort%20an%20Array/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：排序数组。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r $n\\le 5\\times 10^4$，需要平均 $O(n\\log n)$ 的排序，且不能依赖会超时或超空间的朴素算法。三路快排按随机主元划分小于、等于、大于三段，避免大量重复值导致退化，再递归两侧。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：快速排序\r\n\r\n\r\n\r\n思考\r\n\r\n$n\\le 5\\times 10^4$，需要平均 $O(n\\log n)$ 的排序，且不能依赖会超时或超空间的朴素算法。三路快排按随机主元划分小于、等于、大于三段，避免大量重复值导致退化，再递归两侧。\r\n\r\n\r\n\r\n快速排序是一种高效的排序算法。它的基本思想是通过一趟排序将待排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(\\log n)$。其中 $n$ 为数组长度。",
+  "memory": "排序数组 → 快速排序。\n**思考**\r\n\r\n$n\\le 5\\times 10^4$，需要平均 $O(n\\log n)$ 的排序，且不能依赖会超时或超空间的朴素算法。三路快排按随机主元划分小于、等于、大于三段，避免大量重复值导致退化，再递归两侧。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

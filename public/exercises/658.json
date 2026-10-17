@@ -1,0 +1,89 @@
+{
+  "number": "658",
+  "adapter": {
+    "name": "findClosestElements",
+    "params": [
+      {
+        "name": "arr",
+        "type": "integer[]"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      },
+      {
+        "name": "x",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "list<integer>"
+    },
+    "number": "658"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        4,
+        3
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        4,
+        -1
+      ],
+      "expected": [
+        1,
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} arr\n * @param {number} k\n * @param {number} x\n * @return {number[]}\n */\nvar findClosestElements = function(arr, k, x) {\n    \n};",
+    "java": "class Solution {\n    public List<Integer> findClosestElements(int[] arr, int k, int x) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> findClosestElements(vector<int>& arr, int k, int x) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:\r\n        arr.sort(key=lambda v: abs(v - x))\r\n        return sorted(arr[:k])\r\n",
+    "javascript": "function findClosestElements(arr, k, x) {\n    arr.sort((a, b) => Math.abs(a - x) - Math.abs(b - x) || a - b);\n    return arr.slice(0, k).sort((a, b) => a - b);\n}\n",
+    "java": "class Solution {\r\n    public List<Integer> findClosestElements(int[] arr, int k, int x) {\r\n        List<Integer> ans = Arrays.stream(arr)\r\n                                .boxed()\r\n                                .sorted((a, b) -> {\r\n                                    int v = Math.abs(a - x) - Math.abs(b - x);\r\n                                    return v == 0 ? a - b : v;\r\n                                })\r\n                                .collect(Collectors.toList());\r\n        ans = ans.subList(0, k);\r\n        Collections.sort(ans);\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "int target;\r\n\r\nclass Solution {\r\npublic:\r\n    static bool cmp(int& a, int& b) {\r\n        int v = abs(a - target) - abs(b - target);\r\n        return v == 0 ? a < b : v < 0;\r\n    }\r\n\r\n    vector<int> findClosestElements(vector<int>& arr, int k, int x) {\r\n        target = x;\r\n        sort(arr.begin(), arr.end(), cmp);\r\n        vector<int> ans(arr.begin(), arr.begin() + k);\r\n        sort(ans.begin(), ans.end());\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0658.Find%20K%20Closest%20Elements/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0658.Find%20K%20Closest%20Elements/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0658.Find%20K%20Closest%20Elements/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0658.Find%20K%20Closest%20Elements/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0600-0699/0658.Find%20K%20Closest%20Elements/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：找到 K 个最接近的元素。\n输入：arr（integer[]）、k（integer）、x（integer）。\n训练提示：**思考**\r \r 有序数组中找与 $x$ 最接近的 $k$ 个数，结果仍要有序。按距离排序再取前 $k$ 个即可，代价是 $O(n\\log n)$。\r \r 以 $|v-x|$ 为键排序，截取前 $k$ 个后再按值排序。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：排序\r\n\r\n\r\n\r\n思考\r\n\r\n有序数组中找与 $x$ 最接近的 $k$ 个数，结果仍要有序。按距离排序再取前 $k$ 个即可，代价是 $O(n\\log n)$。\r\n\r\n以 $|v-x|$ 为键排序，截取前 $k$ 个后再按值排序。\r\n\r\n\r\n\r\n将 $arr$ 中的所有元素按照与 $x$ 的距离从小到大进行排列。取前 $k$ 个元素排序后返回。\r\n\r\n时间复杂度 $O(nlogn)$。",
+  "memory": "找到 K 个最接近的元素 → 排序。\n**思考**\r\n\r\n有序数组中找与 $x$ 最接近的 $k$ 个数，结果仍要有序。按距离排序再取前 $k$ 个即可，代价是 $O(n\\log n)$。\r\n\r\n以 $|v-x|$ 为键排序，截取前 $k$ 个后再按值排序。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

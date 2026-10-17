@@ -1,0 +1,86 @@
+{
+  "number": "374",
+  "adapter": {
+    "name": "guessNumber",
+    "params": [
+      {
+        "name": "n",
+        "type": "integer"
+      },
+      {
+        "name": "pick",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "manual": true,
+    "languages": [
+      "cpp",
+      "java",
+      "python",
+      "c",
+      "csharp",
+      "javascript",
+      "ruby",
+      "swift",
+      "golang",
+      "python3",
+      "scala",
+      "kotlin",
+      "rust",
+      "php",
+      "typescript"
+    ],
+    "typescriptCustomType": "var guess = (num: number) => {\n    if (num == __pick__) return 0;\n    return (num > __pick__) ? -1 : 1;\n}",
+    "number": "374"
+  },
+  "tests": [
+    {
+      "input": [
+        10,
+        6
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        1,
+        1
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        2,
+        1
+      ],
+      "expected": 1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def guessNumber(self, n: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/** \n * Forward declaration of guess API.\n * @param {number} num   your guess\n * @return \t     -1 if num is higher than the picked number\n *\t\t\t      1 if num is lower than the picked number\n *               otherwise return 0\n * var guess = function(num) {}\n */\n\n/**\n * @param {number} n\n * @return {number}\n */\nvar guessNumber = function(n) {\n    \n};",
+    "java": "/** \n * Forward declaration of guess API.\n * @param  num   your guess\n * @return \t     -1 if num is higher than the picked number\n *\t\t\t      1 if num is lower than the picked number\n *               otherwise return 0\n * int guess(int num);\n */\n\npublic class Solution extends GuessGame {\n    public int guessNumber(int n) {\n        \n    }\n}",
+    "cpp": "/** \n * Forward declaration of guess API.\n * @param  num   your guess\n * @return \t     -1 if num is higher than the picked number\n *\t\t\t      1 if num is lower than the picked number\n *               otherwise return 0\n * int guess(int num);\n */\n\nclass Solution {\npublic:\n    int guessNumber(int n) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# The guess API is already defined for you.\r\n# @param num, your guess\r\n# @return -1 if num is higher than the picked number\r\n#          1 if num is lower than the picked number\r\n#          otherwise return 0\r\n# def guess(num: int) -> int:\r\n\r\n\r\nclass Solution:\r\n    def guessNumber(self, n: int) -> int:\r\n        return bisect.bisect(range(1, n + 1), 0, key=lambda x: -guess(x))\r\n",
+    "javascript": "/**\n * Forward declaration of guess API.\n * @param {number} num   your guess\n * @return \t            -1 if num is lower than the guess number\n *\t\t\t             1 if num is higher than the guess number\n *                       otherwise return 0\n * var guess = function(num) {}\n */\nfunction guessNumber(n) {\n    let l = 1;\n    let r = n;\n    while (l < r) {\n        const mid = (l + r) >>> 1;\n        if (guess(mid) <= 0) {\n            r = mid;\n        }\n        else {\n            l = mid + 1;\n        }\n    }\n    return l;\n}\n",
+    "java": "/**\r\n * Forward declaration of guess API.\r\n * @param  num   your guess\r\n * @return \t     -1 if num is lower than the guess number\r\n *\t\t\t      1 if num is higher than the guess number\r\n *               otherwise return 0\r\n * int guess(int num);\r\n */\r\n\r\npublic class Solution extends GuessGame {\r\n    public int guessNumber(int n) {\r\n        int left = 1, right = n;\r\n        while (left < right) {\r\n            int mid = (left + right) >>> 1;\r\n            if (guess(mid) <= 0) {\r\n                right = mid;\r\n            } else {\r\n                left = mid + 1;\r\n            }\r\n        }\r\n        return left;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Forward declaration of guess API.\r\n * @param  num   your guess\r\n * @return \t     -1 if num is lower than the guess number\r\n *\t\t\t      1 if num is higher than the guess number\r\n *               otherwise return 0\r\n * int guess(int num);\r\n */\r\n\r\nclass Solution {\r\npublic:\r\n    int guessNumber(int n) {\r\n        int left = 1, right = n;\r\n        while (left < right) {\r\n            int mid = left + ((right - left) >> 1);\r\n            if (guess(mid) <= 0) {\r\n                right = mid;\r\n            } else {\r\n                left = mid + 1;\r\n            }\r\n        }\r\n        return left;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0374.Guess%20Number%20Higher%20or%20Lower/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0374.Guess%20Number%20Higher%20or%20Lower/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0374.Guess%20Number%20Higher%20or%20Lower/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0374.Guess%20Number%20Higher%20or%20Lower/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0374.Guess%20Number%20Higher%20or%20Lower/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：猜数字大小。\n输入：n（integer）、pick（integer）。\n训练提示：**思考**\r \r 在 $[1,n]$ 中猜数，`guess` 告诉偏大或偏小。线性试探最坏 $n$ 次。有序区间上标准二分。\r \r 找第一个使 `guess(x)\\le 0` 的 $x$，即所猜之数。代码把比较键写成 $-guess(x)$，用 `bisect` 一次完成。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：二分查找\r\n\r\n\r\n\r\n思考\r\n\r\n在 $[1,n]$ 中猜数，`guess` 告诉偏大或偏小。线性试探最坏 $n$ 次。有序区间上标准二分。\r\n\r\n找第一个使 `guess(x)\\le 0` 的 $x$，即所猜之数。代码把比较键写成 $-guess(x)$，用 `bisect` 一次完成。\r\n\r\n\r\n\r\n我们在区间 $[1,..n]$ 进行二分查找，找到第一个满足 `guess(x) <= 0` 的数，即为答案。\r\n\r\n时间复杂度 $O(\\log n)$。其中 $n$ 为题目给定的上限。空间复杂度 $O(1)$。",
+  "memory": "猜数字大小 → 二分查找。\n**思考**\r\n\r\n在 $[1,n]$ 中猜数，`guess` 告诉偏大或偏小。线性试探最坏 $n$ 次。有序区间上标准二分。\r\n\r\n找第一个使 `guess(x)\\le 0` 的 $x$，即所猜之数。代码把比较键写成 $-guess(x)$，用 `bisect` 一次完成。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

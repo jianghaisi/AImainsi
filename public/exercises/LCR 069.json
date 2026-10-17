@@ -1,0 +1,100 @@
+{
+  "number": "LCR 069",
+  "adapter": {
+    "name": "peakIndexInMountainArray",
+    "params": [
+      {
+        "name": "arr",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 069"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          0,
+          1,
+          0
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          1,
+          3,
+          5,
+          4,
+          2
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          0,
+          10,
+          5,
+          2
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          3,
+          4,
+          5,
+          1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          24,
+          69,
+          100,
+          99,
+          79,
+          78,
+          67,
+          36,
+          26,
+          19
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def peakIndexInMountainArray(self, arr: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int peakIndexInMountainArray(int[] arr) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int peakIndexInMountainArray(vector<int>& arr) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def peakIndexInMountainArray(self, arr: List[int]) -> int:\r\n        left, right = 1, len(arr) - 2\r\n        while left < right:\r\n            mid = (left + right) >> 1\r\n            if arr[mid] > arr[mid + 1]:\r\n                right = mid\r\n            else:\r\n                left = mid + 1\r\n        return left\r\n",
+    "java": "class Solution {\r\n    public int peakIndexInMountainArray(int[] arr) {\r\n        int left = 1, right = arr.length - 2;\r\n        while (left < right) {\r\n            int mid = (left + right) >> 1;\r\n            if (arr[mid] > arr[mid + 1]) {\r\n                right = mid;\r\n            } else {\r\n                left = mid + 1;\r\n            }\r\n        }\r\n        return left;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int peakIndexInMountainArray(vector<int>& arr) {\r\n        int left = 1, right = arr.size() - 2;\r\n        while (left < right) {\r\n            int mid = (left + right) >> 1;\r\n            if (arr[mid] > arr[mid + 1])\r\n                right = mid;\r\n            else\r\n                left = mid + 1;\r\n        }\r\n        return left;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20069.%20%E5%B1%B1%E5%B3%B0%E6%95%B0%E7%BB%84%E7%9A%84%E9%A1%B6%E9%83%A8/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20069.%20%E5%B1%B1%E5%B3%B0%E6%95%B0%E7%BB%84%E7%9A%84%E9%A1%B6%E9%83%A8/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20069.%20%E5%B1%B1%E5%B3%B0%E6%95%B0%E7%BB%84%E7%9A%84%E9%A1%B6%E9%83%A8/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20069.%20%E5%B1%B1%E5%B3%B0%E6%95%B0%E7%BB%84%E7%9A%84%E9%A1%B6%E9%83%A8/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：山脉数组的峰顶索引。\n输入：arr（integer[]）。\n训练提示：**思考**\r \r 严格先增后减的数组有唯一峰顶。线性找最大值即可，但没有利用单峰。\r \r 比较 $\\textit{arr}[mid]$ 与右侧：若已下降，峰在中点或更左；若仍上升，峰在更右。搜索区间避开两端，因为峰不在边界。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n严格先增后减的数组有唯一峰顶。线性找最大值即可，但没有利用单峰。\r\n\r\n比较 $\\textit{arr}[mid]$ 与右侧：若已下降，峰在中点或更左；若仍上升，峰在更右。搜索区间避开两端，因为峰不在边界。",
+  "memory": "山脉数组的峰顶索引 → 方法一。\n**思考**\r\n\r\n严格先增后减的数组有唯一峰顶。线性找最大值即可，但没有利用单峰。\r\n\r\n比较 $\\textit{arr}[mid]$ 与右侧：若已下降，峰在中点或更左；若仍上升，峰在更右。搜索区间避开两端，因为峰不在边界。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

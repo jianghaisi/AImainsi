@@ -1,0 +1,63 @@
+{
+  "number": "面试题 16.11",
+  "adapter": {
+    "name": "divingBoard",
+    "params": [
+      {
+        "name": "shorter",
+        "type": "integer"
+      },
+      {
+        "name": "longer",
+        "type": "integer"
+      },
+      {
+        "name": "k",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "面试题 16.11"
+  },
+  "tests": [
+    {
+      "input": [
+        1,
+        2,
+        3
+      ],
+      "expected": [
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def divingBoard(self, shorter: int, longer: int, k: int) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number} shorter\n * @param {number} longer\n * @param {number} k\n * @return {number[]}\n */\nvar divingBoard = function(shorter, longer, k) {\n    \n};",
+    "java": "class Solution {\n    public int[] divingBoard(int shorter, int longer, int k) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> divingBoard(int shorter, int longer, int k) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def divingBoard(self, shorter: int, longer: int, k: int) -> List[int]:\r\n        if k == 0:\r\n            return []\r\n        if longer == shorter:\r\n            return [longer * k]\r\n        ans = []\r\n        for i in range(k + 1):\r\n            ans.append(longer * i + shorter * (k - i))\r\n        return ans\r\n",
+    "javascript": "function divingBoard(shorter, longer, k) {\n    if (k === 0) {\n        return [];\n    }\n    if (longer === shorter) {\n        return [longer * k];\n    }\n    const ans = [k + 1];\n    for (let i = 0; i <= k; ++i) {\n        ans[i] = longer * i + shorter * (k - i);\n    }\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    public int[] divingBoard(int shorter, int longer, int k) {\r\n        if (k == 0) {\r\n            return new int[0];\r\n        }\r\n        if (longer == shorter) {\r\n            return new int[] {longer * k};\r\n        }\r\n        int[] ans = new int[k + 1];\r\n        for (int i = 0; i < k + 1; ++i) {\r\n            ans[i] = longer * i + shorter * (k - i);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> divingBoard(int shorter, int longer, int k) {\r\n        if (k == 0) return {};\r\n        if (longer == shorter) return {longer * k};\r\n        vector<int> ans;\r\n        for (int i = 0; i < k + 1; ++i)\r\n            ans.push_back(longer * i + shorter * (k - i));\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.11.Diving%20Board/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.11.Diving%20Board/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.11.Diving%20Board/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.11.Diving%20Board/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.11.Diving%20Board/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：跳水板。\n输入：shorter（integer）、longer（integer）、k（integer）。\n训练提示：**思考**\r \r $k$ 块板，各为短或长，求所有可能总长。递归枚举 $2^k$ 种选法，而不同总长至多 $k+1$ 种。\r \r 用了 $i$ 块长板则总长 $i\\cdot longer+(k-i)\\cdot shorter$。 $k=0$ 无方案；两长度相等则只有一种。\r \r 当 $longer\\ne shorter$ 时， $i$ 从 $0$ 到 $k$ 严格递增，直接枚举即可，不必去重。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：分类讨论\r\n\r\n\r\n\r\n思考\r\n\r\n$k$ 块板，各为短或长，求所有可能总长。递归枚举 $2^k$ 种选法，而不同总长至多 $k+1$ 种。\r\n\r\n用了 $i$ 块长板则总长 $i\\cdot longer+(k-i)\\cdot shorter$。 $k=0$ 无方案；两长度相等则只有一种。\r\n\r\n当 $longer\\ne shorter$ 时， $i$ 从 $0$ 到 $k$ 严格递增，直接枚举即可，不必去重。\r\n\r\n\r\n\r\n如果 $k=0$，则不存在任何一种方案，我们可以直接返回空列表。\r\n\r\n如果 $shorter=longer$，则我们只能使用长度为 $longer \\times k$ 的木板，因此我们直接返回长度为 $longer \\times k$ 的列表。\r\n\r\n否则，我们可以使用长度为 $shorter \\times (k-i) + longer \\times i$ 的木板，其中 $0 \\leq i \\leq k$。我们在 $[0, k]$ 的范围内枚举 $i$，并计算对应的长度即可。对于不同的 $i$，我们不会得到相同的长度，这是因为，假如有 $0 \\leq i \\lt j \\leq k$，那么两者长度差为 $shorter \\times (k-i) + longer \\times i - shorter \\times (k-j) - longer \\times j$，整理得到长度差 $(i - j) \\times (longer - shorter) \\lt 0$。因此，对于不同的 $i$，我们会得到不同的长度。\r\n\r\n时间复杂度 $O(k)$，其中 $k$ 为木板数量。忽略答案的空间消耗，空间复杂度 $O(1)$。",
+  "memory": "跳水板 → 分类讨论。\n**思考**\r\n\r\n$k$ 块板，各为短或长，求所有可能总长。递归枚举 $2^k$ 种选法，而不同总长至多 $k+1$ 种。\r\n\r\n用了 $i$ 块长板则总长 $i\\cdot longer+(k-i)\\cdot shorter$。 $k=0$ 无方案；两长度相等则只有一种。\r\n\r\n当 $longer\\ne shorter$ 时， $i$ 从 $0$ 到 $k$ 严格递增，直接枚举即可，不必去重。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

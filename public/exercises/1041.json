@@ -1,0 +1,60 @@
+{
+  "number": "1041",
+  "adapter": {
+    "name": "isRobotBounded",
+    "params": [
+      {
+        "name": "instructions",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "1041"
+  },
+  "tests": [
+    {
+      "input": [
+        "GGLLGG"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "GG"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "GL"
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def isRobotBounded(self, instructions: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} instructions\n * @return {boolean}\n */\nvar isRobotBounded = function(instructions) {\n    \n};",
+    "java": "class Solution {\n    public boolean isRobotBounded(String instructions) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isRobotBounded(string instructions) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def isRobotBounded(self, instructions: str) -> bool:\r\n        k = 0\r\n        dist = [0] * 4\r\n        for c in instructions:\r\n            if c == 'L':\r\n                k = (k + 1) % 4\r\n            elif c == 'R':\r\n                k = (k + 3) % 4\r\n            else:\r\n                dist[k] += 1\r\n        return (dist[0] == dist[2] and dist[1] == dist[3]) or k != 0\r\n",
+    "javascript": "function isRobotBounded(instructions) {\n    const dist = new Array(4).fill(0);\n    let k = 0;\n    for (const c of instructions) {\n        if (c === 'L') {\n            k = (k + 1) % 4;\n        }\n        else if (c === 'R') {\n            k = (k + 3) % 4;\n        }\n        else {\n            ++dist[k];\n        }\n    }\n    return (dist[0] === dist[2] && dist[1] === dist[3]) || k !== 0;\n}\n",
+    "java": "class Solution {\r\n    public boolean isRobotBounded(String instructions) {\r\n        int k = 0;\r\n        int[] dist = new int[4];\r\n        for (int i = 0; i < instructions.length(); ++i) {\r\n            char c = instructions.charAt(i);\r\n            if (c == 'L') {\r\n                k = (k + 1) % 4;\r\n            } else if (c == 'R') {\r\n                k = (k + 3) % 4;\r\n            } else {\r\n                ++dist[k];\r\n            }\r\n        }\r\n        return (dist[0] == dist[2] && dist[1] == dist[3]) || (k != 0);\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool isRobotBounded(string instructions) {\r\n        int dist[4]{};\r\n        int k = 0;\r\n        for (char& c : instructions) {\r\n            if (c == 'L') {\r\n                k = (k + 1) % 4;\r\n            } else if (c == 'R') {\r\n                k = (k + 3) % 4;\r\n            } else {\r\n                ++dist[k];\r\n            }\r\n        }\r\n        return (dist[0] == dist[2] && dist[1] == dist[3]) || k;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1041.Robot%20Bounded%20In%20Circle/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1041.Robot%20Bounded%20In%20Circle/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1041.Robot%20Bounded%20In%20Circle/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1041.Robot%20Bounded%20In%20Circle/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1041.Robot%20Bounded%20In%20Circle/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：困于环中的机器人。\n输入：instructions（string）。\n训练提示：**思考**\r \r 指令可无限重复，不能真的走无限步。一轮之后机器人的位移与朝向完全决定以后是否循环：若已回到原点，或朝向不再向北，则反复执行会在平面上转圈。\r \r 用 $k\\in[0,3]$ 表示北南西东，数组 $\\textit{dist}$ 记录四个方向走了多少步。左加一、右加三，前进累加当前方向。\r \r 一轮结束时南北相等且东西相等，或 $k\\neq 0$，即判定为有界。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：模拟\r\n\r\n\r\n\r\n思考\r\n\r\n指令可无限重复，不能真的走无限步。一轮之后机器人的位移与朝向完全决定以后是否循环：若已回到原点，或朝向不再向北，则反复执行会在平面上转圈。\r\n\r\n用 $k\\in[0,3]$ 表示北南西东，数组 $\\textit{dist}$ 记录四个方向走了多少步。左加一、右加三，前进累加当前方向。\r\n\r\n一轮结束时南北相等且东西相等，或 $k\\neq 0$，即判定为有界。\r\n\r\n\r\n\r\n我们可以模拟机器人的行走过程，用一个变量 $k$ 表示机器人的方向，初始值为 $0$，表示机器人面向北方。变量 $k$ 的取值范围为 $[0, 3]$，分别表示机器人面向北、西、南、东。另外，我们用一个长度为 $4$ 的数组 $dist$ 记录机器人在四个方向上行走的距离，初始值为 $[0, 0, 0, 0]$。\r\n\r\n遍历指令字符串 $\\textit{instructions}$，如果当前指令为 `'L'`，那么机器人转向西方，即 $k = (k + 1) \\bmod 4$；如果当前指令为 `'R'`，那么机器人转向东方，即 $k = (k + 3) \\bmod 4$；否则，机器人在当前方向上行走一步，即 $dist[k]++$。\r\n\r\n如果给定的指令字符串 $\\textit{instructions}$ 执行一遍后，使得机器人最终回到原点，即 $dist[0] = dist[2]$ 且 $dist[1] = dist[3]$，那么机器人一定会进入循环。因为无论重复多少次指令，机器人都回到了原点，所以机器人一定会进入循环。\r\n\r\n如果给定的指令字符串 $\\textit{instructions}$ 执行一遍后，机器人没回到原点，不妨假设此时机器人位于 $(x, y)$，且方向为 $k$。\r\n\r\n- 若 $k=0$，即机器人面向北方，那么执行第二遍指令后，坐标变化量是 $(x, y)$；继续执行第三遍指令后，坐标变化量还是 $(x, y)$...累加这些变化量，机器人最终会到 $(n \\times x, n \\times y)$，其中 $n$ 是一个正整数。由于机器人最终没有回到原点，即 $x \\neq 0$ 或 $y \\neq 0$，所以 $n \\times x \\neq 0$ 或 $n \\times y \\neq 0$，因此机器人不会进入循环；\r\n- 若 $k=1$，即机器人面向西方，那么机器人执行第二遍指令后，坐标变化量是 $(-y, x)$；继续执行第三遍执行后，坐标变化量是 $(-x, -y)$；继续执行第四遍指令后，坐标变化量是 $(y, -x)$。累加这些坐标变化量，我们可以发现，机器人最终会回到原点 $(0, 0)$；\r\n- 若 $k=2$，即机器人面向南方，那么执行第二遍指令后，坐标变化量是 $(-x, -y)$，累加这两次坐标变化量，我们可以发现，机器人最终会回到原点 $(0, 0)$；\r\n- 若 $k=3$，即机器人面向东方，那么执行第二遍指令后，坐标变化量是 $(y, -x)$；继续执行第三遍指令后，坐标变化量是 $(-x, -y)$；继续执行第四遍指令后，坐标变化量是 $(-y, x)$。累加这些坐标变化量，我们可以发现，机器人最终会回到原点 $(0, 0)$。\r\n\r\n综上所述，如果给定的指令字符串 $\\textit{instructions}$ 执行一遍后，机器人回到了原点，或者机器人的方向与初始方向不同，那么机器人一定会进入循环。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(1)$。其中 $n$ 为指令字符串 $\\textit{instructions}$ 的长度。",
+  "memory": "困于环中的机器人 → 模拟。\n**思考**\r\n\r\n指令可无限重复，不能真的走无限步。一轮之后机器人的位移与朝向完全决定以后是否循环：若已回到原点，或朝向不再向北，则反复执行会在平面上转圈。\r\n\r\n用 $k\\in[0,3]$ 表示北南西东，数组 $\\textit{dist}$ 记录四个方向走了多少步。左加一、右加三，前进累加当前方向。\r\n\r\n一轮结束时南北相等且东西相等，或 $k\\neq 0$，即判定为有界。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

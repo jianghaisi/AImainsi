@@ -1,0 +1,74 @@
+{
+  "number": "LCR 096",
+  "adapter": {
+    "name": "isInterleave",
+    "params": [
+      {
+        "name": "s1",
+        "type": "string"
+      },
+      {
+        "name": "s2",
+        "type": "string"
+      },
+      {
+        "name": "s3",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "LCR 096"
+  },
+  "tests": [
+    {
+      "input": [
+        "aabcc",
+        "dbbca",
+        "aadbbcbcac"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aabcc",
+        "dbbca",
+        "aadbbbaccc"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "",
+        "",
+        ""
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s1\n * @param {string} s2\n * @param {string} s3\n * @return {boolean}\n */\nvar isInterleave = function(s1, s2, s3) {\n\n};",
+    "java": "class Solution {\n    public boolean isInterleave(String s1, String s2, String s3) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isInterleave(string s1, string s2, string s3) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:\r\n        @cache\r\n        def dfs(i: int, j: int) -> bool:\r\n            if i >= m and j >= n:\r\n                return True\r\n            k = i + j\r\n            if i < m and s1[i] == s3[k] and dfs(i + 1, j):\r\n                return True\r\n            if j < n and s2[j] == s3[k] and dfs(i, j + 1):\r\n                return True\r\n            return False\r\n\r\n        m, n = len(s1), len(s2)\r\n        if m + n != len(s3):\r\n            return False\r\n        return dfs(0, 0)\r\n",
+    "javascript": "function isInterleave(s1, s2, s3) {\n    const m = s1.length;\n    const n = s2.length;\n    if (m + n !== s3.length) {\n        return false;\n    }\n    const f = new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0));\n    const dfs = (i, j) => {\n        if (i >= m && j >= n) {\n            return true;\n        }\n        if (f[i][j]) {\n            return f[i][j] === 1;\n        }\n        f[i][j] = -1;\n        if (i < m && s1[i] === s3[i + j] && dfs(i + 1, j)) {\n            f[i][j] = 1;\n        }\n        if (f[i][j] === -1 && j < n && s2[j] === s3[i + j] && dfs(i, j + 1)) {\n            f[i][j] = 1;\n        }\n        return f[i][j] === 1;\n    };\n    return dfs(0, 0);\n}\n",
+    "java": "class Solution {\r\n    private Map<List<Integer>, Boolean> f = new HashMap<>();\r\n    private String s1;\r\n    private String s2;\r\n    private String s3;\r\n    private int m;\r\n    private int n;\r\n\r\n    public boolean isInterleave(String s1, String s2, String s3) {\r\n        m = s1.length();\r\n        n = s2.length();\r\n        if (m + n != s3.length()) {\r\n            return false;\r\n        }\r\n        this.s1 = s1;\r\n        this.s2 = s2;\r\n        this.s3 = s3;\r\n        return dfs(0, 0);\r\n    }\r\n\r\n    private boolean dfs(int i, int j) {\r\n        if (i >= m && j >= n) {\r\n            return true;\r\n        }\r\n        var key = List.of(i, j);\r\n        if (f.containsKey(key)) {\r\n            return f.get(key);\r\n        }\r\n        int k = i + j;\r\n        boolean ans = false;\r\n        if (i < m && s1.charAt(i) == s3.charAt(k) && dfs(i + 1, j)) {\r\n            ans = true;\r\n        }\r\n        if (!ans && j < n && s2.charAt(j) == s3.charAt(k) && dfs(i, j + 1)) {\r\n            ans = true;\r\n        }\r\n        f.put(key, ans);\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool isInterleave(string s1, string s2, string s3) {\r\n        int m = s1.size(), n = s2.size();\r\n        if (m + n != s3.size()) {\r\n            return false;\r\n        }\r\n        vector<vector<int>> f(m + 1, vector<int>(n + 1, -1));\r\n        function<bool(int, int)> dfs = [&](int i, int j) {\r\n            if (i >= m && j >= n) {\r\n                return true;\r\n            }\r\n            if (f[i][j] != -1) {\r\n                return f[i][j] == 1;\r\n            }\r\n            f[i][j] = 0;\r\n            int k = i + j;\r\n            if (i < m && s1[i] == s3[k] && dfs(i + 1, j)) {\r\n                f[i][j] = 1;\r\n            }\r\n            if (!f[i][j] && j < n && s2[j] == s3[k] && dfs(i, j + 1)) {\r\n                f[i][j] = 1;\r\n            }\r\n            return f[i][j] == 1;\r\n        };\r\n        return dfs(0, 0);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20096.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BA%A4%E7%BB%87/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20096.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BA%A4%E7%BB%87/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20096.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BA%A4%E7%BB%87/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20096.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BA%A4%E7%BB%87/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20096.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BA%A4%E7%BB%87/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：交错字符串。\n输入：s1（string）、s2（string）、s3（string）。\n训练提示：**思考**\r \r $s3$ 是否由 $s1$、 $s2$ 交错组成。若长度和已不等则可立即否定。朴素递归在相同前缀上会重复展开。\r \r 状态 $(i,j)$ 表示两串前缀能否拼出 $s3$ 的前 $i+j$ 个字符。当前字符只能来自 $s1[i]$ 或 $s2[j]$ 之一，记忆化后每个状态计算一次。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：记忆化搜索\r\n\r\n\r\n\r\n思考\r\n\r\n$s3$ 是否由 $s1$、 $s2$ 交错组成。若长度和已不等则可立即否定。朴素递归在相同前缀上会重复展开。\r\n\r\n状态 $(i,j)$ 表示两串前缀能否拼出 $s3$ 的前 $i+j$ 个字符。当前字符只能来自 $s1[i]$ 或 $s2[j]$ 之一，记忆化后每个状态计算一次。\r\n\r\n\r\n\r\n我们记字符串 $s_1$ 的长度为 $m$，字符串 $s_2$ 的长度为 $n$，如果 $m + n \\neq |s_3|$，那么 $s_3$ 一定不是 $s_1$ 和 $s_2$ 的交错字符串，返回 `false`。\r\n\r\n接下来，我们设计一个函数 $dfs(i, j)$，表示从 $s_1$ 的第 $i$ 个字符和 $s_2$ 的第 $j$ 个字符开始，能否交错组成 $s_3$ 的剩余部分。那么答案就是 $dfs(0, 0)$。\r\n\r\n函数 $dfs(i, j)$ 的计算过程如下：\r\n\r\n如果 $i \\geq m$ 并且 $j \\geq n$，那么说明 $s_1$ 和 $s_2$ 都已经遍历完毕，返回 `true`。\r\n\r\n如果 $i < m$ 并且 $s_1[i] = s_3[i + j]$，那么说明 $s_1[i]$ 这个字符是 $s_3[i + j]$ 中的一部分，因此递归地调用 $dfs(i + 1, j)$ 判断 $s_1$ 的下一个字符能否和 $s_2$ 的当前字符匹配，如果能匹配成功，就返回 `true`。\r\n\r\n同理，如果 $j < n$ 并且 $s_2[j] = s_3[i + j]$，那么说明 $s_2[j]$ 这个字符是 $s_3[i + j]$ 中的一部分，因此递归地调用 $dfs(i, j + 1)$ 判断 $s_2$ 的下一个字符能否和 $s_1$ 的当前字符匹配，如果能匹配成功，就返回 `true`。\r\n\r\n否则，返回 `false`。\r\n\r\n为了避免重复计算，我们可以使用记忆化搜索。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m \\times n)$。其中 $m$ 和 $n$ 分别是字符串 $s_1$ 和 $s_2$ 的长度。",
+  "memory": "交错字符串 → 记忆化搜索。\n**思考**\r\n\r\n$s3$ 是否由 $s1$、 $s2$ 交错组成。若长度和已不等则可立即否定。朴素递归在相同前缀上会重复展开。\r\n\r\n状态 $(i,j)$ 表示两串前缀能否拼出 $s3$ 的前 $i+j$ 个字符。当前字符只能来自 $s1[i]$ 或 $s2[j]$ 之一，记忆化后每个状态计算一次。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

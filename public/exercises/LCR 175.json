@@ -1,0 +1,57 @@
+{
+  "number": "LCR 175",
+  "adapter": {
+    "name": "calculateDepth",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 175"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          2,
+          3,
+          null,
+          null,
+          5,
+          4,
+          null,
+          null,
+          4
+        ]
+      ],
+      "expected": 4
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def calculateDepth(self, root: TreeNode) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public int calculateDepth(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int calculateDepth(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.left = None\r\n#         self.right = None\r\n\r\n\r\nclass Solution:\r\n    def calculateDepth(self, root: TreeNode) -> int:\r\n        if root is None:\r\n            return 0\r\n        return 1 + max(self.calculateDepth(root.left), self.calculateDepth(root.right))\r\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public int calculateDepth(TreeNode root) {\r\n        if (root == null) {\r\n            return 0;\r\n        }\r\n        return 1 + Math.max(calculateDepth(root.left), calculateDepth(root.right));\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    int calculateDepth(TreeNode* root) {\r\n        if (!root) {\r\n            return 0;\r\n        }\r\n        return 1 + max(calculateDepth(root->left), calculateDepth(root->right));\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9855%20-%20I.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9855%20-%20I.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9855%20-%20I.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9855%20-%20I.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：计算二叉树的深度。\n输入：root（TreeNode）。\n训练提示：**思考**\r \r 深度是根到最远叶的边数加一。层序统计层数可行，但每个结点仍只访问一次，递归更直接。\r \r 空树深度为 $0$，否则为左右子树深度的较大值加一。最坏退化为链时栈空间与 $n$ 同阶。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递归\r\n\r\n\r\n\r\n思考\r\n\r\n深度是根到最远叶的边数加一。层序统计层数可行，但每个结点仍只访问一次，递归更直接。\r\n\r\n空树深度为 $0$，否则为左右子树深度的较大值加一。最坏退化为链时栈空间与 $n$ 同阶。\r\n\r\n\r\n\r\n我们可以用递归的方法来解决这道题。递归的终止条件是当前节点为空，此时深度为 $0$；如果当前节点不为空，则当前的深度为其左右子树深度的最大值加 $1$，递归计算当前节点的左右子节点的深度，然后返回它们的最大值加 $1$。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 是二叉树的节点数。最坏情况下，二叉树退化为链表，递归深度达到 $n$，系统使用 $O(n)$ 大小的栈空间。",
+  "memory": "计算二叉树的深度 → 递归。\n**思考**\r\n\r\n深度是根到最远叶的边数加一。层序统计层数可行，但每个结点仍只访问一次，递归更直接。\r\n\r\n空树深度为 $0$，否则为左右子树深度的较大值加一。最坏退化为链时栈空间与 $n$ 同阶。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

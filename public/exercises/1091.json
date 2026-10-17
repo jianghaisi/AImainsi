@@ -1,0 +1,101 @@
+{
+  "number": "1091",
+  "adapter": {
+    "name": "shortestPathBinaryMatrix",
+    "params": [
+      {
+        "name": "grid",
+        "type": "integer[][]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "1091"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": -1
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[][]} grid\n * @return {number}\n */\nvar shortestPathBinaryMatrix = function(grid) {\n    \n};",
+    "java": "class Solution {\n    public int shortestPathBinaryMatrix(int[][] grid) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:\r\n        if grid[0][0]:\r\n            return -1\r\n        n = len(grid)\r\n        grid[0][0] = 1\r\n        q = deque([(0, 0)])\r\n        ans = 1\r\n        while q:\r\n            for _ in range(len(q)):\r\n                i, j = q.popleft()\r\n                if i == j == n - 1:\r\n                    return ans\r\n                for x in range(i - 1, i + 2):\r\n                    for y in range(j - 1, j + 2):\r\n                        if 0 <= x < n and 0 <= y < n and grid[x][y] == 0:\r\n                            grid[x][y] = 1\r\n                            q.append((x, y))\r\n            ans += 1\r\n        return -1\r\n",
+    "javascript": "function shortestPathBinaryMatrix(grid) {\n    if (grid[0][0]) {\n        return -1;\n    }\n    const max = grid.length - 1;\n    grid[0][0] = 1;\n    let q = [[0, 0]];\n    for (let ans = 1; q.length > 0; ++ans) {\n        const nq = [];\n        for (const [i, j] of q) {\n            if (i === max && j === max) {\n                return ans;\n            }\n            for (let x = i - 1; x <= i + 1; ++x) {\n                for (let y = j - 1; y <= j + 1; ++y) {\n                    if (grid[x]?.[y] === 0) {\n                        grid[x][y] = 1;\n                        nq.push([x, y]);\n                    }\n                }\n            }\n        }\n        q = nq;\n    }\n    return -1;\n}\n",
+    "java": "class Solution {\r\n    public int shortestPathBinaryMatrix(int[][] grid) {\r\n        if (grid[0][0] == 1) {\r\n            return -1;\r\n        }\r\n        int n = grid.length;\r\n        grid[0][0] = 1;\r\n        Deque<int[]> q = new ArrayDeque<>();\r\n        q.offer(new int[] {0, 0});\r\n        for (int ans = 1; !q.isEmpty(); ++ans) {\r\n            for (int k = q.size(); k > 0; --k) {\r\n                var p = q.poll();\r\n                int i = p[0], j = p[1];\r\n                if (i == n - 1 && j == n - 1) {\r\n                    return ans;\r\n                }\r\n                for (int x = i - 1; x <= i + 1; ++x) {\r\n                    for (int y = j - 1; y <= j + 1; ++y) {\r\n                        if (x >= 0 && x < n && y >= 0 && y < n && grid[x][y] == 0) {\r\n                            grid[x][y] = 1;\r\n                            q.offer(new int[] {x, y});\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        return -1;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {\r\n        if (grid[0][0]) {\r\n            return -1;\r\n        }\r\n        int n = grid.size();\r\n        grid[0][0] = 1;\r\n        queue<pair<int, int>> q;\r\n        q.emplace(0, 0);\r\n        for (int ans = 1; !q.empty(); ++ans) {\r\n            for (int k = q.size(); k; --k) {\r\n                auto [i, j] = q.front();\r\n                q.pop();\r\n                if (i == n - 1 && j == n - 1) {\r\n                    return ans;\r\n                }\r\n                for (int x = i - 1; x <= i + 1; ++x) {\r\n                    for (int y = j - 1; y <= j + 1; ++y) {\r\n                        if (x >= 0 && x < n && y >= 0 && y < n && !grid[x][y]) {\r\n                            grid[x][y] = 1;\r\n                            q.emplace(x, y);\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        return -1;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1091.Shortest%20Path%20in%20Binary%20Matrix/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1091.Shortest%20Path%20in%20Binary%20Matrix/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1091.Shortest%20Path%20in%20Binary%20Matrix/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1091.Shortest%20Path%20in%20Binary%20Matrix/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/1000-1099/1091.Shortest%20Path%20in%20Binary%20Matrix/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：二进制矩阵中的最短路径。\n输入：grid（integer[][]）。\n训练提示：**思考**\r \r 八连通最短路，边权均为 $1$，广度优先按层即得最少步数。 $n\\le 100$，网格可以当访问标记。起点若为 $1$ 则无路。\r \r 把 $(0,0)$ 入队并改为 $1$，每层扩展八邻域中仍为 $0$ 的格子。到达 $(n-1,n-1)$ 时当前层号即为答案。\r \r 队列空仍未到达则返回 $-1$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：BFS\r\n\r\n\r\n\r\n思考\r\n\r\n八连通最短路，边权均为 $1$，广度优先按层即得最少步数。 $n\\le 100$，网格可以当访问标记。起点若为 $1$ 则无路。\r\n\r\n把 $(0,0)$ 入队并改为 $1$，每层扩展八邻域中仍为 $0$ 的格子。到达 $(n-1,n-1)$ 时当前层号即为答案。\r\n\r\n队列空仍未到达则返回 $-1$。\r\n\r\n\r\n\r\n根据题目描述，一条畅通路径是从左上角单元格 $(0, 0)$ 到右下角单元格 $(n - 1, n - 1)$ 的路径，且路径上所有单元格的值都是 $0$。\r\n\r\n因此，如果左上角单元格 $(0, 0)$ 的值为 $1$，则不存在满足要求的路径，直接返回 $-1$。\r\n\r\n否则，我们创建一个队列 $q$，将左上角单元格 $(0, 0)$ 加入队列，并且将其标记为已访问，即把 $grid[0][0]$ 的值置为 $1$，然后开始广度优先搜索。\r\n\r\n在每一轮搜索中，我们每次取出队首节点 $(i, j)$，如果 $(i, j)$ 为右下角单元格 $(n - 1, n - 1)$，则路径长度为当前的搜索轮数，直接返回。否则，我们将当前节点的所有未被访问过的相邻节点加入队列，并且将它们标记为已访问。每一轮搜索结束后，我们将搜索轮数增加 $1$。然后继续执行上述过程，直到队列为空或者找到目标节点。\r\n\r\n如果在搜索结束后，我们仍然没有到达右下角的节点，那么说明右下角的节点不可达，返回 $-1$。\r\n\r\n时间复杂度 $O(n^2)$，空间复杂度 $O(n^2)$。其中 $n$ 是给定的二进制矩阵的边长。",
+  "memory": "二进制矩阵中的最短路径 → BFS。\n**思考**\r\n\r\n八连通最短路，边权均为 $1$，广度优先按层即得最少步数。 $n\\le 100$，网格可以当访问标记。起点若为 $1$ 则无路。\r\n\r\n把 $(0,0)$ 入队并改为 $1$，每层扩展八邻域中仍为 $0$ 的格子。到达 $(n-1,n-1)$ 时当前层号即为答案。\r\n\r\n队列空仍未到达则返回 $-1$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

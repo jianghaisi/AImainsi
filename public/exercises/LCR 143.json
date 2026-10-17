@@ -1,0 +1,106 @@
+{
+  "number": "LCR 143",
+  "adapter": {
+    "name": "isSubStructure",
+    "params": [
+      {
+        "name": "A",
+        "type": "TreeNode"
+      },
+      {
+        "name": "B",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "LCR 143"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          7,
+          5
+        ],
+        [
+          6,
+          1
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        [
+          3,
+          6,
+          7,
+          1,
+          8
+        ],
+        [
+          6,
+          1
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          3,
+          1
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        [
+          3,
+          4,
+          5,
+          1,
+          2
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def isSubStructure(self, A: TreeNode, B: TreeNode) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} A\n * @param {TreeNode} B\n * @return {boolean}\n */\nvar isSubStructure = function(A, B) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public boolean isSubStructure(TreeNode A, TreeNode B) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool isSubStructure(TreeNode* A, TreeNode* B) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.left = None\r\n#         self.right = None\r\n\r\n\r\nclass Solution:\r\n    def isSubStructure(self, A: TreeNode, B: TreeNode) -> bool:\r\n        def dfs(A, B):\r\n            if B is None:\r\n                return True\r\n            if A is None or A.val != B.val:\r\n                return False\r\n            return dfs(A.left, B.left) and dfs(A.right, B.right)\r\n\r\n        if A is None or B is None:\r\n            return False\r\n        if dfs(A, B):\r\n            return True\r\n        return self.isSubStructure(A.left, B) or self.isSubStructure(A.right, B)\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction isSubStructure(A, B) {\n    if (!A || !B) {\n        return false;\n    }\n    const dfs = (A, B) => {\n        if (!B) {\n            return true;\n        }\n        if (!A || A.val !== B.val) {\n            return false;\n        }\n        return dfs(A.left, B.left) && dfs(A.right, B.right);\n    };\n    return dfs(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B);\n}\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public boolean isSubStructure(TreeNode A, TreeNode B) {\r\n        if (A == null || B == null) {\r\n            return false;\r\n        }\r\n        return dfs(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B);\r\n    }\r\n\r\n    private boolean dfs(TreeNode A, TreeNode B) {\r\n        if (B == null) {\r\n            return true;\r\n        }\r\n        if (A == null || A.val != B.val) {\r\n            return false;\r\n        }\r\n        return dfs(A.left, B.left) && dfs(A.right, B.right);\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    bool isSubStructure(TreeNode* A, TreeNode* B) {\r\n        if (!A || !B) {\r\n            return false;\r\n        }\r\n        return dfs(A, B) || isSubStructure(A->left, B) || isSubStructure(A->right, B);\r\n    }\r\n\r\n    bool dfs(TreeNode* A, TreeNode* B) {\r\n        if (!B) {\r\n            return true;\r\n        }\r\n        if (!A || A->val != B->val) {\r\n            return false;\r\n        }\r\n        return dfs(A->left, B->left) && dfs(A->right, B->right);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9826.%20%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9826.%20%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9826.%20%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9826.%20%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9826.%20%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：子结构判断。\n输入：A（TreeNode）、B（TreeNode）。\n训练提示：**思考**\r \r 子结构可从 $A$ 的任一结点对齐 $B$ 的根，枚举对齐点后还须核对形态。两树规模乘积可接受。\r \r 先写 $dfs$ 判断从当前结点是否完全覆盖 $B$；外层在 $A$ 上递归，对每个结点尝试对齐。 $B$ 为空约定不构成子结构。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：递归\r\n\r\n\r\n\r\n思考\r\n\r\n子结构可从 $A$ 的任一结点对齐 $B$ 的根，枚举对齐点后还须核对形态。两树规模乘积可接受。\r\n\r\n先写 $dfs$ 判断从当前结点是否完全覆盖 $B$；外层在 $A$ 上递归，对每个结点尝试对齐。 $B$ 为空约定不构成子结构。\r\n\r\n\r\n\r\n我们设计一个函数 $\\textit{dfs}(A, B)$，用于判断树 A 中以节点 A 为根节点的子树是否包含树 B。\r\n\r\n函数 $\\textit{dfs}(A, B)$ 的执行步骤如下：\r\n\r\n1. 如果树 B 为空，则树 B 是树 A 的子结构，返回 `true`；\r\n2. 如果树 A 为空，或者树 A 的根节点的值不等于树 B 的根节点的值，则树 B 不是树 A 的子结构，返回 `false`；\r\n3. 判断树 A 的左子树是否包含树 B 的左子树，即调用 $\\textit{dfs}(A.left, B.left)$，并且判断树 A 的右子树是否包含树 B 的右子树，即调用 $\\textit{dfs}(A.right, B.right)$。如果其中有一个函数返回 `false`，则树 B 不是树 A 的子结构，返回 `false`；否则，返回 `true`。\r\n\r\n在函数 `isSubStructure` 中，我们首先判断树 A 和树 B 是否为空，如果其中有一个为空，则树 B 不是树 A 的子结构，返回 `false`。然后，我们调用 $\\textit{dfs}(A, B)$，判断树 A 是否包含树 B。如果是，则返回 `true`；否则，递归判断树 A 的左子树是否包含树 B，以及树 A 的右子树是否包含树 B。如果其中有一个返回 `true`，则树 B 是树 A 的子结构，返回 `true`；否则，返回 `false`。\r\n\r\n时间复杂度 $O(n \\times m)$，空间复杂度 $O(n)$。其中 $n$ 和 $m$ 分别是树 A 和树 B 的节点个数。",
+  "memory": "子结构判断 → 递归。\n**思考**\r\n\r\n子结构可从 $A$ 的任一结点对齐 $B$ 的根，枚举对齐点后还须核对形态。两树规模乘积可接受。\r\n\r\n先写 $dfs$ 判断从当前结点是否完全覆盖 $B$；外层在 $A$ 上递归，对每个结点尝试对齐。 $B$ 为空约定不构成子结构。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

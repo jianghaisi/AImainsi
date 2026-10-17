@@ -1,0 +1,67 @@
+{
+  "number": "LCR 032",
+  "adapter": {
+    "name": "isAnagram",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "t",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "LCR 032"
+  },
+  "tests": [
+    {
+      "input": [
+        "anagram",
+        "nagaram"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "rat",
+        "car"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "a",
+        "a"
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def isAnagram(self, s: str, t: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @param {string} t\n * @return {boolean}\n */\nvar isAnagram = function(s, t) {\n\n};",
+    "java": "class Solution {\n    public boolean isAnagram(String s, String t) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool isAnagram(string s, string t) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def isAnagram(self, s: str, t: str) -> bool:\r\n        if len(s) != len(t) or s == t:\r\n            return False\r\n        return Counter(s) == Counter(t)\r\n",
+    "javascript": "function isAnagram(s, t) {\n    const m = s.length;\n    const n = t.length;\n    if (m !== n || s === t) {\n        return false;\n    }\n    const cnt = new Array(26).fill(0);\n    for (let i = 0; i < m; ++i) {\n        ++cnt[s[i].charCodeAt(0) - 'a'.charCodeAt(0)];\n        --cnt[t[i].charCodeAt(0) - 'a'.charCodeAt(0)];\n    }\n    return cnt.every(x => x === 0);\n}\n",
+    "java": "class Solution {\r\n    public boolean isAnagram(String s, String t) {\r\n        int m = s.length();\r\n        int n = t.length();\r\n        if (m != n || s.equals(t)) {\r\n            return false;\r\n        }\r\n        int[] cnt = new int[26];\r\n        for (int i = 0; i < m; ++i) {\r\n            ++cnt[s.charAt(i) - 'a'];\r\n            --cnt[t.charAt(i) - 'a'];\r\n        }\r\n        for (int x : cnt) {\r\n            if (x != 0) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool isAnagram(string s, string t) {\r\n        int m = s.size();\r\n        int n = t.size();\r\n        if (m != n || s == t) {\r\n            return false;\r\n        }\r\n        vector<int> cnt(26);\r\n        for (int i = 0; i < m; ++i) {\r\n            ++cnt[s[i] - 'a'];\r\n            --cnt[t[i] - 'a'];\r\n        }\r\n        for (int x : cnt) {\r\n            if (x) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20032.%20%E6%9C%89%E6%95%88%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20032.%20%E6%9C%89%E6%95%88%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20032.%20%E6%9C%89%E6%95%88%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20032.%20%E6%9C%89%E6%95%88%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20032.%20%E6%9C%89%E6%95%88%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：有效的字母异位词。\n输入：s（string）、t（string）。\n训练提示：**思考**\r \r 判断两串是否互为变位词，但完全相同的串不算。长度不等或串相等可立即否定。\r \r 变位关系等价于字母频次相同。对两串分别计数后比较即可；题目额外排除 $s=t$，因此要在计数之前做相等判断。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：计数\r\n\r\n\r\n\r\n思考\r\n\r\n判断两串是否互为变位词，但完全相同的串不算。长度不等或串相等可立即否定。\r\n\r\n变位关系等价于字母频次相同。对两串分别计数后比较即可；题目额外排除 $s=t$，因此要在计数之前做相等判断。\r\n\r\n\r\n\r\n如果字符串 $s$ 与字符串 $t$ 长度不相等，或者字符串 $s$ 与字符串 $t$ 完全相等，那么 $s$ 和 $t$ 一定不是变位词，返回 `false`。\r\n\r\n否则，我们用一个长度为 $26$ 的数组 $cnt$ 维护字符串 $s$ 中每个字母出现的次数与字符串 $t$ 中每个字母出现的次数的差值。如果 $cnt$ 数组的所有元素都为 $0$，则 $s$ 和 $t$ 互为变位词，返回 `true`，否则返回 `false`。\r\n\r\n时间复杂度 $O(m + n + |\\Sigma|)$，空间复杂度 $O(|\\Sigma|)$，其中 $m$ 和 $n$ 分别是字符串 $s$ 和 $t$ 的长度，而 $|\\Sigma|$ 是字符集，在本题中字符集为所有小写字母，因此 $|\\Sigma| = 26$。",
+  "memory": "有效的字母异位词 → 计数。\n**思考**\r\n\r\n判断两串是否互为变位词，但完全相同的串不算。长度不等或串相等可立即否定。\r\n\r\n变位关系等价于字母频次相同。对两串分别计数后比较即可；题目额外排除 $s=t$，因此要在计数之前做相等判断。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

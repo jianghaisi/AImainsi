@@ -1,0 +1,65 @@
+{
+  "number": "LCR 170",
+  "adapter": {
+    "name": "reversePairs",
+    "params": [
+      {
+        "name": "record",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 170"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          9,
+          7,
+          5,
+          4,
+          6
+        ]
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        [
+          7,
+          5,
+          6,
+          4
+        ]
+      ],
+      "expected": 5
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def reversePairs(self, nums: List[int]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} record\n * @return {number}\n */\nvar reversePairs = function(record) {\n    \n};",
+    "java": "class Solution {\n    public int reversePairs(int[] record) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int reversePairs(vector<int>& record) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def reversePairs(self, nums: List[int]) -> int:\r\n        def merge_sort(l, r):\r\n            if l >= r:\r\n                return 0\r\n            mid = (l + r) >> 1\r\n            ans = merge_sort(l, mid) + merge_sort(mid + 1, r)\r\n            t = []\r\n            i, j = l, mid + 1\r\n            while i <= mid and j <= r:\r\n                if nums[i] <= nums[j]:\r\n                    t.append(nums[i])\r\n                    i += 1\r\n                else:\r\n                    ans += mid - i + 1\r\n                    t.append(nums[j])\r\n                    j += 1\r\n            t.extend(nums[i : mid + 1])\r\n            t.extend(nums[j : r + 1])\r\n            nums[l : r + 1] = t\r\n            return ans\r\n\r\n        return merge_sort(0, len(nums) - 1)\r\n",
+    "javascript": "function reversePairs(nums) {\n    const mergeSort = (l, r) => {\n        if (l >= r) {\n            return 0;\n        }\n        const mid = (l + r) >> 1;\n        let ans = mergeSort(l, mid) + mergeSort(mid + 1, r);\n        let i = l;\n        let j = mid + 1;\n        const t = [];\n        while (i <= mid && j <= r) {\n            if (nums[i] <= nums[j]) {\n                t.push(nums[i++]);\n            }\n            else {\n                ans += mid - i + 1;\n                t.push(nums[j++]);\n            }\n        }\n        while (i <= mid) {\n            t.push(nums[i++]);\n        }\n        while (j <= r) {\n            t.push(nums[j++]);\n        }\n        for (i = l; i <= r; ++i) {\n            nums[i] = t[i - l];\n        }\n        return ans;\n    };\n    return mergeSort(0, nums.length - 1);\n}\n",
+    "java": "class Solution {\r\n    private int[] nums;\r\n    private int[] t;\r\n\r\n    public int reversePairs(int[] nums) {\r\n        this.nums = nums;\r\n        int n = nums.length;\r\n        this.t = new int[n];\r\n        return mergeSort(0, n - 1);\r\n    }\r\n\r\n    private int mergeSort(int l, int r) {\r\n        if (l >= r) {\r\n            return 0;\r\n        }\r\n        int mid = (l + r) >> 1;\r\n        int ans = mergeSort(l, mid) + mergeSort(mid + 1, r);\r\n        int i = l, j = mid + 1, k = 0;\r\n        while (i <= mid && j <= r) {\r\n            if (nums[i] <= nums[j]) {\r\n                t[k++] = nums[i++];\r\n            } else {\r\n                ans += mid - i + 1;\r\n                t[k++] = nums[j++];\r\n            }\r\n        }\r\n        while (i <= mid) {\r\n            t[k++] = nums[i++];\r\n        }\r\n        while (j <= r) {\r\n            t[k++] = nums[j++];\r\n        }\r\n        for (i = l; i <= r; ++i) {\r\n            nums[i] = t[i - l];\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int reversePairs(vector<int>& nums) {\r\n        int n = nums.size();\r\n        if (n == 0) {\r\n            return 0;\r\n        }\r\n        int t[n];\r\n        function<int(int, int)> mergeSort = [&](int l, int r) -> int {\r\n            if (l >= r) {\r\n                return 0;\r\n            }\r\n            int mid = (l + r) >> 1;\r\n            int ans = mergeSort(l, mid) + mergeSort(mid + 1, r);\r\n            int i = l, j = mid + 1, k = 0;\r\n            while (i <= mid && j <= r) {\r\n                if (nums[i] <= nums[j]) {\r\n                    t[k++] = nums[i++];\r\n                } else {\r\n                    ans += mid - i + 1;\r\n                    t[k++] = nums[j++];\r\n                }\r\n            }\r\n            while (i <= mid) {\r\n                t[k++] = nums[i++];\r\n            }\r\n            while (j <= r) {\r\n                t[k++] = nums[j++];\r\n            }\r\n            for (i = l; i <= r; ++i) {\r\n                nums[i] = t[i - l];\r\n            }\r\n            return ans;\r\n        };\r\n        return mergeSort(0, n - 1);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9851.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%80%86%E5%BA%8F%E5%AF%B9/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9851.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%80%86%E5%BA%8F%E5%AF%B9/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9851.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%80%86%E5%BA%8F%E5%AF%B9/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9851.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%80%86%E5%BA%8F%E5%AF%B9/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9851.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%80%86%E5%BA%8F%E5%AF%B9/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：交易逆序对的总数。\n输入：record（integer[]）。\n训练提示：**思考**\r \r 两两比较是平方级。归并时左右半段已有序，右段取出一个较小值，则左段剩余元素都与它构成逆序对，可一次性累加。\r \r 递归统计左右内部的逆序对，合并时再统计跨段部分。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：归并排序\r\n\r\n\r\n\r\n思考\r\n\r\n两两比较是平方级。归并时左右半段已有序，右段取出一个较小值，则左段剩余元素都与它构成逆序对，可一次性累加。\r\n\r\n递归统计左右内部的逆序对，合并时再统计跨段部分。\r\n\r\n\r\n\r\n归并排序的过程中，如果左边的数大于右边的数，则右边的数与左边的数之后的数都构成逆序对。\r\n\r\n时间复杂度 $O(n \\times \\log n)$，空间复杂度 $O(n)$。其中 $n$ 为数组长度。",
+  "memory": "交易逆序对的总数 → 归并排序。\n**思考**\r\n\r\n两两比较是平方级。归并时左右半段已有序，右段取出一个较小值，则左段剩余元素都与它构成逆序对，可一次性累加。\r\n\r\n递归统计左右内部的逆序对，合并时再统计跨段部分。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

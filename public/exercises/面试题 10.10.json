@@ -1,0 +1,106 @@
+{
+  "number": "面试题 10.10",
+  "adapter": {
+    "classname": "StreamRank",
+    "maxbytesperline": 200000,
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "name": "track",
+        "params": [
+          {
+            "type": "integer",
+            "name": "x"
+          }
+        ],
+        "return": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "getRankOfNumber",
+        "params": [
+          {
+            "type": "integer",
+            "name": "x"
+          }
+        ],
+        "return": {
+          "type": "integer"
+        }
+      }
+    ],
+    "systemdesign": true,
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "面试题 10.10"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "StreamRank",
+          "getRankOfNumber",
+          "track",
+          "getRankOfNumber"
+        ],
+        [
+          [],
+          [
+            1
+          ],
+          [
+            0
+          ],
+          [
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        null,
+        0,
+        null,
+        1
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class StreamRank:\n\n    def __init__(self):\n        raise NotImplementedError('请完成此方法')\n\n    def track(self, x: int) -> None:\n        raise NotImplementedError('请完成此方法')\n\n    def getRankOfNumber(self, x: int) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "\nvar StreamRank = function() {\n    \n};\n\n/** \n * @param {number} x\n * @return {void}\n */\nStreamRank.prototype.track = function(x) {\n    \n};\n\n/** \n * @param {number} x\n * @return {number}\n */\nStreamRank.prototype.getRankOfNumber = function(x) {\n    \n};\n\n/** \n * Your StreamRank object will be instantiated and called as such:\n * var obj = new StreamRank()\n * obj.track(x)\n * var param_2 = obj.getRankOfNumber(x)\n */",
+    "java": "class StreamRank {\n\n    public StreamRank() {\n        \n    }\n    \n    public void track(int x) {\n        \n    }\n    \n    public int getRankOfNumber(int x) {\n        \n    }\n}\n\n/**\n * Your StreamRank object will be instantiated and called as such:\n * StreamRank obj = new StreamRank();\n * obj.track(x);\n * int param_2 = obj.getRankOfNumber(x);\n */",
+    "cpp": "class StreamRank {\npublic:\n    StreamRank() {\n        \n    }\n    \n    void track(int x) {\n        \n    }\n    \n    int getRankOfNumber(int x) {\n        \n    }\n};\n\n/**\n * Your StreamRank object will be instantiated and called as such:\n * StreamRank* obj = new StreamRank();\n * obj->track(x);\n * int param_2 = obj->getRankOfNumber(x);\n */"
+  },
+  "solutions": {
+    "python": "class BinaryIndexedTree:\r\n    __slots__ = \"n\", \"c\"\r\n\r\n    def __init__(self, n: int):\r\n        self.n = n\r\n        self.c = [0] * (n + 1)\r\n\r\n    def update(self, x: int, delta: int) -> None:\r\n        while x <= self.n:\r\n            self.c[x] += delta\r\n            x += x & -x\r\n\r\n    def query(self, x: int) -> int:\r\n        s = 0\r\n        while x:\r\n            s += self.c[x]\r\n            x -= x & -x\r\n        return s\r\n\r\n\r\nclass StreamRank:\r\n\r\n    def __init__(self):\r\n        self.tree = BinaryIndexedTree(50010)\r\n\r\n    def track(self, x: int) -> None:\r\n        self.tree.update(x + 1, 1)\r\n\r\n    def getRankOfNumber(self, x: int) -> int:\r\n        return self.tree.query(x + 1)\r\n\r\n\r\n# Your StreamRank object will be instantiated and called as such:\r\n# obj = StreamRank()\r\n# obj.track(x)\r\n# param_2 = obj.getRankOfNumber(x)\r\n",
+    "javascript": "class BinaryIndexedTree {\n    n;\n    c;\n    constructor(n) {\n        this.n = n;\n        this.c = Array(n + 1).fill(0);\n    }\n    update(x, delta) {\n        for (; x <= this.n; x += x & -x) {\n            this.c[x] += delta;\n        }\n    }\n    query(x) {\n        let s = 0;\n        for (; x > 0; x -= x & -x) {\n            s += this.c[x];\n        }\n        return s;\n    }\n}\nclass StreamRank {\n    tree = new BinaryIndexedTree(50010);\n    constructor() { }\n    track(x) {\n        this.tree.update(x + 1, 1);\n    }\n    getRankOfNumber(x) {\n        return this.tree.query(x + 1);\n    }\n}\n/**\n * Your StreamRank object will be instantiated and called as such:\n * var obj = new StreamRank()\n * obj.track(x)\n * var param_2 = obj.getRankOfNumber(x)\n */\n",
+    "java": "class BinaryIndexedTree {\r\n    private int n;\r\n    private int[] c;\r\n\r\n    public BinaryIndexedTree(int n) {\r\n        this.n = n;\r\n        this.c = new int[n + 1];\r\n    }\r\n\r\n    public void update(int x, int delta) {\r\n        for (; x <= n; x += x & -x) {\r\n            c[x] += delta;\r\n        }\r\n    }\r\n\r\n    public int query(int x) {\r\n        int s = 0;\r\n        for (; x > 0; x -= x & -x) {\r\n            s += c[x];\r\n        }\r\n        return s;\r\n    }\r\n}\r\n\r\nclass StreamRank {\r\n    private BinaryIndexedTree tree = new BinaryIndexedTree(50010);\r\n\r\n    public StreamRank() {\r\n    }\r\n\r\n    public void track(int x) {\r\n        tree.update(x + 1, 1);\r\n    }\r\n\r\n    public int getRankOfNumber(int x) {\r\n        return tree.query(x + 1);\r\n    }\r\n}\r\n\r\n/**\r\n * Your StreamRank object will be instantiated and called as such:\r\n * StreamRank obj = new StreamRank();\r\n * obj.track(x);\r\n * int param_2 = obj.getRankOfNumber(x);\r\n */",
+    "cpp": "class BinaryIndexedTree {\r\nprivate:\r\n    int n;\r\n    vector<int> c;\r\n\r\npublic:\r\n    BinaryIndexedTree(int n)\r\n        : n(n)\r\n        , c(n + 1) {}\r\n\r\n    void update(int x, int delta) {\r\n        for (; x <= n; x += x & -x) {\r\n            c[x] += delta;\r\n        }\r\n    }\r\n\r\n    int query(int x) {\r\n        int s = 0;\r\n        for (; x > 0; x -= x & -x) {\r\n            s += c[x];\r\n        }\r\n        return s;\r\n    }\r\n};\r\n\r\nclass StreamRank {\r\npublic:\r\n    StreamRank() {\r\n    }\r\n\r\n    void track(int x) {\r\n        tree->update(x + 1, 1);\r\n    }\r\n\r\n    int getRankOfNumber(int x) {\r\n        return tree->query(x + 1);\r\n    }\r\n\r\nprivate:\r\n    BinaryIndexedTree* tree = new BinaryIndexedTree(50010);\r\n};\r\n\r\n/**\r\n * Your StreamRank object will be instantiated and called as such:\r\n * StreamRank* obj = new StreamRank();\r\n * obj->track(x);\r\n * int param_2 = obj->getRankOfNumber(x);\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.10.Rank%20from%20Stream/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.10.Rank%20from%20Stream/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.10.Rank%20from%20Stream/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.10.Rank%20from%20Stream/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/10.10.Rank%20from%20Stream/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：数字流的秩。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 数据流中查询「有多少个数 $\\le x$」。每次排序或扫描已插入元素，单次查询线性，跟不上多次询问。\r \r 值域不超过约 $5\\times 10^4$，前缀计数可用树状数组在 $O(\\log U)$ 内更新与查询。\r \r `track` 对 $x+1$ 做 $+1$（下标从 $1$ 起）；`getRankOfNumber` 查询 $[1,x+1]$ 的和。树状数组长度取 $50010$ 覆盖题目范围。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：树状数组\r\n\r\n\r\n\r\n思考\r\n\r\n数据流中查询「有多少个数 $\\le x$」。每次排序或扫描已插入元素，单次查询线性，跟不上多次询问。\r\n\r\n值域不超过约 $5\\times 10^4$，前缀计数可用树状数组在 $O(\\log U)$ 内更新与查询。\r\n\r\n`track` 对 $x+1$ 做 $+1$（下标从 $1$ 起）；`getRankOfNumber` 查询 $[1,x+1]$ 的和。树状数组长度取 $50010$ 覆盖题目范围。\r\n\r\n\r\n\r\n我们可以使用树状数组维护添加过的数字中，有多少个数字小于等于当前数字。\r\n\r\n我们创建一个长度为 $50010$ 的树状数组，对于 `track` 方法，我们将当前数字加一，添加到树状数组中，对于 `getRankOfNumber` 方法，我们直接查询树状数组中小于等于 $x + 1$ 的数字个数。\r\n\r\n时间复杂度方面，树状数组的更新和查询操作的时间复杂度均为 $O(\\log n)$，其中 $n$ 为树状数组的长度。",
+  "memory": "数字流的秩 → 树状数组。\n**思考**\r\n\r\n数据流中查询「有多少个数 $\\le x$」。每次排序或扫描已插入元素，单次查询线性，跟不上多次询问。\r\n\r\n值域不超过约 $5\\times 10^4$，前缀计数可用树状数组在 $O(\\log U)$ 内更新与查询。\r\n\r\n`track` 对 $x+1$ 做 $+1$（下标从 $1$ 起）；`getRankOfNumber` 查询 $[1,x+1]$ 的和。树状数组长度取 $50010$ 覆盖题目范围。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

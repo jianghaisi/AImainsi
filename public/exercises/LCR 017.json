@@ -1,0 +1,61 @@
+{
+  "number": "LCR 017",
+  "adapter": {
+    "name": "minWindow",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "t",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "number": "LCR 017"
+  },
+  "tests": [
+    {
+      "input": [
+        "ADOBECODEBANC",
+        "ABC"
+      ],
+      "expected": "BANC"
+    },
+    {
+      "input": [
+        "a",
+        "a"
+      ],
+      "expected": "a"
+    },
+    {
+      "input": [
+        "a",
+        "aa"
+      ],
+      "expected": ""
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def minWindow(self, s: str, t: str) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public String minWindow(String s, String t) {\n\n    }\n}"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def minWindow(self, s: str, t: str) -> str:\r\n        m, n = len(s), len(t)\r\n        if n > m:\r\n            return \"\"\r\n        need, window = defaultdict(int), defaultdict(int)\r\n        for c in t:\r\n            need[c] += 1\r\n        start, minLen = 0, inf\r\n        left, right = 0, 0\r\n        while right < m:\r\n            window[s[right]] += 1\r\n            right += 1\r\n            while self.check(need, window):\r\n                if right - left < minLen:\r\n                    minLen = right - left\r\n                    start = left\r\n                window[s[left]] -= 1\r\n                left += 1\r\n        return \"\" if minLen == inf else s[start : start + minLen]\r\n\r\n    def check(self, need, window):\r\n        for k, v in need.items():\r\n            if window[k] < v:\r\n                return False\r\n        return True\r\n",
+    "java": "class Solution {\r\n    public String minWindow(String s, String t) {\r\n        int m = s.length(), n = t.length();\r\n        if (n > m) {\r\n            return \"\";\r\n        }\r\n        Map<Character, Integer> need = new HashMap<>();\r\n        Map<Character, Integer> window = new HashMap<>();\r\n        for (char ch : t.toCharArray()) {\r\n            need.merge(ch, 1, Integer::sum);\r\n        }\r\n        int start = 0, minLen = Integer.MAX_VALUE;\r\n        int left = 0, right = 0;\r\n        while (right < m) {\r\n            window.merge(s.charAt(right++), 1, Integer::sum);\r\n            while (check(need, window)) {\r\n                if (right - left < minLen) {\r\n                    minLen = right - left;\r\n                    start = left;\r\n                }\r\n                window.merge(s.charAt(left++), -1, Integer::sum);\r\n            }\r\n        }\r\n        return minLen == Integer.MAX_VALUE ? \"\" : s.substring(start, start + minLen);\r\n    }\r\n\r\n    private boolean check(Map<Character, Integer> need, Map<Character, Integer> window) {\r\n        for (Map.Entry<Character, Integer> entry : need.entrySet()) {\r\n            if (window.getOrDefault(entry.getKey(), 0) < entry.getValue()) {\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n}"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20017.%20%E5%90%AB%E6%9C%89%E6%89%80%E6%9C%89%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20017.%20%E5%90%AB%E6%9C%89%E6%89%80%E6%9C%89%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%97%E7%AC%A6%E4%B8%B2/Solution.java"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20017.%20%E5%90%AB%E6%9C%89%E6%89%80%E6%9C%89%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%97%E7%AC%A6%E4%B8%B2/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：最小覆盖子串。\n输入：s（string）、t（string）。\n训练提示：**思考**\r \r 求覆盖 $t$ 全部字符（含重复）的最短子串。枚举左右端再统计是平方级的。\r \r 窗口扩张直到覆盖成立，再尽量收缩左端以缩短。覆盖判定写成对 $\\textit{need}$ 的扫描：窗口内每个必需字符的计数都不低于需求时即可更新答案。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：滑动窗口\r\n\r\n\r\n\r\n思考\r\n\r\n求覆盖 $t$ 全部字符（含重复）的最短子串。枚举左右端再统计是平方级的。\r\n\r\n窗口扩张直到覆盖成立，再尽量收缩左端以缩短。覆盖判定写成对 $\\textit{need}$ 的扫描：窗口内每个必需字符的计数都不低于需求时即可更新答案。\r\n\r\n\r\n\r\n用哈希表维护窗口内字符，每次收缩后检查是否覆盖 $t$。",
+  "memory": "最小覆盖子串 → 滑动窗口。\n**思考**\r\n\r\n求覆盖 $t$ 全部字符（含重复）的最短子串。枚举左右端再统计是平方级的。\r\n\r\n窗口扩张直到覆盖成立，再尽量收缩左端以缩短。覆盖判定写成对 $\\textit{need}$ 的扫描：窗口内每个必需字符的计数都不低于需求时即可更新答案。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

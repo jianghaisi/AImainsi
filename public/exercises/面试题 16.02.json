@@ -1,0 +1,110 @@
+{
+  "number": "面试题 16.02",
+  "adapter": {
+    "classname": "WordsFrequency",
+    "maxbytesperline": 200000,
+    "systemdesign": true,
+    "constructor": {
+      "params": [
+        {
+          "name": "book",
+          "type": "string[]"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "get",
+        "params": [
+          {
+            "name": "word",
+            "type": "string"
+          }
+        ],
+        "return": {
+          "type": "integer"
+        }
+      }
+    ],
+    "params": [
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      },
+      {
+        "name": "inputs",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "list<String>",
+      "dealloc": true
+    },
+    "number": "面试题 16.02"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          "WordsFrequency",
+          "get",
+          "get",
+          "get"
+        ],
+        [
+          [
+            [
+              "i",
+              "have",
+              "an",
+              "apple",
+              "he",
+              "have",
+              "a",
+              "pen"
+            ]
+          ],
+          [
+            "have"
+          ],
+          [
+            "apple"
+          ],
+          [
+            "missing"
+          ]
+        ]
+      ],
+      "expected": [
+        null,
+        2,
+        1,
+        0
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class WordsFrequency:\n\n    def __init__(self, book: List[str]):\n        raise NotImplementedError('请完成此方法')\n\n    def get(self, word: str) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string[]} book\n */\nvar WordsFrequency = function(book) {\n    \n};\n\n/** \n * @param {string} word\n * @return {number}\n */\nWordsFrequency.prototype.get = function(word) {\n    \n};\n\n/** \n * Your WordsFrequency object will be instantiated and called as such:\n * var obj = new WordsFrequency(book)\n * var param_1 = obj.get(word)\n */",
+    "java": "class WordsFrequency {\n\n    public WordsFrequency(String[] book) {\n        \n    }\n    \n    public int get(String word) {\n        \n    }\n}\n\n/**\n * Your WordsFrequency object will be instantiated and called as such:\n * WordsFrequency obj = new WordsFrequency(book);\n * int param_1 = obj.get(word);\n */",
+    "cpp": "class WordsFrequency {\npublic:\n    WordsFrequency(vector<string>& book) {\n        \n    }\n    \n    int get(string word) {\n        \n    }\n};\n\n/**\n * Your WordsFrequency object will be instantiated and called as such:\n * WordsFrequency* obj = new WordsFrequency(book);\n * int param_1 = obj->get(word);\n */"
+  },
+  "solutions": {
+    "python": "class WordsFrequency:\r\n    def __init__(self, book: List[str]):\r\n        self.cnt = Counter(book)\r\n\r\n    def get(self, word: str) -> int:\r\n        return self.cnt[word]\r\n\r\n\r\n# Your WordsFrequency object will be instantiated and called as such:\r\n# obj = WordsFrequency(book)\r\n# param_1 = obj.get(word)\r\n",
+    "javascript": "class WordsFrequency {\n    cnt;\n    constructor(book) {\n        const cnt = new Map();\n        for (const word of book) {\n            cnt.set(word, (cnt.get(word) ?? 0) + 1);\n        }\n        this.cnt = cnt;\n    }\n    get(word) {\n        return this.cnt.get(word) ?? 0;\n    }\n}\n/**\n * Your WordsFrequency object will be instantiated and called as such:\n * var obj = new WordsFrequency(book)\n * var param_1 = obj.get(word)\n */\n",
+    "java": "class WordsFrequency {\r\n    private Map<String, Integer> cnt = new HashMap<>();\r\n\r\n    public WordsFrequency(String[] book) {\r\n        for (String x : book) {\r\n            cnt.merge(x, 1, Integer::sum);\r\n        }\r\n    }\r\n\r\n    public int get(String word) {\r\n        return cnt.getOrDefault(word, 0);\r\n    }\r\n}\r\n\r\n/**\r\n * Your WordsFrequency object will be instantiated and called as such:\r\n * WordsFrequency obj = new WordsFrequency(book);\r\n * int param_1 = obj.get(word);\r\n */",
+    "cpp": "class WordsFrequency {\r\npublic:\r\n    WordsFrequency(vector<string>& book) {\r\n        for (auto& x : book) {\r\n            ++cnt[x];\r\n        }\r\n    }\r\n\r\n    int get(string word) {\r\n        return cnt[word];\r\n    }\r\n\r\nprivate:\r\n    unordered_map<string, int> cnt;\r\n};\r\n\r\n/**\r\n * Your WordsFrequency object will be instantiated and called as such:\r\n * WordsFrequency* obj = new WordsFrequency(book);\r\n * int param_1 = obj->get(word);\r\n */"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.02.Words%20Frequency/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.02.Words%20Frequency/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.02.Words%20Frequency/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.02.Words%20Frequency/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/16.02.Words%20Frequency/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：单词频率。\n输入：inputs（integer[]）、inputs（integer[]）。\n训练提示：**思考**\r \r 多次查询某词在书中的出现次数。每次扫描全书是线性的，询问一多就会重复劳动。\r \r 预处理一次频次，之后每次查询期望 $O(1)$。\r \r 构造时 `Counter(book)` 建表，`get` 直接返回 $cnt[word]$。空间与不同单词数成正比。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：哈希表\r\n\r\n\r\n\r\n思考\r\n\r\n多次查询某词在书中的出现次数。每次扫描全书是线性的，询问一多就会重复劳动。\r\n\r\n预处理一次频次，之后每次查询期望 $O(1)$。\r\n\r\n构造时 `Counter(book)` 建表，`get` 直接返回 $cnt[word]$。空间与不同单词数成正比。\r\n\r\n\r\n\r\n我们用哈希表 $cnt$ 统计 $book$ 中每个单词出现的次数。\r\n\r\n调用 `get` 函数时，我们只需要返回 $cnt$ 中对应的单词的出现次数即可。\r\n\r\n时间复杂度方面，初始化哈希表 $cnt$ 的时间复杂度为 $O(n)$，其中 $n$ 为 $book$ 的长度。`get` 函数的时间复杂度为 $O(1)$。空间复杂度为 $O(n)$。",
+  "memory": "单词频率 → 哈希表。\n**思考**\r\n\r\n多次查询某词在书中的出现次数。每次扫描全书是线性的，询问一多就会重复劳动。\r\n\r\n预处理一次频次，之后每次查询期望 $O(1)$。\r\n\r\n构造时 `Counter(book)` 建表，`get` 直接返回 $cnt[word]$。空间与不同单词数成正比。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

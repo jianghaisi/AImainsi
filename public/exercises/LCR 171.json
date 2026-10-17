@@ -1,0 +1,86 @@
+{
+  "number": "LCR 171",
+  "adapter": {
+    "name": "trainingPlan",
+    "params": [
+      {
+        "name": "intersectVal",
+        "type": "integer"
+      },
+      {
+        "name": "l1",
+        "type": "ListNode"
+      },
+      {
+        "name": "l2",
+        "type": "ListNode"
+      },
+      {
+        "name": "skip1",
+        "type": "integer"
+      },
+      {
+        "name": "skip2",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "ListNode"
+    },
+    "languages": [
+      "cpp",
+      "java",
+      "python",
+      "c",
+      "csharp",
+      "javascript",
+      "golang",
+      "python3"
+    ],
+    "manual": true,
+    "number": "LCR 171"
+  },
+  "tests": [
+    {
+      "input": [
+        0,
+        [
+          2,
+          6,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        3,
+        2
+      ],
+      "expected": null
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def trainingPlan(self, headA: ListNode, headB: ListNode) -> ListNode:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val) {\n *     this.val = val;\n *     this.next = null;\n * }\n */\n\n/**\n * @param {ListNode} headA\n * @param {ListNode} headB\n * @return {ListNode}\n */\nvar getIntersectionNode = function(headA, headB) {\n    \n};",
+    "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode(int x) {\n *         val = x;\n *         next = null;\n *     }\n * }\n */\nclass Solution {\n    ListNode getIntersectionNode(ListNode headA, ListNode headB) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode(int x) : val(x), next(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.next = None\r\n\r\n\r\nclass Solution:\r\n    def trainingPlan(self, headA: ListNode, headB: ListNode) -> ListNode:\r\n        a, b = headA, headB\r\n        while a != b:\r\n            a = a.next if a else headB\r\n            b = b.next if b else headA\r\n        return a\r\n",
+    "javascript": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction trainingPlan(headA, headB) {\n    let a = headA;\n    let b = headB;\n    while (a != b) {\n        a = a ? a.next : headB;\n        b = b ? b.next : headA;\n    }\n    return a;\n}\n",
+    "java": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode(int x) {\r\n *         val = x;\r\n *         next = null;\r\n *     }\r\n * }\r\n */\r\nclass Solution {\r\n    ListNode trainingPlan(ListNode headA, ListNode headB) {\r\n        ListNode a = headA, b = headB;\r\n        while (a != b) {\r\n            a = a == null ? headB : a.next;\r\n            b = b == null ? headA : b.next;\r\n        }\r\n        return a;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode(int x) : val(x), next(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    ListNode* trainingPlan(ListNode* headA, ListNode* headB) {\r\n        ListNode *a = headA, *b = headB;\r\n        while (a != b) {\r\n            a = a ? a->next : headB;\r\n            b = b ? b->next : headA;\r\n        }\r\n        return a;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9852.%20%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9852.%20%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9852.%20%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9852.%20%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9852.%20%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：训练计划 V。\n输入：intersectVal（integer）、l1（ListNode）、l2（ListNode）、skip1（integer）、skip2（integer）。\n训练提示：**思考**\r \r 公共结点后的后缀相同，但两链长度可能不同。两指针走完己链后改走对方，走过的总长度相等，相遇点即交点；无交点则同时走到空。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双指针\r\n\r\n\r\n\r\n思考\r\n\r\n公共结点后的后缀相同，但两链长度可能不同。两指针走完己链后改走对方，走过的总长度相等，相遇点即交点；无交点则同时走到空。\r\n\r\n\r\n\r\n我们可以用两个指针 $a$ 和 $b$ 分别指向两个链表的头节点，然后同时分别向后遍历，当 $a$ 到达链表 $A$ 的末尾时，令 $a$ 指向链表 $B$ 的头节点；当 $b$ 到达链表 $B$ 的末尾时，令 $b$ 指向链表 $A$ 的头节点。这样，当它们相遇时，所指向的节点就是第一个公共节点。\r\n\r\n时间复杂度 $O(m + n)$，其中 $m$ 和 $n$ 分别为两个链表的长度。空间复杂度 $O(1)$。",
+  "memory": "训练计划 V → 双指针。\n**思考**\r\n\r\n公共结点后的后缀相同，但两链长度可能不同。两指针走完己链后改走对方，走过的总长度相等，相遇点即交点；无交点则同时走到空。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

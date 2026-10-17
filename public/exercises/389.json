@@ -1,0 +1,60 @@
+{
+  "number": "389",
+  "adapter": {
+    "name": "findTheDifference",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "t",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "character"
+    },
+    "number": "389"
+  },
+  "tests": [
+    {
+      "input": [
+        "abcd",
+        "abcde"
+      ],
+      "expected": "e"
+    },
+    {
+      "input": [
+        "",
+        "y"
+      ],
+      "expected": "y"
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def findTheDifference(self, s: str, t: str) -> str:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} s\n * @param {string} t\n * @return {character}\n */\nvar findTheDifference = function(s, t) {\n    \n};",
+    "java": "class Solution {\n    public char findTheDifference(String s, String t) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    char findTheDifference(string s, string t) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def findTheDifference(self, s: str, t: str) -> str:\r\n        cnt = Counter(s)\r\n        for c in t:\r\n            cnt[c] -= 1\r\n            if cnt[c] < 0:\r\n                return c\r\n",
+    "javascript": "function findTheDifference(s, t) {\n    const cnt = Array(26).fill(0);\n    for (const c of s) {\n        ++cnt[c.charCodeAt(0) - 'a'.charCodeAt(0)];\n    }\n    for (const c of t) {\n        --cnt[c.charCodeAt(0) - 'a'.charCodeAt(0)];\n    }\n    for (let i = 0;; ++i) {\n        if (cnt[i] < 0) {\n            return String.fromCharCode(i + 'a'.charCodeAt(0));\n        }\n    }\n}\n",
+    "java": "class Solution {\r\n    public char findTheDifference(String s, String t) {\r\n        int[] cnt = new int[26];\r\n        for (int i = 0; i < s.length(); ++i) {\r\n            ++cnt[s.charAt(i) - 'a'];\r\n        }\r\n        for (int i = 0;; ++i) {\r\n            if (--cnt[t.charAt(i) - 'a'] < 0) {\r\n                return t.charAt(i);\r\n            }\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    char findTheDifference(string s, string t) {\r\n        int cnt[26]{};\r\n        for (char& c : s) {\r\n            ++cnt[c - 'a'];\r\n        }\r\n        for (char& c : t) {\r\n            if (--cnt[c - 'a'] < 0) {\r\n                return c;\r\n            }\r\n        }\r\n        return ' ';\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0389.Find%20the%20Difference/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0389.Find%20the%20Difference/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0389.Find%20the%20Difference/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0389.Find%20the%20Difference/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0300-0399/0389.Find%20the%20Difference/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：找不同。\n输入：s（string）、t（string）。\n训练提示：**思考**\r \r $t$ 由 $s$ 打乱后再加一个字母。统计差即可。\r \r 计数 $s$，扫 $t$ 减一，减成负数的字符即多出的那个。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：计数\r\n\r\n\r\n\r\n思考\r\n\r\n$t$ 由 $s$ 打乱后再加一个字母。统计差即可。\r\n\r\n计数 $s$，扫 $t$ 减一，减成负数的字符即多出的那个。\r\n\r\n\r\n\r\n我们可以用一个哈希表或数组 $cnt$ 统计字符串 $s$ 中每个字符出现的次数，再遍历字符串 $t$，对于每个字符，我们在 $cnt$ 中减去一次出现的次数，如果对应次数为负数，则说明该字符在 $t$ 中出现的次数大于在 $s$ 中出现的次数，因此该字符为被添加的字符。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(|\\Sigma|)$，其中 $n$ 为字符串的长度，而 $\\Sigma$ 表示字符集，这里字符集为所有小写字母，所以 $|\\Sigma|=26$。",
+  "memory": "找不同 → 计数。\n**思考**\r\n\r\n$t$ 由 $s$ 打乱后再加一个字母。统计差即可。\r\n\r\n计数 $s$，扫 $t$ 减一，减成负数的字符即多出的那个。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

@@ -1,0 +1,76 @@
+{
+  "number": "LCR 108",
+  "adapter": {
+    "name": "ladderLength",
+    "params": [
+      {
+        "name": "beginWord",
+        "type": "string"
+      },
+      {
+        "name": "endWord",
+        "type": "string"
+      },
+      {
+        "name": "wordList",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 108"
+  },
+  "tests": [
+    {
+      "input": [
+        "hit",
+        "cog",
+        [
+          "hot",
+          "dot",
+          "dog",
+          "lot",
+          "log",
+          "cog"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "hit",
+        "cog",
+        [
+          "hot",
+          "dot",
+          "dog",
+          "lot",
+          "log"
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public int ladderLength(String beginWord, String endWord, List<String> wordList) {\n\n    }\n}",
+    "cpp": "class Solution {\npublic:\n    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:\r\n        words = set(wordList)\r\n        q = deque([beginWord])\r\n        ans = 1\r\n        while q:\r\n            n = len(q)\r\n            for _ in range(n):\r\n                s = q.popleft()\r\n                s = list(s)\r\n                for i in range(len(s)):\r\n                    ch = s[i]\r\n                    for j in range(26):\r\n                        s[i] = chr(ord('a') + j)\r\n                        t = ''.join(s)\r\n                        if t not in words:\r\n                            continue\r\n                        if t == endWord:\r\n                            return ans + 1\r\n                        q.append(t)\r\n                        words.remove(t)\r\n                    s[i] = ch\r\n            ans += 1\r\n        return 0\r\n",
+    "java": "class Solution {\r\n\r\n    public int ladderLength(String beginWord, String endWord, List<String> wordList) {\r\n        Set<String> words = new HashSet<>(wordList);\r\n        Queue<String> q = new LinkedList<>();\r\n        q.offer(beginWord);\r\n        int ans = 1;\r\n        while (!q.isEmpty()) {\r\n            for (int i = q.size(); i > 0; --i) {\r\n                String s = q.poll();\r\n                char[] chars = s.toCharArray();\r\n                for (int j = 0; j < chars.length; ++j) {\r\n                    char ch = chars[j];\r\n                    for (char k = 'a'; k <= 'z'; ++k) {\r\n                        chars[j] = k;\r\n                        String t = new String(chars);\r\n                        if (!words.contains(t)) {\r\n                            continue;\r\n                        }\r\n                        if (endWord.equals(t)) {\r\n                            return ans + 1;\r\n                        }\r\n                        q.offer(t);\r\n                        words.remove(t);\r\n                    }\r\n                    chars[j] = ch;\r\n                }\r\n            }\r\n            ++ans;\r\n        }\r\n        return 0;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {\r\n        unordered_set<string> words(wordList.begin(), wordList.end());\r\n        queue<string> q{{beginWord}};\r\n        int ans = 1;\r\n        while (!q.empty()) {\r\n            for (int i = q.size(); i > 0; --i) {\r\n                string s = q.front();\r\n                q.pop();\r\n                for (int j = 0; j < s.size(); ++j) {\r\n                    char ch = s[j];\r\n                    for (char k = 'a'; k <= 'z'; ++k) {\r\n                        s[j] = k;\r\n                        if (!words.count(s)) continue;\r\n                        if (s == endWord) return ans + 1;\r\n                        q.push(s);\r\n                        words.erase(s);\r\n                    }\r\n                    s[j] = ch;\r\n                }\r\n            }\r\n            ++ans;\r\n        }\r\n        return 0;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20108.%20%E5%8D%95%E8%AF%8D%E6%BC%94%E5%8F%98/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20108.%20%E5%8D%95%E8%AF%8D%E6%BC%94%E5%8F%98/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20108.%20%E5%8D%95%E8%AF%8D%E6%BC%94%E5%8F%98/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20108.%20%E5%8D%95%E8%AF%8D%E6%BC%94%E5%8F%98/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：单词接龙。\n输入：beginWord（string）、endWord（string）、wordList（string[]）。\n训练提示：**思考**\r \r 每次改一个字母，求从 $\\textit{beginWord}$ 到 $\\textit{endWord}$ 的最短变换。若对词表线性找邻居，边数可达 $n^2$。\r \r 单词长度很短，枚举每一位换成 $26$ 个字母，用集合 $O(1)$ 判断是否在词表中。BFS 层次即变换次数，访问过的词从集合删除以免回头。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n每次改一个字母，求从 $\\textit{beginWord}$ 到 $\\textit{endWord}$ 的最短变换。若对词表线性找邻居，边数可达 $n^2$。\r\n\r\n单词长度很短，枚举每一位换成 $26$ 个字母，用集合 $O(1)$ 判断是否在词表中。BFS 层次即变换次数，访问过的词从集合删除以免回头。",
+  "memory": "单词接龙 → 方法一。\n**思考**\r\n\r\n每次改一个字母，求从 $\\textit{beginWord}$ 到 $\\textit{endWord}$ 的最短变换。若对词表线性找邻居，边数可达 $n^2$。\r\n\r\n单词长度很短，枚举每一位换成 $26$ 个字母，用集合 $O(1)$ 判断是否在词表中。BFS 层次即变换次数，访问过的词从集合删除以免回头。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

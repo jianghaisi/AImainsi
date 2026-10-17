@@ -1,0 +1,64 @@
+{
+  "number": "面试题 08.07",
+  "adapter": {
+    "name": "permutation",
+    "params": [
+      {
+        "name": "S",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "string[]"
+    },
+    "number": "面试题 08.07"
+  },
+  "tests": [
+    {
+      "input": [
+        "qwe"
+      ],
+      "expected": [
+        "qwe",
+        "qew",
+        "wqe",
+        "weq",
+        "ewq",
+        "eqw"
+      ]
+    },
+    {
+      "input": [
+        "ab"
+      ],
+      "expected": [
+        "ab",
+        "ba"
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def permutation(self, S: str) -> List[str]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {string} S\n * @return {string[]}\n */\nvar permutation = function(S) {\n    \n};",
+    "java": "class Solution {\n    public String[] permutation(String S) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<string> permutation(string S) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def permutation(self, S: str) -> List[str]:\r\n        def dfs(i: int):\r\n            if i >= n:\r\n                ans.append(\"\".join(t))\r\n                return\r\n            for j, c in enumerate(S):\r\n                if not vis[j]:\r\n                    vis[j] = True\r\n                    t[i] = c\r\n                    dfs(i + 1)\r\n                    vis[j] = False\r\n\r\n        ans = []\r\n        n = len(S)\r\n        vis = [False] * n\r\n        t = list(S)\r\n        dfs(0)\r\n        return ans\r\n",
+    "javascript": "function permutation(S) {\n    const n = S.length;\n    const vis = Array(n).fill(false);\n    const ans = [];\n    const t = Array(n).fill('');\n    const dfs = (i) => {\n        if (i >= n) {\n            ans.push(t.join(''));\n            return;\n        }\n        for (let j = 0; j < n; ++j) {\n            if (vis[j]) {\n                continue;\n            }\n            vis[j] = true;\n            t[i] = S[j];\n            dfs(i + 1);\n            vis[j] = false;\n        }\n    };\n    dfs(0);\n    return ans;\n}\n",
+    "java": "class Solution {\r\n    private char[] s;\r\n    private char[] t;\r\n    private boolean[] vis;\r\n    private List<String> ans = new ArrayList<>();\r\n\r\n    public String[] permutation(String S) {\r\n        s = S.toCharArray();\r\n        int n = s.length;\r\n        vis = new boolean[n];\r\n        t = new char[n];\r\n        dfs(0);\r\n        return ans.toArray(new String[0]);\r\n    }\r\n\r\n    private void dfs(int i) {\r\n        if (i >= s.length) {\r\n            ans.add(new String(t));\r\n            return;\r\n        }\r\n        for (int j = 0; j < s.length; ++j) {\r\n            if (!vis[j]) {\r\n                vis[j] = true;\r\n                t[i] = s[j];\r\n                dfs(i + 1);\r\n                vis[j] = false;\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<string> permutation(string S) {\r\n        int n = S.size();\r\n        vector<bool> vis(n);\r\n        string t = S;\r\n        vector<string> ans;\r\n        auto dfs = [&](this auto&& dfs, int i) {\r\n            if (i >= n) {\r\n                ans.emplace_back(t);\r\n                return;\r\n            }\r\n            for (int j = 0; j < n; ++j) {\r\n                if (!vis[j]) {\r\n                    vis[j] = true;\r\n                    t[i] = S[j];\r\n                    dfs(i + 1);\r\n                    vis[j] = false;\r\n                }\r\n            }\r\n        };\r\n        dfs(0);\r\n        return ans;\r\n    }\r\n};\r\n"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.07.Permutation%20I/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.07.Permutation%20I/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.07.Permutation%20I/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.07.Permutation%20I/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcci/08.07.Permutation%20I/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：无重复字符串的排列组合。\n输入：S（string）。\n训练提示：**思考**\r \r 生成无重复字符的全部排列。交换法或递归填位均可，规模为 $n!$，与输出下界相称。\r \r 按位置依次挑选尚未使用的字符，用 $vis$ 标记。\r \r $dfs(i)$ 枚举 $S$ 中未用下标写入 $t[i]$，到达 $i=n$ 时加入答案。回溯撤销标记，保证每个排列构造一次。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：DFS（回溯）\r\n\r\n\r\n\r\n思考\r\n\r\n生成无重复字符的全部排列。交换法或递归填位均可，规模为 $n!$，与输出下界相称。\r\n\r\n按位置依次挑选尚未使用的字符，用 $vis$ 标记。\r\n\r\n$dfs(i)$ 枚举 $S$ 中未用下标写入 $t[i]$，到达 $i=n$ 时加入答案。回溯撤销标记，保证每个排列构造一次。\r\n\r\n\r\n\r\n我们设计一个函数 $\\textit{dfs}(i)$ 表示已经填完了前 $i$ 个位置，现在需要填第 $i+1$ 个位置。枚举所有可能的字符，如果这个字符没有被填过，就填入这个字符，然后继续填下一个位置，直到填完所有的位置。\r\n\r\n时间复杂度 $O(n \\times n!)$，其中 $n$ 是字符串的长度。一共有 $n!$ 个排列，每个排列需要 $O(n)$ 的时间来构造。",
+  "memory": "无重复字符串的排列组合 → DFS（回溯）。\n**思考**\r\n\r\n生成无重复字符的全部排列。交换法或递归填位均可，规模为 $n!$，与输出下界相称。\r\n\r\n按位置依次挑选尚未使用的字符，用 $vis$ 标记。\r\n\r\n$dfs(i)$ 枚举 $S$ 中未用下标写入 $t[i]$，到达 $i=n$ 时加入答案。回溯撤销标记，保证每个排列构造一次。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

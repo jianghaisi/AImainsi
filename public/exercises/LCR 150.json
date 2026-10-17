@@ -1,0 +1,69 @@
+{
+  "number": "LCR 150",
+  "adapter": {
+    "name": "decorateRecord",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "list<list<integer>>",
+      "dealloc": true
+    },
+    "number": "LCR 150"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          8,
+          17,
+          21,
+          18,
+          null,
+          null,
+          6
+        ]
+      ],
+      "expected": [
+        [
+          8
+        ],
+        [
+          17,
+          21
+        ],
+        [
+          18,
+          6
+        ]
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def decorateRecord(self, root: TreeNode) -> List[List[int]]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode} root\n * @return {number[][]}\n */\nvar decorateRecord = function(root) {\n    \n};",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public List<List<Integer>> decorateRecord(TreeNode root) {\n        \n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<vector<int>> decorateRecord(TreeNode* root) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, x):\r\n#         self.val = x\r\n#         self.left = None\r\n#         self.right = None\r\n\r\n\r\nclass Solution:\r\n    def decorateRecord(self, root: TreeNode) -> List[List[int]]:\r\n        ans = []\r\n        if root is None:\r\n            return ans\r\n        q = deque([root])\r\n        while q:\r\n            t = []\r\n            for _ in range(len(q)):\r\n                node = q.popleft()\r\n                t.append(node.val)\r\n                if node.left:\r\n                    q.append(node.left)\r\n                if node.right:\r\n                    q.append(node.right)\r\n            ans.append(t)\r\n        return ans\r\n",
+    "javascript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction decorateRecord(root) {\n    const res = [];\n    if (root == null) {\n        return res;\n    }\n    const queue = [root];\n    while (queue.length !== 0) {\n        const n = queue.length;\n        const tmp = new Array(n);\n        for (let i = 0; i < n; i++) {\n            const { val, left, right } = queue.shift();\n            tmp[i] = val;\n            left && queue.push(left);\n            right && queue.push(right);\n        }\n        res.push(tmp);\n    }\n    return res;\n}\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode(int x) { val = x; }\r\n * }\r\n */\r\nclass Solution {\r\n    public List<List<Integer>> decorateRecord(TreeNode root) {\r\n        List<List<Integer>> ans = new ArrayList<>();\r\n        if (root == null) {\r\n            return ans;\r\n        }\r\n        Deque<TreeNode> q = new ArrayDeque<>();\r\n        q.offer(root);\r\n        while (!q.isEmpty()) {\r\n            List<Integer> t = new ArrayList<>();\r\n            for (int n = q.size(); n > 0; --n) {\r\n                TreeNode node = q.poll();\r\n                t.add(node.val);\r\n                if (node.left != null) {\r\n                    q.offer(node.left);\r\n                }\r\n                if (node.right != null) {\r\n                    q.offer(node.right);\r\n                }\r\n            }\r\n            ans.add(t);\r\n        }\r\n        return ans;\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    vector<vector<int>> decorateRecord(TreeNode* root) {\r\n        vector<vector<int>> ans;\r\n        if (!root) return ans;\r\n        queue<TreeNode*> q{{root}};\r\n        while (!q.empty()) {\r\n            vector<int> t;\r\n            for (int n = q.size(); n; --n) {\r\n                auto node = q.front();\r\n                q.pop();\r\n                t.push_back(node->val);\r\n                if (node->left) q.push(node->left);\r\n                if (node->right) q.push(node->right);\r\n            }\r\n            ans.push_back(t);\r\n        }\r\n        return ans;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9832%20-%20II.%20%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91%20II/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9832%20-%20II.%20%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91%20II/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9832%20-%20II.%20%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91%20II/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9832%20-%20II.%20%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91%20II/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9832%20-%20II.%20%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91%20II/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：彩灯装饰记录 II。\n输入：root（TreeNode）。\n训练提示：**思考**\r \r 仍须层序，但每一层单独成组。若只按进出队顺序扁平收集，则层与层的分界会丢失。\r \r 出队前记下当前队列长度，该批结点构成一层，收集后再入队下一层孩子。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：BFS\r\n\r\n\r\n\r\n思考\r\n\r\n仍须层序，但每一层单独成组。若只按进出队顺序扁平收集，则层与层的分界会丢失。\r\n\r\n出队前记下当前队列长度，该批结点构成一层，收集后再入队下一层孩子。\r\n\r\n\r\n\r\n我们可以使用 BFS 的方法来解决这道题。首先将根节点入队，然后不断地进行以下操作，直到队列为空：\r\n\r\n- 遍历当前队列中的所有节点，将它们的值存储到一个临时数组 $t$ 中，然后将它们的孩子节点入队。\r\n- 将临时数组 $t$ 存储到答案数组中。\r\n\r\n最后返回答案数组即可。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 是二叉树的节点个数。",
+  "memory": "彩灯装饰记录 II → BFS。\n**思考**\r\n\r\n仍须层序，但每一层单独成组。若只按进出队顺序扁平收集，则层与层的分界会丢失。\r\n\r\n出队前记下当前队列长度，该批结点构成一层，收集后再入队下一层孩子。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

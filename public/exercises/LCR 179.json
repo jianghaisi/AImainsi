@@ -1,0 +1,111 @@
+{
+  "number": "LCR 179",
+  "adapter": {
+    "name": "twoSum",
+    "params": [
+      {
+        "name": "price",
+        "type": "integer[]"
+      },
+      {
+        "name": "target",
+        "type": "integer"
+      }
+    ],
+    "return": {
+      "type": "integer[]",
+      "size": 2
+    },
+    "number": "LCR 179"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          3,
+          9,
+          12,
+          15
+        ],
+        18
+      ],
+      "expected": [
+        3,
+        15
+      ]
+    },
+    {
+      "input": [
+        [
+          8,
+          21,
+          27,
+          34,
+          52,
+          66
+        ],
+        61
+      ],
+      "expected": [
+        27,
+        34
+      ]
+    },
+    {
+      "input": [
+        [
+          2,
+          7,
+          11,
+          15
+        ],
+        9
+      ],
+      "expected": [
+        2,
+        7
+      ]
+    },
+    {
+      "input": [
+        [
+          10,
+          26,
+          30,
+          31,
+          47,
+          60
+        ],
+        40
+      ],
+      "expected": [
+        10,
+        30
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} price\n * @param {number} target\n * @return {number[]}\n */\nvar twoSum = function(price, target) {\n    \n};",
+    "java": "class Solution {\n    public int[] twoSum(int[] price, int target) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> twoSum(vector<int>& price, int target) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\r\n        l, r = 0, len(nums) - 1\r\n        while l < r:\r\n            if nums[l] + nums[r] == target:\r\n                return [nums[l], nums[r]]\r\n            if nums[l] + nums[r] > target:\r\n                r -= 1\r\n            else:\r\n                l += 1\r\n",
+    "javascript": "function twoSum(nums, target) {\n    let l = 0;\n    let r = nums.length - 1;\n    while (nums[l] + nums[r] !== target) {\n        if (nums[l] + nums[r] < target) {\n            l++;\n        }\n        else {\n            r--;\n        }\n    }\n    return [nums[l], nums[r]];\n}\n",
+    "java": "class Solution {\r\n    public int[] twoSum(int[] nums, int target) {\r\n        int l = 0, r = nums.length - 1;\r\n        while (true) {\r\n            if (nums[l] + nums[r] == target) {\r\n                return new int[] {nums[l], nums[r]};\r\n            }\r\n            if (nums[l] + nums[r] > target) {\r\n                --r;\r\n            } else {\r\n                ++l;\r\n            }\r\n        }\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> twoSum(vector<int>& nums, int target) {\r\n        int l = 0, r = nums.size() - 1;\r\n        while (1) {\r\n            if (nums[l] + nums[r] == target) {\r\n                return {nums[l], nums[r]};\r\n            }\r\n            if (nums[l] + nums[r] > target) {\r\n                --r;\r\n            } else {\r\n                ++l;\r\n            }\r\n        }\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9857.%20%E5%92%8C%E4%B8%BAs%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9857.%20%E5%92%8C%E4%B8%BAs%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9857.%20%E5%92%8C%E4%B8%BAs%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9857.%20%E5%92%8C%E4%B8%BAs%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9857.%20%E5%92%8C%E4%B8%BAs%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：查找总价格为目标值的两个商品。\n输入：price（integer[]）、target（integer）。\n训练提示：**思考**\r \r 数组递增，两数之和随左右指针单调变化。左端过小则右移，过大则左移右端，相等即返回这一对。无需哈希表。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双指针\r\n\r\n\r\n\r\n思考\r\n\r\n数组递增，两数之和随左右指针单调变化。左端过小则右移，过大则左移右端，相等即返回这一对。无需哈希表。",
+  "memory": "查找总价格为目标值的两个商品 → 双指针。\n**思考**\r\n\r\n数组递增，两数之和随左右指针单调变化。左端过小则右移，过大则左移右端，相等即返回这一对。无需哈希表。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

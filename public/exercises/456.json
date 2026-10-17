@@ -1,0 +1,75 @@
+{
+  "number": "456",
+  "adapter": {
+    "name": "find132pattern",
+    "params": [
+      {
+        "name": "nums",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "456"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        [
+          3,
+          1,
+          4,
+          2
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        [
+          -1,
+          3,
+          2,
+          0
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def find132pattern(self, nums: List[int]) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} nums\n * @return {boolean}\n */\nvar find132pattern = function(nums) {\n    \n};",
+    "java": "class Solution {\n    public boolean find132pattern(int[] nums) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool find132pattern(vector<int>& nums) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def find132pattern(self, nums: List[int]) -> bool:\r\n        vk = -inf\r\n        stk = []\r\n        for x in nums[::-1]:\r\n            if x < vk:\r\n                return True\r\n            while stk and stk[-1] < x:\r\n                vk = stk.pop()\r\n            stk.append(x)\r\n        return False\r\n",
+    "javascript": "function find132pattern(nums) {\n    let vk = -Infinity;\n    const stk = [];\n    for (let i = nums.length - 1; i >= 0; --i) {\n        if (nums[i] < vk) {\n            return true;\n        }\n        while (stk.length && stk[stk.length - 1] < nums[i]) {\n            vk = stk.pop();\n        }\n        stk.push(nums[i]);\n    }\n    return false;\n}\n",
+    "java": "class Solution {\r\n    public boolean find132pattern(int[] nums) {\r\n        int vk = -(1 << 30);\r\n        Deque<Integer> stk = new ArrayDeque<>();\r\n        for (int i = nums.length - 1; i >= 0; --i) {\r\n            if (nums[i] < vk) {\r\n                return true;\r\n            }\r\n            while (!stk.isEmpty() && stk.peek() < nums[i]) {\r\n                vk = stk.pop();\r\n            }\r\n            stk.push(nums[i]);\r\n        }\r\n        return false;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool find132pattern(vector<int>& nums) {\r\n        int vk = INT_MIN;\r\n        stack<int> stk;\r\n        for (int i = nums.size() - 1; ~i; --i) {\r\n            if (nums[i] < vk) {\r\n                return true;\r\n            }\r\n            while (!stk.empty() && stk.top() < nums[i]) {\r\n                vk = stk.top();\r\n                stk.pop();\r\n            }\r\n            stk.push(nums[i]);\r\n        }\r\n        return false;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0456.132%20Pattern/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0456.132%20Pattern/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0456.132%20Pattern/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0456.132%20Pattern/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/solution/0400-0499/0456.132%20Pattern/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：132 模式。\n输入：nums（integer[]）。\n训练提示：**思考**\r \r 要找 $i<j<k$ 且 $nums[i]<nums[k]<nums[j]$。枚举三下标是 $O(n^3)$；枚举 $j$ 再左右扫描仍是 $O(n^2)$。\r \r 从右向左维护单调递减栈，并用 $vk$ 记录栈中弹出的、小于当前值的最大数，即目前最好的 $nums[k]$。当前值若小于 $vk$，它就可以当 $nums[i]$。\r \r 栈里是候选的 $nums[j]$（更大的峰）。先更新 $vk$ 再入栈，保证 $k$ 在 $j$ 右侧。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：单调栈\r\n\r\n\r\n\r\n思考\r\n\r\n要找 $i<j<k$ 且 $nums[i]<nums[k]<nums[j]$。枚举三下标是 $O(n^3)$；枚举 $j$ 再左右扫描仍是 $O(n^2)$。\r\n\r\n从右向左维护单调递减栈，并用 $vk$ 记录栈中弹出的、小于当前值的最大数，即目前最好的 $nums[k]$。当前值若小于 $vk$，它就可以当 $nums[i]$。\r\n\r\n栈里是候选的 $nums[j]$（更大的峰）。先更新 $vk$ 再入栈，保证 $k$ 在 $j$ 右侧。\r\n\r\n\r\n\r\n我们可以枚举从右往左枚举整数 $nums[i]$，并维护一个单调栈，栈中的元素从栈底到栈顶单调递减。维护一个变量 $vk$，表示 $nums[i]$ 右侧且小于 $nums[i]$ 的最大值。初始时， $vk$ 的值为 $-\\infty$。\r\n\r\n我们从右往左遍历数组，对于遍历到的每个元素 $nums[i]$，如果 $nums[i]$ 小于 $vk$，则说明我们找到了一个满足 $nums[i] \\lt nums[k] \\lt nums[j]$ 的三元组，返回 `true`。否则，如果栈顶元素小于 $nums[i]$，则我们循环将栈顶元素出栈，并且更新 $vk$ 的值为出栈元素，直到栈为空或者栈顶元素大于等于 $nums[i]$。最后，我们将 $nums[i]$ 入栈。\r\n\r\n如果遍历结束后仍未找到满足条件的三元组，说明不存在这样的三元组，返回 `false`。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为数组的长度。",
+  "memory": "132 模式 → 单调栈。\n**思考**\r\n\r\n要找 $i<j<k$ 且 $nums[i]<nums[k]<nums[j]$。枚举三下标是 $O(n^3)$；枚举 $j$ 再左右扫描仍是 $O(n^2)$。\r\n\r\n从右向左维护单调递减栈，并用 $vk$ 记录栈中弹出的、小于当前值的最大数，即目前最好的 $nums[k]$。当前值若小于 $vk$，它就可以当 $nums[i]$。\r\n\r\n栈里是候选的 $nums[j]$（更大的峰）。先更新 $vk$ 再入栈，保证 $k$ 在 $j$ 右侧。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

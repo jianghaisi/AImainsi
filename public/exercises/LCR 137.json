@@ -1,0 +1,78 @@
+{
+  "number": "LCR 137",
+  "adapter": {
+    "name": "articleMatch",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "p",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "type": "boolean"
+    },
+    "number": "LCR 137"
+  },
+  "tests": [
+    {
+      "input": [
+        "aa",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aa",
+        "a*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        ".*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aab",
+        "c*a*b"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "mississippi",
+        "mis*is*p*."
+      ],
+      "expected": false
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def articleMatch(self, s: str, p: str) -> bool:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "class Solution {\n    public boolean articleMatch(String s, String p) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    bool articleMatch(string s, string p) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def articleMatch(self, s: str, p: str) -> bool:\r\n        @cache\r\n        def dfs(i, j):\r\n            if j >= n:\r\n                return i == m\r\n            if j + 1 < n and p[j + 1] == '*':\r\n                return dfs(i, j + 2) or (\r\n                    i < m and (s[i] == p[j] or p[j] == '.') and dfs(i + 1, j)\r\n                )\r\n            return i < m and (s[i] == p[j] or p[j] == '.') and dfs(i + 1, j + 1)\r\n\r\n        m, n = len(s), len(p)\r\n        return dfs(0, 0)\r\n",
+    "java": "class Solution {\r\n    private Boolean[][] f;\r\n    private String s;\r\n    private String p;\r\n    private int m;\r\n    private int n;\r\n\r\n    public boolean articleMatch(String s, String p) {\r\n        m = s.length();\r\n        n = p.length();\r\n        f = new Boolean[m + 1][n + 1];\r\n        this.s = s;\r\n        this.p = p;\r\n        return dfs(0, 0);\r\n    }\r\n\r\n    private boolean dfs(int i, int j) {\r\n        if (j >= n) {\r\n            return i == m;\r\n        }\r\n        if (f[i][j] != null) {\r\n            return f[i][j];\r\n        }\r\n        boolean res = false;\r\n        if (j + 1 < n && p.charAt(j + 1) == '*') {\r\n            res = dfs(i, j + 2)\r\n                || (i < m && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.') && dfs(i + 1, j));\r\n        } else {\r\n            res = i < m && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.') && dfs(i + 1, j + 1);\r\n        }\r\n        return f[i][j] = res;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    bool articleMatch(string s, string p) {\r\n        int m = s.size(), n = p.size();\r\n        int f[m + 1][n + 1];\r\n        memset(f, 0, sizeof f);\r\n        function<bool(int, int)> dfs = [&](int i, int j) -> bool {\r\n            if (j >= n) {\r\n                return i == m;\r\n            }\r\n            if (f[i][j]) {\r\n                return f[i][j] == 1;\r\n            }\r\n            int res = -1;\r\n            if (j + 1 < n && p[j + 1] == '*') {\r\n                if (dfs(i, j + 2) or (i < m and (s[i] == p[j] or p[j] == '.') and dfs(i + 1, j))) {\r\n                    res = 1;\r\n                }\r\n            } else if (i < m and (s[i] == p[j] or p[j] == '.') and dfs(i + 1, j + 1)) {\r\n                res = 1;\r\n            }\r\n            f[i][j] = res;\r\n            return res == 1;\r\n        };\r\n        return dfs(0, 0);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9819.%20%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9819.%20%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9819.%20%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9819.%20%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：模糊搜索验证。\n输入：s（string）、p（string）。\n训练提示：**思考**\r \r 模式含 `.` 与 `*`，朴素回溯会在同一 $(i,j)$ 上反复尝试。 $s,p$ 长度有限，状态数为乘积级，可记忆化。\r \r 令 $dfs(i,j)$ 表示从该后缀能否匹配：若下一位是 `*`，则跳过该段或在当前字符匹配时继续吞字符；否则必须一对一匹配。答案为 $dfs(0,0)$。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：记忆化搜索\r\n\r\n\r\n\r\n思考\r\n\r\n模式含 `.` 与 `*`，朴素回溯会在同一 $(i,j)$ 上反复尝试。 $s,p$ 长度有限，状态数为乘积级，可记忆化。\r\n\r\n令 $dfs(i,j)$ 表示从该后缀能否匹配：若下一位是 `*`，则跳过该段或在当前字符匹配时继续吞字符；否则必须一对一匹配。答案为 $dfs(0,0)$。\r\n\r\n\r\n\r\n我们设计一个函数 $dfs(i, j)$，表示从 $s$ 的第 $i$ 个字符开始，和 $p$ 的第 $j$ 个字符开始是否匹配。那么答案就是 $dfs(0, 0)$。\r\n\r\n函数 $dfs(i, j)$ 的计算过程如下：\r\n\r\n- 如果 $j$ 已经到达 $p$ 的末尾，那么如果 $i$ 也到达了 $s$ 的末尾，那么匹配成功，否则匹配失败。\r\n- 如果 $j$ 的下一个字符是 `'*'`，我们可以选择匹配 $0$ 个 $s[i]$ 字符，那么就是 $dfs(i, j + 2)$。如果此时 $i \\lt m$ 并且 $s[i]$ 和 $p[j]$ 匹配，那么我们可以选择匹配 $1$ 个 $s[i]$ 字符，那么就是 $dfs(i + 1, j)$。\r\n- 如果 $j$ 的下一个字符不是 `'*'`，那么如果 $i \\lt m$ 并且 $s[i]$ 和 $p[j]$ 匹配，那么就是 $dfs(i + 1, j + 1)$。否则匹配失败。\r\n\r\n过程中，我们可以使用记忆化搜索，避免重复计算。\r\n\r\n时间复杂度 $O(m \\times n)$，空间复杂度 $O(m \\times n)$。其中 $m$ 和 $n$ 分别是 $s$ 和 $p$ 的长度。",
+  "memory": "模糊搜索验证 → 记忆化搜索。\n**思考**\r\n\r\n模式含 `.` 与 `*`，朴素回溯会在同一 $(i,j)$ 上反复尝试。 $s,p$ 长度有限，状态数为乘积级，可记忆化。\r\n\r\n令 $dfs(i,j)$ 表示从该后缀能否匹配：若下一位是 `*`，则跳过该段或在当前字符匹配时继续吞字符；否则必须一对一匹配。答案为 $dfs(0,0)$。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

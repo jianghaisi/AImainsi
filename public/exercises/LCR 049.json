@@ -1,0 +1,61 @@
+{
+  "number": "LCR 049",
+  "adapter": {
+    "name": "sumNumbers",
+    "params": [
+      {
+        "name": "root",
+        "type": "TreeNode"
+      }
+    ],
+    "return": {
+      "type": "integer"
+    },
+    "number": "LCR 049"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 25
+    },
+    {
+      "input": [
+        [
+          4,
+          9,
+          0,
+          5,
+          1
+        ]
+      ],
+      "expected": 1026
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def sumNumbers(self, root: TreeNode) -> int:\n        raise NotImplementedError('请完成此方法')\n",
+    "java": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public int sumNumbers(TreeNode root) {\n\n    }\n}",
+    "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int sumNumbers(TreeNode* root) {\n\n    }\n};"
+  },
+  "solutions": {
+    "python": "# Definition for a binary tree node.\r\n# class TreeNode:\r\n#     def __init__(self, val=0, left=None, right=None):\r\n#         self.val = val\r\n#         self.left = left\r\n#         self.right = right\r\nclass Solution:\r\n    def sumNumbers(self, root: TreeNode) -> int:\r\n        def dfs(root, presum):\r\n            if root is None:\r\n                return 0\r\n            s = 10 * presum + root.val\r\n            if root.left is None and root.right is None:\r\n                return s\r\n            return dfs(root.left, s) + dfs(root.right, s)\r\n\r\n        return dfs(root, 0)\r\n",
+    "java": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode() {}\r\n *     TreeNode(int val) { this.val = val; }\r\n *     TreeNode(int val, TreeNode left, TreeNode right) {\r\n *         this.val = val;\r\n *         this.left = left;\r\n *         this.right = right;\r\n *     }\r\n * }\r\n */\r\nclass Solution {\r\n    public int sumNumbers(TreeNode root) {\r\n        return dfs(root, 0);\r\n    }\r\n\r\n    private int dfs(TreeNode root, int presum) {\r\n        if (root == null) {\r\n            return 0;\r\n        }\r\n        int s = presum * 10 + root.val;\r\n        if (root.left == null && root.right == null) {\r\n            return s;\r\n        }\r\n        return dfs(root.left, s) + dfs(root.right, s);\r\n    }\r\n}",
+    "cpp": "/**\r\n * Definition for a binary tree node.\r\n * struct TreeNode {\r\n *     int val;\r\n *     TreeNode *left;\r\n *     TreeNode *right;\r\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\r\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    int sumNumbers(TreeNode* root) {\r\n        return dfs(root, 0);\r\n    }\r\n\r\n    int dfs(TreeNode* root, int presum) {\r\n        if (!root) return 0;\r\n        int s = presum * 10 + root->val;\r\n        if (!root->left && !root->right) return s;\r\n        return dfs(root->left, s) + dfs(root->right, s);\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20049.%20%E4%BB%8E%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E8%8A%82%E7%82%B9%E7%9A%84%E8%B7%AF%E5%BE%84%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/Solution.py",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20049.%20%E4%BB%8E%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E8%8A%82%E7%82%B9%E7%9A%84%E8%B7%AF%E5%BE%84%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20049.%20%E4%BB%8E%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E8%8A%82%E7%82%B9%E7%9A%84%E8%B7%AF%E5%BE%84%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof2/%E5%89%91%E6%8C%87%20Offer%20II%20049.%20%E4%BB%8E%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E8%8A%82%E7%82%B9%E7%9A%84%E8%B7%AF%E5%BE%84%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：求根节点到叶节点数字之和。\n输入：root（TreeNode）。\n训练提示：**思考**\r \r 根到叶的路径构成十进制数，求和。先列出全部路径再转换，需要保存整条路径。\r \r 深度优先时把「到达当前结点的前缀」乘 $10$ 再加结点值向下传递。到达叶子则返回该数，否则返回左右子树之和。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一\r\n\r\n\r\n\r\n思考\r\n\r\n根到叶的路径构成十进制数，求和。先列出全部路径再转换，需要保存整条路径。\r\n\r\n深度优先时把「到达当前结点的前缀」乘 $10$ 再加结点值向下传递。到达叶子则返回该数，否则返回左右子树之和。",
+  "memory": "求根节点到叶节点数字之和 → 方法一。\n**思考**\r\n\r\n根到叶的路径构成十进制数，求和。先列出全部路径再转换，需要保存整条路径。\r\n\r\n深度优先时把「到达当前结点的前缀」乘 $10$ 再加结点值向下传递。到达叶子则返回该数，否则返回左右子树之和。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}

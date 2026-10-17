@@ -1,0 +1,76 @@
+{
+  "number": "LCR 139",
+  "adapter": {
+    "name": "trainingPlan",
+    "params": [
+      {
+        "name": "actions",
+        "type": "integer[]"
+      }
+    ],
+    "return": {
+      "type": "integer[]"
+    },
+    "number": "LCR 139"
+  },
+  "tests": [
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": [
+        1,
+        3,
+        5,
+        2,
+        4
+      ]
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": [
+        1,
+        3,
+        2,
+        4
+      ]
+    }
+  ],
+  "starters": {
+    "python": "class Solution:\n\n    def trainingPlan(self, nums: List[int]) -> List[int]:\n        raise NotImplementedError('请完成此方法')\n",
+    "javascript": "/**\n * @param {number[]} actions\n * @return {number[]}\n */\nvar trainingPlan = function(actions) {\n    \n};",
+    "java": "class Solution {\n    public int[] trainingPlan(int[] actions) {\n        \n    }\n}",
+    "cpp": "class Solution {\npublic:\n    vector<int> trainingPlan(vector<int>& actions) {\n        \n    }\n};"
+  },
+  "solutions": {
+    "python": "class Solution:\r\n    def trainingPlan(self, nums: List[int]) -> List[int]:\r\n        j = 0\r\n        for i, x in enumerate(nums):\r\n            if x & 1:\r\n                nums[i], nums[j] = nums[j], nums[i]\r\n                j += 1\r\n        return nums\r\n",
+    "javascript": "function trainingPlan(nums) {\n    let j = 0;\n    for (let i = 0; i < nums.length; ++i) {\n        if (nums[i] & 1) {\n            const t = nums[i];\n            nums[i] = nums[j];\n            nums[j++] = t;\n        }\n    }\n    return nums;\n}\n",
+    "java": "class Solution {\r\n    public int[] trainingPlan(int[] nums) {\r\n        int j = 0;\r\n        for (int i = 0; i < nums.length; ++i) {\r\n            if (nums[i] % 2 == 1) {\r\n                int t = nums[i];\r\n                nums[i] = nums[j];\r\n                nums[j++] = t;\r\n            }\r\n        }\r\n        return nums;\r\n    }\r\n}",
+    "cpp": "class Solution {\r\npublic:\r\n    vector<int> trainingPlan(vector<int>& nums) {\r\n        int j = 0;\r\n        for (int i = 0; i < nums.size(); ++i) {\r\n            if (nums[i] & 1) {\r\n                swap(nums[i], nums[j++]);\r\n            }\r\n        }\r\n        return nums;\r\n    }\r\n};"
+  },
+  "credits": {
+    "python": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9821.%20%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2/Solution.py",
+    "javascript": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9821.%20%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2/Solution.ts",
+    "java": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9821.%20%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2/Solution.java",
+    "cpp": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9821.%20%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2/Solution.cpp"
+  },
+  "upstreamCommit": "90e141b377963eddd5b84f830c18c429ce2ed093",
+  "guideCredit": "https://github.com/doocs/leetcode/blob/90e141b377963eddd5b84f830c18c429ce2ed093/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9821.%20%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2/README.md",
+  "guideLicense": "CC BY-SA 4.0",
+  "description": "任务：训练计划 I。\n输入：actions（integer[]）。\n训练提示：**思考**\r \r 只需奇数相对偶数靠前，不必稳定。另开数组按奇偶分拣可行，但可用原地交换省掉额外空间。\r \r 用 $j$ 指向下一个奇数应放的位置，从左扫描：遇到奇数就与 $nums[j]$ 交换并右移 $j$。奇数被依次推到前缀。\n以本页输入输出样例为准；完整条件可打开原题查阅。",
+  "explanation": "方法一：双指针\r\n\r\n\r\n\r\n思考\r\n\r\n只需奇数相对偶数靠前，不必稳定。另开数组按奇偶分拣可行，但可用原地交换省掉额外空间。\r\n\r\n用 $j$ 指向下一个奇数应放的位置，从左扫描：遇到奇数就与 $nums[j]$ 交换并右移 $j$。奇数被依次推到前缀。\r\n\r\n\r\n\r\n我们定义两个指针 $i$ 和 $j$，其中指针 $i$ 指向当前元素，指针 $j$ 指向当前最后一个奇数的下一个位置。\r\n\r\n接下来，我们从左到右遍历数组，当 $nums[i]$ 是奇数时，我们将其与 $nums[j]$ 交换，然后指针 $j$ 向右移动一位。指针 $i$ 每次向右移动一位，直到遍历完整个数组。\r\n\r\n时间复杂度 $O(n)$，空间复杂度 $O(1)$。其中 $n$ 是数组的长度。",
+  "memory": "训练计划 I → 双指针。\n**思考**\r\n\r\n只需奇数相对偶数靠前，不必稳定。另开数组按奇偶分拣可行，但可用原地交换省掉额外空间。\r\n\r\n用 $j$ 指向下一个奇数应放的位置，从左扫描：遇到奇数就与 $nums[j]$ 交换并右移 $j$。奇数被依次推到前缀。\n闭卷练习：先画出第一组样例的状态变化，再解释为何不会漏解；最后改动一个边界输入，检查终止条件和返回值。"
+}
